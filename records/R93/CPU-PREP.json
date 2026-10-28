@@ -1,0 +1,330 @@
+{
+  "status": "prepared_no_formal_clock_no_GPU",
+  "exit_code": 0,
+  "source_digest": "a9b24287dfed68d885d7fb8cca80cc947be416e0efd63c6289be1b5b470f8060",
+  "initial_state_control": {
+    "source_digest": "a9b24287dfed68d885d7fb8cca80cc947be416e0efd63c6289be1b5b470f8060",
+    "candidate": {
+      "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+      "experiment_order": 3,
+      "model": "convnext_tiny",
+      "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+      "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    },
+    "model_tensor_sha256": "eba53feeafdf20bc86855a40648bc453358928d148078c6ae78b65f059846cc7",
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate_normalization": {
+      "candidate": {
+        "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+        "experiment_order": 3,
+        "model": "convnext_tiny",
+        "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+        "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+        "features": 768,
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "batch_norm_modules": 0,
+        "batch_norm_buffers": 0,
+        "attention_pool": null,
+        "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+        "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+        "stochastic_depth": 0.1,
+        "head_initialization": "torch.nn.Linear_native",
+        "head_lr_scope": "last_linear"
+      },
+      "batch_norm_modules": 0,
+      "buffer_count": 0,
+      "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "layer_norms": [
+        {
+          "name": "network.features.0.1",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.2.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.3.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.3.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.3.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.4.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.5.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.3.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.4.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.5.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.6.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.7.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.8.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.6.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.7.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.features.7.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.features.7.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.classifier.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        }
+      ],
+      "head_in_features": 768,
+      "head_out_features": 1,
+      "dropout": 0.2,
+      "stochastic_depth": [
+        {
+          "name": "network.features.1.0.stochastic_depth",
+          "p": 0.0,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.1.1.stochastic_depth",
+          "p": 0.0058823529411764705,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.1.2.stochastic_depth",
+          "p": 0.011764705882352941,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.0.stochastic_depth",
+          "p": 0.017647058823529415,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.1.stochastic_depth",
+          "p": 0.023529411764705882,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.2.stochastic_depth",
+          "p": 0.029411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.0.stochastic_depth",
+          "p": 0.03529411764705883,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.1.stochastic_depth",
+          "p": 0.0411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.2.stochastic_depth",
+          "p": 0.047058823529411764,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.3.stochastic_depth",
+          "p": 0.052941176470588235,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.4.stochastic_depth",
+          "p": 0.058823529411764705,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.5.stochastic_depth",
+          "p": 0.06470588235294118,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.6.stochastic_depth",
+          "p": 0.07058823529411766,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.7.stochastic_depth",
+          "p": 0.07647058823529412,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.8.stochastic_depth",
+          "p": 0.0823529411764706,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.0.stochastic_depth",
+          "p": 0.08823529411764706,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.1.stochastic_depth",
+          "p": 0.09411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.2.stochastic_depth",
+          "p": 0.1,
+          "mode": "row"
+        }
+      ]
+    },
+    "optimizer_state_entries": 0,
+    "trainable_tensors": 183,
+    "parameter_elements_by_role": {
+      "backbone": 27820128,
+      "head": 769,
+      "age": 2
+    },
+    "no_attention_q": true
+  },
+  "cpu_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/CPU-RECEIPT.json",
+  "cpu_receipt_sha256": "3914737073695b7d7d121acb065d7671ce28fd4cbdeb3a0fe624a4fe66a211dc",
+  "package_manifest_sha256": "d3c67861c9389f6e17779fc2f2c710812aab3f091510b488e7715509ed069bb9",
+  "package_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/package",
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+  "source_state": {
+    "kind": "remote_commit_frozen",
+    "git_commit": "80e06f31c33bc6256f6b622e6ed162273d33f1ba"
+  },
+  "GPU_started": false,
+  "formal_clock_created": false
+}

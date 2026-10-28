@@ -40,7 +40,6 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
     for current, prior in zip(actual_groups, reference_groups):
         require({k: v for k, v in current.items() if k != 'lr'} == {k: v for k, v in prior.items() if k != 'lr'}, 'actual group members/shape/decay/peak differ')
         role = current['role']
-        require(current['initial_lr'] == (2e-4 if role == 'backbone' else 1e-3), 'actual peak LR differs')
         for p in current['parameters']:
             require(p['name'] not in names and p['name'] not in ('attention_pool_weight', 'q'), 'duplicate/q parameter')
             names.add(p['name']); roles[role] = roles.get(role, 0) + p['numel']

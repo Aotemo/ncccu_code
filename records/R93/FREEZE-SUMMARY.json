@@ -1,0 +1,26 @@
+{
+  "site": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-inputs/SITE_BINDING.json",
+    "sha256": "6cb4f1d782f31c961378d8f3c9ddf06c67753cb7ea5d7ec07820cfa16f760e92"
+  },
+  "allocation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-inputs/GPU-CPU-ALLOCATION.json",
+    "sha256": "21eaf7fdb4fe95f12581bd4dc94b6292ebb3078e07499c44951ee9f4f5531892"
+  },
+  "package": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/PACKAGE-MANIFEST.json",
+    "sha256": "d3c67861c9389f6e17779fc2f2c710812aab3f091510b488e7715509ed069bb9"
+  },
+  "cpu_prep": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/CPU-PREP-RECEIPT.json",
+    "sha256": "e55bf865250deb3a467206c6fa20a793e9fac9d031f8996ae18c5dcfb53c166b"
+  },
+  "cpu": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "3914737073695b7d7d121acb065d7671ce28fd4cbdeb3a0fe624a4fe66a211dc"
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/DEPLOYMENT.json",
+    "sha256": "562dc89ad33aa4e840d83d5296e3df534b063fe619405c4645e340df4c918d52"
+  }
+}

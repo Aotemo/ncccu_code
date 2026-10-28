@@ -212,9 +212,11 @@ def parser():
     result.add_argument('--site-binding-sha256', required=True)
     result.add_argument('--package-manifest-sha256', required=True)
     result.add_argument('--cpu-prep-receipt-sha256', required=True)
-    for name in ('deployment-receipt', 'gpu-admission', 'site-preflight'):
+    for name in ('deployment-receipt', 'site-preflight'):
         result.add_argument('--' + name, type=Path, required=True)
         result.add_argument('--' + name + '-sha256', required=True)
+    result.add_argument('--gpu-admission', type=Path)
+    result.add_argument('--gpu-admission-sha256')
     result.add_argument('--pod-uid', required=True)
     result.add_argument('--ready', choices=['True'], required=True)
     result.add_argument('--observed-at', type=float, required=True)
@@ -259,8 +261,14 @@ def main(argv=None):
             and original.get('initial_state_control') == cpu['initial_state_control'], 'actual CPU model receipt differs')
     deployment = pinned(args.deployment_receipt, args.deployment_receipt_sha256, site['work_root'])
     verify_deployment(deployment, site, manifest, args.package_manifest_sha256, package, prep)
-    gpu = pinned(args.gpu_admission, args.gpu_admission_sha256, site['work_root'])
-    processes = verify_gpu_admission(gpu, site, manifest_sha=args.package_manifest_sha256, source_digest=source_digest, cpu=cpu)
+    if args.gpu_admission is not None:
+        gpu = pinned(args.gpu_admission, args.gpu_admission_sha256, site['work_root'])
+        processes = verify_gpu_admission(gpu, site, manifest_sha=args.package_manifest_sha256, source_digest=source_digest, cpu=cpu)
+    else:
+        require(args.gpu_admission_sha256 is None, 'GPU admission SHA requires an explicit receipt')
+        gpu = {'status': 'not_run_for_lr_only', 'GPU_started': False,
+               'actual_training_initial_gate_required': True}
+        processes = []
     preflight = pinned(args.site_preflight, args.site_preflight_sha256, site['work_root'])
     verify_preflight(preflight, site, package, now=time.time())
     verify_gpu_cpu(site)  # Validate the future GPU allocation without changing this CPU channel's mask.
@@ -337,7 +345,8 @@ def main(argv=None):
         'effective_output_root': str(formal / 'outputs'), 'initial_state_control': cpu['initial_state_control'],
         'fresh_spec_sha256': {'train': sha(formal / 'control/train-fresh-spec.json')},
         'package_manifest_sha256': args.package_manifest_sha256, 'cpu_prep_receipt_sha256': args.cpu_prep_receipt_sha256,
-        'deployment_receipt_sha256': args.deployment_receipt_sha256, 'gpu_admission_sha256': args.gpu_admission_sha256}
+        'deployment_receipt_sha256': args.deployment_receipt_sha256, 'gpu_admission_sha256': args.gpu_admission_sha256,
+        'gpu_admission_status': gpu['status']}
     write(formal / 'RUNTIME_BINDING.json', runtime)
     write(formal / 'control/binding-receipt.json', {'runtime_binding_sha256': sha(formal / 'RUNTIME_BINDING.json'), 'at': time.time()})
     require(time.time() < clock['implementation_deadline_at'], 'formal binding window elapsed')

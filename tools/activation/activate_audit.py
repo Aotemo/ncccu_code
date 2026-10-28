@@ -35,7 +35,9 @@ def main():
                  'package_manifest_sha256', 'cpu_prep_receipt_sha256', 'deployment_receipt',
                  'deployment_receipt_sha256', 'gpu_admission', 'gpu_admission_sha256',
                  'site_preflight', 'site_preflight_sha256', 'pod_uid', 'ready', 'observed_at'):
-        argv.extend(['--' + name.replace('_', '-'), str(getattr(args, name))])
+        value = getattr(args, name)
+        if value is not None:
+            argv.extend(['--' + name.replace('_', '-'), str(value)])
     # An attempted call is irreversible even when the child exits before clock creation.
     write(audit / 'ACTIVATION-CALL-STARTED.json', {'at': time.time(), 'argv': argv,
         'authorization_reference': args.authorization_reference, 'site_binding_sha256': args.site_binding_sha256,

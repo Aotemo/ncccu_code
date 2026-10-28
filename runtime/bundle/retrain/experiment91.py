@@ -1,7 +1,9 @@
 """Explicit Tiny22K-to-1K source over the unchanged fixed 9:1 metadata."""
 import copy
 from functools import lru_cache
+import hashlib
 import json
+import math
 from pathlib import Path
 
 from .persistence import canonical_digest, sha256_file
@@ -10,8 +12,8 @@ from .site_binding import load_site
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 WEIGHT_SHA = '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed'
 PROVENANCE_SHA = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-v1'
-CANDIDATE = {'id': 'r93-convnext-tiny-imagenet22k-to-1k-9010', 'experiment_order': 3,
+BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-lr1e4-v1'
+CANDIDATE = {'id': 'r94-convnext-tiny-imagenet22k-to-1k-lr1e4-9010', 'experiment_order': 4,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -19,12 +21,36 @@ CANDIDATE = {'id': 'r93-convnext-tiny-imagenet22k-to-1k-9010', 'experiment_order
     'provenance_sha256': PROVENANCE_SHA, 'stochastic_depth': .1,
     'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
 
+def science_configuration():
+    """Read the exact versioned science file pinned by this package's site."""
+    site = load_site()
+    try:
+        reference = site['science']['configuration']
+        path = Path(reference['path'])
+        if (not path.is_absolute() or path.is_symlink()
+                or not path.resolve().is_relative_to(Path(site['work_root']).resolve())):
+            raise ValueError('pinned science configuration path/SHA differs')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != reference['sha256']:
+            raise ValueError('pinned science configuration path/SHA differs')
+        value = json.loads(raw)
+        if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
+                or value.get('candidate_profile') != BINDING_VERSION
+                or any(type(value['job'].get(key)) not in (int, float)
+                       or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
+                       for key in ('backbone_lr', 'head_lr'))):
+            raise ValueError('science configuration profile or configured LR differs')
+        return value
+    except (KeyError, TypeError, OSError) as error:
+        raise ValueError('complete pinned science configuration required') from error
+
 
 def candidate():
     site = load_site()
     if (site['science'].get('candidate') != CANDIDATE
             or site['science'].get('binding_version') != BINDING_VERSION):
         raise ValueError('explicit candidate/source/LN scientific identity differs')
+    science_configuration()
     return copy.deepcopy(CANDIDATE)
 
 
@@ -53,6 +79,7 @@ def _metadata(root):
         'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
         'floating_buffers': 'same_as_parameters', 'integer_buffers': 'copy', 'batch_norm_buffers': 0}
     values['binding'] = {'version': BINDING_VERSION, 'candidate': candidate(),
+        'science_config_sha256': load_site()['science']['configuration']['sha256'],
         'freeze_sha256': FREEZE_SHA, 'manifest_sha256': c['new_manifest']['sha256'],
         'manifest_digest': c['new_manifest_canonical_sha256'], 'fit_indices_sha256': c['fit_indices_canonical_sha256'],
         'dev_indices_sha256': c['dev_indices_canonical_sha256'], 'age_contract_sha256': c['age_contract_sha256'],
@@ -75,10 +102,12 @@ def ema_rule():
 
 
 def validate_job(job):
+    configured = science_configuration()['job']
     expected = {'model': 'convnext_tiny', 'image_size': 512, 'prepared_size': 512,
         'precision': 'fp32', 'normalization': 'imagenet', 'seed': 20261027, 'effective_batch': 64,
         'positive_per_batch': 8, 'cycles': 8, 'warmup_cycles': 2, 'min_cycles': 8, 'patience': 8,
-        'stop_after_cycles': 0, 'backbone_lr': 2e-4, 'head_lr': 1e-3, 'weight_decay': 1e-4,
+        'stop_after_cycles': 0, 'backbone_lr': configured['backbone_lr'],
+        'head_lr': configured['head_lr'], 'weight_decay': 1e-4,
         'dropout': .2, 'stochastic_depth': .1, 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': False, 'final_norm_eps': candidate()['final_norm_eps']}
     init = job.get('initialization', {})

@@ -1,0 +1,133 @@
+{
+  "at": 1793199166.403901,
+  "cards": [
+    {
+      "busy_percent": 0,
+      "pci": "0000:09:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:36:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:55:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:77:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:85:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:b5:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:d5:00.0",
+      "vram_used_bytes": 2207744
+    },
+    {
+      "busy_percent": 0,
+      "pci": "0000:f5:00.0",
+      "vram_used_bytes": 2207744
+    }
+  ],
+  "complete_sha256": "16ead03c4e8e6bb6a4db04f47b5545357d203778d44636f0da35b061a7efb555",
+  "component": {
+    "component_wall_seconds": 2263.6205353736877,
+    "deadline_at": 1793206366.8046064,
+    "end_at": 1793201430.4376528,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "40de1485da1c8837ec6c9c594f80cb9c67c9babdc58547a9d5eb1e2ff4435605",
+    "live_owned_ranks": [],
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "phase": "train",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793199166.8171175,
+    "status": "completed"
+  },
+  "cycles": 8,
+  "ended_at": 1793202172.9743986,
+  "freeze_component": {
+    "component_wall_seconds": 16.562434911727905,
+    "deadline_at": 1793201731.0054805,
+    "end_at": 1793201447.5680695,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "51479a3eb6a40258c9cc912d4570bf7fba57c84e8f8658c41d60bce7f0641654",
+    "live_owned_ranks": [],
+    "log_sha256": "f04e0d9f41be6659f68c30633581fce7dac01daec488b7dde5a2328dce9ce81b",
+    "phase": "freeze",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793201431.0056345,
+    "status": "completed"
+  },
+  "live_owned_ranks": [],
+  "official_component": {
+    "component_wall_seconds": 725.3649115562439,
+    "deadline_at": 1793202647.5806751,
+    "end_at": 1793202172.946115,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "8bc32ea1fa3f3a030147bd23e08141c4887d542c585b14c12f91f477480379de",
+    "live_owned_ranks": [],
+    "log_sha256": "0777e0f145e5afd216d752487b1ceea0e619a9163096e486afe9277aa49b477e",
+    "phase": "official",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793201447.5812035,
+    "status": "completed"
+  },
+  "official_metrics": {
+    "ap": 0.8424437871775934,
+    "auroc": 0.9887607594491606,
+    "count": 5849,
+    "error_twice": 24292,
+    "negative_count": 5658,
+    "operating_points": {
+      "sensitivity_0.90": {
+        "logit_threshold": -1.3350774049758911,
+        "sensitivity": 0.900523560209424,
+        "specificity": 0.9720749381406858
+      },
+      "sensitivity_0.95": {
+        "logit_threshold": -2.636526107788086,
+        "sensitivity": 0.9528795811518325,
+        "specificity": 0.9512195121951219
+      },
+      "specificity_0.90": {
+        "logit_threshold": -4.742241382598877,
+        "sensitivity": 0.9842931937172775,
+        "specificity": 0.900141392718275
+      },
+      "specificity_0.95": {
+        "logit_threshold": -2.6804420948028564,
+        "sensitivity": 0.9528795811518325,
+        "specificity": 0.9501590668080594
+      }
+    },
+    "positive_count": 191,
+    "pr_auc": 0.8421156746404361
+  },
+  "official_result_sha256": "1f847570ed93d85ac6fe633c8d78f18429c2379067d7a9b0b12c865d2ae8bbc1",
+  "phase": "complete",
+  "research_only": false,
+  "single_model_freeze_sha256": "4459db88d353628864a9ea9a369c03ee7894f29c4afc0a1972927be260b3e6b0",
+  "status": "completed",
+  "successful_updates": 6400,
+  "target_auroc_at_least_0_999": false,
+  "token": "8b2084ded56641afa09efbab07cc10cc"
+}

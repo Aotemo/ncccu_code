@@ -30,6 +30,8 @@ def write(path, value):
 def parser():
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument('--source-root', type=Path, required=True)
+    result.add_argument('--science-config', type=Path, required=True,
+                        help='explicit repository-relative versioned science configuration')
     result.add_argument('--output', type=Path, required=True)
     result.add_argument('--site-binding', type=Path)
     result.add_argument('--site-binding-sha256')
@@ -42,7 +44,7 @@ def parser():
     return result
 
 
-def technical_site(args, science):
+def technical_site(args, science, science_path):
     from retrain.experiment91 import CANDIDATE, BINDING_VERSION
     from retrain.site_binding import validate_site, require_cpu_channel
     require_cpu_channel()
@@ -68,7 +70,8 @@ def technical_site(args, science):
         'pod': {'namespace': os.environ['NCCCU_POD_NAMESPACE'], 'name': os.environ['NCCCU_POD_NAME'],
                 'uid': os.environ['NCCCU_POD_UID'], 'container': os.environ['NCCCU_CONTAINER'],
                 'python': os.environ['NCCCU_PYTHON']}, 'gpus': cards, **paths,
-        'science': {'binding_version': BINDING_VERSION, 'candidate': copy.deepcopy(CANDIDATE)}})
+        'science': {'binding_version': BINDING_VERSION, 'candidate': copy.deepcopy(CANDIDATE),
+                    'configuration': {'path': str(science_path), 'sha256': sha(science_path)}}})
 
 
 def build(args):
@@ -76,14 +79,22 @@ def build(args):
     output = args.output.resolve()
     if 'technical-prep' not in output.parts or 'technical-prep' not in source.parts:
         raise ValueError('CPU build requires an explicit isolated technical-prep snapshot and output')
-    science = read(source / 'configs/R93-SCIENCE.json')
+    relative = args.science_config
+    if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] != 'configs':
+        raise ValueError('science configuration must be explicit and repository-relative under configs')
+    science_path = source / relative
+    if science_path.is_symlink() or not science_path.is_file():
+        raise ValueError('science configuration must be a regular source file')
+    science = read(science_path)
     sys.path[:0] = [str(source / 'runtime/bundle')]
     from retrain.site_binding import load_site, require_cpu_channel
     if bool(args.site_binding) != bool(args.site_binding_sha256):
         raise ValueError('site binding path and SHA must be supplied together')
     site = (load_site(args.site_binding, expected_sha256=args.site_binding_sha256)
-            if args.site_binding else technical_site(args, science))
+            if args.site_binding else technical_site(args, science, science_path))
     require_cpu_channel(site)
+    if site['science'].get('configuration') != {'path': str(science_path), 'sha256': sha(science_path)}:
+        raise ValueError('site science pin must identify this exact Git source configuration')
     if sha(args.asset_receipt) != args.asset_receipt_sha256:
         raise ValueError('explicit migrated-asset receipt SHA differs')
     migrated = read(args.asset_receipt)
@@ -116,6 +127,9 @@ def build(args):
     for name in ('activate.py', 'activate_audit.py', 'site_preflight.py'):
         shutil.copyfile(source / 'tools/activation' / name, output / name)
     shutil.copyfile(source / 'runtime/PLAN.md', package / 'PLAN.md')
+    shutil.copyfile(science_path, package / 'SCIENCE.json')
+    if sha(package / 'SCIENCE.json') != site['science']['configuration']['sha256']:
+        raise ValueError('package science bytes differ from the pinned source configuration')
     policy = read(source / 'runtime/CLOCK_POLICY.json'); policy['round_id'] = site['round_id']
     write(package / 'CLOCK_POLICY.json', policy)
     write(package / 'SITE_BINDING.json', site)

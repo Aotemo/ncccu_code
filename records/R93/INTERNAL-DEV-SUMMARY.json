@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "scope": "internal_dev_only",
+  "git_commit": "80e06f31c33bc6256f6b622e6ed162273d33f1ba",
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+  "source": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/SINGLE-MODEL-FREEZE.json",
+    "sha256": "4459db88d353628864a9ea9a369c03ee7894f29c4afc0a1972927be260b3e6b0"
+  },
+  "selected": {
+    "cycle": 3,
+    "variant": "ema",
+    "successful_updates": 2400,
+    "auroc": 0.9866344126546825,
+    "ap": 0.8167243430095755,
+    "error_twice": 22200
+  },
+  "dev_entries": [
+    {
+      "cycle": 1,
+      "variant": "online",
+      "successful_updates": 800,
+      "auroc": 0.9743513174736391,
+      "ap": 0.7338733008163282,
+      "error_twice": 42602
+    },
+    {
+      "cycle": 1,
+      "variant": "ema",
+      "successful_updates": 800,
+      "auroc": 0.9743513174736391,
+      "ap": 0.7338733008163282,
+      "error_twice": 42602
+    },
+    {
+      "cycle": 2,
+      "variant": "online",
+      "successful_updates": 1600,
+      "auroc": 0.9810003961511925,
+      "ap": 0.786118954897883,
+      "error_twice": 31558
+    },
+    {
+      "cycle": 2,
+      "variant": "ema",
+      "successful_updates": 1600,
+      "auroc": 0.9810003961511925,
+      "ap": 0.786118954897883,
+      "error_twice": 31558
+    },
+    {
+      "cycle": 3,
+      "variant": "online",
+      "successful_updates": 2400,
+      "auroc": 0.9810931123877321,
+      "ap": 0.7940962003877765,
+      "error_twice": 31404
+    },
+    {
+      "cycle": 3,
+      "variant": "ema",
+      "successful_updates": 2400,
+      "auroc": 0.9866344126546825,
+      "ap": 0.8167243430095755,
+      "error_twice": 22200
+    },
+    {
+      "cycle": 4,
+      "variant": "online",
+      "successful_updates": 3200,
+      "auroc": 0.9738010405892418,
+      "ap": 0.801559807536231,
+      "error_twice": 43516
+    },
+    {
+      "cycle": 4,
+      "variant": "ema",
+      "successful_updates": 3200,
+      "auroc": 0.9862406696761313,
+      "ap": 0.8205987880588593,
+      "error_twice": 22854
+    },
+    {
+      "cycle": 5,
+      "variant": "online",
+      "successful_updates": 4000,
+      "auroc": 0.9711170861574658,
+      "ap": 0.8104539070628921,
+      "error_twice": 47974
+    },
+    {
+      "cycle": 5,
+      "variant": "ema",
+      "successful_updates": 4000,
+      "auroc": 0.9815880003515992,
+      "ap": 0.8205238595345022,
+      "error_twice": 30582
+    },
+    {
+      "cycle": 6,
+      "variant": "online",
+      "successful_updates": 4800,
+      "auroc": 0.9667497901843608,
+      "ap": 0.8011654334414489,
+      "error_twice": 55228
+    },
+    {
+      "cycle": 6,
+      "variant": "ema",
+      "successful_updates": 4800,
+      "auroc": 0.9755662614043982,
+      "ap": 0.816712883210415,
+      "error_twice": 40584
+    },
+    {
+      "cycle": 7,
+      "variant": "online",
+      "successful_updates": 5600,
+      "auroc": 0.9682224130062819,
+      "ap": 0.7933839415560314,
+      "error_twice": 52782
+    },
+    {
+      "cycle": 7,
+      "variant": "ema",
+      "successful_updates": 5600,
+      "auroc": 0.9726788128950223,
+      "ap": 0.8088211925395038,
+      "error_twice": 45380
+    },
+    {
+      "cycle": 8,
+      "variant": "online",
+      "successful_updates": 6400,
+      "auroc": 0.9663223322107043,
+      "ap": 0.7976385189308282,
+      "error_twice": 55938
+    },
+    {
+      "cycle": 8,
+      "variant": "ema",
+      "successful_updates": 6400,
+      "auroc": 0.9689388566522695,
+      "ap": 0.8040199182720055,
+      "error_twice": 51592
+    }
+  ],
+  "official_metrics_included": false,
+  "new_model_or_forward_invocations": 0,
+  "train_result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/evidence/TRAIN_RESULT.json",
+    "sha256": "96e20869ae47351d7ee3b686e585aa810aaa6ce6a7a3590d4cb1a6ed28438fda",
+    "value": {
+      "at": 1793199166.403901,
+      "complete_sha256": "16ead03c4e8e6bb6a4db04f47b5545357d203778d44636f0da35b061a7efb555",
+      "component": {
+        "component_wall_seconds": 2263.6205353736877,
+        "deadline_at": 1793206366.8046064,
+        "end_at": 1793201430.4376528,
+        "exit_code": 0,
+        "hard_deadline_met": true,
+        "launch_sha256": "40de1485da1c8837ec6c9c594f80cb9c67c9babdc58547a9d5eb1e2ff4435605",
+        "live_owned_ranks": [],
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "phase": "train",
+        "reason": null,
+        "signals": [],
+        "start_at": 1793199166.8171175,
+        "status": "completed"
+      },
+      "cycles": 8,
+      "research_only": false,
+      "status": "completed",
+      "successful_updates": 6400,
+      "token": "8b2084ded56641afa09efbab07cc10cc"
+    }
+  }
+}

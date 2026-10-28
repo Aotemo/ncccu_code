@@ -1,0 +1,1172 @@
+{
+  "status": "experiment_evidence_verified",
+  "at": 1793202474.9052043,
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+  "checks": [
+    {
+      "name": "native_round_completed",
+      "passed": true
+    },
+    {
+      "name": "all8_rank_exit0",
+      "passed": true
+    },
+    {
+      "name": "6400_unskipped_updates_8evaluated_cycles",
+      "passed": true
+    },
+    {
+      "name": "EMA_copy1600_blend4800",
+      "passed": true
+    },
+    {
+      "name": "all16_internal_readouts",
+      "passed": true
+    },
+    {
+      "name": "native_dev_only_selected_identity",
+      "passed": true
+    },
+    {
+      "name": "canonical_once_marker_and_frozen_source",
+      "passed": true
+    },
+    {
+      "name": "existing_official_vector_SHA",
+      "passed": true
+    },
+    {
+      "name": "sealed_official_manifest_SHA",
+      "passed": true
+    },
+    {
+      "name": "full5849_order_labels",
+      "passed": true
+    },
+    {
+      "name": "exact_official_AUROC_and_target",
+      "passed": true
+    },
+    {
+      "name": "terminal_result_pins",
+      "passed": true
+    },
+    {
+      "name": "owner_inactive",
+      "passed": true
+    },
+    {
+      "name": "owner_actual_OS_exit0",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-2-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-4-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-0-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-3-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-1-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-5-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-6-launch",
+      "passed": true
+    },
+    {
+      "name": "inactive_rank-7-launch",
+      "passed": true
+    },
+    {
+      "name": "terminal_no_GPU_device_users",
+      "passed": true
+    },
+    {
+      "name": "all8_devices_idle",
+      "passed": true
+    },
+    {
+      "name": "original_instance_lock_released",
+      "passed": true
+    }
+  ],
+  "actual_done": {
+    "at": 1793199166.403901,
+    "cards": [
+      {
+        "busy_percent": 0,
+        "pci": "0000:09:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:36:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:55:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:77:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:85:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:b5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:d5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:f5:00.0",
+        "vram_used_bytes": 2207744
+      }
+    ],
+    "complete_sha256": "16ead03c4e8e6bb6a4db04f47b5545357d203778d44636f0da35b061a7efb555",
+    "component": {
+      "component_wall_seconds": 2263.6205353736877,
+      "deadline_at": 1793206366.8046064,
+      "end_at": 1793201430.4376528,
+      "exit_code": 0,
+      "hard_deadline_met": true,
+      "launch_sha256": "40de1485da1c8837ec6c9c594f80cb9c67c9babdc58547a9d5eb1e2ff4435605",
+      "live_owned_ranks": [],
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "phase": "train",
+      "reason": null,
+      "signals": [],
+      "start_at": 1793199166.8171175,
+      "status": "completed"
+    },
+    "cycles": 8,
+    "ended_at": 1793202172.9743986,
+    "freeze_component": {
+      "component_wall_seconds": 16.562434911727905,
+      "deadline_at": 1793201731.0054805,
+      "end_at": 1793201447.5680695,
+      "exit_code": 0,
+      "hard_deadline_met": true,
+      "launch_sha256": "51479a3eb6a40258c9cc912d4570bf7fba57c84e8f8658c41d60bce7f0641654",
+      "live_owned_ranks": [],
+      "log_sha256": "f04e0d9f41be6659f68c30633581fce7dac01daec488b7dde5a2328dce9ce81b",
+      "phase": "freeze",
+      "reason": null,
+      "signals": [],
+      "start_at": 1793201431.0056345,
+      "status": "completed"
+    },
+    "live_owned_ranks": [],
+    "official_component": {
+      "component_wall_seconds": 725.3649115562439,
+      "deadline_at": 1793202647.5806751,
+      "end_at": 1793202172.946115,
+      "exit_code": 0,
+      "hard_deadline_met": true,
+      "launch_sha256": "8bc32ea1fa3f3a030147bd23e08141c4887d542c585b14c12f91f477480379de",
+      "live_owned_ranks": [],
+      "log_sha256": "0777e0f145e5afd216d752487b1ceea0e619a9163096e486afe9277aa49b477e",
+      "phase": "official",
+      "reason": null,
+      "signals": [],
+      "start_at": 1793201447.5812035,
+      "status": "completed"
+    },
+    "official_metrics": {
+      "ap": 0.8424437871775934,
+      "auroc": 0.9887607594491606,
+      "count": 5849,
+      "error_twice": 24292,
+      "negative_count": 5658,
+      "operating_points": {
+        "sensitivity_0.90": {
+          "logit_threshold": -1.3350774049758911,
+          "sensitivity": 0.900523560209424,
+          "specificity": 0.9720749381406858
+        },
+        "sensitivity_0.95": {
+          "logit_threshold": -2.636526107788086,
+          "sensitivity": 0.9528795811518325,
+          "specificity": 0.9512195121951219
+        },
+        "specificity_0.90": {
+          "logit_threshold": -4.742241382598877,
+          "sensitivity": 0.9842931937172775,
+          "specificity": 0.900141392718275
+        },
+        "specificity_0.95": {
+          "logit_threshold": -2.6804420948028564,
+          "sensitivity": 0.9528795811518325,
+          "specificity": 0.9501590668080594
+        }
+      },
+      "positive_count": 191,
+      "pr_auc": 0.8421156746404361
+    },
+    "official_result_sha256": "1f847570ed93d85ac6fe633c8d78f18429c2379067d7a9b0b12c865d2ae8bbc1",
+    "phase": "complete",
+    "research_only": false,
+    "single_model_freeze_sha256": "4459db88d353628864a9ea9a369c03ee7894f29c4afc0a1972927be260b3e6b0",
+    "status": "completed",
+    "successful_updates": 6400,
+    "target_auroc_at_least_0_999": false,
+    "token": "8b2084ded56641afa09efbab07cc10cc"
+  },
+  "GPU_model_or_forward_created": false,
+  "new_official_forward_invocations": 0,
+  "exit_code": 0,
+  "git_commit": "80e06f31c33bc6256f6b622e6ed162273d33f1ba",
+  "selected": {
+    "cycle": 3,
+    "variant": "ema",
+    "successful_updates": 2400,
+    "error_twice": 22200,
+    "ap": 0.8167243430095755,
+    "auroc": 0.9866344126546825,
+    "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/predictions/ema/dev-cycle-0003.csv",
+    "prediction_sha256": "39627ea4437e8c6df1a390d3062a7985587ac417ee4660e87645108a97b31d1e",
+    "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/predictions/ema/dev-cycle-0003.csv.precision.json",
+    "precision_sha256": "ac41a460ef72e11dc92db4564ada79e7394d129ac9368a0de4c068071f3935b6",
+    "tensor_sha256": "7ed9a7d4597c5401b0b84ea30b389333f253b18343ab02071e5b47a1098e0093"
+  },
+  "selected_checkpoint": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/checkpoints/checkpoint-abbbe2c274594ef3a92f0366038a7fab.pt",
+  "selected_blob_sha256": "05917c11910a14dcb78e03c4ea79f6690d1e59784dd94af390c946a4cf3a9b9b",
+  "selected_tensor_sha256": "7ed9a7d4597c5401b0b84ea30b389333f253b18343ab02071e5b47a1098e0093",
+  "dev_entries": [
+    {
+      "cycle": 1,
+      "variant": "online",
+      "successful_updates": 800,
+      "auroc": 0.9743513174736391,
+      "ap": 0.7338733008163282,
+      "error_twice": 42602
+    },
+    {
+      "cycle": 1,
+      "variant": "ema",
+      "successful_updates": 800,
+      "auroc": 0.9743513174736391,
+      "ap": 0.7338733008163282,
+      "error_twice": 42602
+    },
+    {
+      "cycle": 2,
+      "variant": "online",
+      "successful_updates": 1600,
+      "auroc": 0.9810003961511925,
+      "ap": 0.786118954897883,
+      "error_twice": 31558
+    },
+    {
+      "cycle": 2,
+      "variant": "ema",
+      "successful_updates": 1600,
+      "auroc": 0.9810003961511925,
+      "ap": 0.786118954897883,
+      "error_twice": 31558
+    },
+    {
+      "cycle": 3,
+      "variant": "online",
+      "successful_updates": 2400,
+      "auroc": 0.9810931123877321,
+      "ap": 0.7940962003877765,
+      "error_twice": 31404
+    },
+    {
+      "cycle": 3,
+      "variant": "ema",
+      "successful_updates": 2400,
+      "auroc": 0.9866344126546825,
+      "ap": 0.8167243430095755,
+      "error_twice": 22200
+    },
+    {
+      "cycle": 4,
+      "variant": "online",
+      "successful_updates": 3200,
+      "auroc": 0.9738010405892418,
+      "ap": 0.801559807536231,
+      "error_twice": 43516
+    },
+    {
+      "cycle": 4,
+      "variant": "ema",
+      "successful_updates": 3200,
+      "auroc": 0.9862406696761313,
+      "ap": 0.8205987880588593,
+      "error_twice": 22854
+    },
+    {
+      "cycle": 5,
+      "variant": "online",
+      "successful_updates": 4000,
+      "auroc": 0.9711170861574658,
+      "ap": 0.8104539070628921,
+      "error_twice": 47974
+    },
+    {
+      "cycle": 5,
+      "variant": "ema",
+      "successful_updates": 4000,
+      "auroc": 0.9815880003515992,
+      "ap": 0.8205238595345022,
+      "error_twice": 30582
+    },
+    {
+      "cycle": 6,
+      "variant": "online",
+      "successful_updates": 4800,
+      "auroc": 0.9667497901843608,
+      "ap": 0.8011654334414489,
+      "error_twice": 55228
+    },
+    {
+      "cycle": 6,
+      "variant": "ema",
+      "successful_updates": 4800,
+      "auroc": 0.9755662614043982,
+      "ap": 0.816712883210415,
+      "error_twice": 40584
+    },
+    {
+      "cycle": 7,
+      "variant": "online",
+      "successful_updates": 5600,
+      "auroc": 0.9682224130062819,
+      "ap": 0.7933839415560314,
+      "error_twice": 52782
+    },
+    {
+      "cycle": 7,
+      "variant": "ema",
+      "successful_updates": 5600,
+      "auroc": 0.9726788128950223,
+      "ap": 0.8088211925395038,
+      "error_twice": 45380
+    },
+    {
+      "cycle": 8,
+      "variant": "online",
+      "successful_updates": 6400,
+      "auroc": 0.9663223322107043,
+      "ap": 0.7976385189308282,
+      "error_twice": 55938
+    },
+    {
+      "cycle": 8,
+      "variant": "ema",
+      "successful_updates": 6400,
+      "auroc": 0.9689388566522695,
+      "ap": 0.8040199182720055,
+      "error_twice": 51592
+    }
+  ],
+  "official": {
+    "metrics": {
+      "count": 5849,
+      "positive_count": 191,
+      "negative_count": 5658,
+      "auroc": 0.9887607594491606,
+      "ap": 0.8424437871775934,
+      "pr_auc": 0.8421156746404361,
+      "operating_points": {
+        "sensitivity_0.90": {
+          "sensitivity": 0.900523560209424,
+          "specificity": 0.9720749381406858,
+          "logit_threshold": -1.3350774049758911
+        },
+        "specificity_0.90": {
+          "sensitivity": 0.9842931937172775,
+          "specificity": 0.900141392718275,
+          "logit_threshold": -4.742241382598877
+        },
+        "sensitivity_0.95": {
+          "sensitivity": 0.9528795811518325,
+          "specificity": 0.9512195121951219,
+          "logit_threshold": -2.636526107788086
+        },
+        "specificity_0.95": {
+          "sensitivity": 0.9528795811518325,
+          "specificity": 0.9501590668080594,
+          "logit_threshold": -2.6804420948028564
+        }
+      },
+      "error_twice": 24292
+    },
+    "rows": 5849,
+    "positive": 191,
+    "negative": 5658,
+    "auroc_exact_fraction": "534266/540339",
+    "target_auroc_at_least_0_999": false,
+    "target_max_error_twice": 2161,
+    "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/official/official-raw.csv",
+    "prediction_sha256": "c9402f3301b012fdfed3271bc679cafddb117492e79b4fc9b3ef84cab9857fff",
+    "reservation_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/OFFICIAL-ONCE.json"
+  },
+  "done": {
+    "at": 1793199166.403901,
+    "cards": [
+      {
+        "busy_percent": 0,
+        "pci": "0000:09:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:36:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:55:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:77:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:85:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:b5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:d5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:f5:00.0",
+        "vram_used_bytes": 2207744
+      }
+    ],
+    "complete_sha256": "16ead03c4e8e6bb6a4db04f47b5545357d203778d44636f0da35b061a7efb555",
+    "component": {
+      "component_wall_seconds": 2263.6205353736877,
+      "deadline_at": 1793206366.8046064,
+      "end_at": 1793201430.4376528,
+      "exit_code": 0,
+      "hard_deadline_met": true,
+      "launch_sha256": "40de1485da1c8837ec6c9c594f80cb9c67c9babdc58547a9d5eb1e2ff4435605",
+      "live_owned_ranks": [],
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "phase": "train",
+      "reason": null,
+      "signals": [],
+      "start_at": 1793199166.8171175,
+      "status": "completed"
+    },
+    "cycles": 8,
+    "ended_at": 1793202172.9743986,
+    "freeze_component": {
+      "component_wall_seconds": 16.562434911727905,
+      "deadline_at": 1793201731.0054805,
+      "end_at": 1793201447.5680695,
+      "exit_code": 0,
+      "hard_deadline_met": true,
+      "launch_sha256": "51479a3eb6a40258c9cc912d4570bf7fba57c84e8f8658c41d60bce7f0641654",
+      "live_owned_ranks": [],
+      "log_sha256": "f04e0d9f41be6659f68c30633581fce7dac01daec488b7dde5a2328dce9ce81b",
+      "phase": "freeze",
+      "reason": null,
+      "signals": [],
+      "start_at": 1793201431.0056345,
+      "status": "completed"
+    },
+    "live_owned_ranks": [],
+    "official_component": {
+      "component_wall_seconds": 725.3649115562439,
+      "deadline_at": 1793202647.5806751,
+      "end_at": 1793202172.946115,
+      "exit_code": 0,
+      "hard_deadline_met": true,
+      "launch_sha256": "8bc32ea1fa3f3a030147bd23e08141c4887d542c585b14c12f91f477480379de",
+      "live_owned_ranks": [],
+      "log_sha256": "0777e0f145e5afd216d752487b1ceea0e619a9163096e486afe9277aa49b477e",
+      "phase": "official",
+      "reason": null,
+      "signals": [],
+      "start_at": 1793201447.5812035,
+      "status": "completed"
+    },
+    "official_metrics": {
+      "ap": 0.8424437871775934,
+      "auroc": 0.9887607594491606,
+      "count": 5849,
+      "error_twice": 24292,
+      "negative_count": 5658,
+      "operating_points": {
+        "sensitivity_0.90": {
+          "logit_threshold": -1.3350774049758911,
+          "sensitivity": 0.900523560209424,
+          "specificity": 0.9720749381406858
+        },
+        "sensitivity_0.95": {
+          "logit_threshold": -2.636526107788086,
+          "sensitivity": 0.9528795811518325,
+          "specificity": 0.9512195121951219
+        },
+        "specificity_0.90": {
+          "logit_threshold": -4.742241382598877,
+          "sensitivity": 0.9842931937172775,
+          "specificity": 0.900141392718275
+        },
+        "specificity_0.95": {
+          "logit_threshold": -2.6804420948028564,
+          "sensitivity": 0.9528795811518325,
+          "specificity": 0.9501590668080594
+        }
+      },
+      "positive_count": 191,
+      "pr_auc": 0.8421156746404361
+    },
+    "official_result_sha256": "1f847570ed93d85ac6fe633c8d78f18429c2379067d7a9b0b12c865d2ae8bbc1",
+    "phase": "complete",
+    "research_only": false,
+    "single_model_freeze_sha256": "4459db88d353628864a9ea9a369c03ee7894f29c4afc0a1972927be260b3e6b0",
+    "status": "completed",
+    "successful_updates": 6400,
+    "target_auroc_at_least_0_999": false,
+    "token": "8b2084ded56641afa09efbab07cc10cc"
+  },
+  "owner": {
+    "expected": {
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/run_training.py",
+        "--token",
+        "8b2084ded56641afa09efbab07cc10cc"
+      ],
+      "pgrp": 2207,
+      "pid": 2207,
+      "start_ticks": "322654739",
+      "state": "R"
+    },
+    "actual": {
+      "pid": 2207,
+      "state": "Z",
+      "start_ticks": "322654739",
+      "encoded_exit": 0
+    }
+  },
+  "rank_exit_codes": {
+    "rank-0": 0,
+    "rank-1": 0,
+    "rank-2": 0,
+    "rank-3": 0,
+    "rank-4": 0,
+    "rank-5": 0,
+    "rank-6": 0,
+    "rank-7": 0
+  },
+  "rank_actual": [
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "2",
+          "--device",
+          "cuda:2",
+          "--cpu-affinity",
+          "46,47,48,49,50,51,52,53,54,55,56"
+        ],
+        "at": 1793199254.8932667,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2221,
+        "start_ticks": "322663773"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "4",
+          "--device",
+          "cuda:4",
+          "--cpu-affinity",
+          "68,69,70,71,72,73,74,75,76,77,78"
+        ],
+        "at": 1793199254.9253228,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2223,
+        "start_ticks": "322663776"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "0",
+          "--device",
+          "cuda:0",
+          "--cpu-affinity",
+          "24,25,26,27,28,29,30,31,32,33,34"
+        ],
+        "at": 1793199254.8417478,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2219,
+        "start_ticks": "322663767"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "3",
+          "--device",
+          "cuda:3",
+          "--cpu-affinity",
+          "57,58,59,60,61,62,63,64,65,66,67"
+        ],
+        "at": 1793199254.9107711,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2222,
+        "start_ticks": "322663774"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "1",
+          "--device",
+          "cuda:1",
+          "--cpu-affinity",
+          "35,36,37,38,39,40,41,42,43,44,45"
+        ],
+        "at": 1793199254.869093,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2220,
+        "start_ticks": "322663770"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "5",
+          "--device",
+          "cuda:5",
+          "--cpu-affinity",
+          "79,80,81,82,83,84,85,86,87,88,89"
+        ],
+        "at": 1793199254.9392734,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2224,
+        "start_ticks": "322663777"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "6",
+          "--device",
+          "cuda:6",
+          "--cpu-affinity",
+          "90,91,92,93,94,95,96,97,98,99,100"
+        ],
+        "at": 1793199254.9529598,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2225,
+        "start_ticks": "322663779"
+      },
+      "actual": null
+    },
+    {
+      "expected": {
+        "argv": [
+          "/usr/local/python3.12/bin/python3.12",
+          "-u",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/bundle/parallel_fresh_train.py",
+          "--worker-spec",
+          "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/fresh-worker-spec.json",
+          "--rank",
+          "7",
+          "--device",
+          "cuda:7",
+          "--cpu-affinity",
+          "101,102,103,104,105,106,107,108,109,110,111"
+        ],
+        "at": 1793199254.97019,
+        "host": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+        "pid": 2226,
+        "start_ticks": "322663780"
+      },
+      "actual": null
+    }
+  ],
+  "timing": {
+    "checkpoint_count": 19,
+    "checkpoint_seconds": 46.33467714814469,
+    "data_wait_seconds": 4.262309823650867,
+    "evaluation_seconds": 147.71720480080694,
+    "measured_seconds": 0.0,
+    "training_seconds": 1867.606162976008,
+    "warmup_seconds": 0.0
+  },
+  "initial": {
+    "CUDA_initialized": false,
+    "at": 1793199323.7240577,
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate": {
+      "attention_pool": null,
+      "batch_norm_buffers": 0,
+      "batch_norm_modules": 0,
+      "experiment_order": 3,
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+      "internal_norm_eps": 1e-06,
+      "model": "convnext_tiny",
+      "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+      "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "stochastic_depth": 0.1,
+      "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed"
+    },
+    "candidate_normalization": {
+      "batch_norm_modules": 0,
+      "buffer_count": 0,
+      "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate": {
+        "attention_pool": null,
+        "batch_norm_buffers": 0,
+        "batch_norm_modules": 0,
+        "experiment_order": 3,
+        "features": 768,
+        "final_norm_eps": 1e-06,
+        "head_initialization": "torch.nn.Linear_native",
+        "head_lr_scope": "last_linear",
+        "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+        "internal_norm_eps": 1e-06,
+        "model": "convnext_tiny",
+        "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+        "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+        "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+        "stochastic_depth": 0.1,
+        "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed"
+      },
+      "dropout": 0.2,
+      "head_in_features": 768,
+      "head_out_features": 1,
+      "layer_norms": [
+        {
+          "eps": 1e-06,
+          "name": "network.features.0.1",
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.1.0.block.2",
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.1.1.block.2",
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.1.2.block.2",
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.2.0",
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.3.0.block.2",
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.3.1.block.2",
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.3.2.block.2",
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.4.0",
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.0.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.1.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.2.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.3.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.4.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.5.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.6.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.7.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.5.8.block.2",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.6.0",
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.7.0.block.2",
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.7.1.block.2",
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.features.7.2.block.2",
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "network.classifier.0",
+          "normalized_shape": [
+            768
+          ]
+        }
+      ],
+      "stochastic_depth": [
+        {
+          "mode": "row",
+          "name": "network.features.1.0.stochastic_depth",
+          "p": 0.0
+        },
+        {
+          "mode": "row",
+          "name": "network.features.1.1.stochastic_depth",
+          "p": 0.0058823529411764705
+        },
+        {
+          "mode": "row",
+          "name": "network.features.1.2.stochastic_depth",
+          "p": 0.011764705882352941
+        },
+        {
+          "mode": "row",
+          "name": "network.features.3.0.stochastic_depth",
+          "p": 0.017647058823529415
+        },
+        {
+          "mode": "row",
+          "name": "network.features.3.1.stochastic_depth",
+          "p": 0.023529411764705882
+        },
+        {
+          "mode": "row",
+          "name": "network.features.3.2.stochastic_depth",
+          "p": 0.029411764705882353
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.0.stochastic_depth",
+          "p": 0.03529411764705883
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.1.stochastic_depth",
+          "p": 0.0411764705882353
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.2.stochastic_depth",
+          "p": 0.047058823529411764
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.3.stochastic_depth",
+          "p": 0.052941176470588235
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.4.stochastic_depth",
+          "p": 0.058823529411764705
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.5.stochastic_depth",
+          "p": 0.06470588235294118
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.6.stochastic_depth",
+          "p": 0.07058823529411766
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.7.stochastic_depth",
+          "p": 0.07647058823529412
+        },
+        {
+          "mode": "row",
+          "name": "network.features.5.8.stochastic_depth",
+          "p": 0.0823529411764706
+        },
+        {
+          "mode": "row",
+          "name": "network.features.7.0.stochastic_depth",
+          "p": 0.08823529411764706
+        },
+        {
+          "mode": "row",
+          "name": "network.features.7.1.stochastic_depth",
+          "p": 0.09411764705882353
+        },
+        {
+          "mode": "row",
+          "name": "network.features.7.2.stochastic_depth",
+          "p": 0.1
+        }
+      ]
+    },
+    "initial_files_sha256": {
+      "outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/initial-checkpoint/index.json": "ef4e6f12f79577882557575788f273119a264c88fcfbfd41871754dff1cfec41",
+      "outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/initial-ranks.json": "e377744594796ce3744b6b63cbb2276fa654e5ba0993ba1b1b14fa39fb08ee0b",
+      "outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/parameter-groups.json": "0661fa005e61fa98e2ffd9a9144606aa67dee079d3d5fe1236df38baf1f6c98c"
+    },
+    "model_tensor_sha256": "eba53feeafdf20bc86855a40648bc453358928d148078c6ae78b65f059846cc7",
+    "native_initial_blob": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/initial-checkpoint/checkpoint-f9c74926585940e7a124a516fd39b612.pt",
+    "native_initial_blob_sha256": "85a58417a4795dd10e967f60cc5423a15797d50aabd14488b423a056bece0a46",
+    "new_model_created_by_gate": false,
+    "optimizer_state_entries": 0,
+    "parameter_elements_by_role": {
+      "age": 2,
+      "backbone": 27820128,
+      "head": 769
+    },
+    "parameter_tensors": 183,
+    "public_weights_reloaded_by_gate": false,
+    "rank_count": 8,
+    "source_digest": "a9b24287dfed68d885d7fb8cca80cc947be416e0efd63c6289be1b5b470f8060",
+    "status": "completed"
+  },
+  "terminal_resources": {
+    "at": 1793202475.2756448,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      }
+    ],
+    "cgroup_memory_current": 99104165888,
+    "cgroup_memory_limit": 506806140928
+  },
+  "lock": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/control/.instance-owner-51fe3daf-ba0d-46e8-919c-99caec599c99.lock",
+    "device": 132,
+    "inode": 19489378671,
+    "proc_locks": []
+  },
+  "ended_at": 1793202475.724787
+}

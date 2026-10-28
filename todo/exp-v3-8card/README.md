@@ -2,6 +2,24 @@
 
 更新：2026-10-28。本页是当前任务记录，不是机器默认配置。历史回执及旧冻结运行不改写。
 
+## 当前接续：R93完成，R94科学决策已定
+
+2026-10-29用户最新覆盖本页旧前置：R94 LR-only删除重复LR常量断言，不新增拒绝case/重跑已通过检查，取消独立零forward GPU预演并记未运行；Git实际冻结后直接由真实训练8rank初态/组/空Adam/资源校验接管，保留实时身份/资源独占、一次activation/官方一次。A不等文档开训；随后20%池并行准备不依赖结果的代码/配置/打包/现有CPU验证，不限于纯函数可行性、不加平台。
+
+执行A已核R93工程终态25/25/CPU guard exit0，6400成功更新/0 skip、完整16内部结果、唯一c3 EMA@2400以及canonical一次官方身份一致。8rank inactive/exit0、GPU device users空且8卡idle、原锁释放；owner inactive且OS encodedexit0，但Z保留，不称reaped。终态回执Pod SHA为`e1d0e20895f3a8047f2bd4b8477875f85b36f32ab013e6994d4b95d9864cf205`。规划已逐行文本核对[完整内部CSV](../../records/R93/DEV-METRICS-INTERNAL.csv)及[内部JSON](../../records/R93/INTERNAL-DEV-SUMMARY.json)，未读取官方指标作决策。
+
+[R94单变量决策](../auroc-999/R94-DECISION.md)已冻结并交A直接最小适配：profile=`single-tiny22k-bc48a87f-fixed-9010-lr1e4-v1`、candidate=`r94-convnext-tiny-imagenet22k-to-1k-lr1e4-9010`、order4，唯一科学变量backbone LR2e-4→1e-4，同公开权重/seed重新fresh，其余合同不变。SCIENCE集中配置及实际SHA绑定为LR唯一来源；沿既有CPU窄验/新包、Git同步/独立冻结/准入再一次启动，不新增确认门、套件、Agent或平台。B最小LR纯函数分析已完成并退出，不能把其通过当作候选收益；旧R93及失败包不改。
+
+## R93运行中快照（历史：2026-10-28 23:13:32，北京时间）
+
+R93已真实开训，执行A观测3300/6400成功更新、0 skip、内部第4周期已评，状态running且无terminal；官方尚未执行，尚无最终选中checkpoint或总体结论。`MILESTONE-3.json` Pod SHA为`ded2b94462b02c23908b22ca9d4a7d0876ee2156abbbc0ca8bc52db9abcf16f3`。此处记录观测时点，不推断之后状态。以下适配、早期预算与失败段落保留当时证据，不能代替本段当前状态。
+
+正式源码为`80e06f31c33bc6256f6b622e6ed162273d33f1ba`，tree=`6593d39e4bcc55355fe673dba250ecda8f949fba`；274文件实际部署与原生CPU18通过。新独立GPU准入completed/exit0，用时50.6927秒、0forward/0update，原生guard/rank masks/collective及owner+8rank退出均通过，回执SHA`7b9fae0069f2eb693335c47864e11d6df1f93ccb9e5353be546308505ee454d9`。随后一次activation/launch；首批成功更新及完整启动身份见[records/R93](../../records/R93/README.md)。旧20af、8c52、628eb失败原件保留，正式运行冻结副本不热改、重启或重置clock/token。
+
+当前实配为验证池24核（A0–11、B12–23）、训练池96核（24–119；8rank各11核，control112–119），比例由集中RESOURCE-POLICY配置/env读取。验证allocation为`exp-v3/technical-prep/environment-20261028-51fe3daf/CPU-ALLOCATION-3.json`，Pod SHA`f814dc20423806f27826b7eedab1d45a066de969b9c30f5732adda429edd1a70`，created=`1793193379.669`、valid_until=`1793214979.669`；每次入口仍核实时身份/CPU/TTL和互斥池，不能沿用过期份额。
+
+B在独立technical-prep内做一次最小LR纯函数可行性分析，不建模型/读权重/读官方，不新增运行门或改R93。`backbone_lr 2e-4→1e-4`仅为待决假设，其余科学值不变；需要R93工程有效性和完整16条内部汇总后才决定是否采用，当前训练loss/中间指标不作候选决定。完成最小范围即止，不扩测试套件。
+
 ## 授权、角色与当前阶段
 
 用户要求从 GitHub `Aotemo/ncccu_code` 接续，新建规划和执行 Agent，不恢复旧 Agent；先识别当前 8 卡环境并适配代码，再进行后续实验；本轮及后续源码同步 GitHub，其他数据保存 `/public/home/acfwvv9ejn/SothisAI/exp-v3`。用户随后明确“批准，解除旧限制并按此顺序推进”，再授权“可以多开一个执行 agent 来并行推进”；现为 1 规划 + 2 执行。旧暂停已被覆盖，但旧运行、旧 token/clock、定时任务与 heartbeat 不恢复。
@@ -31,9 +49,9 @@ A/B 使用独立 exp-v3 technical-prep。用户最新要求“重新分配 cpu �
 
 已核原blob SHA引用真实回执，身份未变时避免重复哈希。B先验公开完整模型与来源，A固定生产工厂源码SHA后再做必要集成验收；不能把旧工厂拒绝当作新工厂通过。跨Pod的未执行阶段须新建明确资产续验绑定，pin旧source-chain SHA并核当前路径/身份（包括已记录mtime/ctime），保留来源历史和当前执行身份，不能直接松掉UID约束或重写旧回执。
 
-当前为 **首次GPU准入失败后的根因核实与最小修复阶段**。A生产18/18、启动绑定29/29、准入合同CPU11/11、部署关联3/3以及B来源/完整迁移已通过。实现已同步GitHub `20af511b0177c0f1576c8c630baaf1865d8001f9`，tree=`85fc6860bec2b5827a990e864ca444e0472550b4`、唯一parent=`cb939c8e5078a9c74a26158a78c4aa033009042a`，ref/commit/tree独立回读相符；Pod实际部署回执已生成。A已另建GPU owner CPU绑定，B/B1退场，旧12/12回执不改。首次0forward/0update技术准入实际执行49.281秒后失败，CPU helper越界和owner退出收集缺陷尚待修复；R93未启动。细节见[首次准入记录](GPU-ADMISSION-1.md)。
+首次GPU准入失败时的历史状态：A生产18/18、启动绑定29/29、准入合同CPU11/11、部署关联3/3以及B来源/完整迁移已通过。实现已同步GitHub `20af511b0177c0f1576c8c630baaf1865d8001f9`，tree=`85fc6860bec2b5827a990e864ca444e0472550b4`、唯一parent=`cb939c8e5078a9c74a26158a78c4aa033009042a`，ref/commit/tree独立回读相符；Pod实际部署回执已生成。A另建GPU owner CPU绑定，B/B1退场，旧12/12回执不改。首次0forward/0update技术准入实际执行49.281秒后失败，当时CPU helper越界和owner退出收集缺陷待修、R93未启动。细节见[首次准入记录](GPU-ADMISSION-1.md)，后续正式运行状态见页首。
 
-关键路径为新80%训练资源语义、必要helper适配及owner有界回收的最小修复，一次具体diff/必要Pod CPU窄验/新Git同步及实际SHA冻结后，进入独立准入和fresh R93。A父级负责`runtime/bundle/retrain/site_binding.py`、`tools/activation/prepare_gpu_site.py`、`tests/test_runtime_cpu_binding.py`、`tests/test_gpu_site_inputs.py`及直接训练fraction断言；A1仍只改`tools/validation/gpu_admission.py`和`tests/test_gpu_admission_contract.py`退出收集，互不共写。已通过且未受影响的来源/迁移/生产检查不重跑整套；不新增门、平台、benchmark或归档润色，不改科学合同。
+当时修复分工为新80%训练资源语义、必要helper适配及owner有界回收，一次具体diff/必要Pod CPU窄验/新Git同步及实际SHA冻结后，进入独立准入和fresh R93。A父级负责`runtime/bundle/retrain/site_binding.py`、`tools/activation/prepare_gpu_site.py`、`tests/test_runtime_cpu_binding.py`、`tests/test_gpu_site_inputs.py`及直接训练fraction断言；A1负责`tools/validation/gpu_admission.py`和`tests/test_gpu_admission_contract.py`退出收集，互不共写。此分工记录不授权继续修改活跃包；已通过且未受影响的来源/迁移检查不重跑整套，不新增门、平台或benchmark。
 
 已报告的局部CPU进展：A 的 `site_binding` 5项标准库检查通过、exit0，回执为 `exp-v3/technical-prep/adaptation-cpu-20261028/green-site-1/RECEIPT.json`，Pod SHA `58783f90648cc214f5322ed22391726fe3a57fc15bb85858bbd73aee529ae031`。4/8rank全局样本及增强种子重组边界检查已有通过回报；首次旧拓扑API检查失败是改动前证据，不能充当适配后通过。这些检查在旧Pod、旧2线程约束下完成，现均已退出；不能替代新预算通道和新环境检查。其余适配/生产工厂检查仍待集成回执。
 
@@ -65,7 +83,7 @@ A随后在新exp-v3小批资产上完成生产CPU18/18，guard exit0，无图片
 
 新增GPU准入工具CPU11/11、AST/source unchanged、exit0已通过：A新prep下`green-gpu-contracts-1/RECEIPT.json` SHA`0bbba8fa08c841613bd3322d870567177c56b8b6b83dd7f1a8e34b9e82b1979d`；environment tasks/`19c0bc67-1a8c-462a-afb6-f6b80d090986-58mfcgrq/CPU-RECEIPT.json` SHA`08a0bcd3cc98886390dcf0cc590dba3bace6b99ab168cab862b761a4e3e408f3`。父A新增`tools/activation/prepare_gpu_site.py`与`tests/test_gpu_site_inputs.py`（3项），A1的`tools/validation/gpu_admission.py`与`tests/test_gpu_admission_contract.py`（8项），全量具体diff必须包含这4件新增文件。未实际GPU，原18+29不重复；生产snapshot与当前工具源码各按其回执保存身份。
 
-## 环境变化与当前预算（按发生顺序）
+## 环境变化与早期预算（历史，按发生顺序）
 
 1. B修复版strict待执行时，旧Pod `vcjob-2115367159301828609-acfwvv9ejn-96064-worker-0`、UID `f9fe6762-7127-479b-8e80-09ce2487d754` 在入口查询返回NotFound，`STRICT-LOAD-2`未进入Pod，未生成成功回执。A/B确认无未结束CPU/GPU命令，旧CPU窗口释放。
 2. B此前唯一重新discover返回exit0、当前范围无Pod行；随后A一次discover查询到新既有候选 `vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0`、UID `51fe3daf-ba0d-46e8-919c-99caec599c99`，Pending/Ready=False。该候选不是Agent创建的资源。

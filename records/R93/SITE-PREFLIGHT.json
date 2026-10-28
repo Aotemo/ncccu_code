@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "site_identity_dependencies_and_declared_lease_checked",
+  "at": 1793199147.371068,
+  "observed_at": 1793199141.0,
+  "exit_code": 0,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "Ready": true,
+  "python": "/usr/local/python3.12/bin/python3.12",
+  "version": "3.12.7 (main, Jul  6 2026, 09:16:43) [GCC 11.4.0]",
+  "site_binding_sha256": "6cb4f1d782f31c961378d8f3c9ddf06c67753cb7ea5d7ec07820cfa16f760e92",
+  "round_id": "r93-tiny22k-9010-20261028",
+  "torch": "2.10.0",
+  "torchvision": "0.25.0",
+  "numpy": "1.26.4",
+  "PIL": "12.3.0",
+  "nice": 19,
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "threads": 12,
+  "interop_threads": 1,
+  "CUDA_initialized": false,
+  "declared_lease_limits": [
+    {
+      "resource": "pod",
+      "kind": "Pod",
+      "name": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+      "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+      "startTime": "2026-10-28T10:08:03Z",
+      "activeDeadlineSeconds": null,
+      "deadline_at": null,
+      "remaining_seconds": null
+    }
+  ],
+  "required_seconds": 12600,
+  "lease_annotations": {},
+  "ownerReferences": [
+    {
+      "apiVersion": "batch.volcano.sh/v1alpha1",
+      "blockOwnerDeletion": true,
+      "controller": true,
+      "kind": "Job",
+      "name": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+      "uid": "ad1c7f20-6d09-46a7-b739-782881ca5b09"
+    }
+  ],
+  "upper_lease_readable": false,
+  "upper_lease_status": "unknown_not_an_unlimited_lease",
+  "pod_metadata_sha256": "154f0220b130ba7a7add9f00710034ba2b0eba8483407be98cb3f62787ab8ddb",
+  "owner_metadata_sha256": null,
+  "clock_policy_sha256": "0b41fdce282362bf5ece201e882ff587058decd6e43aa9acd260fc640322d971",
+  "script_sha256": "5c6ba9e79b04f40dbda2233b650ea69709ccb2bc9db94bf16a63a28811d88ca2",
+  "formal_T0_created": false,
+  "training_lock_acquired": false,
+  "GPU_started": false
+}

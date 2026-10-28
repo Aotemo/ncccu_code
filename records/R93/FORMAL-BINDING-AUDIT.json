@@ -1,0 +1,358 @@
+{
+  "status": "activation_exit0_and_actual_binding_verified",
+  "exit_code": 0,
+  "root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+  "clock": {
+    "round_id": "r93-tiny22k-9010-20261028",
+    "token": "8b2084ded56641afa09efbab07cc10cc",
+    "origin": "explicit formal activation",
+    "authorization_reference": "2026-10-28 user: \u7acb\u523b\u5f00\u59cb\u8bad\u7ec3; authorized fresh R93 after synchronized frozen code and bounded admission",
+    "first_implementation_at": 1793199155.3240027,
+    "implementation_deadline_at": 1793200955.3240027,
+    "deadline_at": 1793211755.3240027,
+    "train_budget_seconds": 7200,
+    "clock_reset_allowed": false
+  },
+  "source_digest": "a9b24287dfed68d885d7fb8cca80cc947be416e0efd63c6289be1b5b470f8060",
+  "git_commit": "80e06f31c33bc6256f6b622e6ed162273d33f1ba",
+  "site_binding_sha256": "6cb4f1d782f31c961378d8f3c9ddf06c67753cb7ea5d7ec07820cfa16f760e92",
+  "formal_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/evidence/FORMAL_BINDING_RECEIPT.json",
+  "formal_receipt_sha256": "17fc324d76a2d2d556cd35558667253b49313abb04ecb5bc00cb1970d813de7c",
+  "runtime_binding_sha256": "1af215fd0f943aca2b687d9debeb1cb1003a59597e2c0c825f2870c32b231150",
+  "predecessor_handoff": {
+    "at": 1793199151.0044425,
+    "exact_processes": [
+      {
+        "expected": {
+          "pid": 1966,
+          "state": "S",
+          "ppid": 1960,
+          "pgrp": 1966,
+          "start_ticks": "322628775",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "owner",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1967,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1967,
+          "start_ticks": "322628976",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "0"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1968,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1968,
+          "start_ticks": "322628979",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "1"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1969,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1969,
+          "start_ticks": "322628980",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "2"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1970,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1970,
+          "start_ticks": "322628982",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "3"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1971,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1971,
+          "start_ticks": "322628984",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "4"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1972,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1972,
+          "start_ticks": "322628985",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "5"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1973,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1973,
+          "start_ticks": "322628987",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "6"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 1974,
+          "state": "R",
+          "ppid": 1966,
+          "pgrp": 1974,
+          "start_ticks": "322628988",
+          "argv": [
+            "/usr/local/python3.12/bin/python3.12",
+            "-B",
+            "-u",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+            "--internal-role",
+            "rank",
+            "--spec",
+            "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+            "--spec-sha256",
+            "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+            "--rank",
+            "7"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      },
+      {
+        "expected": {
+          "pid": 2076,
+          "state": "R",
+          "ppid": 1967,
+          "pgrp": 1967,
+          "start_ticks": "322632833",
+          "argv": [
+            "ld",
+            "-t",
+            "-L",
+            "/opt/dtk/dcc/gcvm/lib",
+            "-L",
+            "/opt/dtk/hip/lib",
+            "-L",
+            "/opt/dtk/llvm/lib",
+            "-L",
+            "/opt/dtk/lib",
+            "-L",
+            "/opt/dtk/lib64",
+            "-L",
+            "/opt/hyhal/lib",
+            "-L",
+            "/opt/hyhal/lib64",
+            "-L",
+            "/opt/dtk/dushmem/lib",
+            "-L",
+            "/opt/dtk/opencl/lib",
+            "-L",
+            "/opt/ucx/lib",
+            "-L",
+            "/opt/mpi/lib",
+            "-L",
+            "/opt/hwloc/lib",
+            "-L",
+            "-o",
+            "/dev/null",
+            "-lamdhip64"
+          ]
+        },
+        "actual": null,
+        "inactive": true
+      }
+    ],
+    "lock_released": true,
+    "lock_inode": 19489378671,
+    "lock_device": 132,
+    "lock_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/control/.instance-owner-51fe3daf-ba0d-46e8-919c-99caec599c99.lock",
+    "proc_locks": [],
+    "resources": {
+      "at": 1793199151.003217,
+      "cards": [
+        {
+          "pci": "0000:09:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:36:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:55:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:77:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:85:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:b5:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:d5:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        },
+        {
+          "pci": "0000:f5:00.0",
+          "busy_percent": 0,
+          "vram_used_bytes": 2207744,
+          "vram_total_bytes": 68702699520
+        }
+      ],
+      "cgroup_memory_current": 106560024576,
+      "cgroup_memory_limit": 506806140928
+    },
+    "device_users": [],
+    "lock_acquisition_attempted": false,
+    "signals_sent": false
+  },
+  "site_receipt_sha256": "2c14e127970a13b8613f50238ebcf96aba1d7d09c9a4be391f7c260667b3a8d4",
+  "GPU_started": false
+}

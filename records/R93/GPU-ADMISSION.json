@@ -1,0 +1,1170 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "exit_code": 0,
+  "git_commit": "80e06f31c33bc6256f6b622e6ed162273d33f1ba",
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "package_manifest_sha256": "d3c67861c9389f6e17779fc2f2c710812aab3f091510b488e7715509ed069bb9",
+  "bundle_source_digest": "a9b24287dfed68d885d7fb8cca80cc947be416e0efd63c6289be1b5b470f8060",
+  "candidate": {
+    "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+    "experiment_order": 3,
+    "model": "convnext_tiny",
+    "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+    "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "initial_state_control": {
+    "source_digest": "a9b24287dfed68d885d7fb8cca80cc947be416e0efd63c6289be1b5b470f8060",
+    "candidate": {
+      "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+      "experiment_order": 3,
+      "model": "convnext_tiny",
+      "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+      "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    },
+    "model_tensor_sha256": "eba53feeafdf20bc86855a40648bc453358928d148078c6ae78b65f059846cc7",
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate_normalization": {
+      "candidate": {
+        "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+        "experiment_order": 3,
+        "model": "convnext_tiny",
+        "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+        "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+        "features": 768,
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "batch_norm_modules": 0,
+        "batch_norm_buffers": 0,
+        "attention_pool": null,
+        "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+        "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+        "stochastic_depth": 0.1,
+        "head_initialization": "torch.nn.Linear_native",
+        "head_lr_scope": "last_linear"
+      },
+      "batch_norm_modules": 0,
+      "buffer_count": 0,
+      "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "layer_norms": [
+        {
+          "name": "network.features.0.1",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.2.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.3.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.3.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.3.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.4.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.5.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.3.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.4.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.5.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.6.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.7.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.8.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.6.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.7.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.features.7.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.features.7.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.classifier.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        }
+      ],
+      "head_in_features": 768,
+      "head_out_features": 1,
+      "dropout": 0.2,
+      "stochastic_depth": [
+        {
+          "name": "network.features.1.0.stochastic_depth",
+          "p": 0.0,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.1.1.stochastic_depth",
+          "p": 0.0058823529411764705,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.1.2.stochastic_depth",
+          "p": 0.011764705882352941,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.0.stochastic_depth",
+          "p": 0.017647058823529415,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.1.stochastic_depth",
+          "p": 0.023529411764705882,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.2.stochastic_depth",
+          "p": 0.029411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.0.stochastic_depth",
+          "p": 0.03529411764705883,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.1.stochastic_depth",
+          "p": 0.0411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.2.stochastic_depth",
+          "p": 0.047058823529411764,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.3.stochastic_depth",
+          "p": 0.052941176470588235,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.4.stochastic_depth",
+          "p": 0.058823529411764705,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.5.stochastic_depth",
+          "p": 0.06470588235294118,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.6.stochastic_depth",
+          "p": 0.07058823529411766,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.7.stochastic_depth",
+          "p": 0.07647058823529412,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.8.stochastic_depth",
+          "p": 0.0823529411764706,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.0.stochastic_depth",
+          "p": 0.08823529411764706,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.1.stochastic_depth",
+          "p": 0.09411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.2.stochastic_depth",
+          "p": 0.1,
+          "mode": "row"
+        }
+      ]
+    },
+    "optimizer_state_entries": 0,
+    "trainable_tensors": 183,
+    "parameter_elements_by_role": {
+      "backbone": 27820128,
+      "head": 769,
+      "age": 2
+    },
+    "no_attention_q": true
+  },
+  "rank_proofs": [
+    {
+      "rank": 0,
+      "world_size": 8,
+      "pid": 1967,
+      "device": "cuda:0",
+      "physical_pci": "0000:09:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "actual_cpu_ids": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.5502605,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 1,
+      "world_size": 8,
+      "pid": 1968,
+      "device": "cuda:1",
+      "physical_pci": "0000:36:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "actual_cpu_ids": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.5464232,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 2,
+      "world_size": 8,
+      "pid": 1969,
+      "device": "cuda:2",
+      "physical_pci": "0000:55:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "actual_cpu_ids": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.1194954,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 3,
+      "world_size": 8,
+      "pid": 1970,
+      "device": "cuda:3",
+      "physical_pci": "0000:77:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "actual_cpu_ids": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.0954406,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 4,
+      "world_size": 8,
+      "pid": 1971,
+      "device": "cuda:4",
+      "physical_pci": "0000:85:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "actual_cpu_ids": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.534466,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 5,
+      "world_size": 8,
+      "pid": 1972,
+      "device": "cuda:5",
+      "physical_pci": "0000:b5:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "actual_cpu_ids": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.0238016,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 6,
+      "world_size": 8,
+      "pid": 1973,
+      "device": "cuda:6",
+      "physical_pci": "0000:d5:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "actual_cpu_ids": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.0402777,
+      "CPU_only_software_proof": false
+    },
+    {
+      "rank": 7,
+      "world_size": 8,
+      "pid": 1974,
+      "device": "cuda:7",
+      "physical_pci": "0000:f5:00.0",
+      "total_memory_bytes": 68702699520,
+      "requested_cpu_ids": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "actual_cpu_ids": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "intraop_threads": 1,
+      "interop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        },
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "at": 1793198945.4194376,
+      "CPU_only_software_proof": false
+    }
+  ],
+  "released_processes": [
+    {
+      "pid": 1966,
+      "state": "S",
+      "ppid": 1960,
+      "pgrp": 1966,
+      "start_ticks": "322628775",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "owner",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f"
+      ]
+    },
+    {
+      "pid": 1967,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1967,
+      "start_ticks": "322628976",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "0"
+      ]
+    },
+    {
+      "pid": 1968,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1968,
+      "start_ticks": "322628979",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "1"
+      ]
+    },
+    {
+      "pid": 1969,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1969,
+      "start_ticks": "322628980",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "2"
+      ]
+    },
+    {
+      "pid": 1970,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1970,
+      "start_ticks": "322628982",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "3"
+      ]
+    },
+    {
+      "pid": 1971,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1971,
+      "start_ticks": "322628984",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "4"
+      ]
+    },
+    {
+      "pid": 1972,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1972,
+      "start_ticks": "322628985",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "5"
+      ]
+    },
+    {
+      "pid": 1973,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1973,
+      "start_ticks": "322628987",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "6"
+      ]
+    },
+    {
+      "pid": 1974,
+      "state": "R",
+      "ppid": 1966,
+      "pgrp": 1974,
+      "start_ticks": "322628988",
+      "argv": [
+        "/usr/local/python3.12/bin/python3.12",
+        "-B",
+        "-u",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/source/tools/validation/gpu_admission.py",
+        "--internal-role",
+        "rank",
+        "--spec",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/gpu-admission-1/SPEC.json",
+        "--spec-sha256",
+        "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+        "--rank",
+        "7"
+      ]
+    },
+    {
+      "pid": 2076,
+      "state": "R",
+      "ppid": 1967,
+      "pgrp": 1967,
+      "start_ticks": "322632833",
+      "argv": [
+        "ld",
+        "-t",
+        "-L",
+        "/opt/dtk/dcc/gcvm/lib",
+        "-L",
+        "/opt/dtk/hip/lib",
+        "-L",
+        "/opt/dtk/llvm/lib",
+        "-L",
+        "/opt/dtk/lib",
+        "-L",
+        "/opt/dtk/lib64",
+        "-L",
+        "/opt/hyhal/lib",
+        "-L",
+        "/opt/hyhal/lib64",
+        "-L",
+        "/opt/dtk/dushmem/lib",
+        "-L",
+        "/opt/dtk/opencl/lib",
+        "-L",
+        "/opt/ucx/lib",
+        "-L",
+        "/opt/mpi/lib",
+        "-L",
+        "/opt/hwloc/lib",
+        "-L",
+        "-o",
+        "/dev/null",
+        "-lamdhip64"
+      ]
+    }
+  ],
+  "all_processes_exited": true,
+  "live_processes": [],
+  "fit_only": true,
+  "fresh_initial_state_verified": true,
+  "fp32_collective_verified": true,
+  "finite_values_verified": true,
+  "wall_seconds": 50.692667722702026,
+  "scientific_metadata_read": true,
+  "checkpoint_reused": false,
+  "owner_exit_code": 0,
+  "rank_exit_codes": {
+    "rank-0": 0,
+    "rank-1": 0,
+    "rank-2": 0,
+    "rank-3": 0,
+    "rank-4": 0,
+    "rank-5": 0,
+    "rank-6": 0,
+    "rank-7": 0
+  },
+  "exit_audit_sha256": "0222dfcaaaa4260d86b5dd4edf9334cac5fe52ac5e01cd30e012daff3630183a",
+  "spec_sha256": "8b2ee7172a1afe66a14b65e3d46b801996b6ac5e278609eae3a2581b12ffb96f",
+  "script_sha256": "8fc31f34965eb5f2fd5a79d30a02e420e9a1b543aa93882aaddb6d2c3e2f0f15",
+  "deployment_receipt_sha256": "562dc89ad33aa4e840d83d5296e3df534b063fe619405c4645e340df4c918d52",
+  "cpu_prep_receipt_sha256": "e55bf865250deb3a467206c6fa20a793e9fac9d031f8996ae18c5dcfb53c166b",
+  "cpu_allocation_sha256": "21eaf7fdb4fe95f12581bd4dc94b6292ebb3078e07499c44951ee9f4f5531892",
+  "instance_lock": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/control/.instance-owner-51fe3daf-ba0d-46e8-919c-99caec599c99.lock",
+    "device": 132,
+    "inode": 19489378671
+  },
+  "before": {
+    "at": 1793198904.6479826,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      }
+    ],
+    "cgroup_memory_current": 107087745024,
+    "cgroup_memory_limit": 506806140928
+  },
+  "after": {
+    "at": 1793198954.936625,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0,
+        "vram_used_bytes": 2207744,
+        "vram_total_bytes": 68702699520
+      }
+    ],
+    "cgroup_memory_current": 106534481920,
+    "cgroup_memory_limit": 506806140928
+  },
+  "successful_updates": 0,
+  "attempted_updates": 0,
+  "optimizer_steps": 0,
+  "forward_calls": 0,
+  "data_samples_read": 0,
+  "data_images_read": false,
+  "csv_read": false,
+  "cache_read": false,
+  "dev_evaluated": false,
+  "official_evaluated": false
+}

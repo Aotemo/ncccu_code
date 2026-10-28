@@ -15,6 +15,13 @@ build = importlib.util.module_from_spec(spec); spec.loader.exec_module(build)
 CHECKS = []
 
 
+def group_lrs_match(groups, job):
+    expected = {'backbone': job['backbone_lr'], 'head': job['head_lr'],
+                'age': job['age']['contract']['lr']}
+    return all(group['role'] in expected and group['lr'] == group['initial_lr'] == expected[group['role']]
+               for group in groups)
+
+
 def check(name, condition, actual=None):
     CHECKS.append({'name': name, 'passed': bool(condition), 'actual': actual})
     if not condition:
@@ -82,12 +89,13 @@ def main(args):
         and roles == {'backbone': 27820128, 'head': 769, 'age': 2}
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and any(row['name'] == 'network.classifier.0.weight' for group in groups if group['role'] == 'backbone' for row in group['parameters'])
-        and all(group['initial_lr'] == (2e-4 if group['role'] == 'backbone' else 1e-3) for group in groups)
+        and group_lrs_match(groups, job)
         and all(group['weight_decay'] == (1e-4 if group['role'] == 'age' or any(
             named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) for group in groups),
         {'trainable_tensors': len(named), 'elements_by_role': roles, 'group_count': len(groups)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
+          and model_digest == ex.science_configuration()['initial_model_tensor_sha256']
           and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members})
     fresh = build.make_fresh(package, job, topology, policy, digest, public['initialization'])
     identity = {'format': 'glaucoma-retrain-v1', 'source_digest': digest,
@@ -147,6 +155,7 @@ def main(args):
           and boundaries['6400']['blend_count'] == 4800 and boundaries['6400']['update_count'] == 6400, boundaries)
     check('CPU_only_after_all_checks', not torch.cuda.is_initialized())
     result = {'status': 'completed', 'exit_code': 0, 'scope': 'production_binary_age_CPU_only',
+        'science_configuration': site['science']['configuration'],
         'checks': CHECKS, 'source_digest': digest, 'candidate': ex.candidate(), 'initial_state_control': expected,
         'job_contract': job_contract(job), 'topology': topology, 'site_binding_sha256': build.sha(package / 'SITE_BINDING.json'),
         'source_files': build.read(package / 'SOURCE-MANIFEST.reference.json')['after'],

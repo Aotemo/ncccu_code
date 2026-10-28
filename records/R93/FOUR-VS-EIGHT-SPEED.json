@@ -1,0 +1,189 @@
+{
+  "scope": "existing_native_training_log_comparison_no_new_benchmark",
+  "at": 1793201120.513818,
+  "local": "2026-10-28T23:25:20.513833+08:00",
+  "R92": {
+    "config_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010/TRAIN_CONFIG.json",
+    "model_state_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010/outputs/r92-4c-tiny1k-s20261027-b64-p8-fp32-9010/convnext-tiny/complete.json",
+    "metadata_present": {
+      "config": true,
+      "model_state": true,
+      "native_rank_complete": true
+    },
+    "configuration": {
+      "execution.devices": [
+        "cuda:0",
+        "cuda:1",
+        "cuda:2",
+        "cuda:3"
+      ],
+      "jobs.0.image_size": 512,
+      "jobs.0.model": "convnext_tiny",
+      "jobs.0.precision": "fp32",
+      "jobs.0.experiment91.candidate.model": "convnext_tiny"
+    },
+    "world_exit_count": 4,
+    "status": "completed",
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "distributed": {
+      "accumulation": 1,
+      "global_effective_batch": 64,
+      "global_positive_quota": 8,
+      "normalization_group_size": 2,
+      "normalization_policy": "reference-microbatch-sequential-ema-v1",
+      "per_rank_batch": 16,
+      "reference_physical_batch": 32,
+      "sampler_policy": "reference-seeds-contiguous-global-shards-v1",
+      "stop_after_updates": 6400,
+      "version": 1,
+      "world_size": 4
+    },
+    "timing": {
+      "checkpoint_count": 27,
+      "checkpoint_seconds": 65.12895418563858,
+      "data_wait_seconds": 4.5314594293013215,
+      "evaluation_seconds": 140.9181836359203,
+      "measured_seconds": 0.0,
+      "training_seconds": 3307.6139885536395,
+      "warmup_seconds": 0.0
+    },
+    "pure_training_seconds_per_update": 0.5168146857115061,
+    "training_images_per_second": 123.83549030130654,
+    "projected_6400_pure_training_seconds": 3307.613988553639
+  },
+  "R93_interim": {
+    "config_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/TRAIN_CONFIG.json",
+    "model_state_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/outputs/r93-tiny22k-9010-20261028-8c-tiny22k-s20261027-b64-p8-fp32/convnext-tiny/status.json",
+    "metadata_present": {
+      "config": true,
+      "model_state": true,
+      "native_rank_complete": false
+    },
+    "configuration": {
+      "execution.devices": [
+        "cuda:0",
+        "cuda:1",
+        "cuda:2",
+        "cuda:3",
+        "cuda:4",
+        "cuda:5",
+        "cuda:6",
+        "cuda:7"
+      ],
+      "jobs.0.model": "convnext_tiny",
+      "jobs.0.image_size": 512,
+      "jobs.0.precision": "fp32",
+      "jobs.0.experiment91.candidate.model": "convnext_tiny"
+    },
+    "world_exit_count": null,
+    "status": "running",
+    "successful_updates": 5525,
+    "attempted_updates": 5525,
+    "distributed": {
+      "accumulation": 1,
+      "global_effective_batch": 64,
+      "global_positive_quota": 8,
+      "normalization_group_size": 4,
+      "normalization_policy": "reference-microbatch-sequential-ema-v1",
+      "per_rank_batch": 8,
+      "reference_physical_batch": 32,
+      "sampler_policy": "reference-seeds-contiguous-global-shards-v1",
+      "stop_after_updates": 6400,
+      "version": 1,
+      "world_size": 8
+    },
+    "timing": {
+      "checkpoint_count": 14,
+      "checkpoint_seconds": 33.1193747879006,
+      "data_wait_seconds": 3.678246071562171,
+      "evaluation_seconds": 111.2288542855531,
+      "measured_seconds": 0.0,
+      "training_seconds": 1612.7311554742046,
+      "warmup_seconds": 0.0
+    },
+    "pure_training_seconds_per_update": 0.29189704171478814,
+    "training_images_per_second": 219.2553909557406,
+    "projected_6400_pure_training_seconds": 1868.1410669746442
+  },
+  "R92_component_times": {
+    "times": {
+      "T0": {
+        "epoch": 1793173098.3275886,
+        "Asia_Shanghai": "2026-10-28T15:38:18.327589+08:00"
+      },
+      "binding_D": {
+        "epoch": 1793174898.3275886,
+        "Asia_Shanghai": "2026-10-28T16:08:18.327589+08:00"
+      },
+      "round_D": {
+        "epoch": 1793185698.3275886,
+        "Asia_Shanghai": "2026-10-28T19:08:18.327589+08:00"
+      },
+      "done": {
+        "epoch": 1793176854.557027,
+        "Asia_Shanghai": "2026-10-28T16:40:54.557027+08:00"
+      },
+      "train_start": {
+        "epoch": 1793173162.9572763,
+        "Asia_Shanghai": "2026-10-28T15:39:22.957276+08:00"
+      },
+      "train_end": {
+        "epoch": 1793176785.6641977,
+        "Asia_Shanghai": "2026-10-28T16:39:45.664198+08:00"
+      },
+      "train_H": {
+        "epoch": 1793180362.9449756,
+        "Asia_Shanghai": "2026-10-28T17:39:22.944976+08:00"
+      },
+      "train_soft": {
+        "epoch": 1793180212.9449756,
+        "Asia_Shanghai": "2026-10-28T17:36:52.944976+08:00"
+      },
+      "freeze_start": {
+        "epoch": 1793176785.6934087,
+        "Asia_Shanghai": "2026-10-28T16:39:45.693409+08:00"
+      },
+      "freeze_end": {
+        "epoch": 1793176793.2660515,
+        "Asia_Shanghai": "2026-10-28T16:39:53.266052+08:00"
+      },
+      "freeze_H": {
+        "epoch": 1793177085.6932473,
+        "Asia_Shanghai": "2026-10-28T16:44:45.693247+08:00"
+      },
+      "freeze_soft": {
+        "epoch": 1793176935.6932473,
+        "Asia_Shanghai": "2026-10-28T16:42:15.693247+08:00"
+      },
+      "official_start": {
+        "epoch": 1793176793.2790835,
+        "Asia_Shanghai": "2026-10-28T16:39:53.279083+08:00"
+      },
+      "official_end": {
+        "epoch": 1793176854.5281906,
+        "Asia_Shanghai": "2026-10-28T16:40:54.528191+08:00"
+      },
+      "official_H": {
+        "epoch": 1793177993.2785726,
+        "Asia_Shanghai": "2026-10-28T16:59:53.278573+08:00"
+      },
+      "official_soft": {
+        "epoch": 1793177843.2785726,
+        "Asia_Shanghai": "2026-10-28T16:57:23.278573+08:00"
+      }
+    },
+    "round_T0_to_done_seconds": 3756.2294385433197,
+    "passed_check_count": 22,
+    "check_count": 22,
+    "dev_entries": 16,
+    "official_forward_invocations": 1
+  },
+  "caveats": [
+    "R93 is in progress; full-6400 training number is projected",
+    "weights changed ImageNet1K to ImageNet22K-to1K; final LN1e-12 to1e-6",
+    "CPU/resource/native-affinity policy differs; not a controlled GPU-only benchmark",
+    "pure timing excludes native initialization, dev evaluation, checkpoint I/O, freeze, official and engineering preparation"
+  ],
+  "pure_training_speedup": 1.7705375932397576
+}
