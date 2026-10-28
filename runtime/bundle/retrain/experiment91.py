@@ -12,8 +12,8 @@ from .site_binding import load_site
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 WEIGHT_SHA = '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed'
 PROVENANCE_SHA = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-v1'
-CANDIDATE = {'id': 'r95-convnext-tiny-imagenet22k-to-1k-24k-earlystop-9010', 'experiment_order': 5,
+BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-lr5e5-v1'
+CANDIDATE = {'id': 'r96-convnext-tiny-imagenet22k-to-1k-24k-p4-lr5e5-9010', 'experiment_order': 6,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,

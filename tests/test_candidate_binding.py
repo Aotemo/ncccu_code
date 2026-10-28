@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
 TINY22 = {
-    'id': 'r95-convnext-tiny-imagenet22k-to-1k-24k-earlystop-9010', 'experiment_order': 5,
+    'id': 'r96-convnext-tiny-imagenet22k-to-1k-24k-p4-lr5e5-9010', 'experiment_order': 6,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -31,9 +31,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R95-SCIENCE.json'
+        self.configuration = root / 'configs/R96-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R95-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R96-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -42,7 +42,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-v1',
+                     'science': {'binding_version': 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-lr5e5-v1',
                                  'candidate': copy.deepcopy(TINY22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -63,7 +63,7 @@ class CandidateBindingTest(unittest.TestCase):
         for key in ('paths', 'data_split', 'schedule', 'official_manifest_sha256'):
             self.assertEqual(old[key], new[key])
 
-    def test_R94_configuration_controls_job_LR_and_rejects_old_R93_LR(self):
+    def test_configuration_controls_job_LR_and_rejects_old_LR(self):
         science = experiment.science_configuration()
         job = copy.deepcopy(science['job'])
         job.update(age={'fixture': 'unchanged-age'}, experiment91={'fixture': 'binding'},
@@ -72,7 +72,7 @@ class CandidateBindingTest(unittest.TestCase):
                        'provenance': self.site['public_provenance']})
         with patch.object(experiment, 'metadata', return_value={'AGE.json': job['age']}), \
                 patch.object(experiment, 'binding', return_value=job['experiment91']):
-            self.assertEqual(experiment.validate_job(job)['backbone_lr'], 1e-4)
+            self.assertEqual(experiment.validate_job(job)['backbone_lr'], 5e-5)
             wrong = copy.deepcopy(job); wrong['backbone_lr'] = 2e-4
             with self.assertRaises(ValueError):
                 experiment.validate_job(wrong)
@@ -105,7 +105,7 @@ class CandidateBindingTest(unittest.TestCase):
         job = experiment.science_configuration()['job']
         job['age'] = {'contract': {'lr': 1e-3}}
         groups = [{'role': role, 'lr': lr, 'initial_lr': lr}
-                  for role, lr in [('backbone', 1e-4), ('head', 1e-3), ('age', 1e-3)]]
+                  for role, lr in [('backbone', 5e-5), ('head', 1e-3), ('age', 1e-3)]]
         self.assertTrue(checker.group_lrs_match(groups, job))
         for key in ('lr', 'initial_lr'):
             wrong = copy.deepcopy(groups); wrong[0][key] = 2e-4

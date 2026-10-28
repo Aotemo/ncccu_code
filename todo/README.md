@@ -1,6 +1,6 @@
 # 当前任务
 
-**2026-10-29当前：R94已实际训练，R95在20%准备池并行适配。** B唯一只读观测R94冻结`212b41f9d3aa922519e62182701bfbea527c852d`为3200/6400成功更新、0 skip、4轮已评，owner及8rank同身份存活；该时点无终态，不能因Agent会话取消推断训练中断。用户已明确R95最多24000成功更新、连续4轮无提升早停，并选择内部dev AUROC；[R95合同](auroc-999/R95-PLAN.md)已确定，不再标指标待答。A回报受影响CPU检查13/13通过，既有prepare配置生成及新Git/部署仍待实际完成，R95尚未运行。R94冻结6400步运行不热改；[并行准备](auroc-999/NEXT-PREPARATION.md)按既有边界收口，无新增启动门。
+**2026-10-29当前：R94已完成并安全交接，R95已实际训练100/24000、0 skip。** A实核R94 status=completed/phase=complete、原进程inactive、设备idle及原锁释放后，才一次启动R95。R95冻结Git`992c3de8a0793083d1bbd9d759d7e8655e015d44`，owner19269/ranks19281–19288；8rank fresh初态completed、空Adam、初态tensor仍为eba53fee控制值。实际schedule为800/24000/warmup1600，早停每轮max(online,EMA)内部AUROC、patience4/min_cycles1/min_delta0，符合[R95合同](auroc-999/R95-PLAN.md)。START-PROGRESS-1 Pod SHA`014cdf8dc8a3941d23cc84914b97168037cc6054653e359c64258e1399cc3404`，原件根`exp-v3/technical-prep/r95-frozen-992c3de8a079`；此为启动观测，不代表最终完成或科学收益。活跃冻结包不改，后续结果统一归档。
 
 任务状态与接续在本目录维护。已完成结果见 [records/](../records/README.md)，长期规则见 [AGENTS.md](../AGENTS.md)。
 
@@ -12,9 +12,9 @@
 
 | 任务 | 状态 | 入口 |
 | --- | --- | --- |
-| 当前8卡适配与exp-v3 | R93工程有效；R94实际训练中，R95配置/早停实现并行准备 | [阶段、角色与计划](exp-v3-8card/README.md) |
+| 当前8卡适配与exp-v3 | R94已完成安全交接；R95真实成功更新100/24000、0 skip | [阶段、角色与计划](exp-v3-8card/README.md) |
 | 仓库结构与三模型参数归档 | 文本/原件已整理；旧 Pod 消失造成的剩余核验待新环境窄检查 | [整理与核验](repository-layout/README.md) |
-| 固定 9:1 单模型，raw AUROC ≥ 0.999 | R94已开训；R95按用户新预算与早停合同准备，尚未运行；不称总体完成 | [实验任务](auroc-999/README.md) |
+| 固定 9:1 单模型，raw AUROC ≥ 0.999 | R95按用户新预算与早停合同运行中；不称总体完成 | [实验任务](auroc-999/README.md) |
 | 只保留三个模型并提取历史结论 | 进行中；以实际清理回执为准 | [存储接续](storage-retention/README.md) |
 
 当前主机、Agent 与计算 Pod 通过[环境发现工具](../docs/EXECUTION.md)查询。不要将任务记录中的环境值当默认参数。完整发现、验收、缓存、冻结部署和运行产物保存在 `exp-v3`；本仓库只接收源码、配置、必要精简结论与小回执。本机不进行解析、哈希或测试。
