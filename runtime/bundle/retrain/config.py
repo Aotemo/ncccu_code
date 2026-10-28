@@ -56,6 +56,8 @@ def default_job(name, model, kind='random'):
 
 
 def validate_job(job):
+    from .classification_loss import validate_loss
+    validate_loss(job.get('loss'))
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job as validate91
         validate91(job)
@@ -209,7 +211,8 @@ def load_config(path=None, environ=None, overrides=None):
         if not isinstance(item, dict) or not {'name', 'model'} <= item.keys():
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
-        _unknown(item, job, 'job')
+        # An omitted loss remains absent in legacy BCE checkpoint identities.
+        _unknown(item, (*job, 'loss'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

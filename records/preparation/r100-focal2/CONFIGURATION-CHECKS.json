@@ -1,0 +1,53 @@
+{
+  "scope": "R100_focal_micro_numeric_gradient_and_bound_configuration",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 13,
+  "failures": 0,
+  "errors": 0,
+  "single_scientific_delta": {
+    "job.loss": {
+      "version": "binary-focal-v1",
+      "kind": "binary_focal",
+      "gamma": 2.0,
+      "alpha": null,
+      "reduction": "mean",
+      "dtype": "float32",
+      "modulation_detached": false
+    },
+    "baseline": "R95 implicit BCE"
+  },
+  "source_files": {
+    "configs/R100-SCIENCE.json": "47279815eec7e977294febad1014838fa0759ff693c248e49cf6839caa53a2af",
+    "runtime/bundle/retrain/config.py": "5df8011fdc42237604ed2239a16e602b8be1ab82464c6df84974c0c41005263d",
+    "runtime/bundle/retrain/experiment91.py": "395db18455c2892d2c805fd66524ef5478b3f846a38fd69d1a476045311a0356",
+    "runtime/bundle/retrain/engine.py": "95b9543970660414b558ef9c538f2d56ac9adfc7e3a75db571f50cbdbb931f7b",
+    "runtime/bundle/retrain/distributed_engine.py": "789de24726933215a3a72fef54790b1f858f8a349c4789f1e314bd6b8271504f",
+    "runtime/bundle/retrain/classification_loss.py": "d0f84c61f38004a95b3efad018054b6b46ad6c5e4b9be6c0ed286fb2b83c08e3",
+    "tests/test_classification_loss.py": "fa5033159d74e212dd329542798e40606b5eb0f96c3454187d4fa0720881eb46",
+    "tests/test_candidate_binding.py": "3bbcf1c2a1528654e46df7cc1c5f972aa91b7ad2f7de3956b7b3c87c12e7f03f"
+  },
+  "source_unchanged": true,
+  "wall_seconds": 7.327060222625732,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "torch_threads": 12,
+  "interop_threads": 1,
+  "GPU_initialized": false,
+  "model_load": false,
+  "model_forward": false,
+  "micro_loss_evaluations_only": true
+}

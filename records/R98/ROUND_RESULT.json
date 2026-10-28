@@ -1,0 +1,99 @@
+{
+  "at": 1793218496.2215452,
+  "complete_sha256": "e8a378a5bcfb00bd38f6a291a99fcbc46e2df572f7bfffc8fda1cc15b4e1ad9f",
+  "component": {
+    "component_wall_seconds": 1986.4375357627869,
+    "deadline_at": 1793229296.7100058,
+    "end_at": 1793220483.1585789,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "fe75ab63787df73831b623fc7a194e087df13e35feabddaea01e77dc452b5188",
+    "live_owned_ranks": [],
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "phase": "train",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793218496.721043,
+    "status": "completed"
+  },
+  "cycles": 7,
+  "early_stop": {
+    "bad_cycles": 4,
+    "metric": "internal_dev_auroc",
+    "reference_auroc": 0.9853363853431284,
+    "stopped": true,
+    "variants": [
+      "online",
+      "ema"
+    ]
+  },
+  "freeze_component": {
+    "component_wall_seconds": 18.058984994888306,
+    "deadline_at": 1793220784.6366553,
+    "end_at": 1793220502.6957967,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "6c3769441f143faab7200940816f4161ff6ded7369b112b368113a2821e654fd",
+    "live_owned_ranks": [],
+    "log_sha256": "abd73f94b945891670517d5fbdc9f85737c716589e32ca38bbc1102e908ffbb3",
+    "phase": "freeze",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793220484.6368117,
+    "status": "completed"
+  },
+  "official_component": {
+    "component_wall_seconds": 643.0163452625275,
+    "deadline_at": 1793221702.9129922,
+    "end_at": 1793221145.929713,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "b433756e67a27748206a0a92c71a07464d7bd181e4a14fac2153f70e58cdaeb9",
+    "live_owned_ranks": [],
+    "log_sha256": "018be299ec2c2bb8f8e235d419bc34121f4002bce4d501dd25496cf5255c5423",
+    "phase": "official",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793220502.9133677,
+    "status": "completed"
+  },
+  "official_metrics": {
+    "ap": 0.838850178505628,
+    "auroc": 0.9882573717610611,
+    "count": 5849,
+    "error_twice": 25380,
+    "negative_count": 5658,
+    "operating_points": {
+      "sensitivity_0.90": {
+        "logit_threshold": -2.18300199508667,
+        "sensitivity": 0.900523560209424,
+        "specificity": 0.9683633792859667
+      },
+      "sensitivity_0.95": {
+        "logit_threshold": -3.126309871673584,
+        "sensitivity": 0.9528795811518325,
+        "specificity": 0.954931071049841
+      },
+      "specificity_0.90": {
+        "logit_threshold": -4.882544994354248,
+        "sensitivity": 0.9842931937172775,
+        "specificity": 0.900141392718275
+      },
+      "specificity_0.95": {
+        "logit_threshold": -3.3553078174591064,
+        "sensitivity": 0.9633507853403142,
+        "specificity": 0.9501590668080594
+      }
+    },
+    "positive_count": 191,
+    "pr_auc": 0.8385346886296194
+  },
+  "official_result_sha256": "5fef7e395a9a4e6c2b5a41865f85955659474978479ad4ec627a72e725d37313",
+  "phase": "complete",
+  "research_only": false,
+  "single_model_freeze_sha256": "a545f16f4b9444c2a7598317635e1944cdc27bea60466381d064b7a399c96841",
+  "status": "completed",
+  "successful_updates": 5600,
+  "target_auroc_at_least_0_999": false,
+  "token": "b5c312f2e4c94d7f9c94f0d093f567e1"
+}

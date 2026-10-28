@@ -14,3 +14,5 @@
 - `TRAIN_RESULT.json`，Pod SHA `2b738cfdb939ea630e156091d48838e99b6123b855f92bf71df9d2fcf9fa4c32`。
 
 观测原件为 `exp-v3/technical-prep/r98-frozen-481e5903bd56/TERMINAL-OBSERVATION-1.json`，Pod SHA `fc6a6db7040fe9ed440a69907de0007a1037ba9ffd27deaf8068ce2735438a33`；guard-w278_u5y SHA `967194ac728623042d6933b4e8d8e9419ac21a125ad6343bffc91642143a63f9`，exit0。原小回执留工作区 `work/exp-v3-8card-review-20261028/r98-update/r98-terminal-export`。本机未解析或重哈希；权重、checkpoint、样本级预测均留exp-v3。后续完整整轮结果随必要结果归档，不为过程状态另造提交。
+
+后续已核终态补记：04:59:12原生只读观测确认ROUND/done completed/complete，train/freeze/原一次official均exit0；owner44334Z保留、不称reaped，rank及组件inactive、设备idle无使用者、原锁释放。官方5849 AUROC `0.9882573717610611`、AP `0.838850178505628`，只作独立分报，未参与先前R99决定。该观测TERMINAL-OBSERVATION-2 Pod SHA `bec1ddef42388e02d566f842e2464ebb31acce829b23acf539f7b3b497e25e66`；现普通导回的 `ROUND_RESULT.json` Pod SHA `2acaf6ecc85af5645e94c69ac49806ebb836bd26e1183d95a33a0a4f2a282740`。本段随R100必要实现统一归档，不为过程另造提交，未新forward/重试official。

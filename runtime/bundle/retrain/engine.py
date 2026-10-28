@@ -23,6 +23,7 @@ from torch import nn
 from torch.utils.data import DataLoader, Subset
 
 from .data import BalancedBatchSampler, ImageDataset
+from .classification_loss import classification_loss
 from .persistence import (CheckpointStore, RunLock, atomic_json, canonical_digest,
                           capture_rng, load_file, restore_rng)
 
@@ -535,7 +536,7 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
                 labels = labels.to(device, dtype=torch.float32, non_blocking=True).reshape(-1)
                 with _autocast(device, job['precision']):
                     logits = model(images).reshape(-1)
-                    loss = nn.functional.binary_cross_entropy_with_logits(logits, labels)
+                    loss = classification_loss(logits, labels, job.get('loss'))
                 if not torch.isfinite(loss):
                     raise FloatingPointError('nonfinite training loss; last checkpoint remains unchanged')
                 loss_sum += float(loss.detach()) / accumulation

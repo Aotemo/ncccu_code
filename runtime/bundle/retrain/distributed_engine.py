@@ -10,6 +10,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from .data import ImageDataset
+from .classification_loss import classification_loss
 from .parallel_evaluation import evaluate as parallel_evaluate, recovery_checkpoint_due
 from .distributed import RankBatchSampler,ReferenceBatchNorm
 from . import engine as single
@@ -571,7 +572,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         if ctx.primary:atomic_json(folder/'mixup-initial-ranks.json',proofs)
                 with single._autocast(device,job['precision']):
                     logits=forward(model,images,age_features,job).reshape(-1)
-                    loss=nn.functional.binary_cross_entropy_with_logits(logits,labels)
+                    loss=classification_loss(logits,labels,job.get('loss'))
                 if sampled_loss is not None:
                     with torch.no_grad():
                         individual=nn.functional.binary_cross_entropy_with_logits(logits.detach(),labels,reduction='none')
