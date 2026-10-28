@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "tests": 13,
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "configs/RESOURCE-POLICY.json": "b1015453171ec30f859d8c28a345d651e66ee5c93a70619094a21e6b3d9fa04c",
+    "runtime/bundle/retrain/execution_policy.py": "5f00084867613fd943039fa54fa20a4e031de7d68a4f5f347939f0175def91b3",
+    "runtime/bundle/retrain/site_binding.py": "e1e2198ee95e63d1d261dc54a40779925c9fe6f24f075d47e069e7a0a4d6231f",
+    "runtime/launch_once.py": "010b7cf7d554cebda47d31d7006e4913374175e6da579b5a857d9b0420c6af1e",
+    "tests/test_activation_binding.py": "4d7bc7eb959ba94458f913a4ca36792406f6c7dca90c1374d27267f6c29e117e",
+    "tests/test_gpu_site_inputs.py": "eb12fb048949d4b22a6d5e4c5ea6168caf66a1c9da23b704db13c5f193455453",
+    "tests/test_runtime_cpu_binding.py": "d94e658c0ab72fd24261bff2f3842a1dc4bd038fba9463af55d66fbbbc2a41b4",
+    "tools/activation/prepare_gpu_site.py": "861bbb6abdba2070ed8e9670755e517a77ad14c218d7331137fb45efab8a540e",
+    "tools/validation/gpu_admission.py": "fc0e41ba8160d7598b6eb625fd674b3eea4fdae7e05e7b3c85ff5d1305d50bd0",
+    "runtime/native/cpu_affinity.c": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7",
+    "tests/test_native_affinity_guard.py": "cc1a043caeb95f4d9c52eaf1f377788c4a6495a1471ea3e404433b29a8581cbe",
+    "tests/test_native_entry.py": "2e69fb578683acb02bdcb23fe940e95216979030c88578f57d9a3a0cfc13fa89",
+    "tools/environment/build_affinity_guard.py": "ab808e0a2bd09d24ac1390fbde7b840f103bef3623b924d46dbdaaed4938b2ae"
+  },
+  "source_unchanged": true
+}

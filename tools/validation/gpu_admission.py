@@ -726,6 +726,12 @@ def main(argv=None):
     if not args.internal_role:
         require(all(getattr(args, name) is not None for name in INPUT_NAMES + ('output',)),
                 'every explicit path/SHA/live identity argument is required')
+        # The first invocation has no marker/clock yet. Re-exec with the exact
+        # CPU-verified library before reserving this one GPU attempt.
+        inputs = {name: str(getattr(args, name)) if isinstance(getattr(args, name), Path) else getattr(args, name)
+                  for name in INPUT_NAMES}
+        context = load_context(inputs)
+        context['api'].prepare_native_entry(context['site'])
         return run_outer(args)
     require(args.spec is not None and args.spec_sha256, 'internal child needs a pinned parent specification')
     spec = read_spec(args)

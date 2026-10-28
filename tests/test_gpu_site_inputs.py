@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,6 +63,61 @@ class GPUSiteInputsTest(unittest.TestCase):
                                       'cpu_max': ['12000000', '100000']}, 'owner', policy, 8)
         self.assertEqual(value['validation_mask'], list(range(30)))
         self.assertEqual(value['owner_mask'], list(range(30, 90)))
+
+
+class NativeGuardInputsTest(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name).resolve()
+        self.source = self.root / 'source/runtime/native/cpu_affinity.c'
+        self.source.parent.mkdir(parents=True)
+        self.source.write_bytes(b'/* native guard source binding fixture */\n')
+        self.snapshot = self.root / 'technical-prep/build/source/cpu_affinity.c'
+        self.snapshot.parent.mkdir(parents=True)
+        self.snapshot.write_bytes(self.source.read_bytes())
+        self.artifact = self.snapshot.parent.parent / 'libcpu_affinity.so'
+        self.artifact.write_bytes(b'native artifact SHA fixture; never dynamically loaded\n')
+        policy_path = self.root / 'source/configs/RESOURCE-POLICY.json'
+        policy_path.parent.mkdir(parents=True)
+        settings = {'native_affinity_guard_source': 'runtime/native/cpu_affinity.c'}
+        policy_path.write_text(json.dumps(settings))
+        self.policy = {'path': str(policy_path), 'sha256': inputs.sha(policy_path), 'value': settings}
+        self.receipt = self.artifact.parent / 'NATIVE-AFFINITY.json'
+        self.value = {'schema_version': 1, 'passed': True, 'scope': 'compute_pod_native_affinity_guard',
+            'source': {'path': str(self.snapshot), 'sha256': inputs.sha(self.snapshot)},
+            'artifact': {'path': str(self.artifact), 'sha256': inputs.sha(self.artifact)},
+            'checks': [{'name': 'small_binding_fixture', 'passed': True}]}
+
+    def verify(self, value=None, receipt_sha=None):
+        self.receipt.write_text(json.dumps(self.value if value is None else value))
+        return inputs.verify_native_guard(self.receipt, receipt_sha or inputs.sha(self.receipt),
+                                          self.policy, self.root)
+
+    def test_pinned_snapshot_build_binds_identical_current_git_source(self):
+        guard = self.verify()
+        self.assertEqual(guard, {'path': str(self.artifact), 'sha256': inputs.sha(self.artifact),
+            'source': {'path': str(self.source), 'sha256': inputs.sha(self.source)},
+            'build_receipt': {'path': str(self.receipt), 'sha256': inputs.sha(self.receipt)}})
+        self.assertEqual(json.loads(self.receipt.read_text())['source']['path'], str(self.snapshot))
+
+    def test_wrong_receipt_source_or_artifact_pin_is_rejected(self):
+        with self.assertRaises(ValueError):
+            self.verify(receipt_sha='0' * 64)
+        for key in ('source', 'artifact'):
+            value = copy.deepcopy(self.value); value[key]['sha256'] = '0' * 64
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.verify(value)
+
+    def test_changed_git_source_or_artifact_content_is_rejected(self):
+        for path in (self.source, self.artifact):
+            original = path.read_bytes()
+            path.write_bytes(b'X' + original[1:])
+            try:
+                with self.subTest(path=path), self.assertRaises(ValueError):
+                    self.verify()
+            finally:
+                path.write_bytes(original)
 
 
 if __name__ == '__main__':

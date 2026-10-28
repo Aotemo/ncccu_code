@@ -30,6 +30,45 @@ def write(path, value):
         json.dump(value, stream, indent=2, allow_nan=False); stream.write('\n')
 
 
+def verify_native_guard(receipt_path, receipt_sha256, resource_policy, work_root):
+    from retrain.site_binding import evidence_path
+    receipt_path = evidence_path(receipt_path, work_root)
+    require(re.fullmatch('[0-9a-f]{64}', receipt_sha256 or '') and receipt_path.is_file(),
+            'explicit native guard build receipt path/SHA required')
+    value = pinned(receipt_path, receipt_sha256)
+    checks = value.get('checks')
+    require(type(value.get('schema_version')) is int and value['schema_version'] == 1
+            and value.get('passed') is True and value.get('scope') == 'compute_pod_native_affinity_guard'
+            and isinstance(checks, list) and checks
+            and all(isinstance(row, dict) and row.get('passed') is True for row in checks),
+            'successful native affinity guard CPU build checks required')
+    try:
+        policy_path = evidence_path(resource_policy['path'], work_root)
+        require(policy_path.is_file() and sha(policy_path) == resource_policy['sha256']
+                and json.loads(policy_path.read_text()) == resource_policy['value'],
+                'native guard resource policy pin differs')
+        relative = Path(resource_policy['value']['native_affinity_guard_source'])
+        require(not relative.is_absolute() and relative.parts and '..' not in relative.parts,
+                'native guard source must be relative to the explicit Git source root')
+        source_root = policy_path.parent.parent
+        source = evidence_path(source_root / relative, source_root)
+        recorded_source = evidence_path(value['source']['path'], work_root)
+        artifact = evidence_path(value['artifact']['path'], work_root)
+        require(artifact.resolve().is_relative_to(Path(work_root).resolve() / 'technical-prep'),
+                'native guard artifact must stay in technical-prep')
+        require(source.is_file() and recorded_source.is_file() and artifact.is_file()
+                and re.fullmatch('[0-9a-f]{64}', value['source']['sha256'] or '')
+                and sha(source) == sha(recorded_source) == value['source']['sha256'],
+                'native guard Git/build source SHA differs')
+        require(re.fullmatch('[0-9a-f]{64}', value['artifact']['sha256'] or '')
+                and sha(artifact) == value['artifact']['sha256'], 'native guard artifact SHA differs')
+    except (KeyError, TypeError, AttributeError) as error:
+        raise ValueError('incomplete native affinity guard binding') from error
+    return {'path': str(artifact), 'sha256': value['artifact']['sha256'],
+            'source': {'path': str(source), 'sha256': value['source']['sha256']},
+            'build_receipt': {'path': str(receipt_path), 'sha256': receipt_sha256}}
+
+
 def partition_cpus(resources, owner, resource_policy, world):
     available = sorted(set(resources['affinity']) & set(resources['cpuset']))
     quota, period = resources['cpu_max']
@@ -56,6 +95,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('technical-site', 'technical-site-sha256', 'relocation-receipt', 'relocation-receipt-sha256',
                  'validation-cpu-allocation', 'validation-cpu-allocation-sha256',
+                 'native-guard-receipt', 'native-guard-receipt-sha256',
                  'resource-policy', 'resource-policy-sha256', 'git-commit', 'remote-commit', 'output'):
         parser.add_argument('--' + name, required=True)
     parser.add_argument('--valid-seconds', required=True, type=int)
@@ -84,10 +124,13 @@ def main():
     owner = os.environ['NCCCU_EXECUTOR_ID']
     validation = pinned(evidence_path(args.validation_cpu_allocation, site['work_root']), args.validation_cpu_allocation_sha256)
     resource_policy = load_resource_policy(args.resource_policy, args.resource_policy_sha256)
+    native_guard = verify_native_guard(args.native_guard_receipt, args.native_guard_receipt_sha256,
+                                       resource_policy, site['work_root'])
     resources = live_cpu_resources()
     # Observe uncontracted container resources; the GPU entry rechecks them.
     resources['affinity'] = sorted(os.sched_getaffinity(1))
     policy = partition_cpus(resources, owner, resource_policy, len(site['gpus']))
+    policy['native_affinity_guard'] = native_guard
     verify_validation_pool(validation, site['pod']['uid'], policy['validation_mask'], policy['owner_mask'])
     resources['effective_cpus'] = policy['effective_cpus']
     output = evidence_path(args.output, site['work_root'])
@@ -99,6 +142,7 @@ def main():
                 ('namespace', 'namespace'), ('pod', 'name'), ('uid', 'uid'), ('container', 'container'), ('python', 'python'))},
             'resources': resources, 'total_fraction_cap': policy['total_fraction_cap'], 'owner_id': owner,
             'resource_policy': resource_policy, 'validation_mask': policy['validation_mask'],
+            'native_affinity_guard': copy.deepcopy(native_guard),
             'owner_mask': policy['owner_mask'], 'created_at': created, 'valid_until': created + args.valid_seconds,
             'affinity_observation': 'current_container_PID1; actual_uncontracted_GPU_entry_must_recheck',
             'validation_allocation': {'path': args.validation_cpu_allocation,

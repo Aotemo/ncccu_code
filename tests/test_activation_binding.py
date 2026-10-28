@@ -44,7 +44,9 @@ class ActivationBindingTest(unittest.TestCase):
             'interop_threads': 1, 'loader_workers': 1,
             'allocation_receipt': {'path': str(self.root / 'fixture-allocation.json'), 'sha256': '0' * 64}}
         policy_path = self.root / 'RESOURCE-POLICY.json'
-        policy_path.write_bytes((ROOT / 'configs/RESOURCE-POLICY.json').read_bytes())
+        resource_value = json.loads((ROOT / 'configs/RESOURCE-POLICY.json').read_text())
+        resource_value.pop('native_affinity_guard_source', None)  # Independent activation fixture.
+        policy_path.write_text(json.dumps(resource_value))
         self.site['cpu_execution']['resource_policy'] = {'path': str(policy_path),
             'sha256': activation.sha(policy_path), 'value': json.loads(policy_path.read_text())}
         (self.package / 'bundle/fixture.py').write_text('# independent source fixture; never executed\n')

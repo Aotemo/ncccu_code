@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "error": "ValueError('actual worker CPU affinity differs from its configured disjoint mask')",
+  "identity": {
+    "pid": 1698,
+    "state": "R",
+    "ppid": 1695,
+    "pgrp": 1698,
+    "start_ticks": "322115947",
+    "argv": [
+      "/usr/local/python3.12/bin/python3.12",
+      "-B",
+      "-u",
+      "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-8c52cdb33963/source/tools/validation/gpu_admission.py",
+      "--internal-role",
+      "rank",
+      "--spec",
+      "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-8c52cdb33963/gpu-admission-1/SPEC.json",
+      "--spec-sha256",
+      "0f25b88e01baa0666d616d8ddb85585cd74f518678c111326b284b7ae602bd72",
+      "--rank",
+      "2"
+    ]
+  },
+  "at": 1793193814.8093398
+}

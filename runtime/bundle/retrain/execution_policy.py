@@ -149,10 +149,13 @@ def rank_proof(ctx, spec):
     native_affinity = {key: os.environ.get(key) for key in
         ('AMD_CPU_AFFINITY', 'HSA_OVERRIDE_CPU_AFFINITY_DEBUG', 'NCCL_IGNORE_CPU_AFFINITY')}
     if ctx.device.type == 'cuda':
-        from .site_binding import load_site
-        expected_native = load_site()['cpu_execution']['resource_policy']['value']['native_affinity_environment']
+        from .site_binding import load_site, native_guard_loaded
+        cpu_policy = load_site()['cpu_execution']
+        expected_native = cpu_policy['resource_policy']['value']['native_affinity_environment']
         if native_affinity != expected_native:
             raise ValueError('GPU native helper affinity inheritance policy differs from configuration')
+        if not native_guard_loaded(cpu_policy):
+            raise ValueError('actual GPU rank has not loaded the pinned NUMA compatibility library')
     physical = None
     total = None
     if ctx.device.type == 'cuda':
@@ -179,4 +182,6 @@ def rank_proof(ctx, spec):
             'actual_cpu_ids': actual, 'intraop_threads': torch.get_num_threads(),
             'interop_threads': torch.get_num_interop_threads(),
             'native_affinity_environment': native_affinity,
+            'native_affinity_guard': cpu_policy.get('native_affinity_guard') if ctx.device.type == 'cuda' else None,
+            'native_affinity_guard_loaded': native_guard_loaded(cpu_policy) if ctx.device.type == 'cuda' else False,
             'at': time.time(), 'CPU_only_software_proof': ctx.device.type != 'cuda'}

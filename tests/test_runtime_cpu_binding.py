@@ -40,7 +40,9 @@ class RuntimeCpuBindingTest(unittest.TestCase):
         }
         self.site['cpu_execution'] = self.policy
         policy_path = root / 'RESOURCE-POLICY.json'
-        policy_path.write_bytes((ROOT / 'configs/RESOURCE-POLICY.json').read_bytes())
+        resource_value = json.loads((ROOT / 'configs/RESOURCE-POLICY.json').read_text())
+        resource_value.pop('native_affinity_guard_source', None)  # Independent resource-only fixture.
+        policy_path.write_text(json.dumps(resource_value))
         self.policy['resource_policy'] = api.load_resource_policy(policy_path, api.sha256(policy_path))
         release_path = root / 'validation-allocation.json'
         release_path.write_text(json.dumps({'identity': {'NCCCU_POD_UID': self.site['pod']['uid']},

@@ -117,6 +117,10 @@ def verify_rank_devices(proofs, site):
             mask = site['cpu_execution']['rank_masks'][rank]
             if proof.get('requested_cpu_ids') != mask or proof.get('actual_cpu_ids') != mask:
                 raise ValueError('actual rank CPU mask differs from explicit allocation')
+            native = site['cpu_execution'].get('native_affinity_guard')
+            if native is not None and (proof.get('native_affinity_guard') != native
+                                       or proof.get('native_affinity_guard_loaded') is not True):
+                raise ValueError('actual rank native NUMA compatibility identity differs')
     return ordered
 
 
@@ -156,6 +160,10 @@ def validate_resource_policy(value):
                     'AMD_CPU_AFFINITY', 'HSA_OVERRIDE_CPU_AFFINITY_DEBUG', 'NCCL_IGNORE_CPU_AFFINITY'}
                 or any(item not in ('0', '1') for item in value['native_affinity_environment'].values())):
             raise ValueError('invalid configured validation/training resource policy')
+        if 'native_affinity_guard_source' in value:
+            relative = Path(value['native_affinity_guard_source'])
+            if relative.is_absolute() or '..' in relative.parts or relative.suffix != '.c':
+                raise ValueError('native affinity compatibility source must be repository relative')
     except (KeyError, TypeError, ZeroDivisionError) as error:
         raise ValueError('incomplete resource policy') from error
     return value
@@ -221,6 +229,11 @@ def validate_cpu_execution(value, *, world):
         receipt = value['allocation_receipt']
         if not re.fullmatch(r'[0-9a-f]{64}', receipt['sha256']):
             raise ValueError('explicit allocation receipt SHA required')
+        if 'native_affinity_guard_source' in settings:
+            native = value['native_affinity_guard']
+            for reference in (native, native['source'], native['build_receipt']):
+                if not Path(reference['path']).is_absolute() or not re.fullmatch('[0-9a-f]{64}', reference['sha256']):
+                    raise ValueError('native affinity source/artifact/build receipt pin required')
     except (KeyError, TypeError, AttributeError) as error:
         raise ValueError('incomplete explicit GPU CPU allocation') from error
     return value
@@ -263,6 +276,7 @@ def validate_gpu_allocation(site, receipt, live, *, initial=False, now=None):
                 or receipt['execution'] != expected or receipt['total_fraction_cap'] != policy['total_fraction_cap']
                 or receipt['resource_policy'] != policy['resource_policy']
                 or receipt['validation_mask'] != policy['validation_mask']
+                or receipt.get('native_affinity_guard') != policy.get('native_affinity_guard')
                 or receipt['owner_id'] != policy['owner_id'] or receipt['owner_mask'] != policy['owner_mask']
                 or type(receipt['created_at']) not in (int, float) or not math.isfinite(receipt['created_at'])
                 or type(receipt['valid_until']) not in (int, float) or not math.isfinite(receipt['valid_until'])
@@ -320,7 +334,43 @@ def verify_gpu_cpu(site, *, initial=False):
         raise ValueError('validation-pool allocation content differs')
     verify_validation_pool(json.loads(validation_path.read_text()), site['pod']['uid'],
                            policy['validation_mask'], policy['owner_mask'])
+    native = policy.get('native_affinity_guard')
+    if native is not None:
+        for reference in (native, native['source'], native['build_receipt']):
+            target = evidence_path(reference['path'], site['work_root'])
+            if sha256(target) != reference['sha256']:
+                raise ValueError('native affinity compatibility source/artifact/receipt changed')
+        built = json.loads(Path(native['build_receipt']['path']).read_text())
+        if (built.get('passed') is not True or built.get('scope') != 'compute_pod_native_affinity_guard'
+                or built.get('artifact') != {'path': native['path'], 'sha256': native['sha256']}
+                or built.get('source', {}).get('sha256') != native['source']['sha256']
+                or not built.get('checks') or any(item.get('passed') is not True for item in built['checks'])):
+            raise ValueError('native affinity compatibility lacks the actual CPU build proof')
     return policy, live
+
+
+def native_guard_loaded(policy):
+    native = policy.get('native_affinity_guard')
+    if native is None:
+        return True
+    path = str(Path(native['path']).resolve(strict=True))
+    return (os.environ.get('LD_PRELOAD') == path
+            and any(line.split()[-1] == path for line in Path('/proc/self/maps').read_text().splitlines()))
+
+
+def prepare_native_entry(site):
+    """Load the pinned local NUMA compatibility library before any GPU imports."""
+    policy, _ = verify_gpu_cpu(site, initial=True)
+    native = policy.get('native_affinity_guard')
+    if native is None or native_guard_loaded(policy):
+        return
+    if os.environ.get('LD_PRELOAD'):
+        raise ValueError('an unknown preload must not enter the GPU execution')
+    environment = os.environ.copy()
+    environment.update(policy['resource_policy']['value']['native_affinity_environment'])
+    environment['LD_PRELOAD'] = str(Path(native['path']).resolve(strict=True))
+    environment['NCCCU_NATIVE_CPU_MASK'] = ','.join(map(str, policy['owner_mask']))
+    os.execve(sys.executable, [sys.executable, '-B', '-u', *sys.argv], environment)
 
 
 def bind_cpu_role(site, role, *, rank=None, initial=False):
@@ -335,6 +385,9 @@ def bind_cpu_role(site, role, *, rank=None, initial=False):
         raise ValueError('unknown explicit CPU role')
     if not initial and live['affinity'] not in (policy['owner_mask'], policy['control_mask'], mask):
         raise ValueError('inherited CPU mask is outside the admitted owner/control/rank envelope')
+    if not native_guard_loaded(policy):
+        raise ValueError('the pinned NUMA compatibility library must be loaded at GPU process startup')
+    os.environ['NCCCU_NATIVE_CPU_MASK'] = ','.join(map(str, mask))
     os.sched_setaffinity(0, set(mask))
     if sorted(os.sched_getaffinity(0)) != mask:
         raise ValueError('failed to apply the explicit CPU role mask')

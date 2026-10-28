@@ -32,13 +32,14 @@ def main():
     parser.add_argument('--observed-at', type=float, required=True)
     args = parser.parse_args()
     sys.path.insert(0, str(R / 'bundle'))
-    from retrain.site_binding import load_site, verify_live, bind_cpu_role
+    from retrain.site_binding import load_site, verify_live, bind_cpu_role, prepare_native_entry
     site = load_site(args.site_binding, expected_sha256=args.site_binding_sha256)
     verify_live(site, pod_uid=args.pod_uid, ready=args.ready == 'True', observed_at=args.observed_at)
     if args.site_binding.resolve() != R / 'SITE_BINDING.json' or Path(site['round_root']).resolve() != R:
         raise ValueError('launcher is outside the admitted formal round')
     if site.get('scope') != 'formal_exp_v3':
         raise ValueError('launcher requires a formal deployment scope')
+    prepare_native_entry(site)
     bind_cpu_role(site, 'owner', initial=True)
     os.environ.update(NCCCU_SITE_BINDING=str(args.site_binding), NCCCU_SITE_BINDING_SHA256=args.site_binding_sha256)
     from run_round import verify_bound
