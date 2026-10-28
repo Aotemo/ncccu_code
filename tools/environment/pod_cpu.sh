@@ -40,7 +40,8 @@ ssh_options=(-T -o BatchMode=yes -o ConnectTimeout=15 -o ConnectionAttempts=1)
 [[ -z ${NCCCU_SSH_PORT:-} ]] || ssh_options+=(-p "$NCCCU_SSH_PORT")
 remote_command='bash -s --'
 for argument in "$operation" "${NCCCU_CONTAINER:-}" "${NCCCU_CPU_GUARD:-}" \
-  "${NCCCU_CPU_ALLOCATION:-}" "${NCCCU_EXECUTOR_ID:-}" "${NCCCU_CPU_ALLOCATION_SHA256:-}" "$@"; do
+  "${NCCCU_CPU_ALLOCATION:-}" "${NCCCU_EXECUTOR_ID:-}" "${NCCCU_CPU_ALLOCATION_SHA256:-}" \
+  "${NCCCU_RESOURCE_POLICY:-}" "${NCCCU_RESOURCE_POLICY_SHA256:-}" "$@"; do
   printf -v quoted '%q' "$argument"
   remote_command+=" $quoted"
 done
@@ -53,7 +54,9 @@ cpu_guard=$3
 cpu_allocation=$4
 executor=$5
 cpu_allocation_sha=$6
-shift 6
+resource_policy=$7
+resource_policy_sha=$8
+shift 8
 
 if [[ "$operation" == discover ]]; then
   namespace_args=()
@@ -109,6 +112,8 @@ cpu_env=(env CUDA_VISIBLE_DEVICES= HIP_VISIBLE_DEVICES= ROCR_VISIBLE_DEVICES=
   OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
   NCCCU_POD_NAMESPACE="$namespace" NCCCU_POD_NAME="$pod" NCCCU_POD_UID="$expected_uid"
   NCCCU_CONTAINER="$container" NCCCU_PYTHON="$python")
+[[ -z "$resource_policy" ]] || cpu_env+=(NCCCU_RESOURCE_POLICY="$resource_policy"
+  NCCCU_RESOURCE_POLICY_SHA256="$resource_policy_sha")
 
 if [[ "$operation" == budget ]]; then
   # This standard-library-only bootstrap measures the allocation before any model import.

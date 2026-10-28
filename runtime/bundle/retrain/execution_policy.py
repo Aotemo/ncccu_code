@@ -1,5 +1,6 @@
 """Configured single-model topology, independent from the immutable R9 policy."""
 import copy
+from fractions import Fraction
 import os
 from pathlib import Path
 
@@ -43,8 +44,8 @@ def allocate_cpus(world, available=None, quota_cores=None):
         raise ValueError('CPU allocation world differs from the explicit site')
     if available is not None and not set(policy['owner_mask']) <= set(available):
         raise ValueError('explicit CPU allocation exceeds the supplied available CPU set')
-    if quota_cores is not None and len(policy['owner_mask']) > int(quota_cores // 5):
-        raise ValueError('explicit CPU allocation exceeds the supplied 20% quota')
+    if quota_cores is not None and len(policy['owner_mask']) > int(Fraction(str(quota_cores)) * Fraction(policy['total_fraction_cap'])):
+        raise ValueError('explicit CPU allocation exceeds the configured training quota')
     return len(policy['rank_masks'][0]), copy.deepcopy(policy['rank_masks'])
 
 
@@ -145,6 +146,13 @@ def rank_proof(ctx, spec):
         raise ValueError('actual worker CPU affinity differs from its configured disjoint mask')
     if torch.get_num_threads() != 1 or torch.get_num_interop_threads() != 1:
         raise ValueError('rank torch threads differ from the explicit one-thread contract')
+    native_affinity = {key: os.environ.get(key) for key in
+        ('AMD_CPU_AFFINITY', 'HSA_OVERRIDE_CPU_AFFINITY_DEBUG', 'NCCL_IGNORE_CPU_AFFINITY')}
+    if ctx.device.type == 'cuda':
+        from .site_binding import load_site
+        expected_native = load_site()['cpu_execution']['resource_policy']['value']['native_affinity_environment']
+        if native_affinity != expected_native:
+            raise ValueError('GPU native helper affinity inheritance policy differs from configuration')
     physical = None
     total = None
     if ctx.device.type == 'cuda':
@@ -170,4 +178,5 @@ def rank_proof(ctx, spec):
             'physical_pci': physical, 'total_memory_bytes': total, 'requested_cpu_ids': requested,
             'actual_cpu_ids': actual, 'intraop_threads': torch.get_num_threads(),
             'interop_threads': torch.get_num_interop_threads(),
+            'native_affinity_environment': native_affinity,
             'at': time.time(), 'CPU_only_software_proof': ctx.device.type != 'cuda'}

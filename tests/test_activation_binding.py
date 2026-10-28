@@ -38,11 +38,15 @@ class ActivationBindingTest(unittest.TestCase):
         for key in ('metadata_root', 'data_root', 'train_identity', 'prepared_cache',
                     'official_manifest', 'public_weight', 'public_provenance'):
             self.site[key] = str(self.root / 'assets' / key)
-        self.site['cpu_execution'] = {'owner_id': 'fixture-owner', 'effective_cpus': 120, 'total_fraction_cap': '1/5',
-            'owner_mask': list(range(24)), 'control_mask': list(range(16, 24)),
-            'rank_masks': [[2 * rank, 2 * rank + 1] for rank in range(8)], 'rank_threads': 1,
+        self.site['cpu_execution'] = {'owner_id': 'fixture-owner', 'effective_cpus': 120, 'total_fraction_cap': '4/5',
+            'owner_mask': list(range(24, 120)), 'control_mask': list(range(112, 120)), 'validation_mask': list(range(24)),
+            'rank_masks': [list(range(24 + 11 * rank, 35 + 11 * rank)) for rank in range(8)], 'rank_threads': 1,
             'interop_threads': 1, 'loader_workers': 1,
             'allocation_receipt': {'path': str(self.root / 'fixture-allocation.json'), 'sha256': '0' * 64}}
+        policy_path = self.root / 'RESOURCE-POLICY.json'
+        policy_path.write_bytes((ROOT / 'configs/RESOURCE-POLICY.json').read_bytes())
+        self.site['cpu_execution']['resource_policy'] = {'path': str(policy_path),
+            'sha256': activation.sha(policy_path), 'value': json.loads(policy_path.read_text())}
         (self.package / 'bundle/fixture.py').write_text('# independent source fixture; never executed\n')
         for name in ('activate.py', 'activate_audit.py', 'site_preflight.py'):
             (self.prep / name).write_text('# independent activation source fixture; never executed\n')

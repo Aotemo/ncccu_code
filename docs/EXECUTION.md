@@ -16,7 +16,7 @@ CPU新额度覆盖旧2线程/重CPU串行限制，既有2线程回执仍保留�
 
 通道在Pod内验预算后设置进程affinity，导出 `NCCCU_CPU_THREADS`、`NCCCU_CPU_MASK`（固定为JSON整数数组）及等份额的OMP/MKL/OPENBLAS线程限制，子进程继承mask。执行工具只消费自己的份额，torch intraop按份额、interop=1，不另行占用一份总20%或无预算增开workers。采用现有通道、互斥affinity及线程限制即可，不建设额外调度服务或守护进程。CPU额度变更不改变batch、采样、LR、EMA或其他训练科学参数。
 
-CPU份额可在现有任务自然退场、实际lease释放后，为后续未启动CPU或GPU阶段重新实核并显式分配；不热改活跃任务或侵占其他份额。B迁移已完成、任务树真实退出并释放份额，规划已确认A可为尚未执行GPU阶段按实时资源另建owner总20%绑定；若仍有效120核则最多24核，但未生成实核新绑定前不声称已启用。旧12/12 allocation和回执保留。文本子Agent不占另一份Pod额度，验证由父级执行；若以后让子Agent进入Pod，必须先在父子合计20%内划明确mask。
+CPU准备与模型训练使用两个互斥池，20%准备任务可以持续运行，不要求全体prep/peer退场后才启动80%训练或GPU准入。新阶段核实时有效CPU、池mask不重叠和总量；不热改已有任务绑定或侵占其mask，旧12/12 allocation、20af/attempt1及回执保留。文本子Agent不占另一份Pod额度，验证由父级在准备池执行。
 
 以下变量均应填入实时工具输出；例子不含任何机器默认值：
 
@@ -37,7 +37,9 @@ bash tools/environment/pod_cpu.sh run "$SSH_TARGET" "$NAMESPACE" "$POD" "$POD_UI
 
 CPU执行者无GPU派发权，技术验收状态不能成为正式训练初始化；正式训练使用新fresh绑定。任何旧运行的clock/token/冻结副本都不能因迁移、验收或观测失败而重置、改写或重启。观测不完整记unknown，不据此认定设备空闲。
 
-GPU阶段的CPU使用仍受执行者合计20%上限约束，不能只在technical-prep限额而让`allocate_cpus`重新占全部affinity/quota。B真实退场后，可为尚未执行的GPU阶段生成新owner CPU绑定，将当时总额度分给唯一A；已有12/12分配不热改。owner、rank、loader和控制进程的CPU集合均受新A份额约束，子进程继承，rank内线程和workers不额外越额。实际mask、rank分片、剩余控制核与性能预算写入新阶段回执；模型batch、采样/增强身份、成功更新和LR/EMA不因CPU份额改变。正式GPU使用独立显式GPU入口，不继承CPU准备的隐藏设备环境。
+用户最新澄清覆盖此前将20%扩大到GPU全树的误读：模型训练及代表其实际资源的GPU准入使用`floor(4 * effective_cpu / 5)`，包括owner、rank、loader、control及helper；有效CPU仍取实时affinity/cpuset/cgroup quota，实际120核时上限96核。CPU准备通道保留`floor(effective_cpu / 5)`。两类任务并发时分配互斥mask，合计不超有效CPU；未启动新阶段另建显式绑定，旧allocation、20af冻结包和attempt1/失败原件不改。实际mask、rank分片、控制/helper及线程/worker设置写入现有阶段回执，不新增平台或门禁。G64/P8、采样/增强身份、6400成功更新、LR/EMA和官方隔离不变；GPU入口不继承CPU准备的隐藏设备环境。
+
+上述比例是当前用户策略值，不是消费方代码常量。用最小集中版本化资源policy作为唯一策略来源，经运行env注入各入口；实际核数和两个池的mask由实时环境计算并绑定。训练80%与下一轮计划/CPU验证20%同时运行，核互斥/总量即可，不把peer退出回执作为通用启动前提。最小修复、必要窄验、新Git同步/冻结及有界准入通过后直接fresh R93，不增加过程性RED、全套测试、文档门或例行批准等待。
 
 ## 历史源码与可迁移入口
 

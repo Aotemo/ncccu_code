@@ -25,11 +25,15 @@ A1上述14文件交付冻结且父A集成29项已通过后，仅增加两个文�
 
 A/B 使用独立 exp-v3 technical-prep。用户最新要求“重新分配 cpu 使用额度，执行 agent 可使用总 cpu 数的 20%”：两位执行合计≤实时有效CPU的20%，初始平分、允许并行，规划可重分配但总和不越限。旧2线程/重CPU串行限制已被覆盖，历史回执保留原值。有效CPU取当前Pod affinity/cpuset/cgroup quota可用上限，总预算向下取整；本次新Pod已实核并确认12/12份额，数值仅适用于下述精确绑定和TTL，不能成为环境默认。具体通道合同见[EXECUTION](../../docs/EXECUTION.md)。
 
+用户随后明确纠正：20%只用于执行Agent准备/编码计算，模型训练使用整体设备CPU80%；代表实际训练资源的GPU准入整树同用80%，包含owner/rank/loader/control/helper。该最新语义覆盖此前协调/规划将20%扩大到GPU的误读。未启动阶段另建绑定，准备与训练并发时mask互斥、总和不超实时有效CPU；历史20af、attempt1、旧allocation及失败回执保留原样，不把旧限制成功当新目标。
+
+最终进一步澄清：训练80%与下一轮计划/CPU验证20%同时运行，比例从集中版本化资源policy读取并经运行env注入，代码不散写比例；核数/总额/mask全部取实时环境。只核两个池互斥、总量不超有效CPU，允许prep活动持续，不再要求全体prep/peer退场。A合最小资源policy、ENV及TERM修复一次窄验/同步/新冻结/准入后直接fresh R93；规划在训练开始后统筹20%池的下一轮计划/CPU验证，沿既有执行文件边界进行，GPU仍仅A串行。
+
 已核原blob SHA引用真实回执，身份未变时避免重复哈希。B先验公开完整模型与来源，A固定生产工厂源码SHA后再做必要集成验收；不能把旧工厂拒绝当作新工厂通过。跨Pod的未执行阶段须新建明确资产续验绑定，pin旧source-chain SHA并核当前路径/身份（包括已记录mtime/ctime），保留来源历史和当前执行身份，不能直接松掉UID约束或重写旧回执。
 
-当前为 **最终具体差异冻结与同步准备阶段**。A生产18/18、启动绑定29/29、准入合同CPU11/11及部署commit→tree关联3/3均通过；全量diff v2已固定，规划科学/采样/一次性控制/cache接口文本审阅未发现新阻碍，详见[审阅记录](REVIEW.md)。B来源strict和完整迁移均已通过，两split索引、final RELOCATION及最终任务树退场回执已交，B/B1源码冻结、不再使用12核份额。规划已确认A可为尚未执行GPU阶段重新核实时资源后另建owner总20%绑定，不热改旧allocation-2；新绑定未实产前不称A24已启用。最终B记录与文档纳入v3后由A统一Git写。远端同步、实际SHA冻结、GPU准入及正式R93尚未发生。
+当前为 **首次GPU准入失败后的根因核实与最小修复阶段**。A生产18/18、启动绑定29/29、准入合同CPU11/11、部署关联3/3以及B来源/完整迁移已通过。实现已同步GitHub `20af511b0177c0f1576c8c630baaf1865d8001f9`，tree=`85fc6860bec2b5827a990e864ca444e0472550b4`、唯一parent=`cb939c8e5078a9c74a26158a78c4aa033009042a`，ref/commit/tree独立回读相符；Pod实际部署回执已生成。A已另建GPU owner CPU绑定，B/B1退场，旧12/12回执不改。首次0forward/0update技术准入实际执行49.281秒后失败，CPU helper越界和owner退出收集缺陷尚待修复；R93未启动。细节见[首次准入记录](GPU-ADMISSION-1.md)。
 
-关键路径只保留最终v3具体集合、Git同步/冻结及GPU准入。已通过的来源/生产/启动/准入合同和迁移检查不重跑整套，归档润色与历史清理后置。A此前最早3–4小时、保守6–8小时开训是早期估计，不继续当当前实测ETA；bulk和索引中途估时也不是开训承诺。数组bytes不改、不重做图像预处理。
+关键路径为新80%训练资源语义、必要helper适配及owner有界回收的最小修复，一次具体diff/必要Pod CPU窄验/新Git同步及实际SHA冻结后，进入独立准入和fresh R93。A父级负责`runtime/bundle/retrain/site_binding.py`、`tools/activation/prepare_gpu_site.py`、`tests/test_runtime_cpu_binding.py`、`tests/test_gpu_site_inputs.py`及直接训练fraction断言；A1仍只改`tools/validation/gpu_admission.py`和`tests/test_gpu_admission_contract.py`退出收集，互不共写。已通过且未受影响的来源/迁移/生产检查不重跑整套；不新增门、平台、benchmark或归档润色，不改科学合同。
 
 已报告的局部CPU进展：A 的 `site_binding` 5项标准库检查通过、exit0，回执为 `exp-v3/technical-prep/adaptation-cpu-20261028/green-site-1/RECEIPT.json`，Pod SHA `58783f90648cc214f5322ed22391726fe3a57fc15bb85858bbd73aee529ae031`。4/8rank全局样本及增强种子重组边界检查已有通过回报；首次旧拓扑API检查失败是改动前证据，不能充当适配后通过。这些检查在旧Pod、旧2线程约束下完成，现均已退出；不能替代新预算通道和新环境检查。其余适配/生产工厂检查仍待集成回执。
 
@@ -195,9 +199,9 @@ bulk后续只读进度（未起新任务/benchmark）：`2026-10-28T11:25:36Z`�
 
 ## 后续阶段CPU预算
 
-CPU总20%上限同样约束GPU准入/正式训练的owner、rank、loader和控制进程，旧`allocate_cpus`不得恢复全量affinity/quota。当前A集成与B迁移并行，allocation-2的12/12不变，A24未启用。可在有关任务自然退场及lease释放后，为尚未启动CPU或GPU阶段按实时资源建立新显式分配；若B该阶段无计算且有效CPU仍120，A可最多24核，不自动接管B份额或热改活跃分配。子Agent目前只文本，父级统一计算验收，不额外计算20%。
+CPU准备A+B及其子Agent计算合计≤`floor(effective_cpu / 5)`；模型训练及代表训练资源的GPU准入整树≤`floor(4 * effective_cpu / 5)`。若实时有效CPU仍120，则准备总24、训练总96。B已退场，旧allocation-2与首轮GPU绑定保留；未启动阶段按最新语义另建绑定，不热改活跃任务。准备若并发，其mask须与训练互斥且合计不超设备有效CPU；子Agent现仍仅文本，不另占Pod预算。
 
-8rank每rank2CPU、worker0..1、torch intra/inter1及剩余控制核可作为实际24核成立时的资源方案，必须由新绑定的实际CPU mask与准入回执核实；整个进程树不能逃出A份额。不为此建设通用调度。GPU设备可见性按正式独立入口处理，不继承technical-prep隐藏GPU环境。G64/P8、全局样本/增强身份、800×8成功更新、LR/EMA等不变；性能/时限按真实资源重新评估，不以旧全量CPU表现担保新阶段速度。
+A提出在实时120核成立时为训练owner分配96：8rank各11核共88、control8，loader1、torch intra/inter1，helper亦受整树80%约束；这只是待实核的新阶段资源方案，不能把helper全128视作合规。不建设通用调度。GPU设备可见性按独立入口处理，不继承technical-prep隐藏GPU环境。G64/P8、全局样本/增强身份、800×8成功更新、LR/EMA及官方隔离不变；不以旧20%性能或全量CPU表现担保新阶段速度。
 
 ## 科学合同与 R93 候选
 

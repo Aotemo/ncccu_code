@@ -1,0 +1,121 @@
+{
+  "scope": "installed_library_read_only_strings",
+  "at": 1793191872.344683,
+  "pid": 1460,
+  "actual_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "device_calls": 0,
+  "torch_imported": false,
+  "environment": {
+    "AMD_CPU_AFFINITY": null,
+    "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": null,
+    "NCCL_IGNORE_CPU_AFFINITY": null,
+    "OMP_PROC_BIND": null,
+    "GOMP_CPU_AFFINITY": null,
+    "KMP_AFFINITY": null
+  },
+  "libraries": [
+    {
+      "path": "/opt/dtk/lib/libamdhip64.so",
+      "resolved": "/opt/dtk/hip/lib/libgalaxyhip.so.5.2.26113.2065-6699a1f0",
+      "bytes": 12349016,
+      "command": [
+        "strings",
+        "-a",
+        "/opt/dtk/lib/libamdhip64.so"
+      ],
+      "exit_code": 0,
+      "affinity_strings": [
+        "hipCtxGetExecAffinity",
+        "pthread_getaffinity_np",
+        "numa_sched_setaffinity",
+        "pthread_attr_setaffinity_np",
+        "pthread_setaffinity_np",
+        "hipCtxGetExecAffinity(",
+        "pExecAffinity=NULL",
+        "pExecAffinity=",
+        "hipExecAffinityParam_st::union ::param.smCount",
+        "hipExecAffinityParam_v1::type",
+        "hipExecAffinitySmCount_v1::val",
+        "hipCtxGetExecAffinity",
+        "pthread_setaffinity_np",
+        "thread=0x%x Resetting CPU core affinities",
+        "thread=0x%x Setting Affinity to the main thread's affinity",
+        "AMD_CPU_AFFINITY"
+      ],
+      "nm_exit_code": 0,
+      "nm_stderr": "nm: /opt/dtk/lib/libamdhip64.so: no symbols\n",
+      "symbols": []
+    },
+    {
+      "path": "/opt/dtk/lib/libhsa-runtime64.so",
+      "resolved": "/opt/hyhal/lib/libhsa-runtime64.so.1.11.0",
+      "bytes": 39694432,
+      "command": [
+        "strings",
+        "-a",
+        "/opt/dtk/lib/libhsa-runtime64.so"
+      ],
+      "exit_code": 0,
+      "affinity_strings": [
+        "pthread_attr_setaffinity_np",
+        "pthread_attr_setaffinity_np failed: %s",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG",
+        "override_cpu_affinity_",
+        "_ZNK4rocr4Flag21override_cpu_affinityEv",
+        "pthread_attr_setaffinity_np",
+        "override_cpu_affinity",
+        "pthread_attr_setaffinity_np@@GLIBC_2.3.4"
+      ],
+      "nm_exit_code": 0,
+      "nm_stderr": "",
+      "symbols": []
+    },
+    {
+      "path": "/opt/dtk/lib/librccl.so",
+      "resolved": "/opt/dtk/lib/librccl.so.1.0",
+      "bytes": 173811944,
+      "command": [
+        "strings",
+        "-a",
+        "/opt/dtk/lib/librccl.so"
+      ],
+      "exit_code": 0,
+      "affinity_strings": [
+        "sched_setaffinity",
+        "sched_getaffinity",
+        "affinity",
+        "Set CPU affinity : unable to find GPU/CPU for rank %d",
+        "ncclTopoGetCpuAffinity",
+        "Setting affinity for GPU %d to %s",
+        "NCCL_IGNORE_CPU_AFFINITY",
+        "Call to sched_getaffinity failed : %s",
+        "Call to sched_getaffinity returned %s, retrying",
+        "_ZZ26ncclParamIgnoreCpuAffinityvE5cache",
+        "sched_setaffinity",
+        "_Z22ncclTopoGetCpuAffinityP14ncclTopoSystemiP9cpu_set_t",
+        "sched_getaffinity",
+        "_Z26ncclParamIgnoreCpuAffinityv"
+      ],
+      "nm_exit_code": 0,
+      "nm_stderr": "",
+      "symbols": [
+        "000000000a4c7e40 t ncclTopoGetCpuAffinity(ncclTopoSystem*, int, cpu_set_t*)",
+        "000000000a4c7e00 t ncclParamIgnoreCpuAffinity()",
+        "000000000a59ea28 d ncclParamIgnoreCpuAffinity()::cache"
+      ]
+    }
+  ]
+}

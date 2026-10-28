@@ -4,8 +4,10 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+import signal
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -17,6 +19,30 @@ def load_tool():
     spec = importlib.util.spec_from_file_location('zero_work_admission_under_test', SCRIPT)
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
     return module
+
+
+class FakeOwnedChild:
+    def __init__(self, pid, *, code=None, wait_error=None):
+        self.pid = pid
+        self.code = code
+        self.wait_error = wait_error
+        self.wait_calls = []
+
+    def poll(self):
+        return self.code
+
+    def wait(self, timeout=None):
+        self.wait_calls.append(timeout)
+        if self.wait_error:
+            raise self.wait_error
+        if self.code is None:
+            raise subprocess_timeout(self.pid, timeout)
+        return self.code
+
+
+def subprocess_timeout(pid, timeout):
+    import subprocess
+    return subprocess.TimeoutExpired(['fixture-child', str(pid)], timeout)
 
 
 class GpuAdmissionContractTest(unittest.TestCase):
@@ -150,11 +176,132 @@ class GpuAdmissionContractTest(unittest.TestCase):
                 'argv': ['fixture-never-executed'], 'state': 'S'}}),
             (0, exits, identities, {**observations, 10: {'pid': 10, 'start_ticks': '100',
                 'argv': ['unexpected-exec-still-the-same-process'], 'state': 'S'}}),
+            (0, exits, identities, {**observations, 10: {'pid': 10, 'start_ticks': '100',
+                'argv': [], 'state': 'Z'}}),
             (0, exits, identities + [{'pid': 99, 'start_ticks': '100', 'argv': ['auditor']}], observations),
         ]
         for owner_exit, rank_exits, claimed, actual in cases:
             with self.subTest(owner_exit=owner_exit, rank_exits=rank_exits), self.assertRaises(ValueError):
                 self.api.verify_exits(owner_exit, rank_exits, claimed, actual, auditor_pid=99)
+
+    def test_owner_term_only_sets_flag_then_reaps_every_owned_rank(self):
+        output = self.root / 'owner-term-fixture'; output.mkdir()
+        handlers = {}; children = []; events = []; now = [100.]
+        def register(signum, handler):
+            old = handlers.get(signum, signal.SIG_DFL); handlers[signum] = handler
+            return old
+        def launch(_argv, name, _output, _sha, *, role, rank):
+            process = FakeOwnedChild(1000 + rank)
+            child = {'name': name, 'process': process, 'identity': {'pid': process.pid,
+                'start_ticks': '100', 'argv': ['fixture-child', str(rank)]}}
+            children.append(child)
+            if rank == 7:
+                handlers[signal.SIGTERM](signal.SIGTERM, None)
+                events.append(('handler-returned', all(item['process'].code is None for item in children)))
+            return child
+        def notify(expected, signum):
+            events.append(('signal', expected['pid'], signum))
+            next(item['process'] for item in children if item['identity']['pid'] == expected['pid']).code = -signum
+            return {'pid': expected['pid'], 'signal': signum, 'sent': True}
+        spec = {'output': str(output), 'deadline_at': 340., 'hard_deadline_at': 400.}
+        context = {'api': SimpleNamespace(bind_cpu_role=lambda *_a: None), 'site': {}}
+        with patch.object(self.api.signal, 'signal', side_effect=register), \
+             patch.object(self.api, 'launch_child', side_effect=launch), \
+             patch.object(self.api, 'signal_exact', side_effect=notify), \
+             patch.object(self.api, 'audit_owned_tree', return_value={'live_pids': []}), \
+             patch.object(self.api, 'identity', return_value={'pid': 900, 'start_ticks': '50', 'argv': ['fixture-owner']}), \
+             patch.object(self.api.time, 'time', side_effect=lambda: now[0]), \
+             patch.object(self.api.time, 'sleep', side_effect=lambda seconds: now.__setitem__(0, now[0] + seconds)):
+            code = self.api.run_owner(SimpleNamespace(spec='unused.json', spec_sha256='0' * 64), spec, context)
+        result = json.loads((output / 'OWNER-RESULT.json').read_text())
+        self.assertEqual(events[0], ('handler-returned', True))
+        self.assertEqual(code, 1)
+        self.assertEqual(result['reason'], 'signal_15')
+        self.assertEqual(result['exit_codes'], {'rank-' + str(rank): -15 for rank in range(8)})
+        self.assertTrue(all(result['reaped'].values()))
+        self.assertTrue(all(child['process'].wait_calls for child in children))
+        self.assertEqual(result['live_owned_children'], [])
+        self.assertNotEqual(result['status'], 'completed')
+        self.assertFalse((output / 'GPU-ADMISSION.json').exists())
+
+    def test_cpu_guard_reason_and_nonzero_exit_codes_survive_drain(self):
+        children = [{'name': 'rank-' + str(rank), 'process': FakeOwnedChild(2000 + rank),
+            'identity': {'pid': 2000 + rank, 'start_ticks': '100', 'argv': ['fixture-rank', str(rank)]}}
+            for rank in range(2)]
+        now = [100.]
+        def notify(expected, signum):
+            child = next(item for item in children if item['identity']['pid'] == expected['pid'])
+            child['process'].code = 1 if child['name'] == 'rank-0' else -signum
+            return {'pid': expected['pid'], 'signal': signum, 'sent': True}
+        with patch.object(self.api, 'audit_owned_tree', side_effect=ValueError('fixture affinity escape')), \
+             patch.object(self.api, 'signal_exact', side_effect=notify), \
+             patch.object(self.api.time, 'time', side_effect=lambda: now[0]), \
+             patch.object(self.api.time, 'sleep', side_effect=lambda seconds: now.__setitem__(0, now[0] + seconds)):
+            result = self.api.wait_children(children, 340., {'site': {}})
+        self.assertIn('CPU_tree_unknown:', result['reason'])
+        self.assertIn('fixture affinity escape', result['reason'])
+        self.assertEqual(result['exit_codes'], {'rank-0': 1, 'rank-1': -15})
+        self.assertEqual(result['reaped'], {'rank-0': True, 'rank-1': True})
+        self.assertEqual(result['status'], 'failed')
+
+    def test_failed_owner_launch_still_waits_for_its_registered_children(self):
+        output = self.root / 'owner-launch-failure'; output.mkdir()
+        children = []; now = [100.]
+        def launch(_argv, name, _output, _sha, *, role, rank):
+            if rank == 3:
+                raise RuntimeError('fixture launch failed')
+            child = {'name': name, 'process': FakeOwnedChild(3000 + rank),
+                'identity': {'pid': 3000 + rank, 'start_ticks': '100', 'argv': ['fixture-rank', str(rank)]}}
+            children.append(child)
+            return child
+        def notify(expected, signum):
+            next(item['process'] for item in children if item['identity']['pid'] == expected['pid']).code = -signum
+            return {'pid': expected['pid'], 'signal': signum, 'sent': True}
+        with patch.object(self.api.signal, 'signal', return_value=signal.SIG_DFL), \
+             patch.object(self.api, 'launch_child', side_effect=launch), \
+             patch.object(self.api, 'signal_exact', side_effect=notify), \
+             patch.object(self.api, 'audit_owned_tree', return_value={'live_pids': []}), \
+             patch.object(self.api, 'identity', return_value={'pid': 900, 'start_ticks': '50', 'argv': ['fixture-owner']}), \
+             patch.object(self.api.time, 'time', side_effect=lambda: now[0]), \
+             patch.object(self.api.time, 'sleep', side_effect=lambda seconds: now.__setitem__(0, now[0] + seconds)):
+            code = self.api.run_owner(SimpleNamespace(spec='unused.json', spec_sha256='0' * 64),
+                {'output': str(output), 'deadline_at': 340., 'hard_deadline_at': 400.},
+                {'api': SimpleNamespace(bind_cpu_role=lambda *_a: None), 'site': {}})
+        result = json.loads((output / 'OWNER-RESULT.json').read_text())
+        self.assertEqual(code, 1)
+        self.assertIn('fixture launch failed', result['reason'])
+        self.assertEqual(result['exit_codes'], {'rank-0': -15, 'rank-1': -15, 'rank-2': -15})
+        self.assertTrue(all(child['process'].wait_calls for child in children))
+        self.assertTrue(all(result['reaped'].values()))
+        self.assertNotEqual(result['status'], 'completed')
+
+    def test_unreaped_child_is_unknown_and_recycled_pid_is_never_signalled(self):
+        child = {'name': 'rank-0', 'process': FakeOwnedChild(4000, code=0, wait_error=ChildProcessError('not waitable')),
+            'identity': {'pid': 4000, 'start_ticks': '100', 'argv': ['fixture-rank']}}
+        with patch.object(self.api, 'audit_owned_tree', return_value={'live_pids': []}):
+            result = self.api.wait_children([child], 340., {'site': {}})
+        self.assertEqual(result['status'], 'resource_unknown')
+        self.assertFalse(result['reaped']['rank-0'])
+        self.assertIn('not waitable', result['reap_errors']['rank-0'])
+        with patch.object(self.api, 'identity', return_value={'pid': 4000, 'start_ticks': '101',
+                'argv': ['unrelated-process'], 'state': 'S'}), \
+             patch.object(self.api.os, 'kill', side_effect=AssertionError('an unrelated PID was signalled')):
+            notification = self.api.signal_exact(child['identity'], signal.SIGTERM)
+        self.assertFalse(notification['sent'])
+        now = [100.]
+        stuck = {'name': 'rank-0', 'process': FakeOwnedChild(5000),
+            'identity': {'pid': 5000, 'start_ticks': '100', 'argv': ['fixture-stuck-rank']}}
+        with patch.object(self.api, 'audit_owned_tree', return_value={'live_pids': []}), \
+             patch.object(self.api, 'signal_exact', side_effect=lambda expected, signum:
+                 {'pid': expected['pid'], 'signal': signum, 'sent': False}), \
+             patch.object(self.api.time, 'time', side_effect=lambda: now[0]), \
+             patch.object(self.api.time, 'sleep', side_effect=lambda seconds: now.__setitem__(0, now[0] + seconds)):
+            bounded = self.api.wait_children([stuck], 340., {'site': {}},
+                initial_reason='fixture_stop', until=110.)
+        self.assertEqual(bounded['status'], 'resource_unknown')
+        self.assertFalse(bounded['reaped']['rank-0'])
+        self.assertLessEqual(now[0], 110.1)
+        self.assertEqual([event['signal'] for event in bounded['signals']], [signal.SIGTERM, signal.SIGKILL])
 
 
 if __name__ == '__main__':

@@ -1,0 +1,98 @@
+{
+  "owner_reason": "CPU_tree_unknown:ValueError(\"GPU owner descendant escaped its allocated CPU envelope: [{'pid': 1234, 'tid': 1384, 'mask': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 5",
+  "owner_exit_codes": {
+    "owner": -15
+  },
+  "owner_signals": [
+    {
+      "pid": 1233,
+      "signal": 15,
+      "sent": true
+    }
+  ],
+  "rank_errors": {
+    "rank-0-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-1-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-2-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-3-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-4-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-5-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-6-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')",
+    "rank-7-FAILURE.json": "ValueError('a native rank thread escaped its assigned CPU mask')"
+  },
+  "current_process_states": {
+    "1233": null,
+    "1234": "Z",
+    "1235": "Z",
+    "1236": "Z",
+    "1237": "Z",
+    "1238": "Z",
+    "1239": "Z",
+    "1240": "Z",
+    "1241": "Z",
+    "1339": null
+  },
+  "current_device_users": [],
+  "cards": [
+    {
+      "pci": "0000:09:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:36:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:55:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:77:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:85:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:b5:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:d5:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "pci": "0000:f5:00.0",
+      "busy_percent": 0,
+      "vram_used_bytes": 2207744,
+      "vram_total_bytes": 68702699520
+    }
+  ],
+  "container_default_env": {
+    "NCCL_IGNORE_CPU_AFFINITY": null,
+    "NCCL_DEBUG": "INFO",
+    "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": null,
+    "OMP_PROC_BIND": null,
+    "GOMP_CPU_AFFINITY": null,
+    "KMP_AFFINITY": null,
+    "NCCL_TOPO_DUMP_FILE": null
+  },
+  "rank0_affinity_lines": [
+    "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0:1234:1356 [0] NCCL INFO Setting affinity for GPU 0 to 03"
+  ]
+}

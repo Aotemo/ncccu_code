@@ -1,4 +1,4 @@
-"""Allocate at most 20% of live Pod CPUs and audit each executor's inherited task tree."""
+"""Allocate the pinned validation CPU share and audit each executor's inherited task tree."""
 import argparse
 import datetime
 import fcntl
@@ -22,6 +22,55 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def validate_resource_policy(value):
+    try:
+        if type(value['schema_version']) is not int or value['schema_version'] != 1:
+            raise ValueError('resource policy schema differs')
+        fractions = value['cpu_fractions']
+        if (not isinstance(fractions, dict) or set(fractions) != {'validation', 'training'}
+                or any(not isinstance(item, str) for item in fractions.values())):
+            raise ValueError('explicit validation/training fraction strings required')
+        shares = [Fraction(fractions[key]) for key in ('validation', 'training')]
+        if any(share <= 0 for share in shares) or sum(shares) > 1:
+            raise ValueError('resource policy fractions must be positive with sum at most one')
+        native = value['native_affinity_environment']
+        if (not isinstance(native, dict)
+                or set(native) != {'AMD_CPU_AFFINITY', 'HSA_OVERRIDE_CPU_AFFINITY_DEBUG',
+                                   'NCCL_IGNORE_CPU_AFFINITY'}
+                or any(item not in ('0', '1') for item in native.values())
+                or any(type(value[key]) is not int or value[key] <= 0
+                       for key in ('rank_threads', 'interop_threads'))
+                or type(value['loader_workers']) is not int or value['loader_workers'] < 0):
+            raise ValueError('explicit native affinity and thread/worker policy required')
+    except (KeyError, TypeError, AttributeError, ZeroDivisionError) as error:
+        raise ValueError('incomplete or invalid resource policy') from error
+    return value
+
+
+def load_resource_policy(reference=None):
+    """Read env only for planning; task launches supply their allocation's exact pin."""
+    if reference is None:
+        path = os.environ.get('NCCCU_RESOURCE_POLICY')
+        expected = os.environ.get('NCCCU_RESOURCE_POLICY_SHA256')
+    else:
+        if not isinstance(reference, dict) or set(reference) != {'path', 'sha256', 'value'}:
+            raise ValueError('allocation requires the complete pinned resource policy')
+        path, expected = reference['path'], reference['sha256']
+    if (not isinstance(path, str) or not Path(path).is_absolute() or '..' in Path(path).parts
+            or Path(path).is_symlink() or not Path(path).is_file()
+            or not isinstance(expected, str) or len(expected) != 64
+            or any(character not in '0123456789abcdef' for character in expected)):
+        raise ValueError('explicit absolute resource policy file and SHA required')
+    path = Path(path).resolve(strict=True)
+    content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != expected:
+        raise ValueError('resource policy SHA differs')
+    value = validate_resource_policy(json.loads(content))
+    if reference is not None and value != reference['value']:
+        raise ValueError('resource policy content differs from the allocation pin')
+    return {'path': str(path), 'sha256': expected, 'value': value}
+
+
 def parse_cpuset(text):
     result = set()
     for part in text.strip().split(','):
@@ -39,7 +88,9 @@ def parse_cpuset(text):
     return sorted(result)
 
 
-def measure():
+def measure(resource_policy=None):
+    policy = load_resource_policy(resource_policy)
+    fraction = Fraction(policy['value']['cpu_fractions']['validation'])
     affinity = sorted(os.sched_getaffinity(0))
     cpuset = parse_cpuset(Path('/sys/fs/cgroup/cpuset.cpus.effective').read_text())
     available = sorted(set(affinity) & set(cpuset))
@@ -49,9 +100,32 @@ def measure():
     capacity = Fraction(len(available)) if quota == 'max' else min(Fraction(len(available)), Fraction(int(quota), int(period)))
     if capacity <= 0:
         raise ValueError('effective CPU capacity is not positive')
+    total = int(capacity * fraction)
     return {'affinity': affinity, 'cpuset': cpuset, 'available': available,
             'cpu_max': [quota, period], 'effective_cpu_fraction': str(capacity),
-            'effective_cpus': float(capacity), 'max_total_threads': int(capacity // 5)}
+            'effective_cpus': float(capacity), 'max_total_threads': total,
+            'validation_mask': available[:total], 'resource_policy': policy}
+
+
+def validation_pool(resources):
+    try:
+        policy = resources['resource_policy']
+        if not isinstance(policy, dict) or set(policy) != {'path', 'sha256', 'value'}:
+            raise ValueError('resources require an explicit pinned policy')
+        validate_resource_policy(policy['value'])
+        available = resources['available']
+        capacity = Fraction(resources['effective_cpu_fraction'])
+        total = int(capacity * Fraction(policy['value']['cpu_fractions']['validation']))
+        if (not isinstance(available, list) or not available
+                or any(type(cpu) is not int or cpu < 0 for cpu in available)
+                or available != sorted(set(available)) or not 0 < capacity <= len(available)
+                or type(resources['max_total_threads']) is not int
+                or resources['max_total_threads'] != total
+                or resources['validation_mask'] != available[:total]):
+            raise ValueError('validation pool differs from the measured policy/capacity')
+    except (KeyError, TypeError, AttributeError, ZeroDivisionError) as error:
+        raise ValueError('incomplete measured validation CPU pool') from error
+    return total, resources['validation_mask']
 
 
 def identity():
@@ -69,28 +143,33 @@ def build_allocation(resources, owners, pod_identity, *, now, valid_seconds):
         raise ValueError('two explicit, distinct existing executor IDs required')
     if type(valid_seconds) is not int or not 1 <= valid_seconds <= 21600:
         raise ValueError('explicit allocation validity must be within six hours')
-    total = resources['max_total_threads']
+    total, pool = validation_pool(resources)
     if total < len(owners):
-        raise ValueError('20% CPU cap cannot give each executor one CPU')
+        raise ValueError('configured validation CPU cap cannot give each executor one CPU')
     allocations, start = {}, 0
     for index, owner in enumerate(owners):
         width = total // len(owners) + int(index < total % len(owners))
-        mask = resources['available'][start:start + width]
+        mask = pool[start:start + width]
         allocations[owner] = {'threads': width, 'mask': mask}
         start += width
     return {'schema_version': 1, 'identity': pod_identity, 'resources': resources,
-            'total_fraction_cap': '1/5', 'max_total_threads': total, 'allocations': allocations,
+            'resource_policy': resources['resource_policy'],
+            'total_fraction_cap': str(Fraction(resources['resource_policy']['value']['cpu_fractions']['validation'])),
+            'max_total_threads': total, 'allocations': allocations,
             'created_at': now, 'valid_until': now + valid_seconds, 'signals_allowed': False,
             'tree_enforcement': 'disjoint inherited CPU affinity; one active task lease per executor'}
 
 
 def validate_allocation(value, resources, pod_identity, owner, *, now):
+    total, pool = validation_pool(resources)
+    expected_cap = str(Fraction(resources['resource_policy']['value']['cpu_fractions']['validation']))
     if (value.get('schema_version') != 1 or value.get('identity') != pod_identity
-            or value.get('total_fraction_cap') != '1/5'
+            or value.get('resource_policy') != resources['resource_policy']
+            or value.get('total_fraction_cap') != expected_cap
             or not value.get('created_at', float('inf')) <= now <= value.get('valid_until', -1)):
         raise ValueError('CPU allocation identity is missing, expired or belongs to another Pod')
     allocations = value.get('allocations', {})
-    if len(allocations) != 2 or owner not in allocations:
+    if not isinstance(allocations, dict) or len(allocations) != 2 or owner not in allocations:
         raise ValueError('explicit executor allocation is missing')
     masks = []
     for item in allocations.values():
@@ -99,10 +178,10 @@ def validate_allocation(value, resources, pod_identity, owner, *, now):
                 or len(set(mask)) != len(mask) or item.get('threads') != len(mask)):
             raise ValueError('CPU allocation mask or thread count differs')
         masks.extend(mask)
-    if (len(set(masks)) != len(masks) or not set(masks) <= set(resources['available'])
-            or len(masks) > resources['max_total_threads']
+    if (len(set(masks)) != len(masks) or not set(masks) <= set(pool)
+            or len(masks) > total
             or value.get('max_total_threads') != len(masks)):
-        raise ValueError('overlapping CPUs or total allocation exceeds the live 20% cap')
+        raise ValueError('overlapping CPUs or allocation escapes the live validation pool')
     return allocations[owner]
 
 
@@ -151,13 +230,19 @@ def run_task(args):
     value = json.loads(allocation_path.read_text())
     if value.get('guard_sha256') != sha(__file__):
         raise ValueError('CPU guard differs from the explicitly allocated version')
-    observed = measure(); pod_identity = identity()
+    if not isinstance(value.get('resource_policy'), dict):
+        raise ValueError('CPU allocation is missing the explicit resource policy pin')
+    policy = load_resource_policy(value['resource_policy'])
+    observed = measure(policy); pod_identity = identity()
     owner = args.owner
     granted = validate_allocation(value, observed, pod_identity, owner, now=time.time())
     mask = granted['mask']; threads = granted['threads']
     os.sched_setaffinity(0, set(mask))
     os.environ.update({key: str(threads) for key in THREAD_ENV})
+    os.environ.update(policy['value']['native_affinity_environment'])
     os.environ.update(NCCCU_CPU_THREADS=str(threads), NCCCU_CPU_MASK=json.dumps(mask),
+                      NCCCU_RESOURCE_POLICY=policy['path'], NCCCU_RESOURCE_POLICY_SHA256=policy['sha256'],
+                      NCCCU_CPU_INTEROP_THREADS=str(policy['value']['interop_threads']),
                       NCCCU_CPU_ALLOCATION=str(allocation_path), NCCCU_EXECUTOR_ID=owner,
                       NCCCU_CPU_ALLOCATION_SHA256=sha(allocation_path), NCCCU_CPU_WORKERS='0',
                       OMP_MAX_ACTIVE_LEVELS='1', OMP_DYNAMIC='FALSE', MKL_DYNAMIC='FALSE')
@@ -171,7 +256,8 @@ def run_task(args):
     output = Path(tempfile.mkdtemp(prefix=owner + '-', dir=tasks))
     if args.operation == 'probe':
         code = ('import importlib.metadata as m,json,os,sys,torch;'
-                'n=int(os.environ["NCCCU_CPU_THREADS"]);torch.set_num_threads(n);torch.set_num_interop_threads(1);'
+                'n=int(os.environ["NCCCU_CPU_THREADS"]);torch.set_num_threads(n);'
+                'torch.set_num_interop_threads(int(os.environ["NCCCU_CPU_INTEROP_THREADS"]));'
                 'assert not torch.cuda.is_initialized();'
                 'print(json.dumps({"python":sys.executable,"python_version":sys.version.split()[0],'
                 '"dependencies":{k:m.version(k) for k in ("torch","torchvision","numpy","Pillow")},'
@@ -198,7 +284,7 @@ def run_task(args):
             time.sleep(.2)
     receipt = {'scope': 'compute_pod_cpu_task_tree', 'identity': pod_identity, 'executor_id': owner,
                'allocation_path': str(allocation_path), 'allocation_sha256': sha(allocation_path),
-               'guard_sha256': sha(__file__),
+               'guard_sha256': sha(__file__), 'resource_policy': policy,
                'mask': mask, 'threads': threads, 'nice': 19, 'command': command,
                'max_total_threads': value['max_total_threads'], 'actual_resources_before_affinity': observed,
                'peak_task_tree_threads': peak_threads, 'peak_task_tree_runnable_threads': peak_runnable,

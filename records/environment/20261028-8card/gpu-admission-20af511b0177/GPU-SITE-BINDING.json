@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "scope": "formal_exp_v3",
+  "round_id": "r93-tiny22k-9010-20261028",
+  "git_commit": "20af511b0177c0f1576c8c630baaf1865d8001f9",
+  "source_state": {
+    "kind": "remote_commit_frozen",
+    "git_commit": "20af511b0177c0f1576c8c630baaf1865d8001f9"
+  },
+  "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+  "round_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+  "pod": {
+    "namespace": "acfwvv9ejn",
+    "name": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12"
+  },
+  "gpus": [
+    {
+      "ordinal": 0,
+      "pci": "0000:09:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 1,
+      "pci": "0000:36:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 2,
+      "pci": "0000:55:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 3,
+      "pci": "0000:77:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 4,
+      "pci": "0000:85:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 5,
+      "pci": "0000:b5:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 6,
+      "pci": "0000:d5:00.0",
+      "vram_total_bytes": 68702699520
+    },
+    {
+      "ordinal": 7,
+      "pci": "0000:f5:00.0",
+      "vram_total_bytes": 68702699520
+    }
+  ],
+  "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+  "train_identity": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/train_identity.json",
+  "metadata_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1",
+  "public_weight": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/tiny22k-bc48a87f/converted/convnext-tiny-tv-bc48a87f.pt",
+  "public_provenance": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/tiny22k-bc48a87f/converted/provenance.json",
+  "prepared_cache": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+  "official_manifest": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/official-valid-sealed.json",
+  "science": {
+    "binding_version": "single-tiny22k-bc48a87f-fixed-9010-v1",
+    "candidate": {
+      "id": "r93-convnext-tiny-imagenet22k-to-1k-9010",
+      "experiment_order": 3,
+      "model": "convnext_tiny",
+      "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+      "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    }
+  },
+  "cpu_execution": {
+    "owner_id": "19c0bc67-1a8c-462a-afb6-f6b80d090986",
+    "effective_cpus": 120,
+    "total_fraction_cap": "1/5",
+    "owner_mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "control_mask": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "rank_masks": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        14,
+        15
+      ]
+    ],
+    "rank_threads": 1,
+    "interop_threads": 1,
+    "loader_workers": 1,
+    "allocation_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-20af511b0177/gpu-inputs/GPU-CPU-ALLOCATION.json",
+      "sha256": "1f416a6c4cdc2b9c60ba8d1d115af8ef41209ba92ee2d0b422b51ee698934401"
+    }
+  },
+  "relocation_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/RELOCATION.json",
+    "sha256": "be516bfec741dd9c7f5cc4b41694be562c9e1fceb195fa1e41e535b715f9273e"
+  }
+}

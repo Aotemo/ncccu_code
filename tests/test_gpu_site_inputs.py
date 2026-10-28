@@ -1,21 +1,37 @@
-"""Future GPU allocation must fit the same cap and consume an actual peer exit."""
+"""Configured GPU and active validation allocations stay in disjoint live pools."""
 import importlib.util
+import copy
+import hashlib
+import json
 from pathlib import Path
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'runtime/bundle'))
+from retrain import site_binding as api
 spec = importlib.util.spec_from_file_location('gpu_site_inputs', ROOT / 'tools/activation/prepare_gpu_site.py')
 inputs = importlib.util.module_from_spec(spec); spec.loader.exec_module(inputs)
 
 
 class GPUSiteInputsTest(unittest.TestCase):
-    def test_future_owner_rank_and_control_masks_share_the_twenty_percent_cap(self):
+    def setUp(self):
+        path = ROOT / 'configs/RESOURCE-POLICY.json'
+        self.policy = {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                       'value': json.loads(path.read_text())}
+
+    def test_future_owner_rank_and_control_masks_share_the_eighty_percent_cap(self):
         # Synthetic input capacities only, never runtime defaults.
         resources = {'affinity': list(range(128)), 'cpuset': list(range(128)), 'cpu_max': ['12000000', '100000']}
-        value = inputs.partition_cpus(resources, 'owner')
+        value = inputs.partition_cpus(resources, 'owner', self.policy, 8)
         self.assertEqual(value['effective_cpus'], 120)
-        self.assertEqual(len(value['owner_mask']), 24)
+        self.assertEqual(value['total_fraction_cap'], '4/5')
+        self.assertEqual(len(value['owner_mask']), 96)
         self.assertEqual(len(value['rank_masks']), 8)
+        self.assertEqual([len(mask) for mask in value['rank_masks']], [11] * 8)
+        self.assertEqual(len(value['control_mask']), 8)
+        self.assertEqual(value['validation_mask'], list(range(24)))
+        self.assertEqual(value['owner_mask'], list(range(24, 120)))
         flat = value['control_mask'] + [cpu for mask in value['rank_masks'] for cpu in mask]
         self.assertEqual(sorted(set(flat)), value['owner_mask'])
         self.assertEqual(len(flat), len(set(flat)))
@@ -24,20 +40,28 @@ class GPUSiteInputsTest(unittest.TestCase):
     def test_insufficient_or_fractional_quota_cannot_borrow_full_affinity(self):
         with self.assertRaises(ValueError):
             inputs.partition_cpus({'affinity': list(range(128)), 'cpuset': list(range(128)),
-                                   'cpu_max': ['4400000', '100000']}, 'owner')
+                                   'cpu_max': ['1100000', '100000']}, 'owner', self.policy, 8)
         value = inputs.partition_cpus({'affinity': list(range(128)), 'cpuset': list(range(128)),
-                                      'cpu_max': ['5990000', '100000']}, 'owner')
+                                      'cpu_max': ['1499000', '100000']}, 'owner', self.policy, 8)
         self.assertEqual(len(value['owner_mask']), 11)
         self.assertEqual(value['loader_workers'], 0)
 
-    def test_missing_peer_exit_wrong_uid_or_current_owner_is_rejected(self):
-        value = {'exit_code': 0, 'child_exit_code': 0, 'task_tree_exited': True,
-                 'affinity_violations': [], 'executor_id': 'peer', 'identity': {'NCCCU_POD_UID': 'uid'}}
-        inputs.verify_peer_exit(value, 'uid', 'owner')
-        for change in ({'task_tree_exited': False}, {'exit_code': 1}, {'executor_id': 'owner'},
-                       {'identity': {'NCCCU_POD_UID': 'old'}}, {'affinity_violations': [{}]}):
-            with self.subTest(change=change), self.assertRaises(ValueError):
-                inputs.verify_peer_exit({**value, **change}, 'uid', 'owner')
+    def test_validation_may_stay_active_but_wrong_uid_or_overlapping_mask_is_rejected(self):
+        value = {'identity': {'NCCCU_POD_UID': 'uid'}, 'max_total_threads': 2,
+                 'allocations': {'validator': {'mask': [0, 1], 'threads': 2}}, 'task_tree_exited': False}
+        api.verify_validation_pool(value, 'uid', [0, 1], [2, 3])
+        for changed in ({**value, 'identity': {'NCCCU_POD_UID': 'old'}},
+                        {**value, 'allocations': {'validator': {'mask': [1, 2], 'threads': 2}}}):
+            with self.subTest(value=changed), self.assertRaises(ValueError):
+                api.verify_validation_pool(changed, 'uid', [0, 1], [2, 3])
+
+    def test_fractions_are_consumed_from_policy_instead_of_code_defaults(self):
+        policy = copy.deepcopy(self.policy)
+        policy['value']['cpu_fractions'] = {'validation': '1/4', 'training': '1/2'}
+        value = inputs.partition_cpus({'affinity': list(range(128)), 'cpuset': list(range(128)),
+                                      'cpu_max': ['12000000', '100000']}, 'owner', policy, 8)
+        self.assertEqual(value['validation_mask'], list(range(30)))
+        self.assertEqual(value['owner_mask'], list(range(30, 90)))
 
 
 if __name__ == '__main__':

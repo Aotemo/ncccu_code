@@ -304,46 +304,70 @@ def launch_child(argv, name, output, spec_sha, *, role, rank=None):
     return {'name': name, 'process': process, 'identity': actual}
 
 
-def wait_children(children, deadline, context):
-    """Bound only these new exact children; retain every observed descendant identity."""
+def audit_owned_tree(context, known):
     from retrain.execution_policy import audit_cpu_tree
-    known = {}; observed = {}; signals = []; reason = None; term_at = None; kill_at = None; checked_at = 0
+    return audit_cpu_tree(os.getpid(), known, context['site'])
+
+
+def wait_children(children, deadline, context, *, stop_reason=None, initial_reason=None,
+                  kill_after=10, grace_seconds=25, until=None):
+    """Bound only these new exact children; retain every observed descendant identity."""
+    known = {}; observed = {}; signals = []; reason = initial_reason; term_at = None; kill_at = None; checked_at = 0
     while True:
+        requested = stop_reason() if stop_reason is not None else None
+        reason = reason or requested
         codes = {child['name']: child['process'].poll() for child in children}
+        if reason is None and any(code is not None and code != 0 for code in codes.values()):
+            reason = 'child_exit_nonzero'
         if all(code is not None for code in codes.values()):
             break
         now = time.time()
-        if reason is None and any(code is not None and code != 0 for code in codes.values()):
-            reason = 'child_exit_nonzero'
         if reason is None and now >= deadline:
             reason = 'absolute_deadline'
         if now - checked_at >= 1:
             try:
-                snapshot = audit_cpu_tree(os.getpid(), known, context['site'])
+                snapshot = audit_owned_tree(context, known)
                 for pid in snapshot['live_pids']:
                     if pid != os.getpid():
                         current = identity(pid)
-                        if current:
+                        if current and current['state'] not in ('Z', 'X') and current['argv']:
                             observed[(pid, current['start_ticks'])] = current
             except Exception as error:
                 reason = reason or 'CPU_tree_unknown:' + repr(error)
             checked_at = now
         if reason is not None and term_at is None:
-            signals.extend(signal_exact(child['identity'], signal.SIGTERM) for child in children)
+            for child in children:
+                try:
+                    signals.append(signal_exact(child['identity'], signal.SIGTERM))
+                except Exception as error:
+                    signals.append({'pid': child['identity']['pid'], 'signal': signal.SIGTERM,
+                                    'sent': False, 'error': repr(error)})
             term_at = now
-        if term_at is not None and now >= term_at + 10 and kill_at is None:
-            signals.extend(signal_exact(child['identity'], signal.SIGKILL) for child in children)
+        stop_at = min(term_at + grace_seconds, until if until is not None else float('inf')) if term_at is not None else None
+        if term_at is not None and now >= min(term_at + kill_after, stop_at - 1) and kill_at is None:
+            for child in children:
+                try:
+                    signals.append(signal_exact(child['identity'], signal.SIGKILL))
+                except Exception as error:
+                    signals.append({'pid': child['identity']['pid'], 'signal': signal.SIGKILL,
+                                    'sent': False, 'error': repr(error)})
             kill_at = now
-        if term_at is not None and now >= term_at + 25:
+        if term_at is not None and now >= stop_at:
             break
         time.sleep(.05)
-    codes = {child['name']: child['process'].poll() for child in children}
+    codes = {}; reaped = {}; reap_errors = {}; live = []
     for child in children:
-        if codes[child['name']] is not None:
-            child['process'].wait(timeout=0)
+        name = child['name']; codes[name] = child['process'].poll(); reaped[name] = False
+        try:
+            codes[name] = child['process'].wait(timeout=0)
+            reaped[name] = True
+        except (subprocess.TimeoutExpired, ChildProcessError, OSError) as error:
+            reap_errors[name] = repr(error); live.append(child['identity'])
+    status = ('resource_unknown' if not all(reaped.values()) else
+              'completed' if reason is None and all(code == 0 for code in codes.values()) else 'failed')
     return {'exit_codes': codes, 'reason': reason, 'signals': signals,
-        'observed_processes': list(observed.values()),
-        'status': 'completed' if reason is None and all(code == 0 for code in codes.values()) else 'failed'}
+        'observed_processes': list(observed.values()), 'reaped': reaped, 'reap_errors': reap_errors,
+        'live_owned_children': live, 'status': status}
 
 
 def data_guard(site):
@@ -460,22 +484,39 @@ def run_rank(args, spec, context):
 
 
 def run_owner(args, spec, context):
-    context['api'].bind_cpu_role(context['site'], 'control')
-    output = Path(spec['output']); children = []
-    require(time.time() < spec['deadline_at'], 'owner deadline expired before starting ranks')
+    output = Path(spec['output']); children = []; stopping = {'reason': None, 'signals': []}
+    def request_stop(signum, _frame):
+        stopping['reason'] = stopping['reason'] or 'signal_' + str(signum)
+        stopping['signals'].append(signum)
+    previous = {signum: signal.signal(signum, request_stop) for signum in (signal.SIGTERM, signal.SIGINT)}
+    result = None
     try:
+        context['api'].bind_cpu_role(context['site'], 'control')
+        require(time.time() < spec['deadline_at'], 'owner deadline expired before starting ranks')
         for rank in range(8):
+            if stopping['reason'] is not None:
+                break
+            require(time.time() < spec['deadline_at'], 'owner deadline expired while starting ranks')
             argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), '--internal-role', 'rank',
                     '--spec', str(args.spec), '--spec-sha256', args.spec_sha256, '--rank', str(rank)]
             children.append(launch_child(argv, 'rank-' + str(rank), output, args.spec_sha256, role='rank', rank=rank))
-        result = wait_children(children, spec['deadline_at'], context)
+        result = wait_children(children, spec['deadline_at'], context, stop_reason=lambda: stopping['reason'],
+            until=min(spec['deadline_at'] + 25, spec['hard_deadline_at'] - 3))
+    except BaseException as error:
+        result = wait_children(children, time.time(), context, stop_reason=lambda: stopping['reason'],
+            initial_reason='owner_exception:' + repr(error), until=min(time.time() + 25, spec['hard_deadline_at'] - 3))
+    try:
+        if set(result['exit_codes']) != {'rank-' + str(rank) for rank in range(8)} or stopping['reason'] is not None:
+            result['reason'] = result['reason'] or stopping['reason'] or 'incomplete_rank_launch'
+            if result['status'] == 'completed':
+                result['status'] = 'failed'
         write(output / 'OWNER-RESULT.json', {**result, 'owner': identity(os.getpid()), **zero_work(),
-            'ended_at': time.time(), 'meaning': 'rank supervision only; outer auditor must still wait for this owner'})
+            'stop_signals': stopping['signals'], 'ended_at': time.time(),
+            'meaning': 'own ranks wait/reap recorded; outer auditor must still wait for this owner'})
         return 0 if result['status'] == 'completed' else 1
     finally:
-        for child in children:
-            if child['process'].poll() is None:
-                signal_exact(child['identity'], signal.SIGKILL)
+        for signum, handler in previous.items():
+            signal.signal(signum, handler)
 
 
 def inactive_observations(processes):
@@ -525,6 +566,7 @@ def run_outer(args):
     inputs = {name: str(getattr(args, name)) if isinstance(getattr(args, name), Path) else getattr(args, name)
               for name in INPUT_NAMES}
     auditor = identity(os.getpid()); lock_fd = None; owner = None; context = None; known_processes = []
+    supervision = None; owner_result = {}; interrupted_drain = None
     write(output / 'STARTED.json', {'status': 'reserved_do_not_retry', 'started_at': started_at,
         'inputs': inputs, 'auditor': auditor, 'GPU_started': False, **zero_work()})
     def interrupted(signum, _frame):
@@ -566,7 +608,10 @@ def run_outer(args):
         argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), '--internal-role', 'owner',
                 '--spec', str(spec_path), '--spec-sha256', spec_sha]
         owner = launch_child(argv, 'owner', output, spec_sha, role='owner')
-        supervision = wait_children([owner], spec['owner_wait_until'], context)
+        # The owner's own rank drain can take 25s. Keep it alive for that entire
+        # window before a forced stop, within this attempt's original 300s end.
+        supervision = wait_children([owner], spec['owner_wait_until'], context,
+            kill_after=27, grace_seconds=29, until=spec['hard_deadline_at'] - 1)
         owner_exit = owner['process'].poll()
         if owner_exit is not None:
             owner_exit = owner['process'].wait(timeout=0)
@@ -583,6 +628,8 @@ def run_outer(args):
             'actual_after_wait': observations, 'cleanup_signals': cleanup, 'auditor': auditor,
             'lock_inode': lock_info.st_ino, 'lock_device': lock_info.st_dev, 'at': time.time()})
         require(supervision['status'] == owner_result.get('status') == 'completed', 'owner/rank supervision was not completed')
+        require(owner_result.get('reaped') == {'rank-' + str(rank): True for rank in range(8)}
+                and owner_result.get('live_owned_children') == [], 'every native rank must have a recorded wait/reap')
         verify_exits(owner_exit, owner_result['exit_codes'], known_processes, observations, auditor_pid=os.getpid())
         records = [json.loads((output / ('rank-' + str(rank) + '-result.json')).read_text()) for rank in range(8)]
         for rank, record in enumerate(records):
@@ -627,11 +674,18 @@ def run_outer(args):
         cleanup_error = None
         try:
             if owner is not None:
+                if owner['process'].poll() is None:
+                    interrupted_drain = wait_children([owner], time.time(), context,
+                        initial_reason='outer_exception:' + repr(error), kill_after=27, grace_seconds=29,
+                        until=started_at + 299)
                 launch_identities = [json.loads(path.read_text())['identity'] for path in output.glob('rank-*-launch.json')]
                 known_processes = merge_processes(known_processes, [owner['identity']], launch_identities)
                 clean_survivors(known_processes, min(started_at + 299, time.time() + 4))
                 if owner['process'].poll() is not None:
                     owner['process'].wait(timeout=0)
+                owner_result_path = output / 'OWNER-RESULT.json'
+                if owner_result_path.is_file():
+                    owner_result = json.loads(owner_result_path.read_text())
             observations = inactive_observations(known_processes)
         except BaseException as cleanup_failure:
             cleanup_error = repr(cleanup_failure)
@@ -640,6 +694,10 @@ def run_outer(args):
             'wall_seconds': time.time() - started_at, 'processes': known_processes,
             'actual': observations, 'cleanup_error': cleanup_error,
             'owner_exit_code': owner['process'].poll() if owner else None,
+            'outer_supervision': supervision, 'interrupted_owner_drain': interrupted_drain,
+            'outer_reason': supervision.get('reason') if supervision else repr(error),
+            'owner_reason': owner_result.get('reason'), 'rank_exit_codes': owner_result.get('exit_codes', {}),
+            'rank_reaped': owner_result.get('reaped', {}),
             'GPU_success_receipt_written': (output / 'GPU-ADMISSION.json').exists(), 'formal_clock_created': False}
         write(output / 'FAILURE.json', failure)
         raise

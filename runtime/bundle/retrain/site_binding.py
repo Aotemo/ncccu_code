@@ -145,15 +145,60 @@ def cpu_mask(value):
     return value
 
 
+def validate_resource_policy(value):
+    try:
+        fractions = {name: Fraction(value['cpu_fractions'][name]) for name in ('validation', 'training')}
+        if (value['schema_version'] != 1 or any(part <= 0 or part > 1 for part in fractions.values())
+                or sum(fractions.values()) > 1
+                or any(type(value[name]) is not int or value[name] < 1 for name in ('rank_threads', 'interop_threads'))
+                or type(value['loader_workers']) is not int or value['loader_workers'] not in (0, 1)
+                or set(value['native_affinity_environment']) != {
+                    'AMD_CPU_AFFINITY', 'HSA_OVERRIDE_CPU_AFFINITY_DEBUG', 'NCCL_IGNORE_CPU_AFFINITY'}
+                or any(item not in ('0', '1') for item in value['native_affinity_environment'].values())):
+            raise ValueError('invalid configured validation/training resource policy')
+    except (KeyError, TypeError, ZeroDivisionError) as error:
+        raise ValueError('incomplete resource policy') from error
+    return value
+
+
+def load_resource_policy(path=None, expected_sha256=None):
+    path = Path(path or os.environ.get('NCCCU_RESOURCE_POLICY', ''))
+    digest = expected_sha256 or os.environ.get('NCCCU_RESOURCE_POLICY_SHA256')
+    if (not path.is_absolute() or path.is_symlink() or not re.fullmatch('[0-9a-f]{64}', digest or '')
+            or sha256(path) != digest):
+        raise ValueError('explicit resource policy path/SHA required')
+    value = validate_resource_policy(json.loads(path.read_text()))
+    return {'path': str(path), 'sha256': digest, 'value': value}
+
+
+def verify_validation_pool(value, uid, validation_mask, training_mask):
+    """An active CPU validation allocation may coexist inside its separate pool."""
+    if value.get('identity', {}).get('NCCCU_POD_UID') != uid or not value.get('allocations'):
+        raise ValueError('current Pod CPU validation allocation required')
+    masks = []
+    for item in value['allocations'].values():
+        mask = cpu_mask(item['mask'])
+        if item.get('threads') != len(mask):
+            raise ValueError('validation allocation thread count differs')
+        masks.extend(mask)
+    if (len(masks) != len(set(masks)) or not set(masks) <= set(validation_mask)
+            or set(masks) & set(training_mask) or value.get('max_total_threads') != len(masks)):
+        raise ValueError('validation and training CPU allocations overlap or escape their pools')
+    return masks
+
+
 def validate_cpu_execution(value, *, world):
     try:
+        settings = validate_resource_policy(value['resource_policy']['value'])
+        training_fraction = settings['cpu_fractions']['training']
         if (not isinstance(value['owner_id'], str) or not value['owner_id'].strip()
-                or value['total_fraction_cap'] != '1/5'
+                or value['total_fraction_cap'] != training_fraction
                 or type(value['effective_cpus']) not in (int, float)
                 or not math.isfinite(value['effective_cpus']) or value['effective_cpus'] <= 0
-                or value['rank_threads'] != 1 or type(value['rank_threads']) is not int
-                or value['interop_threads'] != 1 or type(value['interop_threads']) is not int
-                or type(value['loader_workers']) is not int or value['loader_workers'] not in (0, 1)):
+                or value['rank_threads'] != settings['rank_threads']
+                or value['interop_threads'] != settings['interop_threads']
+                or any(type(value[name]) is not int for name in ('rank_threads', 'interop_threads'))
+                or type(value['loader_workers']) is not int or not 0 <= value['loader_workers'] <= settings['loader_workers']):
             raise ValueError('explicit CPU owner/capacity/thread/loader contract differs')
         owner = cpu_mask(value['owner_mask']); control = cpu_mask(value['control_mask'])
         ranks = value['rank_masks']
@@ -163,10 +208,16 @@ def validate_cpu_execution(value, *, world):
             cpu_mask(mask)
         combined = control + [cpu for mask in ranks for cpu in mask]
         if (len(set(combined)) != len(combined) or sorted(combined) != owner
-                or len(owner) > int(Fraction(str(value['effective_cpus'])) // 5)
+                or len(owner) > int(Fraction(str(value['effective_cpus'])) * Fraction(training_fraction))
                 or len({len(mask) for mask in ranks}) != 1
                 or any(len(mask) < value['rank_threads'] + value['loader_workers'] for mask in ranks)):
-            raise ValueError('rank/control CPU masks overlap, escape owner or exceed the live 20% allocation')
+            raise ValueError('rank/control CPU masks overlap, escape owner or exceed the configured training allocation')
+        validation = cpu_mask(value['validation_mask'])
+        if (set(validation) & set(owner) or len(validation) > int(Fraction(str(value['effective_cpus']))
+                * Fraction(settings['cpu_fractions']['validation']))
+                or not Path(value['resource_policy']['path']).is_absolute()
+                or not re.fullmatch('[0-9a-f]{64}', value['resource_policy']['sha256'])):
+            raise ValueError('configured validation/training pools or policy pin differ')
         receipt = value['allocation_receipt']
         if not re.fullmatch(r'[0-9a-f]{64}', receipt['sha256']):
             raise ValueError('explicit allocation receipt SHA required')
@@ -209,7 +260,9 @@ def validate_gpu_allocation(site, receipt, live, *, initial=False, now=None):
         admitted_affinity = cpu_mask(resources['affinity'])
         original_cpuset = cpu_mask(resources['cpuset'])
         if (receipt['schema_version'] != 1 or receipt['stage'] != 'gpu-owner'
-                or receipt['execution'] != expected or receipt['total_fraction_cap'] != '1/5'
+                or receipt['execution'] != expected or receipt['total_fraction_cap'] != policy['total_fraction_cap']
+                or receipt['resource_policy'] != policy['resource_policy']
+                or receipt['validation_mask'] != policy['validation_mask']
                 or receipt['owner_id'] != policy['owner_id'] or receipt['owner_mask'] != policy['owner_mask']
                 or type(receipt['created_at']) not in (int, float) or not math.isfinite(receipt['created_at'])
                 or type(receipt['valid_until']) not in (int, float) or not math.isfinite(receipt['valid_until'])
@@ -227,9 +280,12 @@ def validate_gpu_allocation(site, receipt, live, *, initial=False, now=None):
             if maximum[0] != 'max':
                 capacity = min(capacity, Fraction(int(maximum[0]), int(maximum[1])))
             if (capacity <= 0
-                    or len(policy['owner_mask']) > int(capacity // 5)
-                    or not set(policy['owner_mask']) <= available):
-                raise ValueError('owner CPU allocation exceeds current cpuset/quota 20% cap')
+                    or len(policy['owner_mask']) > int(capacity * Fraction(policy['total_fraction_cap']))
+                    or not set(policy['owner_mask']) <= available
+                    or not set(policy['validation_mask']) <= available
+                    or len(policy['validation_mask']) > int(capacity * Fraction(
+                        policy['resource_policy']['value']['cpu_fractions']['validation']))):
+                raise ValueError('CPU allocation exceeds the live configured validation/training pools')
         # The recorded capacity must be an actual result, never an invented low/high default.
         original = Fraction(len(set(admitted_affinity) & set(original_cpuset)))
         quota, period = resources['cpu_max']
@@ -237,11 +293,9 @@ def validate_gpu_allocation(site, receipt, live, *, initial=False, now=None):
             original = min(original, Fraction(int(quota), int(period)))
         if original != Fraction(str(policy['effective_cpus'])):
             raise ValueError('recorded effective CPU capacity differs from measured allocation')
-        releases = receipt['released_executors']
-        if (not isinstance(releases, list) or not releases
-                or len({item['executor_id'] for item in releases}) != len(releases)
-                or any(item['executor_id'] == policy['owner_id'] for item in releases)):
-            raise ValueError('other CPU executors must have explicit exit evidence')
+        reference = receipt['validation_allocation']
+        if not Path(reference['path']).is_absolute() or not re.fullmatch('[0-9a-f]{64}', reference['sha256']):
+            raise ValueError('explicit validation-pool allocation pin required')
     except (KeyError, TypeError, AttributeError, ZeroDivisionError) as error:
         raise ValueError('incomplete GPU CPU allocation receipt') from error
     return policy
@@ -257,16 +311,15 @@ def verify_gpu_cpu(site, *, initial=False):
     receipt = json.loads(path.read_text())
     live = live_cpu_resources()
     policy = validate_gpu_allocation(site, receipt, live, initial=initial)
-    for release in receipt['released_executors']:
-        release_path = evidence_path(release['receipt_path'], site['work_root'])
-        if sha256(release_path) != release['receipt_sha256']:
-            raise ValueError('CPU executor exit receipt SHA differs')
-        exited = json.loads(release_path.read_text())
-        if (exited.get('executor_id') != release['executor_id'] or exited.get('pod_uid') != site['pod']['uid']
-                or exited.get('exit_code') != 0 or exited.get('task_tree_exited') is not True
-                or exited.get('live_pids') != [] or type(exited.get('ended_at')) not in (int, float)
-                or not math.isfinite(exited['ended_at']) or exited['ended_at'] > receipt['created_at']):
-            raise ValueError('CPU executor has no verified prior clean exit')
+    resource_reference = policy['resource_policy']
+    if load_resource_policy(resource_reference['path'], resource_reference['sha256']) != resource_reference:
+        raise ValueError('configured resource policy content differs')
+    reference = receipt['validation_allocation']
+    validation_path = evidence_path(reference['path'], site['work_root'])
+    if sha256(validation_path) != reference['sha256']:
+        raise ValueError('validation-pool allocation content differs')
+    verify_validation_pool(json.loads(validation_path.read_text()), site['pod']['uid'],
+                           policy['validation_mask'], policy['owner_mask'])
     return policy, live
 
 
@@ -289,6 +342,9 @@ def bind_cpu_role(site, role, *, rank=None, initial=False):
                 'VECLIB_MAXIMUM_THREADS', 'BLIS_NUM_THREADS'):
         os.environ[key] = '1'
     os.environ.update(OMP_MAX_ACTIVE_LEVELS='1', OMP_DYNAMIC='FALSE', MKL_DYNAMIC='FALSE')
+    # GalaxyHIP's default thread-creation path builds an all-CPU affinity mask.
+    # Set its main-thread inheritance policy before importing Torch/HIP.
+    os.environ.update(policy['resource_policy']['value']['native_affinity_environment'])
     return mask
 
 

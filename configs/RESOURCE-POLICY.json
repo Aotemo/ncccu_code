@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "cpu_fractions": {
+    "validation": "1/5",
+    "training": "4/5"
+  },
+  "native_affinity_environment": {
+    "AMD_CPU_AFFINITY": "1",
+    "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+    "NCCL_IGNORE_CPU_AFFINITY": "0"
+  },
+  "rank_threads": 1,
+  "interop_threads": 1,
+  "loader_workers": 1
+}

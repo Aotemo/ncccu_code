@@ -1,0 +1,253 @@
+{
+  "scope": "installed_ELF_static_affinity_xrefs",
+  "at": 1793192247.2508044,
+  "library": "/opt/dtk/hip/lib/libgalaxyhip.so.5.2.26113.2065-6699a1f0",
+  "library_sha256": "b125b6b4153f5d25dd8e445b43b2f57b0eab9b6305eb765430a82a4359e1870b",
+  "bytes": 12349016,
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "device_calls": 0,
+  "native_library_loaded": false,
+  "targets": [
+    {
+      "text": "Resetting CPU core affinities",
+      "file_offset": 9713223,
+      "address": 9713223,
+      "xrefs": [
+        {
+          "instruction": 8415720,
+          "points_to": 9713211,
+          "command": [
+            "objdump",
+            "-d",
+            "-C",
+            "--no-show-raw-insn",
+            "--start-address=0x806934",
+            "--stop-address=0x806c72",
+            "/opt/dtk/hip/lib/libgalaxyhip.so.5.2.26113.2065-6699a1f0"
+          ],
+          "exit_code": 0,
+          "disassembly": "\n/opt/dtk/hip/lib/libgalaxyhip.so.5.2.26113.2065-6699a1f0:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n0000000000806934 <hiprtcLinkDestroy@@HIP+0x57ad4>:\n  806934:\tmov    0x38(%rsp),%rsi\n  806939:\tadd    0x68(%rbx),%rsi\n  80693d:\tadd    0x3ca88c(%rip),%rsi        # bd11d0 <hiprtcLinkDestroy@@HIP+0x422370>\n  806944:\tlea    0xc0(%rsp),%rdi\n  80694c:\tcall   30840 <pthread_attr_setstacksize@plt>\n  806951:\tlea    0xc0(%rsp),%rdi\n  806959:\tmov    $0x1,%esi\n  80695e:\tcall   31010 <pthread_attr_setdetachstate@plt>\n  806963:\tlea    0x3cc3b7(%rip),%rax        # bd2d21 <hiprtcLinkDestroy@@HIP+0x423ec1>\n  80696a:\tcmpb   $0x0,(%rax)\n  80696d:\tjne    806b45 <hiprtcLinkDestroy@@HIP+0x57ce5>\n  806973:\tlea    0x3cc2a6(%rip),%rax        # bd2c20 <hiprtcLinkDestroy@@HIP+0x423dc0>\n  80697a:\tcmpb   $0x0,(%rax)\n  80697d:\tje     806abf <hiprtcLinkDestroy@@HIP+0x57c5f>\n  806983:\tlea    0x3cc29a(%rip),%rax        # bd2c24 <hiprtcLinkDestroy@@HIP+0x423dc4>\n  80698a:\ttestb  $0x8,0x1(%rax)\n  80698e:\tje     806abf <hiprtcLinkDestroy@@HIP+0x57c5f>\n  806994:\tcall   17eda0 <TLS init function for amd::hipGraphAccumulateKernelCommand::cmdIdx_@plt+0x14d398>\n  806999:\tcmp    $0x3,%eax\n  80699c:\tjl     806abf <hiprtcLinkDestroy@@HIP+0x57c5f>\n  8069a2:\tcall   30ab0 <pthread_self@plt>\n  8069a7:\tmov    %rax,%r14\n  8069aa:\tcmpl   $0xffffffff,0x3bc92b(%rip)        # bc32dc <hiprtcLinkDestroy@@HIP+0x41447c>\n  8069b1:\tjne    806a3f <hiprtcLinkDestroy@@HIP+0x57bdf>\n  8069b7:\tmovb   $0x0,0x57(%rsp)\n  8069bc:\tmovw   $0x0,0x55(%rsp)\n  8069c3:\tlea    -0x5b219a(%rip),%rax        # 254830 <hipGetCmdName@@HIP+0x104a0>\n  8069ca:\tmov    %rax,0x40(%rsp)\n  8069cf:\tlea    0x13cba1(%rip),%rax        # 943577 <hiprtcLinkDestroy@@HIP+0x194717>\n  8069d6:\tmov    %rax,0x48(%rsp)\n  8069db:\tmovl   $0x199,0x50(%rsp)\n  8069e3:\tmovb   $0x3,0x54(%rsp)\n  8069e8:\tlea    0x13cc4c(%rip),%rax        # 94363b <hiprtcLinkDestroy@@HIP+0x1947db>\n  8069ef:\tmov    %rax,0x58(%rsp)\n  8069f4:\tmovabs $0x100000001,%rax\n  8069fe:\tmov    %rax,0x60(%rsp)\n  806a03:\tlea    0x13cd1e(%rip),%rax        # 943728 <hiprtcLinkDestroy@@HIP+0x1948c8>\n  806a0a:\tmov    %rax,0x68(%rsp)\n  806a0f:\tmovups 0x40(%rsp),%xmm0\n  806a14:\tmovups 0x50(%rsp),%xmm1\n  806a19:\tmovups 0x60(%rsp),%xmm2\n  806a1e:\tmovups %xmm2,0x20(%rsp)\n  806a23:\tmovups %xmm1,0x10(%rsp)\n  806a28:\tmovups %xmm0,(%rsp)\n  806a2c:\tlea    0x3c0b15(%rip),%rdi        # bc7548 <hiprtcLinkDestroy@@HIP+0x4186e8>\n  806a33:\tlea    0x3bc8a2(%rip),%rsi        # bc32dc <hiprtcLinkDestroy@@HIP+0x41447c>\n  806a3a:\tcall   2539f0 <hipGetCmdName@@HIP+0xf660>\n  806a3f:\trdtsc  \n  806a41:\tmov    %rdx,%r15\n  806a44:\tmov    %rax,%r13\n  806a47:\tdata16 lea 0x3ae4e1(%rip),%rdi        # bb4f30 <hiprtcLinkDestroy@@HIP+0x4060d0>\n  806a4f:\tdata16 data16 rex.W call 31630 <__tls_get_addr@plt>\n  806a57:\tmov    %rax,%r12\n  806a5a:\tmov    (%rax),%rdi\n  806a5d:\ttest   %rdi,%rdi\n  806a60:\tjne    806a72 <hiprtcLinkDestroy@@HIP+0x57c12>\n  806a62:\tlea    0x3c0adf(%rip),%rdi        # bc7548 <hiprtcLinkDestroy@@HIP+0x4186e8>\n  806a69:\tcall   1821d0 <TLS init function for amd::hipGraphAccumulateKernelCommand::cmdIdx_@plt+0x1507c8>\n  806a6e:\tmov    (%r12),%rdi\n  806a72:\tincq   0x28(%rdi)\n  806a76:\tcmpq   $0x19,0x10(%rdi)\n  806a7b:\tjb     806a82 <hiprtcLinkDestroy@@HIP+0x57c22>\n  806a7d:\tmov    (%rdi),%rax\n  806a80:\tjmp    806a91 <hiprtcLinkDestroy@@HIP+0x57c31>\n  806a82:\tmov    $0x18,%esi\n  806a87:\tmov    $0x1,%edx\n  806a8c:\tcall   182060 <TLS init function for amd::hipGraphAccumulateKernelCommand::cmdIdx_@plt+0x150658>\n  806a91:\tshl    $0x20,%r15\n  806a95:\tor     %r13,%r15\n  806a98:\tmov    %r14,0x10(%rax)\n  806a9c:\tmov    0x3bc83a(%rip),%ecx        # bc32dc <hiprtcLinkDestroy@@HIP+0x41447c>\n  806aa2:\tmov    %ecx,(%rax)\n  806aa4:\tmov    %r15,0x8(%rax)\n  806aa8:\tmovl   $0x18,0x4(%rax)\n  806aaf:\tmov    (%r12),%rax\n  806ab3:\tsfence \n  806ab6:\taddq   $0xffffffffffffffe8,0x10(%rax)\n  806abb:\taddq   $0x18,(%rax)\n  806abf:\tlea    0x3ca742(%rip),%rax        # bd1208 <hiprtcLinkDestroy@@HIP+0x4223a8>\n  806ac6:\tmov    (%rax),%edx\n  806ac8:\ttest   %edx,%edx\n  806aca:\tjle    806b45 <hiprtcLinkDestroy@@HIP+0x57ce5>\n  806acc:\txorps  %xmm0,%xmm0\n  806acf:\tmovaps %xmm0,0xb0(%rsp)\n  806ad7:\tmovaps %xmm0,0xa0(%rsp)\n  806adf:\tmovaps %xmm0,0x90(%rsp)\n  806ae7:\tmovaps %xmm0,0x80(%rsp)\n  806aef:\tmovaps %xmm0,0x70(%rsp)\n  806af4:\tmovaps %xmm0,0x60(%rsp)\n  806af9:\tmovaps %xmm0,0x50(%rsp)\n  806afe:\tmovaps %xmm0,0x40(%rsp)\n  806b03:\tcmp    $0x1,%edx\n  806b06:\tjne    806b98 <hiprtcLinkDestroy@@HIP+0x57d38>\n  806b0c:\txor    %eax,%eax\n  806b0e:\ttest   $0x1,%dl\n  806b11:\tje     806b2e <hiprtcLinkDestroy@@HIP+0x57cce>\n  806b13:\tcmp    $0x3ff,%rax\n  806b19:\tja     806b2e <hiprtcLinkDestroy@@HIP+0x57cce>\n  806b1b:\tmov    $0x1,%edx\n  806b20:\tmov    %eax,%ecx\n  806b22:\tshl    %cl,%rdx\n  806b25:\tshr    $0x6,%rax\n  806b29:\tor     %rdx,0x40(%rsp,%rax,8)\n  806b2e:\tlea    0xc0(%rsp),%rdi\n  806b36:\tlea    0x40(%rsp),%rdx\n  806b3b:\tmov    $0x80,%esi\n  806b40:\tcall   304d0 <pthread_attr_setaffinity_np@plt>\n  806b45:\tmovq   $0x0,0x40(%rsp)\n  806b4e:\tlea    -0x445(%rip),%rdx        # 806710 <hiprtcLinkDestroy@@HIP+0x578b0>\n  806b55:\tlea    0x40(%rsp),%rdi\n  806b5a:\tlea    0xc0(%rsp),%rsi\n  806b62:\tmov    %rbx,%rcx\n  806b65:\tcall   319f0 <pthread_create@plt>\n  806b6a:\ttest   %eax,%eax\n  806b6c:\tje     806b75 <hiprtcLinkDestroy@@HIP+0x57d15>\n  806b6e:\tmovl   $0x5,0x30(%rbx)\n  806b75:\tlea    0xc0(%rsp),%rdi\n  806b7d:\tcall   315e0 <pthread_attr_destroy@plt>\n  806b82:\tmov    0x40(%rsp),%rax\n  806b87:\tadd    $0x100,%rsp\n  806b8e:\tpop    %rbx\n  806b8f:\tpop    %r12\n  806b91:\tpop    %r13\n  806b93:\tpop    %r14\n  806b95:\tpop    %r15\n  806b97:\tret    \n  806b98:\tmov    %edx,%esi\n  806b9a:\tand    $0xfffffffe,%esi\n  806b9d:\txor    %eax,%eax\n  806b9f:\tjmp    806bbd <hiprtcLinkDestroy@@HIP+0x57d5d>\n  806ba1:\tdata16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)\n  806bb0:\tadd    $0x2,%rax\n  806bb4:\tcmp    %rax,%rsi\n  806bb7:\tje     806b0e <hiprtcLinkDestroy@@HIP+0x57cae>\n  806bbd:\tcmp    $0x3ff,%rax\n  806bc3:\tjbe    806bd0 <hiprtcLinkDestroy@@HIP+0x57d70>\n  806bc5:\tcmp    $0x3fe,%rax\n  806bcb:\tja     806bb0 <hiprtcLinkDestroy@@HIP+0x57d50>\n  806bcd:\tjmp    806bf1 <hiprtcLinkDestroy@@HIP+0x57d91>\n  806bcf:\tnop\n  806bd0:\tmov    %eax,%ecx\n  806bd2:\tand    $0x3e,%cl\n  806bd5:\tmov    $0x1,%edi\n  806bda:\tshl    %cl,%rdi\n  806bdd:\tmov    %rax,%rcx\n  806be0:\tshr    $0x6,%rcx\n  806be4:\tor     %rdi,0x40(%rsp,%rcx,8)\n  806be9:\tcmp    $0x3fe,%rax\n  806bef:\tja     806bb0 <hiprtcLinkDestroy@@HIP+0x57d50>\n  806bf1:\tmov    %eax,%ecx\n  806bf3:\tand    $0x3e,%cl\n  806bf6:\tmov    $0x2,%edi\n  806bfb:\tshl    %cl,%rdi\n  806bfe:\tmov    %rax,%rcx\n  806c01:\tshr    $0x6,%rcx\n  806c05:\tor     %rdi,0x40(%rsp,%rcx,8)\n  806c0a:\tjmp    806bb0 <hiprtcLinkDestroy@@HIP+0x57d50>\n  806c0c:\tmov    $0xffffffff,%eax\n  806c11:\tmov    %eax,%edi\n  806c13:\tcall   30860 <std::__throw_system_error(int)@plt>\n  806c18:\tnopl   0x0(%rax,%rax,1)\n  806c20:\tpush   %rbx\n  806c21:\tsub    $0x50,%rsp\n  806c25:\tmovq   $0x0,0x8(%rsp)\n  806c2e:\txorps  %xmm0,%xmm0\n  806c31:\tmovaps %xmm0,0x30(%rsp)\n  806c36:\tmovaps %xmm0,0x20(%rsp)\n  806c3b:\tmovaps %xmm0,0x10(%rsp)\n  806c40:\tmovq   $0x0,0x40(%rsp)\n  806c49:\tlea    0x10(%rsp),%rbx\n  806c4e:\tmov    %rbx,%rdi\n  806c51:\tcall   30ed0 <pthread_attr_init@plt>\n  806c56:\tlea    -0x49d(%rip),%rdx        # 8067c0 <hiprtcLinkDestroy@@HIP+0x57960>\n  806c5d:\tlea    0x8(%rsp),%rdi\n  806c62:\tmov    %rbx,%rsi\n  806c65:\txor    %ecx,%ecx\n  806c67:\tcall   319f0 <pthread_create@plt>\n  806c6c:\ttest   %eax,%eax\n  806c6e:\tjne    806c7c <hiprtcLinkDestroy@@HIP+0x57e1c>\n  806c70:\trex.W\n  806c71:\t.byte 0x8b\n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "text": "Setting Affinity to the main thread's affinity",
+      "file_offset": 9713265,
+      "address": 9713265,
+      "xrefs": [
+        {
+          "instruction": 8416576,
+          "points_to": 9713253,
+          "command": [
+            "objdump",
+            "-d",
+            "-C",
+            "--no-show-raw-insn",
+            "--start-address=0x806c8c",
+            "--stop-address=0x806fca",
+            "/opt/dtk/hip/lib/libgalaxyhip.so.5.2.26113.2065-6699a1f0"
+          ],
+          "exit_code": 0,
+          "disassembly": "\n/opt/dtk/hip/lib/libgalaxyhip.so.5.2.26113.2065-6699a1f0:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n0000000000806c8c <hiprtcLinkDestroy@@HIP+0x57e2c>:\n  806c8c:\tnopl   0x0(%rax)\n  806c90:\tmov    0x3ca529(%rip),%rax        # bd11c0 <hiprtcLinkDestroy@@HIP+0x422360>\n  806c97:\ttest   %rax,%rax\n  806c9a:\tje     806ca6 <hiprtcLinkDestroy@@HIP+0x57e46>\n  806c9c:\tmov    %rsi,%rdx\n  806c9f:\tmov    $0x80,%esi\n  806ca4:\tjmp    *%rax\n  806ca6:\tret    \n  806ca7:\tnopw   0x0(%rax,%rax,1)\n  806cb0:\tpush   %r15\n  806cb2:\tpush   %r14\n  806cb4:\tpush   %r12\n  806cb6:\tpush   %rbx\n  806cb7:\tsub    $0x68,%rsp\n  806cbb:\tlea    0x3cc05f(%rip),%rax        # bd2d21 <hiprtcLinkDestroy@@HIP+0x423ec1>\n  806cc2:\tcmpb   $0x0,(%rax)\n  806cc5:\tje     806e39 <hiprtcLinkDestroy@@HIP+0x57fd9>\n  806ccb:\tlea    0x3cbf4e(%rip),%rax        # bd2c20 <hiprtcLinkDestroy@@HIP+0x423dc0>\n  806cd2:\tcmpb   $0x0,(%rax)\n  806cd5:\tje     806e20 <hiprtcLinkDestroy@@HIP+0x57fc0>\n  806cdb:\tlea    0x3cbf42(%rip),%rax        # bd2c24 <hiprtcLinkDestroy@@HIP+0x423dc4>\n  806ce2:\ttestb  $0x8,0x1(%rax)\n  806ce6:\tje     806e20 <hiprtcLinkDestroy@@HIP+0x57fc0>\n  806cec:\tcall   17eda0 <TLS init function for amd::hipGraphAccumulateKernelCommand::cmdIdx_@plt+0x14d398>\n  806cf1:\tcmp    $0x3,%eax\n  806cf4:\tjl     806e20 <hiprtcLinkDestroy@@HIP+0x57fc0>\n  806cfa:\tcall   30ab0 <pthread_self@plt>\n  806cff:\tmov    %rax,%rbx\n  806d02:\tcmpl   $0xffffffff,0x3bc5d7(%rip)        # bc32e0 <hiprtcLinkDestroy@@HIP+0x414480>\n  806d09:\tjne    806d97 <hiprtcLinkDestroy@@HIP+0x57f37>\n  806d0f:\tmovb   $0x0,0x4f(%rsp)\n  806d14:\tmovw   $0x0,0x4d(%rsp)\n  806d1b:\tlea    -0x5b24f2(%rip),%rax        # 254830 <hipGetCmdName@@HIP+0x104a0>\n  806d22:\tmov    %rax,0x38(%rsp)\n  806d27:\tlea    0x13c849(%rip),%rax        # 943577 <hiprtcLinkDestroy@@HIP+0x194717>\n  806d2e:\tmov    %rax,0x40(%rsp)\n  806d33:\tmovl   $0x1b8,0x48(%rsp)\n  806d3b:\tmovb   $0x3,0x4c(%rsp)\n  806d40:\tlea    0x13c91e(%rip),%rax        # 943665 <hiprtcLinkDestroy@@HIP+0x194805>\n  806d47:\tmov    %rax,0x50(%rsp)\n  806d4c:\tmovabs $0x100000001,%rax\n  806d56:\tmov    %rax,0x58(%rsp)\n  806d5b:\tlea    0x13c9ca(%rip),%rax        # 94372c <hiprtcLinkDestroy@@HIP+0x1948cc>\n  806d62:\tmov    %rax,0x60(%rsp)\n  806d67:\tmovups 0x38(%rsp),%xmm0\n  806d6c:\tmovups 0x48(%rsp),%xmm1\n  806d71:\tmovups 0x58(%rsp),%xmm2\n  806d76:\tmovups %xmm2,0x20(%rsp)\n  806d7b:\tmovups %xmm1,0x10(%rsp)\n  806d80:\tmovups %xmm0,(%rsp)\n  806d84:\tlea    0x3c07bd(%rip),%rdi        # bc7548 <hiprtcLinkDestroy@@HIP+0x4186e8>\n  806d8b:\tlea    0x3bc54e(%rip),%rsi        # bc32e0 <hiprtcLinkDestroy@@HIP+0x414480>\n  806d92:\tcall   2539f0 <hipGetCmdName@@HIP+0xf660>\n  806d97:\trdtsc  \n  806d99:\tmov    %rdx,%r14\n  806d9c:\tmov    %rax,%r12\n  806d9f:\tdata16 lea 0x3ae189(%rip),%rdi        # bb4f30 <hiprtcLinkDestroy@@HIP+0x4060d0>\n  806da7:\tdata16 data16 rex.W call 31630 <__tls_get_addr@plt>\n  806daf:\tmov    %rax,%r15\n  806db2:\tmov    (%rax),%rdi\n  806db5:\ttest   %rdi,%rdi\n  806db8:\tje     806dca <hiprtcLinkDestroy@@HIP+0x57f6a>\n  806dba:\tincq   0x28(%rdi)\n  806dbe:\tcmpq   $0x19,0x10(%rdi)\n  806dc3:\tjb     806de4 <hiprtcLinkDestroy@@HIP+0x57f84>\n  806dc5:\tmov    (%rdi),%rax\n  806dc8:\tjmp    806df3 <hiprtcLinkDestroy@@HIP+0x57f93>\n  806dca:\tlea    0x3c0777(%rip),%rdi        # bc7548 <hiprtcLinkDestroy@@HIP+0x4186e8>\n  806dd1:\tcall   1821d0 <TLS init function for amd::hipGraphAccumulateKernelCommand::cmdIdx_@plt+0x1507c8>\n  806dd6:\tmov    (%r15),%rdi\n  806dd9:\tincq   0x28(%rdi)\n  806ddd:\tcmpq   $0x19,0x10(%rdi)\n  806de2:\tjae    806dc5 <hiprtcLinkDestroy@@HIP+0x57f65>\n  806de4:\tmov    $0x18,%esi\n  806de9:\tmov    $0x1,%edx\n  806dee:\tcall   182060 <TLS init function for amd::hipGraphAccumulateKernelCommand::cmdIdx_@plt+0x150658>\n  806df3:\tshl    $0x20,%r14\n  806df7:\tor     %r12,%r14\n  806dfa:\tmov    %rbx,0x10(%rax)\n  806dfe:\tmov    0x3bc4dc(%rip),%ecx        # bc32e0 <hiprtcLinkDestroy@@HIP+0x414480>\n  806e04:\tmov    %ecx,(%rax)\n  806e06:\tmov    %r14,0x8(%rax)\n  806e0a:\tmovl   $0x18,0x4(%rax)\n  806e11:\tmov    (%r15),%rax\n  806e14:\tsfence \n  806e17:\taddq   $0xffffffffffffffe8,0x10(%rax)\n  806e1c:\taddq   $0x18,(%rax)\n  806e20:\tcall   30ab0 <pthread_self@plt>\n  806e25:\tlea    0x3ca314(%rip),%rdx        # bd1140 <hiprtcLinkDestroy@@HIP+0x4222e0>\n  806e2c:\tmov    $0x80,%esi\n  806e31:\tmov    %rax,%rdi\n  806e34:\tcall   314f0 <pthread_setaffinity_np@plt>\n  806e39:\tmov    $0x1,%al\n  806e3b:\tadd    $0x68,%rsp\n  806e3f:\tpop    %rbx\n  806e40:\tpop    %r12\n  806e42:\tpop    %r14\n  806e44:\tpop    %r15\n  806e46:\tret    \n  806e47:\tnopw   0x0(%rax,%rax,1)\n  806e50:\tjmp    312b0 <sched_yield@plt>\n  806e55:\tdata16 cs nopw 0x0(%rax,%rax,1)\n  806e60:\tsub    $0x18,%rsp\n  806e64:\txorps  %xmm0,%xmm0\n  806e67:\tmovaps %xmm0,(%rsp)\n  806e6b:\tmov    %rsp,%rsi\n  806e6e:\tmov    $0x1,%edi\n  806e73:\tcall   30b00 <clock_gettime@plt>\n  806e78:\timul   $0x3b9aca00,(%rsp),%rax\n  806e80:\tadd    0x8(%rsp),%rax\n  806e85:\tadd    $0x18,%rsp\n  806e89:\tret    \n  806e8a:\tnopw   0x0(%rax,%rax,1)\n  806e90:\tsub    $0x18,%rsp\n  806e94:\tmov    0x3ca345(%rip),%rax        # bd11e0 <hiprtcLinkDestroy@@HIP+0x422380>\n  806e9b:\ttest   %rax,%rax\n  806e9e:\tje     806ea5 <hiprtcLinkDestroy@@HIP+0x58045>\n  806ea0:\tadd    $0x18,%rsp\n  806ea4:\tret    \n  806ea5:\txorps  %xmm0,%xmm0\n  806ea8:\tmovaps %xmm0,(%rsp)\n  806eac:\tmov    %rsp,%rsi\n  806eaf:\tmov    $0x1,%edi\n  806eb4:\tcall   31910 <clock_getres@plt>\n  806eb9:\timul   $0x3b9aca00,(%rsp),%rax\n  806ec1:\tadd    0x8(%rsp),%rax\n  806ec6:\tmov    %rax,0x3ca313(%rip)        # bd11e0 <hiprtcLinkDestroy@@HIP+0x422380>\n  806ecd:\tadd    $0x18,%rsp\n  806ed1:\tret    \n  806ed2:\tdata16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)\n  806ee0:\tlea    0x186d27(%rip),%rax        # 98dc0e <hiprtcLinkDestroy@@HIP+0x1dedae>\n  806ee7:\tret    \n  806ee8:\tnopl   0x0(%rax,%rax,1)\n  806ef0:\tlea    0x13c7a9(%rip),%rax        # 9436a0 <hiprtcLinkDestroy@@HIP+0x194840>\n  806ef7:\tret    \n  806ef8:\tnopl   0x0(%rax,%rax,1)\n  806f00:\tlea    0x13b3e1(%rip),%rax        # 9422e8 <hiprtcLinkDestroy@@HIP+0x193488>\n  806f07:\tret    \n  806f08:\tnopl   0x0(%rax,%rax,1)\n  806f10:\tmov    $0x2f,%al\n  806f12:\tret    \n  806f13:\tdata16 data16 data16 cs nopw 0x0(%rax,%rax,1)\n  806f20:\tmov    $0x3a,%al\n  806f22:\tret    \n  806f23:\tdata16 data16 data16 cs nopw 0x0(%rax,%rax,1)\n  806f30:\tsub    $0x98,%rsp\n  806f37:\txorps  %xmm0,%xmm0\n  806f3a:\tmovaps %xmm0,0x80(%rsp)\n  806f42:\tmovaps %xmm0,0x70(%rsp)\n  806f47:\tmovaps %xmm0,0x60(%rsp)\n  806f4c:\tmovaps %xmm0,0x50(%rsp)\n  806f51:\tmovaps %xmm0,0x40(%rsp)\n  806f56:\tmovaps %xmm0,0x30(%rsp)\n  806f5b:\tmovaps %xmm0,0x20(%rsp)\n  806f60:\tmovaps %xmm0,0x10(%rsp)\n  806f65:\tmovaps %xmm0,(%rsp)\n  806f69:\tmov    (%rdi),%rsi\n  806f6c:\tmov    %rsp,%rdx\n  806f6f:\tmov    $0x1,%edi\n  806f74:\tcall   30c20 <__xstat@plt>\n  806f79:\tmov    $0xf000,%ecx\n  806f7e:\tand    0x18(%rsp),%ecx\n  806f82:\txor    $0x4000,%ecx\n  806f88:\tor     %eax,%ecx\n  806f8a:\tsete   %al\n  806f8d:\tadd    $0x98,%rsp\n  806f94:\tret    \n  806f95:\tdata16 cs nopw 0x0(%rax,%rax,1)\n  806fa0:\tpush   %rbp\n  806fa1:\tpush   %r15\n  806fa3:\tpush   %r14\n  806fa5:\tpush   %r13\n  806fa7:\tpush   %r12\n  806fa9:\tpush   %rbx\n  806faa:\tsub    $0xb8,%rsp\n  806fb1:\tmov    %rdi,%rbx\n  806fb4:\tlea    0x10(%rsp),%r15\n  806fb9:\txor    %r14d,%r14d\n  806fbc:\tlea    0x20(%rsp),%r12\n  806fc1:\tjmp    806fd8 <hiprtcLinkDestroy@@HIP+0x58178>\n  806fc3:\tdata16\n  806fc4:\tdata16\n  806fc5:\tdata16\n  806fc6:\tdata16\n  806fc7:\tcs\n  806fc8:\t.byte 0xf\n  806fc9:\t(bad)  \n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "text": "AMD_CPU_AFFINITY",
+      "file_offset": 10013904,
+      "address": 10013904,
+      "xrefs": [],
+      "pointer_records": [
+        [
+          {
+            "file_offset": 165400,
+            "value_hex": "0x98ccb6",
+            "text": "PAL_PREPINNED_MEMORY_SIZE"
+          },
+          {
+            "file_offset": 165408,
+            "value_hex": "0xbc41d8",
+            "text": null
+          },
+          {
+            "file_offset": 165416,
+            "value_hex": "0x8",
+            "text": "untu 9.4.0-1ubuntu1~20.04.3) 9.4.0"
+          },
+          {
+            "file_offset": 165424,
+            "value_hex": "0xbc3658",
+            "text": "@"
+          },
+          {
+            "file_offset": 165432,
+            "value_hex": "0xbc41e8",
+            "text": null
+          },
+          {
+            "file_offset": 165440,
+            "value_hex": "0x8",
+            "text": "untu 9.4.0-1ubuntu1~20.04.3) 9.4.0"
+          },
+          {
+            "file_offset": 165448,
+            "value_hex": "0x98ccd0",
+            "text": "AMD_CPU_AFFINITY"
+          },
+          {
+            "file_offset": 165456,
+            "value_hex": "0xbc41f0",
+            "text": null
+          },
+          {
+            "file_offset": 165464,
+            "value_hex": "0x8",
+            "text": "untu 9.4.0-1ubuntu1~20.04.3) 9.4.0"
+          },
+          {
+            "file_offset": 165472,
+            "value_hex": "0xbd2d21",
+            "text": null
+          },
+          {
+            "file_offset": 165480,
+            "value_hex": "0xbc4200",
+            "text": null
+          },
+          {
+            "file_offset": 165488,
+            "value_hex": "0x8",
+            "text": "untu 9.4.0-1ubuntu1~20.04.3) 9.4.0"
+          },
+          {
+            "file_offset": 165496,
+            "value_hex": "0x98cce1",
+            "text": "ROC_USE_FGS_KERNARG"
+          },
+          {
+            "file_offset": 165504,
+            "value_hex": "0xbc4208",
+            "text": null
+          },
+          {
+            "file_offset": 165512,
+            "value_hex": "0x8",
+            "text": "untu 9.4.0-1ubuntu1~20.04.3) 9.4.0"
+          },
+          {
+            "file_offset": 165520,
+            "value_hex": "0xbc3660",
+            "text": null
+          },
+          {
+            "file_offset": 165528,
+            "value_hex": "0xbc4218",
+            "text": null
+          }
+        ],
+        [
+          {
+            "file_offset": 12333496,
+            "value_hex": "0x98cca3",
+            "text": "HIP_LOG_LEVEL_FILE"
+          },
+          {
+            "file_offset": 12333504,
+            "value_hex": "0xbc3650",
+            "text": null
+          },
+          {
+            "file_offset": 12333512,
+            "value_hex": "0x100000005",
+            "text": null
+          },
+          {
+            "file_offset": 12333520,
+            "value_hex": "0x98ccb6",
+            "text": "PAL_PREPINNED_MEMORY_SIZE"
+          },
+          {
+            "file_offset": 12333528,
+            "value_hex": "0xbc3658",
+            "text": "@"
+          },
+          {
+            "file_offset": 12333536,
+            "value_hex": "0x100000004",
+            "text": null
+          },
+          {
+            "file_offset": 12333544,
+            "value_hex": "0x98ccd0",
+            "text": "AMD_CPU_AFFINITY"
+          },
+          {
+            "file_offset": 12333552,
+            "value_hex": "0xbd2d21",
+            "text": null
+          },
+          {
+            "file_offset": 12333560,
+            "value_hex": "0x100000001",
+            "text": null
+          },
+          {
+            "file_offset": 12333568,
+            "value_hex": "0x98cce1",
+            "text": "ROC_USE_FGS_KERNARG"
+          },
+          {
+            "file_offset": 12333576,
+            "value_hex": "0xbc3660",
+            "text": null
+          },
+          {
+            "file_offset": 12333584,
+            "value_hex": "0x100000001",
+            "text": null
+          },
+          {
+            "file_offset": 12333592,
+            "value_hex": "0x98ccf5",
+            "text": "ROC_P2P_SDMA_SIZE"
+          },
+          {
+            "file_offset": 12333600,
+            "value_hex": "0xbc3664",
+            "text": null
+          },
+          {
+            "file_offset": 12333608,
+            "value_hex": "0x100000003",
+            "text": null
+          },
+          {
+            "file_offset": 12333616,
+            "value_hex": "0x98cd07",
+            "text": "ROC_AQL_QUEUE_SIZE"
+          },
+          {
+            "file_offset": 12333624,
+            "value_hex": "0xbc3668",
+            "text": null
+          }
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "error": "ValueError('a native rank thread escaped its assigned CPU mask')",
+  "identity": {
+    "pid": 1234,
+    "state": "R",
+    "ppid": 1233,
+    "pgrp": 1234,
+    "start_ticks": "321773070",
+    "argv": [
+      "/usr/local/python3.12/bin/python3.12",
+      "-B",
+      "-u",
+      "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-20af511b0177/source/tools/validation/gpu_admission.py",
+      "--internal-role",
+      "rank",
+      "--spec",
+      "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-20af511b0177/gpu-admission-1/SPEC.json",
+      "--spec-sha256",
+      "da72e4b1fa2232bc4631b5bf625f173d6cd327e99d41bfe0dc20f932ac521318",
+      "--rank",
+      "0"
+    ]
+  },
+  "at": 1793190393.7017958
+}
