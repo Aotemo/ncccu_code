@@ -1,0 +1,18 @@
+{
+  "status": "failed_or_resource_unknown_do_not_retry",
+  "exit_code": 1,
+  "error": "ValueError('admission helpers require a fresh interpreter, without a different cached runtime')",
+  "wall_seconds": 0.4410533905029297,
+  "processes": [],
+  "actual": {},
+  "cleanup_error": null,
+  "owner_exit_code": null,
+  "outer_supervision": null,
+  "interrupted_owner_drain": null,
+  "outer_reason": "ValueError('admission helpers require a fresh interpreter, without a different cached runtime')",
+  "owner_reason": null,
+  "rank_exit_codes": {},
+  "rank_reaped": {},
+  "GPU_success_receipt_written": false,
+  "formal_clock_created": false
+}

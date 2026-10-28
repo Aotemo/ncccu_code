@@ -551,7 +551,7 @@ def clean_survivors(processes, until):
     return signals
 
 
-def run_outer(args):
+def run_outer(args, context):
     started_at = time.time()
     require(not any(name == 'torch' or name.startswith('torch.') for name in sys.modules),
             'outer auditor requires a fresh standard-library-only process')
@@ -565,7 +565,7 @@ def run_outer(args):
     reserve_output(output, root)
     inputs = {name: str(getattr(args, name)) if isinstance(getattr(args, name), Path) else getattr(args, name)
               for name in INPUT_NAMES}
-    auditor = identity(os.getpid()); lock_fd = None; owner = None; context = None; known_processes = []
+    auditor = identity(os.getpid()); lock_fd = None; owner = None; known_processes = []
     supervision = None; owner_result = {}; interrupted_drain = None
     write(output / 'STARTED.json', {'status': 'reserved_do_not_retry', 'started_at': started_at,
         'inputs': inputs, 'auditor': auditor, 'GPU_started': False, **zero_work()})
@@ -576,7 +576,6 @@ def run_outer(args):
         deployment_input = pinned(args.deployment_receipt, args.deployment_receipt_sha256, root)
         require(not output.resolve().is_relative_to(Path(deployment_input['source_root']).resolve()),
                 'attempt must not mutate the frozen source checkout')
-        context = load_context(inputs)
         api = context['api']; site = context['site']
         allocation, _ = api.verify_gpu_cpu(site, initial=True)
         allocation_value = pinned(allocation['allocation_receipt']['path'],
@@ -732,7 +731,7 @@ def main(argv=None):
                   for name in INPUT_NAMES}
         context = load_context(inputs)
         context['api'].prepare_native_entry(context['site'])
-        return run_outer(args)
+        return run_outer(args, context)
     require(args.spec is not None and args.spec_sha256, 'internal child needs a pinned parent specification')
     spec = read_spec(args)
     wait_release(spec, args.spec_sha256, args.internal_role, args.rank)

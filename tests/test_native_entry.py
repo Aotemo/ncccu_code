@@ -57,6 +57,61 @@ class NativeEntryTest(unittest.TestCase):
              patch.object(api.Path, 'read_text', return_value='1000-2000 r-xp 0 00:00 1 ' + str(self.artifact) + '\n'):
             self.assertTrue(api.native_guard_loaded(self.policy))
 
+    def test_external_entry_loads_context_once_per_interpreter_across_preload(self):
+        import hashlib
+        import importlib.util
+        import time
+        from types import SimpleNamespace
+        spec = importlib.util.spec_from_file_location('native_entry_dispatch', ROOT / 'tools/validation/gpu_admission.py')
+        entry = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(entry)
+
+        class ReexecRequested(Exception):
+            pass
+
+        class BeforeGPU(Exception):
+            pass
+
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory) / 'exp-v3'
+            work.mkdir()
+            prep = work / 'technical-prep/frozen/formal-cpu'
+            prep.mkdir(parents=True)
+            output = work / 'technical-prep/attempt'
+            site = {'work_root': str(work), 'round_root': str(work / 'rounds/fixture')}
+            site_path, deployment = work / 'site.json', work / 'deployment.json'
+            site_path.write_text(json.dumps(site))
+            deployment.write_text(json.dumps({'source_root': str(prep.parent / 'source')}))
+            digest = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+            arguments = ['--prep-root', str(prep), '--site-binding', str(site_path),
+                '--site-binding-sha256', digest(site_path), '--deployment-receipt', str(deployment),
+                '--deployment-receipt-sha256', digest(deployment), '--package-manifest', str(work / 'package.json'),
+                '--package-manifest-sha256', 'a' * 64, '--cpu-prep-receipt', str(work / 'cpu.json'),
+                '--cpu-prep-receipt-sha256', 'b' * 64, '--pod-uid', 'fixture', '--ready', 'True',
+                '--observed-at', str(time.time()), '--output', str(output)]
+            from unittest.mock import Mock
+            native = SimpleNamespace(prepare_native_entry=Mock(side_effect=ReexecRequested),
+                verify_gpu_cpu=Mock(side_effect=BeforeGPU))
+            context = {'api': native, 'site': site}
+            # First interpreter re-execs before reserving the one-shot output.
+            with patch.object(entry, 'load_context', return_value=context) as load:
+                with self.assertRaises(ReexecRequested):
+                    entry.main(arguments)
+                load.assert_called_once()
+            self.assertFalse(output.exists())
+            native.verify_gpu_cpu.assert_not_called()
+            # The preloaded interpreter traverses the real main -> run_outer.
+            # A second load_context would fail before reaching this CPU gate.
+            native.prepare_native_entry.side_effect = None
+            with patch.object(entry, 'load_context', side_effect=[context, AssertionError('duplicate context')]) as load, \
+                 patch.object(entry.signal, 'signal'):
+                with self.assertRaises(BeforeGPU):
+                    entry.main(arguments)
+                load.assert_called_once()
+            native.verify_gpu_cpu.assert_called_once()
+            self.assertTrue((output / 'STARTED.json').is_file())
+            self.assertFalse((output / 'owner-launch.json').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

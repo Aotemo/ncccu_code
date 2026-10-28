@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "tests": 1,
+  "errors": 0,
+  "failures": 0,
+  "source_files": {
+    "tools/validation/gpu_admission.py": "8fc31f34965eb5f2fd5a79d30a02e420e9a1b543aa93882aaddb6d2c3e2f0f15",
+    "tests/test_native_entry.py": "71b70357c5f15adb489c380c9aab22a2efd60699122794bad4a46b203e8d8c66"
+  },
+  "source_unchanged": true
+}
