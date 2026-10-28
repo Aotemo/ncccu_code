@@ -1,0 +1,47 @@
+{
+  "scope": "imports_only_no_model_no_forward",
+  "python": "/usr/local/python3.12/bin/python3.12",
+  "python_version": "3.12.7",
+  "dependencies": {
+    "torch": "2.10.0",
+    "torchvision": "0.25.0",
+    "numpy": "1.26.4",
+    "PIL": "12.3.0",
+    "timm": "1.0.27"
+  },
+  "implementations": {
+    "timm_convnext": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/models/convnext.py",
+      "sha256": "a2ef5eb22cc1039dadcddcbf7b243034e98a553630349483302ed21d09fdb50f"
+    },
+    "torchvision_convnext": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/torchvision/models/convnext.py",
+      "sha256": "5c00c412bc79e5c650f887dfe0d21aa8028903a3bbeae1a95c3b0fdfbdaf55c2"
+    },
+    "timm_gelu": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/activations.py",
+      "sha256": "effc50cc017066d60f3e8bc9f4a65b2765ad374a1b4da7bf023c1db99e8f1cd9",
+      "forward_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+    }
+  },
+  "mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "threads": 12,
+  "interop_threads": 1,
+  "allocation": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/environment-20261028-51fe3daf/CPU-ALLOCATION-2.json",
+  "allocation_sha256": "25fe957398e81748c170d929b7b662b24270d1012e7f2940ec28ed315d9385ad",
+  "gpu_initialized": false
+}

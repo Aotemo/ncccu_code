@@ -20,6 +20,9 @@ def main():
     official.add_argument('--eval-manifest-sha256', required=True)
     official.add_argument('--device', default='cuda:0')
     args = parser.parse_args()
+    import torch
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
     if args.operation == 'freeze':
         value = freeze_training(args.training_folder, args.output)
         print(json.dumps({'freeze_path': str(Path(args.output).resolve()), 'sha256': sha256_file(args.output),

@@ -27,9 +27,10 @@ def worker(args, *, model_factory=None, stop_event=None):
     from retrain.execution_policy import validate_worker_spec, rank_proof
     requested=list(map(int,args.cpu_affinity.split(','))) if args.cpu_affinity else []
     world=validate_worker_spec(spec,args.rank,args.device,requested)
-    if requested and hasattr(os,'sched_setaffinity'):os.sched_setaffinity(0,set(requested))
+    from retrain.execution_policy import bind_worker_cpu
+    bind_worker_cpu(spec,args.rank,args.device)
     import torch
-    torch.set_num_threads(1)
+    torch.set_num_threads(1);torch.set_num_interop_threads(1)
     from retrain.distributed import RankContext
     from retrain.distributed_engine import run_distributed
     ctx=RankContext(args.rank,world,args.device,spec['init_method'],timeout_seconds=90)
@@ -39,13 +40,14 @@ def worker(args, *, model_factory=None, stop_event=None):
         job=copy.deepcopy(spec['job']);job['device']=args.device
         from retrain.persistence import atomic_json
         proofs=ctx.values(rank_proof(ctx,spec))
-        expected=['0000:09:00.0','0000:77:00.0','0000:85:00.0','0000:f5:00.0']
-        if len(proofs)!=4 or [x['physical_pci'] for x in sorted(proofs,key=lambda x:x['rank'])]!=expected:
-            raise ValueError('actual rank PCI identities differ from the admitted four devices')
+        from retrain.site_binding import load_site, verify_rank_devices, sha256 as site_sha
+        site=load_site()
+        if spec['site_binding_sha256']!=site_sha(os.environ['NCCCU_SITE_BINDING']):
+            raise ValueError('worker site binding changed')
+        verify_rank_devices(proofs,site)
         if ctx.primary:atomic_json(Path(spec['run_dir'])/'rank-device-proof.json',proofs)
-        budget=spec['cpu_width']
-        job['workers']=min(job['workers'],max(0,budget-2))
-        job['eval_workers']=min(job['eval_workers'],max(0,budget-1))
+        job['workers']=site['cpu_execution']['loader_workers']
+        job['eval_workers']=site['cpu_execution']['loader_workers']
         result=run_distributed(job,json.loads(Path(spec['manifest_path']).read_text()),spec['data_root'],
             spec['run_dir'],spec['identity'],ctx,resume=spec['resume'],mode=spec['mode'],
             fresh_spec=spec['fresh_spec'],stop_event=stop,deadline_at=spec['deadline_at'],model_factory=model_factory)
@@ -54,6 +56,8 @@ def worker(args, *, model_factory=None, stop_event=None):
 
 
 def run(args):
+    from retrain.site_binding import load_site, bind_cpu_role
+    site=load_site();bind_cpu_role(site,'control')
     import train
     from retrain.execution_policy import resolve_topology, allocate_cpus
     from retrain.config import load_config,job_contract
@@ -74,19 +78,21 @@ def run(args):
     if sha256_file(args.plan)!=fresh['plan_sha256']:raise ValueError('frozen PLAN hash differs')
     if fresh.get('cache_readonly_required') and (os.environ.get('TRAIN_IMAGE_CACHE_READONLY')!='1' or not os.environ.get('TRAIN_IMAGE_CACHE')):raise ValueError('sealed read-only cache required')
     import torch
+    torch.set_num_threads(1);torch.set_num_interop_threads(1)
     device_count=torch.cuda.device_count()
-    if device_count!=4:raise ValueError('exactly four admitted visible DCUs required')
+    from retrain.site_binding import load_site, verify_visible_devices, sha256 as site_sha
+    site=load_site()
+    if device_count!=len(site['gpus']):raise ValueError('visible accelerator count differs from admitted site')
     import ctypes,ctypes.util
     hip=ctypes.CDLL(ctypes.util.find_library('amdhip64') or 'libamdhip64.so')
     hip.hipDeviceGetPCIBusId.argtypes=[ctypes.c_char_p,ctypes.c_int,ctypes.c_int]
     hip.hipDeviceGetPCIBusId.restype=ctypes.c_int
     actual=[]
-    for ordinal in range(4):
+    for ordinal in range(device_count):
         buffer=ctypes.create_string_buffer(64)
         if hip.hipDeviceGetPCIBusId(buffer,64,ordinal):raise ValueError('HIP PCI identity query failed')
         pci=buffer.value.decode().lower();actual.append(('0000:'+pci) if pci.count(':')==1 else pci)
-    if actual!=['0000:09:00.0','0000:77:00.0','0000:85:00.0','0000:f5:00.0']:
-        raise ValueError('visible ordinal-to-PCI mapping differs from admitted Pod devices')
+    verify_visible_devices(actual,site)
     job,plan,policy=resolve_topology(cfg,available_accelerators=device_count)
     world=plan['world_size']
     if fresh.get('execution_policy')!=policy:raise ValueError('fresh specification and configured execution policy differ')
@@ -148,7 +154,8 @@ def run(args):
         spec={'job':job,'manifest_path':str(manifest_path),'data_root':cfg['data']['root'],'run_dir':str(folder),
           'identity':identity,'resume':cfg['resume'],'mode':mode,'deadline_at':args.deadline_at,'fresh_spec':fresh,'cpu_width':width,
           'init_method':'file://'+str(rendezvous),'devices':cfg['execution']['devices'],
-          'cpu_masks':cpus,'execution_policy':policy}
+          'cpu_masks':cpus,'execution_policy':policy,
+          'site_binding_sha256':site_sha(os.environ['NCCCU_SITE_BINDING'])}
         path=folder/'fresh-worker-spec.json';atomic_json(path,spec)
         tasks=[]
         for rank,device in enumerate(cfg['execution']['devices']):

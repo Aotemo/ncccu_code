@@ -7,7 +7,7 @@ RULE = {'autocast_enabled': False,
  'float32_matmul_precision': 'highest',
  'nonfinite_gradient': 'hard_stop_before_optimizer_step',
  'official_valid_precision': 'fp32',
- 'resume': 'same world4/full identity/precision protocol only; native empty '
+ 'resume': 'same admitted world/full identity/precision protocol only; native empty '
            'scaler dictionary required; no conversion from R13',
  'scaler_enabled': False,
  'scaler_state_dict': {},

@@ -1,6 +1,6 @@
 # 配置入口
 
-本目录用于可复用配置与模板。当前 R92 的冻结科学配置仍在 [runtime/TRAIN_CONFIG.json](../runtime/TRAIN_CONFIG.json)，它与已有部署清单绑定；当前任务合同在 [todo/auroc-999/](../todo/auroc-999/README.md)。三个保留模型的参数在 [models/](../models/README.md)。
+本目录用于可复用配置与模板。[R93-SCIENCE.json](R93-SCIENCE.json) 保存当前 Tiny22K→1K 科学配置及工作根内的相对资产路径；[prepare.py](../tools/activation/prepare.py) 根据当次显式 site 与真实资产回执，在 Pod 生成 TRAIN_CONFIG、ASSETS、fresh/source 清单和新的 CPU 验收身份。旧 R92 生成模板与 CPU 身份从当前入口移除，原件保留于 Git 历史及 [records/R92](../records/R92/)。任务合同在 [todo/auroc-999/](../todo/auroc-999/README.md)，三个保留模型参数在 [models/](../models/README.md)。
 
 [PRETRAINING-ASSETS.json](PRETRAINING-ASSETS.json) 是原预训练盘点的回执路径/SHA 索引，不包含新的执行环境配置；保留其路径供正在进行的存储工作接续。
 

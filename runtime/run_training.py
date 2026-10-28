@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""R92 publicfresh Tiny1K fixed9010 owner; native process/resource workflow."""
+"""Explicitly bound public-fresh fixed9:1 owner; native process/resource workflow."""
 import argparse, contextlib, fcntl, glob, json, os, re, signal, socket, stat, subprocess, sys, time, uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent;CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
-PCIS={'0000:09:00.0','0000:77:00.0','0000:85:00.0','0000:f5:00.0'}
+sys.path.insert(0,str(ROOT/'bundle'))
+from retrain.site_binding import load_site, expected_pcis, verify_live, instance_lock, bind_cpu_role
 STOP=None
 
 def read(p):return json.loads(Path(p).read_text())
@@ -28,26 +29,28 @@ def ident(pid):
   s=(p/'stat').read_text().rsplit(')',1)[1].split()
   argv=[x.decode('utf-8','replace') for x in (p/'cmdline').read_bytes().split(b'\0') if x]
   return {'pid':pid,'state':s[0],'pgrp':int(s[2]),'start_ticks':s[19],'argv':argv}
- except (OSError,ValueError,IndexError):return None
+ except (FileNotFoundError,ProcessLookupError):return None
 def same(i):
  a=ident(i['pid']);return bool(a and a['state'] not in ('Z','X') and a['start_ticks']==i['start_ticks'] and a['argv']==i['argv'])
 def matching():
  out=[]
+ work_root=load_site()['work_root']
  for d in glob.glob('/proc/[0-9]*'):
   pid=int(d.rsplit('/',1)[1])
   if pid in (os.getpid(),os.getppid()):continue
   i=ident(pid)
   if not i or i['state'] in ('Z','X'):continue
   a=' '.join(i['argv'])
-  if ('auroc999-20261027' in a or '/SothisAI/' in a) and any(x in a.lower() for x in ('python','train','evaluate','controller')):
+  if (work_root in a or '/SothisAI/' in a) and any(x in a.lower() for x in ('python','train','evaluate','controller')):
    out.append(i)
  return out
 def cards():
  out=[]
+ pcis=set(expected_pcis(load_site()))
  for p in Path('/sys/class/drm').glob('card[0-9]*'):
   if not p.name[4:].isdigit():continue
   d=(p/'device').resolve()
-  if d.name not in PCIS:continue
+  if d.name not in pcis:continue
   out.append({'pci':d.name,'busy_percent':int((d/'gpu_busy_percent').read_text()),'vram_used_bytes':int((d/'mem_info_vram_used').read_text())})
  return sorted(out,key=lambda x:x['pci'])
 def own_ranks(rank_control):
@@ -67,7 +70,7 @@ def run_component(phase,argv,deadline,rank_control,env):
  atomic(launch,{'at':started,'phase':phase,'token':token,'gate_identity':cur,'command':argv,'deadline_at':deadline,'rank_control':str(rank_control),'log':str(log)},exclusive=True)
  atomic(gate,{'at':time.time(),'token':token,'pid':proc.pid,'start_ticks':cur['start_ticks']},exclusive=True)
  print(json.dumps({'event':'component_released','phase':phase,'pid':proc.pid,'start_ticks':cur['start_ticks'],'at':time.time()}),flush=True)
- reason=None;signals=[];term=None;last_monitor=0
+ reason=None;signals=[];term=None;last_monitor=0;cpu_known={}
  soft=deadline-150
  while proc.poll() is None and time.time()<deadline:
   now=time.time()
@@ -75,6 +78,8 @@ def run_component(phase,argv,deadline,rank_control,env):
    try:
     import run_round as guard
     resources=guard.runtime_safety_snapshot();resources.update(guard.budget(deadline))
+    from retrain.execution_policy import audit_cpu_tree
+    resources['cpu_tree']=audit_cpu_tree(os.getpid(),cpu_known,load_site())
     atomic(CONTROL/'live-resources.json',resources)
     if phase=='train':guard.maybe_release(ROOT,atomic,sha)
    except Exception as exc:reason=reason or 'resource_guard:'+repr(exc)
@@ -122,10 +127,12 @@ def main():
   global STOP;STOP=signal.Signals(sig).name
  for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,on_signal)
  clock=read(CONTROL/'round-clock.json');cfg=read(ROOT/'TRAIN_CONFIG.json')
+ site=load_site();world=len(site['gpus']);bind_cpu_role(site,'control')
+ if site.get('scope')!='formal_exp_v3':raise ValueError('training owner requires a formal deployment')
  if args.token!=clock['token']:raise ValueError('round token differs')
  admission=read(CONTROL/'pod-admission.json')
- if admission.get('pod_uid')!='eec33bd6-b567-40ef-b866-633e272ea019' or not admission.get('ready') or not 0<=time.time()-admission['observed_at']<=120:raise ValueError('Pod identity or freshness')
- if socket.gethostname()!='vcjob-2114373723310104577-acfwvv9ejn-90647-worker-0':raise ValueError('Pod hostname')
+ verify_live(site,pod_uid=admission.get('pod_uid'),ready=admission.get('ready'),observed_at=admission.get('observed_at'))
+ if clock['round_id']!=site['round_id'] or cfg['execution']['devices']!=['cuda:'+str(rank) for rank in range(world)]:raise ValueError('round or configured world differs from site')
  cpu=read(EVIDENCE/'MODEL_CPU_ADMISSION.json')
  if cpu.get('status')!='completed' or cpu['formal_train_config_sha256']!=sha(ROOT/'TRAIN_CONFIG.json') or cpu['gpu_initialized'] or not cpu.get('checks') or any(x.get('passed') is not True for x in cpu['checks']):raise ValueError('CPU preparation differs')
  import run_round as guard
@@ -135,13 +142,15 @@ def main():
  if time.time()>=clock['implementation_deadline_at']:raise TimeoutError('implementation window elapsed')
  assets=read(ROOT/'ASSETS.json');manifest=assets['manifests']['fit_dev']
  if sha(manifest['remote_path'])!=manifest['sha256']:raise ValueError('manifest SHA')
- lock='/public/home/acfwvv9ejn/SothisAI/exp-v2/.instance-owner-eec33bd6-b567-40ef-b866-633e272ea019.lock'
+ lock=instance_lock(site)
  fd=os.open(lock,os.O_RDONLY|os.O_NOFOLLOW)
  rank_control=ROOT/'outputs'/cfg['run_name']/'rank-control'
  terminal={'status':'failed','at':time.time(),'token':args.token}
  acquired=False
  try:
-  if os.fstat(fd).st_ino!=read(CONTROL/'predecessor-handoff.json')['lock_inode']:raise RuntimeError('original instance lock inode changed')
+  handoff=read(CONTROL/'predecessor-handoff.json')
+  if (os.fstat(fd).st_ino!=handoff['lock_inode'] or os.fstat(fd).st_dev!=handoff['lock_device']
+      or not stat.S_ISREG(os.fstat(fd).st_mode) or str(lock)!=handoff['lock_path']):raise RuntimeError('admitted instance lock identity changed')
   fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);acquired=True
   active=[];cpu_only=[]
   for process in matching():
@@ -160,7 +169,7 @@ def main():
   guard.budget(clock['deadline_at'],minimum_free=20*1024**3)
   guard.runtime_safety_snapshot()
   snapshot=cards()
-  if len(snapshot)!=4 or {c['pci'] for c in snapshot}!=PCIS:raise RuntimeError('four expected devices not visible')
+  if len(snapshot)!=world or {c['pci'] for c in snapshot}!=set(expected_pcis(site)):raise RuntimeError('all admitted devices must be visible')
   if any(c['busy_percent'] or c['vram_used_bytes']>64*1024*1024 for c in snapshot):raise RuntimeError('devices occupied')
   import shutil
   if shutil.disk_usage(ROOT).free<20*1024**3:raise RuntimeError('insufficient free storage')
@@ -183,22 +192,22 @@ def main():
   result=run_component('train',argv,deadline,rank_control,env)
   out=ROOT/'outputs'/cfg['run_name'];model_dir=out/cfg['jobs'][0]['name']
   complete=read(out/'complete.json');record=read(model_dir/'complete.json')
-  if complete['status']!='completed' or len(complete['exit_codes'])!=4 or any(complete['exit_codes'].values()):raise ValueError('rank completion')
+  if complete['status']!='completed' or set(complete['exit_codes'])!={'rank-'+str(rank) for rank in range(world)} or any(complete['exit_codes'].values()):raise ValueError('rank completion')
   if record.get('status')!='completed' or record.get('skipped_updates')!=0 or record['attempted_updates']!=record['successful_updates']:raise ValueError('successful update completion')
   if record.get('evaluated_cycle')!=8 or record['cycle']!=8 or record['successful_updates']!=fresh['schedule']['total_updates']:raise ValueError('eight full cycles and complete new8S required')
   if record['ema']['rule']!=fresh['ema'] or record['ema']['copy_count']!=fresh['ema']['warmcopy_updates'] or record['ema']['blend_count']!=record['successful_updates']-fresh['ema']['warmcopy_updates']:raise ValueError('runtime EMA counters differ')
   if len(list((model_dir/'predictions').glob('*/dev-cycle-*.csv')))!=16:raise ValueError('16 complete dev CSVs required')
-  guard.verify_fresh_initial_identity(read(model_dir/'initial-ranks.json'),read(model_dir/'parameter-groups.json'),read(EVIDENCE/'CPU_PARAMETER_GROUPS.json'),cpu['initial_state_control'])
+  guard.verify_fresh_initial_identity(read(model_dir/'initial-ranks.json'),read(model_dir/'parameter-groups.json'),read(EVIDENCE/'CPU_PARAMETER_GROUPS.json'),cpu['initial_state_control'],expected_world=world)
   initials=read(model_dir/'initial-ranks.json')
   actual_initial=read(EVIDENCE/'ACTUAL_FRESH_INITIAL.json')
-  if actual_initial['status']!='completed' or len(initials)!=4 or any(x['model_sha256']!=actual_initial['model_tensor_sha256'] or x['optimizer_state_entries']!=0 for x in initials):raise ValueError('actual rank fresh initialization')
+  if actual_initial['status']!='completed' or actual_initial['rank_count']!=world or len(initials)!=world or any(x['model_sha256']!=actual_initial['model_tensor_sha256'] or x['optimizer_state_entries']!=0 for x in initials):raise ValueError('actual rank fresh initialization')
   terminal.update(status='completed',successful_updates=record['successful_updates'],cycles=record['cycle'],
                   component=result,complete_sha256=sha(out/'complete.json'),research_only=False)
   atomic(EVIDENCE/'TRAIN_RESULT.json',terminal,exclusive=True)
   terminal['phase']='freeze'
   freeze_path=ROOT/'SINGLE-MODEL-FREEZE.json'
   freeze_env=env.copy()
-  freeze_env.update(CUDA_VISIBLE_DEVICES='',HIP_VISIBLE_DEVICES='',ROCR_VISIBLE_DEVICES='',OMP_NUM_THREADS='2',MKL_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2')
+  freeze_env.update(CUDA_VISIBLE_DEVICES='',HIP_VISIBLE_DEVICES='',ROCR_VISIBLE_DEVICES='',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1')
   freeze_deadline=min(time.time()+policy['freeze_hard_seconds'],clock['deadline_at']-policy['official_hard_seconds']-policy['cleanup_seconds'])
   if freeze_deadline-time.time()<=150:raise TimeoutError('freeze plus cleanup window unavailable')
   freeze_command=['nice','-n','19',sys.executable,'-B','-u',str(ROOT/'bundle/single_model91.py'),'freeze','--training-folder',str(model_dir),'--output',str(freeze_path)]
@@ -221,7 +230,7 @@ def main():
   terminal.update(status='completed',phase='complete',freeze_component=freeze_result,official_component=official_component,
     single_model_freeze_sha256=sha(freeze_path),official_result_sha256=sha(official_root/'OFFICIAL-RESULT.json'),
     official_metrics=official_result['metrics'],target_auroc_at_least_0_999=official_result['target_auroc_at_least_0_999'])
-  atomic(EVIDENCE/'R92_RESULT.json',terminal,exclusive=True)
+  atomic(EVIDENCE/'ROUND_RESULT.json',terminal,exclusive=True)
  except BaseException as exc:
   terminal['status']='official_unknown' if terminal.get('phase')=='official' else 'failed'
   terminal['error']=repr(exc)

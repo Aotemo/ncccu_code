@@ -1,0 +1,353 @@
+{
+  "passed": true,
+  "scope": "activation_observation_only_not_source_acceptance",
+  "execution": {
+    "at": "2026-10-28T10:02:30.857623+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115367159301828609-acfwvv9ejn-96064-worker-0",
+    "uid": "f9fe6762-7127-479b-8e80-09ce2487d754",
+    "container": "vcjob-2115367159301828609-acfwvv9ejn-96064",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2",
+      "OPENBLAS_NUM_THREADS": "2"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "timm_version": "1.0.27",
+  "timm_creation": {
+    "model": "convnext_tiny.fb_in22k_ft_in1k",
+    "pretrained": false,
+    "pretrained_cfg": {
+      "tag": "fb_in22k_ft_in1k",
+      "custom_load": false,
+      "input_size": [
+        3,
+        224,
+        224
+      ],
+      "test_input_size": [
+        3,
+        288,
+        288
+      ],
+      "fixed_input_size": false,
+      "interpolation": "bicubic",
+      "crop_pct": 0.875,
+      "test_crop_pct": 1.0,
+      "crop_mode": "center",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "num_classes": 1000,
+      "pool_size": [
+        7,
+        7
+      ],
+      "first_conv": "stem.0",
+      "classifier": "head.fc"
+    },
+    "drop_path_rate": 0.1
+  },
+  "source_activations": [
+    {
+      "name": "stages.0.blocks.0.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.0.blocks.1.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.0.blocks.2.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.1.blocks.0.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.1.blocks.1.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.1.blocks.2.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.0.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.1.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.2.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.3.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.4.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.5.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.6.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.7.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.2.blocks.8.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.3.blocks.0.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.3.blocks.1.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    },
+    {
+      "name": "stages.3.blocks.2.mlp.act",
+      "qualname": "timm.layers.activations.GELU",
+      "repr": "GELU()",
+      "approximate": null
+    }
+  ],
+  "target_activations": [
+    {
+      "name": "features.1.0.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.1.1.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.1.2.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.3.0.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.3.1.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.3.2.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.0.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.1.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.2.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.3.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.4.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.5.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.6.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.7.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.5.8.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.7.0.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.7.1.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    },
+    {
+      "name": "features.7.2.block.4",
+      "qualname": "torch.nn.modules.activation.GELU",
+      "repr": "GELU(approximate='none')",
+      "approximate": "none"
+    }
+  ],
+  "implementations": {
+    "timm.layers.activations.GELU": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/activations.py",
+      "sha256": "effc50cc017066d60f3e8bc9f4a65b2765ad374a1b4da7bf023c1db99e8f1cd9",
+      "class_source": "class GELU(nn.Module):\n    \"\"\"Applies the Gaussian Error Linear Units function (w/ dummy inplace arg)\n    \"\"\"\n    def __init__(self, inplace: bool = False):\n        super().__init__()\n\n    def forward(self, input: torch.Tensor) -> torch.Tensor:\n        return F.gelu(input)\n",
+      "forward_source": "    def forward(self, input: torch.Tensor) -> torch.Tensor:\n        return F.gelu(input)\n",
+      "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+    },
+    "torch.nn.modules.activation.GELU": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/torch/nn/modules/activation.py",
+      "sha256": "f335544f19b07e279dd729ba4fbc1de0226797fdf9fa2e790670546499df0efa",
+      "class_source": "class GELU(Module):\n    r\"\"\"Applies the Gaussian Error Linear Units function.\n\n    .. math:: \\text{GELU}(x) = x * \\Phi(x)\n\n    where :math:`\\Phi(x)` is the Cumulative Distribution Function for Gaussian Distribution.\n\n    When the approximate argument is 'tanh', Gelu is estimated with:\n\n    .. math:: \\text{GELU}(x) = 0.5 * x * (1 + \\text{Tanh}(\\sqrt{2 / \\pi} * (x + 0.044715 * x^3)))\n\n    Args:\n        approximate (str, optional): the gelu approximation algorithm to use:\n            ``'none'`` | ``'tanh'``. Default: ``'none'``\n\n    Shape:\n        - Input: :math:`(*)`, where :math:`*` means any number of dimensions.\n        - Output: :math:`(*)`, same shape as the input.\n\n    .. image:: ../scripts/activation_images/GELU.png\n\n    Examples::\n\n        >>> m = nn.GELU()\n        >>> input = torch.randn(2)\n        >>> output = m(input)\n    \"\"\"\n\n    __constants__ = [\"approximate\"]\n    approximate: str\n\n    def __init__(self, approximate: str = \"none\") -> None:\n        super().__init__()\n        self.approximate = approximate\n\n    def forward(self, input: Tensor) -> Tensor:\n        \"\"\"\n        Runs the forward pass.\n        \"\"\"\n        return F.gelu(input, approximate=self.approximate)\n\n    def extra_repr(self) -> str:\n        \"\"\"\n        Return the extra representation of the module.\n        \"\"\"\n        return f\"approximate={repr(self.approximate)}\"\n",
+      "forward_source": "    def forward(self, input: Tensor) -> Tensor:\n        \"\"\"\n        Runs the forward pass.\n        \"\"\"\n        return F.gelu(input, approximate=self.approximate)\n",
+      "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+    }
+  },
+  "failed_acceptance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pretraining-cpu-20261028-execution-b-5d11d2c/STRICT-LOAD.json",
+    "sha256": "ab29731f11f38f4a37c32c45c1ded10910a9b8cb283419db872851152d005dc9",
+    "receipt": {
+      "passed": false,
+      "execution": {
+        "at": "2026-10-28T09:58:56.136918+00:00",
+        "scope": "compute_pod_cpu",
+        "namespace": "acfwvv9ejn",
+        "pod": "vcjob-2115367159301828609-acfwvv9ejn-96064-worker-0",
+        "uid": "f9fe6762-7127-479b-8e80-09ce2487d754",
+        "container": "vcjob-2115367159301828609-acfwvv9ejn-96064",
+        "python": "/usr/local/python3.12/bin/python3.12",
+        "python_version": "3.12.7",
+        "nice": 19,
+        "gpu_visibility": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "HIP_VISIBLE_DEVICES": "",
+          "ROCR_VISIBLE_DEVICES": ""
+        },
+        "thread_limits": {
+          "OMP_NUM_THREADS": "2",
+          "MKL_NUM_THREADS": "2",
+          "OPENBLAS_NUM_THREADS": "2"
+        },
+        "dependencies": {
+          "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+          "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+          "numpy": "1.26.4",
+          "Pillow": "12.3.0",
+          "timm": "1.0.27"
+        }
+      },
+      "error_type": "ValueError",
+      "error": "GELU configuration differs"
+    },
+    "checker": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pretraining-cpu-20261028-execution-b-5d11d2c/strict_load.failed1.py",
+    "checker_sha256": "115b46c7f3297de7f0a51010f766a0fa0e304ffb4a2d055611d87e79b15cc3af"
+  },
+  "diagnostic_source_sha256": "9ee7be06fcb6342fd463218c14bd637489199c64e4eda943cce790bcd12b1f01",
+  "weight_loads": 0,
+  "forward_calls": 0,
+  "GPU_initialized": false
+}

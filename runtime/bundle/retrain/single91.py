@@ -226,7 +226,7 @@ def run_official_once(path, output_root, *, data_root, eval_manifest, eval_manif
         positive = sum(r['label'] for r in rows); negative = len(rows) - positive
         if (positive, negative) != (191, 5658):
             raise ValueError('official class coverage differs from191P/5658N')
-        job.update(device=str(target), precision='fp32')
+        job.update(device=str(target), precision='fp32', workers=0, eval_workers=0)
         output = output_root / 'official-raw.csv'
         native = evaluate(model, rows, list(range(len(rows))), data_root, job, target, output)
         exact = exact_metrics(read_vector(output, rows))

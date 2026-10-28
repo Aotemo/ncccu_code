@@ -1,0 +1,120 @@
+{
+  "at": "2026-10-28T09:39:48.158135+00:00",
+  "pod": "vcjob-2115367159301828609-acfwvv9ejn-96064-worker-0",
+  "train_csv": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/dataset/Console/glaucoma_first/main/glaucoma_first/train.csv",
+    "sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
+    "rows": 51396,
+    "fields": [
+      "Image_name",
+      "Age",
+      "True_Label"
+    ]
+  },
+  "official_csv_or_manifest_content_read": false,
+  "public_original": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/source-manifest.json",
+      "exists": true,
+      "expected_sha256": "419b3d0b6632fbd2c90b3cd43a300e552a6453aeecded46b6bf29793be4d2798",
+      "bytes": 1694,
+      "sha256": "419b3d0b6632fbd2c90b3cd43a300e552a6453aeecded46b6bf29793be4d2798",
+      "sha_matches": true
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/model-api.json",
+      "exists": true,
+      "expected_sha256": "77725f3b794b057595fea1ec6a587e67e26a6b2ac66445f5364b1dae815910b4",
+      "bytes": 1687,
+      "sha256": "77725f3b794b057595fea1ec6a587e67e26a6b2ac66445f5364b1dae815910b4",
+      "sha_matches": true
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/config.json",
+      "exists": true,
+      "expected_sha256": "05b31a3e4e2f16a1ad61f64ea4b34ba2e17fb10e72c48490de088b92b97a6151",
+      "bytes": 666,
+      "sha256": "05b31a3e4e2f16a1ad61f64ea4b34ba2e17fb10e72c48490de088b92b97a6151",
+      "sha_matches": true
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/README.md",
+      "exists": false,
+      "expected_sha256": "5829109fcf28ec11af3f28fe4477a8319a4aaf39aa67a3ab7b4499e8d1720d4d"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/LICENSE-apache-2.0.txt",
+      "exists": true,
+      "expected_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "sha_matches": true
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/pytorch_model.bin",
+      "exists": true,
+      "expected_sha256": "8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518",
+      "bytes": 114420885,
+      "sha256": "8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518",
+      "sha_matches": true
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/download-receipt.json",
+      "exists": true,
+      "expected_sha256": "e52d3558a6a2f9c44af59e8a20b0b232be0471925b80c7a02d5e6355f10f26ae",
+      "bytes": 499,
+      "sha256": "e52d3558a6a2f9c44af59e8a20b0b232be0471925b80c7a02d5e6355f10f26ae",
+      "sha_matches": true
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original/NOTICE-upstream-MIT.txt",
+      "exists": true,
+      "expected_sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "bytes": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+      "sha_matches": true
+    }
+  ],
+  "retention_catalogs": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/KEEP-MODELS.json",
+      "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+      "content": {
+        "policy": "only_three_confirmed_models_N06_R17_R8C25",
+        "user_instruction": "除现有指标最高的几个modle和几个参考教学model,其他checkpoint和冗余说明文件一律删除；只保留其留下的实验结论",
+        "models": [
+          {
+            "id": "N06",
+            "role": "top1_research_only_medical_pretraining",
+            "official_auroc": 0.9952862924941565,
+            "variant": "ema",
+            "updates": 2133,
+            "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+            "sha256": "12949f6c65f4f18f1519ea7d734d0282707fe46429eadf3c287e780836cdfa3a"
+          },
+          {
+            "id": "R17",
+            "role": "top2",
+            "official_auroc": 0.9893446521535555,
+            "variant": "ema",
+            "updates": 2844,
+            "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+            "sha256": "67241c5b9e819af3559fcec4ab342871594e5727e1fc302cc138a8f21d43a1eb"
+          },
+          {
+            "id": "R8-C25",
+            "role": "top3_image_only_no_age",
+            "official_auroc": 0.9890383629536272,
+            "variant": "ema",
+            "updates": 2844,
+            "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt",
+            "sha256": "ba3a1f50464de7d685e9eabee5e4d6fc49bf899acdb4cf2c06cb024f9f1978ba"
+          }
+        ],
+        "pending_teaching": null,
+        "latest_user_confirmation": "保留这三个,然后删除其他文件,只保留实验结果",
+        "ranking_scope": "Historical full official5849 single-model metrics; different training splits are not a controlled scientific comparison; fusion excluded; N06 research-only and forbidden as later competition initialization/teacher/BN source"
+      }
+    }
+  ]
+}

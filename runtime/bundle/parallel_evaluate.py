@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""One frozen model, configured1/2/4/8 ranks; six only an explicit legacy exception."""
+"""Legacy standalone frozen gate with explicit site/CPU ranks.
+
+The current formal single-model route uses single_model91 official-once. This
+legacy N08 frozen gate is retained and is not admitted by the current campaign.
+"""
 import argparse
 import json
 import os
@@ -41,27 +45,27 @@ def require_frozen_valid(spec):
 
 
 def worker(args):
+    spec = json.loads(Path(args.worker_spec).read_text())
+    from retrain.execution_policy import bind_worker_cpu
+    bind_worker_cpu(spec, args.rank, args.device)
     import torch
     from retrain.distributed import RankContext
     from retrain.execution_policy import rank_proof
     from retrain.persistence import atomic_json, canonical_digest
     from retrain import inference
     from retrain.parallel_evaluation import evaluate
-    spec = json.loads(Path(args.worker_spec).read_text())
     require_frozen_valid(spec)
     world = len(spec['devices']); rank = args.rank
     if not 0 <= rank < world or args.device != spec['devices'][rank]:
         raise ValueError('standalone evaluator rank/device differs from configured world')
-    if hasattr(os, 'sched_setaffinity'):
-        os.sched_setaffinity(0, set(spec['cpu_masks'][rank]))
-    torch.set_num_threads(1)
+    torch.set_num_threads(1); torch.set_num_interop_threads(1)
     ctx = RankContext(rank, world, args.device, spec['init_method'], timeout_seconds=90)
     try:
         before = time.monotonic()
         details = {}
         proofs = ctx.values(rank_proof(ctx, spec))
-        if {proof['physical_pci'] for proof in proofs} != {'0000:09:00.0','0000:77:00.0','0000:85:00.0','0000:f5:00.0'}:
-            raise ValueError('actual inference ranks differ from the four admitted PCI GPUs')
+        from retrain.site_binding import load_site, verify_rank_devices
+        verify_rank_devices(proofs, load_site())
         if spec['split'] == 'valid':
             report = inference.run_evaluation(spec['source'], spec['data_root'], spec['output'], device=args.device,
                 variant=spec['variant'], expected_count=spec['expected_count'], precision=spec['precision'],
@@ -91,7 +95,8 @@ def worker(args):
                 inference._check_precision(device, runtime['precision'])
                 policy = origin.get('identity', {}).get('fresh', {}).get('execution_policy', {})
                 job.update(device=args.device, precision=runtime['precision'],
-                           physical_batch=policy.get('evaluation_physical_batch', job.get('physical_batch', 32)))
+                           physical_batch=policy.get('evaluation_physical_batch', job.get('physical_batch', 32)),
+                           eval_workers=load_site()['cpu_execution']['loader_workers'])
                 if device.type == 'cuda':
                     torch.cuda.synchronize(device)
                 load_seconds = time.monotonic() - load_started
@@ -123,7 +128,10 @@ def worker(args):
 
 
 def run(args):
+    from retrain.site_binding import load_site, bind_cpu_role, sha256 as site_sha
+    site = load_site(); bind_cpu_role(site, 'control')
     import torch
+    torch.set_num_threads(1); torch.set_num_interop_threads(1)
     from retrain.execution_policy import allocate_cpus
     from retrain.distributed_launcher import supervise_ranks
     from retrain.fresh import start_runtime_guard
@@ -131,8 +139,8 @@ def run(args):
     configured = json.loads(Path(args.config).read_text())['execution'] if args.config else {}
     devices = args.devices.split(',') if args.devices else configured.get('devices', ['cpu'])
     legacy = args.legacy_six_card_exception or configured.get('legacy_six_card_exception', False)
-    if devices != ['cuda:0','cuda:1','cuda:2','cuda:3'] or torch.cuda.device_count()!=4 or legacy:
-        raise ValueError('N03 valid evaluation requires the same four visible DCUs')
+    if devices != ['cuda:' + str(rank) for rank in range(len(site['gpus']))] or torch.cuda.device_count()!=len(site['gpus']) or legacy:
+        raise ValueError('evaluation requires every explicit admitted device ordinal')
     require_frozen_valid(vars(args))
     if args.world_size is not None and args.world_size != len(devices):
         raise ValueError('requested world and configured device list differ')
@@ -154,7 +162,7 @@ def run(args):
         spec = {key: getattr(args, key) for key in ('source', 'source_sha256', 'manifest', 'manifest_sha256',
             'data_root', 'output', 'split', 'variant', 'precision', 'expected_count', 'deadline_at')}
         spec.update(devices=devices, cpu_width=width, cpu_masks=masks, init_method='file://' + str(rendezvous),
-                    legacy_six_card_exception=legacy)
+                    legacy_six_card_exception=legacy, site_binding_sha256=site_sha(os.environ['NCCCU_SITE_BINDING']))
         path = control / 'worker-spec.json'; atomic_json(path, spec)
         tasks = [{'name': 'rank-' + str(rank), 'argv': [sys.executable, '-u', str(Path(__file__).resolve()),
             '--worker-spec', str(path), '--rank', str(rank), '--device', device]} for rank, device in enumerate(devices)]

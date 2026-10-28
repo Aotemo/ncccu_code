@@ -1,6 +1,12 @@
 # 源码入口与依赖
 
-本页根据已导入源码说明调用关系。全部后续实验已暂停；这些入口不构成启动授权，也不是可直接复制到任意环境的命令示例。
+源码由R92导入后持续演进，当前八卡适配与R93进度见[todo](../todo/README.md)。本页区分新生成流程和历史调用证据；不能将历史绑定或旧CPU模板复制到新环境当作准入。
+
+## 当前准备入口
+
+`configs/R93-SCIENCE.json`保存科学配置与工作根内相对资产路径；`tools/activation/prepare.py`消费当次显式site和真实迁移回执，在Pod生成TRAIN_CONFIG、ASSETS、fresh/source清单及新的CPU验收身份。`runtime/CLOCK_POLICY.json`的round_id由site注入，`runtime/PLAN.md`描述R93。旧R92六个生成配置/模板和`runtime/evidence/`三份旧CPU身份已移出当前入口，原件由Git历史及`records/R92/`追溯，服务器旧部署不改。
+
+新准备结果先完成必要CPU验收，再由唯一A提交同步具体源码/配置并核远端commit，按实际SHA冻结新部署，之后才允许GPU准入及新正式绑定。准备阶段的uncommitted snapshot和CPU初态checkpoint只作技术证据，不成为正式初始化或已同步声明。
 
 ## 已验证 R92 的实际路径
 
@@ -44,10 +50,13 @@
 | --- | --- |
 | `runtime/bundle/predict.py` | `retrain.inference.main` 的通用推理命令入口；不能替代当前官方一次性合同 |
 | `runtime/bundle/train.py` | 通用训练实现/环境和源码身份辅助；R92 实际由 `parallel_fresh_train.py` 派发 |
-| `runtime/bundle/parallel_evaluate.py` | 历史独立并行评估入口，含旧 N08 `n05_gates`/`aggregate`/`SCIENCE_CONFIG.json` 绑定；相关旧门未在当前仓库作为完整包提供，不是 R92 官方入口 |
+| `runtime/bundle/parallel_evaluate.py` | 独立并行评估入口正按显式site适配；不能因文件存在绕过内部选点和官方一次性合同，不是历史R92官方入口 |
 | `runtime/bundle/fresh_train.py`、`distributed_train.py`、`stage_train.py`、`pipeline.py` | 历史训练流程入口；保留来源追溯，不因文件名存在就另行启动 |
-| `tools/activation/`、`observer/`、`data-contract/`、`validation/` | 原 R92 等按轮准备/绑定工具，含原运行路径；新环境不能直接复用 |
+| `tools/activation/prepare.py`、`activate.py`、`activate_audit.py`、`site_preflight.py` | 新显式准备/绑定链路；以当前CPU回执与后续冻结版本核准，旧生成件不能沿用 |
+| `tools/observer/`、`data-contract/`及未适配的按轮工具 | 历史路径和SHA只用于追溯；不得直接派发新环境 |
+| `tools/validation/check_candidate.py` | 新生产模型CPU集成检查；不执行图片前向或GPU准入 |
+| `tools/pretraining/`、`tools/migration/` | 公开来源严格映射、当前内容证明和exp-v3复制/缓存索引；不提供Git写或GPU派发 |
 | `tools/environment/pod_cpu.sh` | 新 CPU 工具通道：实时查 Pod、解释器并核 UID/Ready；没有训练派发能力 |
 | `tools/models/export_parameters.py` | 精确读取三模型参数与 EMA 身份；不建模型、不前向、不复制权重 |
 
-历史绑定脚本没有在这次文档整理中重写数值实现或移动内部模块，原科学语义与来源 SHA 保持可追溯。未来若经用户恢复而适配新环境，应在同一源码路径修改、先同步 Git、再由唯一 owner 生成新绑定并核实际引用。通用执行流程见 [EXECUTION.md](EXECUTION.md)，未完成验证见 [todo/](../todo/README.md)。
+历史冻结部署保持原bytes和来源SHA。当前八卡适配在同一源码路径演进，具体文件边界见[适配任务](../todo/exp-v3-8card/README.md)；必要Pod CPU验收后先同步Git，再由唯一owner生成新绑定并核实际引用，之后才GPU准入。通用执行流程见 [EXECUTION.md](EXECUTION.md)，未完成验证见 [todo/](../todo/README.md)。

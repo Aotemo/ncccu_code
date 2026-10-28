@@ -1,0 +1,323 @@
+{
+  "scope": "migration_dependencies_only_no_copy_no_official_semantics",
+  "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "inventory_sha256": "3c60a944cdd43bbbd241cd87bbca1bd9fdb0650630f3f709ea4c38365fa422a2",
+  "cache_groups": {
+    "train/.builder.lock": {
+      "files": 1,
+      "bytes": 98,
+      "sample": null
+    },
+    "train/READY.json": {
+      "files": 1,
+      "bytes": 874,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/train/READY.json",
+        "keys": [
+          "all_source_bytes_sha256_verified_during_build",
+          "array_bytes",
+          "completed_at",
+          "contract_sha256",
+          "count",
+          "cpu_versions",
+          "dataset_root",
+          "entries_sha256",
+          "gpu_use",
+          "original_clock",
+          "payload_bytes",
+          "policy_version",
+          "prepared_size",
+          "schema_version",
+          "split",
+          "status"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": null
+      }
+    },
+    "train/clock.json": {
+      "files": 1,
+      "bytes": 180,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/train/clock.json",
+        "keys": [
+          "budget_seconds",
+          "deadline_at",
+          "identity",
+          "started_at"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": null
+      }
+    },
+    "train/entries.jsonl": {
+      "files": 1,
+      "bytes": 34006967,
+      "sample": null
+    },
+    "train/progress.json": {
+      "files": 1,
+      "bytes": 94,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/train/progress.json",
+        "keys": [
+          "at",
+          "count",
+          "deadline_at",
+          "total"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": null
+      }
+    },
+    "train/sealed/.verification": {
+      "files": 51396,
+      "bytes": 18639563,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/train/sealed/.verification/ee357083876d9fb8da4bb069080662943e6fbfc0e50a48c33d57becb332be415/69/69003961daa84836b3a69ee32804c238b91865065c71f5ecd9187603bba39ea0.json",
+        "keys": [
+          "dataset_root",
+          "file",
+          "relative_path",
+          "schema_version",
+          "sha256",
+          "status"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": "train/train_36144.JPG"
+      }
+    },
+    "train/sealed/19b2e1abff37369711cf59110dd52a0fb4894dd35037ee4b3eb758f8bd201a48": {
+      "files": 102792,
+      "bytes": 31312558259,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/train/sealed/19b2e1abff37369711cf59110dd52a0fb4894dd35037ee4b3eb758f8bd201a48/69/69003961daa84836b3a69ee32804c238b91865065c71f5ecd9187603bba39ea0.json",
+        "keys": [
+          "array_sha256",
+          "policy",
+          "relative_path",
+          "source_file",
+          "source_sha256"
+        ],
+        "policy": {
+          "dataset_root": "/public/home/acfwvv9ejn/SothisAI/dataset/Console/glaucoma_first/main/glaucoma_first",
+          "pillow": "12.3.0",
+          "prepared_size": 512,
+          "version": "rgb-conservative-border-prepared-v2"
+        },
+        "source_file": {
+          "ctime_ns": 1792778171000000000,
+          "inode": 18196723304,
+          "mtime_ns": 1792662372000000000,
+          "size": 409680
+        },
+        "relative_path": "train/train_36144.JPG"
+      }
+    },
+    "valid/.builder.lock": {
+      "files": 1,
+      "bytes": 98,
+      "sample": null
+    },
+    "valid/READY.json": {
+      "files": 1,
+      "bytes": 870,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/valid/READY.json",
+        "keys": [
+          "all_source_bytes_sha256_verified_during_build",
+          "array_bytes",
+          "completed_at",
+          "contract_sha256",
+          "count",
+          "cpu_versions",
+          "dataset_root",
+          "entries_sha256",
+          "gpu_use",
+          "original_clock",
+          "payload_bytes",
+          "policy_version",
+          "prepared_size",
+          "schema_version",
+          "split",
+          "status"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": null
+      }
+    },
+    "valid/clock.json": {
+      "files": 1,
+      "bytes": 179,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/valid/clock.json",
+        "keys": [
+          "budget_seconds",
+          "deadline_at",
+          "identity",
+          "started_at"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": null
+      }
+    },
+    "valid/entries.jsonl": {
+      "files": 1,
+      "bytes": 3872892,
+      "sample": null
+    },
+    "valid/progress.json": {
+      "files": 1,
+      "bytes": 91,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/valid/progress.json",
+        "keys": [
+          "at",
+          "count",
+          "deadline_at",
+          "total"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": null
+      }
+    },
+    "valid/sealed/.verification": {
+      "files": 5849,
+      "bytes": 2124041,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/valid/sealed/.verification/ee357083876d9fb8da4bb069080662943e6fbfc0e50a48c33d57becb332be415/d7/d703916a5252564243542fcc9bf09d7b769fd165f47eff8f62ca7876aefecd72.json",
+        "keys": [
+          "dataset_root",
+          "file",
+          "relative_path",
+          "schema_version",
+          "sha256",
+          "status"
+        ],
+        "policy": null,
+        "source_file": null,
+        "relative_path": "valid/valid_00188.JPG"
+      }
+    },
+    "valid/sealed/19b2e1abff37369711cf59110dd52a0fb4894dd35037ee4b3eb758f8bd201a48": {
+      "files": 11698,
+      "bytes": 3567898643,
+      "sample": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0/valid/sealed/19b2e1abff37369711cf59110dd52a0fb4894dd35037ee4b3eb758f8bd201a48/04/0404e73f17bd6f38c998e4102cdc8d5aac0144f8f9fc33040d6463bb5b2ba26e.json",
+        "keys": [
+          "array_sha256",
+          "policy",
+          "relative_path",
+          "source_file",
+          "source_sha256"
+        ],
+        "policy": {
+          "dataset_root": "/public/home/acfwvv9ejn/SothisAI/dataset/Console/glaucoma_first/main/glaucoma_first",
+          "pillow": "12.3.0",
+          "prepared_size": 512,
+          "version": "rgb-conservative-border-prepared-v2"
+        },
+        "source_file": {
+          "ctime_ns": 1792778009000000000,
+          "inode": 11537398360,
+          "mtime_ns": 1792662434000000000,
+          "size": 640382
+        },
+        "relative_path": "valid/valid_01646.JPG"
+      }
+    }
+  },
+  "stage1": {
+    "root": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result",
+    "frozen_files": {
+      "AGE.json": {
+        "bytes": 1119,
+        "sha256": "16fe022319a48c95aa1167e6efd39ef188fbac7aae75cda0aad048420aecf43e"
+      },
+      "ASSIGNMENTS.csv": {
+        "bytes": 9291623,
+        "sha256": "c16cd0dc0cfba10985e506a6b2488f45d81c844cffdb955cd80afb4323e9af39"
+      },
+      "CONTRACT.json": {
+        "bytes": 6532,
+        "sha256": "a38362aafe4212687592982f472935f561646e391575615c45c7a8f558221e3b"
+      },
+      "EMA-R50.json": {
+        "bytes": 253,
+        "sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9"
+      },
+      "ENVIRONMENT.json": {
+        "bytes": 546,
+        "sha256": "57523cdf7cb5d9b2c96426182ab7b139138f360f02b1498e88772b9de6fac8c5"
+      },
+      "EXECUTION.json": {
+        "bytes": 362,
+        "sha256": "86fd21f3d9bedd80ee040578a413eb5582fda984ddae15dc91dd6d14d67aec9c"
+      },
+      "EXIT-CODE.txt": {
+        "bytes": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "HANDOFF.md": {
+        "bytes": 2250,
+        "sha256": "2005b9e25a3eb7c05af7a7887e327fa7caebfdb0f3cce6763fd0f50493f611f3"
+      },
+      "READ-RECEIPTS.json": {
+        "bytes": 1149,
+        "sha256": "764ed6bd032ff130a9653bcde194fc6edd0e8e07d99210dcef1ec0d8bcd3fc8c"
+      },
+      "SCHEDULE.json": {
+        "bytes": 628,
+        "sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9"
+      },
+      "SCHEMA.json": {
+        "bytes": 676,
+        "sha256": "005ac415064c9090515c32aad40fc503b2ed5885fee6d266cc56ca99d242f662"
+      },
+      "SHORT-SUMMARY.json": {
+        "bytes": 4159,
+        "sha256": "beafd8b08e9dfbeeaa02332e1740e896331d6a47942b1386ec91975475fc8322"
+      },
+      "SOURCE-age.py": {
+        "bytes": 6273,
+        "sha256": "6ce43997a70804d60b56bb9b4e5d2939a0e9c465b4cba5bd728865ae68c5d06e"
+      },
+      "SOURCE-data.py": {
+        "bytes": 22861,
+        "sha256": "8471faa51ced1c4ab588090201a6eed482c749957299ca7a994a742cd37aedc9"
+      },
+      "SOURCE-persistence.py": {
+        "bytes": 15279,
+        "sha256": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d"
+      },
+      "dev_indices.json": {
+        "bytes": 29758,
+        "sha256": "7b8e391bab434e8d1113de5c5eb0722e1897c7df94dab7b4b37d5c7b3afe066e"
+      },
+      "fit_indices.json": {
+        "bytes": 267512,
+        "sha256": "6459bc9ae6840c3c84f3d0b740a680f904c57915b3f09637e72e8c327eca8c94"
+      },
+      "manifest.json": {
+        "bytes": 14123306,
+        "sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377"
+      }
+    },
+    "frozen_count": 18,
+    "total_with_FREEZE": 19
+  },
+  "train_identity": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r26-bundle/assets/train_identity.json",
+    "bytes": 13825613,
+    "sha256": "07f8e8765b66d671303d613afa1839c0685d0f38edec63fce0d0ba0400f62c66"
+  },
+  "copies_started": false,
+  "source_modified": false
+}

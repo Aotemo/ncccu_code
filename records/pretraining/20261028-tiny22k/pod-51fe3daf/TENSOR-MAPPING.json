@@ -1,0 +1,2614 @@
+{
+  "passed": true,
+  "revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+  "mapping": [
+    {
+      "source": "stem.0.weight",
+      "target": "features.0.0.weight",
+      "source_shape": [
+        96,
+        3,
+        4,
+        4
+      ],
+      "target_shape": [
+        96,
+        3,
+        4,
+        4
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stem.0.bias",
+      "target": "features.0.0.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stem.1.weight",
+      "target": "features.0.1.weight",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stem.1.bias",
+      "target": "features.0.1.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.gamma",
+      "target": "features.1.0.layer_scale",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.conv_dw.weight",
+      "target": "features.1.0.block.0.weight",
+      "source_shape": [
+        96,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        96,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.conv_dw.bias",
+      "target": "features.1.0.block.0.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.norm.weight",
+      "target": "features.1.0.block.2.weight",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.norm.bias",
+      "target": "features.1.0.block.2.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.mlp.fc1.weight",
+      "target": "features.1.0.block.3.weight",
+      "source_shape": [
+        384,
+        96
+      ],
+      "target_shape": [
+        384,
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.mlp.fc1.bias",
+      "target": "features.1.0.block.3.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.mlp.fc2.weight",
+      "target": "features.1.0.block.5.weight",
+      "source_shape": [
+        96,
+        384
+      ],
+      "target_shape": [
+        96,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.0.mlp.fc2.bias",
+      "target": "features.1.0.block.5.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.gamma",
+      "target": "features.1.1.layer_scale",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.conv_dw.weight",
+      "target": "features.1.1.block.0.weight",
+      "source_shape": [
+        96,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        96,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.conv_dw.bias",
+      "target": "features.1.1.block.0.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.norm.weight",
+      "target": "features.1.1.block.2.weight",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.norm.bias",
+      "target": "features.1.1.block.2.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.mlp.fc1.weight",
+      "target": "features.1.1.block.3.weight",
+      "source_shape": [
+        384,
+        96
+      ],
+      "target_shape": [
+        384,
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.mlp.fc1.bias",
+      "target": "features.1.1.block.3.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.mlp.fc2.weight",
+      "target": "features.1.1.block.5.weight",
+      "source_shape": [
+        96,
+        384
+      ],
+      "target_shape": [
+        96,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.1.mlp.fc2.bias",
+      "target": "features.1.1.block.5.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.gamma",
+      "target": "features.1.2.layer_scale",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.conv_dw.weight",
+      "target": "features.1.2.block.0.weight",
+      "source_shape": [
+        96,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        96,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.conv_dw.bias",
+      "target": "features.1.2.block.0.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.norm.weight",
+      "target": "features.1.2.block.2.weight",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.norm.bias",
+      "target": "features.1.2.block.2.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.mlp.fc1.weight",
+      "target": "features.1.2.block.3.weight",
+      "source_shape": [
+        384,
+        96
+      ],
+      "target_shape": [
+        384,
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.mlp.fc1.bias",
+      "target": "features.1.2.block.3.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.mlp.fc2.weight",
+      "target": "features.1.2.block.5.weight",
+      "source_shape": [
+        96,
+        384
+      ],
+      "target_shape": [
+        96,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.0.blocks.2.mlp.fc2.bias",
+      "target": "features.1.2.block.5.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.downsample.0.weight",
+      "target": "features.2.0.weight",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.downsample.0.bias",
+      "target": "features.2.0.bias",
+      "source_shape": [
+        96
+      ],
+      "target_shape": [
+        96
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.downsample.1.weight",
+      "target": "features.2.1.weight",
+      "source_shape": [
+        192,
+        96,
+        2,
+        2
+      ],
+      "target_shape": [
+        192,
+        96,
+        2,
+        2
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.downsample.1.bias",
+      "target": "features.2.1.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.gamma",
+      "target": "features.3.0.layer_scale",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.conv_dw.weight",
+      "target": "features.3.0.block.0.weight",
+      "source_shape": [
+        192,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        192,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.conv_dw.bias",
+      "target": "features.3.0.block.0.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.norm.weight",
+      "target": "features.3.0.block.2.weight",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.norm.bias",
+      "target": "features.3.0.block.2.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.mlp.fc1.weight",
+      "target": "features.3.0.block.3.weight",
+      "source_shape": [
+        768,
+        192
+      ],
+      "target_shape": [
+        768,
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.mlp.fc1.bias",
+      "target": "features.3.0.block.3.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.mlp.fc2.weight",
+      "target": "features.3.0.block.5.weight",
+      "source_shape": [
+        192,
+        768
+      ],
+      "target_shape": [
+        192,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.0.mlp.fc2.bias",
+      "target": "features.3.0.block.5.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.gamma",
+      "target": "features.3.1.layer_scale",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.conv_dw.weight",
+      "target": "features.3.1.block.0.weight",
+      "source_shape": [
+        192,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        192,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.conv_dw.bias",
+      "target": "features.3.1.block.0.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.norm.weight",
+      "target": "features.3.1.block.2.weight",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.norm.bias",
+      "target": "features.3.1.block.2.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.mlp.fc1.weight",
+      "target": "features.3.1.block.3.weight",
+      "source_shape": [
+        768,
+        192
+      ],
+      "target_shape": [
+        768,
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.mlp.fc1.bias",
+      "target": "features.3.1.block.3.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.mlp.fc2.weight",
+      "target": "features.3.1.block.5.weight",
+      "source_shape": [
+        192,
+        768
+      ],
+      "target_shape": [
+        192,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.1.mlp.fc2.bias",
+      "target": "features.3.1.block.5.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.gamma",
+      "target": "features.3.2.layer_scale",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.conv_dw.weight",
+      "target": "features.3.2.block.0.weight",
+      "source_shape": [
+        192,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        192,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.conv_dw.bias",
+      "target": "features.3.2.block.0.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.norm.weight",
+      "target": "features.3.2.block.2.weight",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.norm.bias",
+      "target": "features.3.2.block.2.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.mlp.fc1.weight",
+      "target": "features.3.2.block.3.weight",
+      "source_shape": [
+        768,
+        192
+      ],
+      "target_shape": [
+        768,
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.mlp.fc1.bias",
+      "target": "features.3.2.block.3.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.mlp.fc2.weight",
+      "target": "features.3.2.block.5.weight",
+      "source_shape": [
+        192,
+        768
+      ],
+      "target_shape": [
+        192,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.1.blocks.2.mlp.fc2.bias",
+      "target": "features.3.2.block.5.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.downsample.0.weight",
+      "target": "features.4.0.weight",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.downsample.0.bias",
+      "target": "features.4.0.bias",
+      "source_shape": [
+        192
+      ],
+      "target_shape": [
+        192
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.downsample.1.weight",
+      "target": "features.4.1.weight",
+      "source_shape": [
+        384,
+        192,
+        2,
+        2
+      ],
+      "target_shape": [
+        384,
+        192,
+        2,
+        2
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.downsample.1.bias",
+      "target": "features.4.1.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.gamma",
+      "target": "features.5.0.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.conv_dw.weight",
+      "target": "features.5.0.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.conv_dw.bias",
+      "target": "features.5.0.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.norm.weight",
+      "target": "features.5.0.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.norm.bias",
+      "target": "features.5.0.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.mlp.fc1.weight",
+      "target": "features.5.0.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.mlp.fc1.bias",
+      "target": "features.5.0.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.mlp.fc2.weight",
+      "target": "features.5.0.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.0.mlp.fc2.bias",
+      "target": "features.5.0.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.gamma",
+      "target": "features.5.1.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.conv_dw.weight",
+      "target": "features.5.1.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.conv_dw.bias",
+      "target": "features.5.1.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.norm.weight",
+      "target": "features.5.1.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.norm.bias",
+      "target": "features.5.1.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.mlp.fc1.weight",
+      "target": "features.5.1.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.mlp.fc1.bias",
+      "target": "features.5.1.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.mlp.fc2.weight",
+      "target": "features.5.1.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.1.mlp.fc2.bias",
+      "target": "features.5.1.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.gamma",
+      "target": "features.5.2.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.conv_dw.weight",
+      "target": "features.5.2.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.conv_dw.bias",
+      "target": "features.5.2.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.norm.weight",
+      "target": "features.5.2.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.norm.bias",
+      "target": "features.5.2.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.mlp.fc1.weight",
+      "target": "features.5.2.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.mlp.fc1.bias",
+      "target": "features.5.2.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.mlp.fc2.weight",
+      "target": "features.5.2.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.2.mlp.fc2.bias",
+      "target": "features.5.2.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.gamma",
+      "target": "features.5.3.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.conv_dw.weight",
+      "target": "features.5.3.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.conv_dw.bias",
+      "target": "features.5.3.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.norm.weight",
+      "target": "features.5.3.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.norm.bias",
+      "target": "features.5.3.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.mlp.fc1.weight",
+      "target": "features.5.3.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.mlp.fc1.bias",
+      "target": "features.5.3.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.mlp.fc2.weight",
+      "target": "features.5.3.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.3.mlp.fc2.bias",
+      "target": "features.5.3.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.gamma",
+      "target": "features.5.4.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.conv_dw.weight",
+      "target": "features.5.4.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.conv_dw.bias",
+      "target": "features.5.4.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.norm.weight",
+      "target": "features.5.4.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.norm.bias",
+      "target": "features.5.4.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.mlp.fc1.weight",
+      "target": "features.5.4.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.mlp.fc1.bias",
+      "target": "features.5.4.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.mlp.fc2.weight",
+      "target": "features.5.4.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.4.mlp.fc2.bias",
+      "target": "features.5.4.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.gamma",
+      "target": "features.5.5.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.conv_dw.weight",
+      "target": "features.5.5.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.conv_dw.bias",
+      "target": "features.5.5.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.norm.weight",
+      "target": "features.5.5.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.norm.bias",
+      "target": "features.5.5.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.mlp.fc1.weight",
+      "target": "features.5.5.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.mlp.fc1.bias",
+      "target": "features.5.5.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.mlp.fc2.weight",
+      "target": "features.5.5.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.5.mlp.fc2.bias",
+      "target": "features.5.5.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.gamma",
+      "target": "features.5.6.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.conv_dw.weight",
+      "target": "features.5.6.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.conv_dw.bias",
+      "target": "features.5.6.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.norm.weight",
+      "target": "features.5.6.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.norm.bias",
+      "target": "features.5.6.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.mlp.fc1.weight",
+      "target": "features.5.6.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.mlp.fc1.bias",
+      "target": "features.5.6.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.mlp.fc2.weight",
+      "target": "features.5.6.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.6.mlp.fc2.bias",
+      "target": "features.5.6.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.gamma",
+      "target": "features.5.7.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.conv_dw.weight",
+      "target": "features.5.7.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.conv_dw.bias",
+      "target": "features.5.7.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.norm.weight",
+      "target": "features.5.7.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.norm.bias",
+      "target": "features.5.7.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.mlp.fc1.weight",
+      "target": "features.5.7.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.mlp.fc1.bias",
+      "target": "features.5.7.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.mlp.fc2.weight",
+      "target": "features.5.7.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.7.mlp.fc2.bias",
+      "target": "features.5.7.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.gamma",
+      "target": "features.5.8.layer_scale",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.conv_dw.weight",
+      "target": "features.5.8.block.0.weight",
+      "source_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        384,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.conv_dw.bias",
+      "target": "features.5.8.block.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.norm.weight",
+      "target": "features.5.8.block.2.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.norm.bias",
+      "target": "features.5.8.block.2.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.mlp.fc1.weight",
+      "target": "features.5.8.block.3.weight",
+      "source_shape": [
+        1536,
+        384
+      ],
+      "target_shape": [
+        1536,
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.mlp.fc1.bias",
+      "target": "features.5.8.block.3.bias",
+      "source_shape": [
+        1536
+      ],
+      "target_shape": [
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.mlp.fc2.weight",
+      "target": "features.5.8.block.5.weight",
+      "source_shape": [
+        384,
+        1536
+      ],
+      "target_shape": [
+        384,
+        1536
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.2.blocks.8.mlp.fc2.bias",
+      "target": "features.5.8.block.5.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.downsample.0.weight",
+      "target": "features.6.0.weight",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.downsample.0.bias",
+      "target": "features.6.0.bias",
+      "source_shape": [
+        384
+      ],
+      "target_shape": [
+        384
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.downsample.1.weight",
+      "target": "features.6.1.weight",
+      "source_shape": [
+        768,
+        384,
+        2,
+        2
+      ],
+      "target_shape": [
+        768,
+        384,
+        2,
+        2
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.downsample.1.bias",
+      "target": "features.6.1.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.gamma",
+      "target": "features.7.0.layer_scale",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.conv_dw.weight",
+      "target": "features.7.0.block.0.weight",
+      "source_shape": [
+        768,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        768,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.conv_dw.bias",
+      "target": "features.7.0.block.0.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.norm.weight",
+      "target": "features.7.0.block.2.weight",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.norm.bias",
+      "target": "features.7.0.block.2.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.mlp.fc1.weight",
+      "target": "features.7.0.block.3.weight",
+      "source_shape": [
+        3072,
+        768
+      ],
+      "target_shape": [
+        3072,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.mlp.fc1.bias",
+      "target": "features.7.0.block.3.bias",
+      "source_shape": [
+        3072
+      ],
+      "target_shape": [
+        3072
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.mlp.fc2.weight",
+      "target": "features.7.0.block.5.weight",
+      "source_shape": [
+        768,
+        3072
+      ],
+      "target_shape": [
+        768,
+        3072
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.0.mlp.fc2.bias",
+      "target": "features.7.0.block.5.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.gamma",
+      "target": "features.7.1.layer_scale",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.conv_dw.weight",
+      "target": "features.7.1.block.0.weight",
+      "source_shape": [
+        768,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        768,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.conv_dw.bias",
+      "target": "features.7.1.block.0.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.norm.weight",
+      "target": "features.7.1.block.2.weight",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.norm.bias",
+      "target": "features.7.1.block.2.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.mlp.fc1.weight",
+      "target": "features.7.1.block.3.weight",
+      "source_shape": [
+        3072,
+        768
+      ],
+      "target_shape": [
+        3072,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.mlp.fc1.bias",
+      "target": "features.7.1.block.3.bias",
+      "source_shape": [
+        3072
+      ],
+      "target_shape": [
+        3072
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.mlp.fc2.weight",
+      "target": "features.7.1.block.5.weight",
+      "source_shape": [
+        768,
+        3072
+      ],
+      "target_shape": [
+        768,
+        3072
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.1.mlp.fc2.bias",
+      "target": "features.7.1.block.5.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.gamma",
+      "target": "features.7.2.layer_scale",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768,
+        1,
+        1
+      ],
+      "gamma_reshape": true,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.conv_dw.weight",
+      "target": "features.7.2.block.0.weight",
+      "source_shape": [
+        768,
+        1,
+        7,
+        7
+      ],
+      "target_shape": [
+        768,
+        1,
+        7,
+        7
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.conv_dw.bias",
+      "target": "features.7.2.block.0.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.norm.weight",
+      "target": "features.7.2.block.2.weight",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.norm.bias",
+      "target": "features.7.2.block.2.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.mlp.fc1.weight",
+      "target": "features.7.2.block.3.weight",
+      "source_shape": [
+        3072,
+        768
+      ],
+      "target_shape": [
+        3072,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.mlp.fc1.bias",
+      "target": "features.7.2.block.3.bias",
+      "source_shape": [
+        3072
+      ],
+      "target_shape": [
+        3072
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.mlp.fc2.weight",
+      "target": "features.7.2.block.5.weight",
+      "source_shape": [
+        768,
+        3072
+      ],
+      "target_shape": [
+        768,
+        3072
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "stages.3.blocks.2.mlp.fc2.bias",
+      "target": "features.7.2.block.5.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "head.norm.weight",
+      "target": "classifier.0.weight",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "head.norm.bias",
+      "target": "classifier.0.bias",
+      "source_shape": [
+        768
+      ],
+      "target_shape": [
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "backbone",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "head.fc.weight",
+      "target": "classifier.2.weight",
+      "source_shape": [
+        1000,
+        768
+      ],
+      "target_shape": [
+        1000,
+        768
+      ],
+      "gamma_reshape": false,
+      "role": "public1000_head_to_be_discarded",
+      "FP32_finite_exact": true
+    },
+    {
+      "source": "head.fc.bias",
+      "target": "classifier.2.bias",
+      "source_shape": [
+        1000
+      ],
+      "target_shape": [
+        1000
+      ],
+      "gamma_reshape": false,
+      "role": "public1000_head_to_be_discarded",
+      "FP32_finite_exact": true
+    }
+  ]
+}

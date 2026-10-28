@@ -1,0 +1,606 @@
+{
+  "at": "2026-10-28T09:37:10.634823+00:00",
+  "pod": "vcjob-2115367159301828609-acfwvv9ejn-96064-worker-0",
+  "uid": "f9fe6762-7127-479b-8e80-09ce2487d754",
+  "container": "vcjob-2115367159301828609-acfwvv9ejn-96064",
+  "cwd": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/environment-discovery-20261028-2n61dzfw",
+  "scope": "compute_pod_cpu_read_only_inventory",
+  "nice": 19,
+  "gpu_visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "threads": {
+    "OMP_NUM_THREADS": "2",
+    "MKL_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2"
+  },
+  "assets": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/dataset/Console/glaucoma_first/main/glaucoma_first",
+      "exists": true,
+      "symlink": false,
+      "bytes": 8192,
+      "inode": 18716503154,
+      "device": 161,
+      "readable": true,
+      "is_file": false,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/dataset/Console/glaucoma_first/main/glaucoma_first",
+      "children": [
+        "test",
+        "test.csv",
+        "train",
+        "train.csv",
+        "valid",
+        "valid.csv"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0",
+      "exists": true,
+      "symlink": false,
+      "bytes": 8192,
+      "inode": 17767566945,
+      "device": 161,
+      "readable": true,
+      "is_file": false,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0",
+      "children": [
+        "train",
+        "valid"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result",
+      "exists": true,
+      "symlink": false,
+      "bytes": 8192,
+      "inode": 19098354034,
+      "device": 161,
+      "readable": true,
+      "is_file": false,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result",
+      "children": [
+        "AGE.json",
+        "ASSIGNMENTS.csv",
+        "CONTRACT.json",
+        "EMA-R50.json",
+        "ENVIRONMENT.json",
+        "EXECUTION.json",
+        "EXIT-CODE.txt",
+        "FREEZE.json",
+        "HANDOFF.md",
+        "READ-RECEIPTS.json",
+        "SCHEDULE.json",
+        "SCHEMA.json",
+        "SHORT-SUMMARY.json",
+        "SOURCE-age.py",
+        "SOURCE-data.py",
+        "SOURCE-persistence.py",
+        "dev_indices.json",
+        "fit_indices.json",
+        "manifest.json"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models",
+      "exists": true,
+      "symlink": false,
+      "bytes": 8192,
+      "inode": 18581378670,
+      "device": 161,
+      "readable": true,
+      "is_file": false,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models",
+      "children": [
+        "EXPERIMENT-CONCLUSIONS.json",
+        "EXPERIMENT-CONCLUSIONS.md",
+        "KEEP-MODELS.json",
+        "N06",
+        "R17",
+        "R8-C25"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/assets/dev5k-manifest.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 2182932,
+      "inode": 9290965034,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/assets/dev5k-manifest.json"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/FREEZE.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 2588,
+      "inode": 19098357874,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/FREEZE.json",
+      "sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/CONTRACT.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 6532,
+      "inode": 19098356850,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/CONTRACT.json",
+      "sha256": "a38362aafe4212687592982f472935f561646e391575615c45c7a8f558221e3b"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/manifest.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 14123306,
+      "inode": 19098356338,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/manifest.json",
+      "sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/AGE.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 1119,
+      "inode": 9461462611,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/AGE.json",
+      "sha256": "16fe022319a48c95aa1167e6efd39ef188fbac7aae75cda0aad048420aecf43e"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/SCHEDULE.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 628,
+      "inode": 9461462867,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/SCHEDULE.json",
+      "sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/convnext-tiny-tv-6166b761.pt",
+      "exists": true,
+      "symlink": false,
+      "bytes": 114415371,
+      "inode": 18167778936,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/convnext-tiny-tv-6166b761.pt",
+      "sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/provenance.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 3668,
+      "inode": 9424900172,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/provenance.json",
+      "sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/converted/convnext-tiny-tv-bc48a87f.pt",
+      "exists": true,
+      "symlink": false,
+      "bytes": 114411347,
+      "inode": 20120138590,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/converted/convnext-tiny-tv-bc48a87f.pt",
+      "sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/converted/provenance.json",
+      "exists": true,
+      "symlink": false,
+      "bytes": 1840,
+      "inode": 20120139870,
+      "device": 161,
+      "readable": true,
+      "is_file": true,
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/converted/provenance.json",
+      "sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f"
+    }
+  ],
+  "disk": {
+    "total": 477815111680,
+    "used": 121421955072,
+    "free": 356393156608
+  },
+  "versions": {
+    "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+    "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0",
+    "safetensors": "0.8.0",
+    "transformers": "5.3.0",
+    "timm": "1.0.27",
+    "scikit-learn": "1.5.2",
+    "pytest": "9.1.1"
+  },
+  "device_users": [],
+  "cards": [
+    {
+      "drm": "card5",
+      "pci": "0000:85:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "4",
+      "local_cpulist": "64-79",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card3",
+      "pci": "0000:55:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "2",
+      "local_cpulist": "32-47",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card1",
+      "pci": "0000:09:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "0",
+      "local_cpulist": "0-15",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card8",
+      "pci": "0000:f5:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "5",
+      "local_cpulist": "80-95",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card6",
+      "pci": "0000:b5:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "7",
+      "local_cpulist": "112-127",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card4",
+      "pci": "0000:77:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "1",
+      "local_cpulist": "16-31",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card2",
+      "pci": "0000:36:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "3",
+      "local_cpulist": "48-63",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    },
+    {
+      "drm": "card7",
+      "pci": "0000:d5:00.0",
+      "vendor": "0x1d94",
+      "device": "0x6320",
+      "subsystem_device": "0x6330",
+      "numa_node": "6",
+      "local_cpulist": "96-111",
+      "mem_info_vram_total": "68702699520",
+      "mem_info_vram_used": "2207744",
+      "gpu_busy_percent": "0"
+    }
+  ],
+  "no_model_load_or_forward": true,
+  "official_manifest_content_read": false,
+  "training_lock_acquired": false,
+  "smi_hw": {
+    "argv": [
+      "rocm-smi",
+      "--showhw",
+      "--showbus",
+      "--showid",
+      "--showdriverversion",
+      "--json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"card0\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS          \n0    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:9:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:09:00.0 --> SN: 01-000205-08VGT2\"}, \"card1\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n1    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:36:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:36:00.0 --> SN: 01-000206-07SCC2\"}, \"card2\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n2    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:55:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:55:00.0 --> SN: 01-000205-08VGT2\"}, \"card3\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n3    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:77:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:77:00.0 --> SN: 01-000206-07SCC2\"}, \"card4\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n4    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:85:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:85:00.0 --> SN: 01-000206-07SCC2\"}, \"card5\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n5    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:b5:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:b5:00.0 --> SN: 01-000205-08VGT2\"}, \"card6\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n6    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:d5:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:d5:00.0 --> SN: 01-000206-07SCC2\"}, \"card7\": {HCU  DID   SSID  GFX RAS  SDMA RAS  UMC RAS  VBIOS                 BUS           \n7    6320  6330  ENABLED  ENABLED   ENABLED  6.314.002400Q.998011  0000:f5:00.0  \n, \"Device ID\": \"0x6320\", \"PCI Bus\": \"0000:f5:00.0 --> SN: 01-000205-08VGT2\"}}\n",
+    "stderr": ""
+  },
+  "smi_topology": {
+    "argv": [
+      "rocm-smi",
+      "--showtopotype",
+      "--showtopoweight",
+      "--showtopohops"
+    ],
+    "exit_code": 0,
+    "stdout": "\n================================= System Management Interface ==================================\n================================================================================================\nWeight between HCUs\n          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]    \nHCU[0]    0         0         0         0         0         0         0         0         \nHCU[1]    0         0         0         0         0         0         0         0         \nHCU[2]    0         0         0         0         0         0         0         0         \nHCU[3]    0         0         0         0         0         0         0         0         \nHCU[4]    0         0         0         0         0         0         0         0         \nHCU[5]    0         0         0         0         0         0         0         0         \nHCU[6]    0         0         0         0         0         0         0         0         \nHCU[7]    0         0         0         0         0         0         0         0         \n================================================================================================\n================================================================================================\nHops between HCUs\n          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]    \nHCU[0]    0         1         1         1         1         1         1         1         \nHCU[1]    1         0         1         1         1         1         1         1         \nHCU[2]    1         1         0         1         1         1         1         1         \nHCU[3]    1         1         1         0         1         1         1         1         \nHCU[4]    1         1         1         1         0         1         1         1         \nHCU[5]    1         1         1         1         1         0         1         1         \nHCU[6]    1         1         1         1         1         1         0         1         \nHCU[7]    1         1         1         1         1         1         1         0         \n================================================================================================\n================================================================================================\nLink Type between HCUs\n          HCU[0]    HCU[1]    HCU[2]    HCU[3]    HCU[4]    HCU[5]    HCU[6]    HCU[7]    \nHCU[0]    None      HSW       HSW       HSW       HSW       HSW       HSW       HSW       \nHCU[1]    HSW       None      HSW       HSW       HSW       HSW       HSW       HSW       \nHCU[2]    HSW       HSW       None      HSW       HSW       HSW       HSW       HSW       \nHCU[3]    HSW       HSW       HSW       None      HSW       HSW       HSW       HSW       \nHCU[4]    HSW       HSW       HSW       HSW       None      HSW       HSW       HSW       \nHCU[5]    HSW       HSW       HSW       HSW       HSW       None      HSW       HSW       \nHCU[6]    HSW       HSW       HSW       HSW       HSW       HSW       None      HSW       \nHCU[7]    HSW       HSW       HSW       HSW       HSW       HSW       HSW       None      \n================================================================================================\n======================================== End of SMI Log ========================================\n\n",
+    "stderr": ""
+  },
+  "smi_pids": {
+    "argv": [
+      "rocm-smi",
+      "--showpids"
+    ],
+    "exit_code": 0,
+    "stdout": "\n================================= System Management Interface ==================================\n================================================================================================\nNo KFD PIDs currently running!\n================================================================================================\n======================================== End of SMI Log ========================================\n\n",
+    "stderr": ""
+  },
+  "frozen_stage1": {
+    "exists": true,
+    "files": {
+      "AGE.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "ASSIGNMENTS.csv": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "CONTRACT.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "EMA-R50.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "ENVIRONMENT.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "EXECUTION.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "EXIT-CODE.txt": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "HANDOFF.md": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "READ-RECEIPTS.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "SCHEDULE.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "SCHEMA.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "SHORT-SUMMARY.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "SOURCE-age.py": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "SOURCE-data.py": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "SOURCE-persistence.py": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "dev_indices.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "fit_indices.json": {
+        "exists": true,
+        "sha_matches": true
+      },
+      "manifest.json": {
+        "exists": true,
+        "sha_matches": true
+      }
+    },
+    "source_identity": {
+      "schema_version": 1,
+      "train_count": 51396,
+      "train_csv_sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
+      "train_rows_sha256": "ff1381f001cefb974d8ba4904a1eb3913da82ed660ca1eb5b43c763e9c92ef7a"
+    },
+    "keys": [
+      "schema_version",
+      "status",
+      "counts",
+      "algorithm",
+      "isolation",
+      "source_manifest",
+      "source_identity",
+      "new_manifest",
+      "new_manifest_canonical_sha256",
+      "fit_indices_canonical_sha256",
+      "dev_indices_canonical_sha256",
+      "age",
+      "age_contract_sha256",
+      "fit_age_missing_reasons",
+      "schedule",
+      "schedule_canonical_sha256",
+      "ema_r50",
+      "ema_r50_canonical_sha256",
+      "ema_integration_requirements",
+      "cache_reuse",
+      "native_metadata_source_files",
+      "patient_grouping",
+      "downstream"
+    ]
+  },
+  "public_provenance": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/provenance.json",
+      "content": {
+        "model": "convnext_tiny",
+        "format": "torchvision-1000-state-dict-v1",
+        "source_url": "https://huggingface.co/facebook/convnext-tiny-224/resolve/6166b7613034066690a621d8bf25ffdf181a34f0/pytorch_model.bin",
+        "revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+        "training_data": "ImageNet-1K",
+        "original_sha256": "1fe15b2eba9e355de14c4e244e6365bf61ffef84da7d3442c0afbb2d8564f477",
+        "sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+        "license_file": "../source/LICENSE-apache-2.0.txt",
+        "redistribution_confirmed": true,
+        "redistribution_scope": "documented license of the concrete public model release; not competition-organizer approval",
+        "model_card_sha256": "158700525bcebf81019d06959f647ffb8fb27a7a7e3d148b5354dacacb3cbf9b",
+        "config_sha256": "441f982e839a9ea96df7c1678422dc4e65cd5632731a6957f6aa03728195423d",
+        "upstream_notice_sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+        "source_file_hashes": {
+          "model-api.json": "6b7eab49bf820144201be884e2bdb9c8971f5be868144aaab028a9b1b05211cf",
+          "config.json": "441f982e839a9ea96df7c1678422dc4e65cd5632731a6957f6aa03728195423d",
+          "README.md": "158700525bcebf81019d06959f647ffb8fb27a7a7e3d148b5354dacacb3cbf9b",
+          "LICENSE-apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "pytorch_model.bin": "1fe15b2eba9e355de14c4e244e6365bf61ffef84da7d3442c0afbb2d8564f477",
+          "NOTICE-upstream-MIT.txt": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "reference-modeling_convnext-v4.17.0.py": "3de15a74b821018970c0a272b611e13d3e1d09049178e497aaffb03802f02bfa",
+          "preprocessor_config.json": "fd575b890da5a949493e1d1e7a70bfcb9e4b99fe444004d2dbfa253add254741"
+        },
+        "converter_sha256": "b715037762088a92083a764e455cc1d5a25a0df370751d4373cb10edc48ac5d8",
+        "conversion": "182 tensors renamed,18 gamma reshaped[C]->[C,1,1],FP32 values unchanged",
+        "final_norm_eps": 1e-12,
+        "internal_norm_eps": 1e-06,
+        "forward_verification": {
+          "passed": true,
+          "atol": 0.0001,
+          "rtol": 0.0001,
+          "synthetic_seed": 20261027,
+          "comparisons": {
+            "synthetic-224": {
+              "count": 2,
+              "shape": [
+                2,
+                1000
+              ],
+              "max_abs": 5.960464477539062e-07,
+              "max_rel": 0.00038380041951313615,
+              "passed": true,
+              "input_sha256": "9f50d8094014bb524febff64f254d1ac6aee88bacedbddd10a6b1864ed09449c"
+            },
+            "fit-224": {
+              "count": 2,
+              "shape": [
+                2,
+                1000
+              ],
+              "max_abs": 6.198883056640625e-06,
+              "max_rel": 0.007505862507969141,
+              "passed": true,
+              "input_sha256": "6004db019fa9b1818de76e77d983796e68f897f22d02b27a2df60a70871dd389"
+            },
+            "synthetic-384": {
+              "count": 2,
+              "shape": [
+                2,
+                1000
+              ],
+              "max_abs": 7.748603820800781e-07,
+              "max_rel": 0.0010407697409391403,
+              "passed": true,
+              "input_sha256": "2f789fa7c7c01cb8cfb5b43adb271e790b16ff37f3e26758f74f3c61a6b70c52"
+            },
+            "fit-384": {
+              "count": 2,
+              "shape": [
+                2,
+                1000
+              ],
+              "max_abs": 4.0531158447265625e-06,
+              "max_rel": 0.0017812744481489062,
+              "passed": true,
+              "input_sha256": "e835f3b9b401f448c1853daeb60e732d5f00d0bf4961a7b29b42b27db1519cad"
+            }
+          },
+          "reference_fit_names": [
+            "train_00003.jpg",
+            "train_00004.jpg"
+          ],
+          "reference_inputs_sha256": "fa8dd78d2182785d3fbec6a6d4e72b983d7d041b0b00f21684caae7d44698242",
+          "reference_implementation_sha256": "ffc68b212d1cb3db77b417ada4239fa63e27acdb2aed1bd8ec835ef6f3e4c528"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/converted/provenance.json",
+      "content": {
+        "model": "convnext_tiny",
+        "format": "torchvision-1000-state-dict-v1",
+        "source_url": "https://huggingface.co/timm/convnext_tiny.fb_in22k_ft_in1k/resolve/bc48a87f119bae1b06418f5340bfa97ef75d4609/pytorch_model.bin",
+        "revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518",
+        "sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "redistribution_confirmed": true,
+        "source_file_hashes": {
+          "source-manifest.json": "419b3d0b6632fbd2c90b3cd43a300e552a6453aeecded46b6bf29793be4d2798",
+          "model-api.json": "77725f3b794b057595fea1ec6a587e67e26a6b2ac66445f5364b1dae815910b4",
+          "config.json": "05b31a3e4e2f16a1ad61f64ea4b34ba2e17fb10e72c48490de088b92b97a6151",
+          "README.md": "5829109fcf28ec11af3f28fe4477a8319a4aaf39aa67a3ab7b4499e8d1720d4d",
+          "LICENSE-apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "pytorch_model.bin": "8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518",
+          "download-receipt.json": "e52d3558a6a2f9c44af59e8a20b0b232be0471925b80c7a02d5e6355f10f26ae",
+          "NOTICE-upstream-MIT.txt": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        },
+        "converter_sha256": "82e74a0056e0b9035fbd06a9c354889384186bf480492e113bb937b35ce83bb5",
+        "conversion": "182 keys renamed,18 gamma[C] reshaped[C,1,1]; all FP32 values exactly preserved",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "weight_recipe": "paper-author ImageNet22K pretraining then ImageNet1K fine-tuning; timm public package",
+        "upstream_notice_sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      }
+    }
+  ]
+}

@@ -3,10 +3,8 @@ import copy
 import os
 from pathlib import Path
 
-from .distributed import layout
-
-
 def resolve_topology(cfg, *, available_accelerators):
+    from .distributed import layout
     devices = cfg['execution']['devices']
     world = len(devices)
     legacy = cfg['execution'].get('legacy_six_card_exception', False)
@@ -38,22 +36,16 @@ def resolve_topology(cfg, *, available_accelerators):
 
 
 def allocate_cpus(world, available=None, quota_cores=None):
-    available = sorted(set(available if available is not None else
-        (os.sched_getaffinity(0) if hasattr(os, 'sched_getaffinity') else range(os.cpu_count() or 1))))
-    if quota_cores is None:
-        path = Path('/sys/fs/cgroup/cpu.max')
-        if path.is_file():
-            quota, period = path.read_text().split()
-            if quota != 'max':
-                quota_cores = int(quota) / int(period)
-    count = min(len(available), int(quota_cores)) if quota_cores is not None else len(available)
-    if type(world) is not int or world <= 0 or count < world:
-        raise ValueError('actual CPU affinity/quota cannot supply one CPU per configured rank')
-    width = max(1, (count - 2) // world)
-    masks = [available[rank * width:(rank + 1) * width] for rank in range(world)]
-    if any(len(mask) != width for mask in masks):
-        raise ValueError('empty or incomplete rank CPU affinity')
-    return width, masks
+    from .site_binding import load_site, verify_gpu_cpu
+    site = load_site()
+    policy, _ = verify_gpu_cpu(site)
+    if type(world) is not int or world != len(site['gpus']):
+        raise ValueError('CPU allocation world differs from the explicit site')
+    if available is not None and not set(policy['owner_mask']) <= set(available):
+        raise ValueError('explicit CPU allocation exceeds the supplied available CPU set')
+    if quota_cores is not None and len(policy['owner_mask']) > int(quota_cores // 5):
+        raise ValueError('explicit CPU allocation exceeds the supplied 20% quota')
+    return len(policy['rank_masks'][0]), copy.deepcopy(policy['rank_masks'])
 
 
 def validate_worker_spec(spec, rank, device, requested_mask):
@@ -70,7 +62,63 @@ def validate_worker_spec(spec, rank, device, requested_mask):
     return world
 
 
+def bind_worker_cpu(spec, rank, device):
+    from .site_binding import load_site, sha256, bind_cpu_role
+    site = load_site()
+    if (spec.get('site_binding_sha256') != sha256(os.environ['NCCCU_SITE_BINDING'])
+            or type(rank) is not int or not 0 <= rank < len(site['gpus'])
+            or device != 'cuda:' + str(rank)
+            or spec['devices'] != ['cuda:' + str(n) for n in range(len(site['gpus']))]
+            or spec['cpu_masks'] != site['cpu_execution']['rank_masks']
+            or spec['cpu_width'] != len(site['cpu_execution']['rank_masks'][0])):
+        raise ValueError('worker site/CPU/device identity differs from its explicit allocation')
+    return bind_cpu_role(site, 'rank', rank=rank)
+
+
+def audit_cpu_tree(root_pid, known, site):
+    """Observe exact descendants, including reparented children seen in prior samples."""
+    from .site_binding import verify_gpu_cpu
+    policy, _ = verify_gpu_cpu(site)
+    processes = {}
+    for path in Path('/proc').iterdir():
+        if not path.name.isdigit():
+            continue
+        try:
+            fields = (path / 'stat').read_text().rsplit(')', 1)[1].split()
+            processes[int(path.name)] = (int(fields[1]), fields[19], fields[0])
+        except (FileNotFoundError, ProcessLookupError):
+            continue
+    selected = {root_pid} | {pid for pid, ticks in known.items()
+        if pid in processes and processes[pid][1] == ticks}
+    while True:
+        expanded = selected | {pid for pid, (parent, _, _) in processes.items() if parent in selected}
+        if expanded == selected:
+            break
+        selected = expanded
+    live, violations = [], []
+    threads = 0
+    for pid in sorted(selected):
+        if pid not in processes or processes[pid][2] in ('Z', 'X'):
+            continue
+        known[pid] = processes[pid][1]; live.append(pid)
+        try:
+            for task in (Path('/proc') / str(pid) / 'task').iterdir():
+                try:
+                    mask = sorted(os.sched_getaffinity(int(task.name))); threads += 1
+                    if not mask or not set(mask) <= set(policy['owner_mask']):
+                        violations.append({'pid': pid, 'tid': int(task.name), 'mask': mask})
+                except (FileNotFoundError, ProcessLookupError):
+                    continue
+        except (FileNotFoundError, ProcessLookupError):
+            continue
+    if violations:
+        raise ValueError('GPU owner descendant escaped its allocated CPU envelope: ' + repr(violations))
+    return {'live_pids': live, 'threads': threads, 'owner_mask': policy['owner_mask'],
+            'affinity_violations': violations, 'allocation_sha256': policy['allocation_receipt']['sha256']}
+
+
 def validate_general_fresh(spec, identity, job, topology):
+    from .distributed import layout
     policy = spec['execution_policy']
     world = policy['world_size']
     if world not in (1, 2, 4, 8) and not (world == 6 and policy.get('legacy_six_card_exception') is True):
@@ -95,6 +143,8 @@ def rank_proof(ctx, spec):
     actual = sorted(os.sched_getaffinity(0)) if hasattr(os, 'sched_getaffinity') else None
     if actual is not None and actual != sorted(requested):
         raise ValueError('actual worker CPU affinity differs from its configured disjoint mask')
+    if torch.get_num_threads() != 1 or torch.get_num_interop_threads() != 1:
+        raise ValueError('rank torch threads differ from the explicit one-thread contract')
     physical = None
     total = None
     if ctx.device.type == 'cuda':
@@ -118,4 +168,6 @@ def rank_proof(ctx, spec):
             physical = '0000:' + physical
     return {'rank': ctx.rank, 'world_size': ctx.world_size, 'pid': os.getpid(), 'device': str(ctx.device),
             'physical_pci': physical, 'total_memory_bytes': total, 'requested_cpu_ids': requested,
-            'actual_cpu_ids': actual, 'at': time.time(), 'CPU_only_software_proof': ctx.device.type != 'cuda'}
+            'actual_cpu_ids': actual, 'intraop_threads': torch.get_num_threads(),
+            'interop_threads': torch.get_num_interop_threads(),
+            'at': time.time(), 'CPU_only_software_proof': ctx.device.type != 'cuda'}

@@ -87,7 +87,7 @@ def wait_start_barrier(spec,ctx,stopping):
         value=record['value']
         if value is not None:
             if spec.get('cache_readonly_required') and (value.get('initial_rank_count')!=world
-                    or len(value.get('six_rank_initial_proof_sha256',''))!=64):
+                    or len(value.get('rank_initial_proof_sha256',''))!=64):
                 raise ValueError('six-rank initial proof absent from startup barrier')
             if (not isinstance(value,dict) or any(value.get(k)!=v for k,v in expected.items())
                     or value.get('all_initials_passed') is not True

@@ -1,0 +1,48 @@
+{
+  "scope": "read_only_sources_for_exp_v3_migration_inventory",
+  "assets": [
+    {
+      "id": "raw_glaucoma_dataset",
+      "path": "/public/home/acfwvv9ejn/SothisAI/dataset/Console/glaucoma_first/main/glaucoma_first"
+    },
+    {
+      "id": "prepared512_pillow123",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/shared-assets/prepared512-v2-pillow12.3.0"
+    },
+    {
+      "id": "fixed_9010_stage1_18_objects",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result"
+    },
+    {
+      "id": "public_tiny22k_original",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/original"
+    },
+    {
+      "id": "public_tiny22k_converted",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r16/assets/converted"
+    },
+    {
+      "id": "recovered_original_readme",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pretraining-cpu-20261028-execution-b-5d11d2c/recovered-source/README.md"
+    },
+    {
+      "id": "sealed_official_manifest",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/assets/dev5k-manifest.json"
+    },
+    {
+      "id": "N06_research_only_retained_not_training_dependency",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+      "expected_sha256": "12949f6c65f4f18f1519ea7d734d0282707fe46429eadf3c287e780836cdfa3a"
+    },
+    {
+      "id": "R17_retained_not_training_dependency",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+      "expected_sha256": "67241c5b9e819af3559fcec4ab342871594e5727e1fc302cc138a8f21d43a1eb"
+    },
+    {
+      "id": "R8C25_retained_not_training_dependency",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt",
+      "expected_sha256": "ba3a1f50464de7d685e9eabee5e4d6fc49bf899acdb4cf2c06cb024f9f1978ba"
+    }
+  ]
+}

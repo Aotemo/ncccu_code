@@ -20,8 +20,17 @@ def main():
         if gate.is_symlink():raise ValueError('gate symlink forbidden')
         if time.monotonic()>=end:raise TimeoutError('component owner release timed out')
         time.sleep(.05)
-    if gate.is_symlink() or json.loads(gate.read_text()).get('token')!=args.token:
+    if gate.is_symlink():
         raise ValueError('component owner release identity differs')
+    record=json.loads(gate.read_text())
+    ticks=Path('/proc/self/stat').read_text().rsplit(')',1)[1].split()[19]
+    if (record.get('token')!=args.token or type(record.get('pid')) is not int
+            or record['pid']!=os.getpid() or str(record.get('start_ticks'))!=ticks):
+        raise ValueError('component token/PID/start identity differs')
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent / 'bundle'))
+    from retrain.site_binding import load_site, bind_cpu_role
+    bind_cpu_role(load_site(), 'control')
     os.execvpe(command[0],command,os.environ.copy())
 
 

@@ -1,4 +1,4 @@
-"""R92 actual four-rank noBN initial proof; loads native checkpoint, never a new model."""
+"""Actual admitted-world noBN initial proof; load native checkpoint, never a new model."""
 import json
 from pathlib import Path
 import sys
@@ -18,11 +18,14 @@ def required_paths(folder):
     return [Path(folder) / name for name in ('initial-ranks.json', 'parameter-groups.json', 'initial-checkpoint/index.json')]
 
 
-def verify_records(initials, actual_groups, reference_groups, expected):
+def verify_records(initials, actual_groups, reference_groups, expected, *, expected_world):
     from retrain.experiment91 import candidate, validate_normalization
     require(expected['candidate'] == candidate() and expected['batch_norm_modules'] == expected['buffer_count'] == 0,
             'CPU expected candidate/noBN identity differs')
-    require(len(initials) == 4 and {x['rank'] for x in initials} == {0, 1, 2, 3}, 'four initial ranks required')
+    require(type(expected_world) is int and expected_world == 8
+            and len(initials) == expected_world and all(type(x.get('rank')) is int for x in initials)
+            and {x['rank'] for x in initials} == set(range(expected_world)),
+            'all admitted initial ranks required')
     for rank in initials:
         require(rank['model_sha256'] == expected['model_tensor_sha256'] and rank['optimizer_state_entries'] == 0
                 and rank['bn_modules'] == 0 and rank['scaler'] == {} and not rank.get('attention_pool'), 'fresh Tiny tensor/Adam/noBN/noq differs')
@@ -57,14 +60,19 @@ def maybe_release(root, atomic, sha):
     if not all(p.is_file() for p in paths):
         return False
     sys.path.insert(0, str(root / 'bundle'))
+    from retrain.site_binding import load_site, verify_rank_devices
+    site = load_site(); world = len(site['gpus'])
+    require(cfg['execution']['devices'] == ['cuda:' + str(rank) for rank in range(world)], 'configured ranks differ from site')
+    verify_rank_devices(read(folder / 'rank-device-proof.json'), site)
     import torch
-    torch.set_num_threads(2); torch.set_num_interop_threads(2)
+    torch.set_num_threads(1); torch.set_num_interop_threads(1)
     require(not torch.cuda.is_initialized(), 'owner initial gate must remain CPU')
     from retrain.persistence import CheckpointStore
     from retrain.ema import tensor_digest, validate_state
     from retrain.experiment91 import validate_checkpoint, ema_rule
     expected = read(evidence / 'MODEL_CPU_ADMISSION.json')['initial_state_control']
-    full_digest = verify_records(read(paths[0]), read(paths[1]), read(evidence / 'CPU_PARAMETER_GROUPS.json'), expected)
+    full_digest = verify_records(read(paths[0]), read(paths[1]), read(evidence / 'CPU_PARAMETER_GROUPS.json'), expected,
+                                 expected_world=world)
     fresh = read(control / 'train-fresh-spec.json')
     source = read(root / 'SOURCE-MANIFEST.reference.json')['source_digest']
     require(time.time() < read(control / 'train-phase-start.json')['soft_deadline_at'], 'startup budget expired')
@@ -83,7 +91,7 @@ def maybe_release(root, atomic, sha):
     require(payload['ema']['rule'] == fresh['ema'] == ema_rule() and tensor_digest(payload['ema']['model']) == full_digest, 'initial EMA differs')
     require(not torch.cuda.is_initialized(), 'gate initialized CUDA')
     record = read(paths[2])['last']
-    receipt = {'status': 'completed', 'at': time.time(), 'rank_count': 4, 'optimizer_state_entries': 0,
+    receipt = {'status': 'completed', 'at': time.time(), 'rank_count': world, 'optimizer_state_entries': 0,
         'candidate': expected['candidate'], 'source_digest': source, 'model_tensor_sha256': full_digest,
         'batch_norm_modules': 0, 'buffer_count': 0, 'buffer_sha256': expected['buffer_sha256'],
         'candidate_normalization': expected['candidate_normalization'], 'parameter_tensors': expected['trainable_tensors'],
@@ -94,7 +102,7 @@ def maybe_release(root, atomic, sha):
     atomic(receipt_path, receipt, exclusive=True)
     barrier = fresh['startup_barrier']
     atomic(barrier_path, {'round_id': barrier['round_id'], 'plan_sha256': fresh['plan_sha256'], 'source_digest': source,
-        'purpose': 'train', 'run_ids': barrier['run_ids'], 'world_size': 4, 'initial_rank_count': 4, 'all_initials_passed': True,
-        'six_rank_initial_proof_sha256': sha(paths[0]), 'initials_sha256': {cfg['run_name']: sha(paths[0])},
+        'purpose': 'train', 'run_ids': barrier['run_ids'], 'world_size': world, 'initial_rank_count': world, 'all_initials_passed': True,
+        'rank_initial_proof_sha256': sha(paths[0]), 'initials_sha256': {cfg['run_name']: sha(paths[0])},
         'actual_initial_receipt_sha256': sha(receipt_path)}, exclusive=True)
     return True

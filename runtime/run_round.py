@@ -1,9 +1,10 @@
-import glob,hashlib,json,os,re,shutil,stat,time
+import glob,hashlib,json,os,re,shutil,stat,sys,time
 from pathlib import Path
 from r92_initial_gate import verify_records as verify_fresh_initial_identity, maybe_release
 ROOT=Path(__file__).resolve().parent
 CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
-PCIS={'0000:09:00.0','0000:77:00.0','0000:85:00.0','0000:f5:00.0'}
+sys.path.insert(0,str(ROOT/'bundle'))
+from retrain.site_binding import load_site, expected_pcis, verify_gpu_cpu
 SCAN_DIAGNOSTICS={'tolerated_atomic_leaf_disappearances':0,'sample_relative_paths':[]}
 ATOMIC_TEMP_NAME=re.compile(r'^\..+\.[A-Za-z0-9_-]{6,}\.tmp$')
 def read(p):return json.loads(Path(p).read_text())
@@ -14,9 +15,16 @@ def sha(p):
  return h.hexdigest()
 def verify_bound():
  binding=read(ROOT/'RUNTIME_BINDING.json')
+ site=load_site()
+ if site.get('scope')!='formal_exp_v3':raise ValueError('formal runtime cannot use a technical snapshot')
+ verify_gpu_cpu(site)
  if sha(ROOT/'RUNTIME_BINDING.json')!=read(CONTROL/'binding-receipt.json')['runtime_binding_sha256']:raise ValueError('binding changed')
- if binding['round_id']!=ROUND or binding['implementation_ready'] is not True:raise ValueError('binding identity')
- if binding['source_digest']!=SOURCE or binding['bundle_source_files']!=read(ROOT/'SOURCE-MANIFEST.reference.json')['after']:raise ValueError('numerical source identity')
+ if (binding['round_id']!=site['round_id'] or binding['implementation_ready'] is not True
+     or binding['git_commit']!=site['git_commit'] or Path(site['round_root']).resolve()!=ROOT
+     or Path(os.environ['NCCCU_SITE_BINDING']).resolve()!=ROOT/'SITE_BINDING.json'
+     or binding['site_binding_sha256']!=sha(ROOT/'SITE_BINDING.json')):raise ValueError('binding identity')
+ reference=read(ROOT/'SOURCE-MANIFEST.reference.json')
+ if binding['source_digest']!=reference['source_digest'] or binding['bundle_source_files']!=reference['after']:raise ValueError('numerical source identity')
  if binding['clock_sha256']!=sha(CONTROL/'round-clock.json') or binding['effective_output_root']!=str(ROOT/'outputs'):raise ValueError('clock/output binding')
  for rel,value in binding['source_files'].items():
   p=ROOT/rel
@@ -24,8 +32,6 @@ def verify_bound():
  if sha(read(ROOT/'TRAIN_CONFIG.json')['jobs'][0]['initialization']['path'])!=binding['public_weight_sha256']:raise ValueError('public weight changed')
  return binding
 
-ROUND='r92-tiny1k-9010-20261028'
-SOURCE='57ef83209692eb79e682e04e2b3fe7a060225856f673505ab67396080216d51e'
 def device_users_before_start():
     users=[];denied=0
     for path in glob.glob('/proc/[0-9]*'):
@@ -48,14 +54,15 @@ def device_users_before_start():
 
 def card_snapshot():
     cards=[]
+    pcis=set(expected_pcis(load_site()))
     for p in Path('/sys/class/drm').glob('card[0-9]*'):
         if not p.name[4:].isdigit():continue
         d=(p/'device').resolve()
-        if d.name not in PCIS:continue
+        if d.name not in pcis:continue
         cards.append({'pci':d.name,'busy_percent':int((d/'gpu_busy_percent').read_text()),
                       'vram_used_bytes':int((d/'mem_info_vram_used').read_text()),
                       'vram_total_bytes':int((d/'mem_info_vram_total').read_text())})
-    if {x['pci'] for x in cards}!=PCIS:raise ValueError('specified four PCI cards not present')
+    if {x['pci'] for x in cards}!=pcis:raise ValueError('all admitted PCI cards must be present')
     return sorted(cards,key=lambda x:x['pci'])
 
 def real_directory(path):
@@ -84,9 +91,9 @@ def tree_bytes():
     return total
 
 def budget(deadline,minimum_free=17179869184):
-    if time.time()>=deadline:raise TimeoutError('N03 absolute deadline reached')
+    if time.time()>=deadline:raise TimeoutError('round absolute deadline reached')
     free=shutil.disk_usage(ROOT).free;size=tree_bytes()
-    if free<minimum_free or size>12884901888:raise RuntimeError('N03 storage limit reached')
+    if free<minimum_free or size>12884901888:raise RuntimeError('round storage limit reached')
     return {'free_bytes':free,'new_round_bytes':size}
 
 def runtime_safety_snapshot():

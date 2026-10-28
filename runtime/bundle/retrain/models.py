@@ -206,8 +206,24 @@ def validate_initialization(initialization):
             raise ValueError('Weight provenance requires '+key)
     if meta['sha256'] != initialization['sha256'] or meta.get('redistribution_confirmed') is not True:
         raise ValueError('Weight hash/provenance and redistribution confirmation are required')
-    if meta['training_data'] != 'ImageNet-1K' or not meta['source_url'].startswith('https://'):
-        raise ValueError('This entry supports documented ImageNet-1K public initialization only')
+    tiny22 = meta['training_data'] == 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
+    if tiny22:
+        from .experiment91 import CANDIDATE, PROVENANCE_SHA
+        expected = {'model': 'convnext_tiny', 'format': 'torchvision-1000-state-dict-v1',
+            'revision': CANDIDATE['public_revision'], 'sha256': CANDIDATE['weight_sha256'],
+            'source_url': 'https://huggingface.co/timm/convnext_tiny.fb_in22k_ft_in1k/resolve/'
+                          + CANDIDATE['public_revision'] + '/pytorch_model.bin',
+            'original_sha256': '8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518',
+            'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
+            'license_file': '../original/LICENSE-apache-2.0.txt'}
+        if (any(meta.get(key) != value for key, value in expected.items())
+                or _hash(meta_path) != PROVENANCE_SHA
+                or initialization.get('kind') != 'imagenet'
+                or not path.is_absolute() or not meta_path.is_absolute()
+                or path.is_symlink() or meta_path.is_symlink()):
+            raise ValueError('Pinned Tiny22K-to-1K source/revision/conversion/LN differs')
+    elif meta['training_data'] != 'ImageNet-1K' or not meta['source_url'].startswith('https://'):
+        raise ValueError('Only documented ImageNet-1K or the pinned Tiny22K-to-1K source is supported')
     license_path = (meta_path.parent / meta['license_file']).resolve()
     if not license_path.is_file() or not license_path.read_text().strip():
         raise ValueError('Provide the applicable full weight license as license_file')

@@ -15,7 +15,9 @@
 
 当前任务的状态只在 `todo/` 维护。README 通过链接引导读者；AGENTS 不再携带当前运行的主机、UID、Python 路径、Agent ID 或进度。
 
-`runtime/` 目前含已导入的 R92 包。包内 `PLAN.md`、JSON 和绑定入口属于当时的源码/部署身份，不能通过移动或替换其中的路径来改变活跃运行。后续实现仍在同一源码目录演进，通过 Git 追溯历史；运行副本只承担冻结部署。具体身份与使用限制见 [runtime/README.md](../runtime/README.md)。
+`runtime/` 在导入的R92源码基础上继续演进，当前`PLAN.md`描述R93；历史R92的实际部署身份由Git历史和`records/R92/`追溯。旧生成件`TRAIN_CONFIG.json`、`ASSETS.json`、`CLOCK_TEMPLATE.json`、`FRESH-SPEC.template.json`、`RUNTIME_BINDING.template.json`、`SOURCE-MANIFEST.reference.json`及`evidence/`内三份旧CPU身份已从当前入口移除，服务器历史冻结副本不改。
+
+当前科学配置来自`configs/R93-SCIENCE.json`；`tools/activation/prepare.py`按当次显式site与真实迁移资产回执在Pod生成新的配置、资产、fresh/source清单和CPU验收身份。`CLOCK_POLICY.round_id`由site提供，不默认R92。生成产物在exp-v3，本仓库维护生成源码、科学配置及必要小回执；CPU准备产物不等于正式运行或GPU准入。流程见[执行说明](EXECUTION.md)和[源码入口](SOURCE-MAP.md)。
 
 `configs/PRETRAINING-ASSETS.json` 是已导入的预训练盘点回执索引，暂保原路径以便正在进行的存储工作接续；它不是运行环境配置。今后的同类回执归入 `records/`。
 
@@ -23,5 +25,5 @@
 
 1. 在 `todo/<task>/README.md` 记录目标、已确认事实、验收条件与待办。
 2. 参数和代码分别维护于 `configs/`、`runtime/`、`tools/`，任务文档只链接这些文件。
-3. 使用工具即时发现执行环境。临时原始发现结果放在忽略的 `todo/.local/`；正式执行身份写入该次真实回执。任务文档可记录既有活跃绑定，但必须标明它不是环境默认值。
+3. 使用工具即时发现执行环境。完整发现结果、技术准备、缓存、冻结部署和运行产物统一放用户指定的 `/public/home/acfwvv9ejn/SothisAI/exp-v3`；正式执行身份写入该次真实回执。Git只收必要小回执与结论。任务文档可记录当次绑定，但必须标明它不是环境默认值。
 4. 结果核实后存入 `records/`，更新任务勾选；完成的任务从当前任务索引移除，保留精简结果链接。模型参数由 `models/` 指向权威保留清单，避免另造一个排名清单。
