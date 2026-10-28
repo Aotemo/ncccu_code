@@ -1,0 +1,14 @@
+test_R94_only_changes_backbone_LR_scientific_fields (test_candidate_binding.CandidateBindingTest.test_R94_only_changes_backbone_LR_scientific_fields) ... ok
+test_absent_site_has_no_legacy_candidate_fallback (test_candidate_binding.CandidateBindingTest.test_absent_site_has_no_legacy_candidate_fallback) ... ok
+test_actual_normalization_accepts_source_ln_and_rejects_old_final_ln (test_candidate_binding.CandidateBindingTest.test_actual_normalization_accepts_source_ln_and_rejects_old_final_ln) ... ok
+test_candidate_uses_explicit_source_identity_and_ln (test_candidate_binding.CandidateBindingTest.test_candidate_uses_explicit_source_identity_and_ln) ... ok
+test_configuration_controls_job_LR_and_rejects_old_LR (test_candidate_binding.CandidateBindingTest.test_configuration_controls_job_LR_and_rejects_old_LR) ... ok
+test_old_R93_profile_is_not_accepted_with_new_LR (test_candidate_binding.CandidateBindingTest.test_old_R93_profile_is_not_accepted_with_new_LR) ... ok
+test_parameter_group_LRs_follow_configured_job_and_age_contract (test_candidate_binding.CandidateBindingTest.test_parameter_group_LRs_follow_configured_job_and_age_contract) ... ok
+test_same_length_configuration_change_invalidates_pin (test_candidate_binding.CandidateBindingTest.test_same_length_configuration_change_invalidates_pin) ... ok
+test_wrong_source_ln_or_weight_is_rejected (test_candidate_binding.CandidateBindingTest.test_wrong_source_ln_or_weight_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.354s
+
+OK
