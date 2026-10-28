@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "files": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/B-pretrain-inventory-9010-20261028/METADATA-RECEIPT.json": "00570e76e77a1aa12846964063d15a62eacc634a99ac75166f4069fd169dcbc6",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/B-pretrain-inventory-9010-20261028/inventory_pod_metadata.py": "1bca94c3f77a315e8a6913e25fa85806c85df88ce8ad2ab91fb6fe6ded0ea941"
+  },
+  "scope": "metadata script and receipt only; no weight rehash"
+}

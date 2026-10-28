@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "expected_link_count_decrement_accepted": true,
+  "unexpected_content_metadata_change_rejected": true,
+  "model_loaded": false
+}

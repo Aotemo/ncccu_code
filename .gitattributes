@@ -1,0 +1,2 @@
+# Preserve the original Pod metrics CSV bytes, including its CRLF line endings.
+records/R92/DEV-METRICS.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

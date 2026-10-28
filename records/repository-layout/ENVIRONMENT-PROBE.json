@@ -1,0 +1,17 @@
+{
+  "scope": "compute_pod_cpu",
+  "namespace": "acfwvv9ejn",
+  "pod": "vcjob-2114373723310104577-acfwvv9ejn-90647-worker-0",
+  "uid": "eec33bd6-b567-40ef-b866-633e272ea019",
+  "container": "vcjob-2114373723310104577-acfwvv9ejn-90647",
+  "python": "/usr/local/python3.12/bin/python3.12",
+  "python_version": "3.12.7",
+  "dependencies": {
+    "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+    "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0"
+  },
+  "gpu_initialized": false,
+  "nice": 19
+}

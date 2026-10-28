@@ -1,0 +1,2601 @@
+{
+  "experiments": [
+    {
+      "id": "R2",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/R2T/best/metrics",
+          "count": 10277,
+          "auroc": 0.9823576518870772,
+          "ap": 0.802250129970274
+        },
+        {
+          "location": "/R2T/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9823576518870774,
+          "ap": 0.802250129970274
+        },
+        {
+          "location": "/R2T/checkpoints/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9823576518870774,
+          "ap": 0.802250129970274
+        }
+      ],
+      "source_result_sha256": "bed74ca3468b8d9fd63f6122629ed1fbe1e5a2ed074d40b853be2cea7da0cb6d"
+    },
+    {
+      "id": "R4F",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/R4F/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519538
+        },
+        {
+          "location": "/R4F/checkpoints/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519538
+        },
+        {
+          "location": "/R4F/best/metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519542
+        }
+      ],
+      "source_result_sha256": "83f60baa41bb8c30818c548ab1f33e77a016b384b97695b6edac5714168da1da"
+    },
+    {
+      "id": "R4",
+      "status": "partial",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [],
+      "source_result_sha256": "b673dcd227e9dfe6a806c7a515cf122ee7807ef7a0c108a97933ac19e52ee79e"
+    },
+    {
+      "id": "RESULT.json",
+      "status": "recorded",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [],
+      "source_result_sha256": "46280d9236ca400417148ad29010ed9e5329f07606d46807fec5d8351f2ec8da"
+    },
+    {
+      "id": "OFFICIAL-RESULT.json",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/metrics",
+          "count": 5849,
+          "auroc": 0.9746659041823744,
+          "ap": 0.7372105728953852
+        }
+      ],
+      "source_result_sha256": "b870696d3a788182fc372d44c55e667f7e8ea86ae4eaa87e949af3f40b6aa83c"
+    },
+    {
+      "id": "R1",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/runs/r1a/best/metrics",
+          "count": 10277,
+          "auroc": 0.9702811764030099,
+          "ap": 0.7315312009106578
+        },
+        {
+          "location": "/runs/r1a/checkpoints/0/best_metrics",
+          "count": 10277,
+          "auroc": 0.9702811764030099,
+          "ap": 0.7315312009106583
+        },
+        {
+          "location": "/runs/r1a/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9702811764030099,
+          "ap": 0.7315312009106583
+        },
+        {
+          "location": "/runs/r1b/best/metrics",
+          "count": 10277,
+          "auroc": 0.9654044496427013,
+          "ap": 0.7354199017351621
+        },
+        {
+          "location": "/runs/r1b/checkpoints/0/best_metrics",
+          "count": 10277,
+          "auroc": 0.9654044496427012,
+          "ap": 0.7354199017351627
+        },
+        {
+          "location": "/runs/r1b/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9654044496427012,
+          "ap": 0.7354199017351627
+        },
+        {
+          "location": "/probes/results/0/best_metrics",
+          "count": 10277,
+          "auroc": 0.9702811764030099,
+          "ap": 0.7315312009106583
+        },
+        {
+          "location": "/probes/results/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.945211452134687,
+          "ap": 0.6170674544109032
+        }
+      ],
+      "source_result_sha256": "3036aa3d7740b35cc8b16196933495f2cafe2d485e33e84cd0e6d511345a0af7"
+    },
+    {
+      "id": "r14-w4-tiny-mixup01-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9840578302003243,
+          "ap": 0.8302402519753382
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9840578302003243,
+          "ap": 0.8302402519753382
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9889333347999262,
+          "ap": 0.8533188134650791
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9889333347999262,
+          "ap": 0.8533188134650791
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9887070894382971,
+          "ap": 0.8360685136139
+        }
+      ],
+      "source_result_sha256": "f401945bb48d042bf133201d484131109eafa39d2d9b2a2eadb01279ccc2957b"
+    },
+    {
+      "id": "r25-w4-tiny-native768-s20261026-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.985478897562156,
+          "ap": 0.8402583865449725
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.985478897562156,
+          "ap": 0.8402583865449725
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9890185805092255,
+          "ap": 0.8779228311144733
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9890185805092255,
+          "ap": 0.8779228311144733
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9857987300565015,
+          "ap": 0.8265089213814537
+        }
+      ],
+      "source_result_sha256": "e5095f3e6cb04026230b3371374959268a9e764729bd8f92422a276cfc785d91"
+    },
+    {
+      "id": "r23-w4-tiny-p4-confirm-s20261026-20261026",
+      "status": "complete",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9855931695882418,
+          "ap": 0.8346458182335226
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9855931695882418,
+          "ap": 0.8346458182335226
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9889556392328253,
+          "ap": 0.8516837678106162
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9889556392328253,
+          "ap": 0.8516837678106162
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9868610261335939,
+          "ap": 0.826884794541398
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/individual_freeze/terminal/training_status/best_metrics",
+          "count": 10277,
+          "auroc": 0.9855931695882418,
+          "ap": 0.834645818233522
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/individual_freeze/terminal/training_status/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9889556392328255,
+          "ap": 0.8516837678106154
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/individual_freeze/training_status/best_metrics",
+          "count": 10277,
+          "auroc": 0.9855931695882418,
+          "ap": 0.834645818233522
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/individual_freeze/training_status/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9889556392328255,
+          "ap": 0.8516837678106154
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/formal_terminal/training_status/best_metrics",
+          "count": 10277,
+          "auroc": 0.9855931695882418,
+          "ap": 0.834645818233522
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/formal_terminal/training_status/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9889556392328255,
+          "ap": 0.8516837678106154
+        },
+        {
+          "location": "/runs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/official_valid_terminal/candidate/dev_metrics",
+          "count": 10277,
+          "auroc": 0.9889556392328255,
+          "ap": 0.8516837678106154
+        }
+      ],
+      "source_result_sha256": "1717913dedf49efbfa300c959e975ecc4951603bf76a9873d26f99f0fd3235ad"
+    },
+    {
+      "id": "r24-w4-tiny-native768-fp32-20261026",
+      "status": "recorded",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [],
+      "source_result_sha256": "dfa67dd650e7601922b45deaf250ad8c4528795896721dce40b25f56044e4d02"
+    },
+    {
+      "id": "r12-w4-convnext-small-capacity-20261026",
+      "status": "complete",
+      "model": "convnext_small",
+      "successful_updates": 8532,
+      "skipped_updates": 7,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9832230944375799,
+          "ap": 0.8100496993957974
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9832230944375799,
+          "ap": 0.8100496993957974
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9872537804486063,
+          "ap": 0.8389176247553157
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9872537804486063,
+          "ap": 0.8389176247553157
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.985990739147091,
+          "ap": 0.8119755538701031
+        }
+      ],
+      "source_result_sha256": "18091351828385f36be5bc6a5b43fb627ec206aeab7ec4e8ed27ccab59074384"
+    },
+    {
+      "id": "r9-hz6-b192-20261025",
+      "status": "complete",
+      "model": null,
+      "successful_updates": 3555,
+      "skipped_updates": 4,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9864175169849784,
+          "ap": 0.8257459638270913
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9846803683103506,
+          "ap": 0.8238280568744363
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9883425728682768,
+          "ap": 0.8507366543933486
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9883425728682768,
+          "ap": 0.8507366543933486
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9864039056962388,
+          "ap": 0.8179862652893095
+        }
+      ],
+      "source_result_sha256": "923e5643239a6fd0f8eef86103c3cba32acdf3872a5ddc4962719cf922598c5c"
+    },
+    {
+      "id": "r10-w4-a25-lr1e4-20261025",
+      "status": "complete",
+      "model": null,
+      "successful_updates": 7110,
+      "skipped_updates": 6,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9848004455997937,
+          "ap": 0.8247471043424021
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9848004455997937,
+          "ap": 0.8247471043424021
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9878523336547615,
+          "ap": 0.8437911786587023
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9878523336547615,
+          "ap": 0.8437911786587023
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9866195110847079,
+          "ap": 0.811308170719906
+        }
+      ],
+      "source_result_sha256": "ed2c14763de522e5115845e7bc945d0ccbeb7e0a0e77bdba11f11aaf6d09ffb2"
+    },
+    {
+      "id": "r21-w4-tiny-pair025-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9867468892954611,
+          "ap": 0.8198062429790414
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9867468892954611,
+          "ap": 0.8198062429790414
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9895218051802503,
+          "ap": 0.8509681832590235
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9895218051802503,
+          "ap": 0.8509681832590235
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9884452167990836,
+          "ap": 0.8296006400253195
+        }
+      ],
+      "source_result_sha256": "e7be8bc4ffb3df301db2fe60aa51bf7d46cf51895b708dfcbd067adeb916f0f0"
+    },
+    {
+      "id": "r16-w4-tiny-in22k1k-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9854037346786878,
+          "ap": 0.8184257061706419
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9854037346786878,
+          "ap": 0.8184257061706419
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.987327415631191,
+          "ap": 0.8535590369927496
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.987327415631191,
+          "ap": 0.8535590369927496
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9887690875542946,
+          "ap": 0.8471768230575615
+        }
+      ],
+      "source_result_sha256": "8857cc704599f56cfe9ec74e2ecd8a728b88372acf2d338c891157a5db1faa86"
+    },
+    {
+      "id": "r22-w4-tiny-p4-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9868956873615139,
+          "ap": 0.8239726616916401
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9868956873615139,
+          "ap": 0.8239726616916401
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9905850849951664,
+          "ap": 0.8587600139473524
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9905850849951664,
+          "ap": 0.8587600139473524
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9877141942373214,
+          "ap": 0.8427957011417484
+        }
+      ],
+      "source_result_sha256": "e0633f32b000e034716bfefa3b166ddac071d7b4f97b7a4efdbc5df3c3f141af"
+    },
+    {
+      "id": "r15-w4-tiny-nomix-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9855366446555524,
+          "ap": 0.817362599429968
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9855366446555524,
+          "ap": 0.817362599429968
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9897922082366298,
+          "ap": 0.8557638171475221
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9897922082366298,
+          "ap": 0.8557638171475221
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9886682249476717,
+          "ap": 0.8294849773829656
+        }
+      ],
+      "source_result_sha256": "bf283c4ebd6cdce0edf9b00139c38829e397a8592824abf44ad09d311f6d380a"
+    },
+    {
+      "id": "r8-hz6-age-20261025",
+      "status": "complete",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/runs/r8-6c-a25-image-age-ema/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9865067347165748,
+          "ap": 0.8379512949016218
+        },
+        {
+          "location": "/runs/r8-6c-a25-image-age-ema/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9865067347165748,
+          "ap": 0.8379512949016218
+        },
+        {
+          "location": "/runs/r8-6c-a25-image-age-ema/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.989444809055722,
+          "ap": 0.8583744794398583
+        },
+        {
+          "location": "/runs/r8-6c-a25-image-age-ema/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.989444809055722,
+          "ap": 0.8583744794398583
+        },
+        {
+          "location": "/runs/r8-6c-a25-image-age-ema/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9884392020564867,
+          "ap": 0.8389800428004476
+        },
+        {
+          "location": "/runs/r8-6c-a26-image-age-ema/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9865282752990322,
+          "ap": 0.8257491443697049
+        },
+        {
+          "location": "/runs/r8-6c-a26-image-age-ema/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9865282752990322,
+          "ap": 0.8257491443697049
+        },
+        {
+          "location": "/runs/r8-6c-a26-image-age-ema/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9893583411857159,
+          "ap": 0.8616940150052851
+        },
+        {
+          "location": "/runs/r8-6c-a26-image-age-ema/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9893583411857159,
+          "ap": 0.8616940150052851
+        },
+        {
+          "location": "/runs/r8-6c-a26-image-age-ema/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9879492318711032,
+          "ap": 0.8467857241789106
+        },
+        {
+          "location": "/runs/r8-6c-c25-image-ema/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/runs/r8-6c-c25-image-ema/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        }
+      ],
+      "source_result_sha256": "8a95f935880abd6ffb62c5112216907b1eb89146125fecbfc9ed9f7605ff3511"
+    },
+    {
+      "id": "r17-w4-tiny-focal2-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9867875261389621,
+          "ap": 0.835671006662209
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9867875261389621,
+          "ap": 0.835671006662209
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9899571999320479,
+          "ap": 0.8553826253940112
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9899571999320479,
+          "ap": 0.8553826253940112
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9893446521535555,
+          "ap": 0.8246380571087745
+        }
+      ],
+      "source_result_sha256": "ca906b5e019570df5f333191ab42acce3e40f8405c342269309d21b1244cf2b1"
+    },
+    {
+      "id": "r19-w4-tiny-cosine8-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.986478013939965,
+          "ap": 0.8389467786436304
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.986478013939965,
+          "ap": 0.8389467786436304
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9895691639076388,
+          "ap": 0.853804125838658
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9895691639076388,
+          "ap": 0.853804125838658
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9887172682334608,
+          "ap": 0.8299532339240748
+        }
+      ],
+      "source_result_sha256": "add4c805599c83ebc82321baf37532e499eb6c64f05151869ecef20305f5e6db"
+    },
+    {
+      "id": "r26-w4-tiny-attnpool-fp32-20261027",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9878321680030994,
+          "ap": 0.8266080641078781
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9878321680030994,
+          "ap": 0.8266080641078781
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9906309160216713,
+          "ap": 0.8562439843105945
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9906309160216713,
+          "ap": 0.8562439843105945
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9881713146746764,
+          "ap": 0.8353932227472679
+        }
+      ],
+      "source_result_sha256": "c7132785920ee79145689ed135944ad892fe01997248f271df0a41997cf7f92e"
+    },
+    {
+      "id": "r20-w4-tiny-spatial2-fp32-20261026",
+      "status": "complete",
+      "model": "convnext_tiny",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9859900662777751,
+          "ap": 0.8391268022833444
+        },
+        {
+          "location": "/variants/online/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9859900662777751,
+          "ap": 0.8391268022833444
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9892138206821368,
+          "ap": 0.8541620830144078
+        },
+        {
+          "location": "/variants/ema/fixed_first8_best/metrics",
+          "count": 10277,
+          "auroc": 0.9892138206821368,
+          "ap": 0.8541620830144078
+        },
+        {
+          "location": "/dev5k/metrics",
+          "count": 5849,
+          "auroc": 0.9878705775448376,
+          "ap": 0.823700049573868
+        }
+      ],
+      "source_result_sha256": "777051432c589e12e3a0b415a8fc288a9ee85248ceef74d77ec0d7e3b4eb8768"
+    },
+    {
+      "id": "RESULT-FOLD-1.json",
+      "status": "complete",
+      "model": null,
+      "successful_updates": 4797,
+      "skipped_updates": 5,
+      "metrics": [
+        {
+          "location": "/diagnostics/official_valid/full/metrics",
+          "count": 5849,
+          "auroc": 0.9883128924619544,
+          "ap": 0.828758172008879
+        },
+        {
+          "location": "/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.9883128924619544,
+          "ap": 0.828758172008879
+        }
+      ],
+      "source_result_sha256": "24faee83bbd029f4d9b49c3efcb04ad588f82d8a34cc7212e4b30af4b3e31e7e"
+    },
+    {
+      "id": "RESULT-FOLD-0.json",
+      "status": "complete",
+      "model": null,
+      "successful_updates": 9061,
+      "skipped_updates": 6,
+      "metrics": [
+        {
+          "location": "/diagnostics/official_valid/full/metrics",
+          "count": 5849,
+          "auroc": 0.9790876653360205,
+          "ap": 0.8024034307466258
+        },
+        {
+          "location": "/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.9790876653360205,
+          "ap": 0.8024034307466258
+        }
+      ],
+      "source_result_sha256": "a0bfb926aee63f89bcaa66a4495aa1315c20faa6b33f8bd61985552323602da9"
+    },
+    {
+      "id": "r11-w4-a25-groupcv3-20261026",
+      "status": "complete",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/folds/0/diagnostics/official_valid/full/metrics",
+          "count": 5849,
+          "auroc": 0.9790876653360205,
+          "ap": 0.8024034307466258
+        },
+        {
+          "location": "/folds/0/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.9790876653360205,
+          "ap": 0.8024034307466258
+        },
+        {
+          "location": "/folds/1/diagnostics/official_valid/full/metrics",
+          "count": 5849,
+          "auroc": 0.9883128924619544,
+          "ap": 0.828758172008879
+        },
+        {
+          "location": "/folds/1/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.9883128924619544,
+          "ap": 0.828758172008879
+        },
+        {
+          "location": "/folds/2/diagnostics/official_valid/full/metrics",
+          "count": 5849,
+          "auroc": 0.985354564449355,
+          "ap": 0.8240530299298858
+        },
+        {
+          "location": "/folds/2/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.985354564449355,
+          "ap": 0.8240530299298858
+        }
+      ],
+      "source_result_sha256": "1a4d31c6e541ada9df01b7e30a32faedd103e6607e2888776f66d84734b5fb66"
+    },
+    {
+      "id": "RESULT-FOLD-2.json",
+      "status": "complete",
+      "model": null,
+      "successful_updates": 4264,
+      "skipped_updates": 4,
+      "metrics": [
+        {
+          "location": "/diagnostics/official_valid/full/metrics",
+          "count": 5849,
+          "auroc": 0.985354564449355,
+          "ap": 0.8240530299298858
+        },
+        {
+          "location": "/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.985354564449355,
+          "ap": 0.8240530299298858
+        }
+      ],
+      "source_result_sha256": "e9ad5cbbc2888703af5d262f2043bd8d593876b200404f4f8c5d1d04486c7091"
+    },
+    {
+      "id": "RESULT-FOLD-0-OUTER.json",
+      "status": "fold_training_and_outer_complete",
+      "model": null,
+      "successful_updates": 9061,
+      "skipped_updates": 6,
+      "metrics": [],
+      "source_result_sha256": "41f0d1c4177bc6db1d6fc0401143e906a745218a1783764e5e8ff5c57fa715de"
+    },
+    {
+      "id": "RESULT-FOLD-1-OUTER.json",
+      "status": "fold_training_and_outer_complete",
+      "model": null,
+      "successful_updates": 4797,
+      "skipped_updates": 5,
+      "metrics": [],
+      "source_result_sha256": "08555b8db5bb176dfa1603085912bee08cddcf8eb87614571b7fd9541ea988e0"
+    },
+    {
+      "id": "RESULT-FOLD-2-OUTER.json",
+      "status": "fold_training_and_outer_complete",
+      "model": null,
+      "successful_updates": 4264,
+      "skipped_updates": 4,
+      "metrics": [],
+      "source_result_sha256": "6f35f0c273284864aee2dac38cea8d88788cf18ced0770fe3f4682c87d3cb7c3"
+    },
+    {
+      "id": "R6",
+      "status": "completed",
+      "model": null,
+      "successful_updates": 5688,
+      "skipped_updates": 4,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9886589597212496,
+          "ap": 0.8485236245422765
+        },
+        {
+          "location": "/all_best_metrics/online",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/all_best_metrics/ema",
+          "count": 10277,
+          "auroc": 0.9886589597212496,
+          "ap": 0.8485236245422765
+        },
+        {
+          "location": "/all_best_metrics/R5",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/all_best_metrics/R2",
+          "count": 10277,
+          "auroc": 0.9823576518870772,
+          "ap": 0.802250129970274
+        },
+        {
+          "location": "/all_best_metrics/R4F",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519542
+        },
+        {
+          "location": "/checkpoints/r6-convnext-seed25-512-ema/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239851,
+          "ap": 0.8150050857312311
+        },
+        {
+          "location": "/checkpoints/r6-convnext-seed25-512-ema/1/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9886589597212495,
+          "ap": 0.8485236245422765
+        },
+        {
+          "location": "/checkpoints/r6-convnext-seed25-512-ema/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239851,
+          "ap": 0.8150050857312311
+        },
+        {
+          "location": "/checkpoints/r6-convnext-seed25-512-ema/2/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9886589597212495,
+          "ap": 0.8485236245422765
+        },
+        {
+          "location": "/checkpoints/r6-convnext-seed25-512-ema/3/best_metrics",
+          "count": 10277,
+          "auroc": 0.9846857152634428,
+          "ap": 0.8278196128309269
+        }
+      ],
+      "source_result_sha256": "d5e7d6e874f8cdfa95ded9e2e75307ee392d988bd3354d976400dedea9addd9d"
+    },
+    {
+      "id": "R3",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/R3A/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9821706612989369,
+          "ap": 0.8111183328178004
+        },
+        {
+          "location": "/R3A/checkpoints/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9821706612989369,
+          "ap": 0.8111183328178004
+        },
+        {
+          "location": "/R3A/best/metrics",
+          "count": 10277,
+          "auroc": 0.9821706612989368,
+          "ap": 0.8111183328178011
+        },
+        {
+          "location": "/R3B/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9771151935352588,
+          "ap": 0.7871486512818584
+        },
+        {
+          "location": "/R3B/checkpoints/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9771151935352588,
+          "ap": 0.7871486512818584
+        },
+        {
+          "location": "/R3B/best/metrics",
+          "count": 10277,
+          "auroc": 0.9771151935352588,
+          "ap": 0.7871486512818584
+        },
+        {
+          "location": "/probes/a/best/metrics",
+          "count": 10277,
+          "auroc": 0.9196195597043838,
+          "ap": 0.463112714520532
+        },
+        {
+          "location": "/probes/b/best/metrics",
+          "count": 10277,
+          "auroc": 0.7997025260839649,
+          "ap": 0.13072772522631723
+        }
+      ],
+      "source_result_sha256": "c47b30b158e3f94b2f89368187f08fb91af53a1934f667c0b2ebbd2fff19efc7"
+    },
+    {
+      "id": "R7",
+      "status": "completed",
+      "model": null,
+      "successful_updates": 6399,
+      "skipped_updates": 5,
+      "metrics": [
+        {
+          "location": "/variants/online/best/metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519542
+        },
+        {
+          "location": "/variants/ema/best/metrics",
+          "count": 10277,
+          "auroc": 0.9880935576242662,
+          "ap": 0.8594669229052662
+        },
+        {
+          "location": "/all_best_metrics/online",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519542
+        },
+        {
+          "location": "/all_best_metrics/ema",
+          "count": 10277,
+          "auroc": 0.9880935576242662,
+          "ap": 0.8594669229052662
+        },
+        {
+          "location": "/all_best_metrics/R4F",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519542
+        },
+        {
+          "location": "/all_best_metrics/R2",
+          "count": 10277,
+          "auroc": 0.9823576518870772,
+          "ap": 0.802250129970274
+        },
+        {
+          "location": "/all_best_metrics/R6_EMA",
+          "count": 10277,
+          "auroc": 0.9886589597212496,
+          "ap": 0.8485236245422765
+        },
+        {
+          "location": "/all_best_metrics/R6_online",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/checkpoints/r7-convnext-seed26-512-ema/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519538
+        },
+        {
+          "location": "/checkpoints/r7-convnext-seed26-512-ema/1/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9880935576242663,
+          "ap": 0.8594669229052655
+        },
+        {
+          "location": "/checkpoints/r7-convnext-seed26-512-ema/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519538
+        },
+        {
+          "location": "/checkpoints/r7-convnext-seed26-512-ema/2/ema_best_metrics",
+          "count": 10277,
+          "auroc": 0.9872247541318198,
+          "ap": 0.8506031227390112
+        }
+      ],
+      "source_result_sha256": "79a7a8f4fc80b1fc693df90d9aa5fdfc4c065f93ca1e085cf38787569d8e6752"
+    },
+    {
+      "id": "R5",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/R5/checkpoints/1/best_metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239851,
+          "ap": 0.8150050857312311
+        },
+        {
+          "location": "/R5/checkpoints/2/best_metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239851,
+          "ap": 0.8150050857312311
+        },
+        {
+          "location": "/R5/best/metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/factorial_2seed_2resolution/cells/r5/best/metrics",
+          "count": 10277,
+          "auroc": 0.9848595676239852,
+          "ap": 0.8150050857312315
+        },
+        {
+          "location": "/factorial_2seed_2resolution/cells/r2/best/metrics",
+          "count": 10277,
+          "auroc": 0.9823576518870772,
+          "ap": 0.802250129970274
+        },
+        {
+          "location": "/factorial_2seed_2resolution/cells/r4f/best/metrics",
+          "count": 10277,
+          "auroc": 0.9863609920522889,
+          "ap": 0.8395417792519542
+        },
+        {
+          "location": "/factorial_2seed_2resolution/cells/r3a/best/metrics",
+          "count": 10277,
+          "auroc": 0.9821706612989368,
+          "ap": 0.8111183328178011
+        }
+      ],
+      "source_result_sha256": "cb3c971ed51e2772e8fc1947f95a25b9755cde9c7a7dd2b589b6492167ad1f6f"
+    },
+    {
+      "id": "n02-budget-race-recovery-20261027",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/official_valid/baseline_R26_valid_metrics",
+          "count": 5849,
+          "auroc": 0.9881713146746764,
+          "ap": 0.8353932227472683
+        },
+        {
+          "location": "/official_valid/metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        }
+      ],
+      "source_result_sha256": "6a83bfd07786e2c7132337c26a7e28bac94548b76bcbb541807df272c328edc8"
+    },
+    {
+      "id": "n06-flair-resnet50-finetune-20261027",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/phases/valid/independent_metrics",
+          "count": 5849,
+          "auroc": 0.9952862924941565,
+          "ap": 0.9106003212618431
+        },
+        {
+          "location": "/phases/valid/metrics",
+          "count": 5849,
+          "auroc": 0.9952862924941565,
+          "ap": 0.9106003212618431
+        },
+        {
+          "location": "/valid_metrics",
+          "count": 5849,
+          "auroc": 0.9952862924941565,
+          "ap": 0.9106003212618431
+        }
+      ],
+      "source_result_sha256": "641b088d652011bd0523c56eb2b53718ef7163a20cd50ee087e8d14a8cc31fa4"
+    },
+    {
+      "id": "VALID_RESULT.json",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/independent_metrics",
+          "count": 5849,
+          "auroc": 0.9952862924941565,
+          "ap": 0.9106003212618431
+        },
+        {
+          "location": "/metrics",
+          "count": 5849,
+          "auroc": 0.9952862924941565,
+          "ap": 0.9106003212618431
+        }
+      ],
+      "source_result_sha256": "9935b3720cd0796f9de1b532d3b39fb57027fbb025ad4cf780cae53513b79fb2"
+    },
+    {
+      "id": "n03-dinov2s14-finetune-20261027",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/phases/valid/independent_metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        },
+        {
+          "location": "/phases/valid/metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539282
+        },
+        {
+          "location": "/valid_metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        }
+      ],
+      "source_result_sha256": "08e4576687b17b438ed8f841b65a1aac199ea629e497f104c9f5db998b618f6c"
+    },
+    {
+      "id": "n04-frozen-feature-fusion-20261027",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/phases/valid/metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        },
+        {
+          "location": "/valid_metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        }
+      ],
+      "source_result_sha256": "169f7e17390bede5a915ad03489a6aed197ca9379c2fab2d1e4714b2f9fd45ef"
+    },
+    {
+      "id": "n08-imagenet-resnet50-finetune-20261027",
+      "status": "completed",
+      "model": null,
+      "successful_updates": null,
+      "skipped_updates": null,
+      "metrics": [
+        {
+          "location": "/phases/valid/independent_metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        },
+        {
+          "location": "/phases/valid/metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539282
+        },
+        {
+          "location": "/valid_metrics",
+          "count": 5849,
+          "auroc": 0.9898119513860743,
+          "ap": 0.8475180205539281
+        }
+      ],
+      "source_result_sha256": "88a06d5f2531809802b8017df2b3694abca167e96fea40c394b5948655f3b9dd"
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1b-low-lr-512-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1b-low-lr-512-probe/effnet-v2-s",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1a-low-lr-384",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1a-low-lr-384/effnet-v2-s",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1a-low-lr-384-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1a-low-lr-384-probe/effnet-v2-s",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1b-low-lr-512",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/outputs/r1b-low-lr-512/effnet-v2-s",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 3,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3b-convnext-seed26-backbone5e5",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3b-convnext-seed26-backbone5e5/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3b-convnext-seed26-backbone5e5-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3b-convnext-seed26-backbone5e5-probe/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3a-convnext-seed26-reference-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3a-convnext-seed26-reference-probe/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3a-convnext-seed26-reference",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r3/outputs/r3a-convnext-seed26-reference/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 8532,
+      "skipped_updates": 5,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r4/outputs/r4-convnext-seed26-512-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r4/outputs/r4-convnext-seed26-512-probe/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r6/outputs/r6-convnext-seed25-512-ema-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r6/outputs/r6-convnext-seed25-512-ema-probe/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r6/outputs/r6-convnext-seed25-512-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r6/outputs/r6-convnext-seed25-512-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r2/outputs/r2t-convnext-imagenet-384-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r2/outputs/r2t-convnext-imagenet-384-probe/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r2/outputs/r2t-convnext-imagenet-384",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r2/outputs/r2t-convnext-imagenet-384/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 5,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r4f/prior-evidence/probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r4f/prior-evidence/probe/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r4f/outputs/r4f-convnext-seed26-512",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r4f/outputs/r4f-convnext-seed26-512/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 5,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r5/outputs/r5-convnext-seed25-512",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r5/outputs/r5-convnext-seed25-512/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r7/outputs/r7-convnext-seed26-512-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/r7/outputs/r7-convnext-seed26-512-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 5,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/outputs/r9-6c-a25-b192-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/outputs/r9-6c-a25-b192-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 3555,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/outputs/r9-6c-a25-b192-ema-smoke",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/outputs/r9-6c-a25-b192-ema-smoke/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 150,
+      "skipped_updates": 2,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/optimization/native-outputs/engineering-w1-g192-m24-once",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/optimization/native-outputs/engineering-w1-g192-m24-once/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 12,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/optimization/native-outputs/engineering-w4-g192-m24-once",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/optimization/native-outputs/engineering-w4-g192-m24-once/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 12,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/optimization/native-outputs/engineering-w2-g192-m24-once",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r9/optimization/native-outputs/engineering-w2-g192-m24-once/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 12,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/outputs/r11-4c-a25-cv1-b64-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/outputs/r11-4c-a25-cv1-b64-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 4797,
+      "skipped_updates": 5,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/outputs/r11-4c-a25-cv0-b64-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/outputs/r11-4c-a25-cv0-b64-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 9061,
+      "skipped_updates": 6,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/outputs/r11-4c-a25-cv2-b64-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/outputs/r11-4c-a25-cv2-b64-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 4264,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/profile/outputs/r11-4c-a25-cv0-b64-ema-utilization",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r11/profile/outputs/r11-4c-a25-cv0-b64-ema-utilization/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 150,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r15/outputs/r15-4c-tiny-a25-b64-nomix-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r15/outputs/r15-4c-tiny-a25-b64-nomix-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r19/outputs/r19-4c-tiny-a25-b64-cosine8-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r19/outputs/r19-4c-tiny-a25-b64-cosine8-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r21/outputs/r21-4c-tiny-a25-b64-pair025-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r21/outputs/r21-4c-tiny-a25-b64-pair025-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r22/outputs/r22-4c-tiny-a25-b64-p4-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r22/outputs/r22-4c-tiny-a25-b64-p4-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r24/outputs/r24-4c-tiny-a25-b64-native768-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r24/outputs/r24-4c-tiny-a25-b64-native768-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r26/outputs/r26-4c-tiny-a25-b64-attnpool-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r26/outputs/r26-4c-tiny-a25-b64-attnpool-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/control/cache-v1",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a26-image-age-ema-smoke",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a26-image-age-ema-smoke/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a25-image-age-ema-smoke",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a25-image-age-ema-smoke/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema-smoke",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema-smoke/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 250,
+      "skipped_updates": 1,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a26-image-age-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a26-image-age-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 8532,
+      "skipped_updates": 5,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a25-image-age-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-a25-image-age-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 4,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r10/outputs/r10-4c-a25-b64-lr1e4-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r10/outputs/r10-4c-a25-b64-lr1e4-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 6,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r12/outputs/r12-4c-small-a25-b64-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r12/outputs/r12-4c-small-a25-b64-ema/convnext-small",
+      "status": "completed",
+      "successful_updates": 8532,
+      "skipped_updates": 7,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r14/outputs/r14-4c-tiny-a25-b64-mixup01-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r14/outputs/r14-4c-tiny-a25-b64-mixup01-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r16/outputs/r16-4c-tiny-in22k1k-a25-b64-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r16/outputs/r16-4c-tiny-in22k1k-a25-b64-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r20/outputs/r20-4c-tiny-a25-b64-spatial2-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r20/outputs/r20-4c-tiny-a25-b64-spatial2-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r23/outputs/r23-4c-tiny-s20261026-b64-p8-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r23/outputs/r23-4c-tiny-s20261026-b64-p8-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r23/outputs/r23-4c-tiny-s20261026-b64-p4-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r23/outputs/r23-4c-tiny-s20261026-b64-p4-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 6399,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r25/outputs/r25-4c-tiny-s20261026-b64-native768-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc998-20261025/coordination-huazhong8-20261025/r25/outputs/r25-4c-tiny-s20261026-b64-native768-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-n13-20261028/N13-terminal-1793131608/snapshot/outputs/n13-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-n13-20261028/N13-terminal-1793131608/snapshot/outputs/n13-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/analysis-n12-ready-20261028/result",
+      "status": "technical_failure",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-n14r1-20261028/SNAPSHOT-1793145256086730482/snapshot/outputs/n14r1-4c-tiny-a25-b64-attnpool-native768-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-n14r1-20261028/SNAPSHOT-1793145256086730482/snapshot/outputs/n14r1-4c-tiny-a25-b64-attnpool-native768-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/analysis-n14r1-dev-20261028-final1/result/verified-view/n14r1-4c-tiny-a25-b64-attnpool-native768-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-n15-20261028/TERMINAL-1793153207529363662/snapshot/outputs/n15-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-spatial-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-n15-20261028/TERMINAL-1793153207529363662/snapshot/outputs/n15-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-spatial-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/analysis-n15-dev-20261028-attempt1/result",
+      "status": "technical_failure",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/CPU-FIXTURE-NOT-FOR-TRAINING",
+      "status": "completed",
+      "successful_updates": 6400,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-next-20261028-exec/N11-terminal-1793125984/snapshot/outputs/n11r1-4c-tiny-a25-b64-attnpool-bblr2e5-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-next-20261028-exec/N11-terminal-1793125984/snapshot/outputs/n11r1-4c-tiny-a25-b64-attnpool-bblr2e5-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-next-20261028-exec/N12-terminal-1793128304/snapshot/outputs/n12-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-bblr2e6-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/A-next-20261028-exec/N12-terminal-1793128304/snapshot/outputs/n12-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-bblr2e6-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/analysis-n11r1-fullstop-20261028T023039/result",
+      "status": "technical_failure",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/analysis-n14r1-dev-20261028-partial1/result",
+      "status": "technical_failure",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage4-observe-20261028-attempt2/snapshots/progress-16/files/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage4-observe-20261028-attempt2/snapshots/progress-16/files/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 6400,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage4-observe-20261028-attempt2/snapshots/progress-15/files/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage4-observe-20261028-attempt2/snapshots/progress-15/files/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 6400,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage4-observe-20261028-attempt2/snapshots/progress-17/files/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/technical-prep/resume9010-A-stage4-observe-20261028-attempt2/snapshots/progress-17/files/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 6400,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-probe/flair-resnet50",
+      "status": "completed",
+      "successful_updates": 100,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N10/outputs/n10-4c-flairr50-s20261027-b64-p8-bblr2e6-headlr2e4-fp32-fixedbn-ema-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N10/outputs/n10-4c-flairr50-s20261027-b64-p8-bblr2e6-headlr2e4-fp32-fixedbn-ema-probe/flair-resnet50",
+      "status": "completed",
+      "successful_updates": 100,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N10/outputs/n10-4c-flairr50-s20261027-b64-p8-bblr2e6-headlr2e4-fp32-fixedbn-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N10/outputs/n10-4c-flairr50-s20261027-b64-p8-bblr2e6-headlr2e4-fp32-fixedbn-ema/flair-resnet50",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N11R1/outputs/n11r1-4c-tiny-a25-b64-attnpool-bblr2e5-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N11R1/outputs/n11r1-4c-tiny-a25-b64-attnpool-bblr2e5-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 7110,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N13-R50-RGB01/outputs/n13-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N13-R50-RGB01/outputs/n13-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/R91-R50-IMAGENETV2-9010/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/R91-R50-IMAGENETV2-9010/outputs/r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 6400,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N03/outputs/n03-4c-dinov2s14-s20261027-b64-p8-fp32-ema-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N03/outputs/n03-4c-dinov2s14-s20261027-b64-p8-fp32-ema-probe/dinov2-s14",
+      "status": "completed",
+      "successful_updates": 100,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N03/outputs/n03-4c-dinov2s14-s20261027-b64-p8-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N03/outputs/n03-4c-dinov2s14-s20261027-b64-p8-fp32-ema/dinov2-s14",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N07/outputs/n07-4c-flairr50-s20261027-b64-p8-bblr2e6-fp32-fixedbn-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N07/outputs/n07-4c-flairr50-s20261027-b64-p8-bblr2e6-fp32-fixedbn-ema/flair-resnet50",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N07/outputs/n07-4c-flairr50-s20261027-b64-p8-bblr2e6-fp32-fixedbn-ema-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N07/outputs/n07-4c-flairr50-s20261027-b64-p8-bblr2e6-fp32-fixedbn-ema-probe/flair-resnet50",
+      "status": "completed",
+      "successful_updates": 100,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N08/outputs/n08-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N08/outputs/n08-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N08/outputs/n08-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-ema-probe",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N08/outputs/n08-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-ema-probe/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 100,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N12-R50-LR/outputs/n12-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-bblr2e6-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N12-R50-LR/outputs/n12-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-bblr2e6-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N14R1-TINY-768-ATTN/outputs/n14r1-4c-tiny-a25-b64-attnpool-native768-fp32-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N14R1-TINY-768-ATTN/outputs/n14r1-4c-tiny-a25-b64-attnpool-native768-fp32-ema/convnext-tiny",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N15-R50-RGB01-SPATIAL/outputs/n15-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-spatial-ema",
+      "status": "completed",
+      "successful_updates": null,
+      "skipped_updates": null,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    },
+    {
+      "id": "auroc999-20261027/rounds/N15-R50-RGB01-SPATIAL/outputs/n15-4c-r50imagenetv2-s20261027-b64-p8-fp32-fixedbn-rgb01-spatial-ema/resnet50-imagenet",
+      "status": "completed",
+      "successful_updates": 5688,
+      "skipped_updates": 0,
+      "conclusion": "Recorded training/technical terminal state; no new official metric inferred.",
+      "error": ""
+    }
+  ],
+  "count": 188
+}

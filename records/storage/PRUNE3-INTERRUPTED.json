@@ -1,0 +1,29 @@
+{
+  "status": "interrupted_no_final_success_receipt",
+  "cleanup_exit_code": 137,
+  "plan_sha256": "8aa70d256c6a2b4a63760c1965a7e1d9b76903b72784a7aabb0b22b40fdb00c2",
+  "last_pod_observed_journal_rows": 7380,
+  "planned_actions": 7381,
+  "planned_file_kinds": {
+    "checkpoint": 446,
+    "document": 203,
+    "discarded_process_artifact": 6731
+  },
+  "last_action": "unused_prepared768_cache",
+  "last_action_status": "deletion_interrupted_not_reconciled",
+  "freed_bytes": null,
+  "retained_models_sha_verified_before_apply": true,
+  "retained_models_verified_after_cleanup": false,
+  "retained_models_excluded_from_plan": ["N06", "R17", "R8-C25"],
+  "r92_cleanup_status": "not_started_after_final_audit_release",
+  "environment": {
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2114373723310104577-acfwvv9ejn-90647-worker-0",
+    "uid": "eec33bd6-b567-40ef-b866-633e272ea019",
+    "last_lookup": "NotFound"
+  },
+  "local_obsolete_documents_deleted": 571,
+  "local_project_code_executed": false,
+  "login_node_project_code_executed": false,
+  "new_compute_resources_created": false
+}

@@ -1,0 +1,36 @@
+{
+  "policy": "only_three_confirmed_models_N06_R17_R8C25",
+  "user_instruction": "除现有指标最高的几个modle和几个参考教学model,其他checkpoint和冗余说明文件一律删除；只保留其留下的实验结论",
+  "models": [
+    {
+      "id": "N06",
+      "role": "top1_research_only_medical_pretraining",
+      "official_auroc": 0.9952862924941565,
+      "variant": "ema",
+      "updates": 2133,
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+      "sha256": "12949f6c65f4f18f1519ea7d734d0282707fe46429eadf3c287e780836cdfa3a"
+    },
+    {
+      "id": "R17",
+      "role": "top2",
+      "official_auroc": 0.9893446521535555,
+      "variant": "ema",
+      "updates": 2844,
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+      "sha256": "67241c5b9e819af3559fcec4ab342871594e5727e1fc302cc138a8f21d43a1eb"
+    },
+    {
+      "id": "R8-C25",
+      "role": "top3_image_only_no_age",
+      "official_auroc": 0.9890383629536272,
+      "variant": "ema",
+      "updates": 2844,
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt",
+      "sha256": "ba3a1f50464de7d685e9eabee5e4d6fc49bf899acdb4cf2c06cb024f9f1978ba"
+    }
+  ],
+  "pending_teaching": null,
+  "latest_user_confirmation": "保留这三个,然后删除其他文件,只保留实验结果",
+  "ranking_scope": "Historical full official5849 single-model metrics; different training splits are not a controlled scientific comparison; fusion excluded; N06 research-only and forbidden as later competition initialization/teacher/BN source"
+}

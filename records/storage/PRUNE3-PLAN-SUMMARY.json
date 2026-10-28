@@ -1,0 +1,45 @@
+{
+  "status": "ready_for_explicit_apply",
+  "created_at": 1793176174.9679317,
+  "policy": "only_three_confirmed_models_N06_R17_R8C25",
+  "retained_models_verified": [
+    {
+      "id": "N06",
+      "role": "top1_research_only_medical_pretraining",
+      "official_auroc": 0.9952862924941565,
+      "variant": "ema",
+      "updates": 2133,
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+      "sha256": "12949f6c65f4f18f1519ea7d734d0282707fe46429eadf3c287e780836cdfa3a"
+    },
+    {
+      "id": "R17",
+      "role": "top2",
+      "official_auroc": 0.9893446521535555,
+      "variant": "ema",
+      "updates": 2844,
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+      "sha256": "67241c5b9e819af3559fcec4ab342871594e5727e1fc302cc138a8f21d43a1eb"
+    },
+    {
+      "id": "R8-C25",
+      "role": "top3_image_only_no_age",
+      "official_auroc": 0.9890383629536272,
+      "variant": "ema",
+      "updates": 2844,
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt",
+      "sha256": "ba3a1f50464de7d685e9eabee5e4d6fc49bf899acdb4cf2c06cb024f9f1978ba"
+    }
+  ],
+  "pending_teaching": null,
+  "conclusion_count": 188,
+  "protected_active_root": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010",
+  "delete_logical_bytes": 246426990915,
+  "kind_counts": {
+    "checkpoint": 446,
+    "document": 203,
+    "discarded_process_artifact": 6731,
+    "unused_prepared768_cache": 1
+  },
+  "plan_sha256": "8aa70d256c6a2b4a63760c1965a7e1d9b76903b72784a7aabb0b22b40fdb00c2"
+}

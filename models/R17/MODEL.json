@@ -1,0 +1,16 @@
+{
+  "id": "R17",
+  "role": "top2",
+  "official_auroc": 0.9893446521535555,
+  "variant": "ema",
+  "updates": 2844,
+  "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+  "sha256": "67241c5b9e819af3559fcec4ab342871594e5727e1fc302cc138a8f21d43a1eb",
+  "minimal_records": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/convnext-tiny-job.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/r17-4c-tiny-a25-b64-focal2-fp32-ema-contract.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/r17-4c-tiny-a25-b64-focal2-fp32-ema-source-files.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/r17-4c-tiny-a25-b64-focal2-fp32-ema-config.json"
+  ],
+  "loading": "Use the exact checkpoint file with explicit variant=ema; payload retains job, age, normalization and identity. Do not resume an obsolete checkpoint index."
+}

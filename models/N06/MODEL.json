@@ -1,0 +1,16 @@
+{
+  "id": "N06",
+  "role": "top1_research_only_medical_pretraining",
+  "official_auroc": 0.9952862924941565,
+  "variant": "ema",
+  "updates": 2133,
+  "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+  "sha256": "12949f6c65f4f18f1519ea7d734d0282707fe46429eadf3c287e780836cdfa3a",
+  "minimal_records": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/flair-resnet50-job.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-contract.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-source-files.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-config.json"
+  ],
+  "loading": "Use the exact checkpoint file with explicit variant=ema; payload retains job, age, normalization and identity. Do not resume an obsolete checkpoint index."
+}

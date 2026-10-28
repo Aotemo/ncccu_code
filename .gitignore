@@ -60,3 +60,9 @@ id_ed25519*
 .aws/
 .ssh/
 *.local
+
+# Live tool discovery output and temporary task state are machine-specific.
+todo/.local/
+
+# Aggregate experiment metrics; no sample-level predictions.
+!/records/R92/DEV-METRICS.csv
