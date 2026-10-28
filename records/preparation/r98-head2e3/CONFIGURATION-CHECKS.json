@@ -1,0 +1,46 @@
+{
+  "scope": "R98_configuration_LR_identity_only",
+  "exit_code": 0,
+  "single_scientific_delta": {
+    "job.head_lr": {
+      "before": 0.001,
+      "after": 0.002
+    }
+  },
+  "source_files": {
+    "configs/R98-SCIENCE.json": "a8d7d6782fcc07095233ad7c742e77be0c3d65f4c4b4447325c2967497d0bd6a",
+    "runtime/bundle/retrain/experiment91.py": "3e9ff8a88abe186494586c9e1d99ba5679fb3045682d4bb236274fe38d8ac4cd",
+    "tests/test_candidate_binding.py": "4cc35937658ddb7b9cb69b647f2845606df0daa1f31bacfd9ef529f9a769eb3d"
+  },
+  "source_unchanged": true,
+  "command": [
+    "/usr/local/python3.12/bin/python3.12",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r98-head2e3-20261029-a/source/tests",
+    "-p",
+    "test_candidate_binding.py",
+    "-v"
+  ],
+  "wall_seconds": 2.9727752208709717,
+  "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "new_model_load": false,
+  "new_GPU": false
+}
