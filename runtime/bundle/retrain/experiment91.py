@@ -12,8 +12,8 @@ from .site_binding import load_site
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 WEIGHT_SHA = '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed'
 PROVENANCE_SHA = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-lr1e4-v1'
-CANDIDATE = {'id': 'r94-convnext-tiny-imagenet22k-to-1k-lr1e4-9010', 'experiment_order': 4,
+BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-v1'
+CANDIDATE = {'id': 'r95-convnext-tiny-imagenet22k-to-1k-24k-earlystop-9010', 'experiment_order': 5,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -74,7 +74,7 @@ def _metadata(root):
     c = values['CONTRACT.json']
     if canonical_digest(values['manifest.json']) != c['new_manifest_canonical_sha256']:
         raise ValueError('9:1 native manifest digest differs')
-    warm = values['SCHEDULE.json']['warmup_updates']
+    warm = schedule()['warmup_updates']
     values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-nobn-v1',
         'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
         'floating_buffers': 'same_as_parameters', 'integer_buffers': 'copy', 'batch_norm_buffers': 0}
@@ -93,8 +93,31 @@ def binding():
 
 
 def schedule():
-    raw = metadata()['SCHEDULE.json']
+    raw = science_configuration()['schedule']
     return {k: raw[k] for k in ('steps_per_cycle', 'total_updates', 'warmup_updates', 'stop_after_updates')}
+
+
+def early_stopping():
+    return copy.deepcopy(science_configuration()['early_stopping'])
+
+
+def validate_training_completion(record):
+    """A full update budget or a completed patience boundary may freeze selection."""
+    configured = science_configuration()
+    planned = schedule()
+    updates = record['successful_updates']
+    cycle = record['evaluated_cycle']
+    early = record.get('early_stop', {})
+    if (record.get('status') != 'completed' or record.get('skipped_updates') != 0
+            or record.get('attempted_updates') != updates
+            or record.get('cycle') != cycle or updates != cycle * planned['steps_per_cycle']
+            or not 0 < updates <= planned['total_updates']):
+        raise ValueError('completed unskipped internal-dev boundary required before selection')
+    if updates < planned['total_updates'] and not (
+            early.get('stopped') is True and cycle >= configured['job']['min_cycles']
+            and early.get('bad_cycles', 0) >= configured['job']['patience']):
+        raise ValueError('training ended before its budget without completed early stopping')
+    return cycle
 
 
 def ema_rule():
@@ -105,8 +128,9 @@ def validate_job(job):
     configured = science_configuration()['job']
     expected = {'model': 'convnext_tiny', 'image_size': 512, 'prepared_size': 512,
         'precision': 'fp32', 'normalization': 'imagenet', 'seed': 20261027, 'effective_batch': 64,
-        'positive_per_batch': 8, 'cycles': 8, 'warmup_cycles': 2, 'min_cycles': 8, 'patience': 8,
-        'stop_after_cycles': 0, 'backbone_lr': configured['backbone_lr'],
+        'positive_per_batch': 8, **{key: configured[key] for key in (
+            'cycles', 'warmup_cycles', 'min_cycles', 'patience', 'min_delta', 'stop_after_cycles')},
+        'backbone_lr': configured['backbone_lr'],
         'head_lr': configured['head_lr'], 'weight_decay': 1e-4,
         'dropout': .2, 'stochastic_depth': .1, 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': False, 'final_norm_eps': candidate()['final_norm_eps']}

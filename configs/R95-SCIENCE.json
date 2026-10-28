@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-v1",
+  "initial_model_tensor_sha256": "eba53feeafdf20bc86855a40648bc453358928d148078c6ae78b65f059846cc7",
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/tiny22k-bc48a87f/converted/convnext-tiny-tv-bc48a87f.pt",
+    "public_provenance": "assets/public/tiny22k-bc48a87f/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-tiny", "model": "convnext_tiny", "seed": 20261027,
+    "image_size": 512, "prepared_size": 512, "physical_batch": 32,
+    "effective_batch": 64, "positive_per_batch": 8, "precision": "fp32",
+    "cycles": 30, "warmup_cycles": 2, "min_cycles": 1, "patience": 4,
+    "min_delta": 0.0, "stop_after_cycles": 0,
+    "backbone_lr": 0.0001, "head_lr": 0.001, "weight_decay": 0.0001,
+    "dropout": 0.2, "stochastic_depth": 0.1, "normalization": "imagenet",
+    "final_norm_eps": 0.000001, "head_lr_scope": "last_linear",
+    "mixup": null, "attention_pool": null, "initial_checkpoint": null,
+    "frozen_bn": false, "benchmark_warmup": 50, "benchmark_updates": 100,
+    "checkpoint_seconds": 300, "checkpoint_updates": 0, "log_every": 25,
+    "prefetch_factor": 2, "workers": 0, "eval_workers": 0, "split": {}
+  },
+  "data_split": {
+    "kind": "holdout", "seed": 20261024, "valid_fraction": 0.1,
+    "inner_fraction": 0.1, "include_valid": false, "fold": 0, "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800, "total_updates": 24000,
+    "warmup_updates": 1600, "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc", "mode": "max",
+    "variants": ["online", "ema"], "patience": 4, "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "User-requested fresh R95: maximum 24000 successful updates, paired internal-dev AUROC every 800 updates, early stopping after four consecutive non-improving rounds. Warmup and EMA warmcopy remain 1600; cosine decays over the new 24000-update budget. R94 frozen running configuration is unchanged; all remaining R94 model/data/optimizer settings are retained."
+}

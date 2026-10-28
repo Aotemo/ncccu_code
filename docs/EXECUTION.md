@@ -33,6 +33,8 @@ bash tools/environment/pod_cpu.sh run "$SSH_TARGET" "$NAMESPACE" "$POD" "$POD_UI
 
 ## 从必要 CPU 验证到正式执行
 
+2026-10-29 R95按用户已选内部dev AUROC执行最多24000成功更新/每800一轮/连续4轮无提升早停，详见[R95合同](../todo/auroc-999/R95-PLAN.md)。合法早停与达到最大预算均为正常completed，选点使用实际完成轮次，不沿用固定16条/6400完成断言。新CLOCK_POLICY的train hard10800、total16200与新预算配套；R94活跃冻结包/6400曲线/时钟不改。只验证实际受影响行为，沿既有直接训练入口，不增加独立零forward GPU预演或文档批准门。
+
 先完成改动必需的适配及Pod CPU验证，再由唯一Git写入者汇集具体diff和真实回执、同步GitHub并回读commit，按实际文件SHA/配置身份冻结部署到exp-v3。2026-10-29用户明确：R94 LR-only沿用已有实际CPU证据，删除重复hardcoded LR断言，不新增拒绝case或重跑已通过检查；取消独立零forward GPU预演前置，记录未运行。新冻结后由真实训练8rank初态/参数组/空Adam/实际资源校验接管，保留实时身份/资源独占、一次activation及官方一次；不开发继承桥或平台，不等待文档批准。未同步的新代码仍不得执行GPU。初次八卡环境适配历史见[八卡验收](../todo/exp-v3-8card/ACCEPTANCE.md)，其独立预演不是R94每轮重复前置。
 
 CPU执行者无GPU派发权，技术验收状态不能成为正式训练初始化；正式训练使用新fresh绑定。任何旧运行的clock/token/冻结副本都不能因迁移、验收或观测失败而重置、改写或重启。观测不完整记unknown，不据此认定设备空闲。

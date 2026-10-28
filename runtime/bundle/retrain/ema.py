@@ -129,9 +129,16 @@ def commit_pair(state,pair,cycle,successful,job):
    improved[variant]=(old is None or metric['auroc']>old['auroc'] or (metric['auroc']==old['auroc'] and metric['ap']>old['ap']))
   out[prefix+'last_metrics']=copy.deepcopy(metric)
   if improved[variant]:out[key]={**metric,'cycle':cycle,'successful_updates':successful,'variant':variant}
- early=out['early_stop'];reference=early['reference_auroc'];score=pair['online']['auroc']
- if reference is None or score>reference+job['min_delta']:early.update(reference_auroc=score,bad_cycles=0)
+ early=out['early_stop'];reference=early['reference_auroc']
+ if job.get('experiment91'):
+  from .experiment91 import early_stopping
+  policy=early_stopping()
+  score=max(pair[variant]['auroc'] for variant in policy['variants'])
+  delta=policy['min_delta'];patience=policy['patience']
+  early.update(metric=policy['metric'],variants=list(policy['variants']))
+ else:score=pair['online']['auroc'];delta=job['min_delta'];patience=job['patience']
+ if reference is None or score>reference+delta:early.update(reference_auroc=score,bad_cycles=0)
  else:early['bad_cycles']+=1
- if not job.get('experiment91') and cycle>=job['min_cycles'] and early['bad_cycles']>=job['patience']:early['stopped']=True
+ if cycle>=job['min_cycles'] and early['bad_cycles']>=patience:early['stopped']=True
  out['evaluated_cycle']=cycle
  return out,improved

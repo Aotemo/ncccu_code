@@ -140,7 +140,7 @@ def build(args):
     from retrain.execution_policy import resolve_topology
     from retrain.persistence import canonical_digest
     if science['candidate_profile'] != ex.BINDING_VERSION or science['schedule'] != ex.schedule():
-        raise ValueError('science profile or fixed S800/6400/1600 schedule differs')
+        raise ValueError('science profile or configured successful-update schedule differs')
     job = copy.deepcopy(science['job'])
     job.update(age=ex.metadata()['AGE.json'], experiment91=ex.binding(),
         initialization={'kind': 'imagenet', 'format': 'torchvision-1000-state-dict-v1',

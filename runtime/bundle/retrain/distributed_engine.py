@@ -340,6 +340,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             'successful_updates':successful,'attempted_updates':attempted,'skipped_updates':attempted-successful,
             'cycle':successful//steps,'evaluated_cycle':evaluated,'steps_per_cycle':steps,
             'best_metrics':best,'last_metrics':last,'audit_metrics':None,'early_stop':early,
+            'termination_reason':('early_stopping' if early['stopped'] else 'maximum_updates') if state=='completed' and mode=='train' else None,
             'coverage_unique':len(coverage),'timing':dict(timing),'memory':mem,
             'wall_seconds_this_process':time.monotonic()-start,'distributed':plan,'lineage_best':selection,**extra}
         if stage_spec:

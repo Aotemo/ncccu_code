@@ -1,6 +1,6 @@
 # 训练与推理源码
 
-`bundle/` 保存模型、数据处理、训练、EMA、推理与指标实现。当前科学配置见 [R93-SCIENCE.json](../configs/R93-SCIENCE.json) 和 [PLAN.md](PLAN.md)。[prepare.py](../tools/activation/prepare.py) 在 Pod 按当次显式 site、迁移回执和实际源码 SHA 生成运行配置、fresh/source 清单及 CPU 验收包；旧 R92 生成配置和机器证据由 [R92 记录](../records/R92/README.md) 与 Git 历史追溯。
+`bundle/` 保存模型、数据处理、训练、EMA、推理与指标实现。下一轮科学配置见 [R95-SCIENCE.json](../configs/R95-SCIENCE.json) 和 [PLAN.md](PLAN.md)：最多24000成功更新，每800步内部dev验证，连续4轮AUROC无提升早停；活跃R94冻结包保持原样。[prepare.py](../tools/activation/prepare.py) 在 Pod 按当次显式 site、迁移回执和实际源码 SHA 生成运行配置、fresh/source 清单及 CPU 验收包；旧 R92 生成配置和机器证据由 [R92 记录](../records/R92/README.md) 与 Git 历史追溯。
 
 实际 train → freeze → official-once 调用链、模块职责及历史入口的区别见 [SOURCE-MAP.md](../docs/SOURCE-MAP.md)。
 

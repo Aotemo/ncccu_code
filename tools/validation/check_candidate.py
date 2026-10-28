@@ -102,10 +102,11 @@ def main(args):
         'manifest_digest': ex.binding()['manifest_digest'], 'job': job_contract(job),
         'initialization': public['initialization'], 'phase_parent_sha256': None,
         'distributed': topology, 'fresh': fresh, 'experiment91': ex.binding()}
-    validate_fresh(fresh, identity, job, topology, 800, mode='train')
+    schedule = ex.schedule()
+    total, warmup = schedule['total_updates'], schedule['warmup_updates']
+    validate_fresh(fresh, identity, job, topology, schedule['steps_per_cycle'], mode='train')
     check('exact_fixed_science_and_eight_rank_fresh', ex.validate_runtime(identity, job, fresh=fresh)
-          and fresh['schedule'] == {'steps_per_cycle': 800, 'total_updates': 6400,
-                                   'warmup_updates': 1600, 'stop_after_updates': 6400}
+          and fresh['schedule'] == schedule
           and (topology['world_size'], topology['per_rank_batch'], topology['accumulation']) == (8, 8, 1))
     expected = {'source_digest': digest, 'candidate': ex.candidate(), 'model_tensor_sha256': model_digest,
         'batch_norm_modules': 0, 'buffer_count': 0, 'buffer_sha256': structure['buffer_sha256'],
@@ -136,23 +137,25 @@ def main(args):
     rejected('initial_gate_missing_rank_rejected', lambda: initial_gate.verify_records(initials[:-1], groups, groups, expected, expected_world=8))
     wrong_initial = copy.deepcopy(initials); wrong_initial[0]['model_sha256'] = '0' * 64
     rejected('initial_gate_wrong_tensor_rejected', lambda: initial_gate.verify_records(wrong_initial, groups, groups, expected, expected_world=8))
-    factors = {str(update): _lr_factor(update, 6400, 1600) for update in (0, 1599, 1600, 1601, 6400)}
-    check('LR_successful_update_boundaries', factors['0'] == 1 / 1600
-          and factors['1599'] == factors['1600'] == 1 and factors['1601'] < 1
-          and math.isclose(factors['6400'], .01, abs_tol=1e-15), factors)
+    factors = {str(update): _lr_factor(update, total, warmup)
+               for update in (0, warmup - 1, warmup, warmup + 1, total)}
+    check('LR_successful_update_boundaries', factors['0'] == 1 / warmup
+          and factors[str(warmup - 1)] == factors[str(warmup)] == 1 and factors[str(warmup + 1)] < 1
+          and math.isclose(factors[str(total)], .01, abs_tol=1e-15), factors)
     scalar = torch.nn.Linear(1, 1, bias=False); scalar.weight.data.zero_()
     scalar_ema = EMA(scalar, ex.ema_rule()); boundaries = {}
-    for update in range(1, 6401):
+    for update in range(1, total + 1):
         scalar.weight.data.fill_(float(update)); scalar_ema.update(scalar, update)
-        if update in (1599, 1600, 1601, 6400):
+        if update in (warmup - 1, warmup, warmup + 1, total):
             state = scalar_ema.state_dict(); validate_state(state, scalar.state_dict(), update, ex.ema_rule())
             boundaries[str(update)] = {key: value for key, value in state.items() if key != 'model'}
-            if update <= 1600:
+            if update <= warmup:
                 check('EMA_warmcopy_at_' + str(update), torch.equal(scalar.weight, scalar_ema.model.weight))
-            elif update == 1601:
-                check('EMA_first_blend_1601', math.isclose(scalar_ema.model.weight.item(), 1600.001, abs_tol=.0002))
-    check('EMA_successful_clock_counts_6400', boundaries['6400']['copy_count'] == 1600
-          and boundaries['6400']['blend_count'] == 4800 and boundaries['6400']['update_count'] == 6400, boundaries)
+            elif update == warmup + 1:
+                check('EMA_first_blend', math.isclose(scalar_ema.model.weight.item(), warmup + 1 - ex.ema_rule()['decay'], abs_tol=.0002))
+    check('EMA_successful_clock_counts_at_maximum', boundaries[str(total)]['copy_count'] == warmup
+          and boundaries[str(total)]['blend_count'] == total - warmup
+          and boundaries[str(total)]['update_count'] == total, boundaries)
     check('CPU_only_after_all_checks', not torch.cuda.is_initialized())
     result = {'status': 'completed', 'exit_code': 0, 'scope': 'production_binary_age_CPU_only',
         'science_configuration': site['science']['configuration'],

@@ -194,14 +194,15 @@ def main():
   complete=read(out/'complete.json');record=read(model_dir/'complete.json')
   if complete['status']!='completed' or set(complete['exit_codes'])!={'rank-'+str(rank) for rank in range(world)} or any(complete['exit_codes'].values()):raise ValueError('rank completion')
   if record.get('status')!='completed' or record.get('skipped_updates')!=0 or record['attempted_updates']!=record['successful_updates']:raise ValueError('successful update completion')
-  if record.get('evaluated_cycle')!=8 or record['cycle']!=8 or record['successful_updates']!=fresh['schedule']['total_updates']:raise ValueError('eight full cycles and complete new8S required')
-  if record['ema']['rule']!=fresh['ema'] or record['ema']['copy_count']!=fresh['ema']['warmcopy_updates'] or record['ema']['blend_count']!=record['successful_updates']-fresh['ema']['warmcopy_updates']:raise ValueError('runtime EMA counters differ')
-  if len(list((model_dir/'predictions').glob('*/dev-cycle-*.csv')))!=16:raise ValueError('16 complete dev CSVs required')
+  from retrain.experiment91 import validate_training_completion
+  cycles=validate_training_completion(record)
+  if record['ema']['rule']!=fresh['ema'] or record['ema']['copy_count']!=min(record['successful_updates'],fresh['ema']['warmcopy_updates']) or record['ema']['blend_count']!=max(0,record['successful_updates']-fresh['ema']['warmcopy_updates']):raise ValueError('runtime EMA counters differ')
+  if len(list((model_dir/'predictions').glob('*/dev-cycle-*.csv')))!=2*cycles:raise ValueError('paired dev CSVs required through completed training')
   guard.verify_fresh_initial_identity(read(model_dir/'initial-ranks.json'),read(model_dir/'parameter-groups.json'),read(EVIDENCE/'CPU_PARAMETER_GROUPS.json'),cpu['initial_state_control'],expected_world=world)
   initials=read(model_dir/'initial-ranks.json')
   actual_initial=read(EVIDENCE/'ACTUAL_FRESH_INITIAL.json')
   if actual_initial['status']!='completed' or actual_initial['rank_count']!=world or len(initials)!=world or any(x['model_sha256']!=actual_initial['model_tensor_sha256'] or x['optimizer_state_entries']!=0 for x in initials):raise ValueError('actual rank fresh initialization')
-  terminal.update(status='completed',successful_updates=record['successful_updates'],cycles=record['cycle'],
+  terminal.update(status='completed',successful_updates=record['successful_updates'],cycles=record['cycle'],early_stop=record['early_stop'],
                   component=result,complete_sha256=sha(out/'complete.json'),research_only=False)
   atomic(EVIDENCE/'TRAIN_RESULT.json',terminal,exclusive=True)
   terminal['phase']='freeze'

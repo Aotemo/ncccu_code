@@ -49,7 +49,7 @@ class OnceControlsTest(unittest.TestCase):
         entries = [{'cycle': cycle, 'variant': variant, 'successful_updates': cycle * 800,
                     'error_twice': 100, 'ap': .9}
                    for cycle in range(1, 9) for variant in ('online', 'ema')]
-        with patch('retrain.single91.ex.schedule', return_value={'steps_per_cycle': 800}):
+        with patch('retrain.single91.ex.schedule', return_value={'steps_per_cycle': 800, 'total_updates': 6400}):
             self.assertEqual(select_checkpoint(entries)['variant'], 'ema')
             self.assertEqual(select_checkpoint(entries)['successful_updates'], 800)
             entries[-1].update(error_twice=99, ap=.1)

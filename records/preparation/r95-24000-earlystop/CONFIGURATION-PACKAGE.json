@@ -1,0 +1,64 @@
+{
+  "scope": "R95_configuration_package_only_no_model_no_GPU",
+  "passed": true,
+  "checks": {
+    "configured_30_cycles_800_successful_updates": true,
+    "four_round_AUROC_patience": true,
+    "absolute_1600_ema_and_warmup": true,
+    "science_bytes_pinned": true,
+    "no_activation_clock_or_training": true
+  },
+  "at": 1793205990.7817304,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+  "science_sha256": "ebb03883e571538f8352eca0d3613d452073956e91608ddfa39045a38c5e9dcb",
+  "source_manifest_sha256": "a426d216c6035671bd88c0686d1f06322d302075c180456b3ef07f787d5319c7",
+  "job_schedule": {
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "ema_rule": {
+    "version": "ema-warmcopy1600-decay0999-nobn-v1",
+    "warmcopy_updates": 1600,
+    "decay": 0.999,
+    "dtype": "torch.float32",
+    "floating_buffers": "same_as_parameters",
+    "integer_buffers": "copy",
+    "batch_norm_buffers": 0
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "training_started": false,
+  "official_read": false
+}

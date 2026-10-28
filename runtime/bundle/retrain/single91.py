@@ -25,13 +25,15 @@ def write_exclusive(path, value):
         os.close(directory)
 
 
-def select_checkpoint(entries, *, steps_per_cycle=None):
-    s = ex.schedule()['steps_per_cycle']
+def select_checkpoint(entries, *, steps_per_cycle=None, completed_cycles=None):
+    schedule = ex.schedule()
+    s = schedule['steps_per_cycle']
     if steps_per_cycle is not None and steps_per_cycle != s:
         raise ValueError('selector schedule differs from frozen S')
-    expected = {(c, v) for c in range(1, 9) for v in ('online', 'ema')}
+    cycles = schedule['total_updates'] // s if completed_cycles is None else completed_cycles
+    expected = {(c, v) for c in range(1, cycles + 1) for v in ('online', 'ema')}
     if not isinstance(entries, list) or len(entries) != len(expected):
-        raise ValueError('all 16 internal dev readouts required')
+        raise ValueError('all paired internal dev readouts through completed training required')
     observed = set()
     for item in entries:
         key = item.get('cycle'), item.get('variant')
@@ -61,12 +63,12 @@ def read_vector(path, expected_rows):
     return result
 
 
-def collect_dev_entries(folder):
+def collect_dev_entries(folder, cycles):
     folder = Path(folder)
     manifest = ex.metadata()['manifest.json']
     expected_rows = [manifest['rows'][i] for i in manifest['dev_indices']]
     entries = []
-    for cycle in range(1, 9):
+    for cycle in range(1, cycles + 1):
         for variant in ('online', 'ema'):
             path = folder / 'predictions' / variant / f'dev-cycle-{cycle:04d}.csv'
             vector = read_vector(path, expected_rows)
@@ -81,7 +83,7 @@ def collect_dev_entries(folder):
                 **exact_metrics(vector), 'prediction_path': str(path.resolve()), 'prediction_sha256': sha256_file(path),
                 'precision_path': str(Path(str(path) + '.precision.json').resolve()),
                 'precision_sha256': sha256_file(str(path) + '.precision.json'), 'tensor_sha256': tensor_sha})
-    select_checkpoint(entries)
+    select_checkpoint(entries, completed_cycles=cycles)
     return entries
 
 
@@ -90,11 +92,9 @@ def freeze_training(folder, destination, *, technical_fixture=False):
     complete = json.loads((folder / 'complete.json').read_text())
     if bool(complete.get('cpu_fixture_only')) != technical_fixture:
         raise ValueError('CPU fixture cannot become a production selection')
-    if (complete.get('status') != 'completed' or complete.get('successful_updates') != ex.schedule()['total_updates']
-            or complete.get('evaluated_cycle') != 8 or complete.get('skipped_updates') != 0):
-        raise ValueError('complete unskipped 8S training required before selection')
-    entries = collect_dev_entries(folder)
-    selected = select_checkpoint(entries)
+    cycles = ex.validate_training_completion(complete)
+    entries = collect_dev_entries(folder, cycles)
+    selected = select_checkpoint(entries, completed_cycles=cycles)
     store = CheckpointStore(folder / 'checkpoints')
     record = store._index()['protected']['best_' + selected['variant']]
     path = store.directory / record['file']
@@ -121,6 +121,7 @@ def freeze_training(folder, destination, *, technical_fixture=False):
         'precision': 'fp32', 'view': 'identity', 'geometry': {'image_size': 512, 'prepared_size': 512},
         'candidate_normalization': payload['candidate_normalization'], 'buffer_sha256': tensor_digest(bn), 'initialization': payload['identity']['initialization'],
         'selection_rule': ['error_twice_ascending', 'AP_descending', 'successful_update_ascending', 'EMA_priority'],
+        'training_completion': complete,
         'dev_entries': entries, 'selected': selected, 'checkpoint': str(path.resolve()), 'blob_sha256': record['sha256'],
         'variant': selected['variant'], 'tensor_sha256': tensor_digest(state), 'job': payload['job'],
         'identity': payload['identity'], 'fresh': payload['fresh'], 'source_files': sources,
@@ -140,7 +141,8 @@ def validate_freeze(path, *, allow_fixture=False):
             or value.get('geometry') != {'image_size': 512, 'prepared_size': 512}
             or value.get('initialization') != value['identity']['initialization']
             or value.get('official_evaluations_allowed') != 1 or value.get('official_metadata_used_for_selection') is not False
-            or value.get('selected') != select_checkpoint(value['dev_entries'])
+            or value.get('selected') != select_checkpoint(value['dev_entries'],
+                completed_cycles=ex.validate_training_completion(value['training_completion']))
             or value.get('variant') != value['selected']['variant']
             or value.get('tensor_sha256') != value['selected']['tensor_sha256']
             or value.get('normalization') != 'imagenet'):

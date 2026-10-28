@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
 TINY22 = {
-    'id': 'r94-convnext-tiny-imagenet22k-to-1k-lr1e4-9010', 'experiment_order': 4,
+    'id': 'r95-convnext-tiny-imagenet22k-to-1k-24k-earlystop-9010', 'experiment_order': 5,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -31,9 +31,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R94-SCIENCE.json'
+        self.configuration = root / 'configs/R95-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R94-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R95-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -42,7 +42,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-tiny22k-bc48a87f-fixed-9010-lr1e4-v1',
+                     'science': {'binding_version': 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-v1',
                                  'candidate': copy.deepcopy(TINY22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -57,7 +57,7 @@ class CandidateBindingTest(unittest.TestCase):
 
     def test_R94_only_changes_backbone_LR_scientific_fields(self):
         old = json.loads((ROOT / 'configs/R93-SCIENCE.json').read_text())
-        new = experiment.science_configuration()
+        new = json.loads((ROOT / 'configs/R94-SCIENCE.json').read_text())
         self.assertEqual({key for key in old['job'] if old['job'][key] != new['job'][key]}, {'backbone_lr'})
         self.assertEqual(new['job']['backbone_lr'], old['job']['backbone_lr'] / 2)
         for key in ('paths', 'data_split', 'schedule', 'official_manifest_sha256'):

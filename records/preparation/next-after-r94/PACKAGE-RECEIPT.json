@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "record_kind": "derived_summary_of_actual_command_output_not_original_Pod_acceptance",
+  "scope": "next_round_preparation_materials_only",
+  "passed": false,
+  "status": "archive_static_check_failed_no_pass_receipt_created",
+  "baseline_git": "212b41f9d3aa922519e62182701bfbea527c852d",
+  "baseline_tree": "662c2c2d6c05cc185994d5693eb5eec0b7078689",
+  "existing_A_deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r94-frozen-212b41f9d3aa/DEPLOYMENT.json",
+    "sha256": "9e3489881a3a3eca665b187586fcf72d0d0999fa6f651710bdf55055ff7dd068",
+    "source_files": 301,
+    "evidence_owner": "A_existing_successful_deployment_not_rerun_by_B"
+  },
+  "B_staged_archive": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/next-round-ready-20261029-b/R94-DEPLOY.tar",
+    "sha256": null,
+    "integrity_verified": false,
+    "source_rebuilt": false,
+    "error": "tarfile.ReadError: unexpected end of data",
+    "error_location": "verify_package.py:77 body = f.read()",
+    "cause": "not_further_diagnosed"
+  },
+  "actual_failed_guard_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/environment-20261028-51fe3daf/tasks/5d11d2c3-54b6-4037-ad23-a38f3849238f-2dpihgdt/CPU-RECEIPT.json",
+    "sha256": "96ef0f9c7fa2850ac7851b36421bfc40e4a735d87dcff97aedfd0f0aabde862e",
+    "exit_code": 1,
+    "execution_command_returned": true,
+    "observed_pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "observed_Ready": true,
+    "observed_phase": "Running"
+  },
+  "materials_frozen": [
+    "configs/templates/NEXT-SCIENCE.json.in",
+    "configs/templates/NEXT-RUN.env.example",
+    "configs/templates/NEXT-IDENTITY.patch.in",
+    "records/preparation/next-after-r94/READY.md",
+    "records/preparation/next-after-r94/PACKAGE-RECEIPT.json"
+  ],
+  "material_static_validation_completed": false,
+  "latest_user_contract": {
+    "maximum_successful_updates": 24000,
+    "successful_updates_per_cycle": 800,
+    "maximum_cycles": 30,
+    "patience_completed_validation_cycles": 4,
+    "monitor": "internal_dev_auroc",
+    "mode": "max",
+    "variants": ["online", "ema"],
+    "min_delta": 0,
+    "min_cycles": 1,
+    "warmup_and_EMA_warmcopy_absolute_updates": 1600,
+    "cosine_horizon": 24000,
+    "monitor_answer_pending": false
+  },
+  "runtime_or_existing_config_modified_by_B": false,
+  "model_or_native_or_old_test_suite_rerun": false,
+  "official_content_used_for_parameter_selection": false,
+  "new_formal_package_or_clock_or_token_created": false,
+  "activation_or_GPU_launch_performed": false,
+  "followup": "nonblocking_archive_item_stopped_per_A_and_coordinator_handoff_request"
+}

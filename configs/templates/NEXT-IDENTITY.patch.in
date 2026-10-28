@@ -1,0 +1,19 @@
+# TEMPLATE ONLY: placeholders make this an unapplied, non-executable identity delta.
+# Baseline: 212b41f9d3aa922519e62182701bfbea527c852d.
+# Scientific changes are deliberately absent. Fill only after the planner's decision.
+# With the current interface, the three identities below must change together with
+# NEXT-SCIENCE.candidate_profile; round_id and Git/source digests are generated inputs.
+diff --git a/runtime/bundle/retrain/experiment91.py b/runtime/bundle/retrain/experiment91.py
+--- a/runtime/bundle/retrain/experiment91.py
++++ b/runtime/bundle/retrain/experiment91.py
+@@ -12,8 +12,8 @@
+ FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
+ WEIGHT_SHA = '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed'
+ PROVENANCE_SHA = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
+-BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-lr1e4-v1'
+-CANDIDATE = {'id': 'r94-convnext-tiny-imagenet22k-to-1k-lr1e4-9010', 'experiment_order': 4,
++BINDING_VERSION = '@NEXT_CANDIDATE_PROFILE@'
++CANDIDATE = {'id': '@NEXT_CANDIDATE_ID@', 'experiment_order': @NEXT_EXPERIMENT_ORDER@,
+     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
+     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
+     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
