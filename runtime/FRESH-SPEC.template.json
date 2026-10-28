@@ -1,12 +1,12 @@
 {
   "format": "glaucoma-fresh-init-v1",
   "purpose": "train",
-  "plan_version": "single-r50-9010-v1",
-  "plan_sha256": "96a18a6e5bc3dc1e7f28f751442f340a5b8b0c447102719422b7cc12b77166a3",
-  "source_digest": "76cb37a6cd69238d6269c02e019c79a3349b58fad017f9a71eca867dba624b01",
+  "plan_version": "single-tiny1k-9010-v1",
+  "plan_sha256": "b9fece019b50454eac8dc0795c3d1c08f1f41ac32a06d74c01402d8d24b8ac7b",
+  "source_digest": "57ef83209692eb79e682e04e2b3fe7a060225856f673505ab67396080216d51e",
   "job": {
-    "name": "resnet50-imagenet",
-    "model": "resnet50_imagenet",
+    "name": "convnext-tiny",
+    "model": "convnext_tiny",
     "seed": 20261027,
     "image_size": 512,
     "physical_batch": 16,
@@ -18,14 +18,14 @@
     "min_cycles": 8,
     "patience": 8,
     "min_delta": 0.0005,
-    "backbone_lr": 2e-05,
+    "backbone_lr": 0.0002,
     "head_lr": 0.001,
     "weight_decay": 0.0001,
     "dropout": 0.2,
-    "stochastic_depth": 0.0,
+    "stochastic_depth": 0.1,
     "normalization": "imagenet",
     "prepared_size": 512,
-    "final_norm_eps": 1e-06,
+    "final_norm_eps": 1e-12,
     "head_lr_scope": "last_linear",
     "age": {
       "enabled": true,
@@ -66,13 +66,31 @@
     "initialization": {
       "kind": "imagenet",
       "format": "torchvision-1000-state-dict-v1",
-      "sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca"
+      "sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47"
     },
     "benchmark_warmup": 50,
     "benchmark_updates": 100,
-    "frozen_bn": true,
+    "frozen_bn": false,
     "experiment91": {
-      "version": "single-r50-public-v2-fixed-9010-v1",
+      "version": "single-tiny1k-6166b761-fixed-9010-v1",
+      "candidate": {
+        "id": "r92-convnext-tiny-imagenet1k-9010",
+        "experiment_order": 2,
+        "model": "convnext_tiny",
+        "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+        "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+        "features": 768,
+        "final_norm_eps": 1e-12,
+        "internal_norm_eps": 1e-06,
+        "batch_norm_modules": 0,
+        "batch_norm_buffers": 0,
+        "attention_pool": null,
+        "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+        "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+        "stochastic_depth": 0.1,
+        "head_initialization": "torch.nn.Linear_native",
+        "head_lr_scope": "last_linear"
+      },
       "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
       "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
       "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
@@ -80,7 +98,7 @@
       "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
       "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
       "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
-      "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
+      "ema_sha256": "148337336f51e41bcf10d962fcb7bd7dbd64b5085e77a0b85d5fba4906d8bcfc",
       "source_identity": {
         "schema_version": 1,
         "train_count": 51396,
@@ -108,13 +126,13 @@
     "normalization_policy": "reference-microbatch-sequential-ema-v1"
   },
   "ema": {
-    "version": "ema-warmcopy1600-decay0999-frozenbn-v1",
+    "version": "ema-warmcopy1600-decay0999-nobn-v1",
     "warmcopy_updates": 1600,
     "decay": 0.999,
     "dtype": "torch.float32",
-    "floating_buffers": "same_as_parameters_except_frozen_bn",
+    "floating_buffers": "same_as_parameters",
     "integer_buffers": "copy",
-    "frozen_bn_buffers": "copy"
+    "batch_norm_buffers": 0
   },
   "precision_protocol": {
     "autocast_enabled": false,
@@ -133,7 +151,25 @@
     "version": "fp32-no-loss-scaling-v1"
   },
   "experiment91": {
-    "version": "single-r50-public-v2-fixed-9010-v1",
+    "version": "single-tiny1k-6166b761-fixed-9010-v1",
+    "candidate": {
+      "id": "r92-convnext-tiny-imagenet1k-9010",
+      "experiment_order": 2,
+      "model": "convnext_tiny",
+      "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-12,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+      "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    },
     "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
     "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
     "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
@@ -141,7 +177,7 @@
     "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
     "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
     "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
-    "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
+    "ema_sha256": "148337336f51e41bcf10d962fcb7bd7dbd64b5085e77a0b85d5fba4906d8bcfc",
     "source_identity": {
       "schema_version": 1,
       "train_count": 51396,
@@ -150,30 +186,24 @@
     }
   },
   "initialization": {
-    "license_file": "LICENSE-TORCHVISION.txt",
-    "license_sha256": "6502f676851cfe25f8af75531dfb32375b7325b73c37e7b43741fa422893e71d",
-    "code_license": "BSD-3-Clause",
-    "code_license_url": "https://github.com/pytorch/vision/blob/v0.25.0/LICENSE",
-    "weight_license_status": "dataset_derived_terms_not_fully_resolved",
-    "weights_terms_notice_url": "https://github.com/pytorch/vision#pre-trained-model-license",
-    "competition_redistribution_approved": false,
-    "redistribution_confirmed": null,
     "kind": "imagenet",
-    "weights_sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca",
-    "provenance_sha256": "92cded812e3aa81183b94fed65255e1872bd58881c952ae4d6fbb91385d9dc48",
-    "model": "resnet50_imagenet",
-    "source_url": "https://download.pytorch.org/models/resnet50-11ad3fa6.pth",
+    "weights_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+    "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+    "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "model": "convnext_tiny",
+    "source_url": "https://huggingface.co/facebook/convnext-tiny-224/resolve/6166b7613034066690a621d8bf25ffdf181a34f0/pytorch_model.bin",
     "training_data": "ImageNet-1K",
     "format": "torchvision-1000-state-dict-v1",
-    "variant": "IMAGENET1K_V2"
+    "original_sha256": "1fe15b2eba9e355de14c4e244e6365bf61ffef84da7d3442c0afbb2d8564f477",
+    "final_norm_eps": 1e-12
   },
   "amp_initial_scale": 1.0,
   "cache_readonly_required": true,
   "startup_barrier": {
-    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R91-R50-IMAGENETV2-9010/control/train-startup-barrier.json",
-    "round_id": "r91-r50-imagenetv2-9010-20261028",
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010/control/train-startup-barrier.json",
+    "round_id": "r92-tiny1k-9010-20261028",
     "run_ids": [
-      "r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010"
+      "r92-4c-tiny1k-s20261027-b64-p8-fp32-9010"
     ]
   }
 }

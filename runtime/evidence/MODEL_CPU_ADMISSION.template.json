@@ -4,533 +4,615 @@
   "gpu_initialized": false,
   "checks": [
     {
-      "group": "environment_and_deployment",
-      "name": "uploaded_source_SHA_matches",
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "candidate2_runtime_same9010_and_new_noBN_rule",
       "passed": true,
       "actual": null
     },
     {
-      "group": "environment_and_deployment",
-      "name": "derived_bundle_SHA_matches",
-      "passed": true,
-      "actual": null
-    },
-    {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "actual_9010_fresh_contract",
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "R50_candidate_binding_rejected",
       "passed": true,
       "actual": {
-        "binding": {
-          "version": "single-r50-public-v2-fixed-9010-v1",
-          "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
-          "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
-          "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
-          "fit_indices_sha256": "82da87177456d5cec5070fee459dcd3c0fe7ff464e1a38904624efa9faa57c62",
-          "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
-          "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
-          "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
-          "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
-          "source_identity": {
-            "schema_version": 1,
-            "train_count": 51396,
-            "train_csv_sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
-            "train_rows_sha256": "ff1381f001cefb974d8ba4904a1eb3913da82ed660ca1eb5b43c763e9c92ef7a"
+        "error": "candidate2 Tiny1K scientific/age/source/LN contract differs"
+      }
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "wrong_final_LN_job_rejected",
+      "passed": true,
+      "actual": {
+        "error": "candidate2 Tiny1K scientific/age/source/LN contract differs"
+      }
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "actual_public1000_strict_exact_FP32_finite_then_binary",
+      "passed": true,
+      "actual": {
+        "initialization": {
+          "kind": "imagenet",
+          "weights_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+          "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+          "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "model": "convnext_tiny",
+          "source_url": "https://huggingface.co/facebook/convnext-tiny-224/resolve/6166b7613034066690a621d8bf25ffdf181a34f0/pytorch_model.bin",
+          "training_data": "ImageNet-1K",
+          "format": "torchvision-1000-state-dict-v1",
+          "original_sha256": "1fe15b2eba9e355de14c4e244e6365bf61ffef84da7d3442c0afbb2d8564f477",
+          "final_norm_eps": 1e-12
+        },
+        "strict_missing_keys": [],
+        "strict_unexpected_keys": [],
+        "public_tensor_count": 182,
+        "public_tensor_sha256": "cd095457a33313447558ff231f741f5d8fa2f859f0880a9484559df01ca62f4c",
+        "full_head_shape": [
+          1000,
+          768
+        ],
+        "all_public_tensors_exact": true,
+        "all_public_tensors_FP32_finite": true
+      }
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "native_avgpool_768_noq_zeroBN_actual_LN_SD_and_zeroage",
+      "passed": true,
+      "actual": {
+        "candidate": {
+          "id": "r92-convnext-tiny-imagenet1k-9010",
+          "experiment_order": 2,
+          "model": "convnext_tiny",
+          "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+          "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+          "features": 768,
+          "final_norm_eps": 1e-12,
+          "internal_norm_eps": 1e-06,
+          "batch_norm_modules": 0,
+          "batch_norm_buffers": 0,
+          "attention_pool": null,
+          "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+          "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+          "stochastic_depth": 0.1,
+          "head_initialization": "torch.nn.Linear_native",
+          "head_lr_scope": "last_linear"
+        },
+        "batch_norm_modules": 0,
+        "buffer_count": 0,
+        "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "layer_norms": [
+          {
+            "name": "network.features.0.1",
+            "eps": 1e-06,
+            "normalized_shape": [
+              96
+            ]
+          },
+          {
+            "name": "network.features.1.0.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              96
+            ]
+          },
+          {
+            "name": "network.features.1.1.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              96
+            ]
+          },
+          {
+            "name": "network.features.1.2.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              96
+            ]
+          },
+          {
+            "name": "network.features.2.0",
+            "eps": 1e-06,
+            "normalized_shape": [
+              96
+            ]
+          },
+          {
+            "name": "network.features.3.0.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              192
+            ]
+          },
+          {
+            "name": "network.features.3.1.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              192
+            ]
+          },
+          {
+            "name": "network.features.3.2.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              192
+            ]
+          },
+          {
+            "name": "network.features.4.0",
+            "eps": 1e-06,
+            "normalized_shape": [
+              192
+            ]
+          },
+          {
+            "name": "network.features.5.0.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.1.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.2.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.3.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.4.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.5.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.6.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.7.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.5.8.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.6.0",
+            "eps": 1e-06,
+            "normalized_shape": [
+              384
+            ]
+          },
+          {
+            "name": "network.features.7.0.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              768
+            ]
+          },
+          {
+            "name": "network.features.7.1.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              768
+            ]
+          },
+          {
+            "name": "network.features.7.2.block.2",
+            "eps": 1e-06,
+            "normalized_shape": [
+              768
+            ]
+          },
+          {
+            "name": "network.classifier.0",
+            "eps": 1e-12,
+            "normalized_shape": [
+              768
+            ]
+          }
+        ],
+        "head_in_features": 768,
+        "head_out_features": 1,
+        "dropout": 0.2,
+        "stochastic_depth": [
+          {
+            "name": "network.features.1.0.stochastic_depth",
+            "p": 0.0,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.1.1.stochastic_depth",
+            "p": 0.0058823529411764705,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.1.2.stochastic_depth",
+            "p": 0.011764705882352941,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.3.0.stochastic_depth",
+            "p": 0.017647058823529415,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.3.1.stochastic_depth",
+            "p": 0.023529411764705882,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.3.2.stochastic_depth",
+            "p": 0.029411764705882353,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.0.stochastic_depth",
+            "p": 0.03529411764705883,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.1.stochastic_depth",
+            "p": 0.0411764705882353,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.2.stochastic_depth",
+            "p": 0.047058823529411764,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.3.stochastic_depth",
+            "p": 0.052941176470588235,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.4.stochastic_depth",
+            "p": 0.058823529411764705,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.5.stochastic_depth",
+            "p": 0.06470588235294118,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.6.stochastic_depth",
+            "p": 0.07058823529411766,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.7.stochastic_depth",
+            "p": 0.07647058823529412,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.5.8.stochastic_depth",
+            "p": 0.0823529411764706,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.7.0.stochastic_depth",
+            "p": 0.08823529411764706,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.7.1.stochastic_depth",
+            "p": 0.09411764705882353,
+            "mode": "row"
+          },
+          {
+            "name": "network.features.7.2.stochastic_depth",
+            "p": 0.1,
+            "mode": "row"
+          }
+        ]
+      }
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "wrong_actual_LN_rejected",
+      "passed": true,
+      "actual": {
+        "error": "actual Tiny native avgpool/768/noq/noBN/LN/dropout differs"
+      }
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "actual_unique_groups_emptyAdam_lastlinear_LN_backbone",
+      "passed": true,
+      "actual": {
+        "trainable_tensors": 183,
+        "elements_by_role": {
+          "backbone": 27820128,
+          "head": 769,
+          "age": 2
+        },
+        "groups": 5
+      }
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "fresh_online_EMA_same_and_disjoint_optimizer",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "1_public_Tiny_contract_factory_groups_checkpoint",
+      "name": "initial_checkpoint_roundtrip_emptyAdam_newage_tensor",
+      "passed": true,
+      "actual": {
+        "blob_sha256": "951088291d27106ece2cac6ec3fa328d9eef1b676d28f18c089f00d5231361d1",
+        "fixture": true
+      }
+    },
+    {
+      "group": "2_Tiny_noBN_EMA_and_initial_gate",
+      "name": "new_rule_single_EMA_update_and_state_validation",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "2_Tiny_noBN_EMA_and_initial_gate",
+      "name": "R50_EMA_rule_rejected_for_Tiny_checkpoint",
+      "passed": true,
+      "actual": {
+        "error": "EMA rule / successful count missing or incompatible"
+      }
+    },
+    {
+      "group": "2_Tiny_noBN_EMA_and_initial_gate",
+      "name": "noBN_validator_rejects_BN_even_matching_keys",
+      "passed": true,
+      "actual": {
+        "error": "Tiny noBN EMA state contains BN buffers"
+      }
+    },
+    {
+      "group": "2_Tiny_noBN_EMA_and_initial_gate",
+      "name": "immutable_age_preserved_for_Tiny_EMA",
+      "passed": true,
+      "actual": {
+        "error": "EMA immutable age metadata changed"
+      }
+    },
+    {
+      "group": "2_Tiny_noBN_EMA_and_initial_gate",
+      "name": "noBN_gate_actual_CPU_reference_positive_fixture",
+      "passed": true,
+      "actual": {
+        "four_rank_fixture_only": true,
+        "production_barrier_released": false
+      }
+    },
+    {
+      "group": "2_Tiny_noBN_EMA_and_initial_gate",
+      "name": "initial_gate_wrong_tensor_rejected",
+      "passed": true,
+      "actual": {
+        "error": "fresh Tiny tensor/Adam/noBN/noq differs"
+      }
+    },
+    {
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "Tiny_parallel_evaluation_exact_error_prediction_tensor",
+      "passed": true,
+      "actual": {
+        "count": 2,
+        "positive_count": 1,
+        "negative_count": 1,
+        "auroc": 0.5,
+        "ap": 0.5,
+        "pr_auc": 0.75,
+        "operating_points": {
+          "sensitivity_0.90": {
+            "sensitivity": 1.0,
+            "specificity": 0.0,
+            "logit_threshold": 0.047152698040008545
+          },
+          "specificity_0.90": {
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "logit_threshold": null
+          },
+          "sensitivity_0.95": {
+            "sensitivity": 1.0,
+            "specificity": 0.0,
+            "logit_threshold": 0.047152698040008545
+          },
+          "specificity_0.95": {
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "logit_threshold": null
           }
         },
-        "schedule": {
-          "steps_per_cycle": 800,
-          "total_updates": 6400,
-          "warmup_updates": 1600,
-          "stop_after_updates": 6400
-        },
-        "per_rank_batch": 16,
-        "world_size": 4
+        "error_twice": 1,
+        "prediction_sha256": "2b673570bdf881fcc55e854b6027d34a37a7b9b94ed1d9b100d78e383421db4e",
+        "actual_tensor_sha256": "a968bb5c9bc892c966c850fe0c3d9c89c17f409eefe91ca66c66aefc67a1bb4b"
       }
     },
     {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "wrong_age_rejected",
-      "passed": true,
-      "actual": {
-        "error": "single R50 9:1 scientific/age/source contract differs"
-      }
-    },
-    {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "wrong_split_rejected",
-      "passed": true,
-      "actual": {
-        "error": "9:1 runtime source/job/manifest identity differs"
-      }
-    },
-    {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "ordinary_avgpool_noq_162_parameters",
-      "passed": true,
-      "actual": {
-        "trainable_tensors": 162,
-        "sizes": {
-          "backbone": 23508032,
-          "head": 2049,
-          "age": 2
-        }
-      }
-    },
-    {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "new_age_fresh_zero_and_bn",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "Tiny_commit_uses_exact_order_and_protects_both_variants",
       "passed": true,
       "actual": null
     },
     {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "empty_Adam_exact_unique_parameter_membership",
-      "passed": true,
-      "actual": [
-        {
-          "role": "backbone",
-          "lr": 2e-05,
-          "initial_lr": 2e-05,
-          "weight_decay": 0.0,
-          "parameters": [
-            "backbone.bn1.weight",
-            "backbone.bn1.bias",
-            "backbone.layer1.0.bn1.weight",
-            "backbone.layer1.0.bn1.bias",
-            "backbone.layer1.0.bn2.weight",
-            "backbone.layer1.0.bn2.bias",
-            "backbone.layer1.0.bn3.weight",
-            "backbone.layer1.0.bn3.bias",
-            "backbone.layer1.0.downsample.1.weight",
-            "backbone.layer1.0.downsample.1.bias",
-            "backbone.layer1.1.bn1.weight",
-            "backbone.layer1.1.bn1.bias",
-            "backbone.layer1.1.bn2.weight",
-            "backbone.layer1.1.bn2.bias",
-            "backbone.layer1.1.bn3.weight",
-            "backbone.layer1.1.bn3.bias",
-            "backbone.layer1.2.bn1.weight",
-            "backbone.layer1.2.bn1.bias",
-            "backbone.layer1.2.bn2.weight",
-            "backbone.layer1.2.bn2.bias",
-            "backbone.layer1.2.bn3.weight",
-            "backbone.layer1.2.bn3.bias",
-            "backbone.layer2.0.bn1.weight",
-            "backbone.layer2.0.bn1.bias",
-            "backbone.layer2.0.bn2.weight",
-            "backbone.layer2.0.bn2.bias",
-            "backbone.layer2.0.bn3.weight",
-            "backbone.layer2.0.bn3.bias",
-            "backbone.layer2.0.downsample.1.weight",
-            "backbone.layer2.0.downsample.1.bias",
-            "backbone.layer2.1.bn1.weight",
-            "backbone.layer2.1.bn1.bias",
-            "backbone.layer2.1.bn2.weight",
-            "backbone.layer2.1.bn2.bias",
-            "backbone.layer2.1.bn3.weight",
-            "backbone.layer2.1.bn3.bias",
-            "backbone.layer2.2.bn1.weight",
-            "backbone.layer2.2.bn1.bias",
-            "backbone.layer2.2.bn2.weight",
-            "backbone.layer2.2.bn2.bias",
-            "backbone.layer2.2.bn3.weight",
-            "backbone.layer2.2.bn3.bias",
-            "backbone.layer2.3.bn1.weight",
-            "backbone.layer2.3.bn1.bias",
-            "backbone.layer2.3.bn2.weight",
-            "backbone.layer2.3.bn2.bias",
-            "backbone.layer2.3.bn3.weight",
-            "backbone.layer2.3.bn3.bias",
-            "backbone.layer3.0.bn1.weight",
-            "backbone.layer3.0.bn1.bias",
-            "backbone.layer3.0.bn2.weight",
-            "backbone.layer3.0.bn2.bias",
-            "backbone.layer3.0.bn3.weight",
-            "backbone.layer3.0.bn3.bias",
-            "backbone.layer3.0.downsample.1.weight",
-            "backbone.layer3.0.downsample.1.bias",
-            "backbone.layer3.1.bn1.weight",
-            "backbone.layer3.1.bn1.bias",
-            "backbone.layer3.1.bn2.weight",
-            "backbone.layer3.1.bn2.bias",
-            "backbone.layer3.1.bn3.weight",
-            "backbone.layer3.1.bn3.bias",
-            "backbone.layer3.2.bn1.weight",
-            "backbone.layer3.2.bn1.bias",
-            "backbone.layer3.2.bn2.weight",
-            "backbone.layer3.2.bn2.bias",
-            "backbone.layer3.2.bn3.weight",
-            "backbone.layer3.2.bn3.bias",
-            "backbone.layer3.3.bn1.weight",
-            "backbone.layer3.3.bn1.bias",
-            "backbone.layer3.3.bn2.weight",
-            "backbone.layer3.3.bn2.bias",
-            "backbone.layer3.3.bn3.weight",
-            "backbone.layer3.3.bn3.bias",
-            "backbone.layer3.4.bn1.weight",
-            "backbone.layer3.4.bn1.bias",
-            "backbone.layer3.4.bn2.weight",
-            "backbone.layer3.4.bn2.bias",
-            "backbone.layer3.4.bn3.weight",
-            "backbone.layer3.4.bn3.bias",
-            "backbone.layer3.5.bn1.weight",
-            "backbone.layer3.5.bn1.bias",
-            "backbone.layer3.5.bn2.weight",
-            "backbone.layer3.5.bn2.bias",
-            "backbone.layer3.5.bn3.weight",
-            "backbone.layer3.5.bn3.bias",
-            "backbone.layer4.0.bn1.weight",
-            "backbone.layer4.0.bn1.bias",
-            "backbone.layer4.0.bn2.weight",
-            "backbone.layer4.0.bn2.bias",
-            "backbone.layer4.0.bn3.weight",
-            "backbone.layer4.0.bn3.bias",
-            "backbone.layer4.0.downsample.1.weight",
-            "backbone.layer4.0.downsample.1.bias",
-            "backbone.layer4.1.bn1.weight",
-            "backbone.layer4.1.bn1.bias",
-            "backbone.layer4.1.bn2.weight",
-            "backbone.layer4.1.bn2.bias",
-            "backbone.layer4.1.bn3.weight",
-            "backbone.layer4.1.bn3.bias",
-            "backbone.layer4.2.bn1.weight",
-            "backbone.layer4.2.bn1.bias",
-            "backbone.layer4.2.bn2.weight",
-            "backbone.layer4.2.bn2.bias",
-            "backbone.layer4.2.bn3.weight",
-            "backbone.layer4.2.bn3.bias"
-          ],
-          "numel": 53120
-        },
-        {
-          "role": "backbone",
-          "lr": 2e-05,
-          "initial_lr": 2e-05,
-          "weight_decay": 0.0001,
-          "parameters": [
-            "backbone.conv1.weight",
-            "backbone.layer1.0.conv1.weight",
-            "backbone.layer1.0.conv2.weight",
-            "backbone.layer1.0.conv3.weight",
-            "backbone.layer1.0.downsample.0.weight",
-            "backbone.layer1.1.conv1.weight",
-            "backbone.layer1.1.conv2.weight",
-            "backbone.layer1.1.conv3.weight",
-            "backbone.layer1.2.conv1.weight",
-            "backbone.layer1.2.conv2.weight",
-            "backbone.layer1.2.conv3.weight",
-            "backbone.layer2.0.conv1.weight",
-            "backbone.layer2.0.conv2.weight",
-            "backbone.layer2.0.conv3.weight",
-            "backbone.layer2.0.downsample.0.weight",
-            "backbone.layer2.1.conv1.weight",
-            "backbone.layer2.1.conv2.weight",
-            "backbone.layer2.1.conv3.weight",
-            "backbone.layer2.2.conv1.weight",
-            "backbone.layer2.2.conv2.weight",
-            "backbone.layer2.2.conv3.weight",
-            "backbone.layer2.3.conv1.weight",
-            "backbone.layer2.3.conv2.weight",
-            "backbone.layer2.3.conv3.weight",
-            "backbone.layer3.0.conv1.weight",
-            "backbone.layer3.0.conv2.weight",
-            "backbone.layer3.0.conv3.weight",
-            "backbone.layer3.0.downsample.0.weight",
-            "backbone.layer3.1.conv1.weight",
-            "backbone.layer3.1.conv2.weight",
-            "backbone.layer3.1.conv3.weight",
-            "backbone.layer3.2.conv1.weight",
-            "backbone.layer3.2.conv2.weight",
-            "backbone.layer3.2.conv3.weight",
-            "backbone.layer3.3.conv1.weight",
-            "backbone.layer3.3.conv2.weight",
-            "backbone.layer3.3.conv3.weight",
-            "backbone.layer3.4.conv1.weight",
-            "backbone.layer3.4.conv2.weight",
-            "backbone.layer3.4.conv3.weight",
-            "backbone.layer3.5.conv1.weight",
-            "backbone.layer3.5.conv2.weight",
-            "backbone.layer3.5.conv3.weight",
-            "backbone.layer4.0.conv1.weight",
-            "backbone.layer4.0.conv2.weight",
-            "backbone.layer4.0.conv3.weight",
-            "backbone.layer4.0.downsample.0.weight",
-            "backbone.layer4.1.conv1.weight",
-            "backbone.layer4.1.conv2.weight",
-            "backbone.layer4.1.conv3.weight",
-            "backbone.layer4.2.conv1.weight",
-            "backbone.layer4.2.conv2.weight",
-            "backbone.layer4.2.conv3.weight"
-          ],
-          "numel": 23454912
-        },
-        {
-          "role": "head",
-          "lr": 0.001,
-          "initial_lr": 0.001,
-          "weight_decay": 0.0,
-          "parameters": [
-            "classifier.1.bias"
-          ],
-          "numel": 1
-        },
-        {
-          "role": "head",
-          "lr": 0.001,
-          "initial_lr": 0.001,
-          "weight_decay": 0.0001,
-          "parameters": [
-            "classifier.1.weight"
-          ],
-          "numel": 2048
-        },
-        {
-          "role": "age",
-          "lr": 0.001,
-          "initial_lr": 0.001,
-          "weight_decay": 0.0001,
-          "parameters": [
-            "age_weight"
-          ],
-          "numel": 2
-        }
-      ]
-    },
-    {
-      "group": "1_fresh_contract_parameters_checkpoint",
-      "name": "fresh_online_ema_identical_and_ema_not_in_optimizer",
-      "passed": true,
-      "actual": {
-        "initial_tensor_sha256": "b88683d2cd788e74127e86225bed1cbbbec2fbe3baa56e3b172a33b8ef92ea96",
-        "initial_bn_sha256": "21b9ef124340ced1d13ffe0ea1ef8214f800c05ea0f7bdb9572f06d26475b210"
-      }
-    },
-    {
-      "group": "2_EMA1600_1601_fixed_BN",
-      "name": "dynamic_S_2S_8S_and_native_LR_boundaries",
-      "passed": true,
-      "actual": {
-        "schedule": {
-          "steps_per_cycle": 800,
-          "total_updates": 6400,
-          "warmup_updates": 1600,
-          "stop_after_updates": 6400
-        },
-        "factors": [
-          0.000625,
-          1.0,
-          1.0,
-          0.01
-        ]
-      }
-    },
-    {
-      "group": "2_EMA1600_1601_fixed_BN",
-      "name": "one_real_CPU_backward_update_preserves_all_public_BN",
-      "passed": true,
-      "actual": {
-        "synthetic_batch": 1,
-        "image_size": 512,
-        "real_CPU_optimizer_updates": 1,
-        "not_training_progress": true
-      }
-    },
-    {
-      "group": "2_EMA1600_1601_fixed_BN",
-      "name": "1600_copy_boundary",
-      "passed": true,
-      "actual": {
-        "seeded_cursor": 1599,
-        "actual_EMA_updates_in_test": 1
-      }
-    },
-    {
-      "group": "2_EMA1600_1601_fixed_BN",
-      "name": "1601_blend_and_159BN_always_copy",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "both_best_blob_records_survive_later_unimproved_save",
       "passed": true,
       "actual": null
     },
     {
-      "group": "2_EMA1600_1601_fixed_BN",
-      "name": "skip_does_not_advance_or_mutate_EMA",
-      "passed": true,
-      "actual": null
-    },
-    {
-      "group": "2_EMA1600_1601_fixed_BN",
-      "name": "state_validator_rejects_BN_drift",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "order2_noBN_freeze_protected_EMA_strict_reload_actual_tensor",
       "passed": true,
       "actual": {
-        "error": "EMA frozen BN buffer differs backbone.bn1.num_batches_tracked"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "all16_full5140_fixture_selection_and_exact_variant",
-      "passed": true,
-      "actual": null
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "tie_break_update_then_EMA",
-      "passed": true,
-      "actual": null
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "selector_rejects_missing",
-      "passed": true,
-      "actual": {
-        "error": "all 16 internal dev readouts required"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "selector_rejects_duplicate",
-      "passed": true,
-      "actual": {
-        "error": "dev readout coverage/progress/metric identity differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "selector_rejects_update",
-      "passed": true,
-      "actual": {
-        "error": "dev readout coverage/progress/metric identity differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "selector_rejects_nonfinite",
-      "passed": true,
-      "actual": {
-        "error": "dev readout coverage/progress/metric identity differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "actual_checkpoint_strict_reload_frozen_EMA_tensor_age_contract",
-      "passed": true,
-      "actual": {
-        "checkpoint": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/CPU-FIXTURE-NOT-FOR-TRAINING/checkpoints/checkpoint-4f6810840d274415bbaabdc004821a95.pt",
-        "blob_sha256": "f9c1b54e299f0c68cb7c0be80ea258302b94968e1627f52e63173032ef9d007f",
+        "fixture_only": true,
+        "selected": {
+          "cycle": 1,
+          "variant": "ema",
+          "successful_updates": 800,
+          "error_twice": 0,
+          "ap": 1.0,
+          "auroc": 1.0,
+          "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-r92-prep-20261028-attempt3/CPU-FIXTURE-NOT-FOR-TRAINING/predictions/ema/dev-cycle-0001.csv",
+          "prediction_sha256": "42f5f49a5ef8138dac69b2fd97a4e4e9791f763f09f181bb37a7f13cd34bfd2e",
+          "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-r92-prep-20261028-attempt3/CPU-FIXTURE-NOT-FOR-TRAINING/predictions/ema/dev-cycle-0001.csv.precision.json",
+          "precision_sha256": "a68379b2cdfc2e71702da95f20bf92fcbca5add5dfb12a6d6071d80a7ed74391",
+          "tensor_sha256": "a968bb5c9bc892c966c850fe0c3d9c89c17f409eefe91ca66c66aefc67a1bb4b"
+        },
+        "blob_sha256": "1ba0eeaf52337fd64f7037bdac00e72184c384ed49e33d0fabff69e4a3dbd11d",
         "actual": {
           "variant": "ema",
-          "tensor_sha256": "459e1407e6eaaa3955c1e527f52117f690776b1ec1e35cad436cb6d784b964aa"
-        },
-        "fixture_seeded_successful_updates": 2400,
-        "real_CPU_optimizer_updates": 1,
-        "real_EMA_boundary_updates": 2,
-        "actual_forward_output": [
-          -0.007000837009400129
-        ]
+          "tensor_sha256": "a968bb5c9bc892c966c850fe0c3d9c89c17f409eefe91ca66c66aefc67a1bb4b"
+        }
       }
     },
     {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_blob",
-      "passed": true,
-      "actual": {
-        "error": "frozen source/checkpoint blob differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_tensor",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "Tiny_official_identity_rejects_candidate",
       "passed": true,
       "actual": {
         "error": "unique single-model freeze differs"
       }
     },
     {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_variant",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "Tiny_official_identity_rejects_source",
+      "passed": true,
+      "actual": {
+        "error": "Tiny1K candidate2 runtime source/job/manifest/LN differs"
+      }
+    },
+    {
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "Tiny_official_identity_rejects_variant",
       "passed": true,
       "actual": {
         "error": "unique single-model freeze differs"
       }
     },
     {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_source",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "Tiny_official_identity_rejects_LN",
       "passed": true,
       "actual": {
-        "error": "frozen source/checkpoint blob differs"
+        "error": "Tiny actual LN/noBN/stochastic-depth contract differs"
       }
     },
     {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_split",
-      "passed": true,
-      "actual": {
-        "error": "unique single-model freeze differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_age",
-      "passed": true,
-      "actual": {
-        "error": "single R50 9:1 scientific/age/source contract differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_pre_read_rejects_normalization",
-      "passed": true,
-      "actual": {
-        "error": "unique single-model freeze differs"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "once_guard_rejects_second_output_directory",
-      "passed": true,
-      "actual": {
-        "error": "[Errno 17] File exists: '/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/CPU-FIXTURE-NOT-FOR-TRAINING/OFFICIAL-ONCE.json'"
-      }
-    },
-    {
-      "group": "3_selection_freeze_official_guard",
-      "name": "CPU_fixture_barred_from_production_official_entry",
+      "group": "3_Tiny_exact_protection_freeze_official_boundary",
+      "name": "CPU_fixture_still_barred_before_official_reservation",
       "passed": true,
       "actual": {
         "error": "CPU fixture is barred from official evaluation"
       }
     },
     {
-      "group": "3_selection_freeze_official_guard",
-      "name": "CPU_fixture_barred_from_production_selection",
+      "group": "4_wrapper_templates_budget_no_GPU",
+      "name": "current_no_GPU_device_users_and_idle_four_cards",
       "passed": true,
       "actual": {
-        "error": "CPU fixture cannot become a production selection"
+        "at": 1793171791.703985,
+        "cards": [
+          {
+            "pci": "0000:09:00.0",
+            "busy_percent": 0,
+            "vram_used_bytes": 2260992,
+            "vram_total_bytes": 68702699520
+          },
+          {
+            "pci": "0000:77:00.0",
+            "busy_percent": 0,
+            "vram_used_bytes": 2260992,
+            "vram_total_bytes": 68702699520
+          },
+          {
+            "pci": "0000:85:00.0",
+            "busy_percent": 0,
+            "vram_used_bytes": 2260992,
+            "vram_total_bytes": 68702699520
+          },
+          {
+            "pci": "0000:f5:00.0",
+            "busy_percent": 0,
+            "vram_used_bytes": 2260992,
+            "vram_total_bytes": 68702699520
+          }
+        ],
+        "device_users": [],
+        "training_admission": false,
+        "training_lock_acquired": false
       }
     },
     {
-      "group": "3_selection_freeze_official_guard",
-      "name": "official_boundary_identity_FP32_rawlogit",
-      "passed": true,
-      "actual": {
-        "evaluator_object": {
-          "variant": "ema",
-          "tensor_sha256": "459e1407e6eaaa3955c1e527f52117f690776b1ec1e35cad436cb6d784b964aa"
-        },
-        "official_forward_calls": 0,
-        "official_metadata_reads": 0
-      }
-    },
-    {
-      "group": "budget_draft",
-      "name": "GPU_not_initialized_and_no_formal_clock",
+      "group": "4_wrapper_templates_budget_no_GPU",
+      "name": "both_Tiny_initial_consumers_use_native_without_BN_file",
       "passed": true,
       "actual": null
+    },
+    {
+      "group": "4_wrapper_templates_budget_no_GPU",
+      "name": "policy_derived_full_tail_windows_and_R91_all_predecessors",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "4_wrapper_templates_budget_no_GPU",
+      "name": "unchanged_owner_functions_and_strict_once_reservation_preserved",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "4_wrapper_templates_budget_no_GPU",
+      "name": "no_formal_clock_token_lock_or_GPU",
+      "passed": true,
+      "actual": {
+        "T0": null,
+        "token": null,
+        "production_four_rank_gate_executed": false,
+        "official_reads": 0,
+        "official_forwards": 0,
+        "training_lock_acquired": false
+      }
     }
   ],
-  "source_digest": "76cb37a6cd69238d6269c02e019c79a3349b58fad017f9a71eca867dba624b01",
+  "source_digest": "57ef83209692eb79e682e04e2b3fe7a060225856f673505ab67396080216d51e",
   "job_contract": {
-    "name": "resnet50-imagenet",
-    "model": "resnet50_imagenet",
+    "name": "convnext-tiny",
+    "model": "convnext_tiny",
     "seed": 20261027,
     "image_size": 512,
     "physical_batch": 16,
@@ -542,14 +624,14 @@
     "min_cycles": 8,
     "patience": 8,
     "min_delta": 0.0005,
-    "backbone_lr": 2e-05,
+    "backbone_lr": 0.0002,
     "head_lr": 0.001,
     "weight_decay": 0.0001,
     "dropout": 0.2,
-    "stochastic_depth": 0.0,
+    "stochastic_depth": 0.1,
     "normalization": "imagenet",
     "prepared_size": 512,
-    "final_norm_eps": 1e-06,
+    "final_norm_eps": 1e-12,
     "head_lr_scope": "last_linear",
     "age": {
       "enabled": true,
@@ -590,13 +672,31 @@
     "initialization": {
       "kind": "imagenet",
       "format": "torchvision-1000-state-dict-v1",
-      "sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca"
+      "sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47"
     },
     "benchmark_warmup": 50,
     "benchmark_updates": 100,
-    "frozen_bn": true,
+    "frozen_bn": false,
     "experiment91": {
-      "version": "single-r50-public-v2-fixed-9010-v1",
+      "version": "single-tiny1k-6166b761-fixed-9010-v1",
+      "candidate": {
+        "id": "r92-convnext-tiny-imagenet1k-9010",
+        "experiment_order": 2,
+        "model": "convnext_tiny",
+        "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+        "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+        "features": 768,
+        "final_norm_eps": 1e-12,
+        "internal_norm_eps": 1e-06,
+        "batch_norm_modules": 0,
+        "batch_norm_buffers": 0,
+        "attention_pool": null,
+        "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+        "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+        "stochastic_depth": 0.1,
+        "head_initialization": "torch.nn.Linear_native",
+        "head_lr_scope": "last_linear"
+      },
       "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
       "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
       "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
@@ -604,7 +704,7 @@
       "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
       "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
       "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
-      "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
+      "ema_sha256": "148337336f51e41bcf10d962fcb7bd7dbd64b5085e77a0b85d5fba4906d8bcfc",
       "source_identity": {
         "schema_version": 1,
         "train_count": 51396,
@@ -623,18 +723,323 @@
     "accumulation": 1,
     "normalization_group_size": 2,
     "normalization_policy": "reference-microbatch-sequential-ema-v1",
-    "sampler_policy": "reference-seeds-contiguous-global-shards-v1",
-    "stop_after_updates": 6400
+    "sampler_policy": "reference-seeds-contiguous-global-shards-v1"
   },
   "initial_state_control": {
-    "model_tensor_sha256": "b88683d2cd788e74127e86225bed1cbbbec2fbe3baa56e3b172a33b8ef92ea96",
-    "expected_frozen_bn_sha256": "21b9ef124340ced1d13ffe0ea1ef8214f800c05ea0f7bdb9572f06d26475b210",
+    "source_digest": "57ef83209692eb79e682e04e2b3fe7a060225856f673505ab67396080216d51e",
+    "candidate": {
+      "id": "r92-convnext-tiny-imagenet1k-9010",
+      "experiment_order": 2,
+      "model": "convnext_tiny",
+      "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-12,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+      "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    },
+    "model_tensor_sha256": "a968bb5c9bc892c966c850fe0c3d9c89c17f409eefe91ca66c66aefc67a1bb4b",
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate_normalization": {
+      "candidate": {
+        "id": "r92-convnext-tiny-imagenet1k-9010",
+        "experiment_order": 2,
+        "model": "convnext_tiny",
+        "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+        "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+        "features": 768,
+        "final_norm_eps": 1e-12,
+        "internal_norm_eps": 1e-06,
+        "batch_norm_modules": 0,
+        "batch_norm_buffers": 0,
+        "attention_pool": null,
+        "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+        "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+        "stochastic_depth": 0.1,
+        "head_initialization": "torch.nn.Linear_native",
+        "head_lr_scope": "last_linear"
+      },
+      "batch_norm_modules": 0,
+      "buffer_count": 0,
+      "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "layer_norms": [
+        {
+          "name": "network.features.0.1",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.1.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.2.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            96
+          ]
+        },
+        {
+          "name": "network.features.3.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.3.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.3.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.4.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            192
+          ]
+        },
+        {
+          "name": "network.features.5.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.3.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.4.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.5.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.6.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.7.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.5.8.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.6.0",
+          "eps": 1e-06,
+          "normalized_shape": [
+            384
+          ]
+        },
+        {
+          "name": "network.features.7.0.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.features.7.1.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.features.7.2.block.2",
+          "eps": 1e-06,
+          "normalized_shape": [
+            768
+          ]
+        },
+        {
+          "name": "network.classifier.0",
+          "eps": 1e-12,
+          "normalized_shape": [
+            768
+          ]
+        }
+      ],
+      "head_in_features": 768,
+      "head_out_features": 1,
+      "dropout": 0.2,
+      "stochastic_depth": [
+        {
+          "name": "network.features.1.0.stochastic_depth",
+          "p": 0.0,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.1.1.stochastic_depth",
+          "p": 0.0058823529411764705,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.1.2.stochastic_depth",
+          "p": 0.011764705882352941,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.0.stochastic_depth",
+          "p": 0.017647058823529415,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.1.stochastic_depth",
+          "p": 0.023529411764705882,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.3.2.stochastic_depth",
+          "p": 0.029411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.0.stochastic_depth",
+          "p": 0.03529411764705883,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.1.stochastic_depth",
+          "p": 0.0411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.2.stochastic_depth",
+          "p": 0.047058823529411764,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.3.stochastic_depth",
+          "p": 0.052941176470588235,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.4.stochastic_depth",
+          "p": 0.058823529411764705,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.5.stochastic_depth",
+          "p": 0.06470588235294118,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.6.stochastic_depth",
+          "p": 0.07058823529411766,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.7.stochastic_depth",
+          "p": 0.07647058823529412,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.5.8.stochastic_depth",
+          "p": 0.0823529411764706,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.0.stochastic_depth",
+          "p": 0.08823529411764706,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.1.stochastic_depth",
+          "p": 0.09411764705882353,
+          "mode": "row"
+        },
+        {
+          "name": "network.features.7.2.stochastic_depth",
+          "p": 0.1,
+          "mode": "row"
+        }
+      ]
+    },
     "optimizer_state_entries": 0,
-    "trainable_tensors": 162,
+    "trainable_tensors": 183,
+    "parameter_elements_by_role": {
+      "backbone": 27820128,
+      "head": 769,
+      "age": 2
+    },
     "no_attention_q": true
   },
-  "original_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/result/STAGE2-CPU-RECEIPT.json",
-  "original_receipt_sha256": "f026baa6bf2f9193aaddb9f94bd37053e3173581aeb291811e408ee8379aaa6c",
-  "scope": "existing three CPU groups reused; actual four-rank startup gate remains future",
-  "numerical_rerun": false
+  "original_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-r92-prep-20261028-attempt3/result/R92-CPU-RECEIPT.json",
+  "original_receipt_sha256": "4439216baa5b6e9d832efbccf254c2727bf3bcd2c7c2c18c2c795f782422bbdd",
+  "scope": "four affected Tiny groups; production native four-rank proof remains future"
 }

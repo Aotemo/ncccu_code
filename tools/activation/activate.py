@@ -14,7 +14,7 @@ import uuid
 HERE = Path(__file__).resolve().parent
 UID = 'eec33bd6-b567-40ef-b866-633e272ea019'
 BASE = Path('/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027')
-F = BASE / 'rounds/R91-R50-IMAGENETV2-9010'
+F = BASE / 'rounds/R92-TINY1K-9010'
 
 
 def read(path):
@@ -49,13 +49,25 @@ def admit_now(package):
     # These live reads intentionally occur only at formal activation, never prep.
     sys.path.insert(0, str(package))
     import run_round as guard
-    previous = BASE / 'rounds/N15-R50-RGB01-SPATIAL'
+    previous = BASE / 'rounds/R91-R50-IMAGENETV2-9010'
+    final_path = BASE / 'technical-prep/resume9010-A-stage4-finalize-20261028-attempt1/result/FINAL-RECEIPT.json'
+    assert sha(final_path) == '839a98d13d3328e16256879b41877746beb073b9418d76aaba9b7b5b4872fc5b'
+    final = read(final_path)
+    assert final['exit_code'] == 0 and final['owner']['actual_exit_code'] == 0
+    assert all(x['passed'] for x in final['checks'])
+    assert read(previous / 'control/done.json')['status'] == 'completed'
     owner = read(previous / 'control/owner.json')['owner']
-    component = read(previous / 'control/train-component-launch.json')['gate_identity']
+    components = []
+    for phase in ('train', 'freeze', 'official'):
+        terminal = read(previous / ('control/' + phase + '-component-terminal.json'))
+        assert terminal['status'] == 'completed' and terminal['exit_code'] == 0 and not terminal['live_owned_ranks']
+        components.append(read(previous / ('control/' + phase + '-component-launch.json'))['gate_identity'])
     config = read(previous / 'TRAIN_CONFIG.json')
     ranks = [read(p) for p in sorted((previous / 'outputs' / config['run_name'] / 'rank-control').glob('rank-*-launch.json'))]
-    expected = [owner, component, *ranks]
-    assert len(expected) == 6
+    exits = read(previous / 'outputs' / config['run_name'] / 'complete.json')['exit_codes']
+    assert len(exits) == 4 and not any(exits.values()) and len(ranks) == 4
+    expected = [owner, *components, *ranks]
+    assert len(expected) == 8
     processes = []
     for old in expected:
         actual = ident(old['pid'])
@@ -71,7 +83,8 @@ def admit_now(package):
     assert len(resource['cards']) == 4 and all(c['busy_percent'] == 0 and c['vram_used_bytes'] < 64 * 1024**2 for c in resource['cards'])
     assert shutil.disk_usage(BASE).free > 20 * 1024**3
     return {'at': time.time(), 'exact_processes': processes, 'lock_released': True, 'lock_inode': lock.stat().st_ino,
-            'proc_locks': matching, 'resources': resource, 'lock_acquisition_attempted': False, 'signals_sent': False}
+            'proc_locks': matching, 'resources': resource, 'lock_acquisition_attempted': False, 'signals_sent': False,
+            'predecessor': str(previous), 'predecessor_final_receipt_sha256': sha(final_path)}
 
 
 def main():
@@ -86,7 +99,7 @@ def main():
     assert sys.executable == '/usr/local/python3.12/bin/python3.12' and os.getpriority(os.PRIO_PROCESS, 0) == 19
     assert all(os.environ.get(k) == '' for k in ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'))
     package = HERE / 'package'
-    prep = read(HERE / 'STAGE3-PREP-RECEIPT.json')
+    prep = read(HERE / 'R92-PREP-RECEIPT.json')
     assert prep['status'] == 'prepared_no_formal_clock_no_GPU' and prep['exit_code'] == 0
     package_manifest = read(HERE / 'PACKAGE-MANIFEST.json')
     for rel, digest in package_manifest['files'].items():
@@ -96,7 +109,7 @@ def main():
     policy = read(package / 'CLOCK_POLICY.json')
     # First formal mutation: preserve this clock even if following binding fails.
     t0 = time.time()
-    clock = {'round_id': policy['round_id'], 'token': uuid.uuid4().hex, 'origin': 'A routed R91 formal activation',
+    clock = {'round_id': policy['round_id'], 'token': uuid.uuid4().hex, 'origin': 'A routed R92 formal activation',
         'authorization_reference': args.authorization_reference, 'first_implementation_at': t0,
         'implementation_deadline_at': t0 + policy['binding_seconds'], 'deadline_at': t0 + policy['total_seconds'],
         'train_budget_seconds': policy['train_hard_seconds'], 'clock_reset_allowed': False}

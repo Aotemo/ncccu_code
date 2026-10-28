@@ -1,4 +1,4 @@
-"""Read-only R91 observation on the designated Pod; never dispatch or signal."""
+"""Read-only R92 observation on the designated Pod; never dispatch or signal."""
 import argparse
 import hashlib
 import json
@@ -8,8 +8,8 @@ import socket
 import sys
 import time
 
-F = Path('/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R91-R50-IMAGENETV2-9010')
-TOKEN = 'ffb6b56327af424bac31bd605df6259e'
+F = Path('/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010')
+TOKEN = '__ACTUAL_R92_TOKEN__'
 
 
 def read(path):
@@ -51,9 +51,9 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     records = {}
     paths = list((F / 'control').glob('*.json'))
-    paths += [F / 'evidence' / n for n in ('FORMAL_BINDING_RECEIPT.json', 'ACTUAL_FRESH_INITIAL.json', 'TRAIN_RESULT.json', 'R91_RESULT.json')]
+    paths += [F / 'evidence' / n for n in ('FORMAL_BINDING_RECEIPT.json', 'ACTUAL_FRESH_INITIAL.json', 'TRAIN_RESULT.json', 'R92_RESULT.json')]
     paths += [F / 'SINGLE-MODEL-FREEZE.json', F / 'official/OFFICIAL-RESULT.json', run / 'complete.json']
-    paths += [model / n for n in ('status.json', 'complete.json', 'selection.json', 'initial-ranks.json', 'bn-initial-ranks.json')]
+    paths += [model / n for n in ('status.json', 'complete.json', 'selection.json', 'initial-ranks.json')]
     paths += list((run / 'rank-control').glob('*.json'))
     manifest = []
     for p in sorted(set(paths)):
@@ -104,8 +104,10 @@ def main():
     if initial and barrier:
         initial_bytes = (F / 'evidence/ACTUAL_FRESH_INITIAL.json').read_bytes()
         assert initial['status'] == 'completed' and initial['rank_count'] == 4 and initial['optimizer_state_entries'] == 0
-        assert initial['model_tensor_sha256'] == 'b88683d2cd788e74127e86225bed1cbbbec2fbe3baa56e3b172a33b8ef92ea96'
-        assert initial['frozen_bn_sha256'] == '21b9ef124340ced1d13ffe0ea1ef8214f800c05ea0f7bdb9572f06d26475b210'
+        assert initial['model_tensor_sha256'] == 'a968bb5c9bc892c966c850fe0c3d9c89c17f409eefe91ca66c66aefc67a1bb4b'
+        assert initial['batch_norm_modules'] == initial['buffer_count'] == 0 and initial['parameter_tensors'] == 183
+        assert initial['buffer_sha256'] == 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+        assert initial['source_digest'] == '57ef83209692eb79e682e04e2b3fe7a060225856f673505ab67396080216d51e'
         assert barrier['actual_initial_receipt_sha256'] == sha(initial_bytes) and barrier['all_initials_passed']
         gate_verified = True
     result = {'status': 'read_only_observation', 'at': time.time(), 'tag': args.tag, 'token': TOKEN,
@@ -128,7 +130,7 @@ def main():
                               'actual_state': x['actual']['state'] if x['actual'] else None,
                               'actual_exit_code': x['actual']['actual_exit_code'] if x['actual'] else None,
                               'same_start_live': x['same_start_live']} for x in identities]
-    summary['terminals'] = {k: v for k, v in records.items() if k.endswith('terminal.json') or k in ('evidence/R91_RESULT.json', 'official/OFFICIAL-RESULT.json')}
+    summary['terminals'] = {k: v for k, v in records.items() if k.endswith('terminal.json') or k in ('evidence/R92_RESULT.json', 'official/OFFICIAL-RESULT.json')}
     summary['errors_in_log_tails'] = {k: v for k, v in logs.items() if 'Traceback' in v or 'Error' in v}
     summary['observation_sha256'] = sha(payload.encode())
     summary['observer_sha256'] = sha(Path(__file__).read_bytes())

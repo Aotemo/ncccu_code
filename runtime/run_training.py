@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""R91 publicfresh ordinary R50 fixed9010 owner; native process/resource workflow."""
+"""R92 publicfresh Tiny1K fixed9010 owner; native process/resource workflow."""
 import argparse, contextlib, fcntl, glob, json, os, re, signal, socket, stat, subprocess, sys, time, uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent;CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
@@ -173,7 +173,8 @@ def main():
              OUTPUT_ROOT=str(ROOT/'outputs'),TRAIN_IMAGE_CACHE=str(Path(assets['prepared512_cache']['remote_root'])/'train/sealed'),
              TRAIN_VERIFICATION_CACHE=str(ROOT/'verification-unused-readonly'))
   train_started=time.time()
-  deadline=min(train_started+read(ROOT/'CLOCK_POLICY.json')['train_hard_seconds'],clock['deadline_at']-1200)
+  policy=read(ROOT/'CLOCK_POLICY.json')
+  deadline=min(train_started+policy['train_hard_seconds'],clock['deadline_at']-policy['freeze_hard_seconds']-policy['official_hard_seconds']-policy['cleanup_seconds'])
   atomic(CONTROL/'train-phase-start.json',{'at':train_started,'deadline_at':deadline,'soft_deadline_at':deadline-150,'token':args.token},exclusive=True)
   argv=[sys.executable,'-B','-u',str(ROOT/'bundle/parallel_fresh_train.py'),
         '--config',str(ROOT/'TRAIN_CONFIG.json'),'--fresh-spec',str(CONTROL/'train-fresh-spec.json'),
@@ -187,7 +188,7 @@ def main():
   if record.get('evaluated_cycle')!=8 or record['cycle']!=8 or record['successful_updates']!=fresh['schedule']['total_updates']:raise ValueError('eight full cycles and complete new8S required')
   if record['ema']['rule']!=fresh['ema'] or record['ema']['copy_count']!=fresh['ema']['warmcopy_updates'] or record['ema']['blend_count']!=record['successful_updates']-fresh['ema']['warmcopy_updates']:raise ValueError('runtime EMA counters differ')
   if len(list((model_dir/'predictions').glob('*/dev-cycle-*.csv')))!=16:raise ValueError('16 complete dev CSVs required')
-  guard.verify_fresh_initial_identity(read(model_dir/'initial-ranks.json'),read(model_dir/'bn-initial-ranks.json'),read(model_dir/'parameter-groups.json'),read(EVIDENCE/'CPU_PARAMETER_GROUPS.json'),cpu['initial_state_control'])
+  guard.verify_fresh_initial_identity(read(model_dir/'initial-ranks.json'),read(model_dir/'parameter-groups.json'),read(EVIDENCE/'CPU_PARAMETER_GROUPS.json'),cpu['initial_state_control'])
   initials=read(model_dir/'initial-ranks.json')
   actual_initial=read(EVIDENCE/'ACTUAL_FRESH_INITIAL.json')
   if actual_initial['status']!='completed' or len(initials)!=4 or any(x['model_sha256']!=actual_initial['model_tensor_sha256'] or x['optimizer_state_entries']!=0 for x in initials):raise ValueError('actual rank fresh initialization')
@@ -198,7 +199,7 @@ def main():
   freeze_path=ROOT/'SINGLE-MODEL-FREEZE.json'
   freeze_env=env.copy()
   freeze_env.update(CUDA_VISIBLE_DEVICES='',HIP_VISIBLE_DEVICES='',ROCR_VISIBLE_DEVICES='',OMP_NUM_THREADS='2',MKL_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2')
-  freeze_deadline=min(time.time()+300,clock['deadline_at']-750)
+  freeze_deadline=min(time.time()+policy['freeze_hard_seconds'],clock['deadline_at']-policy['official_hard_seconds']-policy['cleanup_seconds'])
   if freeze_deadline-time.time()<=150:raise TimeoutError('freeze plus cleanup window unavailable')
   freeze_command=['nice','-n','19',sys.executable,'-B','-u',str(ROOT/'bundle/single_model91.py'),'freeze','--training-folder',str(model_dir),'--output',str(freeze_path)]
   freeze_result=run_component('freeze',freeze_command,freeze_deadline,CONTROL/'freeze-no-ranks',freeze_env)
@@ -210,7 +211,7 @@ def main():
   official_root=ROOT/'official'
   official_started=time.time()
   official_seconds=read(ROOT/'CLOCK_POLICY.json')['official_hard_seconds']
-  if clock['deadline_at']-150-official_started<official_seconds:raise TimeoutError('full official single-device budget unavailable')
+  if clock['deadline_at']-policy['cleanup_seconds']-official_started<official_seconds:raise TimeoutError('full official single-device budget unavailable')
   official_deadline=official_started+official_seconds
   official=assets['manifests']['official_valid']
   official_command=[sys.executable,'-B','-u',str(ROOT/'bundle/single_model91.py'),'official-once','--freeze',str(freeze_path),'--output-root',str(official_root),'--data-root',assets['data_root'],'--eval-manifest',official['remote_path'],'--eval-manifest-sha256',official['sha256'],'--device','cuda:0']
@@ -220,7 +221,7 @@ def main():
   terminal.update(status='completed',phase='complete',freeze_component=freeze_result,official_component=official_component,
     single_model_freeze_sha256=sha(freeze_path),official_result_sha256=sha(official_root/'OFFICIAL-RESULT.json'),
     official_metrics=official_result['metrics'],target_auroc_at_least_0_999=official_result['target_auroc_at_least_0_999'])
-  atomic(EVIDENCE/'R91_RESULT.json',terminal,exclusive=True)
+  atomic(EVIDENCE/'R92_RESULT.json',terminal,exclusive=True)
  except BaseException as exc:
   terminal['status']='official_unknown' if terminal.get('phase')=='official' else 'failed'
   terminal['error']=repr(exc)

@@ -243,6 +243,7 @@ def create_model(job, initialize=True):
         model.classifier[0].eps=float(job.get('final_norm_eps',1e-6))
     else:
         raise ValueError('Unsupported backbone: '+name)
+    public_receipt = None
     init = job.get('initialization', {'kind': 'random'})
     if initialize and init['kind'] != 'random':
         proof = validate_initialization(init)
@@ -251,7 +252,20 @@ def create_model(job, initialize=True):
         if proof.get('final_norm_eps') is not None and float(job.get('final_norm_eps',1e-6))!=proof['final_norm_eps']:
             raise ValueError('Published final LayerNorm epsilon differs from the scientific job contract')
         state = torch.load(init['path'], map_location='cpu', weights_only=True)
-        model.load_state_dict(state, strict=True)
+        loaded = model.load_state_dict(state, strict=True)
+        if job.get('experiment91') is not None:
+            from .ema import tensor_digest
+            from .experiment91 import PROVENANCE_SHA
+            actual = model.state_dict()
+            if (proof['provenance_sha256'] != PROVENANCE_SHA or loaded.missing_keys or loaded.unexpected_keys
+                    or actual.keys() != state.keys() or model.classifier[-1].out_features != 1000
+                    or any(not torch.equal(actual[n], t) or t.dtype != torch.float32
+                           or not bool(torch.isfinite(t).all()) for n, t in state.items())):
+                raise ValueError('Tiny complete public1000 strict/exact/FP32/finite proof differs')
+            public_receipt = {'initialization': proof, 'strict_missing_keys': loaded.missing_keys,
+                'strict_unexpected_keys': loaded.unexpected_keys, 'public_tensor_count': len(state),
+                'public_tensor_sha256': tensor_digest(state), 'full_head_shape': list(model.classifier[-1].weight.shape),
+                'all_public_tensors_exact': True, 'all_public_tensors_FP32_finite': True}
     # Keep native names so optimizer grouping and raw checkpoint state_dicts remain simple.
     last = model.classifier[-1]
     model.classifier[-1] = nn.Linear(last.in_features, 1)
@@ -279,4 +293,8 @@ def create_model(job, initialize=True):
     if job.get('attention_pool') is not None:
         from .attention_pool import attach
         attach(result, job)
+    if job.get('experiment91') is not None:
+        from .experiment91 import describe_model
+        result.candidate_normalization = describe_model(result)
+        result.public_initialization_receipt = public_receipt
     return result

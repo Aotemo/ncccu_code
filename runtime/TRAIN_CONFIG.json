@@ -66,7 +66,7 @@
         "contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82"
       },
       "attention_pool": null,
-      "backbone_lr": 2e-05,
+      "backbone_lr": 0.0002,
       "benchmark_updates": 100,
       "benchmark_warmup": 50,
       "checkpoint_seconds": 300,
@@ -83,16 +83,16 @@
       "initialization": {
         "kind": "imagenet",
         "format": "torchvision-1000-state-dict-v1",
-        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/n08-r50-imagenet/resnet50-11ad3fa6.pth",
-        "sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca",
-        "provenance": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N08/assets/PUBLIC_ASSET_PROVENANCE.json"
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/convnext-tiny-tv-6166b761.pt",
+        "sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+        "provenance": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/provenance.json"
       },
       "log_every": 25,
       "min_cycles": 8,
       "min_delta": 0.0005,
       "mixup": null,
-      "model": "resnet50_imagenet",
-      "name": "resnet50-imagenet",
+      "model": "convnext_tiny",
+      "name": "convnext-tiny",
       "normalization": "imagenet",
       "patience": 8,
       "physical_batch": 32,
@@ -102,14 +102,32 @@
       "prepared_size": 512,
       "seed": 20261027,
       "split": {},
-      "stochastic_depth": 0.0,
+      "stochastic_depth": 0.1,
       "stop_after_cycles": 0,
       "warmup_cycles": 2,
       "weight_decay": 0.0001,
       "workers": 8,
-      "frozen_bn": true,
+      "frozen_bn": false,
       "experiment91": {
-        "version": "single-r50-public-v2-fixed-9010-v1",
+        "version": "single-tiny1k-6166b761-fixed-9010-v1",
+        "candidate": {
+          "id": "r92-convnext-tiny-imagenet1k-9010",
+          "experiment_order": 2,
+          "model": "convnext_tiny",
+          "public_revision": "6166b7613034066690a621d8bf25ffdf181a34f0",
+          "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+          "features": 768,
+          "final_norm_eps": 1e-12,
+          "internal_norm_eps": 1e-06,
+          "batch_norm_modules": 0,
+          "batch_norm_buffers": 0,
+          "attention_pool": null,
+          "weight_sha256": "d1b2c3bdd577641ff1183253c43c8c835be373d809777957ef8f569a4c303f47",
+          "provenance_sha256": "a26704436878d4bc4654a62c711c8faa4cceb65eb77aeacfc66d7ac9419d7daf",
+          "stochastic_depth": 0.1,
+          "head_initialization": "torch.nn.Linear_native",
+          "head_lr_scope": "last_linear"
+        },
         "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
         "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
         "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
@@ -117,19 +135,20 @@
         "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
         "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
         "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
-        "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
+        "ema_sha256": "148337336f51e41bcf10d962fcb7bd7dbd64b5085e77a0b85d5fba4906d8bcfc",
         "source_identity": {
           "schema_version": 1,
           "train_count": 51396,
           "train_csv_sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
           "train_rows_sha256": "ff1381f001cefb974d8ba4904a1eb3913da82ed660ca1eb5b43c763e9c92ef7a"
         }
-      }
+      },
+      "final_norm_eps": 1e-12
     }
   ],
   "mode": "train",
-  "output_root": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R91-R50-IMAGENETV2-9010/outputs",
+  "output_root": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010/outputs",
   "resume": false,
-  "run_name": "r91-4c-r50v2-s20261027-b64-p8-fp32-fixedbn-9010",
+  "run_name": "r92-4c-tiny1k-s20261027-b64-p8-fp32-9010",
   "schema_version": 1
 }

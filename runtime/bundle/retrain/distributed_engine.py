@@ -375,6 +375,11 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         nonlocal last_save,last_saved_attempt,selection,ema_rank_proof
         save_started=time.monotonic()
         validate_model(base,job)
+        candidate_normalization=None
+        if job.get('experiment91') is not None:
+            from .experiment91 import describe_model
+            candidate_normalization=describe_model(base)
+            if ema and describe_model(ema.model)!=candidate_normalization:raise ValueError('Tiny online/EMA actual structure differs')
         n05_bn_proofs=None
         if n05_bn_initial is not None:
             if job.get('model')=='resnet50_imagenet':
@@ -395,6 +400,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 value=tensor.detach().cpu().contiguous()
                 digest.update(name.encode()+str(value.dtype).encode()+str(tuple(value.shape)).encode()+value.numpy().tobytes())
             attention_initial={}
+            if candidate_normalization is not None:attention_initial['candidate_normalization']=candidate_normalization
             if job.get('attention_pool') is not None:
                 from .attention_pool import describe
                 attention_initial['attention_pool']=describe(base,optimizer)
@@ -423,6 +429,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if ema:
                 payload.update(ema=ema.state_dict(),ema_best_metrics=ema_best,ema_last_metrics=ema_last,
                                ema_rank_proof=ema_rank_proof,evaluation_transaction='both_variants_committed' if evaluated==successful//steps else 'pending_pair')
+            if candidate_normalization is not None:payload['candidate_normalization']=candidate_normalization
             if n05_bn_proofs is not None:payload['frozen_bn_proofs']=n05_bn_proofs
             if stage_spec:payload.update(stage=copy.deepcopy(stage_spec),overflow_window=overflow_guard.state())
             if fresh_spec:

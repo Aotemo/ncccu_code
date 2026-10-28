@@ -9,7 +9,7 @@
 | 模型 | 状态 | 内部 dev AUROC | 官方 AUROC |
 | --- | --- | --- | --- |
 | R91 ResNet50 ImageNet1K V2 | 已完成，未达目标 | 0.9732399267421321 | 0.9746659041823744 |
-| R92 ConvNeXt Tiny ImageNet1K | 按既定流程串行接续 | 待结果 | 待结果 |
+| R92 ConvNeXt Tiny ImageNet1K | 已通过初始化门，训练中 | 待完整结果 | 待结果 |
 | ConvNeXt Tiny ImageNet22K→1K | 后续候选 | 待运行 | 待运行 |
 
 固定 fit 46256、dev 5140；每周期 800 成功更新，共 8 周期；warmup 与 EMA warmcopy 均为 1600 更新。官方集不参与训练、年龄统计、早停、难例挖掘或 checkpoint 选择。
@@ -19,7 +19,8 @@
 - `runtime/`：当前服务器部署包的训练、推理、模型、EMA、指标、配置和独占运行入口。R91 基线导入后在同一路径接续 R92，通过 Git 历史记录差异。
 - `tools/data-contract/`：固定划分和年龄合同的生成、验证源码；已冻结的数据不重新生成。
 - `tools/activation/`：对应实验的历史正式绑定入口，含固定服务器路径，保留原件供追溯。
-- `tools/observe_run.py`：对应实验的只读观察入口。
+- `tools/observer/`：对应实验的只读观察模板及绑定入口。
+- `tools/validation/`：当前候选的必要服务器 CPU 检查源码。
 - `tools/storage/`：指定 Pod 内使用的存储盘点与清理工具。
 - `records/`：必要的包清单、来源身份、汇总指标与最终回执；不包含样本级数据和模型大文件。
 - `docs/`：源码同步、部署与存储保留规则。

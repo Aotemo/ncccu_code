@@ -112,11 +112,14 @@ def freeze_training(folder, destination, *, technical_fixture=False):
     if canonical_digest(sources) != payload['identity']['source_digest']:
         raise ValueError('evaluation bundle differs from trained source')
     bn = {n: t for n, t in state.items() if n.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
+    if bn:
+        raise ValueError('Tiny freeze contains BN running buffers')
+    ex.validate_normalization(payload['candidate_normalization'])
     value = {'format': 'single-model-9010-official-freeze-v1', 'experiment91': ex.binding(),
-        'cpu_fixture_only': technical_fixture, 'experiment_order': 1,
+        'cpu_fixture_only': technical_fixture, 'experiment_order': ex.candidate()['experiment_order'],
         'round_id': payload['identity'].get('round_id', folder.parent.name),
         'precision': 'fp32', 'view': 'identity', 'geometry': {'image_size': 512, 'prepared_size': 512},
-        'fixed_bn_sha256': tensor_digest(bn), 'initialization': payload['identity']['initialization'],
+        'candidate_normalization': payload['candidate_normalization'], 'buffer_sha256': tensor_digest(bn), 'initialization': payload['identity']['initialization'],
         'selection_rule': ['error_twice_ascending', 'AP_descending', 'successful_update_ascending', 'EMA_priority'],
         'dev_entries': entries, 'selected': selected, 'checkpoint': str(path.resolve()), 'blob_sha256': record['sha256'],
         'variant': selected['variant'], 'tensor_sha256': tensor_digest(state), 'job': payload['job'],
@@ -133,7 +136,7 @@ def validate_freeze(path, *, allow_fixture=False):
     if value.get('cpu_fixture_only') and not allow_fixture:
         raise ValueError('CPU fixture is barred from official evaluation')
     if (value.get('format') != 'single-model-9010-official-freeze-v1' or value.get('experiment91') != ex.binding()
-            or value.get('precision') != 'fp32' or value.get('view') != 'identity' or value.get('experiment_order') != 1
+            or value.get('precision') != 'fp32' or value.get('view') != 'identity' or value.get('experiment_order') != ex.candidate()['experiment_order']
             or value.get('geometry') != {'image_size': 512, 'prepared_size': 512}
             or value.get('initialization') != value['identity']['initialization']
             or value.get('official_evaluations_allowed') != 1 or value.get('official_metadata_used_for_selection') is not False
@@ -143,6 +146,9 @@ def validate_freeze(path, *, allow_fixture=False):
             or value.get('normalization') != 'imagenet'):
         raise ValueError('unique single-model freeze differs')
     ex.validate_runtime(value['identity'], value['job'], fresh=value.get('fresh'))
+    ex.validate_normalization(value.get('candidate_normalization', {}))
+    if value.get('buffer_sha256') != value['candidate_normalization']['buffer_sha256']:
+        raise ValueError('Tiny frozen empty-buffer identity differs')
     if (value['source_digest'] != value['identity']['source_digest']
             or canonical_digest(value['source_files']) != value['source_digest']
             or sha256_file(value['checkpoint']) != value['blob_sha256']):
@@ -163,7 +169,8 @@ def validate_frozen_checkpoint(value, payload, actual):
     if (payload['job'] != value['job'] or payload['identity'] != value['identity']
             or payload['successful_updates'] != value['selected']['successful_updates']
             or actual.get('variant') != value['variant'] or actual.get('tensor_sha256') != value['tensor_sha256']
-            or tensor_digest(bn) != value['fixed_bn_sha256'] or len(bn) != 159):
+            or tensor_digest(bn) != value['buffer_sha256'] or bn
+            or payload['candidate_normalization'] != value['candidate_normalization']):
         raise ValueError('actual loaded variant/source/data/BN differs from freeze')
 
 
@@ -176,8 +183,8 @@ def load_frozen_model(path, device='cpu', *, allow_fixture=False):
             or origin.get('tensor_sha256') != value['tensor_sha256'] or tensor_digest(model.state_dict()) != value['tensor_sha256']):
         raise ValueError('actual strict reload variant/tensor differs from frozen single model')
     bn = {n: t for n, t in model.state_dict().items() if n.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
-    if tensor_digest(bn) != value['fixed_bn_sha256'] or len(bn) != 159:
-        raise ValueError('strict reload fixed BN identity differs')
+    if bn or tensor_digest(bn) != value['buffer_sha256'] or ex.describe_model(model) != value['candidate_normalization']:
+        raise ValueError('strict reload Tiny noBN/LN identity differs')
     return model, job, origin, selected_device
 
 

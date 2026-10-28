@@ -36,6 +36,7 @@ def validate_state(state,reference,successful,rule=None):
   raise ValueError('EMA rule / successful count missing or incompatible')
  tensors=state['model']
  if not isinstance(tensors,dict) or tensors.keys()!=reference.keys():raise ValueError('EMA tensor keys differ')
+ if rule.get('batch_norm_buffers')==0 and any(n.endswith(('.running_mean','.running_var','.num_batches_tracked')) for n in reference):raise ValueError('Tiny noBN EMA state contains BN buffers')
  fixed={name for name in reference if name.endswith(('.running_mean','.running_var','.num_batches_tracked'))} if rule.get('frozen_bn_buffers')=='copy' else set()
  if rule.get('frozen_bn_buffers')=='copy' and len(fixed)!=159:raise ValueError('EMA fixed BN buffers missing')
  for name,value in tensors.items():
@@ -72,6 +73,7 @@ class EMA:
   source=online.state_dict();target=self.model.state_dict()
   if source.keys()!=target.keys():raise ValueError('EMA live keys differ')
   fixed=set()
+  if self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):raise ValueError('Tiny noBN EMA live buffers differ')
   if self.rule.get('frozen_bn_buffers')=='copy':
    from .imagenet_resnet import ImageNetResnetBinary
    if isinstance(online,ImageNetResnetBinary):
@@ -120,7 +122,7 @@ def commit_pair(state,pair,cycle,successful,job):
  out=copy.deepcopy(state);improved={}
  for variant,prefix in (('online',''),('ema','ema_')):
   metric=pair[variant];key=prefix+'best_metrics';old=state[key]
-  if job.get('model') in ('flair_resnet50','resnet50_imagenet'):
+  if job.get('experiment91') is not None or job.get('model') in ('flair_resnet50','resnet50_imagenet'):
    from .n05_metrics import improved as exact_improved
    improved[variant]=exact_improved({**metric,'successful_updates':successful},old)
   else:

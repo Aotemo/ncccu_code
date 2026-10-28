@@ -166,12 +166,12 @@ def evaluate(model, rows, indices, data_root, job, device, ctx, output_csv=None,
         try:
             predictions = canonical_predictions(rows, indices, packets, width, ctx.world_size)
             metrics = engine.prediction_metrics(predictions) if metrics_enabled else {'count': len(predictions)}
-            if metrics_enabled and job.get('model') in ('flair_resnet50','resnet50_imagenet'):
+            if metrics_enabled and (job.get('experiment91') is not None or job.get('model') in ('flair_resnet50','resnet50_imagenet')):
                 from .n05_metrics import metrics as exact_metrics
                 metrics.update(exact_metrics(predictions))
             if output_csv is not None:
                 engine._write_predictions(output_csv, predictions)
-                if (job.get('model') in ('flair_resnet50','resnet50_imagenet') and isinstance(state_identity,dict)
+                if ((job.get('experiment91') is not None or job.get('model') in ('flair_resnet50','resnet50_imagenet')) and isinstance(state_identity,dict)
                         and 'successful_updates' in state_identity and 'attempted_updates' in state_identity):
                     from .persistence import sha256_file
                     metrics.update(prediction_sha256=sha256_file(output_csv),

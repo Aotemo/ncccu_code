@@ -1,6 +1,6 @@
 import glob,hashlib,json,os,re,shutil,stat,time
 from pathlib import Path
-from r91_initial_gate import verify_records as verify_fresh_initial_identity, maybe_release
+from r92_initial_gate import verify_records as verify_fresh_initial_identity, maybe_release
 ROOT=Path(__file__).resolve().parent
 CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
 PCIS={'0000:09:00.0','0000:77:00.0','0000:85:00.0','0000:f5:00.0'}
@@ -24,8 +24,8 @@ def verify_bound():
  if sha(read(ROOT/'TRAIN_CONFIG.json')['jobs'][0]['initialization']['path'])!=binding['public_weight_sha256']:raise ValueError('public weight changed')
  return binding
 
-ROUND='r91-r50-imagenetv2-9010-20261028'
-SOURCE='76cb37a6cd69238d6269c02e019c79a3349b58fad017f9a71eca867dba624b01'
+ROUND='r92-tiny1k-9010-20261028'
+SOURCE='57ef83209692eb79e682e04e2b3fe7a060225856f673505ab67396080216d51e'
 def device_users_before_start():
     users=[];denied=0
     for path in glob.glob('/proc/[0-9]*'):

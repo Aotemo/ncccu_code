@@ -1,0 +1,9 @@
+{
+  "version": "ema-warmcopy1600-decay0999-nobn-v1",
+  "warmcopy_updates": 1600,
+  "decay": 0.999,
+  "dtype": "torch.float32",
+  "floating_buffers": "same_as_parameters",
+  "integer_buffers": "copy",
+  "batch_norm_buffers": 0
+}
