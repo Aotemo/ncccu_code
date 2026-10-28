@@ -1,0 +1,14 @@
+{
+  "round_id": "r91-r50-imagenetv2-9010-20261028",
+  "status": "DRAFT_FOR_ROUTED_ACTIVATION",
+  "total_seconds": 7200,
+  "binding_seconds": 1800,
+  "train_hard_seconds": 3600,
+  "train_hard_formula": "min(S_train+train_hard_seconds,D-1200)",
+  "freeze_hard_seconds": 300,
+  "official_hard_seconds": 600,
+  "cleanup_seconds": 150,
+  "native_soft_margin_seconds": 150,
+  "new_probe": false,
+  "clock_reset_allowed": false
+}

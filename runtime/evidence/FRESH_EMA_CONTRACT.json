@@ -1,0 +1,13 @@
+{
+  "rule": {
+    "version": "ema-warmcopy1600-decay0999-frozenbn-v1",
+    "warmcopy_updates": 1600,
+    "decay": 0.999,
+    "dtype": "torch.float32",
+    "floating_buffers": "same_as_parameters_except_frozen_bn",
+    "integer_buffers": "copy",
+    "frozen_bn_buffers": "copy"
+  },
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage1-20261028-attempt1/result/EMA-R50.json",
+  "sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9"
+}

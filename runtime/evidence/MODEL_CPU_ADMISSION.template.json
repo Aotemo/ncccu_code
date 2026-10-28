@@ -1,0 +1,640 @@
+{
+  "status": "completed",
+  "formal_train_config_sha256": null,
+  "gpu_initialized": false,
+  "checks": [
+    {
+      "group": "environment_and_deployment",
+      "name": "uploaded_source_SHA_matches",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "environment_and_deployment",
+      "name": "derived_bundle_SHA_matches",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "actual_9010_fresh_contract",
+      "passed": true,
+      "actual": {
+        "binding": {
+          "version": "single-r50-public-v2-fixed-9010-v1",
+          "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
+          "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+          "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
+          "fit_indices_sha256": "82da87177456d5cec5070fee459dcd3c0fe7ff464e1a38904624efa9faa57c62",
+          "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
+          "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
+          "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
+          "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
+          "source_identity": {
+            "schema_version": 1,
+            "train_count": 51396,
+            "train_csv_sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
+            "train_rows_sha256": "ff1381f001cefb974d8ba4904a1eb3913da82ed660ca1eb5b43c763e9c92ef7a"
+          }
+        },
+        "schedule": {
+          "steps_per_cycle": 800,
+          "total_updates": 6400,
+          "warmup_updates": 1600,
+          "stop_after_updates": 6400
+        },
+        "per_rank_batch": 16,
+        "world_size": 4
+      }
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "wrong_age_rejected",
+      "passed": true,
+      "actual": {
+        "error": "single R50 9:1 scientific/age/source contract differs"
+      }
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "wrong_split_rejected",
+      "passed": true,
+      "actual": {
+        "error": "9:1 runtime source/job/manifest identity differs"
+      }
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "ordinary_avgpool_noq_162_parameters",
+      "passed": true,
+      "actual": {
+        "trainable_tensors": 162,
+        "sizes": {
+          "backbone": 23508032,
+          "head": 2049,
+          "age": 2
+        }
+      }
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "new_age_fresh_zero_and_bn",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "empty_Adam_exact_unique_parameter_membership",
+      "passed": true,
+      "actual": [
+        {
+          "role": "backbone",
+          "lr": 2e-05,
+          "initial_lr": 2e-05,
+          "weight_decay": 0.0,
+          "parameters": [
+            "backbone.bn1.weight",
+            "backbone.bn1.bias",
+            "backbone.layer1.0.bn1.weight",
+            "backbone.layer1.0.bn1.bias",
+            "backbone.layer1.0.bn2.weight",
+            "backbone.layer1.0.bn2.bias",
+            "backbone.layer1.0.bn3.weight",
+            "backbone.layer1.0.bn3.bias",
+            "backbone.layer1.0.downsample.1.weight",
+            "backbone.layer1.0.downsample.1.bias",
+            "backbone.layer1.1.bn1.weight",
+            "backbone.layer1.1.bn1.bias",
+            "backbone.layer1.1.bn2.weight",
+            "backbone.layer1.1.bn2.bias",
+            "backbone.layer1.1.bn3.weight",
+            "backbone.layer1.1.bn3.bias",
+            "backbone.layer1.2.bn1.weight",
+            "backbone.layer1.2.bn1.bias",
+            "backbone.layer1.2.bn2.weight",
+            "backbone.layer1.2.bn2.bias",
+            "backbone.layer1.2.bn3.weight",
+            "backbone.layer1.2.bn3.bias",
+            "backbone.layer2.0.bn1.weight",
+            "backbone.layer2.0.bn1.bias",
+            "backbone.layer2.0.bn2.weight",
+            "backbone.layer2.0.bn2.bias",
+            "backbone.layer2.0.bn3.weight",
+            "backbone.layer2.0.bn3.bias",
+            "backbone.layer2.0.downsample.1.weight",
+            "backbone.layer2.0.downsample.1.bias",
+            "backbone.layer2.1.bn1.weight",
+            "backbone.layer2.1.bn1.bias",
+            "backbone.layer2.1.bn2.weight",
+            "backbone.layer2.1.bn2.bias",
+            "backbone.layer2.1.bn3.weight",
+            "backbone.layer2.1.bn3.bias",
+            "backbone.layer2.2.bn1.weight",
+            "backbone.layer2.2.bn1.bias",
+            "backbone.layer2.2.bn2.weight",
+            "backbone.layer2.2.bn2.bias",
+            "backbone.layer2.2.bn3.weight",
+            "backbone.layer2.2.bn3.bias",
+            "backbone.layer2.3.bn1.weight",
+            "backbone.layer2.3.bn1.bias",
+            "backbone.layer2.3.bn2.weight",
+            "backbone.layer2.3.bn2.bias",
+            "backbone.layer2.3.bn3.weight",
+            "backbone.layer2.3.bn3.bias",
+            "backbone.layer3.0.bn1.weight",
+            "backbone.layer3.0.bn1.bias",
+            "backbone.layer3.0.bn2.weight",
+            "backbone.layer3.0.bn2.bias",
+            "backbone.layer3.0.bn3.weight",
+            "backbone.layer3.0.bn3.bias",
+            "backbone.layer3.0.downsample.1.weight",
+            "backbone.layer3.0.downsample.1.bias",
+            "backbone.layer3.1.bn1.weight",
+            "backbone.layer3.1.bn1.bias",
+            "backbone.layer3.1.bn2.weight",
+            "backbone.layer3.1.bn2.bias",
+            "backbone.layer3.1.bn3.weight",
+            "backbone.layer3.1.bn3.bias",
+            "backbone.layer3.2.bn1.weight",
+            "backbone.layer3.2.bn1.bias",
+            "backbone.layer3.2.bn2.weight",
+            "backbone.layer3.2.bn2.bias",
+            "backbone.layer3.2.bn3.weight",
+            "backbone.layer3.2.bn3.bias",
+            "backbone.layer3.3.bn1.weight",
+            "backbone.layer3.3.bn1.bias",
+            "backbone.layer3.3.bn2.weight",
+            "backbone.layer3.3.bn2.bias",
+            "backbone.layer3.3.bn3.weight",
+            "backbone.layer3.3.bn3.bias",
+            "backbone.layer3.4.bn1.weight",
+            "backbone.layer3.4.bn1.bias",
+            "backbone.layer3.4.bn2.weight",
+            "backbone.layer3.4.bn2.bias",
+            "backbone.layer3.4.bn3.weight",
+            "backbone.layer3.4.bn3.bias",
+            "backbone.layer3.5.bn1.weight",
+            "backbone.layer3.5.bn1.bias",
+            "backbone.layer3.5.bn2.weight",
+            "backbone.layer3.5.bn2.bias",
+            "backbone.layer3.5.bn3.weight",
+            "backbone.layer3.5.bn3.bias",
+            "backbone.layer4.0.bn1.weight",
+            "backbone.layer4.0.bn1.bias",
+            "backbone.layer4.0.bn2.weight",
+            "backbone.layer4.0.bn2.bias",
+            "backbone.layer4.0.bn3.weight",
+            "backbone.layer4.0.bn3.bias",
+            "backbone.layer4.0.downsample.1.weight",
+            "backbone.layer4.0.downsample.1.bias",
+            "backbone.layer4.1.bn1.weight",
+            "backbone.layer4.1.bn1.bias",
+            "backbone.layer4.1.bn2.weight",
+            "backbone.layer4.1.bn2.bias",
+            "backbone.layer4.1.bn3.weight",
+            "backbone.layer4.1.bn3.bias",
+            "backbone.layer4.2.bn1.weight",
+            "backbone.layer4.2.bn1.bias",
+            "backbone.layer4.2.bn2.weight",
+            "backbone.layer4.2.bn2.bias",
+            "backbone.layer4.2.bn3.weight",
+            "backbone.layer4.2.bn3.bias"
+          ],
+          "numel": 53120
+        },
+        {
+          "role": "backbone",
+          "lr": 2e-05,
+          "initial_lr": 2e-05,
+          "weight_decay": 0.0001,
+          "parameters": [
+            "backbone.conv1.weight",
+            "backbone.layer1.0.conv1.weight",
+            "backbone.layer1.0.conv2.weight",
+            "backbone.layer1.0.conv3.weight",
+            "backbone.layer1.0.downsample.0.weight",
+            "backbone.layer1.1.conv1.weight",
+            "backbone.layer1.1.conv2.weight",
+            "backbone.layer1.1.conv3.weight",
+            "backbone.layer1.2.conv1.weight",
+            "backbone.layer1.2.conv2.weight",
+            "backbone.layer1.2.conv3.weight",
+            "backbone.layer2.0.conv1.weight",
+            "backbone.layer2.0.conv2.weight",
+            "backbone.layer2.0.conv3.weight",
+            "backbone.layer2.0.downsample.0.weight",
+            "backbone.layer2.1.conv1.weight",
+            "backbone.layer2.1.conv2.weight",
+            "backbone.layer2.1.conv3.weight",
+            "backbone.layer2.2.conv1.weight",
+            "backbone.layer2.2.conv2.weight",
+            "backbone.layer2.2.conv3.weight",
+            "backbone.layer2.3.conv1.weight",
+            "backbone.layer2.3.conv2.weight",
+            "backbone.layer2.3.conv3.weight",
+            "backbone.layer3.0.conv1.weight",
+            "backbone.layer3.0.conv2.weight",
+            "backbone.layer3.0.conv3.weight",
+            "backbone.layer3.0.downsample.0.weight",
+            "backbone.layer3.1.conv1.weight",
+            "backbone.layer3.1.conv2.weight",
+            "backbone.layer3.1.conv3.weight",
+            "backbone.layer3.2.conv1.weight",
+            "backbone.layer3.2.conv2.weight",
+            "backbone.layer3.2.conv3.weight",
+            "backbone.layer3.3.conv1.weight",
+            "backbone.layer3.3.conv2.weight",
+            "backbone.layer3.3.conv3.weight",
+            "backbone.layer3.4.conv1.weight",
+            "backbone.layer3.4.conv2.weight",
+            "backbone.layer3.4.conv3.weight",
+            "backbone.layer3.5.conv1.weight",
+            "backbone.layer3.5.conv2.weight",
+            "backbone.layer3.5.conv3.weight",
+            "backbone.layer4.0.conv1.weight",
+            "backbone.layer4.0.conv2.weight",
+            "backbone.layer4.0.conv3.weight",
+            "backbone.layer4.0.downsample.0.weight",
+            "backbone.layer4.1.conv1.weight",
+            "backbone.layer4.1.conv2.weight",
+            "backbone.layer4.1.conv3.weight",
+            "backbone.layer4.2.conv1.weight",
+            "backbone.layer4.2.conv2.weight",
+            "backbone.layer4.2.conv3.weight"
+          ],
+          "numel": 23454912
+        },
+        {
+          "role": "head",
+          "lr": 0.001,
+          "initial_lr": 0.001,
+          "weight_decay": 0.0,
+          "parameters": [
+            "classifier.1.bias"
+          ],
+          "numel": 1
+        },
+        {
+          "role": "head",
+          "lr": 0.001,
+          "initial_lr": 0.001,
+          "weight_decay": 0.0001,
+          "parameters": [
+            "classifier.1.weight"
+          ],
+          "numel": 2048
+        },
+        {
+          "role": "age",
+          "lr": 0.001,
+          "initial_lr": 0.001,
+          "weight_decay": 0.0001,
+          "parameters": [
+            "age_weight"
+          ],
+          "numel": 2
+        }
+      ]
+    },
+    {
+      "group": "1_fresh_contract_parameters_checkpoint",
+      "name": "fresh_online_ema_identical_and_ema_not_in_optimizer",
+      "passed": true,
+      "actual": {
+        "initial_tensor_sha256": "b88683d2cd788e74127e86225bed1cbbbec2fbe3baa56e3b172a33b8ef92ea96",
+        "initial_bn_sha256": "21b9ef124340ced1d13ffe0ea1ef8214f800c05ea0f7bdb9572f06d26475b210"
+      }
+    },
+    {
+      "group": "2_EMA1600_1601_fixed_BN",
+      "name": "dynamic_S_2S_8S_and_native_LR_boundaries",
+      "passed": true,
+      "actual": {
+        "schedule": {
+          "steps_per_cycle": 800,
+          "total_updates": 6400,
+          "warmup_updates": 1600,
+          "stop_after_updates": 6400
+        },
+        "factors": [
+          0.000625,
+          1.0,
+          1.0,
+          0.01
+        ]
+      }
+    },
+    {
+      "group": "2_EMA1600_1601_fixed_BN",
+      "name": "one_real_CPU_backward_update_preserves_all_public_BN",
+      "passed": true,
+      "actual": {
+        "synthetic_batch": 1,
+        "image_size": 512,
+        "real_CPU_optimizer_updates": 1,
+        "not_training_progress": true
+      }
+    },
+    {
+      "group": "2_EMA1600_1601_fixed_BN",
+      "name": "1600_copy_boundary",
+      "passed": true,
+      "actual": {
+        "seeded_cursor": 1599,
+        "actual_EMA_updates_in_test": 1
+      }
+    },
+    {
+      "group": "2_EMA1600_1601_fixed_BN",
+      "name": "1601_blend_and_159BN_always_copy",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "2_EMA1600_1601_fixed_BN",
+      "name": "skip_does_not_advance_or_mutate_EMA",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "2_EMA1600_1601_fixed_BN",
+      "name": "state_validator_rejects_BN_drift",
+      "passed": true,
+      "actual": {
+        "error": "EMA frozen BN buffer differs backbone.bn1.num_batches_tracked"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "all16_full5140_fixture_selection_and_exact_variant",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "tie_break_update_then_EMA",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "selector_rejects_missing",
+      "passed": true,
+      "actual": {
+        "error": "all 16 internal dev readouts required"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "selector_rejects_duplicate",
+      "passed": true,
+      "actual": {
+        "error": "dev readout coverage/progress/metric identity differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "selector_rejects_update",
+      "passed": true,
+      "actual": {
+        "error": "dev readout coverage/progress/metric identity differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "selector_rejects_nonfinite",
+      "passed": true,
+      "actual": {
+        "error": "dev readout coverage/progress/metric identity differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "actual_checkpoint_strict_reload_frozen_EMA_tensor_age_contract",
+      "passed": true,
+      "actual": {
+        "checkpoint": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/CPU-FIXTURE-NOT-FOR-TRAINING/checkpoints/checkpoint-4f6810840d274415bbaabdc004821a95.pt",
+        "blob_sha256": "f9c1b54e299f0c68cb7c0be80ea258302b94968e1627f52e63173032ef9d007f",
+        "actual": {
+          "variant": "ema",
+          "tensor_sha256": "459e1407e6eaaa3955c1e527f52117f690776b1ec1e35cad436cb6d784b964aa"
+        },
+        "fixture_seeded_successful_updates": 2400,
+        "real_CPU_optimizer_updates": 1,
+        "real_EMA_boundary_updates": 2,
+        "actual_forward_output": [
+          -0.007000837009400129
+        ]
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_blob",
+      "passed": true,
+      "actual": {
+        "error": "frozen source/checkpoint blob differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_tensor",
+      "passed": true,
+      "actual": {
+        "error": "unique single-model freeze differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_variant",
+      "passed": true,
+      "actual": {
+        "error": "unique single-model freeze differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_source",
+      "passed": true,
+      "actual": {
+        "error": "frozen source/checkpoint blob differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_split",
+      "passed": true,
+      "actual": {
+        "error": "unique single-model freeze differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_age",
+      "passed": true,
+      "actual": {
+        "error": "single R50 9:1 scientific/age/source contract differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_pre_read_rejects_normalization",
+      "passed": true,
+      "actual": {
+        "error": "unique single-model freeze differs"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "once_guard_rejects_second_output_directory",
+      "passed": true,
+      "actual": {
+        "error": "[Errno 17] File exists: '/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/CPU-FIXTURE-NOT-FOR-TRAINING/OFFICIAL-ONCE.json'"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "CPU_fixture_barred_from_production_official_entry",
+      "passed": true,
+      "actual": {
+        "error": "CPU fixture is barred from official evaluation"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "CPU_fixture_barred_from_production_selection",
+      "passed": true,
+      "actual": {
+        "error": "CPU fixture cannot become a production selection"
+      }
+    },
+    {
+      "group": "3_selection_freeze_official_guard",
+      "name": "official_boundary_identity_FP32_rawlogit",
+      "passed": true,
+      "actual": {
+        "evaluator_object": {
+          "variant": "ema",
+          "tensor_sha256": "459e1407e6eaaa3955c1e527f52117f690776b1ec1e35cad436cb6d784b964aa"
+        },
+        "official_forward_calls": 0,
+        "official_metadata_reads": 0
+      }
+    },
+    {
+      "group": "budget_draft",
+      "name": "GPU_not_initialized_and_no_formal_clock",
+      "passed": true,
+      "actual": null
+    }
+  ],
+  "source_digest": "76cb37a6cd69238d6269c02e019c79a3349b58fad017f9a71eca867dba624b01",
+  "job_contract": {
+    "name": "resnet50-imagenet",
+    "model": "resnet50_imagenet",
+    "seed": 20261027,
+    "image_size": 512,
+    "physical_batch": 16,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 8,
+    "warmup_cycles": 2,
+    "min_cycles": 8,
+    "patience": 8,
+    "min_delta": 0.0005,
+    "backbone_lr": 2e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.0,
+    "normalization": "imagenet",
+    "prepared_size": 512,
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "age": {
+      "enabled": true,
+      "contract": {
+        "version": "age-linear-v1",
+        "field": "age",
+        "unit_convention": "years_not_independently_documented",
+        "valid_min_exclusive": 0,
+        "valid_max_inclusive": 120,
+        "features": [
+          "standardized_age",
+          "missing_indicator"
+        ],
+        "fit_count": 46256,
+        "valid_fit_count": 46243,
+        "missing_fit_count": 13,
+        "median": 57.0,
+        "mean": 56.743204376878666,
+        "population_std": 10.190648068012752,
+        "fit_indices_sha256": "82da87177456d5cec5070fee459dcd3c0fe7ff464e1a38904624efa9faa57c62",
+        "fit_rows_identity_sha256": "e0b5030d89d50e2aa5d3040ded0a7760516012b4ab3166b3f47ddafde38f42c4",
+        "source_identity": {
+          "schema_version": 1,
+          "train_count": 51396,
+          "train_csv_sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
+          "train_rows_sha256": "ff1381f001cefb974d8ba4904a1eb3913da82ed660ca1eb5b43c763e9c92ef7a"
+        },
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "parameter_count": 2,
+        "bias": false
+      },
+      "contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82"
+    },
+    "mixup": null,
+    "attention_pool": null,
+    "stop_after_cycles": 0,
+    "initialization": {
+      "kind": "imagenet",
+      "format": "torchvision-1000-state-dict-v1",
+      "sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca"
+    },
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "frozen_bn": true,
+    "experiment91": {
+      "version": "single-r50-public-v2-fixed-9010-v1",
+      "freeze_sha256": "90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
+      "fit_indices_sha256": "82da87177456d5cec5070fee459dcd3c0fe7ff464e1a38904624efa9faa57c62",
+      "dev_indices_sha256": "c466b35ba9c4516a7343a1c9b571c21597e46f9a3c2c53541026bfa96aea1c63",
+      "age_contract_sha256": "325b47f8898b35e22ec9b1bb061e506e0af4baf47dce4f6c1250024428666d82",
+      "schedule_sha256": "5ec732efe02b9bacda45440a00a784d4177e8dbbcc4399b85c47da996b1d50b9",
+      "ema_sha256": "6512e18e7331c7ae0e7016825705df9a85ec875fac8818b6c992c351a47bcda9",
+      "source_identity": {
+        "schema_version": 1,
+        "train_count": 51396,
+        "train_csv_sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
+        "train_rows_sha256": "ff1381f001cefb974d8ba4904a1eb3913da82ed660ca1eb5b43c763e9c92ef7a"
+      }
+    }
+  },
+  "topology": {
+    "version": 1,
+    "world_size": 4,
+    "global_effective_batch": 64,
+    "global_positive_quota": 8,
+    "reference_physical_batch": 32,
+    "per_rank_batch": 16,
+    "accumulation": 1,
+    "normalization_group_size": 2,
+    "normalization_policy": "reference-microbatch-sequential-ema-v1",
+    "sampler_policy": "reference-seeds-contiguous-global-shards-v1",
+    "stop_after_updates": 6400
+  },
+  "initial_state_control": {
+    "model_tensor_sha256": "b88683d2cd788e74127e86225bed1cbbbec2fbe3baa56e3b172a33b8ef92ea96",
+    "expected_frozen_bn_sha256": "21b9ef124340ced1d13ffe0ea1ef8214f800c05ea0f7bdb9572f06d26475b210",
+    "optimizer_state_entries": 0,
+    "trainable_tensors": 162,
+    "no_attention_q": true
+  },
+  "original_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/resume9010-A-stage2-20261028-attempt1/result/STAGE2-CPU-RECEIPT.json",
+  "original_receipt_sha256": "f026baa6bf2f9193aaddb9f94bd37053e3173581aeb291811e408ee8379aaa6c",
+  "scope": "existing three CPU groups reused; actual four-rank startup gate remains future",
+  "numerical_rerun": false
+}
