@@ -146,7 +146,7 @@ def build(args):
         initialization={'kind': 'imagenet', 'format': 'torchvision-1000-state-dict-v1',
             'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.WEIGHT_SHA})
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,
-        'run_name': site['round_id'] + '-8c-tiny22k-s20261027-b64-p8-fp32',
+        'run_name': site['round_id'] + f"-8c-tiny22k-s{job['seed']}-b64-p8-fp32",
         'output_root': str(Path(site['round_root']) / 'outputs'),
         'data': {'root': site['data_root'], 'identity_path': site['train_identity'],
             'expected_count': 51396, 'expected_valid_count': 5849, 'verify_images': True,

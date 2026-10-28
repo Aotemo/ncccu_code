@@ -37,6 +37,16 @@ def rejected(name, operation):
         check(name, False)
 
 
+def create_cpu_fresh_model(job):
+    """Use the production seed/precision/factory path for CPU initial identity."""
+    import torch
+    from retrain.engine import _seed
+    from retrain.models import create_model
+    from retrain.precision import RULE, configure
+    configure(RULE); _seed(job['seed'], torch.device('cpu'))
+    return create_model(job, initialize=True)
+
+
 def main(args):
     package, cfg, job, topology, policy, digest = build.build(args)
     from retrain.site_binding import load_site, require_cpu_channel
@@ -45,17 +55,15 @@ def main(args):
     torch.set_num_threads(int(os.environ['NCCCU_CPU_THREADS'])); torch.set_num_interop_threads(1)
     check('CPU_only_before_model', not torch.cuda.is_initialized())
     from retrain import experiment91 as ex
-    from retrain.engine import _seed, _optimizer, _lr_factor
+    from retrain.engine import _optimizer, _lr_factor
     from retrain.ema import EMA, tensor_digest, validate_state
-    from retrain.models import create_model
     from retrain.config import job_contract
     from retrain.fresh import validate_fresh
     from retrain.precision import RULE, configure, runtime_proof
     from retrain.persistence import CheckpointStore, canonical_digest
     sys.path.insert(0, str(package))
     import r92_initial_gate as initial_gate
-    configure(RULE); _seed(job['seed'], torch.device('cpu'))
-    model = create_model(job, initialize=True)
+    model = create_cpu_fresh_model(job)
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     check('public1000_strict_exact_finite_FP32_then_fresh_binary', bool(public)
           and public['all_public_tensors_exact'] and public['all_public_tensors_FP32_finite']

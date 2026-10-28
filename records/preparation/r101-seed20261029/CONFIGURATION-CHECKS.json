@@ -1,0 +1,48 @@
+{
+  "scope": "R101_seed_identity_configuration_and_measured_initial_control",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 10,
+  "failures": 0,
+  "errors": 0,
+  "single_scientific_delta": {
+    "job.seed": {
+      "before": 20261027,
+      "after": 20261029
+    }
+  },
+  "new_initial_model_tensor_sha256": "18313b8b6d240b080eef7af214b41306b83a347135a2b7f5958addafc79877dd",
+  "initial_control_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r101-seed20261029-20261029-a/INITIAL-CONTROL.json",
+    "sha256": "8230b7f50a49804589ce3519341ff5d28b82e4c3dadf6c2fd05884d3f9c8ed0a"
+  },
+  "source_files": {
+    "configs/R101-SCIENCE.json": "2f01bb94c6ae5e8eaa4ff8933e76778e9075a34c592be540ad2202ff8045a35e",
+    "runtime/bundle/retrain/experiment91.py": "d5566b78f2e9dd8b5ecbd9ce83048a98d6f38df9b6c5791b84836c6199d9aa6e",
+    "tools/activation/prepare.py": "97c403dcb8a5be7432d1c566393447bf7d1d76ce5a37f490f01421465db36279",
+    "tools/validation/check_candidate.py": "4a8e020086ecf61bc2987fbecc52e0302a50c900c143cd954a006af086fce0f0",
+    "tests/test_candidate_binding.py": "1ae1b4416add09cfa3e2ff7d73d6c51a9cb45417628ae833d2185d04a41c6e68"
+  },
+  "source_unchanged_during_tests": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "torch_threads": 12,
+  "interop_threads": 1,
+  "GPU_initialized": false,
+  "model_forward": false,
+  "training_updates": 0,
+  "formal_CPU_admission": false
+}

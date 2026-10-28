@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
 TINY22 = {
-    'id': 'r100-convnext-tiny-imagenet22k-to-1k-24k-p4-focal2-9010', 'experiment_order': 10,
+    'id': 'r101-convnext-tiny-imagenet22k-to-1k-24k-p4-seed20261029-9010', 'experiment_order': 11,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -31,9 +31,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R100-SCIENCE.json'
+        self.configuration = root / 'configs/R101-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R100-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R101-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -42,7 +42,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-focal2-v1',
+                     'science': {'binding_version': 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-seed20261029-v1',
                                  'candidate': copy.deepcopy(TINY22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -73,6 +73,7 @@ class CandidateBindingTest(unittest.TestCase):
         with patch.object(experiment, 'metadata', return_value={'AGE.json': job['age']}), \
                 patch.object(experiment, 'binding', return_value=job['experiment91']):
             self.assertEqual(experiment.validate_job(job)['backbone_lr'], 1e-4)
+            self.assertEqual(experiment.validate_job(job)['seed'], science['job']['seed'])
             wrong = copy.deepcopy(job); wrong['backbone_lr'] = 2e-4
             with self.assertRaises(ValueError):
                 experiment.validate_job(wrong)
@@ -120,7 +121,9 @@ class CandidateBindingTest(unittest.TestCase):
         legacy = load_config(configuration, environ={})['jobs'][0]
         self.assertIsNone(legacy.get('loss'))
         self.assertNotIn('loss', job_contract(legacy))
-        loss = experiment.science_configuration()['job']['loss']
+        loss = experiment.science_configuration()['job'].get('loss')
+        if loss is None:
+            return
         raw['jobs'][0]['loss'] = loss
         configuration.write_text(json.dumps(raw))
         current = load_config(configuration, environ={})['jobs'][0]

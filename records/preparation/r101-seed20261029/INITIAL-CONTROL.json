@@ -1,0 +1,324 @@
+{
+  "scope": "CPU_fresh_initial_control_only_not_formal_admission",
+  "seed": 20261029,
+  "run_name": "r101-seed20261029-control-only-20261029-8c-tiny22k-s20261029-b64-p8-fp32",
+  "model_tensor_sha256": "18313b8b6d240b080eef7af214b41306b83a347135a2b7f5958addafc79877dd",
+  "head_tensor_sha256": "3fdfb5eddb758161d8f394ec8ffe10280da2ed4ffcf6f96d1fff8794da7f5da4",
+  "age_zero": true,
+  "EMA_initial_tensor_sha256": "18313b8b6d240b080eef7af214b41306b83a347135a2b7f5958addafc79877dd",
+  "optimizer_state_entries": 0,
+  "public_initialization": {
+    "initialization": {
+      "kind": "imagenet",
+      "weights_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+      "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model": "convnext_tiny",
+      "source_url": "https://huggingface.co/timm/convnext_tiny.fb_in22k_ft_in1k/resolve/bc48a87f119bae1b06418f5340bfa97ef75d4609/pytorch_model.bin",
+      "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+      "format": "torchvision-1000-state-dict-v1",
+      "original_sha256": "8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518",
+      "final_norm_eps": 1e-06
+    },
+    "strict_missing_keys": [],
+    "strict_unexpected_keys": [],
+    "public_tensor_count": 182,
+    "public_tensor_sha256": "1ae073000af09b254df968212acd70023bcfd58694a4566155a4094b76ec832f",
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "all_public_tensors_exact": true,
+    "all_public_tensors_FP32_finite": true
+  },
+  "candidate_normalization": {
+    "candidate": {
+      "id": "r101-convnext-tiny-imagenet22k-to-1k-24k-p4-seed20261029-9010",
+      "experiment_order": 11,
+      "model": "convnext_tiny",
+      "public_revision": "bc48a87f119bae1b06418f5340bfa97ef75d4609",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed",
+      "provenance_sha256": "40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    },
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "layer_norms": [
+      {
+        "name": "network.features.0.1",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.2.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.3.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.3.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.3.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.4.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.5.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.3.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.4.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.5.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.6.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.7.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.8.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.6.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.7.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.features.7.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.features.7.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.classifier.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "head_in_features": 768,
+    "head_out_features": 1,
+    "dropout": 0.2,
+    "stochastic_depth": [
+      {
+        "name": "network.features.1.0.stochastic_depth",
+        "p": 0.0,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.1.1.stochastic_depth",
+        "p": 0.0058823529411764705,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.1.2.stochastic_depth",
+        "p": 0.011764705882352941,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.3.0.stochastic_depth",
+        "p": 0.017647058823529415,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.3.1.stochastic_depth",
+        "p": 0.023529411764705882,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.3.2.stochastic_depth",
+        "p": 0.029411764705882353,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.0.stochastic_depth",
+        "p": 0.03529411764705883,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.1.stochastic_depth",
+        "p": 0.0411764705882353,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.2.stochastic_depth",
+        "p": 0.047058823529411764,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.3.stochastic_depth",
+        "p": 0.052941176470588235,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.4.stochastic_depth",
+        "p": 0.058823529411764705,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.5.stochastic_depth",
+        "p": 0.06470588235294118,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.6.stochastic_depth",
+        "p": 0.07058823529411766,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.7.stochastic_depth",
+        "p": 0.07647058823529412,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.8.stochastic_depth",
+        "p": 0.0823529411764706,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.7.0.stochastic_depth",
+        "p": 0.08823529411764706,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.7.1.stochastic_depth",
+        "p": 0.09411764705882353,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.7.2.stochastic_depth",
+        "p": 0.1,
+        "mode": "row"
+      }
+    ]
+  },
+  "draft_science_sha256": "89dab44764086fa929d151366c9acf60cf7c1cb15fecf28313efaa54f0c6250b",
+  "factory_source_sha256": "4a8e020086ecf61bc2987fbecc52e0302a50c900c143cd954a006af086fce0f0",
+  "wall_seconds": 3.9813146591186523,
+  "model_forward": false,
+  "training_updates": 0,
+  "GPU_initialized": false,
+  "formal_CPU_PREP_created": false,
+  "formal_clock_created": false,
+  "controlled_science_sha256": "2f01bb94c6ae5e8eaa4ff8933e76778e9075a34c592be540ad2202ff8045a35e"
+}
