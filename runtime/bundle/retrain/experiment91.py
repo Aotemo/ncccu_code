@@ -12,8 +12,8 @@ from .site_binding import load_site
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 WEIGHT_SHA = '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed'
 PROVENANCE_SHA = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-head2e3-v1'
-CANDIDATE = {'id': 'r98-convnext-tiny-imagenet22k-to-1k-24k-p4-head2e3-9010', 'experiment_order': 8,
+BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-drop04-v1'
+CANDIDATE = {'id': 'r99-convnext-tiny-imagenet22k-to-1k-24k-p4-drop04-9010', 'experiment_order': 9,
     'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -132,7 +132,7 @@ def validate_job(job):
             'cycles', 'warmup_cycles', 'min_cycles', 'patience', 'min_delta', 'stop_after_cycles')},
         'backbone_lr': configured['backbone_lr'],
         'head_lr': configured['head_lr'], 'weight_decay': 1e-4,
-        'dropout': .2, 'stochastic_depth': .1, 'head_lr_scope': 'last_linear', 'mixup': None,
+        'dropout': configured['dropout'], 'stochastic_depth': .1, 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': False, 'final_norm_eps': candidate()['final_norm_eps']}
     init = job.get('initialization', {})
     site = load_site()
@@ -162,7 +162,8 @@ def describe_model(model):
             or not isinstance(network.avgpool, nn.AdaptiveAvgPool2d)
             or network.avgpool.output_size != 1
             or not isinstance(final, nn.Linear) or (final.in_features, final.out_features) != (768, 1)
-            or not isinstance(network.classifier[-2], nn.Dropout) or network.classifier[-2].p != .2
+            or not isinstance(network.classifier[-2], nn.Dropout)
+            or network.classifier[-2].p != science_configuration()['job']['dropout']
             or any(n == 'attention_pool_weight' or n == 'q' for n, _ in model.named_parameters())
             or not any(n['name'] == 'network.classifier.0' for n in norms)
             or any(n['eps'] != (candidate()['final_norm_eps'] if n['name'] == 'network.classifier.0' else 1e-6) for n in norms)):
@@ -179,7 +180,8 @@ def validate_normalization(value):
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
             or value.get('buffer_count') != 0 or value.get('buffer_sha256') != hashlib.sha256(b'').hexdigest()
-            or value.get('head_in_features') != 768 or value.get('head_out_features') != 1 or value.get('dropout') != .2
+            or value.get('head_in_features') != 768 or value.get('head_out_features') != 1
+            or value.get('dropout') != science_configuration()['job']['dropout']
             or not norms or len({n['name'] for n in norms}) != len(norms)
             or not any(n['name'] == 'network.classifier.0' for n in norms)
             or any(n['eps'] != (candidate()['final_norm_eps'] if n['name'] == 'network.classifier.0' else 1e-6) for n in norms)
