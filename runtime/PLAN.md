@@ -1,5 +1,7 @@
 # R102：ConvNeXt Small22K，最多24000步与连续4轮无提升早停，固定9:1
 
+R103继续下述Small合同，直接对照R102仅将训练seed改为预先固定的20261029；实际入口显式选择`configs/R103-SCIENCE.json`及其新profile/candidate，以下R102的seed20261027是原对照，不适用于R103。其余科学值、资产、工程预算和真实初态/一次性流程不变；新seed整体tensor控制必须重新实测，不能复用R102或Tiny的控制。精确身份见R103配置及`todo/auroc-999/R103-DECISION.md`。
+
 本规格随源码维护；实际Pod、Git commit、路径、CPU分配、clock/token只由当次显式绑定产生。`configs/R102-SCIENCE.json`保存本轮明确科学合同，prepare/check_candidate显式传入此配置，site固定其绝对路径和SHA，package保留相同bytes的SCIENCE.json。消费者读取配置中的科学值。历史运行与冻结包均不改。新fresh运行不增加独立GPU预演前置，由真实训练八rank初态、参数组、空Adam与资源校验接管；保留实际Git冻结、实时身份/独占GPU、一次activation和官方一次。
 
 本轮直接对照预登记R95/BCE/seed20261027，仅成对更换架构和对应公开checkpoint为Small22K，不称纯容量消融。精确profile为`single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-v1`，candidate为`r102-convnext-small-imagenet22k-to-1k-24k-p4-9010`，order12。P4采样不执行，其余R95科学值保留，官方结果不参与本计划。
