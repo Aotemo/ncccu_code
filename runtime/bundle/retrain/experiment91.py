@@ -10,12 +10,12 @@ from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
-BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-pos4-v1'
-CANDIDATE = {'id': 'r109-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-pos4-9010', 'experiment_order': 19,
+BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-sd0-v1'
+CANDIDATE = {'id': 'r110-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-sd0-9010', 'experiment_order': 20,
     'model': 'convnext_small', 'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
-    'batch_norm_buffers': 0, 'attention_pool': None, 'stochastic_depth': .1,
+    'batch_norm_buffers': 0, 'attention_pool': None,
     'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
 
 def science_configuration():
@@ -45,7 +45,8 @@ def science_configuration():
 def candidate_from_configuration(value):
     actual = value['candidate']
     source = value['public_source']
-    if (any(actual.get(key) != expected for key, expected in CANDIDATE.items())
+    expected = {**CANDIDATE, 'stochastic_depth': value['job']['stochastic_depth']}
+    if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
             or actual['provenance_sha256'] != source['provenance_sha256']
@@ -180,7 +181,7 @@ def validate_job(job):
         'head_lr': configured['head_lr'], 'weight_decay': 1e-4, 'loss': configured.get('loss'),
         'training_scale': configured.get('training_scale'),
         'training_views': configured.get('training_views'),
-        'dropout': configured['dropout'], 'stochastic_depth': .1, 'head_lr_scope': 'last_linear', 'mixup': None,
+        'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': False, 'final_norm_eps': candidate()['final_norm_eps']}
     init = job.get('initialization', {})
     site = load_site()

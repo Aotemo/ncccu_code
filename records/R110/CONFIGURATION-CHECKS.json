@@ -1,0 +1,45 @@
+{
+  "scope": "R110_configured_SD0_and_non_tensor_structure_expectation",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 3,
+  "failures": 0,
+  "errors": 0,
+  "wall_seconds": 4.166886435821652,
+  "source_files": {
+    "configs/R110-SCIENCE.json": "f275601796b840c5cf650fae4cd554f478e34f6db5f5ec8c5b9a4e9bfd7b6525",
+    "runtime/bundle/retrain/experiment91.py": "ab243a9a69eab8b2099bec24905e655975599772ae0a15c0cdc67ad3b6f9fc0f",
+    "tests/test_candidate_binding.py": "d731e0389e65a6fcfc40d26a113000d972901a5cfbd67c7294f575c96a7f48e9"
+  },
+  "source_unchanged_during_checks": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "torch_imported": false,
+  "production_model_constructed": false,
+  "forward_calls": 0,
+  "formal_CPU_PREP_created": false,
+  "stochastic_depth": 0.0,
+  "stochastic_depth_modules": 36,
+  "positive_per_batch": 8,
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "expected_initial_tensor_control": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5"
+}
