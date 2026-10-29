@@ -167,7 +167,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if canonical_digest(manifest)!=identity['manifest_digest']:raise ValueError('manifest identity differs')
     if device.type=='cuda':torch.cuda.reset_peak_memory_stats(device)
     negatives=sum(not manifest['rows'][i]['label'] for i in manifest['fit_indices'])
-    steps=math.ceil(negatives/(job['effective_batch']-job['positive_per_batch']))
+    from .fresh import resolve_steps_per_cycle
+    steps=resolve_steps_per_cycle(job,negatives,fresh_spec=fresh_spec)
     total=250 if mode=='benchmark' else job['cycles']*steps
     warmup=job['warmup_cycles']*steps
     target=min(total,job.get('stop_after_cycles',0)*steps) if mode=='train' and job.get('stop_after_cycles') else total
@@ -641,6 +642,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if attempted%job['log_every']==0 or skipped:
                 update={'rank':ctx.rank,'loss':loss_sum,'primary_inputs':primary_inputs,'view_inputs':view_inputs}
                 if pairwise:
+                    update['positive_inputs']=int((labels==1).sum().item())
                     positives=int((global_targets==1).sum().item())
                     negatives=int((global_targets==0).sum().item())
                     update['pairwise']={'global_inputs':global_targets.numel(),'positive_inputs':positives,
@@ -662,7 +664,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                     view_inputs=sum(item['view_inputs'] for item in updates),
                     pairwise_global=updates[0]['pairwise'] if pairwise else None,
                     global_loss=sum(losses)/len(losses) if pairwise else None,
-                    rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')} for item in updates])
+                    rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')+(('positive_inputs',) if pairwise else ())} for item in updates])
                 status('running')
             if overflows>=100:save();raise FloatingPointError('100 consecutive DDP AMP overflows')
             if overflow_guard:

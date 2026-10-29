@@ -1,5 +1,19 @@
 """Sealed public-source initialization with a persistent, bounded AMP grace window."""
+import math
+
 from .config import job_contract
+
+
+def resolve_steps_per_cycle(job, negative_count, *, fresh_spec=None) -> int:
+    """Registered fresh uses its pinned clock; legacy retains the class sweep.
+
+    The caller still validates the complete fresh schedule and source identity
+    with validate_fresh; the sampler's attempted-update stream is unchanged.
+    """
+    if job.get('experiment91') is not None and fresh_spec is not None:
+        from .experiment91 import schedule
+        return schedule()['steps_per_cycle']
+    return math.ceil(negative_count / (job['effective_batch'] - job['positive_per_batch']))
 
 
 def validate_fresh(spec, identity, job, topology, steps, *, mode):

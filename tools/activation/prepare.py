@@ -150,7 +150,7 @@ def build(args):
         initialization={'kind': 'imagenet', 'format': 'torchvision-1000-state-dict-v1',
             'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.public_source()['sha256']})
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,
-        'run_name': site['round_id'] + f"-8c-{job['model']}-s{job['seed']}-b64-p8-fp32",
+        'run_name': site['round_id'] + f"-8c-{job['model']}-s{job['seed']}-b64-p{job['positive_per_batch']}-fp32",
         'output_root': str(Path(site['round_root']) / 'outputs'),
         'data': {'root': site['data_root'], 'identity_path': site['train_identity'],
             'expected_count': 51396, 'expected_valid_count': 5849, 'verify_images': True,
@@ -165,7 +165,7 @@ def build(args):
     ex.validate_job(resolved)
     if (topology['world_size'], topology['per_rank_batch'], topology['accumulation'],
             topology['reference_physical_batch']) != (8, 8, 1, 32):
-        raise ValueError('world8/G64/P8/reference32 topology differs')
+        raise ValueError('world8/G64/reference32 topology differs')
     files = {str(path.relative_to(package / 'bundle')): sha(path)
              for path in sorted((package / 'bundle').rglob('*.py'))}
     source_digest = canonical_digest(files)

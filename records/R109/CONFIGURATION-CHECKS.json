@@ -1,0 +1,70 @@
+{
+  "scope": "R109_positive_quota_and_pinned_fresh_clock_configuration",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 3,
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "configs/R109-SCIENCE.json": "226d544e520ecc85103116a2a82088a139fc3706cc0c3c32851a25eb571653ac",
+    "runtime/bundle/retrain/experiment91.py": "4881ded4c680772da6e3d7f75492ff4d440dd1124fd7aff1e4240e9281a8f802",
+    "runtime/bundle/parallel_fresh_train.py": "8911b44409d9e6f5711c4a755cd55d935d3625b78507184898bedf00bd7b5625",
+    "runtime/bundle/retrain/distributed_engine.py": "9028d330efcaca8b87884fe67d52dfe1c42763b46b3d9c10f2136215258ae22a",
+    "runtime/bundle/retrain/fresh.py": "d4421d0a57208acc04dbf152be6f66c10e8daacf2492d8f9c04c090e917c0bd8",
+    "tools/activation/prepare.py": "8f34af5f9165402d1c02311eaacfa66c422671f68c40889f1065679c4eca628f",
+    "tools/activation/activate.py": "a453747f34442622d7bea7d55ce42ff66c5e99fcb969a1e70c225cf87aacfe36",
+    "tests/test_candidate_binding.py": "e4d81bb0d3984a73704949f90f79472dc1b3a2a5928a726d281a8b43ddcdc5aa",
+    "tests/test_sampling_clock.py": "1a53419fd434fb59a97fcad4815a64c39f05cc042dff37f07db40f7623d9d6f6"
+  },
+  "source_unchanged_during_checks": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "GPU_initialized": false,
+  "production_model_constructed": false,
+  "formal_CPU_PREP_created": false,
+  "positive_per_batch": 4,
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "topology": {
+    "version": 1,
+    "world_size": 8,
+    "global_effective_batch": 64,
+    "global_positive_quota": 4,
+    "reference_physical_batch": 32,
+    "per_rank_batch": 8,
+    "accumulation": 1,
+    "normalization_group_size": 4,
+    "normalization_policy": "reference-microbatch-sequential-ema-v1",
+    "sampler_policy": "reference-seeds-contiguous-global-shards-v1",
+    "stop_after_updates": 24000
+  },
+  "loss": {
+    "version": "binary-pairwise-logistic-v1",
+    "kind": "binary_pairwise_logistic",
+    "temperature": 1.0,
+    "reduction": "mean",
+    "dtype": "float32",
+    "scope": "global_batch"
+  },
+  "training_seed": 20261029,
+  "generated_run_name": "r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p4-fp32",
+  "expected_initial_tensor_control": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5"
+}

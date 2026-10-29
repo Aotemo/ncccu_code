@@ -67,7 +67,7 @@ def run(args):
     from retrain.distributed_engine import initialize_store
     from retrain.distributed_launcher import supervise_ranks
     from retrain.persistence import RunLock,atomic_json,canonical_digest,sha256_file
-    from retrain.fresh import validate_fresh
+    from retrain.fresh import validate_fresh,resolve_steps_per_cycle
     cfg=load_config(args.config,overrides={'resume':args.resume})
     fresh=json.loads(Path(args.fresh_spec).read_text())
     import math,time
@@ -122,7 +122,7 @@ def run(args):
         if job.get('experiment91') is not None:identity['experiment91']=job['experiment91']
         negatives=sum(not manifest['rows'][i]['label'] for i in manifest['fit_indices'])
         import math
-        steps=math.ceil(negatives/(job['effective_batch']-job['positive_per_batch']))
+        steps=resolve_steps_per_cycle(job,negatives,fresh_spec=fresh)
         validate_fresh(fresh,identity,job,plan,steps,mode=mode)
         contract={'version':1,'purpose':fresh['purpose'],'operation':mode if mode=='fresh-probe' else 'fresh-init',
                   'absolute_deadline_at':args.deadline_at,'runtime_versions':report['versions'],'jobs':{job['name']:identity},'distributed':plan,

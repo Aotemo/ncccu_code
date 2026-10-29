@@ -10,8 +10,8 @@ from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
-BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
-CANDIDATE = {'id': 'r108-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-9010', 'experiment_order': 18,
+BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-pos4-v1'
+CANDIDATE = {'id': 'r109-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-pos4-9010', 'experiment_order': 19,
     'model': 'convnext_small', 'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -174,7 +174,7 @@ def validate_job(job):
     configured = science_configuration()['job']
     expected = {'model': candidate()['model'], 'image_size': 512, 'prepared_size': 512,
         'precision': 'fp32', 'normalization': 'imagenet', 'seed': configured['seed'], 'effective_batch': 64,
-        'positive_per_batch': 8, **{key: configured[key] for key in (
+        'positive_per_batch': configured['positive_per_batch'], **{key: configured[key] for key in (
             'cycles', 'warmup_cycles', 'min_cycles', 'patience', 'min_delta', 'stop_after_cycles')},
         'backbone_lr': configured['backbone_lr'],
         'head_lr': configured['head_lr'], 'weight_decay': 1e-4, 'loss': configured.get('loss'),

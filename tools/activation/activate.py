@@ -32,6 +32,12 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def verify_training_topology(topology, positive_quota):
+    require((topology['world_size'], topology['per_rank_batch'], topology['accumulation'],
+             topology['reference_physical_batch'], topology['global_effective_batch'], topology['global_positive_quota'])
+            == (8, 8, 1, 32, 64, positive_quota), 'formal eight-rank scientific topology differs')
+
+
 def write(path, value):
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     with path.open('x') as stream:
@@ -286,7 +292,7 @@ def main(argv=None):
     from retrain.config import load_config, job_contract
     from retrain.execution_policy import resolve_topology
     from retrain.fresh import validate_fresh
-    from retrain.experiment91 import binding, schedule
+    from retrain.experiment91 import binding, schedule, science_configuration
     cfg = load_config(package / 'TRAIN_CONFIG.json', environ={})
     job, topology, execution_policy = resolve_topology(cfg, available_accelerators=len(site['gpus']))
     require(cfg['mode'] == 'train' and cfg['resume'] is False and len(cfg['jobs']) == 1
@@ -295,9 +301,7 @@ def main(argv=None):
             and cfg['data']['identity_path'] == site['train_identity'], 'formal config paths/mode/devices differ from site')
     fresh = read(package / 'FRESH-SPEC.template.json')
     topology['stop_after_updates'] = schedule()['stop_after_updates']
-    require((topology['world_size'], topology['per_rank_batch'], topology['accumulation'],
-             topology['reference_physical_batch'], topology['global_effective_batch'], topology['global_positive_quota'])
-            == (8, 8, 1, 32, 64, 8), 'formal eight-rank scientific topology differs')
+    verify_training_topology(topology, science_configuration()['job']['positive_per_batch'])
     require(fresh['execution_policy'] == execution_policy and fresh['source_digest'] == source_digest
             and cpu['job_contract'] == job_contract(job) and cpu['topology'] == topology, 'CPU/fresh runtime contract differs')
     fresh['round_deadline_at'] = time.time() + policy['total_seconds']
