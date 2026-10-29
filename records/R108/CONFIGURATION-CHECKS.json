@@ -1,0 +1,44 @@
+{
+  "scope": "R108_seed27_pairwise_configuration_injection_only",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "configs/R108-SCIENCE.json": "fe284d11deb802cc505cc40781c43242d91617a4a70370932ed2b99a89466666",
+    "runtime/bundle/retrain/experiment91.py": "58ed65961fbe96bccdf114108c722646ffa9fd9175d31914d9ab1a6f87b786ab",
+    "tests/test_candidate_binding.py": "9a5791f2e732a5d21e03a0adee327b15b5cae9fd7d30ea2e9e9c941204ff1eb4"
+  },
+  "source_unchanged_during_checks": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "GPU_initialized": false,
+  "production_model_constructed": false,
+  "formal_CPU_PREP_created": false,
+  "loss": {
+    "version": "binary-pairwise-logistic-v1",
+    "kind": "binary_pairwise_logistic",
+    "temperature": 1.0,
+    "reduction": "mean",
+    "dtype": "float32",
+    "scope": "global_batch"
+  },
+  "training_seed": 20261027,
+  "generated_run_name": "r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261027-b64-p8-fp32",
+  "expected_initial_tensor_control": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67"
+}

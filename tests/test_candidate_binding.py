@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
-CONVNEXT22 = json.loads((ROOT / "configs/R107-SCIENCE.json").read_text())["candidate"]
+CONVNEXT22 = json.loads((ROOT / "configs/R108-SCIENCE.json").read_text())["candidate"]
 
 
 class CandidateBindingTest(unittest.TestCase):
@@ -22,9 +22,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R107-SCIENCE.json'
+        self.configuration = root / 'configs/R108-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R107-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R108-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -33,7 +33,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1',
+                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1',
                                  'candidate': copy.deepcopy(CONVNEXT22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
