@@ -1,0 +1,7 @@
+test_candidate_uses_explicit_source_identity_and_ln (test_candidate_binding.CandidateBindingTest.test_candidate_uses_explicit_source_identity_and_ln) ... ok
+test_configuration_controls_job_LR_and_rejects_old_LR (test_candidate_binding.CandidateBindingTest.test_configuration_controls_job_LR_and_rejects_old_LR) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.146s
+
+OK

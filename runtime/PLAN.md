@@ -1,5 +1,7 @@
 # R102：ConvNeXt Small22K，最多24000步与连续4轮无提升早停，固定9:1
 
+R105为Small/seed20261027的预定尺度配对，读取`configs/R105-SCIENCE.json`：直接对照R102仅新增`training_scale=[0.85,1.0]`，对R104仅改回既有seed27及其派生初态控制91507，其余合同相同。不新增seed/尺度点，整体内部AUROC为主，固定难组分解仅辅助；模型和数据路径/引擎不变，新实际Git原生CPU包自然核初态，不重复control-only或独立GPU预演。精确身份见`todo/auroc-999/R105-DECISION.md`。
+
 R104以R103 Small/seed20261029为直接对照，仅配置`training_scale=[0.85,1.0]`替代旧缺省`[0.94,1.0]`；读取`configs/R104-SCIENCE.json`。其余增强顺序/随机抽样数、验证居中视图和以下模型/数据/时钟合同不变；本次只试一个下限，不据难组或AP补救整体内部AUROC未胜的结论。工厂和seed不改，原生正式包自然核对R103已实测初态，不另做control-only构造。精确身份见`todo/auroc-999/R104-DECISION.md`。
 
 R103继续下述Small合同，直接对照R102仅将训练seed改为预先固定的20261029；实际入口显式选择`configs/R103-SCIENCE.json`及其新profile/candidate，以下R102的seed20261027是原对照，不适用于R103。其余科学值、资产、工程预算和真实初态/一次性流程不变；新seed整体tensor控制必须重新实测，不能复用R102或Tiny的控制。精确身份见R103配置及`todo/auroc-999/R103-DECISION.md`。

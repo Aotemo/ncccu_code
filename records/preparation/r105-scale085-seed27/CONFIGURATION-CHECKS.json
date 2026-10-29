@@ -1,0 +1,41 @@
+{
+  "scope": "R105_existing_seed27_scale085_configuration_injection_only",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "configs/R105-SCIENCE.json": "06941934ad34ed484be1c62d097bbf7087c77ccc1ba1653210aa62759248f0b1",
+    "runtime/bundle/retrain/experiment91.py": "2eb2a77ebb812f86f9956ab95ba18d31ec9fc5559e0b2eb8b6c36b69e9395c6b",
+    "tests/test_candidate_binding.py": "7d43ea8514cbbe594d03c31003c6829b52650ad1fc5830c2d29ba085235ce3e1"
+  },
+  "source_unchanged_during_tests": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "torch_imported": true,
+  "GPU_initialized": false,
+  "model_constructed": false,
+  "training_updates": 0,
+  "formal_CPU_PREP_created": false,
+  "training_scale": [
+    0.85,
+    1.0
+  ],
+  "training_seed": 20261027,
+  "expected_initial_tensor_control": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67"
+}

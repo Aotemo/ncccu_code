@@ -1,0 +1,34 @@
+{
+  "at": 1793248516.9946272,
+  "complete_sha256": "effd591a37d8642eb2795a83e9538b0117ab7ad52eeadcc1995a341223a510cc",
+  "component": {
+    "component_wall_seconds": 2828.0152645111084,
+    "deadline_at": 1793270117.6899858,
+    "end_at": 1793251345.9216564,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "30e9852ca867aaeb02e4a772b380dee451dd36470f8c540dc5be2b9facd984b0",
+    "live_owned_ranks": [],
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "phase": "train",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793248517.9063919,
+    "status": "completed"
+  },
+  "cycles": 7,
+  "early_stop": {
+    "bad_cycles": 4,
+    "metric": "internal_dev_auroc",
+    "reference_auroc": 0.9850823187728706,
+    "stopped": true,
+    "variants": [
+      "online",
+      "ema"
+    ]
+  },
+  "research_only": false,
+  "status": "completed",
+  "successful_updates": 5600,
+  "token": "a07d10fc725641e1ad8c3e22895aacd2"
+}

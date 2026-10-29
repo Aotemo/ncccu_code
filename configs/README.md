@@ -1,5 +1,7 @@
 # 配置入口
 
+预定配对复核为 [R105-SCIENCE.json](R105-SCIENCE.json)：Small/seed20261027直接对照R102，仅新增`training_scale=[0.85,1.0]`，与R104仅既有seed不同，补齐两个固定seed和两个固定尺度。工厂初态由正式新Git原生包核对既有91507控制；不另构造control-only，不挑seed或扫描尺度。
+
 最新单轴试验为 [R104-SCIENCE.json](R104-SCIENCE.json)：直接对照R103 Small/seed20261029，仅将训练尺度范围下限0.94改为0.85、上限1.0；其他增强顺序/随机抽样数和验证视图不变。缺省未配置的历史job仍保持原行为和身份；更小画布会同时改变有效分辨率、填边及实际像素位移，不预设病因或收益。
 
 最新复核为 [R103-SCIENCE.json](R103-SCIENCE.json)：直接对照R102，仅将训练seed20261027改为预先固定的20261029，补齐Tiny/Small与两个预登记seed的匹配比较；不是seed搜索或挑最好seed。Small资产、BCE、LR/SD/dropout、固定splitseed与24k/p4、6h/8h预算不变，新整体初态须由同一生产CPU工厂实测。
