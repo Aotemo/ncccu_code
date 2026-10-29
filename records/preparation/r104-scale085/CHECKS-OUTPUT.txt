@@ -1,0 +1,10 @@
+test_candidate_uses_explicit_source_identity_and_ln (test_candidate_binding.CandidateBindingTest.test_candidate_uses_explicit_source_identity_and_ln) ... ok
+test_configuration_controls_job_LR_and_rejects_old_LR (test_candidate_binding.CandidateBindingTest.test_configuration_controls_job_LR_and_rejects_old_LR) ... ok
+test_training_scale_roundtrip_preserves_legacy_job_identity (test_candidate_binding.CandidateBindingTest.test_training_scale_roundtrip_preserves_legacy_job_identity) ... ok
+test_default_and_explicit_legacy_range_preserve_pixels_and_random_stream (test_training_scale.TrainingScaleTest.test_default_and_explicit_legacy_range_preserve_pixels_and_random_stream) ... ok
+test_new_lower_scale_changes_only_geometry_and_eval_remains_identical (test_training_scale.TrainingScaleTest.test_new_lower_scale_changes_only_geometry_and_eval_remains_identical) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.374s
+
+OK

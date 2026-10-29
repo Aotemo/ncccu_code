@@ -58,6 +58,14 @@ def default_job(name, model, kind='random'):
 def validate_job(job):
     from .classification_loss import validate_loss
     validate_loss(job.get('loss'))
+    if 'training_scale' in job:
+        scale = job['training_scale']
+        if not isinstance(scale, (list, tuple)) or len(scale) != 2:
+            raise ValueError('training_scale must contain lower and upper scale bounds')
+        for value in scale:
+            _number(value, 'training_scale', maximum=1)
+        if not 0 < scale[0] <= scale[1]:
+            raise ValueError('training_scale requires 0 < lower <= upper <= 1')
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job as validate91
         validate91(job)
@@ -211,8 +219,8 @@ def load_config(path=None, environ=None, overrides=None):
         if not isinstance(item, dict) or not {'name', 'model'} <= item.keys():
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
-        # An omitted loss remains absent in legacy BCE checkpoint identities.
-        _unknown(item, (*job, 'loss'), 'job')
+        # Omitted optional fields remain absent in legacy checkpoint identities.
+        _unknown(item, (*job, 'loss', 'training_scale'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

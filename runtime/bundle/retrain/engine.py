@@ -508,7 +508,8 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
         if successful < stop_after_updates and not early_stop['stopped']:
             dataset = ImageDataset(data_root, manifest['rows'], int(job['image_size']), training=True,
                                    normalization=job.get('normalization', 'imagenet'),
-                                   prepared_size=int(job.get('prepared_size', 0)))
+                                   prepared_size=int(job.get('prepared_size', 0)),
+                                   training_scale=job.get('training_scale'))
             # At most 100 consecutive skips are tolerated. The sampler is lazy;
             # this upper bound does not precompute its large attempt stream.
             batch_sampler = BalancedBatchSampler(manifest['rows'], manifest['fit_indices'], physical,

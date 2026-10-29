@@ -1,0 +1,45 @@
+{
+  "scope": "R104_training_scale_only_configuration_and_pixel_RNG_checks",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "configs/R104-SCIENCE.json": "bc54059304f53043506a01c94b77b91e72d273e558e3168aa603d572a0c050d5",
+    "runtime/bundle/retrain/config.py": "3638492cec19decbc73e35d441c33465f4e033a5b80d3a3b6099d79fb365c2b2",
+    "runtime/bundle/retrain/data.py": "a84527f69de0b986b07799da5167a8689715eb04edcf648a18750f829a35505e",
+    "runtime/bundle/retrain/engine.py": "a694ba5c28cac8126ed05c5db1560f3ea09e8998b7d54fded8bc9138e35765b7",
+    "runtime/bundle/retrain/distributed_engine.py": "8f33e094b240e117207c550e33c50a600d7fdbfbc93c4093de1d016c301ba1c4",
+    "runtime/bundle/retrain/experiment91.py": "eac6ab9c48ebb42bb77127e005d846aca07b6d69bae36cada8a46300402a6550",
+    "tests/test_candidate_binding.py": "8c588afcf61ad66458de61a486c0d6c5b9b413b5b0ba6e94592e17af19acc6f7",
+    "tests/test_training_scale.py": "3c4b894097725ae109aeddb636d1ba4e343a0ec233c756eb06fe013839237edb"
+  },
+  "source_unchanged_during_tests": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "torch_threads": 12,
+  "interop_threads": 1,
+  "GPU_initialized": false,
+  "model_constructed": false,
+  "training_updates": 0,
+  "formal_CPU_PREP_created": false,
+  "training_scale": [
+    0.85,
+    1.0
+  ],
+  "unchanged_initial_tensor_control": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5"
+}

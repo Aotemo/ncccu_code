@@ -1,5 +1,7 @@
 # 配置入口
 
+最新单轴试验为 [R104-SCIENCE.json](R104-SCIENCE.json)：直接对照R103 Small/seed20261029，仅将训练尺度范围下限0.94改为0.85、上限1.0；其他增强顺序/随机抽样数和验证视图不变。缺省未配置的历史job仍保持原行为和身份；更小画布会同时改变有效分辨率、填边及实际像素位移，不预设病因或收益。
+
 最新复核为 [R103-SCIENCE.json](R103-SCIENCE.json)：直接对照R102，仅将训练seed20261027改为预先固定的20261029，补齐Tiny/Small与两个预登记seed的匹配比较；不是seed搜索或挑最好seed。Small资产、BCE、LR/SD/dropout、固定splitseed与24k/p4、6h/8h预算不变，新整体初态须由同一生产CPU工厂实测。
 
 当前后续方案为 [R102-SCIENCE.json](R102-SCIENCE.json)：直接对照预登记R95/BCE/seed20261027，成对更换ConvNeXt Small架构与其fe6b358a公开checkpoint，不称纯容量消融。显式SD0.1、dropout0.2、backbone1e-4、head/age各1e-3；其余24000/800/patience4与固定9:1不变。新来源哈希、实测结构与整体fresh初态写入同一pinned SCIENCE；不能复用Tiny控制或训练权重。显式传入 `--science-config configs/R102-SCIENCE.json`，不同轮次使用各自冻结包。

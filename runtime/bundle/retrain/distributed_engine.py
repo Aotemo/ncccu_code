@@ -537,7 +537,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     try:
         if successful<target and not early['stopped']:
             dataset=ImageDataset(data_root,manifest['rows'],job['image_size'],training=True,
-                normalization=job.get('normalization','unit'),prepared_size=job.get('prepared_size',0),age=job.get('age'))
+                normalization=job.get('normalization','unit'),prepared_size=job.get('prepared_size',0),age=job.get('age'),
+                training_scale=job.get('training_scale'))
             sampler=RankBatchSampler(manifest['rows'],manifest['fit_indices'],plan['reference_physical_batch'],
                 job['effective_batch'],job['positive_per_batch'],job['seed'],sampler_start(stage_spec,attempted) if stage_spec else attempted,
                 (target-successful+1)*101,rank=ctx.rank,world_size=ctx.world_size,per_rank_microbatch=plan.get('explicit_per_rank_microbatch'))

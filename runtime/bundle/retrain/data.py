@@ -363,7 +363,8 @@ def _crop_black_border(image):
 
 class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
-    def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None):
+    def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
+                 training_scale=None):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
@@ -371,6 +372,12 @@ class ImageDataset:
         self.root, self.rows = Path(data_root), rows
         self.image_size, self.training = image_size, bool(training)
         self.normalization = normalization
+        if training_scale is not None and (
+                not isinstance(training_scale, (list, tuple)) or len(training_scale) != 2
+                or any(type(v) not in (int, float) or not math.isfinite(v) for v in training_scale)
+                or not 0 < training_scale[0] <= training_scale[1] <= 1):
+            raise ValueError('training_scale must contain two finite numbers with 0 < lo <= hi <= 1')
+        self.training_scale = (.94, 1.0) if training_scale is None else tuple(training_scale)
         self.age = age
         if age is not None:
             from .age import validate_spec
@@ -416,7 +423,7 @@ class ImageDataset:
             image = ImageEnhance.Color(image).enhance(rng.uniform(.9, 1.1))
             image = image.rotate(rng.uniform(-15, 15), resample=Image.Resampling.BILINEAR,
                                  expand=True, fillcolor=(0, 0, 0))
-            scale, dx, dy = rng.uniform(.94, 1.0), rng.uniform(.25, .75), rng.uniform(.25, .75)
+            scale, dx, dy = rng.uniform(*self.training_scale), rng.uniform(.25, .75), rng.uniform(.25, .75)
         ratio = self.image_size * scale / max(image.size)
         target = (max(1, round(image.width * ratio)), max(1, round(image.height * ratio)))
         image = image.resize(target, Image.Resampling.BILINEAR)
