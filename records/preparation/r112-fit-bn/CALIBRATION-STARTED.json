@@ -1,0 +1,9 @@
+{
+  "at": 1793297489.033303,
+  "deadline": 1793301089.033303,
+  "git_commit": "eee2012a766b932effe786ab83a03d4e8b3094c1",
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "reference_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030",
+  "execution_site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r112-fit-bn-calibration-20261030-a/gpu-inputs/SITE_BINDING.json",
+  "execution_site_sha256": "f5df94cd4072d0d8fd7d42543a504968d6e02383724c29e777a8db276b0c30e2"
+}
