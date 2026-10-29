@@ -1,0 +1,43 @@
+{
+  "scope": "R106_two_training_views_and_configuration_injection",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "source_files": {
+    "configs/R106-SCIENCE.json": "ea4496065d081b112f5f3615b6a84fb92eab1f1b4b828a9211d4d3dc1add06e3",
+    "runtime/bundle/retrain/config.py": "777de668f4997e89c99e7ad02f096953edc4ba8c84be756c133603ee6eab32ee",
+    "runtime/bundle/retrain/experiment91.py": "357cb705665766ff1b424fbc925301a5ddd5ddeb1e5bc8992eebd8ee013c18b7",
+    "runtime/bundle/retrain/engine.py": "b65fe03ad54e51499a9fb1519681922c82b1676e7ec2208ec520f4f46d31cb0b",
+    "runtime/bundle/retrain/distributed_engine.py": "df1f767819c63081240d98d7faf6bc2c0e609c353f3afd7731349055c213f38a",
+    "runtime/bundle/retrain/data.py": "0ce7b375b629ecec931125582468ead52e4d52c50b0a31feeee79bd64b4f1bc0",
+    "tests/test_candidate_binding.py": "730c1be359ff97d62fe0b9b65aeaadcb2ddfd720791be99ee8b38f8149011bbe",
+    "tests/test_training_views.py": "4a3cd6f6f03f32758fd59216e88e9542c2c7aa185ddabf3e285fe9cff712cfe5"
+  },
+  "source_unchanged_during_tests": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "GPU_initialized": false,
+  "model_constructed": false,
+  "training_updates": 0,
+  "formal_CPU_PREP_created": false,
+  "training_views": 2,
+  "training_seed": 20261029,
+  "generated_run_name": "r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32",
+  "expected_initial_tensor_control": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5"
+}

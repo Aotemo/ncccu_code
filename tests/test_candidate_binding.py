@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
-CONVNEXT22 = json.loads((ROOT / "configs/R105-SCIENCE.json").read_text())["candidate"]
+CONVNEXT22 = json.loads((ROOT / "configs/R106-SCIENCE.json").read_text())["candidate"]
 
 
 class CandidateBindingTest(unittest.TestCase):
@@ -22,9 +22,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R105-SCIENCE.json'
+        self.configuration = root / 'configs/R106-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R105-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R106-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -33,7 +33,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-v1',
+                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-views2-v1',
                                  'candidate': copy.deepcopy(CONVNEXT22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -66,6 +66,7 @@ class CandidateBindingTest(unittest.TestCase):
             self.assertEqual(experiment.validate_job(job)['backbone_lr'], 1e-4)
             self.assertEqual(experiment.validate_job(job)['seed'], science['job']['seed'])
             self.assertEqual(experiment.validate_job(job).get('training_scale'), science['job'].get('training_scale'))
+            self.assertEqual(experiment.validate_job(job).get('training_views'), 2)
             wrong = copy.deepcopy(job); wrong['backbone_lr'] = 2e-4
             with self.assertRaises(ValueError):
                 experiment.validate_job(wrong)
@@ -139,6 +140,21 @@ class CandidateBindingTest(unittest.TestCase):
         current = load_config(path, environ={})['jobs'][0]
         self.assertEqual(current['training_scale'], [.85, 1.0])
         self.assertEqual(job_contract(current)['training_scale'], [.85, 1.0])
+
+    def test_training_views_roundtrip_preserves_legacy_job_identity(self):
+        from retrain.config import load_config, job_contract
+        raw = {'jobs': [{'name': 'views-fixture', 'model': 'convnext_small', 'precision': 'fp32'}]}
+        path = self.configuration.parent / 'views-training.json'
+        path.write_text(json.dumps(raw))
+        legacy = load_config(path, environ={})['jobs'][0]
+        self.assertNotIn('training_views', legacy)
+        self.assertNotIn('training_views', job_contract(legacy))
+        for views in (1, 2):
+            raw['jobs'][0]['training_views'] = views
+            path.write_text(json.dumps(raw))
+            current = load_config(path, environ={})['jobs'][0]
+            self.assertEqual(current['training_views'], views)
+            self.assertEqual(job_contract(current)['training_views'], views)
 
     def test_wrong_source_ln_or_weight_is_rejected(self):
         for key, value in [('final_norm_eps', 1e-12), ('weight_sha256', '0' * 64),

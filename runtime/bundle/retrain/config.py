@@ -14,7 +14,7 @@ MODES = ('inspect', 'prepare', 'benchmark', 'train')
 
 
 def _name(value):
-    if not isinstance(value, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,95}', value):
+    if not isinstance(value, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,127}', value):
         raise ValueError('Run/job name must contain only letters, digits, underscore or hyphen')
 
 
@@ -58,6 +58,11 @@ def default_job(name, model, kind='random'):
 def validate_job(job):
     from .classification_loss import validate_loss
     validate_loss(job.get('loss'))
+    if 'training_views' in job:
+        if type(job['training_views']) is not int or job['training_views'] not in (1, 2):
+            raise ValueError('training_views must be 1 or 2')
+        if job['training_views'] == 2 and job.get('mixup') is not None:
+            raise ValueError('two training views do not support mixup')
     if 'training_scale' in job:
         scale = job['training_scale']
         if not isinstance(scale, (list, tuple)) or len(scale) != 2:
@@ -220,7 +225,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

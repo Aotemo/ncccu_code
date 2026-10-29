@@ -22,7 +22,7 @@ from sklearn.metrics import average_precision_score, precision_recall_curve, roc
 from torch import nn
 from torch.utils.data import DataLoader, Subset
 
-from .data import BalancedBatchSampler, ImageDataset
+from .data import BalancedBatchSampler, ImageDataset, flatten_training_views
 from .classification_loss import classification_loss
 from .persistence import (CheckpointStore, RunLock, atomic_json, canonical_digest,
                           capture_rng, load_file, restore_rng)
@@ -509,7 +509,8 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
             dataset = ImageDataset(data_root, manifest['rows'], int(job['image_size']), training=True,
                                    normalization=job.get('normalization', 'imagenet'),
                                    prepared_size=int(job.get('prepared_size', 0)),
-                                   training_scale=job.get('training_scale'))
+                                   training_scale=job.get('training_scale'),
+                                   training_views=job.get('training_views'))
             # At most 100 consecutive skips are tolerated. The sampler is lazy;
             # this upper bound does not precompute its large attempt stream.
             batch_sampler = BalancedBatchSampler(manifest['rows'], manifest['fit_indices'], physical,
@@ -528,6 +529,7 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
             update_started = time.monotonic()
             attempt_indices = []
             loss_sum = 0.0
+            primary_inputs = view_inputs = 0
             for _ in range(accumulation):
                 wait_started = time.monotonic()
                 images, labels, indices = next(iterator)
@@ -535,6 +537,9 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
                 attempt_indices.extend(indices.tolist())
                 images = images.to(device, non_blocking=True)
                 labels = labels.to(device, dtype=torch.float32, non_blocking=True).reshape(-1)
+                primary_inputs += images.shape[0]
+                images, labels, _ = flatten_training_views(images, labels, None, job.get('training_views'))
+                view_inputs += images.shape[0]
                 with _autocast(device, job['precision']):
                     logits = model(images).reshape(-1)
                     loss = classification_loss(logits, labels, job.get('loss'))
@@ -578,7 +583,7 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
             if attempted % int(job.get('log_every', 20)) == 0 or skipped:
                 log('update', loss=loss_sum, skipped=bool(skipped), scale=scaler.get_scale(),
                     learning_rates=[group['lr'] for group in optimizer.param_groups],
-                    unique_samples=len(coverage))
+                    unique_samples=len(coverage), primary_inputs=primary_inputs, view_inputs=view_inputs)
                 status('running')
             if consecutive_overflows >= 100:
                 save()

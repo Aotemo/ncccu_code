@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
-from .data import ImageDataset
+from .data import ImageDataset, flatten_training_views
 from .classification_loss import classification_loss
 from .parallel_evaluation import evaluate as parallel_evaluate, recovery_checkpoint_due
 from .distributed import RankBatchSampler,ReferenceBatchNorm
@@ -538,7 +538,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         if successful<target and not early['stopped']:
             dataset=ImageDataset(data_root,manifest['rows'],job['image_size'],training=True,
                 normalization=job.get('normalization','unit'),prepared_size=job.get('prepared_size',0),age=job.get('age'),
-                training_scale=job.get('training_scale'))
+                training_scale=job.get('training_scale'),training_views=job.get('training_views'))
             sampler=RankBatchSampler(manifest['rows'],manifest['fit_indices'],plan['reference_physical_batch'],
                 job['effective_batch'],job['positive_per_batch'],job['seed'],sampler_start(stage_spec,attempted) if stage_spec else attempted,
                 (target-successful+1)*101,rank=ctx.rank,world_size=ctx.world_size,per_rank_microbatch=plan.get('explicit_per_rank_microbatch'))
@@ -553,6 +553,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if mode=='fresh-probe' and successful>=50 and 'measurement_started_at' not in timing:
                 timing['measurement_started_at']=ctx.broadcast(time.time() if ctx.primary else None)
             started=time.monotonic();local_indices=[];loss_sum=0.0;waiting=0.0
+            primary_inputs=view_inputs=0
             mirror.capture()
             for micro in range(plan['accumulation']):
                 from .age import unpack_batch,forward
@@ -560,6 +561,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 images,labels,indices,age_features=unpack_batch(batch,job,device)
                 local_indices.extend(indices.tolist())
                 images=images.to(device,non_blocking=True);labels=labels.to(device,dtype=torch.float32,non_blocking=True).reshape(-1)
+                primary_inputs+=images.shape[0]
+                images,labels,age_features=flatten_training_views(images,labels,age_features,job.get('training_views'))
+                view_inputs+=images.shape[0]
                 if job.get('mixup') is not None:
                     from .mixup import apply as apply_mixup
                     first_mass=float(labels.sum()) if attempted==0 else None
@@ -627,20 +631,22 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             timing['training_seconds']+=elapsed;timing['data_wait_seconds']+=waiting
             if mode in ('benchmark','stage-probe','fresh-probe'):timing['warmup_seconds' if successful-int(not skipped)<50 else 'measured_seconds']+=elapsed
             if attempted%job['log_every']==0 or skipped:
+                update={'rank':ctx.rank,'loss':loss_sum,'primary_inputs':primary_inputs,'view_inputs':view_inputs}
                 if job.get('mixup') is not None:
                     ids=list(local_indices)
                     trace={**mixup_proof,'primary_indices':ids,
                         'partner_indices':[ids[i] for i in mixup_proof['permutation']],
                         'original_positive_mass':sum(manifest['rows'][i]['label'] for i in ids),
                         'mixed_positive_mass':float(labels.sum())}
-                    updates=ctx.values({'loss':loss_sum,'mixup':trace})
-                    losses=[item['loss'] for item in updates]
-                    mixup_traces=[item['mixup'] for item in updates]
-                else:
-                    losses=ctx.values(loss_sum);mixup_traces=None
+                    update['mixup']=trace
+                updates=ctx.values(update)
+                losses=[item['loss'] for item in updates]
+                mixup_traces=[item['mixup'] for item in updates] if job.get('mixup') is not None else None
                 log('update',loss=sum(losses)/len(losses),skipped=skipped,scale=scaler.get_scale(),
                     learning_rates=[g['lr'] for g in optimizer.param_groups],unique_samples=len(coverage),
-                    mixup=mixup_traces)
+                    mixup=mixup_traces,primary_inputs=sum(item['primary_inputs'] for item in updates),
+                    view_inputs=sum(item['view_inputs'] for item in updates),
+                    rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')} for item in updates])
                 status('running')
             if overflows>=100:save();raise FloatingPointError('100 consecutive DDP AMP overflows')
             if overflow_guard:

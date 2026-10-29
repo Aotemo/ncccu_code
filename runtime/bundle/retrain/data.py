@@ -361,10 +361,24 @@ def _crop_black_border(image):
                        min(image.height, math.ceil(bottom * sy) + pad)))
 
 
+def flatten_training_views(images, labels, age_features, training_views=None):
+    """Flatten sample-major training views without changing main-sample indices."""
+    if training_views is None:
+        return images, labels, age_features
+    if type(training_views) is not int or training_views not in (1, 2):
+        raise ValueError('training_views must be None, 1, or 2')
+    if training_views == 1:
+        return images, labels, age_features
+    if images.ndim != 5 or images.shape[1] != 2:
+        raise ValueError('two training views require images shaped [B, 2, C, H, W]')
+    return (images.flatten(0, 1), labels.repeat_interleave(2, dim=0),
+            None if age_features is None else age_features.repeat_interleave(2, dim=0))
+
+
 class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
     def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
-                 training_scale=None):
+                 training_scale=None, training_views=None):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
@@ -378,6 +392,9 @@ class ImageDataset:
                 or not 0 < training_scale[0] <= training_scale[1] <= 1):
             raise ValueError('training_scale must contain two finite numbers with 0 < lo <= hi <= 1')
         self.training_scale = (.94, 1.0) if training_scale is None else tuple(training_scale)
+        if training_views is not None and (type(training_views) is not int or training_views not in (1, 2)):
+            raise ValueError('training_views must be None, 1, or 2')
+        self.training_views = 1 if training_views is None else training_views
         self.age = age
         if age is not None:
             from .age import validate_spec
@@ -398,8 +415,6 @@ class ImageDataset:
         return len(self.rows)
 
     def __getitem__(self, key):
-        from PIL import Image, ImageEnhance, ImageOps
-        import numpy as np
         import torch
 
         if isinstance(key, tuple):
@@ -413,6 +428,24 @@ class ImageDataset:
             image = self.prepared_cache.read(row['relative_path'], row['sha256'])
         else:
             image = self._read_image(row)
+        if self.training and self.training_views == 2:
+            # Each view starts from the same unaugmented image. The first view
+            # keeps the original sample-key seed and its exact augmentation flow.
+            tensor = torch.stack((self._image_tensor(image.copy(), augmentation_seed),
+                                  self._image_tensor(image.copy(), _seed(augmentation_seed, 'training-view', 1))))
+        else:
+            tensor = self._image_tensor(image, augmentation_seed)
+        result = (tensor, float(row.get('label', 0)), int(index))
+        if self.age and self.age['enabled']:
+            from .age import features
+            return (*result, torch.tensor(features(row,self.age),dtype=torch.float32))
+        return result
+
+    def _image_tensor(self, image, augmentation_seed):
+        from PIL import Image, ImageEnhance, ImageOps
+        import numpy as np
+        import torch
+
         scale, dx, dy = 1.0, .5, .5
         if self.training:
             rng = random.Random(int(augmentation_seed))
@@ -435,11 +468,7 @@ class ImageDataset:
             mean, std = ((.485, .456, .406), (.229, .224, .225)) if self.normalization == 'imagenet' else (
                 (.5, .5, .5), (.5, .5, .5))
             tensor.sub_(tensor.new_tensor(mean)[:, None, None]).div_(tensor.new_tensor(std)[:, None, None])
-        result = (tensor, float(row.get('label', 0)), int(index))
-        if self.age and self.age['enabled']:
-            from .age import features
-            return (*result, torch.tensor(features(row,self.age),dtype=torch.float32))
-        return result
+        return tensor
 
     def _read_image(self, row):
         from PIL import Image, ImageOps

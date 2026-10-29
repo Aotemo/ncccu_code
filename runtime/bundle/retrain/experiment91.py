@@ -10,8 +10,8 @@ from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
-BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-v1'
-CANDIDATE = {'id': 'r105-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-9010', 'experiment_order': 15,
+BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-views2-v1'
+CANDIDATE = {'id': 'r106-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-views2-9010', 'experiment_order': 16,
     'model': 'convnext_small', 'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
@@ -179,6 +179,7 @@ def validate_job(job):
         'backbone_lr': configured['backbone_lr'],
         'head_lr': configured['head_lr'], 'weight_decay': 1e-4, 'loss': configured.get('loss'),
         'training_scale': configured.get('training_scale'),
+        'training_views': configured.get('training_views'),
         'dropout': configured['dropout'], 'stochastic_depth': .1, 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': False, 'final_norm_eps': candidate()['final_norm_eps']}
     init = job.get('initialization', {})
