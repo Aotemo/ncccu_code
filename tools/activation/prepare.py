@@ -70,7 +70,7 @@ def technical_site(args, science, science_path):
         'pod': {'namespace': os.environ['NCCCU_POD_NAMESPACE'], 'name': os.environ['NCCCU_POD_NAME'],
                 'uid': os.environ['NCCCU_POD_UID'], 'container': os.environ['NCCCU_CONTAINER'],
                 'python': os.environ['NCCCU_PYTHON']}, 'gpus': cards, **paths,
-        'science': {'binding_version': BINDING_VERSION, 'candidate': candidate_from_configuration(science),
+        'science': {'binding_version': science['candidate_profile'], 'candidate': candidate_from_configuration(science),
                     'configuration': {'path': str(science_path), 'sha256': sha(science_path)}}})
 
 
@@ -143,7 +143,7 @@ def build(args):
     from retrain.config import load_config
     from retrain.execution_policy import resolve_topology
     from retrain.persistence import canonical_digest
-    if science['candidate_profile'] != ex.BINDING_VERSION or science['schedule'] != ex.schedule():
+    if science['candidate_profile'] not in ex.SUPPORTED_BINDINGS or science['schedule'] != ex.schedule():
         raise ValueError('science profile or configured successful-update schedule differs')
     job = copy.deepcopy(science['job'])
     job.update(age=ex.metadata()['AGE.json'], experiment91=ex.binding(),
@@ -194,7 +194,7 @@ def make_fresh(package, job, topology, execution, source_digest, initialization)
     site = read(package / 'SITE_BINDING.json'); cfg = read(package / 'TRAIN_CONFIG.json')
     topology['stop_after_updates'] = ex.schedule()['stop_after_updates']
     return {'format': 'glaucoma-fresh-init-v1', 'purpose': 'train',
-        'plan_version': ex.BINDING_VERSION, 'plan_sha256': sha(package / 'PLAN.md'),
+        'plan_version': ex.science_configuration()['candidate_profile'], 'plan_sha256': sha(package / 'PLAN.md'),
         'source_digest': source_digest, 'job': job_contract(job), 'schedule': ex.schedule(),
         'execution_policy': execution, 'ema': ex.ema_rule(), 'precision_protocol': RULE,
         'experiment91': ex.binding(), 'initialization': initialization, 'amp_initial_scale': 1.0,

@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
-CONVNEXT22 = json.loads((ROOT / "configs/R110-SCIENCE.json").read_text())["candidate"]
+CONVNEXT22 = json.loads((ROOT / "configs/R111-SCIENCE.json").read_text())["candidate"]
 
 
 class CandidateBindingTest(unittest.TestCase):
@@ -22,9 +22,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R110-SCIENCE.json'
+        self.configuration = root / 'configs/R111-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R110-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R111-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -33,7 +33,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-sd0-v1',
+                     'science': {'binding_version': 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1',
                                  'candidate': copy.deepcopy(CONVNEXT22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -64,7 +64,7 @@ class CandidateBindingTest(unittest.TestCase):
                        'provenance': self.site['public_provenance']})
         with patch.object(experiment, 'metadata', return_value={'AGE.json': job['age']}), \
                 patch.object(experiment, 'binding', return_value=job['experiment91']):
-            self.assertEqual(experiment.validate_job(job)['backbone_lr'], 1e-4)
+            self.assertEqual(experiment.validate_job(job)['backbone_lr'], science['job']['backbone_lr'])
             self.assertEqual(experiment.validate_job(job)['seed'], science['job']['seed'])
             self.assertEqual(experiment.validate_job(job)['stochastic_depth'], science['job']['stochastic_depth'])
             self.assertEqual(experiment.validate_job(job)['positive_per_batch'], science['job']['positive_per_batch'])
@@ -91,7 +91,7 @@ class CandidateBindingTest(unittest.TestCase):
 
     def test_same_length_configuration_change_invalidates_pin(self):
         original = self.configuration.read_text()
-        self.configuration.write_text(original.replace('0.0001', '0.0002', 1))
+        self.configuration.write_text(original.replace('0.00002', '0.00003', 1))
         with self.assertRaises(ValueError):
             experiment.candidate()
 
@@ -102,7 +102,7 @@ class CandidateBindingTest(unittest.TestCase):
         job = experiment.science_configuration()['job']
         job['age'] = {'contract': {'lr': 1e-3}}
         groups = [{'role': role, 'lr': lr, 'initial_lr': lr}
-                  for role, lr in [('backbone', 1e-4), ('head', 1e-3), ('age', 1e-3)]]
+                  for role, lr in [('backbone', job['backbone_lr']), ('head', job['head_lr']), ('age', 1e-3)]]
         self.assertTrue(checker.group_lrs_match(groups, job))
         for key in ('lr', 'initial_lr'):
             wrong = copy.deepcopy(groups); wrong[0][key] = 2e-4
@@ -138,7 +138,7 @@ class CandidateBindingTest(unittest.TestCase):
         legacy = load_config(path, environ={})['jobs'][0]
         self.assertNotIn('training_scale', legacy)
         self.assertNotIn('training_scale', job_contract(legacy))
-        raw['jobs'][0]['training_scale'] = experiment.science_configuration()['job']['training_scale']
+        raw['jobs'][0]['training_scale'] = json.loads((ROOT / 'configs/R104-SCIENCE.json').read_text())['job']['training_scale']
         path.write_text(json.dumps(raw))
         current = load_config(path, environ={})['jobs'][0]
         self.assertEqual(current['training_scale'], [.85, 1.0])
@@ -168,6 +168,18 @@ class CandidateBindingTest(unittest.TestCase):
                 experiment.candidate()
 
     def test_actual_normalization_accepts_source_ln_and_rejects_old_final_ln(self):
+        if CONVNEXT22['model'] == 'resnet50_imagenet':
+            science = experiment.science_configuration()
+            digest = science['initial_buffer_sha256'] or 'a' * 64
+            value = {'candidate': CONVNEXT22, 'batch_norm_modules': 53, 'buffer_count': 159,
+                'buffer_sha256': digest, 'head_in_features': 2048, 'head_out_features': 1,
+                'dropout': science['job']['dropout'], 'layer_norms': [], 'stochastic_depth': [],
+                'batch_norms': [{'name': 'backbone.bn'+str(i), 'eps': 1e-5,
+                    'training': False, 'track_running_stats': True} for i in range(53)]}
+            self.assertTrue(experiment.validate_normalization(value))
+            bad = copy.deepcopy(value);bad['batch_norms'][0]['training'] = True
+            with self.assertRaises(ValueError):experiment.validate_normalization(bad)
+            return
         contract = experiment.structure_contract()
         count = contract['stochastic_depth_modules']
         maximum = experiment.science_configuration()['job']['stochastic_depth']

@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "scope": "current_Pod_public_R50_asset_bytes",
+  "at": 1793292528.0717034,
+  "execution": {
+    "NCCCU_POD_UID": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "NCCCU_POD_NAME": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12"
+  },
+  "files": {
+    "resnet50-11ad3fa6.pth": {
+      "source": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/n08-r50-imagenet/resnet50-11ad3fa6.pth",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/r50-imagenet-v2/resnet50-11ad3fa6.pth",
+      "sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca",
+      "bytes": 102540417
+    },
+    "provenance.json": {
+      "source": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N08/assets/PUBLIC_ASSET_PROVENANCE.json",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/r50-imagenet-v2/provenance.json",
+      "sha256": "92cded812e3aa81183b94fed65255e1872bd58881c952ae4d6fbb91385d9dc48",
+      "bytes": 1185
+    },
+    "LICENSE-TORCHVISION.txt": {
+      "source": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N08/assets/LICENSE-TORCHVISION.txt",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/r50-imagenet-v2/LICENSE-TORCHVISION.txt",
+      "sha256": "6502f676851cfe25f8af75531dfb32375b7325b73c37e7b43741fa422893e71d",
+      "bytes": 1517
+    }
+  },
+  "no_N06_or_FLAIR_asset_read": true,
+  "torch_imported": false,
+  "GPU_started": false,
+  "data_images_read": 0
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-fitbn-v1",
+  "initial_model_tensor_sha256": null,
+  "initial_parameters_sha256": "2207cf41c2e0cb9c41bc50dd56a56b2b82ca5fb7e3feca76887f1af00711fbf0",
+  "initial_buffer_sha256": null,
+  "candidate": {
+    "id": "r112-resnet50-imagenetv2-24k-p4-seed20261029-fitbn-9010", "experiment_order": 22,
+    "model": "resnet50_imagenet", "public_revision": "IMAGENET1K_V2-11ad3fa6",
+    "readout": "native_avgpool_dropout_linear_plus_age", "features": 2048,
+    "final_norm_eps": null, "internal_norm_eps": null, "batch_norm_modules": 53, "batch_norm_buffers": 159,
+    "attention_pool": null, "stochastic_depth": 0.0,
+    "head_initialization": "normal_std0.01_zero_bias", "head_seed": 20261027, "head_lr_scope": "last_linear",
+    "weight_sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca",
+    "provenance_sha256": "92cded812e3aa81183b94fed65255e1872bd58881c952ae4d6fbb91385d9dc48",
+    "bn_initialization": "fit_fixed_reference"
+  },
+  "public_source": {
+    "model": "resnet50_imagenet", "format": "torchvision-1000-state-dict-v1",
+    "revision": "IMAGENET1K_V2-11ad3fa6", "source_url": "https://download.pytorch.org/models/resnet50-11ad3fa6.pth",
+    "training_data": "ImageNet-1K", "variant": "IMAGENET1K_V2",
+    "sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca",
+    "provenance_sha256": "92cded812e3aa81183b94fed65255e1872bd58881c952ae4d6fbb91385d9dc48",
+    "license_file": "LICENSE-TORCHVISION.txt"
+  },
+  "public_asset_receipt": {"path": "technical-prep/bn-pair-20261030-a/R50-ASSET-BYTES.json", "sha256": "4dadd8e180c99b1f06ea28c21d78a4ea20bd2b4a0e8c815c7ee2bc7be746772e"},
+  "structure": {
+    "features": 2048, "public_state_tensors": 320, "backbone_state_tensors": 318,
+    "backbone_parameter_tensors": 159, "backbone_parameters": 23508032,
+    "layer_norms": 0, "gelu_modules": 0, "stochastic_depth_modules": 0,
+    "batch_norm_modules": 53, "buffer_count": 159, "batch_norm_eps": 0.00001,
+    "full_head_shape": [1000, 2048]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first", "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/r50-imagenet-v2/resnet50-11ad3fa6.pth",
+    "public_provenance": "assets/public/r50-imagenet-v2/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0", "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "resnet50-imagenet", "model": "resnet50_imagenet", "seed": 20261029,
+    "head_seed": 20261027,
+    "bn_statistics": {
+      "kind": "fit_fixed_reference",
+      "artifact": {"path": "assets/derived-bn/r112-fit-fixed-reference/BN-BUFFERS.pt", "sha256": null},
+      "receipt": {"path": "assets/derived-bn/r112-fit-fixed-reference/CALIBRATION-RECEIPT.json", "sha256": null},
+      "spec": {"version": "fit-bn-fixed-reference-v1", "estimator": "pooled_input_moments", "reference": "public_bn_eval", "accumulation_dtype": "float64", "variance": "unbiased", "output_dtype": "float32"}
+    },
+    "image_size": 512, "prepared_size": 512, "physical_batch": 32, "effective_batch": 64,
+    "positive_per_batch": 8, "precision": "fp32", "cycles": 30, "warmup_cycles": 2,
+    "min_cycles": 1, "patience": 4, "min_delta": 0.0, "stop_after_cycles": 0,
+    "backbone_lr": 0.00002, "head_lr": 0.001, "weight_decay": 0.0001, "dropout": 0.2,
+    "stochastic_depth": 0.0, "normalization": "imagenet", "final_norm_eps": 0.000001,
+    "head_lr_scope": "last_linear", "mixup": null, "attention_pool": null, "initial_checkpoint": null,
+    "frozen_bn": true, "benchmark_warmup": 50, "benchmark_updates": 100,
+    "checkpoint_seconds": 300, "checkpoint_updates": 0, "log_every": 25, "prefetch_factor": 2,
+    "workers": 0, "eval_workers": 0, "split": {}
+  },
+  "data_split": {"kind": "holdout", "seed": 20261024, "valid_fraction": 0.1, "inner_fraction": 0.1, "include_valid": false, "fold": 0, "folds": 3},
+  "schedule": {"steps_per_cycle": 800, "total_updates": 24000, "warmup_updates": 1600, "stop_after_updates": 24000},
+  "early_stopping": {"metric": "internal_dev_auroc", "mode": "max", "variants": ["online", "ema"], "patience": 4, "min_delta": 0.0},
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "R111 is the pre-fixed public-BN matched control for R112. Both use independent public ImageNet1K V2 ResNet50, identical parameter initialization, current fixed9:1/fit-only age, BCE/single view/default scale, seed20261029 and existing fixed HEAD_SEED20261027. Only R112 BN floating running buffers are replaced once using fit-only fixed-public-eval pooled input moments; all BN buffers are immutable during either formal training. No N06/FLAIR parameter, buffer, teacher or checkpoint is read. This is not unchanged R91: both arms share the new800/24000/1600/patience4 contract. Null initial identities are CPU-control drafts and cannot pass formal preparation."
+}

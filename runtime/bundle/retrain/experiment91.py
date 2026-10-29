@@ -10,13 +10,15 @@ from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
-BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-sd0-v1'
-CANDIDATE = {'id': 'r110-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-sd0-9010', 'experiment_order': 20,
-    'model': 'convnext_small', 'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
-    'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
-    'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
-    'batch_norm_buffers': 0, 'attention_pool': None,
-    'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
+BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
+FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-fitbn-v1'
+SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION)
+CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
+    'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
+    'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
+    'final_norm_eps': None, 'internal_norm_eps': None, 'batch_norm_modules': 53,
+    'batch_norm_buffers': 159, 'attention_pool': None, 'bn_initialization': 'public',
+    'head_initialization': 'normal_std0.01_zero_bias', 'head_seed': 20261027, 'head_lr_scope': 'last_linear'}
 
 def science_configuration():
     """Read the exact versioned science file pinned by this package's site."""
@@ -32,7 +34,7 @@ def science_configuration():
             raise ValueError('pinned science configuration path/SHA differs')
         value = json.loads(raw)
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
-                or value.get('candidate_profile') != BINDING_VERSION
+                or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -46,12 +48,16 @@ def candidate_from_configuration(value):
     actual = value['candidate']
     source = value['public_source']
     expected = {**CANDIDATE, 'stochastic_depth': value['job']['stochastic_depth']}
+    if value['candidate_profile'] == FIT_BN_BINDING_VERSION:
+        expected.update(id='r112-resnet50-imagenetv2-24k-p4-seed20261029-fitbn-9010',
+                        experiment_order=22, bn_initialization='fit_fixed_reference')
     if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
             or actual['provenance_sha256'] != source['provenance_sha256']
             or actual['public_revision'] != source['revision']
-            or actual['features'] != value['structure']['features']):
+            or actual['features'] != value['structure']['features']
+            or actual['bn_initialization'] != value['job']['bn_statistics']['kind']):
         raise ValueError('candidate, public source and measured structure differ')
     return copy.deepcopy(actual)
 
@@ -80,6 +86,18 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
+    if science['job']['model'] == 'resnet50_imagenet':
+        from .models import IMAGENET_RESNET
+        files = receipt.get('files', {})
+        if (receipt.get('passed') is not True or receipt.get('scope') != 'current_Pod_public_R50_asset_bytes'
+                or receipt.get('execution', {}).get('NCCCU_POD_UID') != site['pod']['uid']
+                or source['sha256'] != IMAGENET_RESNET['sha256']
+                or files.get('resnet50-11ad3fa6.pth', {}).get('path') != site['public_weight']
+                or files['resnet50-11ad3fa6.pth']['sha256'] != source['sha256']
+                or files.get('provenance.json', {}).get('path') != site['public_provenance']
+                or files['provenance.json']['sha256'] != source['provenance_sha256']):
+            raise ValueError('current public ImageNet R50 asset proof differs')
+        return receipt
     if (receipt.get('passed') is not True or receipt.get('schema_version') != 1
             or receipt['execution']['uid'] != site['pod']['uid']
             or receipt['model'] != science['job']['model']
@@ -96,7 +114,7 @@ def candidate():
     site = load_site()
     expected = candidate_from_configuration(science_configuration())
     if (site['science'].get('candidate') != expected
-            or site['science'].get('binding_version') != BINDING_VERSION):
+            or site['science'].get('binding_version') != science_configuration()['candidate_profile']):
         raise ValueError('explicit candidate/source/LN scientific identity differs')
     return expected
 
@@ -125,7 +143,12 @@ def _metadata(root):
     values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-nobn-v1',
         'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
         'floating_buffers': 'same_as_parameters', 'integer_buffers': 'copy', 'batch_norm_buffers': 0}
-    values['binding'] = {'version': BINDING_VERSION, 'candidate': candidate(),
+    if candidate()['model'] == 'resnet50_imagenet':
+        values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-frozenbn-v1',
+            'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
+            'floating_buffers': 'same_as_parameters_except_frozen_bn', 'integer_buffers': 'copy',
+            'frozen_bn_buffers': 'copy'}
+    values['binding'] = {'version': science_configuration()['candidate_profile'], 'candidate': candidate(),
         'science_config_sha256': load_site()['science']['configuration']['sha256'],
         'freeze_sha256': FREEZE_SHA, 'manifest_sha256': c['new_manifest']['sha256'],
         'manifest_digest': c['new_manifest_canonical_sha256'], 'fit_indices_sha256': c['fit_indices_canonical_sha256'],
@@ -182,7 +205,9 @@ def validate_job(job):
         'training_scale': configured.get('training_scale'),
         'training_views': configured.get('training_views'),
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
-        'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': False, 'final_norm_eps': candidate()['final_norm_eps']}
+        'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': configured['frozen_bn'],
+        'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured['head_seed'],
+        'bn_statistics': configured['bn_statistics']}
     init = job.get('initialization', {})
     site = load_site()
     if (any(job.get(k) != v for k, v in expected.items()) or job.get('physical_batch') not in (64 // len(site['gpus']), 32)
@@ -199,6 +224,26 @@ def describe_model(model):
     import torch
     from .ema import tensor_digest
     nn = torch.nn
+    if candidate()['model'] == 'resnet50_imagenet':
+        from .imagenet_resnet import ImageNetResnetBinary
+        if not isinstance(model, ImageNetResnetBinary):
+            raise ValueError('explicit ImageNet R50 wrapper required')
+        layers = model.assert_bn_mode()
+        final = model.classifier[-1]
+        if (not isinstance(model.backbone.avgpool, nn.AdaptiveAvgPool2d)
+                or not isinstance(model.backbone.fc, nn.Identity)
+                or not isinstance(final, nn.Linear) or (final.in_features, final.out_features) != (2048, 1)
+                or not isinstance(model.classifier[0], nn.Dropout)
+                or model.classifier[0].p != science_configuration()['job']['dropout']):
+            raise ValueError('actual ImageNet R50 avgpool/head differs')
+        value = {'candidate': candidate(), 'batch_norm_modules': len(layers),
+            'buffer_count': len(dict(model.named_buffers())), 'buffer_sha256': tensor_digest(dict(model.named_buffers())),
+            'layer_norms': [], 'head_in_features': final.in_features, 'head_out_features': 1,
+            'dropout': model.classifier[0].p, 'stochastic_depth': [],
+            'batch_norms': [{'name': n, 'eps': m.eps, 'training': m.training, 'track_running_stats': m.track_running_stats}
+                            for n, m in model.named_modules() if isinstance(m, nn.modules.batchnorm._BatchNorm)]}
+        validate_normalization(value)
+        return value
     network = model.network
     final = network.classifier[-1]
     norms = [{'name': n, 'eps': float(m.eps), 'normalized_shape': list(m.normalized_shape)}
@@ -226,6 +271,22 @@ def describe_model(model):
 
 def validate_normalization(value):
     import hashlib
+    if candidate()['model'] == 'resnet50_imagenet':
+        layers = value.get('batch_norms', [])
+        digest = value.get('buffer_sha256')
+        expected_digest = science_configuration().get('initial_buffer_sha256')
+        if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 53
+                or value.get('buffer_count') != 159 or len(layers) != 53
+                or len({row['name'] for row in layers}) != 53
+                or any(row['training'] or not row['track_running_stats']
+                       or row['eps'] != structure_contract()['batch_norm_eps'] for row in layers)
+                or value.get('head_in_features') != 2048 or value.get('head_out_features') != 1
+                or value.get('dropout') != science_configuration()['job']['dropout']
+                or value.get('layer_norms') or value.get('stochastic_depth')
+                or not isinstance(digest, str) or len(digest) != 64
+                or (expected_digest is not None and digest != expected_digest)):
+            raise ValueError('actual R50 fixed BN/buffer/head identity differs')
+        return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
             or value.get('buffer_count') != 0 or value.get('buffer_sha256') != hashlib.sha256(b'').hexdigest()
@@ -256,7 +317,8 @@ def validate_runtime(identity, job, manifest=None, fresh=None):
             or identity.get('job') != job_contract(job) or len(identity.get('source_digest', '')) != 64
             or init.get('weights_sha256') != public_source()['sha256']
             or init.get('provenance_sha256') != public_source()['provenance_sha256']
-            or init.get('final_norm_eps') != candidate()['final_norm_eps'] or identity.get('phase_parent_sha256') is not None):
+            or (candidate()['model'] != 'resnet50_imagenet' and init.get('final_norm_eps') != candidate()['final_norm_eps'])
+            or identity.get('phase_parent_sha256') is not None):
         raise ValueError('Tiny22K-to-1K runtime source/job/manifest/LN differs')
     if manifest is not None and canonical_digest(manifest) != binding()['manifest_digest']:
         raise ValueError('9:1 runtime manifest changed')

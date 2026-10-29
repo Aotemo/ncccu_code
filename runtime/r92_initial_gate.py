@@ -20,7 +20,9 @@ def required_paths(folder):
 
 def verify_records(initials, actual_groups, reference_groups, expected, *, expected_world):
     from retrain.experiment91 import candidate, validate_normalization
-    require(expected['candidate'] == candidate() and expected['batch_norm_modules'] == expected['buffer_count'] == 0,
+    require(expected['candidate'] == candidate()
+            and expected['batch_norm_modules'] == candidate()['batch_norm_modules']
+            and expected['buffer_count'] == candidate()['batch_norm_buffers'],
             'CPU expected candidate/noBN identity differs')
     require(type(expected_world) is int and expected_world == 8
             and len(initials) == expected_world and all(type(x.get('rank')) is int for x in initials)
@@ -28,7 +30,7 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
             'all admitted initial ranks required')
     for rank in initials:
         require(rank['model_sha256'] == expected['model_tensor_sha256'] and rank['optimizer_state_entries'] == 0
-                and rank['bn_modules'] == 0 and rank['scaler'] == {} and not rank.get('attention_pool'), 'fresh Tiny tensor/Adam/noBN/noq differs')
+                and rank['bn_modules'] == expected['batch_norm_modules'] and rank['scaler'] == {} and not rank.get('attention_pool'), 'fresh tensor/Adam/BN/noq differs')
         require(rank.get('candidate_normalization') == expected['candidate_normalization'], 'actual rank LN/noBN differs')
         validate_normalization(rank['candidate_normalization'])
         precision = rank.get('precision_runtime', {})
@@ -85,14 +87,16 @@ def maybe_release(root, atomic, sha):
     state = payload['model']
     require('attention_pool_weight' not in state and 'q' not in state and int(torch.count_nonzero(state['age_weight'])) == 0, 'noq/zeroage state differs')
     require(tensor_digest(state) == full_digest and payload['candidate_normalization'] == expected['candidate_normalization'], 'native tensor/actual LN differs')
-    require(not {k for k in state if k.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}, 'native Tiny BN buffers present')
+    buffers = {k: v for k, v in state.items() if k.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
+    require(len(buffers) == expected['buffer_count'] and tensor_digest(buffers) == expected['buffer_sha256'],
+            'native immutable BN buffers differ')
     validate_state(payload['ema'], state, 0, ema_rule())
     require(payload['ema']['rule'] == fresh['ema'] == ema_rule() and tensor_digest(payload['ema']['model']) == full_digest, 'initial EMA differs')
     require(not torch.cuda.is_initialized(), 'gate initialized CUDA')
     record = read(paths[2])['last']
     receipt = {'status': 'completed', 'at': time.time(), 'rank_count': world, 'optimizer_state_entries': 0,
         'candidate': expected['candidate'], 'source_digest': source, 'model_tensor_sha256': full_digest,
-        'batch_norm_modules': 0, 'buffer_count': 0, 'buffer_sha256': expected['buffer_sha256'],
+        'batch_norm_modules': expected['batch_norm_modules'], 'buffer_count': expected['buffer_count'], 'buffer_sha256': expected['buffer_sha256'],
         'candidate_normalization': expected['candidate_normalization'], 'parameter_tensors': expected['trainable_tensors'],
         'parameter_elements_by_role': expected['parameter_elements_by_role'],
         'initial_files_sha256': {str(p.relative_to(root)): sha(p) for p in paths},

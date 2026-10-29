@@ -99,6 +99,15 @@ def prime_reducer(model,base,job,ctx):
         base.train(training);restore_rng(rng)
 
 
+def validate_explicit_microbatch_normalization(model, plan):
+    if plan.get('explicit_per_rank_microbatch') and any(
+            isinstance(module, nn.modules.batchnorm._BatchNorm) for module in model.modules()):
+        from .imagenet_resnet import ImageNetResnetBinary
+        if not isinstance(model, ImageNetResnetBinary):
+            raise ValueError('explicit microbatch requires no BN or the fixed-BN ImageNet R50')
+        model.assert_bn_mode()
+
+
 def run_distributed(job,manifest,data_root,run_dir,identity,ctx,*,resume=False,mode='train',
                     parent_spec=None,model_factory=None,stop_event=None,limit_updates=None,stage_spec=None,fresh_spec=None,deadline_at=None):
     """Every rank calls this; only rank0 owns the writer and published artifacts."""
@@ -230,7 +239,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         model_factory=create_model
     base=model_factory(job,initialize=previous is None).to(device)
     validate_model(base,job)
-    if plan.get('explicit_per_rank_microbatch') and any(isinstance(m,nn.modules.batchnorm._BatchNorm) for m in base.modules()):raise ValueError('explicit microbatch accumulation requires a model without BatchNorm')
+    validate_explicit_microbatch_normalization(base, plan)
     base=ctx.prepare_model(base)
     optimizer=single._optimizer(base,job)
     scaler=torch.amp.GradScaler(device.type,enabled=job['precision']=='fp16')

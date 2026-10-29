@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "tests_run": 3,
+  "scope": "R50_affected_configuration_binding",
+  "files": {
+    "tools/validation/calibrate_r50_bn.py": "69033ade3dd83e61f83f38fb64d6c237b664e53ac77f537f353658991ec04ded",
+    "tests/test_candidate_binding.py": "9d78c3aad768748fbd4abdabaf0619a433ca939592f54fe480eeed89e08e9a33",
+    "configs/R111-SCIENCE.json": "f649726c88ef680e6c7ec0637b012049086dc02641abaaf0ffdc24739a557b8d",
+    "configs/R112-SCIENCE.json": "6a4dcdb5fe4c3e20c016f486139a936140f22ccc3efc62d8c274d2b440c8c060"
+  }
+}

@@ -64,26 +64,36 @@ def main(args):
     sys.path.insert(0, str(package))
     import r92_initial_gate as initial_gate
     model = create_cpu_fresh_model(job)
+    is_r50 = job['model'] == 'resnet50_imagenet'
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('public1000_strict_exact_finite_FP32_then_fresh_binary', bool(public)
-          and public['all_public_tensors_exact'] and public['all_public_tensors_FP32_finite']
+          and public['all_public_tensors_exact'] and public['all_public_floating_FP32_finite' if is_r50 else 'all_public_tensors_FP32_finite']
           and public['public_tensor_count'] == contract['public_state_tensors']
           and public['full_head_shape'] == contract['full_head_shape']
           and not public['strict_missing_keys'] and not public['strict_unexpected_keys'], public)
     check('actual_measured_LN_GELU_native_avgpool_noBN_noq_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
-          and structure['batch_norm_modules'] == structure['buffer_count'] == 0
-          and not dict(model.named_buffers()) and model.age_metadata == job['age']
+          and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
+          and structure['buffer_count'] == contract.get('buffer_count', 0)
+          and len(dict(model.named_buffers())) == contract.get('buffer_count', 0) and model.age_metadata == job['age']
           and model.age_weight.numel() == 2 and bool((model.age_weight == 0).all())
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
                   for module in model.modules()) == contract['gelu_modules'], structure)
-    wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
-    rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
-    model.network.classifier[0].eps = 1e-12
-    rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
-    model.network.classifier[0].eps = 1e-6
+    if is_r50:
+        layers = model.assert_bn_mode()
+        from retrain.distributed_engine import validate_explicit_microbatch_normalization
+        validate_explicit_microbatch_normalization(model, topology)
+        check('R50_public_or_derived_BN_frozen_affine_trainable', len(layers) == 53
+              and all(not m.training and m.weight.requires_grad and m.bias.requires_grad for m in layers)
+              and structure['buffer_sha256'] == ex.science_configuration()['initial_buffer_sha256'])
+    else:
+        wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
+        rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
+        model.network.classifier[0].eps = 1e-12
+        rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
+        model.network.classifier[0].eps = 1e-6
     optimizer = _optimizer(model, job)
     named = dict(model.named_parameters()); names = {id(parameter): name for name, parameter in named.items()}
     groups = [{'role': group['role'], 'lr': group['lr'], 'initial_lr': group['initial_lr'],
@@ -93,13 +103,13 @@ def main(args):
     members = [parameter for group in optimizer.param_groups for parameter in group['params']]
     roles = {role: sum(row['numel'] for group in groups if group['role'] == role for row in group['parameters'])
              for role in ('backbone', 'head', 'age')}
-    head = {id(parameter) for parameter in model.network.classifier[-1].parameters()}
+    head = {id(parameter) for parameter in (model.classifier if is_r50 else model.network.classifier)[-1].parameters()}
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == len(members) == len({id(parameter) for parameter in members}) == contract['backbone_state_tensors'] + 3
+        and len(named) == len(members) == len({id(parameter) for parameter in members}) == contract.get('backbone_parameter_tensors', contract['backbone_state_tensors']) + 3
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
         and roles == {'backbone': contract['backbone_parameters'], 'head': contract['features'] + 1, 'age': 2}
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
-        and any(row['name'] == 'network.classifier.0.weight' for group in groups if group['role'] == 'backbone' for row in group['parameters'])
+        and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == (1e-4 if group['role'] == 'age' or any(
             named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) for group in groups),
@@ -107,6 +117,7 @@ def main(args):
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
           and model_digest == ex.science_configuration()['initial_model_tensor_sha256']
+          and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
           and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members})
     fresh = build.make_fresh(package, job, topology, policy, digest, public['initialization'])
     identity = {'format': 'glaucoma-retrain-v1', 'source_digest': digest,
@@ -120,7 +131,7 @@ def main(args):
           and fresh['schedule'] == schedule
           and (topology['world_size'], topology['per_rank_batch'], topology['accumulation']) == (8, 8, 1))
     expected = {'source_digest': digest, 'candidate': ex.candidate(), 'model_tensor_sha256': model_digest,
-        'batch_norm_modules': 0, 'buffer_count': 0, 'buffer_sha256': structure['buffer_sha256'],
+        'batch_norm_modules': structure['batch_norm_modules'], 'buffer_count': structure['buffer_count'], 'buffer_sha256': structure['buffer_sha256'],
         'candidate_normalization': structure, 'optimizer_state_entries': 0, 'trainable_tensors': len(named),
         'parameter_elements_by_role': roles, 'no_attention_q': True}
     initial = {'format_version': 1, 'cpu_fixture_only': True, 'identity': identity,
@@ -133,7 +144,7 @@ def main(args):
     checkpoint = store.save(initial); loaded = store.load('last', map_location='cpu')
     ex.validate_checkpoint(loaded); validate_state(loaded['ema'], loaded['model'], 0, ex.ema_rule())
     with torch.no_grad():
-        model.network.classifier[-1].bias.add_(1.)
+        (model.classifier if is_r50 else model.network.classifier)[-1].bias.add_(1.)
     result = model.load_state_dict(loaded['model'], strict=True)
     from retrain.inference import _load_model
     reloaded, reload_job, _, reload_origin, _ = _load_model(
@@ -144,7 +155,7 @@ def main(args):
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
     initials = [{'rank': rank, 'model_sha256': model_digest, 'optimizer_state_entries': 0,
-        'bn_modules': 0, 'scaler': {}, 'precision_runtime': {**runtime_proof(RULE, device='cpu'),
+        'bn_modules': structure['batch_norm_modules'], 'scaler': {}, 'precision_runtime': {**runtime_proof(RULE, device='cpu'),
             'scaler_enabled': False, 'scaler_state_dict': {}, 'effective_scale': 1.0},
         'candidate_normalization': structure, 'cpu_fixture_only': True} for rank in range(8)]
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',
@@ -157,17 +168,41 @@ def main(args):
     check('LR_successful_update_boundaries', factors['0'] == 1 / warmup
           and factors[str(warmup - 1)] == factors[str(warmup)] == 1 and factors[str(warmup + 1)] < 1
           and math.isclose(factors[str(total)], .01, abs_tol=1e-15), factors)
-    scalar = torch.nn.Linear(1, 1, bias=False); scalar.weight.data.zero_()
-    scalar_ema = EMA(scalar, ex.ema_rule()); boundaries = {}
-    for update in range(1, total + 1):
-        scalar.weight.data.fill_(float(update)); scalar_ema.update(scalar, update)
-        if update in (warmup - 1, warmup, warmup + 1, total):
-            state = scalar_ema.state_dict(); validate_state(state, scalar.state_dict(), update, ex.ema_rule())
+    if is_r50:
+        # Boundary fixtures retain the real 159 frozen buffers. Their explicit
+        # synthetic cursors are CPU evidence, never a training/initial checkpoint.
+        boundaries = {}
+        for update in (warmup - 1, warmup, warmup + 1, total):
+            prior = update - 1
+            state = ema.state_dict()
+            state.update(update_count=prior, copy_count=min(prior, warmup),
+                         blend_count=max(0, prior-warmup), last_update_success=prior)
+            ema.successful = prior
+            validate_state(state, model.state_dict(), prior, ex.ema_rule())
+            with torch.no_grad():
+                ema.model.classifier[-1].bias.fill_(float(prior))
+                model.classifier[-1].bias.fill_(float(update))
+            ema.update(model, update)
+            state = ema.state_dict(); validate_state(state, model.state_dict(), update, ex.ema_rule())
+            expected_bias = float(update) if update <= warmup else update - ex.ema_rule()['decay']
+            check('R50_EMA_synthetic_boundary_' + str(update),
+                  math.isclose(ema.model.classifier[-1].bias.item(), expected_bias, abs_tol=.002)
+                  and all(torch.equal(dict(model.named_buffers())[name], value)
+                          for name, value in ema.model.named_buffers()))
             boundaries[str(update)] = {key: value for key, value in state.items() if key != 'model'}
-            if update <= warmup:
-                check('EMA_warmcopy_at_' + str(update), torch.equal(scalar.weight, scalar_ema.model.weight))
-            elif update == warmup + 1:
-                check('EMA_first_blend', math.isclose(scalar_ema.model.weight.item(), warmup + 1 - ex.ema_rule()['decay'], abs_tol=.0002))
+        model.load_state_dict(loaded['model'], strict=True)
+    else:
+        scalar = torch.nn.Linear(1, 1, bias=False); scalar.weight.data.zero_()
+        scalar_ema = EMA(scalar, ex.ema_rule()); boundaries = {}
+        for update in range(1, total + 1):
+            scalar.weight.data.fill_(float(update)); scalar_ema.update(scalar, update)
+            if update in (warmup - 1, warmup, warmup + 1, total):
+                state = scalar_ema.state_dict(); validate_state(state, scalar.state_dict(), update, ex.ema_rule())
+                boundaries[str(update)] = {key: value for key, value in state.items() if key != 'model'}
+                if update <= warmup:
+                    check('EMA_warmcopy_at_' + str(update), torch.equal(scalar.weight, scalar_ema.model.weight))
+                elif update == warmup + 1:
+                    check('EMA_first_blend', math.isclose(scalar_ema.model.weight.item(), warmup + 1 - ex.ema_rule()['decay'], abs_tol=.0002))
     check('EMA_successful_clock_counts_at_maximum', boundaries[str(total)]['copy_count'] == warmup
           and boundaries[str(total)]['blend_count'] == total - warmup
           and boundaries[str(total)]['update_count'] == total, boundaries)

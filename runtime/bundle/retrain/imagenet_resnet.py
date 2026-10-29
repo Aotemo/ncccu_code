@@ -111,11 +111,12 @@ def create_imagenet_binary(job, *, initialize=True):
             or job.get('precision') != 'fp32' or job.get('normalization') != 'imagenet'
             or job.get('dropout') != .2 or job.get('frozen_bn') is not True
             or float(job.get('stochastic_depth', 0) or 0) != 0
-            or not job.get('age', {}).get('enabled')):
+            or not job.get('age', {}).get('enabled') or job.get('head_seed', HEAD_SEED) != HEAD_SEED):
         raise ValueError('N08 ImageNet ResNet model protocol differs')
     from torchvision.models import resnet50
     with torch.random.fork_rng(devices=[]):
         backbone = resnet50(weights=None)
+    public_receipt = None
     if initialize:
         initialization = job['initialization']
         if initialization.get('kind') != 'imagenet':
@@ -125,6 +126,13 @@ def create_imagenet_binary(job, *, initialize=True):
             raise ValueError('N08 provenance model differs from TorchVision ResNet-50')
         state = torch.load(initialization['path'], map_location='cpu', weights_only=True)
         load_public_state(backbone, state)
+        from .ema import tensor_digest
+        public_receipt = {'initialization': proof, 'strict_missing_keys': [], 'strict_unexpected_keys': [],
+            'public_tensor_count': len(state), 'public_tensor_sha256': tensor_digest(state),
+            'full_head_shape': list(backbone.fc.weight.shape), 'all_public_tensors_exact': True,
+            'all_public_floating_FP32_finite': all(not t.is_floating_point() or t.dtype == torch.float32
+                                                  and bool(torch.isfinite(t).all()) for t in state.values()),
+            'public_integer_counter_tensors': sum(not t.is_floating_point() for t in state.values())}
         del state
     backbone.fc = nn.Identity()
     if len(backbone.state_dict()) != IMAGENET_RESNET['backbone_keys']:
@@ -132,4 +140,70 @@ def create_imagenet_binary(job, *, initialize=True):
     result = ImageNetResnetBinary(backbone, job['age'])
     result.assert_bn_mode()
     frozen_bn_names(result)
+    if initialize:
+        apply_initial_bn_statistics(result, job)
+    if job.get('experiment91') is not None:
+        if initialize:
+            from .experiment91 import describe_model
+            result.candidate_normalization = describe_model(result)
+        result.public_initialization_receipt = public_receipt
     return result
+
+
+def apply_initial_bn_statistics(model, job):
+    """Only the registered fit-derived floating BN asset may replace public buffers."""
+    specification = job.get('bn_statistics')
+    if specification is None or specification == {'kind': 'public'}:
+        return None
+    if specification.get('kind') != 'fit_fixed_reference' or set(specification) != {'kind', 'artifact', 'receipt', 'spec'}:
+        raise ValueError('explicit R50 BN statistics identity required')
+    from .bn_calibration import validate_calibration_spec
+    validate_calibration_spec(specification['spec'])
+    import json
+    from pathlib import Path
+    from .site_binding import load_site, evidence_path, sha256
+    from .ema import tensor_digest
+    site = load_site();paths = {}
+    for key in ('artifact', 'receipt'):
+        reference = specification[key];relative = Path(reference['path'])
+        if relative.is_absolute() or '..' in relative.parts:
+            raise ValueError('derived R50 BN asset must stay inside work_root')
+        path = evidence_path(str(Path(site['work_root']) / relative), site['work_root'])
+        if sha256(path) != reference['sha256']:
+            raise ValueError('derived R50 BN content pin differs')
+        paths[key] = path
+    receipt = json.loads(paths['receipt'].read_text());calibration = receipt['calibration']
+    parameters_before = tensor_digest(dict(model.named_parameters()))
+    public_bn = frozen_bn_digest(model)
+    contract = job['age']['contract']
+    if (receipt.get('schema_version') != 1 or receipt.get('scope') != 'public_r50_fit_derived_bn'
+            or receipt.get('passed') is not True
+            or receipt['source']['weight_sha256'] != IMAGENET_RESNET['sha256']
+            or receipt['source']['parameters_sha256'] != parameters_before
+            or receipt['source']['public_bn_sha256'] != public_bn
+            or receipt['fit']['fit_indices_sha256'] != contract['fit_indices_sha256']
+            or receipt['fit']['fit_rows_identity_sha256'] != contract['fit_rows_identity_sha256']
+            or receipt['artifact'] != {'path': str(paths['artifact']), 'sha256': specification['artifact']['sha256']}
+            or calibration.get('passed') is not True or calibration['spec'] != specification['spec']
+            or (calibration['layer_count'], calibration['floating_buffer_count'], calibration['counter_buffer_count']) != (53, 106, 53)
+            or calibration['reference_bn_digest_before'] != public_bn
+            or calibration['global_images'] != contract['fit_count']
+            or not all(calibration[key] for key in ('parameters_unchanged', 'counters_unchanged', 'mode_rng_restored'))):
+        raise ValueError('fit-derived R50 BN source/fit/parameter proof differs')
+    derived = torch.load(paths['artifact'], map_location='cpu', weights_only=True)
+    state = model.state_dict();names = {n for n in frozen_bn_names(model) if not n.endswith('.num_batches_tracked')}
+    counters = {n: state[n].clone() for n in frozen_bn_names(model) if n.endswith('.num_batches_tracked')}
+    if set(derived) != names:
+        raise ValueError('derived R50 BN asset requires exactly106 floating buffers')
+    with torch.no_grad():
+        for name, value in derived.items():
+            if (value.shape != state[name].shape or value.dtype != torch.float32 or not torch.isfinite(value).all()
+                    or name.endswith('.running_var') and bool((value < 0).any())):
+                raise ValueError('invalid derived R50 BN tensor '+name)
+            state[name].copy_(value)
+    if (tensor_digest(dict(model.named_parameters())) != parameters_before
+            or any(not torch.equal(state[n], value) for n, value in counters.items())
+            or frozen_bn_digest(model) != calibration['derived_bn_digest_after']):
+        raise ValueError('derived R50 BN changed parameters/counters or has wrong digest')
+    model.assert_bn_mode()
+    return receipt
