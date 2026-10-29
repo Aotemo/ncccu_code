@@ -58,6 +58,9 @@ def default_job(name, model, kind='random'):
 def validate_job(job):
     from .classification_loss import validate_loss
     validate_loss(job.get('loss'))
+    if (job.get('loss') or {}).get('kind') == 'binary_pairwise_logistic':
+        if job.get('mixup') is not None or job.get('training_views', 1) != 1:
+            raise ValueError('global pairwise logistic requires single-view training without mixup')
     if 'training_views' in job:
         if type(job['training_views']) is not int or job['training_views'] not in (1, 2):
             raise ValueError('training_views must be 1 or 2')

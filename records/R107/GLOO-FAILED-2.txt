@@ -1,0 +1,90 @@
+test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients (test_pairwise_loss.PairwiseLossTest.test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients) ... FAIL
+
+======================================================================
+FAIL: test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients (test_pairwise_loss.PairwiseLossTest.test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/source/tests/test_pairwise_loss.py", line 182, in test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients
+    code = process.wait(timeout=max(.1, deadline - time.monotonic()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python3.12/lib/python3.12/subprocess.py", line 2045, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['/usr/local/python3.12/bin/python3.12', '-B', '/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/source/tests/test_pairwise_loss.py', '--gloo-worker', '0', '/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/source/tests/pairwise-gloo-smvpzwhv/rendezvous', '/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/source/tests/pairwise-gloo-smvpzwhv/rank-0.json']' timed out after 74.78422513091937 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/source/tests/test_pairwise_loss.py", line 184, in test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients
+    self.fail('Gloo DDP fixture exceeded its 75-second bound')
+AssertionError: Gloo DDP fixture exceeded its 75-second bound
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/source/tests/test_pairwise_loss.py", line 195, in test_two_rank_Gloo_DDP_matches_complete_64_sample_parameter_gradients
+    raise AssertionError(f'{type(error).__name__}: {error}\n{diagnostics()}') from error
+AssertionError: AssertionError: Gloo DDP fixture exceeded its 75-second bound
+rank=0 pid=120899 exit_status=None
+--- rank-0.log ---
+{"rank": 0, "pid": 120899, "stage": "worker_entry", "time": 1793266979.8167982, "monotonic": 3294362.655022335, "elapsed_seconds": 1.6996636986732483e-06}
+{"rank": 0, "pid": 120899, "stage": "torch_import_before", "time": 1793266979.8168912, "monotonic": 3294362.655124467, "elapsed_seconds": 0.00010383175686001778}
+{"rank": 0, "pid": 120899, "stage": "torch_import_after", "time": 1793266982.1261604, "monotonic": 3294364.964391024, "elapsed_seconds": 2.3093703887425363}
+{"rank": 0, "pid": 120899, "stage": "init_process_group_before", "time": 1793266982.1262827, "monotonic": 3294364.964516637, "elapsed_seconds": 2.30949600180611}
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+{"rank": 0, "pid": 120899, "stage": "init_process_group_after", "time": 1793267044.014584, "monotonic": 3294426.852814596, "elapsed_seconds": 64.19779396103695}
+{"rank": 0, "pid": 120899, "stage": "DDP_construction_before", "time": 1793267044.0390148, "monotonic": 3294426.877247151, "elapsed_seconds": 64.22222651587799}
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1029 17:44:05.430451 120899 reducer.cpp:1200] Reducer: comm-optimized memory allocator not found, using regular one
+{"rank": 0, "pid": 120899, "stage": "DDP_construction_after", "time": 1793267045.43068, "monotonic": 3294428.268911666, "elapsed_seconds": 65.61389103066176}
+{"rank": 0, "pid": 120899, "stage": "forward_before", "time": 1793267045.4307442, "monotonic": 3294428.268978207, "elapsed_seconds": 65.61395757179707}
+{"rank": 0, "pid": 120899, "stage": "forward_after", "time": 1793267045.431524, "monotonic": 3294428.269757132, "elapsed_seconds": 65.61473649693653}
+{"rank": 0, "pid": 120899, "stage": "gather_before", "time": 1793267045.4315612, "monotonic": 3294428.269795342, "elapsed_seconds": 65.61477470677346}
+{"rank": 0, "pid": 120899, "stage": "gather_after", "time": 1793267045.4323084, "monotonic": 3294428.270541626, "elapsed_seconds": 65.61552099091932}
+{"rank": 0, "pid": 120899, "stage": "backward_before", "time": 1793267045.433355, "monotonic": 3294428.271587845, "elapsed_seconds": 65.61656720982864}
+{"rank": 0, "pid": 120899, "stage": "backward_after", "time": 1793267045.4767363, "monotonic": 3294428.314966025, "elapsed_seconds": 65.65994538972154}
+{"rank": 0, "pid": 120899, "stage": "reference_and_assertions_before", "time": 1793267045.4768417, "monotonic": 3294428.315075837, "elapsed_seconds": 65.66005520196632}
+{"rank": 0, "pid": 120899, "stage": "reference_and_assertions_after", "time": 1793267045.4788675, "monotonic": 3294428.317100224, "elapsed_seconds": 65.66207958897576}
+{"rank": 0, "pid": 120899, "stage": "report_before", "time": 1793267045.4789066, "monotonic": 3294428.317140715, "elapsed_seconds": 65.66212008008733}
+{"rank": 0, "pid": 120899, "stage": "report_written", "time": 1793267045.4857085, "monotonic": 3294428.323942069, "elapsed_seconds": 65.66892143385485}
+{"rank": 0, "pid": 120899, "stage": "destroy_process_group_before", "time": 1793267045.4857392, "monotonic": 3294428.323973449, "elapsed_seconds": 65.66895281383768}
+{"rank": 0, "pid": 120899, "stage": "destroy_process_group_after", "time": 1793267045.4857986, "monotonic": 3294428.32403276, "elapsed_seconds": 65.66901212511584}
+{"rank": 0, "pid": 120899, "stage": "worker_return", "time": 1793267045.4858186, "monotonic": 3294428.324052781, "elapsed_seconds": 65.66903214575723}
+
+--- rank-0.json ---
+{"passed": true, "rank": 0, "global_pairs": 448, "local_positives": 0, "loss": 0.4406687915325165, "weight_gradient": [[-0.6379735469818115, 0.018566548824310303, -0.010000741109251976]], "bias_gradient": [0.0], "gpu_initialized": false}
+rank=1 pid=120900 exit_status=None
+--- rank-1.log ---
+{"rank": 1, "pid": 120900, "stage": "worker_entry", "time": 1793266979.8167982, "monotonic": 3294362.655023736, "elapsed_seconds": 1.2209638953208923e-06}
+{"rank": 1, "pid": 120900, "stage": "torch_import_before", "time": 1793266979.8168914, "monotonic": 3294362.655124707, "elapsed_seconds": 0.00010219216346740723}
+{"rank": 1, "pid": 120900, "stage": "torch_import_after", "time": 1793266982.12985, "monotonic": 3294364.968079972, "elapsed_seconds": 2.3130574570968747}
+{"rank": 1, "pid": 120900, "stage": "init_process_group_before", "time": 1793266982.1300168, "monotonic": 3294364.968250575, "elapsed_seconds": 2.313228060025722}
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+{"rank": 1, "pid": 120900, "stage": "init_process_group_after", "time": 1793267044.0145838, "monotonic": 3294426.852814876, "elapsed_seconds": 64.19779236102477}
+{"rank": 1, "pid": 120900, "stage": "DDP_construction_before", "time": 1793267044.0390148, "monotonic": 3294426.877247381, "elapsed_seconds": 64.22222486604005}
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1029 17:44:05.430454 120900 reducer.cpp:1200] Reducer: comm-optimized memory allocator not found, using regular one
+{"rank": 1, "pid": 120900, "stage": "DDP_construction_after", "time": 1793267045.430672, "monotonic": 3294428.268903866, "elapsed_seconds": 65.61388135096058}
+{"rank": 1, "pid": 120900, "stage": "forward_before", "time": 1793267045.4307344, "monotonic": 3294428.268968477, "elapsed_seconds": 65.61394596192986}
+{"rank": 1, "pid": 120900, "stage": "forward_after", "time": 1793267045.4315531, "monotonic": 3294428.269786122, "elapsed_seconds": 65.61476360680535}
+{"rank": 1, "pid": 120900, "stage": "gather_before", "time": 1793267045.431606, "monotonic": 3294428.269839953, "elapsed_seconds": 65.61481743818149}
+{"rank": 1, "pid": 120900, "stage": "gather_after", "time": 1793267045.432321, "monotonic": 3294428.270554066, "elapsed_seconds": 65.615531551186}
+{"rank": 1, "pid": 120900, "stage": "backward_before", "time": 1793267045.4333818, "monotonic": 3294428.271614835, "elapsed_seconds": 65.6165923201479}
+{"rank": 1, "pid": 120900, "stage": "backward_after", "time": 1793267045.4767373, "monotonic": 3294428.314967115, "elapsed_seconds": 65.65994459996}
+{"rank": 1, "pid": 120900, "stage": "reference_and_assertions_before", "time": 1793267045.4768426, "monotonic": 3294428.315076907, "elapsed_seconds": 65.66005439218134}
+{"rank": 1, "pid": 120900, "stage": "reference_and_assertions_after", "time": 1793267045.4788845, "monotonic": 3294428.317116934, "elapsed_seconds": 65.66209441889077}
+{"rank": 1, "pid": 120900, "stage": "report_before", "time": 1793267045.4789226, "monotonic": 3294428.317156595, "elapsed_seconds": 65.66213408019394}
+{"rank": 1, "pid": 120900, "stage": "report_written", "time": 1793267045.487146, "monotonic": 3294428.325379145, "elapsed_seconds": 65.67035662988201}
+{"rank": 1, "pid": 120900, "stage": "destroy_process_group_before", "time": 1793267045.4871767, "monotonic": 3294428.325410985, "elapsed_seconds": 65.67038846993819}
+{"rank": 1, "pid": 120900, "stage": "destroy_process_group_after", "time": 1793267045.4872375, "monotonic": 3294428.325471266, "elapsed_seconds": 65.67044875118881}
+{"rank": 1, "pid": 120900, "stage": "worker_return", "time": 1793267045.487257, "monotonic": 3294428.325491367, "elapsed_seconds": 65.67046885192394}
+
+--- rank-1.json ---
+{"passed": true, "rank": 1, "global_pairs": 448, "local_positives": 8, "loss": 0.4406687915325165, "weight_gradient": [[-0.6379735469818115, 0.018566548824310303, -0.010000741109251976]], "bias_gradient": [0.0], "gpu_initialized": false}
+
+----------------------------------------------------------------------
+Ran 1 test in 75.407s
+
+FAILED (failures=1)

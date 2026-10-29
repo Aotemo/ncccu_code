@@ -1,0 +1,40 @@
+{
+  "scope": "R107_affected_Gloo_DDP_parameter_gradient_case_with_loopback_TCP_rendezvous",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "ac6c9d6bb253ed018ea09cb7cc36939ba61377825d53ff2a946f92d7fae130a3",
+    "tests/test_pairwise_loss.py": "3f17dbb7d62189de5327b9b2ca77897c3b29d93c8c06762091acedc2ad0b862f"
+  },
+  "source_unchanged_during_tests": true,
+  "production_loss_unchanged_since_original": true,
+  "original_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-update-a/CONFIGURATION-CHECKS.json",
+    "sha256": "7e61e438236710179b846eebd0a95861d2b66858d0811d6894a10c9b24a1978f",
+    "passed": false
+  },
+  "prior_other_four_checks_not_repeated": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "GPU_initialized": false,
+  "production_model_constructed": false,
+  "NCCL_verified": false
+}

@@ -1,0 +1,52 @@
+{
+  "scope": "R107_pairwise_loss_global_batch_CPU_math_and_Gloo_DDP_and_configuration",
+  "passed": false,
+  "exit_code": 1,
+  "tests": 5,
+  "failures": 1,
+  "errors": 0,
+  "skipped": 0,
+  "source_files": {
+    "configs/R107-SCIENCE.json": "32cff474d82ed423af9c47cb83ecf12af376255317601e811d2b3fe5af8b0982",
+    "runtime/bundle/retrain/config.py": "a75c991323e02b5d81524db0f2f3f022de2389e6fc07f530f8034eab1d72b5a8",
+    "runtime/bundle/retrain/experiment91.py": "874955c96ce4011f5519583ca665f189ebc90443ab3d0a22dd1fbc681d8cf564",
+    "runtime/bundle/retrain/engine.py": "d4ad24615d389d46669f6f670cddd6d387f52f562299633ccd080d9716b6432e",
+    "runtime/bundle/retrain/distributed_engine.py": "a8d32b3a59b3ac5738b74cf4d2e8a3e1dc225435c29cf5cd0beae726e0a27011",
+    "runtime/bundle/retrain/classification_loss.py": "ac6c9d6bb253ed018ea09cb7cc36939ba61377825d53ff2a946f92d7fae130a3",
+    "tests/test_candidate_binding.py": "8da803cb1c3a6d0df8377f0f5b3ce86f595f54f93d3083d46e8bbe6824e06c47",
+    "tests/test_pairwise_loss.py": "f85b9477bb534961e163b2a8da5d1a18db660df78baf02084768184df4693824"
+  },
+  "source_unchanged_during_tests": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "allocated_threads": 12,
+  "GPU_initialized": false,
+  "production_model_constructed": false,
+  "training_updates": 0,
+  "NCCL_verified": false,
+  "formal_CPU_PREP_created": false,
+  "loss": {
+    "version": "binary-pairwise-logistic-v1",
+    "kind": "binary_pairwise_logistic",
+    "temperature": 1.0,
+    "reduction": "mean",
+    "dtype": "float32",
+    "scope": "global_batch"
+  },
+  "training_seed": 20261029,
+  "generated_run_name": "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32",
+  "expected_initial_tensor_control": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5"
+}

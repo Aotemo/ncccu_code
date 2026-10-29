@@ -10,7 +10,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from .data import ImageDataset, flatten_training_views
-from .classification_loss import classification_loss
+from .classification_loss import classification_loss, gather_pairwise_inputs
 from .parallel_evaluation import evaluate as parallel_evaluate, recovery_checkpoint_due
 from .distributed import RankBatchSampler,ReferenceBatchNorm
 from . import engine as single
@@ -147,6 +147,10 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if deadline_at is not None and (not fresh_spec or not math.isfinite(deadline_at)):
         raise ValueError('absolute runtime deadline requires a finite fresh contract')
     plan=identity['distributed'];device=ctx.device
+    pairwise=(job.get('loss') or {}).get('kind')=='binary_pairwise_logistic'
+    if pairwise and (mode!='train' or not fresh_spec or ctx.world_size!=8 or plan['world_size']!=8
+            or plan['accumulation']!=1 or job.get('mixup') is not None or job.get('training_views',1)!=1):
+        raise ValueError('global pairwise logistic requires formal eight-rank single-view accumulation-one training without mixup')
     precision_runtime=None
     if fresh_spec and fresh_spec.get('precision_protocol') is not None:
         from .precision import configure
@@ -577,7 +581,11 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         if ctx.primary:atomic_json(folder/'mixup-initial-ranks.json',proofs)
                 with single._autocast(device,job['precision']):
                     logits=forward(model,images,age_features,job).reshape(-1)
-                    loss=classification_loss(logits,labels,job.get('loss'))
+                    if pairwise:
+                        global_logits,global_targets=gather_pairwise_inputs(logits,labels)
+                        loss=classification_loss(global_logits,global_targets,job['loss'])
+                    else:
+                        loss=classification_loss(logits,labels,job.get('loss'))
                 if sampled_loss is not None:
                     with torch.no_grad():
                         individual=nn.functional.binary_cross_entropy_with_logits(logits.detach(),labels,reduction='none')
@@ -632,6 +640,12 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if mode in ('benchmark','stage-probe','fresh-probe'):timing['warmup_seconds' if successful-int(not skipped)<50 else 'measured_seconds']+=elapsed
             if attempted%job['log_every']==0 or skipped:
                 update={'rank':ctx.rank,'loss':loss_sum,'primary_inputs':primary_inputs,'view_inputs':view_inputs}
+                if pairwise:
+                    positives=int((global_targets==1).sum().item())
+                    negatives=int((global_targets==0).sum().item())
+                    update['pairwise']={'global_inputs':global_targets.numel(),'positive_inputs':positives,
+                        'negative_inputs':negatives,'pair_count':positives*negatives,
+                        'world_size':torch.distributed.get_world_size()}
                 if job.get('mixup') is not None:
                     ids=list(local_indices)
                     trace={**mixup_proof,'primary_indices':ids,
@@ -646,6 +660,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                     learning_rates=[g['lr'] for g in optimizer.param_groups],unique_samples=len(coverage),
                     mixup=mixup_traces,primary_inputs=sum(item['primary_inputs'] for item in updates),
                     view_inputs=sum(item['view_inputs'] for item in updates),
+                    pairwise_global=updates[0]['pairwise'] if pairwise else None,
+                    global_loss=sum(losses)/len(losses) if pairwise else None,
                     rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')} for item in updates])
                 status('running')
             if overflows>=100:save();raise FloatingPointError('100 consecutive DDP AMP overflows')
