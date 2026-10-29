@@ -43,7 +43,7 @@ def gelu_semantics(module):
             'forward_source_sha256': forward_sha}
 
 
-def target_key(key):
+def target_key(key, depths=DEPTHS):
     prefixes = {'stem.0': 'features.0.0', 'stem.1': 'features.0.1',
                 'head.norm': 'classifier.0', 'head.fc': 'classifier.2'}
     for prefix, target in prefixes.items():
@@ -55,13 +55,13 @@ def target_key(key):
     match = re.fullmatch(r'stages\.([0-3])\.blocks\.(\d+)\.(conv_dw|norm|mlp\.fc1|mlp\.fc2)\.(weight|bias)', key)
     if match:
         stage, block = int(match[1]), int(match[2])
-        require(block < DEPTHS[stage], 'block outside Tiny depth')
+        require(block < depths[stage], 'block outside configured ConvNeXt depth')
         operation = {'conv_dw': 0, 'norm': 2, 'mlp.fc1': 3, 'mlp.fc2': 5}[match[3]]
         return f'features.{2 * stage + 1}.{block}.block.{operation}.{match[4]}', False
     match = re.fullmatch(r'stages\.([0-3])\.blocks\.(\d+)\.gamma', key)
     if match:
         stage, block = int(match[1]), int(match[2])
-        require(block < DEPTHS[stage], 'gamma block outside Tiny depth')
+        require(block < depths[stage], 'gamma block outside configured ConvNeXt depth')
         return f'features.{2 * stage + 1}.{block}.layer_scale', True
     raise ValueError('unsupported public tensor: ' + key)
 

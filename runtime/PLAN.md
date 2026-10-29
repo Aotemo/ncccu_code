@@ -1,12 +1,12 @@
-# R95：ConvNeXt Tiny，最多24000步与连续4轮无提升早停，固定9:1
+# R102：ConvNeXt Small22K，最多24000步与连续4轮无提升早停，固定9:1
 
-本规格随源码维护；实际Pod、Git commit、路径、CPU分配、clock/token只由当次显式绑定产生。`configs/R95-SCIENCE.json`保存用户新要求的最多24000成功更新与连续4轮无提升早停，prepare/check_candidate显式传入此配置，site固定其绝对路径和SHA，package保留相同bytes的SCIENCE.json。消费者读取配置中的科学值。R94已启动的212b冻结包、6400步曲线和clock/token均不改。新fresh运行不增加独立零forward GPU预演前置，由真实训练八rank初态、参数组、空Adam与资源校验接管；保留实际Git冻结、实时身份/独占GPU、一次activation和官方一次。
+本规格随源码维护；实际Pod、Git commit、路径、CPU分配、clock/token只由当次显式绑定产生。`configs/R102-SCIENCE.json`保存本轮明确科学合同，prepare/check_candidate显式传入此配置，site固定其绝对路径和SHA，package保留相同bytes的SCIENCE.json。消费者读取配置中的科学值。历史运行与冻结包均不改。新fresh运行不增加独立GPU预演前置，由真实训练八rank初态、参数组、空Adam与资源校验接管；保留实际Git冻结、实时身份/独占GPU、一次activation和官方一次。
 
-本轮按用户直接要求调整最大训练预算及早停；不称LR-only或固定预算对照。精确profile为`single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-v1`，candidate为`r95-convnext-tiny-imagenet22k-to-1k-24k-earlystop-9010`，order5。其余模型、数据、初始化、优化器科学值沿用R94；历史R93/R94源码、配置及冻结运行保留，官方结果不参与本计划。
+本轮直接对照预登记R95/BCE/seed20261027，仅成对更换架构和对应公开checkpoint为Small22K，不称纯容量消融。精确profile为`single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-v1`，candidate为`r102-convnext-small-imagenet22k-to-1k-24k-p4-9010`，order12。P4采样不执行，其余R95科学值保留，官方结果不参与本计划。
 
-候选为公开 `timm/convnext_tiny.fb_in22k_ft_in1k`，revision `bc48a87f119bae1b06418f5340bfa97ef75d4609`。原 blob SHA 为 `8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518`，转换权重 SHA 为 `1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed`，provenance SHA 为 `40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f`。来源链、182 键映射及非张量结构须消费真实验收回执；生产工厂仍须完整 1000 类 strict 后再新建 binary head 和零 age。无 N06、历史 checkpoint、teacher、BN 或优化器参数来源。
+候选为公开 `timm/convnext_small.fb_in22k_ft_in1k`，revision `fe6b358aa409414cdb522ae3d43a2c9922f7cc1b`。原blob、转换权重、provenance的真实SHA及实际结构计数只从本轮Small来源/strict/handoff回执进入pinned SCIENCE，不沿用Tiny常量或远端广告SHA。生产工厂须完整1000类strict后新建binary head和零age。无N06、历史训练checkpoint、teacher、BN或优化器参数来源。
 
-原生 avgpool、768 特征、final/internal LN epsilon 均为 1e-6、dropout 0.2、stochastic depth 0.1、单线性 head+两维 age；无 BN、q 或 attention。上述来源与结构均同 R93。seed20261027，head 使用 `nn.Linear` 原生初始化，age 为两个 FP32 零值；Adam 状态为空，online=EMA。初态 tensor 必须仍为配置中固定的 R93 控制值 `eba53feeafdf20bc86855a40648bc453358928d148078c6ae78b65f059846cc7`，不加载 R93 checkpoint。
+原生avgpool、768特征、final/internal LN epsilon均为1e-6、dropout0.2、显式stochastic depth0.1（不用TorchVision Small默认0.4）、单线性head+两维age；无BN、q或attention。seed20261027，head使用`nn.Linear`原生初始化，age为两个FP32零值；Adam状态为空，online=EMA。Small整体初态由相同生产CPU工厂实测并写入SCIENCE，不能复制Tiny的eba或18313控制值；正式CPU包和真实8rank初态均须匹配本轮新控制。
 
 固定 fit46256/dev5140，来自原始 train 的同一 9:1。stage1 的 18 冻结文件及 FREEZE 保持原 bytes；FREEZE SHA `90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6`，manifest blob SHA `7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377`。物理迁移路径另建清单，不改原科学身份或重新拟合 age。
 
@@ -18,4 +18,4 @@
 
 所有新非源码对象位于显式 exp-v3 工作根。数据与 prepared arrays 只按实核清单迁移；缓存新 namespace/索引绑定新数据根和当前文件身份，科学图像 bytes 不改。三份保留模型不作训练依赖。CPU 准备 A/B 合计不超过实时有效 CPU 的20%；GPU阶段也只用新显式 owner/rank/loader/control masks，不能回退全量 affinity。旧 Pod、旧 token/clock 和旧冻结运行不恢复。
 
-新墙钟policy为total16200、binding1800、train hard10800、freeze300、official1200、cleanup/soft margin150秒，给24000上限及最多30轮验证留预算；它不是吞吐或租期保证。正式只创建一次T0/D/H/token，train_H=min(train_start+train_hard,D-freeze-official-cleanup)，freeze_H=min(freeze_start+freeze_hard,D-official-cleanup)，官方仅在尾窗足够时开始；不自动延长、改周期或重置。失败/unknown保留真实终态，禁止再次activation/launch或官方前向。
+R102 Small 的新墙钟policy为total28800、binding1800、train hard21600、freeze300、official1200、cleanup/soft margin150秒；GPU分配上限从集中RESOURCE-POLICY读取32400秒。24000成功更新和最多30轮验证的科学时钟不变，这些只是更大模型的工程预算，不是实测吞吐或云资源租期保证。正式只创建一次T0/D/H/token，train_H=min(train_start+train_hard,D-freeze-official-cleanup)，freeze_H=min(freeze_start+freeze_hard,D-official-cleanup)，官方仅在尾窗足够时开始；不自动延长、改周期或重置。失败/unknown保留真实终态，禁止再次activation/launch或官方前向。

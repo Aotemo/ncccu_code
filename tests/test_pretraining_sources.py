@@ -105,6 +105,19 @@ class PretrainingSourcesTest(unittest.TestCase):
                 gelu_semantics(module)
 
 
+class SmallMappingTest(unittest.TestCase):
+    def test_small_extra_blocks_map_without_changing_tiny_depth(self):
+        depths = (3, 3, 27, 3)
+        self.assertEqual(target_key('stages.2.blocks.26.mlp.fc1.weight', depths),
+                         ('features.5.26.block.3.weight', False))
+        self.assertEqual(target_key('stages.2.blocks.26.gamma', depths),
+                         ('features.5.26.layer_scale', True))
+        with self.assertRaises(ValueError):
+            target_key('stages.2.blocks.27.norm.weight', depths)
+        with self.assertRaises(ValueError):
+            target_key('stages.2.blocks.9.norm.weight')
+
+
 class ReusedIdentityTest(unittest.TestCase):
     def setUp(self):
         if SCRATCH is None:
@@ -288,12 +301,16 @@ def main():
         parser.add_argument('--' + name, required=True)
     parser.add_argument('--review-checks-only', action='store_true',
                         help='Run only timestamp and stage-binding review regressions, without the old eight tests.')
+    parser.add_argument('--small-checks-only', action='store_true',
+                        help='Run only the new Small mapping boundary check; no historical tests or model load.')
     args = parser.parse_args()
     context = cpu_context()
     chain = read_pinned_receipt(args.source_receipt, args.source_receipt_sha)
     SCRATCH = args.scratch
     LIVE_CONTEXT = context
-    if args.review_checks_only:
+    if args.small_checks_only:
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(SmallMappingTest)
+    elif args.review_checks_only:
         suite = unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(cls)
                                    for cls in (ReusedIdentityTest, StageBindingTest))
     else:
@@ -306,7 +323,8 @@ def main():
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(PretrainingSourcesTest)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     write_new_json(args.output, {'passed': result.wasSuccessful(), 'execution': context,
-                                'scope': 'review_regressions_only' if args.review_checks_only else 'original_source_checks',
+                                'scope': ('small_mapping_only' if args.small_checks_only else
+                                          'review_regressions_only' if args.review_checks_only else 'original_source_checks'),
                                 'tests_run': result.testsRun, 'failures': len(result.failures),
                                 'errors': len(result.errors), 'source_receipt_sha256': args.source_receipt_sha,
                                 'source_files': {name: sha256(Path(__file__).resolve().parents[1] / name)

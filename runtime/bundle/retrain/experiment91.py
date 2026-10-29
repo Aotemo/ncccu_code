@@ -1,4 +1,4 @@
-"""Explicit Tiny22K-to-1K source over the unchanged fixed 9:1 metadata."""
+"""Explicit ConvNeXt22K-to-1K source over unchanged fixed 9:1 metadata."""
 import copy
 from functools import lru_cache
 import hashlib
@@ -10,15 +10,12 @@ from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
-WEIGHT_SHA = '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed'
-PROVENANCE_SHA = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-BINDING_VERSION = 'single-tiny22k-bc48a87f-fixed-9010-24k-earlystop-seed20261029-v1'
-CANDIDATE = {'id': 'r101-convnext-tiny-imagenet22k-to-1k-24k-p4-seed20261029-9010', 'experiment_order': 11,
-    'model': 'convnext_tiny', 'public_revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
+BINDING_VERSION = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-v1'
+CANDIDATE = {'id': 'r102-convnext-small-imagenet22k-to-1k-24k-p4-9010', 'experiment_order': 12,
+    'model': 'convnext_small', 'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
     'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
     'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
-    'batch_norm_buffers': 0, 'attention_pool': None, 'weight_sha256': WEIGHT_SHA,
-    'provenance_sha256': PROVENANCE_SHA, 'stochastic_depth': .1,
+    'batch_norm_buffers': 0, 'attention_pool': None, 'stochastic_depth': .1,
     'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
 
 def science_configuration():
@@ -45,13 +42,62 @@ def science_configuration():
         raise ValueError('complete pinned science configuration required') from error
 
 
+def candidate_from_configuration(value):
+    actual = value['candidate']
+    source = value['public_source']
+    if (any(actual.get(key) != expected for key, expected in CANDIDATE.items())
+            or actual['model'] != value['job']['model']
+            or actual['weight_sha256'] != source['sha256']
+            or actual['provenance_sha256'] != source['provenance_sha256']
+            or actual['public_revision'] != source['revision']
+            or actual['features'] != value['structure']['features']):
+        raise ValueError('candidate, public source and measured structure differ')
+    return copy.deepcopy(actual)
+
+
+def public_source():
+    return copy.deepcopy(science_configuration()['public_source'])
+
+
+def structure_contract():
+    return copy.deepcopy(science_configuration()['structure'])
+
+
+def verify_public_asset(science, site):
+    """Consume the new public source handoff without altering historical migration."""
+    reference = science.get('public_asset_receipt')
+    if reference is None:
+        if science['job']['model'] == 'convnext_small':
+            raise ValueError('Small requires its independently verified public asset')
+        return None
+    relative = Path(reference['path'])
+    root = Path(site['work_root']).resolve()
+    if relative.is_absolute() or '..' in relative.parts:
+        raise ValueError('public handoff must be relative to work_root')
+    path = root / relative
+    if path.is_symlink() or sha256_file(path) != reference['sha256']:
+        raise ValueError('public handoff bytes differ')
+    receipt = json.loads(path.read_text())
+    source = science['public_source']
+    if (receipt.get('passed') is not True or receipt.get('schema_version') != 1
+            or receipt['execution']['uid'] != site['pod']['uid']
+            or receipt['model'] != science['job']['model']
+            or receipt['revision'] != source['revision']
+            or receipt['converted'] != {'path': site['public_weight'], 'sha256': source['sha256']}
+            or receipt['provenance'] != {'path': site['public_provenance'], 'sha256': source['provenance_sha256']}
+            or receipt['original']['sha256'] != source['original_sha256']
+            or receipt['structure'] != science['structure']):
+        raise ValueError('public source, paths or measured structure differ from handoff')
+    return receipt
+
+
 def candidate():
     site = load_site()
-    if (site['science'].get('candidate') != CANDIDATE
+    expected = candidate_from_configuration(science_configuration())
+    if (site['science'].get('candidate') != expected
             or site['science'].get('binding_version') != BINDING_VERSION):
         raise ValueError('explicit candidate/source/LN scientific identity differs')
-    science_configuration()
-    return copy.deepcopy(CANDIDATE)
+    return expected
 
 
 def metadata():
@@ -126,7 +172,7 @@ def ema_rule():
 
 def validate_job(job):
     configured = science_configuration()['job']
-    expected = {'model': 'convnext_tiny', 'image_size': 512, 'prepared_size': 512,
+    expected = {'model': candidate()['model'], 'image_size': 512, 'prepared_size': 512,
         'precision': 'fp32', 'normalization': 'imagenet', 'seed': configured['seed'], 'effective_batch': 64,
         'positive_per_batch': 8, **{key: configured[key] for key in (
             'cycles', 'warmup_cycles', 'min_cycles', 'patience', 'min_delta', 'stop_after_cycles')},
@@ -138,7 +184,7 @@ def validate_job(job):
     site = load_site()
     if (any(job.get(k) != v for k, v in expected.items()) or job.get('physical_batch') not in (64 // len(site['gpus']), 32)
             or job.get('experiment91') != binding() or job.get('age') != metadata()['AGE.json']
-            or init.get('kind') != 'imagenet' or init.get('sha256') != WEIGHT_SHA
+            or init.get('kind') != 'imagenet' or init.get('sha256') != public_source()['sha256']
             or init.get('format') != 'torchvision-1000-state-dict-v1'
             or Path(init.get('path', '')).resolve() != Path(site['public_weight']).resolve()
             or Path(init.get('provenance', '')).resolve() != Path(site['public_provenance']).resolve()):
@@ -161,7 +207,7 @@ def describe_model(model):
     if (count_bn != 0 or buffers or not norms
             or not isinstance(network.avgpool, nn.AdaptiveAvgPool2d)
             or network.avgpool.output_size != 1
-            or not isinstance(final, nn.Linear) or (final.in_features, final.out_features) != (768, 1)
+            or not isinstance(final, nn.Linear) or (final.in_features, final.out_features) != (candidate()['features'], 1)
             or not isinstance(network.classifier[-2], nn.Dropout)
             or network.classifier[-2].p != science_configuration()['job']['dropout']
             or any(n == 'attention_pool_weight' or n == 'q' for n, _ in model.named_parameters())
@@ -180,12 +226,13 @@ def validate_normalization(value):
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
             or value.get('buffer_count') != 0 or value.get('buffer_sha256') != hashlib.sha256(b'').hexdigest()
-            or value.get('head_in_features') != 768 or value.get('head_out_features') != 1
+            or value.get('head_in_features') != candidate()['features'] or value.get('head_out_features') != 1
             or value.get('dropout') != science_configuration()['job']['dropout']
-            or not norms or len({n['name'] for n in norms}) != len(norms)
+            or len(norms) != structure_contract()['layer_norms'] or len({n['name'] for n in norms}) != len(norms)
             or not any(n['name'] == 'network.classifier.0' for n in norms)
             or any(n['eps'] != (candidate()['final_norm_eps'] if n['name'] == 'network.classifier.0' else 1e-6) for n in norms)
-            or len(depth) < 2 or any(d['mode'] != 'row' or d['p'] != .1 * i / (len(depth)-1) for i, d in enumerate(depth))):
+            or len(depth) != structure_contract()['stochastic_depth_modules']
+            or any(d['mode'] != 'row' or d['p'] != science_configuration()['job']['stochastic_depth'] * i / (len(depth)-1) for i, d in enumerate(depth))):
         raise ValueError('Tiny actual LN/noBN/stochastic-depth contract differs')
     return True
 
@@ -204,7 +251,8 @@ def validate_runtime(identity, job, manifest=None, fresh=None):
     init = identity.get('initialization', {})
     if (identity.get('experiment91') != binding() or identity.get('manifest_digest') != binding()['manifest_digest']
             or identity.get('job') != job_contract(job) or len(identity.get('source_digest', '')) != 64
-            or init.get('weights_sha256') != WEIGHT_SHA or init.get('provenance_sha256') != PROVENANCE_SHA
+            or init.get('weights_sha256') != public_source()['sha256']
+            or init.get('provenance_sha256') != public_source()['provenance_sha256']
             or init.get('final_norm_eps') != candidate()['final_norm_eps'] or identity.get('phase_parent_sha256') is not None):
         raise ValueError('Tiny22K-to-1K runtime source/job/manifest/LN differs')
     if manifest is not None and canonical_digest(manifest) != binding()['manifest_digest']:

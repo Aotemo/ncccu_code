@@ -1,0 +1,49 @@
+{
+  "scope": "R102_Small_representation_configuration_and_measured_initial_control",
+  "passed": true,
+  "exit_code": 0,
+  "tests": 10,
+  "failures": 0,
+  "errors": 0,
+  "scientific_axis": "R95 Tiny/public checkpoint to Small/public checkpoint; other R95 scientific settings retained",
+  "new_initial_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+  "initial_control_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r102-small22k-20261029-a/INITIAL-CONTROL.json",
+    "sha256": "44e23c726a6b803eaabf7d39f73b54f7b8a800e385290fffeaeb9427bd9ccd36"
+  },
+  "source_files": {
+    "configs/R102-SCIENCE.json": "484c74d9fc929a861f00d8009517b6ba419e2250754aeecce21de95be2878875",
+    "configs/RESOURCE-POLICY.json": "725b2b90d6932a4e80d1f60993f024209e95a263172a37562629f1f0e8d8c4bf",
+    "runtime/CLOCK_POLICY.json": "7a0a21f7bbd590ce69046febc5b9d224c8f43381e6fe792c729d0cb35b12818e",
+    "runtime/bundle/retrain/config.py": "dc92ffab4470e944bf2b8525bd9e460c36acaf6b18a736a838bbeaab90eff3dd",
+    "runtime/bundle/retrain/models.py": "809642bb62ff59842ebad187c0e2873f48472416866dba7614cded4ad5d22c03",
+    "runtime/bundle/retrain/experiment91.py": "f19266bd2d46ff212a1a869c9070832c9b8e4650e5aa01ba8ecd27ffc216d700",
+    "runtime/bundle/retrain/inference.py": "175a71ad8d1d301b1f40d4a468552ae21774074f30437ec9ad3f805befc08dd0",
+    "tools/activation/prepare.py": "e7e4cd043c664583d7b9164bbc01fdc64146d51fb66705587853ce821e5d2fe2",
+    "tools/activation/prepare_gpu_site.py": "23f9dd6d7e0f5cabb9c07a843a9a46d43a291d29c0fb62b2cd761ae574ccf9c0",
+    "tools/validation/check_candidate.py": "edcc0b261e5012f7275d783b4b92ffbc5d9d8b61e53eb7d7a93a6695f22ed554",
+    "tests/test_candidate_binding.py": "38f9f8542e2bf7b9b359b2a0defa056963600dbafb7569946aaae7ce3285901c"
+  },
+  "source_unchanged_during_tests": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "torch_threads": 12,
+  "interop_threads": 1,
+  "GPU_initialized": false,
+  "model_forward": false,
+  "training_updates": 0,
+  "formal_CPU_admission": false
+}

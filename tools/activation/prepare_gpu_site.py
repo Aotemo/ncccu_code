@@ -108,7 +108,10 @@ def main():
     require(site.get('scope') == 'cpu_technical_prep', 'explicit prior technical site required')
     require(re.fullmatch('[0-9a-f]{40}', args.git_commit) and args.git_commit == args.remote_commit,
             'the actual Git commit must equal the connector-verified remote head')
-    require(1 <= args.valid_seconds <= 21600, 'explicit GPU allocation TTL must be at most six hours')
+    resource_policy = load_resource_policy(args.resource_policy, args.resource_policy_sha256)
+    maximum = resource_policy['value']['gpu_allocation_max_seconds']
+    require(type(maximum) is int and 1 <= args.valid_seconds <= maximum,
+            'explicit GPU allocation TTL exceeds the configured resource limit')
     relocation = pinned(evidence_path(args.relocation_receipt, site['work_root']), args.relocation_receipt_sha256)
     require(relocation.get('passed') is True and relocation.get('phase') == 'complete'
             and relocation.get('execution', {}).get('uid') == site['pod']['uid']
@@ -116,14 +119,19 @@ def main():
             and relocation.get('historical_FREEZE_bytes_preserved') is True
             and relocation.get('official_manifest_semantics_read') is False,
             'complete current migration/cache relocation receipt required')
-    for key, field in {'data_root': 'dataset_root', 'metadata_root': 'stage1_root',
+    from retrain.experiment91 import verify_public_asset
+    science = pinned(site['science']['configuration']['path'], site['science']['configuration']['sha256'])
+    public_asset = verify_public_asset(science, site)
+    mapping = {'data_root': 'dataset_root', 'metadata_root': 'stage1_root',
                        'public_weight': 'public_pretrained', 'public_provenance': 'public_metadata',
                        'train_identity': 'train_identity', 'prepared_cache': 'prepared_cache_root',
-                       'official_manifest': 'official_manifest'}.items():
+                       'official_manifest': 'official_manifest'}
+    if public_asset:
+        mapping.pop('public_weight'); mapping.pop('public_provenance')
+    for key, field in mapping.items():
         require(site[key] == relocation['paths'][field], 'relocation target differs: ' + key)
     owner = os.environ['NCCCU_EXECUTOR_ID']
     validation = pinned(evidence_path(args.validation_cpu_allocation, site['work_root']), args.validation_cpu_allocation_sha256)
-    resource_policy = load_resource_policy(args.resource_policy, args.resource_policy_sha256)
     native_guard = verify_native_guard(args.native_guard_receipt, args.native_guard_receipt_sha256,
                                        resource_policy, site['work_root'])
     resources = live_cpu_resources()

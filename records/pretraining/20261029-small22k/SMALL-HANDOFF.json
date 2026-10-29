@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "model": "convnext_small",
+  "repo": "timm/convnext_small.fb_in22k_ft_in1k",
+  "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+  "execution": {
+    "at": "2026-10-29T00:24:08.803058+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/environment-20261028-51fe3daf/CPU-ALLOCATION-5.json",
+      "sha256": "ad03cf651d110bc95f17a868c4d82adb0a758c42901a2d793e8c9a83106279dd",
+      "executor_id": "5d11d2c3-54b6-4037-ad23-a38f3849238f",
+      "threads": 12,
+      "channel_mask": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "actual_affinity": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel",
+      "torch_intraop_threads": 12,
+      "torch_interop_threads": 1
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/pytorch_model.bin",
+    "sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914"
+  },
+  "converted": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/converted/convnext-small-tv-fe6b358a.pt",
+    "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+  },
+  "provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/converted/provenance.json",
+    "sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "source_chain": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/SOURCE-CHAIN-2.json",
+    "sha256": "dda735a1a35c5e994607a68356694695d8003584c33fa3bc36c6f33ecce90928"
+  },
+  "strict_load": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/STRICT-LOAD.json",
+    "sha256": "a4cc6fec059c6b0fa826c29ee1832f7e8007f875d15835acc269b493c6d4a68f"
+  }
+}

@@ -1,4 +1,4 @@
-"""Production Tiny22K binary+age CPU admission; no data forward or formal state."""
+"""Production ConvNeXt22K binary+age CPU admission; no data forward or formal state."""
 import copy
 import importlib.util
 import json
@@ -65,17 +65,20 @@ def main(args):
     import r92_initial_gate as initial_gate
     model = create_cpu_fresh_model(job)
     structure = ex.describe_model(model); public = model.public_initialization_receipt
+    contract = ex.structure_contract()
     check('public1000_strict_exact_finite_FP32_then_fresh_binary', bool(public)
           and public['all_public_tensors_exact'] and public['all_public_tensors_FP32_finite']
-          and public['public_tensor_count'] == 182 and public['full_head_shape'] == [1000, 768]
+          and public['public_tensor_count'] == contract['public_state_tensors']
+          and public['full_head_shape'] == contract['full_head_shape']
           and not public['strict_missing_keys'] and not public['strict_unexpected_keys'], public)
-    check('actual_LN23_GELU18_native_avgpool_noBN_noq_binary_agezero',
-          len(structure['layer_norms']) == 23 and all(row['eps'] == 1e-6 for row in structure['layer_norms'])
+    check('actual_measured_LN_GELU_native_avgpool_noBN_noq_binary_agezero',
+          len(structure['layer_norms']) == contract['layer_norms']
+          and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == structure['buffer_count'] == 0
           and not dict(model.named_buffers()) and model.age_metadata == job['age']
           and model.age_weight.numel() == 2 and bool((model.age_weight == 0).all())
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
-                  for module in model.modules()) == 18, structure)
+                  for module in model.modules()) == contract['gelu_modules'], structure)
     wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
     rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
     model.network.classifier[0].eps = 1e-12
@@ -92,9 +95,9 @@ def main(args):
              for role in ('backbone', 'head', 'age')}
     head = {id(parameter) for parameter in model.network.classifier[-1].parameters()}
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == len(members) == len({id(parameter) for parameter in members}) == 183
+        and len(named) == len(members) == len({id(parameter) for parameter in members}) == contract['backbone_state_tensors'] + 3
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
-        and roles == {'backbone': 27820128, 'head': 769, 'age': 2}
+        and roles == {'backbone': contract['backbone_parameters'], 'head': contract['features'] + 1, 'age': 2}
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and any(row['name'] == 'network.classifier.0.weight' for group in groups if group['role'] == 'backbone' for row in group['parameters'])
         and group_lrs_match(groups, job)
@@ -132,8 +135,12 @@ def main(args):
     with torch.no_grad():
         model.network.classifier[-1].bias.add_(1.)
     result = model.load_state_dict(loaded['model'], strict=True)
+    from retrain.inference import _load_model
+    reloaded, reload_job, _, reload_origin, _ = _load_model(
+        checkpoint, device='cpu', variant='online', model_factory=lambda supplied, initialize: model)
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
+          and reload_job == job and reloaded is model and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
     initials = [{'rank': rank, 'model_sha256': model_digest, 'optimizer_state_entries': 0,

@@ -1,0 +1,2206 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "scope": "small22k_full1000_cpu_strict",
+  "execution": {
+    "at": "2026-10-29T00:24:08.803058+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/environment-20261028-51fe3daf/CPU-ALLOCATION-5.json",
+      "sha256": "ad03cf651d110bc95f17a868c4d82adb0a758c42901a2d793e8c9a83106279dd",
+      "executor_id": "5d11d2c3-54b6-4037-ad23-a38f3849238f",
+      "threads": 12,
+      "channel_mask": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "actual_affinity": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel",
+      "torch_intraop_threads": 12,
+      "torch_interop_threads": 1
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "model": "convnext_small",
+  "repo": "timm/convnext_small.fb_in22k_ft_in1k",
+  "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "public_parameters": 50223688,
+  "assets": {
+    "model-api.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/model-api.json",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/model-api.json",
+      "bytes": 1648,
+      "device": 132,
+      "inode": 18659686510,
+      "mtime_ns": 1793233386000000000,
+      "ctime_ns": 1793233386000000000,
+      "sha256": "3faec2573f84ded9c76422b64b1340327558a3e58b6755eb7d454231fa82a1ef",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 1648
+    },
+    "config.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/config.json",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/config.json",
+      "bytes": 667,
+      "device": 132,
+      "inode": 18659687278,
+      "mtime_ns": 1793233386000000000,
+      "ctime_ns": 1793233386000000000,
+      "sha256": "8b57c9e74da28e3a9d48afc9372a78d34bc3cc048f2f8fa33b9b94e45da99906",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 667
+    },
+    "README.md": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/README.md",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/README.md",
+      "bytes": 15754,
+      "device": 132,
+      "inode": 18659687534,
+      "mtime_ns": 1793233386000000000,
+      "ctime_ns": 1793233386000000000,
+      "sha256": "bbf1cf6fd52455ce2e0905a25ad93b2641c1e025df934ebbc7a0317056fdca07",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 15754
+    },
+    "LICENSE-apache-2.0.txt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/LICENSE-apache-2.0.txt",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/LICENSE-apache-2.0.txt",
+      "bytes": 11358,
+      "device": 132,
+      "inode": 18450104445,
+      "mtime_ns": 1793233386000000000,
+      "ctime_ns": 1793233386000000000,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 11358
+    },
+    "pytorch_model.bin": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/pytorch_model.bin",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/pytorch_model.bin",
+      "bytes": 201017809,
+      "device": 132,
+      "inode": 18450104701,
+      "mtime_ns": 1793233387000000000,
+      "ctime_ns": 1793233387000000000,
+      "sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 201017809
+    }
+  },
+  "original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/original/pytorch_model.bin",
+    "sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914"
+  },
+  "converted": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/converted/convnext-small-tv-fe6b358a.pt",
+    "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+  },
+  "provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/converted/provenance.json",
+    "sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+  },
+  "source_chain": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/SOURCE-CHAIN-2.json",
+    "sha256": "dda735a1a35c5e994607a68356694695d8003584c33fa3bc36c6f33ecce90928"
+  },
+  "mapping": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/MAPPING.json",
+    "sha256": "9c07c43f47241b3ab4d5bff904531ad9f8a29b6ac9213280da436f9480f88449"
+  },
+  "strict_load": {
+    "source_missing": [],
+    "source_unexpected": [],
+    "target_missing": [],
+    "target_unexpected": [],
+    "public_state_tensors": 344,
+    "all_FP32_finite_exact": true
+  },
+  "source_implementation_pins": {
+    "timm_convnext": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/models/convnext.py",
+      "sha256": "a2ef5eb22cc1039dadcddcbf7b243034e98a553630349483302ed21d09fdb50f"
+    },
+    "torchvision_convnext": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/torchvision/models/convnext.py",
+      "sha256": "5c00c412bc79e5c650f887dfe0d21aa8028903a3bbeae1a95c3b0fdfbdaf55c2"
+    },
+    "timm_GELU": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/activations.py",
+      "sha256": "effc50cc017066d60f3e8bc9f4a65b2765ad374a1b4da7bf023c1db99e8f1cd9"
+    },
+    "torch_GELU": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/torch/nn/modules/activation.py",
+      "sha256": "f335544f19b07e279dd729ba4fbc1de0226797fdf9fa2e790670546499df0efa"
+    }
+  },
+  "source_factory": {
+    "name": "timm.create_model",
+    "model": "convnext_small.fb_in22k_ft_in1k",
+    "pretrained": false,
+    "drop_path_rate": 0.1,
+    "timm_version": "1.0.27",
+    "layer_norms": [
+      {
+        "name": "stem.1",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "stages.0.blocks.0.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "stages.0.blocks.1.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "stages.0.blocks.2.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "stages.1.downsample.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "stages.1.blocks.0.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "stages.1.blocks.1.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "stages.1.blocks.2.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "stages.2.downsample.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "stages.2.blocks.0.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.1.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.2.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.3.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.4.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.5.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.6.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.7.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.8.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.9.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.10.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.11.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.12.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.13.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.14.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.15.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.16.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.17.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.18.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.19.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.20.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.21.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.22.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.23.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.24.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.25.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.2.blocks.26.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.3.downsample.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "stages.3.blocks.0.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "stages.3.blocks.1.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "stages.3.blocks.2.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "head.norm",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "GELU": [
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      },
+      {
+        "qualname": "timm.layers.activations.GELU",
+        "repr": "GELU()",
+        "verified_approximate": "none",
+        "forward_source_sha256": "375052b2c2b44c570274dee239db60f55afda25d413c98c827561f63a0ca5a77"
+      }
+    ],
+    "stochastic_depth": [
+      0.0,
+      0.0028571428265422583,
+      0.0057142856530845165,
+      0.008571428246796131,
+      0.011428571306169033,
+      0.014285714365541935,
+      0.017142856493592262,
+      0.019999999552965164,
+      0.022857142612338066,
+      0.025714285671710968,
+      0.02857142873108387,
+      0.03142857179045677,
+      0.034285712987184525,
+      0.037142857909202576,
+      0.03999999910593033,
+      0.04285714402794838,
+      0.04571428522467613,
+      0.048571426421403885,
+      0.051428575068712234,
+      0.05428571626543999,
+      0.05714285746216774,
+      0.06000000238418579,
+      0.06285714358091354,
+      0.0657142847776413,
+      0.06857143342494965,
+      0.0714285746216774,
+      0.07428571581840515,
+      0.0771428570151329,
+      0.07999999821186066,
+      0.082857146859169,
+      0.08571428805589676,
+      0.08857142925262451,
+      0.09142857044935226,
+      0.09428571909666061,
+      0.09714286029338837,
+      0.10000000149011612
+    ],
+    "BN": 0,
+    "buffers": 0
+  },
+  "target_factory": {
+    "name": "torchvision.models.convnext_small",
+    "weights": null,
+    "stochastic_depth_prob": 0.1,
+    "torchvision_version": "0.25.0",
+    "layer_norms": [
+      {
+        "name": "features.0.1",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "features.1.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "features.1.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "features.1.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "features.2.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "features.3.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "features.3.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "features.3.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "features.4.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "features.5.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.3.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.4.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.5.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.6.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.7.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.8.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.9.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.10.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.11.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.12.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.13.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.14.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.15.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.16.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.17.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.18.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.19.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.20.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.21.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.22.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.23.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.24.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.25.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.5.26.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.6.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "features.7.0.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "features.7.1.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "features.7.2.block.2",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "classifier.0",
+        "eps": 1e-06,
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "GELU": [
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      },
+      {
+        "qualname": "torch.nn.modules.activation.GELU",
+        "repr": "GELU(approximate='none')",
+        "verified_approximate": "none",
+        "forward_source_sha256": "0ba944b423b791f0e3fc1fd556f36f1a8ec2a70bcae3de057b066b9f8fc43557"
+      }
+    ],
+    "stochastic_depth": [
+      0.0,
+      0.002857142857142857,
+      0.005714285714285714,
+      0.008571428571428572,
+      0.011428571428571429,
+      0.014285714285714285,
+      0.017142857142857144,
+      0.02,
+      0.022857142857142857,
+      0.025714285714285714,
+      0.02857142857142857,
+      0.03142857142857143,
+      0.03428571428571429,
+      0.037142857142857144,
+      0.04,
+      0.04285714285714286,
+      0.045714285714285714,
+      0.04857142857142858,
+      0.05142857142857143,
+      0.05428571428571429,
+      0.05714285714285714,
+      0.060000000000000005,
+      0.06285714285714286,
+      0.06571428571428573,
+      0.06857142857142857,
+      0.07142857142857142,
+      0.07428571428571429,
+      0.07714285714285715,
+      0.08,
+      0.08285714285714287,
+      0.08571428571428572,
+      0.08857142857142858,
+      0.09142857142857143,
+      0.09428571428571429,
+      0.09714285714285716,
+      0.1
+    ],
+    "BN": 0,
+    "buffers": 0
+  },
+  "matching_convolution_config": [
+    {
+      "source": "stem.0",
+      "target": "features.0.0",
+      "kernel_size": [
+        4,
+        4
+      ],
+      "stride": [
+        4,
+        4
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.0.blocks.0.conv_dw",
+      "target": "features.1.0.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 96,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.0.blocks.1.conv_dw",
+      "target": "features.1.1.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 96,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.0.blocks.2.conv_dw",
+      "target": "features.1.2.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 96,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.1.downsample.1",
+      "target": "features.2.1",
+      "kernel_size": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.1.blocks.0.conv_dw",
+      "target": "features.3.0.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 192,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.1.blocks.1.conv_dw",
+      "target": "features.3.1.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 192,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.1.blocks.2.conv_dw",
+      "target": "features.3.2.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 192,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.downsample.1",
+      "target": "features.4.1",
+      "kernel_size": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.0.conv_dw",
+      "target": "features.5.0.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.1.conv_dw",
+      "target": "features.5.1.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.2.conv_dw",
+      "target": "features.5.2.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.3.conv_dw",
+      "target": "features.5.3.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.4.conv_dw",
+      "target": "features.5.4.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.5.conv_dw",
+      "target": "features.5.5.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.6.conv_dw",
+      "target": "features.5.6.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.7.conv_dw",
+      "target": "features.5.7.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.8.conv_dw",
+      "target": "features.5.8.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.9.conv_dw",
+      "target": "features.5.9.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.10.conv_dw",
+      "target": "features.5.10.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.11.conv_dw",
+      "target": "features.5.11.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.12.conv_dw",
+      "target": "features.5.12.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.13.conv_dw",
+      "target": "features.5.13.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.14.conv_dw",
+      "target": "features.5.14.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.15.conv_dw",
+      "target": "features.5.15.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.16.conv_dw",
+      "target": "features.5.16.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.17.conv_dw",
+      "target": "features.5.17.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.18.conv_dw",
+      "target": "features.5.18.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.19.conv_dw",
+      "target": "features.5.19.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.20.conv_dw",
+      "target": "features.5.20.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.21.conv_dw",
+      "target": "features.5.21.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.22.conv_dw",
+      "target": "features.5.22.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.23.conv_dw",
+      "target": "features.5.23.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.24.conv_dw",
+      "target": "features.5.24.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.25.conv_dw",
+      "target": "features.5.25.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.2.blocks.26.conv_dw",
+      "target": "features.5.26.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 384,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.3.downsample.1",
+      "target": "features.6.1",
+      "kernel_size": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.3.blocks.0.conv_dw",
+      "target": "features.7.0.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 768,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.3.blocks.1.conv_dw",
+      "target": "features.7.1.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 768,
+      "padding_mode": "zeros"
+    },
+    {
+      "source": "stages.3.blocks.2.conv_dw",
+      "target": "features.7.2.block.0",
+      "kernel_size": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 768,
+      "padding_mode": "zeros"
+    }
+  ],
+  "loaded_public_tensor_sha256": "966da204c7ee0668d6d2e1d51b9fa8fe1df96a9a630b12271a96d00f0a197d97",
+  "source_card_preprocessing_is_not_candidate_preprocessing": true,
+  "candidate_overrides": {
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "stochastic_depth": 0.1,
+    "dropout": 0.2,
+    "image_size": 512,
+    "source_card_preprocessing_is_not_candidate_preprocessing": true
+  },
+  "forward_calls": 0,
+  "datasets_read": false,
+  "GPU_initialized_before": false,
+  "GPU_initialized_after": false,
+  "weight_blob_hashes_recomputed": true,
+  "validation_source_sha256": {
+    "small_source.py": "4575a954ec657f2d2472f7b83caf15d1dc10cbee41bf0a77b4f63c5a1089b846",
+    "small_strict.py": "55c8e241236d462b0c09fafca545acf6ea6032a24cf357e8fab4b6f7e7d2268f",
+    "strict_load.py": "da3fa6a19c4fcb79e7139a84b99fddd8825996097dba28c22cbcf1fb1040e3a9",
+    "source_chain.py": "5d183e1a0949e913956d57647f6b819846696c34fcb1b4f5d1c82c1510d76473"
+  },
+  "production_binary_age_optimizer_admission": "pending A, no binary demonstration here"
+}

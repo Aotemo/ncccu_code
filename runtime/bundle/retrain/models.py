@@ -206,22 +206,31 @@ def validate_initialization(initialization):
             raise ValueError('Weight provenance requires '+key)
     if meta['sha256'] != initialization['sha256'] or meta.get('redistribution_confirmed') is not True:
         raise ValueError('Weight hash/provenance and redistribution confirmation are required')
-    tiny22 = meta['training_data'] == 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
-    if tiny22:
-        from .experiment91 import CANDIDATE, PROVENANCE_SHA
+    convnext22 = meta['training_data'] == 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
+    if convnext22:
+        # The existing Tiny source remains its exact historical whitelist.
         expected = {'model': 'convnext_tiny', 'format': 'torchvision-1000-state-dict-v1',
-            'revision': CANDIDATE['public_revision'], 'sha256': CANDIDATE['weight_sha256'],
+            'revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
+            'sha256': '1ec1dd0b7045237eafe1c8f1becd58456cc811326c97ec416ae8b2e5ede860ed',
             'source_url': 'https://huggingface.co/timm/convnext_tiny.fb_in22k_ft_in1k/resolve/'
-                          + CANDIDATE['public_revision'] + '/pytorch_model.bin',
+                          'bc48a87f119bae1b06418f5340bfa97ef75d4609/pytorch_model.bin',
             'original_sha256': '8cb65dc650a7fb25eaadbff3eb69559d02f83cdc5afdfb3785d1889cdc3e3518',
             'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
             'license_file': '../original/LICENSE-apache-2.0.txt'}
+        provenance_sha = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
+        if meta['model'] == 'convnext_small':
+            from .experiment91 import public_source
+            source = public_source()
+            expected = {key: source[key] for key in expected}
+            if expected['model'] != 'convnext_small':
+                raise ValueError('Small provenance requires the pinned Small scientific source')
+            provenance_sha = source['provenance_sha256']
         if (any(meta.get(key) != value for key, value in expected.items())
-                or _hash(meta_path) != PROVENANCE_SHA
+                or _hash(meta_path) != provenance_sha
                 or initialization.get('kind') != 'imagenet'
                 or not path.is_absolute() or not meta_path.is_absolute()
                 or path.is_symlink() or meta_path.is_symlink()):
-            raise ValueError('Pinned Tiny22K-to-1K source/revision/conversion/LN differs')
+            raise ValueError('Pinned ConvNeXt22K-to-1K source/revision/conversion/LN differs')
     elif meta['training_data'] != 'ImageNet-1K' or not meta['source_url'].startswith('https://'):
         raise ValueError('Only documented ImageNet-1K or the pinned Tiny22K-to-1K source is supported')
     license_path = (meta_path.parent / meta['license_file']).resolve()
@@ -254,8 +263,9 @@ def create_model(job, initialize=True):
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}
     if name == 'efficientnet_v2_s':
         model = models.efficientnet_v2_s(dropout=job.get('dropout', .2), **kwargs)
-    elif name == 'convnext_tiny':
-        model = models.convnext_tiny(**kwargs)
+    elif name in ('convnext_tiny', 'convnext_small'):
+        factory = models.convnext_tiny if name == 'convnext_tiny' else models.convnext_small
+        model = factory(**kwargs)
         model.classifier[0].eps=float(job.get('final_norm_eps',1e-6))
     else:
         raise ValueError('Unsupported backbone: '+name)
@@ -271,13 +281,13 @@ def create_model(job, initialize=True):
         loaded = model.load_state_dict(state, strict=True)
         if job.get('experiment91') is not None:
             from .ema import tensor_digest
-            from .experiment91 import PROVENANCE_SHA
+            from .experiment91 import public_source
             actual = model.state_dict()
-            if (proof['provenance_sha256'] != PROVENANCE_SHA or loaded.missing_keys or loaded.unexpected_keys
+            if (proof['provenance_sha256'] != public_source()['provenance_sha256'] or loaded.missing_keys or loaded.unexpected_keys
                     or actual.keys() != state.keys() or model.classifier[-1].out_features != 1000
                     or any(not torch.equal(actual[n], t) or t.dtype != torch.float32
                            or not bool(torch.isfinite(t).all()) for n, t in state.items())):
-                raise ValueError('Tiny complete public1000 strict/exact/FP32/finite proof differs')
+                raise ValueError('ConvNeXt complete public1000 strict/exact/FP32/finite proof differs')
             public_receipt = {'initialization': proof, 'strict_missing_keys': loaded.missing_keys,
                 'strict_unexpected_keys': loaded.unexpected_keys, 'public_tensor_count': len(state),
                 'public_tensor_sha256': tensor_digest(state), 'full_head_shape': list(model.classifier[-1].weight.shape),
@@ -285,7 +295,7 @@ def create_model(job, initialize=True):
     # Keep native names so optimizer grouping and raw checkpoint state_dicts remain simple.
     last = model.classifier[-1]
     model.classifier[-1] = nn.Linear(last.in_features, 1)
-    if name == 'convnext_tiny':
+    if name in ('convnext_tiny', 'convnext_small'):
         model.classifier = nn.Sequential(*list(model.classifier.children())[:-1],
                                          nn.Dropout(job.get('dropout', .2)), model.classifier[-1])
     class BinaryModel(nn.Module):

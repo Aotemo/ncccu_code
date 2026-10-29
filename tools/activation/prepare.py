@@ -45,7 +45,7 @@ def parser():
 
 
 def technical_site(args, science, science_path):
-    from retrain.experiment91 import CANDIDATE, BINDING_VERSION
+    from retrain.experiment91 import candidate_from_configuration, BINDING_VERSION
     from retrain.site_binding import validate_site, require_cpu_channel
     require_cpu_channel()
     if (not args.work_root or not args.work_root.is_absolute() or not args.round_id
@@ -70,7 +70,7 @@ def technical_site(args, science, science_path):
         'pod': {'namespace': os.environ['NCCCU_POD_NAMESPACE'], 'name': os.environ['NCCCU_POD_NAME'],
                 'uid': os.environ['NCCCU_POD_UID'], 'container': os.environ['NCCCU_CONTAINER'],
                 'python': os.environ['NCCCU_PYTHON']}, 'gpus': cards, **paths,
-        'science': {'binding_version': BINDING_VERSION, 'candidate': copy.deepcopy(CANDIDATE),
+        'science': {'binding_version': BINDING_VERSION, 'candidate': candidate_from_configuration(science),
                     'configuration': {'path': str(science_path), 'sha256': sha(science_path)}}})
 
 
@@ -103,10 +103,14 @@ def build(args):
             or migrated.get('source_modified_by_tool') is not False
             or migrated.get('historical_FREEZE_bytes_preserved') is not True):
         raise ValueError('successful current Pod small-asset copy required')
+    from retrain.experiment91 import verify_public_asset
+    public_asset = verify_public_asset(science, site)
     mapping = {'data_root': 'dataset_root', 'train_identity': 'train_identity',
         'metadata_root': 'stage1_root', 'public_weight': 'public_pretrained',
         'public_provenance': 'public_metadata', 'prepared_cache': 'prepared_cache_root',
         'official_manifest': 'official_manifest'}
+    if public_asset:
+        mapping.pop('public_weight'); mapping.pop('public_provenance')
     if any(site[key] != migrated['paths'][field] for key, field in mapping.items()):
         raise ValueError('site asset paths differ from the exact migration binding')
     if sha(migrated['manifest']['path']) != migrated['manifest']['sha256']:
@@ -144,9 +148,9 @@ def build(args):
     job = copy.deepcopy(science['job'])
     job.update(age=ex.metadata()['AGE.json'], experiment91=ex.binding(),
         initialization={'kind': 'imagenet', 'format': 'torchvision-1000-state-dict-v1',
-            'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.WEIGHT_SHA})
+            'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.public_source()['sha256']})
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,
-        'run_name': site['round_id'] + f"-8c-tiny22k-s{job['seed']}-b64-p8-fp32",
+        'run_name': site['round_id'] + f"-8c-{job['model']}-s{job['seed']}-b64-p8-fp32",
         'output_root': str(Path(site['round_root']) / 'outputs'),
         'data': {'root': site['data_root'], 'identity_path': site['train_identity'],
             'expected_count': 51396, 'expected_valid_count': 5849, 'verify_images': True,
@@ -176,8 +180,8 @@ def build(args):
                               'sha256': science['official_manifest_sha256']}},
         'prepared512_cache': {'remote_root': site['prepared_cache'], 'pillow': '12.3.0',
                               'prepared_size': 512, 'read_only': True},
-        'public_weight': {'remote_path': site['public_weight'], 'sha256': ex.WEIGHT_SHA},
-        'public_provenance': {'remote_path': site['public_provenance'], 'sha256': ex.PROVENANCE_SHA},
+        'public_weight': {'remote_path': site['public_weight'], 'sha256': ex.public_source()['sha256']},
+        'public_provenance': {'remote_path': site['public_provenance'], 'sha256': ex.public_source()['provenance_sha256']},
         'official_manifest_content_read': False}
     write(package / 'ASSETS.json', assets)
     return package, cfg, resolved, topology, execution, source_digest
