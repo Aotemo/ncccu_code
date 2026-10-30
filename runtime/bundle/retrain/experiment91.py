@@ -288,7 +288,8 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
-    if 'final_downsample_stride' in science_configuration()['job']:
+    if ('final_downsample_stride' in science_configuration()['job']
+            or science_configuration()['candidate_profile'] == FIT_SSL_SMALL_BINDING):
         convolution = network.features[6][1]
         if not isinstance(convolution, nn.Conv2d):
             raise ValueError('actual final Small downsample must remain Conv2d')
@@ -319,8 +320,9 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
-    if 'final_downsample_stride' in configured:
-        stride = configured['final_downsample_stride']
+    if ('final_downsample_stride' in configured
+            or science_configuration()['candidate_profile'] == FIT_SSL_SMALL_BINDING):
+        stride = configured.get('final_downsample_stride', 2)
         if value.get('final_downsample') != {'name': 'network.features.6.1', 'stride': [stride, stride],
                 'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}:
             raise ValueError('actual final Small downsample geometry differs from pinned job')
