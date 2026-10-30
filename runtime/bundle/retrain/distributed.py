@@ -86,6 +86,19 @@ class RankContext:
         values=[value if self.primary else None]
         dist.broadcast_object_list(values,src=0)
         return values[0]
+    def broadcast_flag(self,value):
+        """Rank0 decides one boolean; a fixed int32 tensor broadcasts it without object pickling."""
+        if self.world_size==1:return bool(value)
+        flag=torch.tensor([int(bool(value))],device=self.device,dtype=torch.int32)
+        dist.broadcast(flag,src=0)
+        return bool(flag.item())
+    def any_flags(self,values):
+        """Fixed-length local booleans: one WORLD MAX and one host transfer, never per-flag collectives."""
+        flags=[bool(value) for value in values]
+        if self.world_size==1:return flags
+        tensor=torch.tensor([int(flag) for flag in flags],device=self.device,dtype=torch.int32)
+        dist.all_reduce(tensor,op=dist.ReduceOp.MAX)
+        return [bool(value) for value in tensor.cpu().tolist()]
     def any(self,value):
         flag=torch.tensor(int(bool(value)),device=self.device,dtype=torch.int32)
         if self.world_size>1:dist.all_reduce(flag,op=dist.ReduceOp.MAX)

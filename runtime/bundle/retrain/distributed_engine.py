@@ -255,6 +255,12 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if precision_runtime is not None:
         from .precision import runtime_proof
         precision_runtime=runtime_proof(fresh_spec['precision_protocol'],scaler=scaler,device=device)
+    # The no-skip path is admitted from the post-load scaler proof, not the job label.
+    fixed_fp32_scaler=(mode=='train' and precision_runtime is not None
+                       and precision_runtime.get('precision')=='fp32'
+                       and precision_runtime.get('scaler_enabled') is False
+                       and precision_runtime.get('effective_scale')==1.0
+                       and precision_runtime.get('scaler_state_dict')=={})
     model=ctx.wrap(base)
     prime_reducer(model,base,job,ctx)
     if previous is not None:restore_rank_rng(previous,ctx,parent_spec['sha256'] if from_parent else None)
@@ -631,16 +637,21 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             finite=not ctx.any(not bool(torch.isfinite(norm)))
             if not finite and not scaler.is_enabled():raise FloatingPointError('nonfinite DDP gradients without AMP')
             old_scale=scaler.get_scale();scaler.step(optimizer);scaler.update()
-            skipped=ctx.agreed(scaler.is_enabled() and scaler.get_scale()<old_scale)
-            if precision_runtime is not None and skipped:raise FloatingPointError('FP32 protocol forbids any skipped optimizer attempt')
+            if fixed_fp32_scaler:
+                skipped=False
+            else:
+                skipped=ctx.agreed(scaler.is_enabled() and scaler.get_scale()<old_scale)
+                if precision_runtime is not None and skipped:raise FloatingPointError('FP32 protocol forbids any skipped optimizer attempt')
             if not finite and not skipped:raise FloatingPointError('AMP did not reject nonfinite gradients')
             if skipped:overflows+=1
             else:
                 successful+=1;overflows=0
-                if ctx.any(not all_floating_finite(base.parameters())):raise FloatingPointError('nonfinite DDP parameters')
+                bad_parameters=not all_floating_finite(base.parameters())
                 # FP32 Adam moments are scientific state, checked without touching RNG.
-                finite_adam=all_floating_finite(value for state in optimizer.state.values() for value in state.values())
-                if ctx.any(not finite_adam):raise FloatingPointError('nonfinite Adam state on a DDP rank')
+                bad_adam=not all_floating_finite(value for state in optimizer.state.values() for value in state.values())
+                bad_parameters,bad_adam=ctx.any_flags([bad_parameters,bad_adam])
+                if bad_parameters:raise FloatingPointError('nonfinite DDP parameters')
+                if bad_adam:raise FloatingPointError('nonfinite Adam state on a DDP rank')
                 single._apply_lr(optimizer,successful,total,warmup)
                 if ema:ema.update(base,successful)
             single._synchronize(device)
@@ -702,8 +713,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                          'negative_bce_sum':sums[2],'negative_count':int(sums[3]),'ranks':parts})
                     sampled_loss.zero_()
                 validate_pending()
-            want_save=(ctx.primary and recovery_checkpoint_due(job,attempted,last_saved_attempt,last_save,time.monotonic()))
-            if ctx.broadcast(bool(want_save)):save()
+            want_save=recovery_checkpoint_due(job,attempted,last_saved_attempt,last_save,time.monotonic()) if ctx.primary else None
+            if ctx.broadcast_flag(want_save):save()
             if stopping():return interrupt()
     finally:
         if iterator is not None and hasattr(iterator,'_shutdown_workers'):iterator._shutdown_workers()
