@@ -298,13 +298,17 @@ def describe_model(model):
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
     if ('final_downsample_stride' in science_configuration()['job']
-            or science_configuration()['candidate_profile'] == FIT_SSL_SMALL_BINDING):
+            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
         convolution = network.features[6][1]
         if not isinstance(convolution, nn.Conv2d):
-            raise ValueError('actual final Small downsample must remain Conv2d')
+            raise ValueError('actual final ConvNeXt downsample must remain Conv2d')
         result['final_downsample'] = {'name': 'network.features.6.1', 'stride': list(convolution.stride),
             'kernel_size': list(convolution.kernel_size), 'padding': list(convolution.padding),
             'dilation': list(convolution.dilation)}
+    if science_configuration()['candidate_profile'] == BASE_BINDING:
+        result['stage_widths'] = [network.features[0][0].out_channels,
+            network.features[2][1].out_channels, network.features[4][1].out_channels,
+            network.features[6][1].out_channels]
     validate_normalization(result)
     return result
 
@@ -330,11 +334,14 @@ def validate_normalization(value):
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
     if ('final_downsample_stride' in configured
-            or science_configuration()['candidate_profile'] == FIT_SSL_SMALL_BINDING):
+            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
         stride = configured.get('final_downsample_stride', 2)
         if value.get('final_downsample') != {'name': 'network.features.6.1', 'stride': [stride, stride],
                 'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}:
-            raise ValueError('actual final Small downsample geometry differs from pinned job')
+            raise ValueError('actual final ConvNeXt downsample geometry differs from pinned job')
+    if (science_configuration()['candidate_profile'] == BASE_BINDING
+            and value.get('stage_widths') != [128, 256, 512, 1024]):
+        raise ValueError('actual Base stage widths differ')
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
             or value.get('buffer_count') != 0 or value.get('buffer_sha256') != hashlib.sha256(b'').hexdigest()
             or value.get('head_in_features') != candidate()['features'] or value.get('head_out_features') != 1
