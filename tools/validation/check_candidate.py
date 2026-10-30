@@ -65,13 +65,15 @@ def main(args):
     import r92_initial_gate as initial_gate
     model = create_cpu_fresh_model(job)
     is_r50 = job['model'] == 'resnet50_imagenet'
+    is_dino = ex.science_configuration()['candidate_profile'] == ex.DINO_R50_BINDING
     is_swin = job['model'] == 'swin_base'
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
-    check('public1000_strict_exact_finite_FP32_then_fresh_binary', bool(public)
+    check('strict_exact_finite_source_then_fresh_binary', bool(public)
           and public['all_public_tensors_exact'] and public['all_public_floating_FP32_finite' if is_r50 else 'all_public_tensors_FP32_finite']
           and public['public_tensor_count'] == contract['public_state_tensors']
           and public['full_head_shape'] == contract['full_head_shape']
+          and public.get('backbone_only', False) is is_dino
           and not public['strict_missing_keys'] and not public['strict_unexpected_keys'], public)
     check('actual_measured_LN_GELU_native_avgpool_noBN_noq_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
@@ -104,6 +106,18 @@ def main(args):
         check('R50_public_or_derived_BN_frozen_affine_trainable', len(layers) == 53
               and all(not m.training and m.weight.requires_grad and m.bias.requires_grad for m in layers)
               and structure['buffer_sha256'] == ex.science_configuration()['initial_buffer_sha256'])
+        if is_dino:
+            check('R118_selected_internal_AUROC_0996_official_gate_bound',
+                  ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996)
+            original_mode = model.training
+            model.eval()
+            with torch.inference_mode():
+                output_512 = model(torch.zeros(1, 3, 512, 512, dtype=torch.float32),
+                                   torch.zeros(1, 2, dtype=torch.float32))
+            model.train(original_mode)
+            check('DINO_R50_512_binary_age_finite', tuple(output_512.shape) == (1,)
+                  and bool(torch.isfinite(output_512).all()) and not torch.cuda.is_initialized(),
+                  {'shape': list(output_512.shape), 'logit': float(output_512[0])})
     else:
         wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
         rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
@@ -181,10 +195,12 @@ def main(args):
     result = model.load_state_dict(loaded['model'], strict=True)
     from retrain.inference import _load_model
     reloaded, reload_job, _, reload_origin, _ = _load_model(
-        checkpoint, device='cpu', variant='online', model_factory=lambda supplied, initialize: model)
+        checkpoint, device='cpu', variant='online')
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
-          and reload_job == job and reloaded is model and reload_origin['tensor_sha256'] == model_digest
+          and reload_job == job and reloaded is not model
+          and tensor_digest(reloaded.state_dict()) == model_digest
+          and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
     initials = [{'rank': rank, 'model_sha256': model_digest, 'optimizer_state_entries': 0,

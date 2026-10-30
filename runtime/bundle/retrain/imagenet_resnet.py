@@ -7,7 +7,8 @@ age residual are trained.  No other pretrained visual asset is read.
 import torch
 from torch import nn
 
-from .models import IMAGENET_RESNET, validate_imagenet_provenance
+from .models import (IMAGENET_RESNET, DINO_RESNET,
+                     validate_imagenet_provenance, validate_dino_resnet_provenance)
 
 BATCH_NORM = nn.modules.batchnorm._BatchNorm
 HEAD_SEED = 20261027
@@ -106,6 +107,26 @@ def load_public_state(model, state):
     return loaded
 
 
+def load_dino_backbone_state(model, state):
+    """The official DINO asset has 318 backbone tensors and no classifier."""
+    expected = model.state_dict()
+    if (not isinstance(model.fc, nn.Identity) or len(expected) != IMAGENET_RESNET['backbone_keys']
+            or not isinstance(state, dict) or set(state) != set(expected)):
+        raise ValueError('DINO R50 requires its exact 318-key backbone-only state')
+    for name, reference in expected.items():
+        value = state[name]
+        if (not torch.is_tensor(value) or value.shape != reference.shape
+                or value.dtype != reference.dtype
+                or value.is_floating_point() and (value.dtype != torch.float32
+                    or not bool(torch.isfinite(value).all()))):
+            raise ValueError('DINO R50 backbone tensor differs: ' + name)
+    loaded = model.load_state_dict(state, strict=True)
+    if loaded.missing_keys or loaded.unexpected_keys or any(
+            not torch.equal(model.state_dict()[name], state[name]) for name in state):
+        raise ValueError('DINO R50 backbone did not load exactly')
+    return model.state_dict()
+
+
 def create_imagenet_binary(job, *, initialize=True):
     if (job.get('model') != 'resnet50_imagenet' or job.get('image_size') != INPUT_SIZE
             or job.get('precision') != 'fp32' or job.get('normalization') != 'imagenet'
@@ -116,20 +137,27 @@ def create_imagenet_binary(job, *, initialize=True):
     from torchvision.models import resnet50
     with torch.random.fork_rng(devices=[]):
         backbone = resnet50(weights=None)
+    dino = job.get('initialization', {}).get('format') == DINO_RESNET['format']
     public_receipt = None
     if initialize:
         initialization = job['initialization']
         if initialization.get('kind') != 'imagenet':
             raise ValueError('N08 requires explicit ImageNet-1K initialization')
-        proof = validate_imagenet_provenance(initialization)
+        proof = (validate_dino_resnet_provenance(initialization) if dino
+                 else validate_imagenet_provenance(initialization))
         if proof['model'] != IMAGENET_RESNET['provenance_model']:
             raise ValueError('N08 provenance model differs from TorchVision ResNet-50')
         state = torch.load(initialization['path'], map_location='cpu', weights_only=True)
-        load_public_state(backbone, state)
+        if dino:
+            backbone.fc = nn.Identity()
+            load_dino_backbone_state(backbone, state)
+        else:
+            load_public_state(backbone, state)
         from .ema import tensor_digest
         public_receipt = {'initialization': proof, 'strict_missing_keys': [], 'strict_unexpected_keys': [],
             'public_tensor_count': len(state), 'public_tensor_sha256': tensor_digest(state),
-            'full_head_shape': list(backbone.fc.weight.shape), 'all_public_tensors_exact': True,
+            'full_head_shape': None if dino else list(backbone.fc.weight.shape),
+            'backbone_only': dino, 'all_public_tensors_exact': True,
             'all_public_floating_FP32_finite': all(not t.is_floating_point() or t.dtype == torch.float32
                                                   and bool(torch.isfinite(t).all()) for t in state.values()),
             'public_integer_counter_tensors': sum(not t.is_floating_point() for t in state.values())}

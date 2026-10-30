@@ -22,6 +22,16 @@ IMAGENET_RESNET = {
     'bn_buffers': 159,
 }
 
+DINO_RESNET = {
+    'format': 'torchvision-resnet50-backbone-state-dict-v1',
+    'sha256': '7a228bfac4d2eb2332c91f93d5b0daaffd93bb2df4a1b8ad2918b2acc156cc68',
+    'provenance_sha256': 'fb01cc841bf1beccfc9a2dfacd49390b51e345d6dc1cfa5c637dec54d57c516b',
+    'original_sha256': '156f8c4166a23dc2951ae811e39d76a06269c565932edf647c0187e65cd7aa7c',
+    'revision': '7c446df5b9f45747937fb0d72314eb9f7b66930a',
+    'source_url': 'https://dl.fbaipublicfiles.com/dino/dino_resnet50_pretrain/dino_resnet50_pretrain.pth',
+    'training_data': 'ImageNet self-supervised DINO v1',
+}
+
 
 def _hash(path):
     h = hashlib.sha256()
@@ -106,6 +116,39 @@ def validate_imagenet_provenance(initialization):
     return proof
 
 
+def validate_dino_resnet_provenance(initialization):
+    """Bind the accepted backbone-only asset without importing its source model."""
+    path, meta_path = Path(initialization['path']), Path(initialization['provenance'])
+    if (initialization.get('kind') != 'imagenet' or initialization.get('format') != DINO_RESNET['format']
+            or initialization.get('sha256') != DINO_RESNET['sha256']
+            or not path.is_absolute() or not meta_path.is_absolute()
+            or path.is_symlink() or meta_path.is_symlink() or not path.is_file() or not meta_path.is_file()
+            or _hash(path) != DINO_RESNET['sha256']
+            or _hash(meta_path) != DINO_RESNET['provenance_sha256']):
+        raise ValueError('DINO R50 backbone asset or provenance identity differs')
+    meta = json.loads(meta_path.read_text())
+    expected = {'schema_version': 1, 'passed': True, 'model': 'resnet50',
+        'format': DINO_RESNET['format'], 'repo': 'facebookresearch/dino',
+        'revision': DINO_RESNET['revision'], 'weight_url': DINO_RESNET['source_url'],
+        'training_data': DINO_RESNET['training_data'],
+        'original_sha256': DINO_RESNET['original_sha256'], 'sha256': DINO_RESNET['sha256'],
+        'public_1000_head': False, 'redistribution_confirmed': True,
+        'license_file': '../original/LICENSE'}
+    if any(meta.get(key) != value for key, value in expected.items()):
+        raise ValueError('DINO R50 provenance fields differ')
+    license_path = (meta_path.parent / expected['license_file']).resolve()
+    if (not license_path.is_file() or license_path.is_symlink()
+            or not license_path.read_text(encoding='utf-8').strip()):
+        raise ValueError('DINO R50 source license file absent')
+    return {'kind': 'imagenet', 'model': 'resnet50_imagenet',
+        'format': DINO_RESNET['format'], 'weights_sha256': DINO_RESNET['sha256'],
+        'provenance_sha256': DINO_RESNET['provenance_sha256'],
+        'original_sha256': DINO_RESNET['original_sha256'],
+        'source_url': DINO_RESNET['source_url'], 'training_data': DINO_RESNET['training_data'],
+        'source_commit': DINO_RESNET['revision'], 'public_1000_head': False,
+        'license_sha256': _hash(license_path)}
+
+
 def copy_imagenet_materials(source, job, metadata, origin, destination, provenance=None):
     """Copy the supplied license; never assert redistribution clearance."""
     import shutil
@@ -128,8 +171,16 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
     if _hash(proof_path) != expected_proof:
         raise ValueError('provenance hash differs from frozen training/material identity')
     meta = json.loads(proof_path.read_text(encoding='utf-8'))
-    proof = check_imagenet_provenance(meta, proof_path.parent)
-    license_path = proof_path.parent / proof['license_file']
+    if job['initialization'].get('format') == DINO_RESNET['format']:
+        proof = validate_dino_resnet_provenance(job['initialization'])
+        license_path = (proof_path.parent / meta['license_file']).resolve()
+        if _hash(proof_path) != DINO_RESNET['provenance_sha256']:
+            raise ValueError('DINO R50 export provenance differs')
+        proof = {**proof, 'license_file': meta['license_file'],
+                 'code_license': 'Apache-2.0', 'weight_license_status': 'author_statement_covers_weights'}
+    else:
+        proof = check_imagenet_provenance(meta, proof_path.parent)
+        license_path = proof_path.parent / proof['license_file']
     if _hash(license_path) != expected_license:
         raise ValueError('license hash differs from frozen training/material identity')
     folder = Path(destination) / 'materials'
@@ -147,6 +198,9 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
 def validate_initialization(initialization):
     if initialization['kind'] == 'random':
         return {'kind': 'random'}
+    if (initialization.get('kind') == 'imagenet'
+            and initialization.get('format') == DINO_RESNET['format']):
+        return validate_dino_resnet_provenance(initialization)
     if initialization['kind'] == 'retinal_vision_language':
         path, meta_path = Path(initialization['path']), Path(initialization['provenance'])
         fixed='62dbdc8020ac2d0412092d01617ebff7ebfb499420629f03426c3b8ad75758c2'

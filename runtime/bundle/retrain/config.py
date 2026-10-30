@@ -142,8 +142,12 @@ def validate_job(job):
             raise ValueError('ImageNet initialization needs local path, sha256 and provenance')
         if not re.fullmatch('[0-9a-f]{64}', init['sha256']):
             raise ValueError('Weight sha256 must be a full lowercase 64-character SHA256')
-        if init.get('format','torchvision-1000-state-dict-v1')!='torchvision-1000-state-dict-v1':
+        if init.get('format','torchvision-1000-state-dict-v1') not in (
+                'torchvision-1000-state-dict-v1', 'torchvision-resnet50-backbone-state-dict-v1'):
             raise ValueError('unsupported public initialization state format')
+        if (init.get('format') == 'torchvision-resnet50-backbone-state-dict-v1'
+                and job.get('model') != 'resnet50_imagenet'):
+            raise ValueError('DINO backbone format requires the registered R50 factory')
     elif init['kind'] == 'self_supervised':
         if (job['model'] != 'dinov2_vits14' or job['normalization'] != 'imagenet'
                 or init.get('format') != 'dinov2-official-backbone-state-dict-v1'
@@ -178,8 +182,11 @@ def validate_job(job):
                  'mixup': None, 'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': True}
         if (any(job.get(k) != v for k, v in fixed.items())
                 or init.get('kind') != 'imagenet'
-                or init.get('sha256') != '11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca'
-                or init.get('format', 'torchvision-1000-state-dict-v1') != 'torchvision-1000-state-dict-v1'
+                or (init.get('sha256'), init.get('format', 'torchvision-1000-state-dict-v1')) not in (
+                    ('11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca',
+                     'torchvision-1000-state-dict-v1'),
+                    ('7a228bfac4d2eb2332c91f93d5b0daaffd93bb2df4a1b8ad2918b2acc156cc68',
+                     'torchvision-resnet50-backbone-state-dict-v1'))
                 or job['prepared_size'] not in (0, 512)
                 or job.get('age') is None or not job['age'].get('enabled')):
             raise ValueError('N08 ImageNet ResNet model/initialization/age contract differs')

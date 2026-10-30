@@ -17,8 +17,10 @@ LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-early
 FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitssl1600-v1'
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SWIN_BINDING = 'single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+DINO_R50_BINDING = 'single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1'
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
-                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING)
+                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
+                      DINO_R50_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -59,7 +61,7 @@ def science_configuration():
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
-                or (value.get('candidate_profile') == SWIN_BINDING
+                or (value.get('candidate_profile') in (SWIN_BINDING, DINO_R50_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
@@ -77,6 +79,10 @@ def candidate_from_configuration(value):
     if value['candidate_profile'] == FIT_BN_BINDING_VERSION:
         expected.update(id='r112-resnet50-imagenetv2-24k-p4-seed20261029-fitbn-9010',
                         experiment_order=22, bn_initialization='fit_fixed_reference')
+    elif value['candidate_profile'] == DINO_R50_BINDING:
+        expected.update(id='r118-resnet50-dino-imagenet-fixedbn-24k-p4-seed20261029-9010',
+                        experiment_order=28, public_revision=source['revision'],
+                        bn_initialization='public')
     elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
@@ -144,6 +150,20 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
+    if science['candidate_profile'] == DINO_R50_BINDING:
+        if (receipt.get('schema_version') != 1 or receipt.get('passed') is not True
+                or receipt.get('execution', {}).get('uid') != site['pod']['uid']
+                or receipt.get('model') != 'resnet50'
+                or receipt.get('repo') != 'facebookresearch/dino'
+                or receipt.get('revision') != source['revision']
+                or receipt.get('converted') != {'path': site['public_weight'], 'sha256': source['sha256']}
+                or receipt.get('provenance') != {'path': site['public_provenance'],
+                                                'sha256': source['provenance_sha256']}
+                or receipt.get('structure') != science['structure']['source_structure']
+                or receipt.get('source_weight', {}).get('sha256') != source['source_weight_receipt_sha256']
+                or receipt.get('strict_load', {}).get('sha256') != source['strict_receipt_sha256']):
+            raise ValueError('DINO R50 strict source handoff differs from frozen science/site')
+        return receipt
     if science['job']['model'] == 'resnet50_imagenet':
         from .models import IMAGENET_RESNET
         files = receipt.get('files', {})
@@ -276,7 +296,7 @@ def validate_job(job):
     if (any(job.get(k) != v for k, v in expected.items()) or job.get('physical_batch') not in (64 // len(site['gpus']), 32)
             or job.get('experiment91') != binding() or job.get('age') != metadata()['AGE.json']
             or init.get('kind') != 'imagenet' or init.get('sha256') != public_source()['sha256']
-            or init.get('format') != 'torchvision-1000-state-dict-v1'
+            or init.get('format') != public_source()['format']
             or Path(init.get('path', '')).resolve() != Path(site['public_weight']).resolve()
             or Path(init.get('provenance', '')).resolve() != Path(site['public_provenance']).resolve()):
         raise ValueError('Tiny22K-to-1K scientific/age/source/LN contract differs')

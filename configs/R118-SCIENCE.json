@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1",
+  "initial_model_tensor_sha256": "a4093a96718d24443065ca1b57d3d92111349913fda5644aeae95ce86f9aefb2",
+  "initial_parameters_sha256": "6cc108604cda808391ad9b2fcdbcae6b0eca1d24c983ae961cb7455eb2555c45",
+  "initial_buffer_sha256": "2ab4811925e97e5b6723a3d39532f870f797753b2482fa5da743a887f1e09522",
+  "candidate": {
+    "id": "r118-resnet50-dino-imagenet-fixedbn-24k-p4-seed20261029-9010",
+    "experiment_order": 28,
+    "model": "resnet50_imagenet",
+    "public_revision": "7c446df5b9f45747937fb0d72314eb9f7b66930a",
+    "readout": "native_avgpool_dropout_linear_plus_age",
+    "features": 2048,
+    "final_norm_eps": null,
+    "internal_norm_eps": null,
+    "batch_norm_modules": 53,
+    "batch_norm_buffers": 159,
+    "attention_pool": null,
+    "stochastic_depth": 0.0,
+    "head_initialization": "normal_std0.01_zero_bias",
+    "head_seed": 20261027,
+    "head_lr_scope": "last_linear",
+    "weight_sha256": "7a228bfac4d2eb2332c91f93d5b0daaffd93bb2df4a1b8ad2918b2acc156cc68",
+    "provenance_sha256": "fb01cc841bf1beccfc9a2dfacd49390b51e345d6dc1cfa5c637dec54d57c516b",
+    "bn_initialization": "public"
+  },
+  "public_source": {
+    "model": "resnet50",
+    "format": "torchvision-resnet50-backbone-state-dict-v1",
+    "revision": "7c446df5b9f45747937fb0d72314eb9f7b66930a",
+    "source_url": "https://dl.fbaipublicfiles.com/dino/dino_resnet50_pretrain/dino_resnet50_pretrain.pth",
+    "training_data": "ImageNet self-supervised DINO v1",
+    "original_sha256": "156f8c4166a23dc2951ae811e39d76a06269c565932edf647c0187e65cd7aa7c",
+    "sha256": "7a228bfac4d2eb2332c91f93d5b0daaffd93bb2df4a1b8ad2918b2acc156cc68",
+    "provenance_sha256": "fb01cc841bf1beccfc9a2dfacd49390b51e345d6dc1cfa5c637dec54d57c516b",
+    "license_file": "../original/LICENSE",
+    "source_weight_receipt_sha256": "dd6f237dff823809c61af27e9c2456585f2a69ba4ab44e7158984f96559ed5d1",
+    "strict_receipt_sha256": "759373522fb876419dea113374612420a33899b49a30612db8c13e6abb5526de"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/dino-source-20261031-e62a/HANDOFF-2.json",
+    "sha256": "9f9c014a34b210b57133472c6f8680e46fb10c0ab2b20acbd573e6e520913aeb"
+  },
+  "structure": {
+    "features": 2048,
+    "public_state_tensors": 318,
+    "backbone_state_tensors": 318,
+    "backbone_parameter_tensors": 159,
+    "backbone_parameters": 23508032,
+    "layer_norms": 0,
+    "gelu_modules": 0,
+    "stochastic_depth_modules": 0,
+    "batch_norm_modules": 53,
+    "buffer_count": 159,
+    "batch_norm_eps": 1e-05,
+    "full_head_shape": null,
+    "source_structure": {
+      "features": 2048,
+      "public_state_tensors": 318,
+      "parameter_tensors": 159,
+      "buffer_tensors": 159,
+      "public_parameters": 23508032,
+      "batch_norm_layers": 53,
+      "batch_norm_eps": 1e-05,
+      "batch_norm_affine": true,
+      "fc": "Identity",
+      "public_1000_head": false,
+      "derived_num_batches_tracked": 0,
+      "present_num_batches_tracked": 53,
+      "stem_stride": [
+        2,
+        2
+      ],
+      "maxpool_stride": [
+        2,
+        2
+      ],
+      "stage_strides": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "downsample_strides": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "maxpool_stride_native": 2,
+      "maxpool_stride_normalized": [
+        2,
+        2
+      ],
+      "avgpool_output_size_native": [
+        1,
+        1
+      ],
+      "avgpool_output_size_normalized": [
+        1,
+        1
+      ]
+    }
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/dino-resnet50-v1-relay-1/converted/dino-resnet50-backbone.pt",
+    "public_provenance": "assets/dino-resnet50-v1-relay-1/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "resnet50-dino",
+    "model": "resnet50_imagenet",
+    "seed": 20261029,
+    "head_seed": 20261027,
+    "bn_statistics": {
+      "kind": "public"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 2e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.0,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": true,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "R118 directly compares the official natural-image DINOv1 ResNet50 backbone against the R111 fixed-BN ImageNetV2 R50 source. Only the source changes; the complete R111 9:1, single-view 512 scale094, BCE, G64/P8, FP32, optimizer, EMA, fixed-BN and 24000/800/patience4/warmup1600 training contract remains. Frozen T29 is R107 0.9884405731067525, T27 is R108 0.9872328538178018. Complete selected internal AUROC must strictly beat R111 and T29 before a fixed seed27 DINO pair. Official evaluation runs once only after complete selected internal AUROC >=0.996.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

@@ -60,3 +60,9 @@ R116实测6400步训练组件wall4079.423秒（含初始化/评估/保存），�
 按用户新指令，R117完整及其可能的条件复核全部收口后，下一独立问题转为[用户指定分析的DINOv1 R50来源方案](N06-FRAMEWORK-SOURCE-PLAN-20261031.md)：只用官方非医学公开backbone，复用标准R50/R111下游合同更换来源，N06/FLAIR权重、teacher、BN统计继续隔离。最多seed29及条件seed27；具体轮次及T29/T27在分支启动前固定，分别取R107/R108与届时对应完整R117结果的较高者，无对应R117则用旧参考、不补跑。R111仅作来源对照参考，官方≥0.996门独立；主源训练前工程不可用才由根另决策A1，科学阴性不跑替补。原生局部保留为更后备选；本段不抢轮次/order，不改变或打断R117，不表示新来源已验收或后续训练已启动。
 
 根已采用本页并交A/B必要准备，用户评估口径已明确，原activation等待解除。必要来源/CPU/formal、R116真实safe及新Git绑定完成后，按原链直接唯一fresh，无需再问用户或等待本页确认。本文不称已注册或已启动，不证明当前safe，也不替代资源准入；本次文本更新后停写。
+
+## 最终收口（2026-10-31）
+
+已文本核对 `work/r117-20261031-a/terminal-0400/SINGLE-MODEL-FREEZE.json` 与实际位于 `evidence/TRAIN_RESULT.json` 的内部原件：8800 successful=attempted/24000、skip0、eval11/22条、bad4正常early_stopping；唯一selected为EMA c7@5600，AUROC **0.9850076641408516**、AP **0.805972999257521**、error_twice **24902**。TRAIN completed/exit0、hard_deadline_met=true、signals为空，组件wall3843.433秒。未严格胜R107，Swin组合关闭、不做seed27，不泛化为Transformer或其他表征无效。
+
+据协调转交A的04:00:55北京时间实际终态：selected低于0.996，official为`not_run_by_policy / threshold_not_met`、metrics=null；ROUND/done正常completed，owner为Z不称reaped，8rank退出、锁空、deviceusers为空、8卡idle、scan_denied0，safe=true。本次规划仅读上述内部两件，未读取官方数值；按政策未执行官方不是失败。原生局部暂后移，按用户指定来源方案接续[R118 DINOv1 R50](R118-DECISION.md)，不复开Swin或补跑其seed27。
