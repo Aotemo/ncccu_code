@@ -48,3 +48,9 @@ HANDOFF已实证318个backbone state＝159参数tensor+159buffer、23508032公�
 - A沿已派范围负责R118 SCIENCE及现有R50加载器的DINO backbone-only窄分支、来源/固定BN/新初态与正式候选身份、checkpoint/inference消费；复用训练/data/EMA/优化算法，只改真正受影响的来源断言及绑定，不继承旧运行token/clock/optimizer。
 - 复用已完成source/HANDOFF及3tiny，不重来源、旧BN校准、loss/Gloo/像素套件。仅必要生产配置、backbone无fc严格消费、同head/age初值、固定BN与实际组/空Adam的受影响窄验；正式新包覆盖保存加载/推理。无额外control-only或独立GPU预演。
 - A统一必要Git同步、实际清单冻结、实时环境与20%/80%互斥绑定、正式原生包、新初态；在前驱实际safe后唯一activation/fresh，由真实8rank证明启动。页面不作等待门，规划不联系A/B或派GPU；本页完成后停写，来源已验不等于生产已启动。
+
+## 最终收口（2026-10-31）
+
+已文本核对 `work/r118-20261031-a/progress-0500/SINGLE-MODEL-FREEZE.json` 及 `evidence/TRAIN_RESULT.json`：7200 successful=attempted/24000、skip0、eval9/18条、bad4正常early_stopping；唯一selected为**ONLINE c5@4000，AUROC 0.970734180141627、AP 0.7233388551998549、error_twice 48610**。TRAIN completed/exit0、hard_deadline_met=true、signals为空。该值同时低于R111与预冻T29，关闭此DINO公开来源+R111下游合同，不做seed27、不自动A1；来源工程已经可用且科学完整阴性，不能用N06分数挽救，也不泛化为R50或全部自监督来源无效。
+
+据协调转交A的05:01:11北京时间实际终态，official按门槛记`not_run_by_policy / threshold_not_met / metrics=null`，TRAIN/ROUND/done正常completed；ownerZ不称reaped，8rank不存在、锁空、deviceusers为空、scan_denied0、8卡idle，actualsafe=true。本规划仅核上述内部两件，未读官方用于方向选择。按政策跳过官方不算失败；总体.999目标未完成，接续下一独立问题，原冻结包不改。

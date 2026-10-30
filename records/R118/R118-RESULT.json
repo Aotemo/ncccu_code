@@ -1,0 +1,108 @@
+{
+  "at_beijing": "2026-10-31T05:09:21.748201+08:00",
+  "candidate": "r118-resnet50-dino-imagenet-fixedbn-24k-p4-seed20261029-9010",
+  "experiment_order": 28,
+  "git_commit": "9e5e95ed94a38ab0ca9bacda203678aebb40ec99",
+  "next_question_existing_metadata": {
+    "dev_count": 5140,
+    "disk_free_bytes_at_closeout": 126804295680,
+    "disk_free_gib_at_closeout": 118.095703125,
+    "existing_native_timing": {
+      "R106": {
+        "cycles": 11,
+        "evidence_sha256": "09500603403acc77f76b0010f08019b06468846768d149899e870895e204cb1a",
+        "successful_updates": 8800,
+        "timing_seconds": {
+          "checkpoint_count": 37,
+          "checkpoint_seconds": 184.99034846108407,
+          "data_wait_seconds": 6.266207019332796,
+          "evaluation_seconds": 204.44399022404104,
+          "training_seconds": 6473.757347624283
+        },
+        "training_seconds_per_successful_update": 0.735654244048214,
+        "training_views": 2,
+        "wall_seconds_this_process": 6955.308001508936
+      },
+      "R107": {
+        "cycles": 8,
+        "evidence_sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435",
+        "successful_updates": 6400,
+        "timing_seconds": {
+          "checkpoint_count": 27,
+          "checkpoint_seconds": 136.52563719637692,
+          "data_wait_seconds": 4.69845284987241,
+          "evaluation_seconds": 146.15305019868538,
+          "training_seconds": 2718.788118756842
+        },
+        "training_seconds_per_successful_update": 0.42481064355575654,
+        "training_views": 1,
+        "wall_seconds_this_process": 3066.313751355745
+      }
+    },
+    "fit_count": 46256,
+    "prepared512_cache": {
+      "actual_per_image_dtype_shape_bytes": null,
+      "actual_per_image_note": "Existing aggregate receipt has no per-image dtype, shape or bytes; no images or cache entries were read.",
+      "aggregate_npy_bytes": 31286003712,
+      "array_entries": 51396,
+      "mean_npy_bytes_per_entry": 608724.4865748307,
+      "source_code_dtype_contract": "uint8",
+      "source_code_max_pixel_bytes_per_image": 786432,
+      "source_code_shape_contract": "H x W x 3; each dimension 1..512",
+      "source_receipt_sha256": "3123f225d9d64bdea23b6d1f5d8bbe517ea21bb0139f2f0149c915b22690df2b"
+    },
+    "timing_limit": "Different early-stop lengths; timing is actual prior work, not a new throughput benchmark.",
+    "train_manifest_count": 51396
+  },
+  "official": {
+    "official_evaluated": false,
+    "official_metrics": null,
+    "official_reason": "threshold_not_met",
+    "official_status": "not_run_by_policy"
+  },
+  "original_sha256": {
+    "done": "857df178478954d54c16ee8609fb40acc07712d5e53d367a1108a3470557ba8c",
+    "freeze": "1955be005d461a846eac300eb5b1f7045b8c51db8c2f42fb4f046bb9d6973205",
+    "round": "880a9e593c516c3cbce4ee6c1cc5ad3ae4eef7640345ac622c8a385887a746c1",
+    "train": "71d49bea781b9017bb7517554c1eeae7ef6358ac98bd9db074c3bcdaf72cb1ac"
+  },
+  "profile": "single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1",
+  "progress_receipt_sha256": "e8b5917658c4bcbf32a9cc671856bb363f573dfbc850a71794b3f7276600f16d",
+  "round_id": "r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031-8c-resnet50_imagenet-s20261029-b64-p8-fp32",
+  "safe_at_2026_10_31_0501": true,
+  "schema": "r118-token-free-closeout-v1",
+  "science_config_sha256": "35df0c7b08284753198f12827bc26d5a1c182447f913f80435ba05272150eb2b",
+  "selected_internal": {
+    "ap": 0.7233388551998549,
+    "auroc": 0.970734180141627,
+    "cycle": 5,
+    "error_twice": 48610,
+    "successful_updates": 4000,
+    "tensor_sha256": "e30fdd6d519d9e56a6b1676040de3c5477f465d42f69b9618350044776e02b49",
+    "variant": "online"
+  },
+  "source": {
+    "batch_norm_buffers": 159,
+    "batch_norm_modules": 53,
+    "format": "torchvision-resnet50-backbone-state-dict-v1",
+    "kind": "imagenet",
+    "model": "resnet50_imagenet",
+    "original_sha256": "156f8c4166a23dc2951ae811e39d76a06269c565932edf647c0187e65cd7aa7c",
+    "provenance_sha256": "fb01cc841bf1beccfc9a2dfacd49390b51e345d6dc1cfa5c637dec54d57c516b",
+    "public_1000_head": false,
+    "source_commit": "7c446df5b9f45747937fb0d72314eb9f7b66930a",
+    "source_url": "https://dl.fbaipublicfiles.com/dino/dino_resnet50_pretrain/dino_resnet50_pretrain.pth",
+    "training_data": "ImageNet self-supervised DINO v1",
+    "weights_sha256": "7a228bfac4d2eb2332c91f93d5b0daaffd93bb2df4a1b8ad2918b2acc156cc68"
+  },
+  "train": {
+    "attempted_updates": 7200,
+    "component_exit_code": 0,
+    "early_stop_bad_cycles": 4,
+    "evaluated_cycles": 9,
+    "skipped_updates": 0,
+    "status": "completed",
+    "successful_updates": 7200,
+    "termination_reason": "early_stopping"
+  }
+}
