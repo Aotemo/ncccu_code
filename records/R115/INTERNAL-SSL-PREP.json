@@ -1,0 +1,57 @@
+{
+  "scope": "R115_internal_SSL_technical_prep_v1",
+  "round_id": "r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030",
+  "git_commit": "77cbe1da3c542e3d174a71f40a7715d1063b93ff",
+  "science_sha256": "605b42b8b8459afdf195d2ec5db9e8d95ff5b4b1607eeb05100855efe9ac233a",
+  "recipe_sha256": "d3a9246996138f24f51ee7c08cd533d2fec7995ed5c215c48475976e77bb0dd4",
+  "source_digest": "e4c998479bd63d690c8d59e60103c8d4f23c3253b8ba15125ecc78e94ec4051d",
+  "manifest_digest": "3275aaa35d24fe72cf7d867ec8c6e3b0b9ff9f12226a0fb9b0ada516009c9669",
+  "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+  "ssl": {
+    "successful_updates": 1600,
+    "attempted_updates": 1600,
+    "skipped_updates": 0,
+    "dev_evaluations": 0,
+    "fit_indices_only": true,
+    "labels_or_age_used_for_loss": false,
+    "last_loss": 9.40159797668457,
+    "last_lr_factor": 0.01,
+    "first_metric_at_beijing": "2026-10-30T21:18:15.849150+08:00",
+    "last_metric_at_beijing": "2026-10-30T21:36:59.030113+08:00",
+    "logged_update_span_seconds": 1123.1809630393982,
+    "finished_at_beijing": "2026-10-30T21:37:00.123149+08:00",
+    "train_component_start_to_ssl_finish_seconds": 1199.2121152877808,
+    "derived_tensor_sha256": "79a345f6a17366c829b915868c272fbaf8daed245dad33adc6f8657fb477c966",
+    "derived_asset_sha256": "99a09033b3bd36252a31224450aab74904bf29750718b49549d62ef023931337",
+    "supervised_initial_tensor_sha256": "fe509012ed8d045fa138aff843b2e2cf44eee8c251b5b2ee2cb16e2b754cd2cf",
+    "all_8_rank_encoder_equal_and_head_age_unchanged": true
+  },
+  "supervised": {
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "skipped_updates": 0,
+    "evaluated_cycles": 8,
+    "early_bad_cycles": 4,
+    "selected": {
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 22620,
+      "auroc": 0.9863815501913928,
+      "ap": 0.810016977738777
+    },
+    "supervised_component_window_seconds": 3080.1264986991882,
+    "total_train_component_wall_seconds": 4279.338613986969,
+    "train_component_end_beijing": "2026-10-30T22:28:20.249648+08:00"
+  },
+  "original_sha256": {
+    "ssl_result": "cda4a61cdcefbe3b9db36c8d4797c323b98629055ec45d423daa27de2369e772",
+    "supervised_initial": "d95a5528a940d5b2dd87f193b7a17570c9178c9bb72876dd478ea0173064e151",
+    "train_result": "e88feab4846a53c476c8cfc8976b9db3117b7f01f783a032aef501d45970256f",
+    "single_model_freeze": "3d1bc893c7467a0f8a8549284851b44d8fe8e23c034c242ddd35c235c4c13c57"
+  },
+  "round_done_present_at_prep": false,
+  "token_value_exported": false,
+  "official_read": false,
+  "model_forward_executed": false
+}

@@ -136,6 +136,9 @@ def build(args):
         raise ValueError('package science bytes differ from the pinned source configuration')
     policy = read(source / 'runtime/CLOCK_POLICY.json'); policy['round_id'] = site['round_id']
     write(package / 'CLOCK_POLICY.json', policy)
+    # Freeze the centralized storage limit with this formal package. Historical
+    # packages without this file retain the original 12 GiB monitor limit.
+    shutil.copyfile(source / 'configs/ROUND-STORAGE-POLICY.json', package / 'STORAGE_POLICY.json')
     write(package / 'SITE_BINDING.json', site)
     os.environ['NCCCU_SITE_BINDING'] = str(package / 'SITE_BINDING.json')
     os.environ['NCCCU_SITE_BINDING_SHA256'] = sha(package / 'SITE_BINDING.json')

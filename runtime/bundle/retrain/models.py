@@ -218,12 +218,12 @@ def validate_initialization(initialization):
             'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
             'license_file': '../original/LICENSE-apache-2.0.txt'}
         provenance_sha = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-        if meta['model'] == 'convnext_small':
+        if meta['model'] in ('convnext_small', 'convnext_base'):
             from .experiment91 import public_source
             source = public_source()
             expected = {key: source[key] for key in expected}
-            if expected['model'] != 'convnext_small':
-                raise ValueError('Small provenance requires the pinned Small scientific source')
+            if expected['model'] != meta['model']:
+                raise ValueError('ConvNeXt provenance requires its pinned scientific source')
             provenance_sha = source['provenance_sha256']
         if (any(meta.get(key) != value for key, value in expected.items())
                 or _hash(meta_path) != provenance_sha
@@ -304,8 +304,10 @@ def create_model(job, initialize=True):
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}
     if name == 'efficientnet_v2_s':
         model = models.efficientnet_v2_s(dropout=job.get('dropout', .2), **kwargs)
-    elif name in ('convnext_tiny', 'convnext_small'):
-        factory = models.convnext_tiny if name == 'convnext_tiny' else models.convnext_small
+    elif name in ('convnext_tiny', 'convnext_small', 'convnext_base'):
+        factory = {'convnext_tiny': models.convnext_tiny,
+                   'convnext_small': models.convnext_small,
+                   'convnext_base': models.convnext_base}[name]
         model = factory(**kwargs)
         model.classifier[0].eps=float(job.get('final_norm_eps',1e-6))
     else:
@@ -336,7 +338,7 @@ def create_model(job, initialize=True):
     # Keep native names so optimizer grouping and raw checkpoint state_dicts remain simple.
     last = model.classifier[-1]
     model.classifier[-1] = nn.Linear(last.in_features, 1)
-    if name in ('convnext_tiny', 'convnext_small'):
+    if name in ('convnext_tiny', 'convnext_small', 'convnext_base'):
         model.classifier = nn.Sequential(*list(model.classifier.children())[:-1],
                                          nn.Dropout(job.get('dropout', .2)), model.classifier[-1])
     class BinaryModel(nn.Module):

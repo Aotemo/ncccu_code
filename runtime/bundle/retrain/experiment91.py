@@ -15,8 +15,9 @@ FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-se
 FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1'
 LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1'
 FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitssl1600-v1'
+BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
-                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING)
+                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING)
 CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
     'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
     'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
@@ -71,6 +72,14 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == FIT_SSL_SMALL_BINDING:
             expected.update(id='r115-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitssl1600-9010',
                             experiment_order=25)
+    elif value['candidate_profile'] == BASE_BINDING:
+        expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
+            'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 1024,
+            'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
+            'batch_norm_buffers': 0, 'attention_pool': None,
+            'stochastic_depth': value['job']['stochastic_depth'],
+            'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
     if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
@@ -95,8 +104,8 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] == 'convnext_small':
-            raise ValueError('Small requires its independently verified public asset')
+        if science['job']['model'] in ('convnext_small', 'convnext_base'):
+            raise ValueError('ConvNeXt requires its independently verified public asset')
         return None
     relative = Path(reference['path'])
     root = Path(site['work_root']).resolve()

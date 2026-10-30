@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "ecbc96503083b11bc2c0a58e1f8218d276dd0f5ed3c977daeb98be3893524a01",
+  "candidate": {
+    "id": "r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 26,
+    "model": "convnext_base",
+    "public_revision": "67758fcbcf9f007ec7630bf8636b74a8f24e52a0",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 1024,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "28f599022b12ab11cd8622e43462c5d6bd66390441c0b6f01f6cc5a0e97dd682",
+    "provenance_sha256": "2dea875a7f2e433ed5fd78cb39080ae74ca23035ab2001daf0598a6798d948fb",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_base",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "67758fcbcf9f007ec7630bf8636b74a8f24e52a0",
+    "source_url": "https://huggingface.co/timm/convnext_base.fb_in22k_ft_in1k/resolve/67758fcbcf9f007ec7630bf8636b74a8f24e52a0/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "b4b331a41bbb5e94677e1012ce5a136d413abc3a9cb840945abc81d319253bf1",
+    "sha256": "28f599022b12ab11cd8622e43462c5d6bd66390441c0b6f01f6cc5a0e97dd682",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "2dea875a7f2e433ed5fd78cb39080ae74ca23035ab2001daf0598a6798d948fb"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/r116-20261030-e62a/BASE-HANDOFF.json",
+    "sha256": "3de3012013c6ce71cb451134825275a069287f220eb05873f84a9addb9b88565"
+  },
+  "structure": {
+    "features": 1024,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 87566464,
+    "public_parameters": 88591464,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      1024
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/base22k-r116/converted/convnext-base-tv-67758fcb.pt",
+    "public_provenance": "assets/public/base22k-r116/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-base",
+    "model": "convnext_base",
+    "seed": 20261029,
+    "training_scale": [0.85, 1.0],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "R116 directly compares with pre-fixed R107 Small seed20261029. The sole registered change is the coupled ConvNeXt Base architecture and its corresponding public ImageNet22K-to-1K full1000 initialization; native binary head and age are fresh. The fixed 9:1 data, single-view 512 scale085 augmentation, G64/P8/448-pair logistic loss, FP32, SD0.1, dropout0.2, original optimizer/EMA and 24000/800/patience4/warmup1600 schedule remain. This is a paired architecture-and-public-source comparison, not a pure capacity causal test. Only a complete selected overall internal AUROC strictly above R107 0.9884405731067525 permits a later fixed seed27 pair; AP and once-official results do not select parameters."
+}

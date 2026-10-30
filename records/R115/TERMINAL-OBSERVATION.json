@@ -1,0 +1,202 @@
+{
+  "scope": "R115_one_read_only_progress_2200",
+  "at": 1793372832.5160725,
+  "beijing_time": "2026-10-30T23:07:12.516073+08:00",
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "owner": {
+    "pid": 212592,
+    "state": "Z",
+    "start_ticks": "339360187",
+    "active": false
+  },
+  "ranks": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "phase": "supervised",
+  "state": "completed",
+  "successful_updates": 6400,
+  "attempted_updates": 6400,
+  "max_updates": 24000,
+  "skipped_updates": 0,
+  "evaluated_cycle": 8,
+  "early_bad_cycles": 4,
+  "selected_internal": {
+    "auroc": 0.9863815501913928,
+    "ap": 0.810016977738777,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "error_twice": 22620
+  },
+  "round_done": "completed",
+  "freeze_present": true,
+  "train_result_present": true,
+  "round_result_present": true,
+  "signals_sent": false,
+  "model_forward_executed": false,
+  "official_read": true,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9863815501913928,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 4,
+        "variant": "ema",
+        "successful_updates": 3200,
+        "error_twice": 22620,
+        "ap": 0.810016977738777,
+        "auroc": 0.9863815501913928,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/outputs/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "prediction_sha256": "86b86b72380e9f83d29aa496570740cd1a1355513cb415760f3783cbef8b9494",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/outputs/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "precision_sha256": "d6e724578cfc4164b5631f7609fb47ae0a4b004afafcc9c35f9517050167a1af",
+        "tensor_sha256": "66c3870a58f95c1042036f5b5fc2f1777a7c462141cb6cd6c43f544390830889"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "official_metrics": {
+        "ap": 0.8329898710388514,
+        "auroc": 0.9890522431288505,
+        "count": 5849,
+        "error_twice": 23662,
+        "negative_count": 5658,
+        "operating_points": {
+          "sensitivity_0.90": {
+            "logit_threshold": -3.253542900085449,
+            "sensitivity": 0.900523560209424,
+            "specificity": 0.9697773064687168
+          },
+          "sensitivity_0.95": {
+            "logit_threshold": -5.543971061706543,
+            "sensitivity": 0.9528795811518325,
+            "specificity": 0.9471544715447154
+          },
+          "specificity_0.90": {
+            "logit_threshold": -9.078933715820312,
+            "sensitivity": 0.9790575916230366,
+            "specificity": 0.900141392718275
+          },
+          "specificity_0.95": {
+            "logit_threshold": -5.088383674621582,
+            "sensitivity": 0.93717277486911,
+            "specificity": 0.9501590668080594
+          }
+        },
+        "positive_count": 191,
+        "pr_auc": 0.8325982255403915
+      },
+      "target_auroc_at_least_0_999": false,
+      "error": null
+    },
+    "official": {
+      "status": "completed",
+      "metrics": {
+        "count": 5849,
+        "positive_count": 191,
+        "negative_count": 5658,
+        "auroc": 0.9890522431288505,
+        "ap": 0.8329898710388514,
+        "pr_auc": 0.8325982255403915,
+        "operating_points": {
+          "sensitivity_0.90": {
+            "sensitivity": 0.900523560209424,
+            "specificity": 0.9697773064687168,
+            "logit_threshold": -3.253542900085449
+          },
+          "specificity_0.90": {
+            "sensitivity": 0.9790575916230366,
+            "specificity": 0.900141392718275,
+            "logit_threshold": -9.078933715820312
+          },
+          "sensitivity_0.95": {
+            "sensitivity": 0.9528795811518325,
+            "specificity": 0.9471544715447154,
+            "logit_threshold": -5.543971061706543
+          },
+          "specificity_0.95": {
+            "sensitivity": 0.93717277486911,
+            "specificity": 0.9501590668080594,
+            "logit_threshold": -5.088383674621582
+          }
+        },
+        "error_twice": 23662
+      },
+      "target_auroc_at_least_0_999": false
+    }
+  },
+  "resources": {
+    "safe": true,
+    "lock_holders": [],
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "scope": "R115_completed_token_free_aggregate_archive_v1",
+  "round_id": "r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030",
+  "git_commit": "77cbe1da3c542e3d174a71f40a7715d1063b93ff",
+  "science_sha256": "605b42b8b8459afdf195d2ec5db9e8d95ff5b4b1607eeb05100855efe9ac233a",
+  "recipe_sha256": "d3a9246996138f24f51ee7c08cd533d2fec7995ed5c215c48475976e77bb0dd4",
+  "observation_sha256": "7fc42ef699da859149586d7c1c1aa625e90008bda47b69a3a7de91ff3e6fd98c",
+  "done_sha256": "d0da445811ca686b185d8fe6e9b6aa7c9b6c0149404ba63cba7778ad861d5e4b",
+  "files": {
+    "SINGLE-MODEL-FREEZE.json": {
+      "original_sha256": "3d1bc893c7467a0f8a8549284851b44d8fe8e23c034c242ddd35c235c4c13c57",
+      "archived_sha256": "3d1bc893c7467a0f8a8549284851b44d8fe8e23c034c242ddd35c235c4c13c57",
+      "removed_fields": [],
+      "original_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json"
+    },
+    "SSL-RESULT.json": {
+      "original_sha256": "cda4a61cdcefbe3b9db36c8d4797c323b98629055ec45d423daa27de2369e772",
+      "archived_sha256": "cda4a61cdcefbe3b9db36c8d4797c323b98629055ec45d423daa27de2369e772",
+      "removed_fields": [],
+      "original_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/outputs/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json"
+    },
+    "TRAIN_RESULT.json": {
+      "original_sha256": "e88feab4846a53c476c8cfc8976b9db3117b7f01f783a032aef501d45970256f",
+      "archived_sha256": "572b52e990f21a8ac0c844ed29321d75e0f875b5167cf022b740d887f9c150e0",
+      "removed_fields": [
+        "token"
+      ],
+      "original_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json"
+    },
+    "ROUND_RESULT.json": {
+      "original_sha256": "4a294dd9e5a685d40f5dba43c39d6a873e126639707954cd7492cf01e01742b9",
+      "archived_sha256": "ae6f4686b7c4b1cd95da6b07001ac245ae1bfdf54d62bbeac0b6e8991f937bed",
+      "removed_fields": [
+        "token"
+      ],
+      "original_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/evidence/ROUND_RESULT.json"
+    },
+    "OFFICIAL-RESULT.json": {
+      "original_sha256": "d2f45a7360c82d4ebd234e66aee330493561fccff95915133431d509fccf7712",
+      "archived_sha256": "d2f45a7360c82d4ebd234e66aee330493561fccff95915133431d509fccf7712",
+      "removed_fields": [],
+      "original_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/official/OFFICIAL-RESULT.json"
+    }
+  },
+  "token_value_exported": false,
+  "actual_safe": true,
+  "official_count": 5849,
+  "official_auroc": 0.9890522431288505,
+  "official_ap": 0.8329898710388514,
+  "internal_selected": {
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "auroc": 0.9863815501913928,
+    "ap": 0.810016977738777
+  }
+}

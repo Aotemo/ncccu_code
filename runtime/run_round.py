@@ -106,10 +106,20 @@ def tree_bytes():
    total+=info.st_size
  return total
 
+def round_storage_limit():
+ policy_path=ROOT/'STORAGE_POLICY.json'
+ if not policy_path.exists():return 12884901888
+ policy=read(policy_path)
+ if (policy.get('schema_version')!=1 or policy.get('default_round_storage_limit_bytes')!=12884901888
+     or not isinstance(policy.get('round_overrides'),dict)
+     or any(type(value) is not int or value<12884901888 for value in policy['round_overrides'].values())):
+  raise ValueError('frozen round storage policy differs')
+ return policy['round_overrides'].get(ROOT.name,policy['default_round_storage_limit_bytes'])
+
 def budget(deadline,minimum_free=17179869184):
  if time.time()>=deadline:raise TimeoutError('round absolute deadline reached')
  free=shutil.disk_usage(ROOT).free;size=tree_bytes()
- if free<minimum_free or size>12884901888:raise RuntimeError('round storage limit reached')
+ if free<minimum_free or size>round_storage_limit():raise RuntimeError('round storage limit reached')
  unknown=SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']
  return {'free_bytes':free,'new_round_bytes':size,'new_round_bytes_exact':unknown==0,
          'scan_unknown_leaves':unknown,'scan_unknown_samples':SCAN_DIAGNOSTICS['sample_relative_paths'][:8]}
