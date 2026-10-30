@@ -18,9 +18,13 @@ FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SWIN_BINDING = 'single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 DINO_R50_BINDING = 'single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1'
+PAIR_SIGMOID_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-v1'
+PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
+                     'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
+                     'scope': 'global_batch'}
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
                       LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
-                      DINO_R50_BINDING)
+                      DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -61,8 +65,11 @@ def science_configuration():
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
-                or (value.get('candidate_profile') in (SWIN_BINDING, DINO_R50_BINDING)
+                or (value.get('candidate_profile') in (SWIN_BINDING, DINO_R50_BINDING,
+                                                       PAIR_SIGMOID_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
+                or (value.get('candidate_profile') == PAIR_SIGMOID_SMALL_BINDING
+                    and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -83,7 +90,8 @@ def candidate_from_configuration(value):
         expected.update(id='r118-resnet50-dino-imagenet-fixedbn-24k-p4-seed20261029-9010',
                         experiment_order=28, public_revision=source['revision'],
                         bn_initialization='public')
-    elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING):
+    elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING,
+                                        FIT_SSL_SMALL_BINDING, PAIR_SIGMOID_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -98,6 +106,9 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == FIT_SSL_SMALL_BINDING:
             expected.update(id='r115-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitssl1600-9010',
                             experiment_order=25)
+        if value['candidate_profile'] == PAIR_SIGMOID_SMALL_BINDING:
+            expected.update(id='r120-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-9010',
+                            experiment_order=30)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],

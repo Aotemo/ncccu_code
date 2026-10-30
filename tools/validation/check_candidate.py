@@ -67,6 +67,7 @@ def main(args):
     is_r50 = job['model'] == 'resnet50_imagenet'
     is_dino = ex.science_configuration()['candidate_profile'] == ex.DINO_R50_BINDING
     is_swin = job['model'] == 'swin_base'
+    is_pair_sigmoid = ex.science_configuration()['candidate_profile'] == ex.PAIR_SIGMOID_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -84,6 +85,13 @@ def main(args):
           and model.age_weight.numel() == 2 and bool((model.age_weight == 0).all())
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
                   for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
+    if is_pair_sigmoid:
+        from retrain.classification_loss import PAIRWISE_LOSS_KINDS
+        check('R120_fixed_sigmoid_WORLD_loss_and_conditional_official_bound',
+              job['loss'] == ex.PAIR_SIGMOID_LOSS
+              and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
+              and job.get('training_views') is None and job.get('native_local_view') is None)
     if is_swin:
         check('R117_selected_internal_AUROC_0996_official_gate_bound',
               ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996)

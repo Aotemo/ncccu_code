@@ -2,19 +2,25 @@
 import math
 
 
+PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid')
+_PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
+                          'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1'}
+
+
 def validate_loss(specification):
     if specification is None:
         return None
-    if isinstance(specification, dict) and specification.get('kind') == 'binary_pairwise_logistic':
+    if isinstance(specification, dict) and specification.get('kind') in PAIRWISE_LOSS_KINDS:
         fields = {'version', 'kind', 'temperature', 'reduction', 'dtype', 'scope'}
+        kind = specification['kind']
         if (set(specification) != fields
-                or specification['version'] != 'binary-pairwise-logistic-v1'
+                or specification['version'] != _PAIRWISE_LOSS_VERSIONS[kind]
                 or specification['reduction'] != 'mean' or specification['dtype'] != 'float32'
                 or specification['scope'] != 'global_batch'):
-            raise ValueError('pairwise loss requires the explicit binary-pairwise-logistic-v1 contract')
+            raise ValueError('pairwise loss requires its explicit versioned contract')
         temperature = specification['temperature']
         if type(temperature) not in (int, float) or not math.isfinite(temperature) or temperature != 1.0:
-            raise ValueError('binary pairwise logistic temperature must be 1.0')
+            raise ValueError('binary pairwise loss temperature must be 1.0')
         return specification
     fields = {'version', 'kind', 'gamma', 'alpha', 'reduction', 'dtype',
               'modulation_detached'}
@@ -39,14 +45,17 @@ def classification_loss(logits, targets, specification=None):
 
     if specification is None:
         return F.binary_cross_entropy_with_logits(logits, targets)
-    if specification['kind'] == 'binary_pairwise_logistic':
+    if specification['kind'] in PAIRWISE_LOSS_KINDS:
         logits, targets = logits.float().reshape(-1), targets.reshape(-1)
         positives, negatives = logits[targets == 1], logits[targets == 0]
         if (not positives.numel() or not negatives.numel()
                 or positives.numel() + negatives.numel() != logits.numel()):
             raise ValueError('pairwise loss needs binary targets with both classes in the complete batch')
         differences = negatives[None, :] - positives[:, None]
-        return F.softplus(differences / specification['temperature']).mean()
+        scaled = differences / specification['temperature']
+        if specification['kind'] == 'binary_pairwise_logistic':
+            return F.softplus(scaled).mean()
+        return 2. * torch.sigmoid(scaled).mean()
     bce = F.binary_cross_entropy_with_logits(logits.float(), targets.float(), reduction='none')
     gamma = float(specification['gamma'])
     if gamma == 0:

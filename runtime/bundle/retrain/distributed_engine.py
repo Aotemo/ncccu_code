@@ -10,7 +10,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from .data import ImageDataset, flatten_training_views
-from .classification_loss import classification_loss, gather_pairwise_inputs
+from .classification_loss import PAIRWISE_LOSS_KINDS, classification_loss, gather_pairwise_inputs
 from .parallel_evaluation import evaluate as parallel_evaluate, recovery_checkpoint_due
 from .distributed import RankBatchSampler,ReferenceBatchNorm
 from . import engine as single
@@ -162,10 +162,10 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if deadline_at is not None and (not fresh_spec or not math.isfinite(deadline_at)):
         raise ValueError('absolute runtime deadline requires a finite fresh contract')
     plan=identity['distributed'];device=ctx.device
-    pairwise=(job.get('loss') or {}).get('kind')=='binary_pairwise_logistic'
+    pairwise=(job.get('loss') or {}).get('kind') in PAIRWISE_LOSS_KINDS
     if pairwise and (mode!='train' or not fresh_spec or ctx.world_size!=8 or plan['world_size']!=8
             or plan['accumulation']!=1 or job.get('mixup') is not None or job.get('training_views',1)!=1):
-        raise ValueError('global pairwise logistic requires formal eight-rank single-view accumulation-one training without mixup')
+        raise ValueError('global pairwise loss requires formal eight-rank single-view accumulation-one training without mixup')
     precision_runtime=None
     if fresh_spec and fresh_spec.get('precision_protocol') is not None:
         from .precision import configure

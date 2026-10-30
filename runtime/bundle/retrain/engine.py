@@ -23,7 +23,7 @@ from torch import nn
 from torch.utils.data import DataLoader, Subset
 
 from .data import BalancedBatchSampler, ImageDataset, flatten_training_views
-from .classification_loss import classification_loss
+from .classification_loss import PAIRWISE_LOSS_KINDS, classification_loss
 from .persistence import (CheckpointStore, RunLock, atomic_json, canonical_digest,
                           capture_rng, load_file, restore_rng)
 
@@ -277,8 +277,8 @@ def run_training(job, manifest, data_root, run_dir, identity, resume=False,
     most recent committed checkpoint, so half-updated parameters never replace
     a known-good recovery point.
     """
-    if (job.get('loss') or {}).get('kind') == 'binary_pairwise_logistic':
-        raise ValueError('global pairwise logistic requires the formal eight-rank accumulation-one entry point')
+    if (job.get('loss') or {}).get('kind') in PAIRWISE_LOSS_KINDS:
+        raise ValueError('global pairwise loss requires the formal eight-rank accumulation-one entry point')
     if job.get('age') is not None:
         raise ValueError('R8 age jobs require the audited DDP training entry point')
     if mode not in {'train', 'benchmark'}:

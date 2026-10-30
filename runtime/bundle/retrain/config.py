@@ -56,7 +56,7 @@ def default_job(name, model, kind='random'):
 
 
 def validate_job(job):
-    from .classification_loss import validate_loss
+    from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss
     validate_loss(job.get('loss'))
     if 'final_downsample_stride' in job and (type(job['final_downsample_stride']) is not int
             or job['final_downsample_stride'] != 1 or job['model'] != 'convnext_small'):
@@ -64,7 +64,7 @@ def validate_job(job):
     if 'freeze_features_before' in job and (type(job['freeze_features_before']) is not int
             or job['freeze_features_before'] != 4 or job['model'] != 'convnext_small'):
         raise ValueError('feature freezing supports only explicit Small features[:4]')
-    if (job.get('loss') or {}).get('kind') == 'binary_pairwise_logistic':
+    if (job.get('loss') or {}).get('kind') in PAIRWISE_LOSS_KINDS:
         if job.get('mixup') is not None or job.get('training_views', 1) != 1:
             raise ValueError('global pairwise logistic requires single-view training without mixup')
     if 'training_views' in job:
