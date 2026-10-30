@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Explicitly bound public-fresh fixed9:1 owner; native process/resource workflow."""
-import argparse, contextlib, fcntl, glob, json, os, re, signal, socket, stat, subprocess, sys, time, uuid
+import argparse, contextlib, fcntl, glob, json, os, re, signal, socket, stat, subprocess, sys, time, traceback, uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent;CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
 sys.path.insert(0,str(ROOT/'bundle'))
@@ -75,14 +75,22 @@ def run_component(phase,argv,deadline,rank_control,env):
  while proc.poll() is None and time.time()<deadline:
   now=time.time()
   if now-last_monitor>=15:
+   stage='runtime_safety_snapshot'
    try:
     import run_round as guard
-    resources=guard.runtime_safety_snapshot();resources.update(guard.budget(deadline))
+    resources=guard.runtime_safety_snapshot()
+    stage='budget'
+    resources.update(guard.budget(deadline))
+    stage='audit_cpu_tree'
     from retrain.execution_policy import audit_cpu_tree
     resources['cpu_tree']=audit_cpu_tree(os.getpid(),cpu_known,load_site())
+    stage='live_resources_receipt'
     atomic(CONTROL/'live-resources.json',resources)
-    if phase=='train':guard.maybe_release(ROOT,atomic,sha)
-   except Exception as exc:reason=reason or 'resource_guard:'+repr(exc)
+    if phase=='train':
+     stage='maybe_release'
+     guard.maybe_release(ROOT,atomic,sha)
+   except Exception as exc:
+    reason=reason or 'resource_guard:%s:%r:%s'%(stage,exc,traceback.format_exc(limit=4).replace('\n',' | '))
    last_monitor=now
   if STOP and reason is None:reason='signal_'+STOP
   if reason is None and now>=soft:reason='soft_deadline'

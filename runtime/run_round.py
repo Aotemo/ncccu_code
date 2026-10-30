@@ -7,6 +7,11 @@ sys.path.insert(0,str(ROOT/'bundle'))
 from retrain.site_binding import load_site, expected_pcis, verify_gpu_cpu
 SCAN_DIAGNOSTICS={'tolerated_atomic_leaf_disappearances':0,'sample_relative_paths':[]}
 ATOMIC_TEMP_NAME=re.compile(r'^\..+\.[A-Za-z0-9_-]{6,}\.tmp$')
+CHECKPOINT_TEMP_NAME=re.compile(r'^\.checkpoint-[A-Za-z0-9_-]{6,}\.tmp$')
+CHECKPOINT_FILE_NAME=re.compile(r'^checkpoint-[0-9a-f]{32}\.pt(\.json)?$')
+def transient_checkpoint_leaf(name):
+ return bool(ATOMIC_TEMP_NAME.fullmatch(name) or CHECKPOINT_TEMP_NAME.fullmatch(name)
+             or CHECKPOINT_FILE_NAME.fullmatch(name))
 def read(p):return json.loads(Path(p).read_text())
 def sha(p):
  h=hashlib.sha256()
@@ -69,32 +74,39 @@ def real_directory(path):
     if not stat.S_ISDIR(Path(path).lstat().st_mode):raise ValueError('round directory missing or symlinked: '+str(path))
 
 def tree_bytes():
-    root=Path(ROOT);real_directory(root);total=0
-    def onerror(error):raise error
-    for base,directories,files in os.walk(root,followlinks=False,onerror=onerror):
-        directory=Path(base);real_directory(root);real_directory(directory)
-        for name in directories:real_directory(directory/name)
-        for name in files:
-            path=directory/name
-            try:info=path.lstat()
-            except FileNotFoundError:
-                if not ATOMIC_TEMP_NAME.fullmatch(name):raise
-                real_directory(root);real_directory(directory)
-                for parent in directory.relative_to(root).parents:
-                    if str(parent)!='.':real_directory(root/parent)
-                SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']+=1
-                if len(SCAN_DIAGNOSTICS['sample_relative_paths'])<32:
-                    SCAN_DIAGNOSTICS['sample_relative_paths'].append(str(path.relative_to(root)))
-                continue
-            if stat.S_ISLNK(info.st_mode):raise ValueError('round file symlink forbidden: '+str(path))
-            total+=info.st_size
-    return total
+ root=Path(ROOT);real_directory(root);total=0
+ SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']=0
+ SCAN_DIAGNOSTICS['sample_relative_paths']=[]
+ def onerror(error):raise error
+ for base,directories,files in os.walk(root,followlinks=False,onerror=onerror):
+  directory=Path(base);real_directory(root);real_directory(directory)
+  for name in directories:real_directory(directory/name)
+  for name in files:
+   path=directory/name
+   try:info=path.lstat()
+   except FileNotFoundError as error:
+    # Only the two legitimate checkpoint leaves may vanish between listing and lstat:
+    # tempfile.mkstemp('.checkpoint-', '.tmp') during save, and old checkpoint blobs
+    # removed by CheckpointStore._prune. Any other lost leaf stays fatal.
+    if not transient_checkpoint_leaf(name):raise
+    real_directory(root);real_directory(directory)
+    for parent in directory.relative_to(root).parents:
+     if str(parent)!='.':real_directory(root/parent)
+    SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']+=1
+    if len(SCAN_DIAGNOSTICS['sample_relative_paths'])<32:
+     SCAN_DIAGNOSTICS['sample_relative_paths'].append({'stage':'lstat','path':str(path.relative_to(root)),'error':str(error)})
+    continue
+   if stat.S_ISLNK(info.st_mode):raise ValueError('round file symlink forbidden: '+str(path))
+   total+=info.st_size
+ return total
 
 def budget(deadline,minimum_free=17179869184):
-    if time.time()>=deadline:raise TimeoutError('round absolute deadline reached')
-    free=shutil.disk_usage(ROOT).free;size=tree_bytes()
-    if free<minimum_free or size>12884901888:raise RuntimeError('round storage limit reached')
-    return {'free_bytes':free,'new_round_bytes':size}
+ if time.time()>=deadline:raise TimeoutError('round absolute deadline reached')
+ free=shutil.disk_usage(ROOT).free;size=tree_bytes()
+ if free<minimum_free or size>12884901888:raise RuntimeError('round storage limit reached')
+ unknown=SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']
+ return {'free_bytes':free,'new_round_bytes':size,'new_round_bytes_exact':unknown==0,
+         'scan_unknown_leaves':unknown,'scan_unknown_samples':SCAN_DIAGNOSTICS['sample_relative_paths'][:8]}
 
 def runtime_safety_snapshot():
     cards=card_snapshot();current=int(Path('/sys/fs/cgroup/memory.current').read_text().strip())

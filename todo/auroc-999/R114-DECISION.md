@@ -66,3 +66,15 @@ R107 已有训练项约0.425秒/成功步可作同环境数量级参考；在近
 首跑不胜停止laststride1分支，不扫描stride/dilation/分辨率/seed/LR；即使两seed同向，也不证明显著性、机制、普遍收益或消除反复使用同dev的偏差。raw AUROC未达0.999不称总体完成，外部平台分数仍与内部/官方分别解释。
 
 持续推进责任保留：完整结果到齐后，规划主动据实际内部与工程证据决定下一独立问题并交A，不再等待用户说“继续”。若本轮不胜，不把原图局部几何可行偷换成已可承担五路训练；下一问题先据已经完成的来源规则核查和实际新吞吐判断可用来源或输入设计，给具体有限合同而非长期空报。该接续责任不自动批准第三跑、医学权重或新资源；任何具体方向仍须固定匹配基线与单一可证伪干预。
+
+## R114 工程失败与 R114R1 fresh 重试
+
+据协调方与执行 A 的实际终态报告，原 R114 在1426次成功更新/1426次尝试、skip0时被监控终止；仅完成第1次dev评估，online/EMA均为 AUROC `0.9744079105011373`、AP `0.7513749128110692`。15秒周期monitor捕获 `FileNotFoundError` 后发TERM，未达到早停或完整选点终态，也未执行official。A已核设备idle、原锁释放、owner/rank无存活。**本次是工程失败，partial指标不构成stride方向的科学失败，不用于触发第二seed或改选参数。**
+
+协调已授权一次窄修后的新fresh工程attempt **R114R1**，不是恢复训练。现有 `prepare.py --round-id` 与科学profile/candidate分离，run_name也由round_id生成；因此保持 `configs/R114-SCIENCE.json`、原profile、candidate及 `experiment_order=24`，新round固定为 `r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030`。用新round/SITE、实际SCIENCE SHA、新Git及DEPLOYMENT共同绑定工程attempt；科学文件若字节未变，其SHA可以相同，无需为制造新SHA而改科学字段或增加新候选注册。
+
+根已文本定位两条待A窄修的并发路径：monitor的临时名规则未覆盖 `CheckpointStore.save` 的 `.checkpoint-*.tmp`，以及合法prune可删除 `checkpoint-32hex.pt`及其sidecar；这不等于已证明本次异常的确切pathname。A仅修真正受影响的文件计量/监控路径并验收相应窄测试，不把所有文件或资源异常一概忽略；规划不修改实现，也不重跑loss/Gloo/像素/来源等无关项。
+
+R114R1从同一公开fresh工厂零步开始，**不加载任何原R114 checkpoint、不继承Adam/EMA游标或1426步进度**；原job、sampler、输入/增强、seed29、stride1、loss/P8、LR/WD、SD/dropout、800/24000/patience4/绝对1600及每attempt的21600/28800/32400秒上限全部保持。新Git正式原生流程实核50c tensor及独立non-tensor stride/全部可训/空Adam，再由当前唯一执行A `e62c5cb0-3516-4798-8b37-ed8da2d958ad` 核实时身份和资源后一次activation/launch。旧终态、原clock/token、冻结包和失败证据原样保留，新attempt有自己的clock/token；不重置或覆盖原attempt。
+
+失败与重试各自记录真实耗时、计算及准备成本，并在本阶段累计，不能把R114R1记作首attempt或免费补跑；本次授权不自动扩为R114R2或改变实例资源。official仅在新attempt完整内部freeze后执行一次。方向主判仍等待R114R1工程有效的完整内部结果，按原selector严格比较R107 `0.9884405731067525`；AP与partial不能替代。SSL仅保留后续文本备选，此时不推进或冻结；本补充不是新的批准门。
