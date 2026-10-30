@@ -109,14 +109,15 @@ def validate_explicit_microbatch_normalization(model, plan):
 
 
 def run_distributed(job,manifest,data_root,run_dir,identity,ctx,*,resume=False,mode='train',
-                    parent_spec=None,model_factory=None,stop_event=None,limit_updates=None,stage_spec=None,fresh_spec=None,deadline_at=None):
+                    parent_spec=None,model_factory=None,stop_event=None,limit_updates=None,stage_spec=None,fresh_spec=None,deadline_at=None,
+                    derived_receipt=None):
     """Every rank calls this; only rank0 owns the writer and published artifacts."""
     run_dir=Path(run_dir);run_dir.mkdir(parents=True,exist_ok=True)
     lock=RunLock(run_dir/'.writer.lock') if ctx.primary else contextlib.nullcontext()
     try:
         with lock:
             result=_run(job,manifest,data_root,run_dir,identity,ctx,resume,mode,parent_spec,
-                        model_factory,stop_event,limit_updates,stage_spec,fresh_spec,deadline_at)
+                        model_factory,stop_event,limit_updates,stage_spec,fresh_spec,deadline_at,derived_receipt)
             if fresh_spec:
                 atomic_json(run_dir/f'rank-{ctx.rank}-terminal-{result["attempted_updates"]:06d}.json',{
                     'rank':ctx.rank,'at':time.time(),'status':result['status'],'mode':mode,
@@ -139,7 +140,12 @@ def run_distributed(job,manifest,data_root,run_dir,identity,ctx,*,resume=False,m
         raise
 
 
-def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,model_factory,stop_event,limit_updates,stage_spec,fresh_spec,deadline_at):
+def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,model_factory,stop_event,limit_updates,stage_spec,fresh_spec,deadline_at,derived_receipt):
+    if bool(derived_receipt) != bool(fresh_spec and fresh_spec.get('ssl_recipe')):
+        raise ValueError('R115 derived asset requires the frozen joint SSL recipe')
+    if derived_receipt and (mode!='train' or resume or derived_receipt.get('recipe')!=fresh_spec['ssl_recipe']
+            or derived_receipt.get('successful_updates')!=1600):
+        raise ValueError('R115 derived asset/phase identity differs')
     if job.get('experiment91') is not None:
         from .experiment91 import validate_runtime
         validate_runtime(identity,job,manifest,fresh_spec)
@@ -238,6 +244,12 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         from .models import create_model
         model_factory=create_model
     base=model_factory(job,initialize=previous is None).to(device)
+    factory_rng=capture_rng() if derived_receipt is not None else None
+    factory_non_encoder_sha=None
+    if derived_receipt is not None:
+        from .ssl_stage import _non_encoder_state
+        from .ema import tensor_digest
+        factory_non_encoder_sha=tensor_digest(_non_encoder_state(base))
     validate_model(base,job)
     validate_explicit_microbatch_normalization(base, plan)
     base=ctx.prepare_model(base)
@@ -263,6 +275,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                        and precision_runtime.get('scaler_state_dict')=={})
     model=ctx.wrap(base)
     prime_reducer(model,base,job,ctx)
+    if factory_rng is not None:
+        restore_rng(factory_rng)
     if previous is not None:restore_rank_rng(previous,ctx,parent_spec['sha256'] if from_parent else None)
     mirror=ReferenceBatchNorm(base,ctx)
     successful=int(previous['successful_updates']) if previous else 0
@@ -320,6 +334,13 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if fresh_spec:
         provenance={'kind':'sealed-public-fresh-init-v1','initialization':identity['initialization'],
                     'purpose':fresh_spec['purpose'],'plan_sha256':fresh_spec['plan_sha256']}
+        if derived_receipt is not None:
+            provenance={'kind':'same-owner-fit-only-vicreg-derived-init-v1',
+                        'public_initialization':identity['initialization'],
+                        'ssl_recipe':fresh_spec['ssl_recipe'],
+                        'derived_tensor_sha256':derived_receipt['derived_tensor_sha256'],
+                        'derived_asset_sha256':derived_receipt['asset_sha256'],
+                        'purpose':fresh_spec['purpose'],'plan_sha256':fresh_spec['plan_sha256']}
     start=time.monotonic();last_save=start;last_saved_attempt=attempted
     complete=folder/'complete.json'
     if ctx.primary:complete.unlink(missing_ok=True)
@@ -375,6 +396,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                           sampler_attempted_updates=attempted,optimizer_expected_step=successful,
                           absolute_deadline_at=deadline_at,stop_reason=stop_reason,
                           result_kind='fresh-probe' if mode=='fresh-probe' else 'training')
+        if derived_receipt is not None:result['ssl_derived']=derived_receipt
         if ema:
             result.update(ema={k:v for k,v in ema.state_dict().items() if k!='model'},
                           ema_best_metrics=ema_best,ema_last_metrics=ema_last,
@@ -432,7 +454,10 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             initial_ranks=ctx.values({'rank':ctx.rank,'model_sha256':digest.hexdigest(),
                 'optimizer_state_entries':len(optimizer.state),'scaler':scaler.state_dict(),
                 'precision_runtime':precision_runtime,
-                'bn_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm) for m in base.modules()),**attention_initial})
+                'bn_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm) for m in base.modules()),
+                **({'supervised_factory_non_encoder_sha256':factory_non_encoder_sha,
+                    'supervised_factory_rng_restored':True} if derived_receipt is not None else {}),
+                **attention_initial})
             if len({v['model_sha256'] for v in initial_ranks})!=1:
                 raise ValueError('fresh ranks initial model tensors differ')
         before=save_started if ema else time.monotonic()
@@ -460,6 +485,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if stage_spec:payload.update(stage=copy.deepcopy(stage_spec),overflow_window=overflow_guard.state())
             if fresh_spec:
                 payload.update(fresh=copy.deepcopy(fresh_spec),fresh_guard=overflow_guard.state(),absolute_deadline_at=deadline_at)
+                if derived_receipt is not None:payload['ssl_derived']=copy.deepcopy(derived_receipt)
                 if precision_runtime is not None:payload['precision_runtime']=precision_runtime
                 if successful==0 and attempted==0:
                     initial=CheckpointStore(folder/'initial-checkpoint')

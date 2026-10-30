@@ -1,0 +1,311 @@
+"""One fit-only VICReg phase inside the admitted fresh training owner."""
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+import random
+import time
+import uuid
+
+import torch
+from torch import nn
+from torch.utils.data import DataLoader
+
+from .data import ImageDataset, _seed
+from .ema import tensor_digest
+from .finite import all_floating_finite
+from .models import create_model
+from .persistence import atomic_json, canonical_digest, sha256_file
+from .vicreg import gather_embeddings, vicreg_loss
+from . import engine as single
+
+
+def validate_recipe(recipe, job, manifest, world):
+    """The science file fixes this one recipe; labels and dev never enter the phase."""
+    expected = {'version': 'r115-fit-vicreg-1600-v1', 'updates': 1600,
+        'global_batch': 64, 'per_rank_batch': 8, 'training_views': 2,
+        'image_size': 512, 'training_scale': [0.85, 1.0],
+        'projector': [768, 1024, 256], 'backbone_lr': 1e-4,
+        'projector_lr': 1e-3, 'weight_decay': 1e-4,
+        'warmup_updates': 160, 'final_lr_factor': 0.01,
+        'gradient_clip': 1.0, 'precision': 'fp32'}
+    if recipe != expected or world != 8 or job['model'] != 'convnext_small' or job['image_size'] != 512:
+        raise ValueError('R115 fixed fit-only SSL recipe/topology differs')
+    indices = manifest['fit_indices']
+    if (not indices or len(indices) < 64 or len(set(indices)) != len(indices)
+            or set(indices) & set(manifest['dev_indices']) or manifest.get('audit_indices')):
+        raise ValueError('SSL requires unique fit-only indices and no dev/audit overlap')
+    return recipe
+
+
+class UniformFitSampler:
+    """Global shuffled fit stream, full 64-image batches only, rank-contiguous shards."""
+    def __init__(self, indices, *, seed, updates, rank, world=8):
+        if world != 8 or not 0 <= rank < world or len(indices) < 64:
+            raise ValueError('SSL sampler requires eight ranks and a complete global batch')
+        self.indices = tuple(indices)
+        self.seed, self.updates, self.rank = seed, updates, rank
+
+    def __len__(self):
+        return self.updates
+
+    def __iter__(self):
+        produced, epoch = 0, 0
+        while produced < self.updates:
+            shuffled = list(self.indices)
+            random.Random(_seed(self.seed, 'epoch', epoch)).shuffle(shuffled)
+            for offset in range(0, len(shuffled) - 63, 64):
+                if produced >= self.updates:
+                    break
+                batch = shuffled[offset:offset + 64]
+                start = self.rank * 8
+                yield [(index, _seed(self.seed, 'sample', produced, position, index))
+                    for position, index in enumerate(batch[start:start + 8], start)]
+                produced += 1
+            epoch += 1
+
+
+class SSLModel(nn.Module):
+    def __init__(self, binary, *, projector_seed):
+        super().__init__()
+        network = binary.network
+        self.features = network.features
+        self.avgpool = network.avgpool
+        self.final_norm = network.classifier[0]
+        with torch.random.fork_rng(devices=[]):
+            torch.random.default_generator.manual_seed(projector_seed)
+            self.projector = nn.Sequential(nn.Linear(768, 1024), nn.GELU(approximate='none'),
+                                           nn.Linear(1024, 256))
+
+    def forward(self, images):
+        value = self.avgpool(self.features(images))
+        return self.projector(self.final_norm(value).flatten(1))
+
+
+def _derived_state(binary):
+    return {name: value.detach().cpu().contiguous()
+        for name, value in binary.state_dict().items()
+        if name.startswith('network.features.') or name.startswith('network.classifier.0.')}
+
+
+def _non_encoder_state(binary):
+    return {name: value for name, value in binary.state_dict().items()
+        if not name.startswith('network.features.') and not name.startswith('network.classifier.0.')}
+
+
+def _factor(update):
+    if not 1 <= update <= 1600:
+        raise ValueError('SSL LR update outside fixed budget')
+    if update <= 160:
+        return update / 160
+    return 0.01 + 0.99 * (1 + math.cos(math.pi * (update - 160) / 1440)) / 2
+
+
+def _optimizer(model):
+    groups = {}
+    for name, parameter in model.named_parameters():
+        role = 'projector' if name.startswith('projector.') else 'backbone'
+        decay = parameter.ndim > 1 and not name.endswith('.bias')
+        groups.setdefault((role, decay), []).append(parameter)
+    result = []
+    for (role, decay), parameters in sorted(groups.items()):
+        initial_lr = 1e-3 if role == 'projector' else 1e-4
+        result.append({'params': parameters, 'lr': initial_lr, 'initial_lr': initial_lr,
+            'weight_decay': 1e-4 if decay else 0.0, 'role': role})
+    return torch.optim.AdamW(result)
+
+
+def _wait_barrier(path, recipe, ctx, deadline_at, stop_event):
+    while True:
+        value = None
+        if ctx.primary:
+            try:
+                value = json.loads(Path(path).read_text())
+            except FileNotFoundError:
+                pass
+        value = ctx.broadcast(value)
+        if value is not None:
+            if value.get('status') != 'released' or value.get('recipe') != recipe:
+                raise ValueError('SSL public-initial barrier differs')
+            return
+        if time.time() >= deadline_at or (stop_event is not None and stop_event.is_set()):
+            raise TimeoutError('SSL public-initial barrier stopped before first update')
+        time.sleep(.1)
+
+
+def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, deadline_at,
+            identity, site, precision_protocol, stop_event=None):
+    validate_recipe(recipe, job, manifest, ctx.world_size)
+    from .precision import configure, runtime_proof
+    configure(precision_protocol)
+    runtime_proof(precision_protocol, device=ctx.device)
+    folder = Path(run_dir) / 'ssl-stage'
+    existed = folder.exists() if ctx.primary else None
+    existed = ctx.broadcast(existed)
+    if existed:
+        raise FileExistsError('SSL stage is fresh-only and cannot reuse an earlier attempt')
+    if ctx.primary:
+        folder.mkdir(parents=True)
+    ctx.barrier()
+    # The public head/age must match the CPU seed before any SSL parameters move.
+    domain = recipe['version']
+    single._seed(int(job['seed']), ctx.device)
+    binary = create_model(job, initialize=True).to(ctx.device)
+    # Only the encoder participates; the fresh native head and age stay untouched.
+    model = SSLModel(binary, projector_seed=_seed(job['seed'], domain, 'projector')).to(ctx.device)
+    wrapped = ctx.wrap(model)
+    public_digest = tensor_digest(binary.state_dict())
+    public_encoder_digest = tensor_digest(_derived_state(binary))
+    public_receipt = binary.public_initialization_receipt
+    public_non_encoder_digest = tensor_digest(_non_encoder_state(binary))
+    publics = ctx.values({'rank': ctx.rank, 'model_sha256': public_digest,
+        'encoder_tensor_sha256': public_encoder_digest,
+        'public_tensor_sha256': public_receipt['public_tensor_sha256'],
+        'strict_public_exact': public_receipt['all_public_tensors_exact'],
+        'non_encoder_sha256': public_non_encoder_digest, 'optimizer_state_entries': 0,
+        'projector_shape': [768, 1024, 256]})
+    if (len({item['model_sha256'] for item in publics}) != 1
+            or len({item['encoder_tensor_sha256'] for item in publics}) != 1
+            or len({item['public_tensor_sha256'] for item in publics}) != 1
+            or any(item['strict_public_exact'] is not True for item in publics)):
+        raise ValueError('SSL strict public encoder differs between ranks')
+    if ctx.primary:
+        atomic_json(folder / 'public-initial-ranks.json', publics)
+        atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'waiting_public_initial',
+            'successful_updates': 0, 'target_updates': 1600, 'recipe': recipe})
+    ctx.barrier()
+    _wait_barrier(barrier_path, recipe, ctx, deadline_at, stop_event)
+    single._seed(_seed(job['seed'], domain, 'model', ctx.rank), ctx.device)
+    if ctx.primary:
+        atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
+            'successful_updates': 0, 'target_updates': 1600, 'recipe': recipe})
+    optimizer = _optimizer(model)
+    dataset = ImageDataset(data_root, manifest['rows'], 512, training=True,
+        normalization='imagenet', prepared_size=512, age=None,
+        training_scale=[0.85, 1.0], training_views=2, include_labels=False)
+    sampler = UniformFitSampler(manifest['fit_indices'], seed=_seed(job['seed'], domain, 'sampler'),
+        updates=1600, rank=ctx.rank, world=ctx.world_size)
+    loader = DataLoader(dataset, batch_sampler=sampler,
+        **single._loader_options(job['workers'], job, persistent=True,
+                                 seed=_seed(job['seed'], domain, 'loader', ctx.rank)))
+    iterator = iter(loader)
+    try:
+        for update in range(1, 1601):
+            if ctx.any(time.time() >= deadline_at or (stop_event is not None and stop_event.is_set())):
+                raise TimeoutError('R115 joint training deadline or owner stop during SSL')
+            optimizer.zero_grad(set_to_none=True)
+            images, _ = next(iterator)
+            if images.shape != (8, 2, 3, 512, 512):
+                raise ValueError('SSL loader did not yield exactly eight two-view fit images')
+            images = images.to(ctx.device, non_blocking=True)
+            embeddings = wrapped(images.reshape(16, 3, 512, 512)).reshape(8, 2, 256)
+            z1 = gather_embeddings(embeddings[:, 0])
+            z2 = gather_embeddings(embeddings[:, 1])
+            if z1.shape != (64, 256) or z2.shape != (64, 256):
+                raise ValueError('SSL actual global two-view embedding geometry differs')
+            loss = vicreg_loss(z1.float(), z2.float())
+            if ctx.any(not bool(torch.isfinite(loss))):
+                raise FloatingPointError('nonfinite R115 VICReg loss')
+            loss.backward()
+            norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            if ctx.any(not bool(torch.isfinite(norm))):
+                raise FloatingPointError('nonfinite R115 VICReg gradient')
+            factor = _factor(update)
+            for group in optimizer.param_groups:
+                group['lr'] = group['initial_lr'] * factor
+            optimizer.step()
+            if ctx.any(not all_floating_finite(model.parameters())
+                       or not all_floating_finite(value for state in optimizer.state.values() for value in state.values())):
+                raise FloatingPointError('nonfinite R115 VICReg parameter or Adam state')
+            if ctx.primary and (update % 25 == 0 or update == 1):
+                with (folder / 'metrics.jsonl').open('a') as stream:
+                    stream.write(json.dumps({'phase': 'fit_only_ssl', 'successful_updates': update,
+                        'primary_inputs': 64, 'view_inputs': 128,
+                        'global_embedding_shape': [64, 256], 'finite_loss_and_gradient': True,
+                        'loss': float(loss.detach()), 'lr_factor': factor, 'at': time.time()}) + '\n')
+                atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
+                    'successful_updates': update, 'target_updates': 1600,
+                    'last_loss': float(loss.detach()), 'at': time.time()})
+    finally:
+        if hasattr(iterator, '_shutdown_workers'):
+            iterator._shutdown_workers()
+        del iterator, loader
+    state = _derived_state(binary)
+    digest = tensor_digest(state)
+    non_encoder_after = tensor_digest(_non_encoder_state(binary))
+    digests = ctx.values({'rank': ctx.rank, 'derived_tensor_sha256': digest,
+        'non_encoder_sha256_before': publics[ctx.rank]['non_encoder_sha256'],
+        'non_encoder_sha256_after': non_encoder_after,
+        'head_age_unchanged': non_encoder_after == publics[ctx.rank]['non_encoder_sha256']})
+    if len({item['derived_tensor_sha256'] for item in digests}) != 1:
+        raise ValueError('SSL derived encoder differs between ranks')
+    if any(item['head_age_unchanged'] is not True for item in digests):
+        raise ValueError('SSL changed the sealed public head or age parameters')
+    receipt = None
+    if ctx.primary:
+        asset = folder / 'derived-encoder.pt'
+        temporary = folder / ('.derived-encoder.' + uuid.uuid4().hex + '.tmp')
+        try:
+            torch.save(state, temporary)
+            os.replace(temporary, asset)
+        finally:
+            temporary.unlink(missing_ok=True)
+        clock = json.loads((Path(site['round_root']) / 'control/round-clock.json').read_text())
+        receipt = {'status': 'completed', 'phase': 'fit_only_ssl', 'recipe': recipe,
+            'recipe_sha256': canonical_digest(recipe), 'round_id': site['round_id'],
+            'attempt_token_sha256': hashlib.sha256(clock['token'].encode()).hexdigest(),
+            'git_commit': site['git_commit'],
+            'science_sha256': site['science']['configuration']['sha256'],
+            'source_digest': identity['source_digest'],
+            'manifest_digest': identity['manifest_digest'],
+            'public_weight_sha256': job['initialization']['sha256'],
+            'world_size': ctx.world_size, 'successful_updates': 1600,
+            'attempted_updates': 1600, 'skipped_updates': 0,
+            'fit_indices_only': True, 'dev_evaluations': 0,
+            'labels_or_age_used_for_loss': False,
+            'public_model_tensor_sha256': public_digest,
+            'public_encoder_tensor_sha256': public_encoder_digest,
+            'public_tensor_sha256': public_receipt['public_tensor_sha256'],
+            'ssl_rank0_non_encoder_sha256': publics[0]['non_encoder_sha256'],
+            'derived_tensor_sha256': digest, 'asset_path': str(asset),
+            'asset_sha256': sha256_file(asset), 'rank_proofs': digests,
+            'rng_derivation': {'domain': domain, 'projector_seed': _seed(job['seed'], domain, 'projector'),
+                'model_seeds': [_seed(job['seed'], domain, 'model', rank) for rank in range(ctx.world_size)],
+                'sampler_seed': _seed(job['seed'], domain, 'sampler'),
+                'loader_seeds': [_seed(job['seed'], domain, 'loader', rank) for rank in range(ctx.world_size)]},
+            'finished_at': time.time()}
+        atomic_json(folder / 'SSL-RESULT.json', receipt)
+        atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'completed',
+            'successful_updates': 1600, 'target_updates': 1600,
+            'derived_tensor_sha256': digest, 'at': time.time()})
+    receipt = ctx.broadcast(receipt)
+    ctx.barrier()
+    del wrapped, model, binary, optimizer, state, images, embeddings, z1, z2, loss, norm
+    if ctx.device.type == 'cuda':
+        torch.cuda.empty_cache()
+    return receipt
+
+
+def load_derived_model(job, initialize, receipt):
+    if not initialize:
+        return create_model(job, initialize=False)
+    model = create_model(job, initialize=True)
+    public_head = tensor_digest(_non_encoder_state(model))
+    asset = Path(receipt['asset_path'])
+    if sha256_file(asset) != receipt['asset_sha256']:
+        raise ValueError('SSL derived encoder asset bytes changed')
+    state = torch.load(asset, map_location='cpu', weights_only=True)
+    if tensor_digest(state) != receipt['derived_tensor_sha256']:
+        raise ValueError('SSL derived encoder tensor digest changed')
+    target = _derived_state(model)
+    if state.keys() != target.keys() or any(state[key].shape != target[key].shape or
+            state[key].dtype != target[key].dtype or not bool(torch.isfinite(state[key]).all())
+            for key in target):
+        raise ValueError('SSL derived encoder state/key/FP32/finite identity differs')
+    full = model.state_dict()
+    full.update(state)
+    model.load_state_dict(full, strict=True)
+    if tensor_digest(_non_encoder_state(model)) != public_head:
+        raise ValueError('R115 public fresh head/age changed during derived encoder load')
+    return model

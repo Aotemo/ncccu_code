@@ -1,11 +1,17 @@
 import glob,hashlib,json,os,re,shutil,stat,sys,time
 from pathlib import Path
-from r92_initial_gate import verify_records as verify_fresh_initial_identity, maybe_release
+from r92_initial_gate import verify_records as verify_fresh_initial_identity, maybe_release as release_fresh_initial
+from r115_ssl_gate import maybe_release as release_ssl_initial
 ROOT=Path(__file__).resolve().parent
 CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
 sys.path.insert(0,str(ROOT/'bundle'))
 from retrain.site_binding import load_site, expected_pcis, verify_gpu_cpu
 SCAN_DIAGNOSTICS={'tolerated_atomic_leaf_disappearances':0,'sample_relative_paths':[]}
+
+def maybe_release(root, atomic, sha):
+ if read(Path(root)/'SCIENCE.json').get('ssl_recipe') is not None:
+  release_ssl_initial(root,atomic,sha)
+ return release_fresh_initial(root,atomic,sha)
 ATOMIC_TEMP_NAME=re.compile(r'^\..+\.[A-Za-z0-9_-]{6,}\.tmp$')
 CHECKPOINT_TEMP_NAME=re.compile(r'^\.checkpoint-[A-Za-z0-9_-]{6,}\.tmp$')
 CHECKPOINT_FILE_NAME=re.compile(r'^checkpoint-[0-9a-f]{32}\.pt(\.json)?$')

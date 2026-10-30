@@ -1,5 +1,7 @@
 """Actual admitted-world noBN initial proof; load native checkpoint, never a new model."""
 import json
+import copy
+import hashlib
 from pathlib import Path
 import sys
 import time
@@ -73,10 +75,48 @@ def maybe_release(root, atomic, sha):
     from retrain.persistence import CheckpointStore
     from retrain.ema import tensor_digest, validate_state
     from retrain.experiment91 import validate_checkpoint, ema_rule
-    expected = read(evidence / 'MODEL_CPU_ADMISSION.json')['initial_state_control']
+    fresh = read(control / 'train-fresh-spec.json')
+    expected = copy.deepcopy(read(evidence / 'MODEL_CPU_ADMISSION.json')['initial_state_control'])
+    ssl = None
+    if fresh.get('ssl_recipe') is not None:
+        ssl_path = folder / 'ssl-stage/SSL-RESULT.json'
+        public = read(evidence / 'SSL-PUBLIC-INITIAL.json')
+        ssl = read(ssl_path)
+        asset = folder / 'ssl-stage/derived-encoder.pt'
+        initials = read(paths[0])
+        from retrain.site_binding import load_site
+        site = load_site()
+        clock = read(control / 'round-clock.json')
+        require(public['status'] == 'completed' and public['recipe'] == fresh['ssl_recipe']
+                and public['public_tensor_sha256'] == expected['public_tensor_sha256']
+                and public['public_encoder_tensor_sha256'] == expected['public_encoder_tensor_sha256']
+                and ssl['status'] == 'completed' and ssl['recipe'] == fresh['ssl_recipe']
+                and ssl['successful_updates'] == 1600 and ssl['dev_evaluations'] == 0
+                and ssl['public_tensor_sha256'] == public['public_tensor_sha256']
+                and ssl['public_encoder_tensor_sha256'] == public['public_encoder_tensor_sha256']
+                and ssl['ssl_rank0_non_encoder_sha256'] == public['ssl_rank0_non_encoder_sha256']
+                and ssl['round_id'] == site['round_id']
+                and ssl['attempt_token_sha256'] == hashlib.sha256(clock['token'].encode()).hexdigest()
+                and ssl['git_commit'] == site['git_commit']
+                and ssl['science_sha256'] == site['science']['configuration']['sha256']
+                and ssl['source_digest'] == fresh['source_digest']
+                and ssl['manifest_digest'] == fresh['experiment91']['manifest_digest']
+                and ssl['public_weight_sha256'] == fresh['initialization']['weights_sha256']
+                and ssl['world_size'] == world and ssl['attempted_updates'] == 1600
+                and ssl['skipped_updates'] == 0
+                and len(ssl['rank_proofs']) == world
+                and {item['rank'] for item in ssl['rank_proofs']} == set(range(world))
+                and all(item['derived_tensor_sha256'] == ssl['derived_tensor_sha256']
+                        and item['head_age_unchanged'] is True for item in ssl['rank_proofs'])
+                and ssl['asset_path'] == str(asset) and not asset.is_symlink()
+                and sha(asset) == ssl['asset_sha256'] and len(initials) == world,
+                'R115 actual public-to-fit-only-derived lineage differs')
+        require(initials[0].get('supervised_factory_non_encoder_sha256') == expected['public_non_encoder_sha256']
+                and all(item.get('supervised_factory_rng_restored') is True for item in initials),
+                'R115 native R107-seeded head/age factory or rank RNG reset differs')
+        expected['model_tensor_sha256'] = initials[0]['model_sha256']
     full_digest = verify_records(read(paths[0]), read(paths[1]), read(evidence / 'CPU_PARAMETER_GROUPS.json'), expected,
                                  expected_world=world)
-    fresh = read(control / 'train-fresh-spec.json')
     source = read(root / 'SOURCE-MANIFEST.reference.json')['source_digest']
     require(time.time() < read(control / 'train-phase-start.json')['soft_deadline_at'], 'startup budget expired')
     store = CheckpointStore(folder / 'initial-checkpoint'); payload = store.load('last', map_location='cpu')
@@ -87,6 +127,17 @@ def maybe_release(root, atomic, sha):
             and payload['identity']['source_digest'] == source == expected['source_digest']
             and payload['identity']['initialization'] == fresh['initialization'], 'native fresh source differs')
     state = payload['model']
+    if ssl is not None:
+        asset_state = torch.load(ssl['asset_path'], map_location='cpu', weights_only=True)
+        subset = {name: tensor for name, tensor in state.items()
+                  if name.startswith('network.features.') or name.startswith('network.classifier.0.')}
+        remainder = {name: tensor for name, tensor in state.items() if name not in subset}
+        require(asset_state.keys() == subset.keys()
+                and all(torch.equal(asset_state[name], subset[name]) for name in subset)
+                and tensor_digest(asset_state) == ssl['derived_tensor_sha256']
+                and tensor_digest(remainder) == read(evidence / 'MODEL_CPU_ADMISSION.json')['initial_state_control']['public_non_encoder_sha256']
+                and payload.get('ssl_derived') == ssl,
+                'R115 native supervised initial does not equal fixed SSL encoder plus public fresh head/age')
     require('attention_pool_weight' not in state and 'q' not in state and int(torch.count_nonzero(state['age_weight'])) == 0, 'noq/zeroage state differs')
     require(tensor_digest(state) == full_digest and payload['candidate_normalization'] == expected['candidate_normalization'], 'native tensor/actual LN differs')
     require(payload.get('parameter_trainability') == expected.get('parameter_trainability'),
@@ -106,6 +157,9 @@ def maybe_release(root, atomic, sha):
         'initial_files_sha256': {str(p.relative_to(root)): sha(p) for p in paths},
         'native_initial_blob': str(store.directory / record['file']), 'native_initial_blob_sha256': record['sha256'],
         'public_weights_reloaded_by_gate': False, 'new_model_created_by_gate': False, 'CUDA_initialized': False}
+    if ssl is not None:
+        receipt['ssl_derived'] = ssl
+        receipt['ssl_receipt_sha256'] = sha(folder / 'ssl-stage/SSL-RESULT.json')
     if expected.get('parameter_trainability') is not None:
         receipt['parameter_trainability'] = expected['parameter_trainability']
     atomic(receipt_path, receipt, exclusive=True)

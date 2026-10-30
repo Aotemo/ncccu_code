@@ -128,6 +128,10 @@ def freeze_training(folder, destination, *, technical_fixture=False):
         'identity': payload['identity'], 'fresh': payload['fresh'], 'source_files': sources,
         'source_digest': payload['identity']['source_digest'], 'normalization': payload['job']['normalization'],
         'official_evaluations_allowed': 1, 'official_metadata_used_for_selection': False}
+    if payload['fresh'].get('ssl_recipe') is not None:
+        if complete.get('ssl_derived') != payload.get('ssl_derived'):
+            raise ValueError('R115 completed joint SSL lineage differs from selected checkpoint')
+        value['ssl_derived'] = payload['ssl_derived']
     write_exclusive(destination, value)
     destination.chmod(0o444)
     return value
@@ -148,6 +152,13 @@ def validate_freeze(path, *, allow_fixture=False):
             or value.get('tensor_sha256') != value['selected']['tensor_sha256']
             or value.get('normalization') != 'imagenet'):
         raise ValueError('unique single-model freeze differs')
+    if value['fresh'].get('ssl_recipe') is not None:
+        derived=value.get('ssl_derived')
+        if (not isinstance(derived,dict) or derived.get('recipe')!=value['fresh']['ssl_recipe']
+                or derived.get('successful_updates')!=1600
+                or derived!=value['training_completion'].get('ssl_derived')
+                or sha256_file(derived['asset_path'])!=derived['asset_sha256']):
+            raise ValueError('R115 frozen SSL derived asset/receipt differs')
     ex.validate_runtime(value['identity'], value['job'], fresh=value.get('fresh'))
     ex.validate_normalization(value.get('candidate_normalization', {}))
     if value.get('buffer_sha256') != value['candidate_normalization']['buffer_sha256']:

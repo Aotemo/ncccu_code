@@ -48,9 +48,21 @@ def worker(args, *, model_factory=None, stop_event=None):
         if ctx.primary:atomic_json(Path(spec['run_dir'])/'rank-device-proof.json',proofs)
         job['workers']=site['cpu_execution']['loader_workers']
         job['eval_workers']=site['cpu_execution']['loader_workers']
+        derived_receipt=None
+        if spec['fresh_spec'].get('ssl_recipe') is not None:
+            if model_factory is not None or spec['resume']:
+                raise ValueError('R115 SSL requires a fresh native model factory')
+            from retrain.ssl_stage import run_ssl,load_derived_model
+            derived_receipt=run_ssl(job,json.loads(Path(spec['manifest_path']).read_text()),
+                spec['data_root'],spec['run_dir'],spec['fresh_spec']['ssl_recipe'],ctx,
+                barrier_path=spec['fresh_spec']['ssl_startup_barrier'],
+                deadline_at=spec['deadline_at'],identity=spec['identity'],site=site,
+                precision_protocol=spec['fresh_spec']['precision_protocol'],stop_event=stop)
+            model_factory=lambda supplied, initialize:load_derived_model(supplied,initialize,derived_receipt)
         result=run_distributed(job,json.loads(Path(spec['manifest_path']).read_text()),spec['data_root'],
             spec['run_dir'],spec['identity'],ctx,resume=spec['resume'],mode=spec['mode'],
-            fresh_spec=spec['fresh_spec'],stop_event=stop,deadline_at=spec['deadline_at'],model_factory=model_factory)
+            fresh_spec=spec['fresh_spec'],stop_event=stop,deadline_at=spec['deadline_at'],
+            model_factory=model_factory,derived_receipt=derived_receipt)
         return 0 if result['status']=='completed' else 130
     finally:ctx.close()
 

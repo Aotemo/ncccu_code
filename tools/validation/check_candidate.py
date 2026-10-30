@@ -141,6 +141,11 @@ def main(args):
         'batch_norm_modules': structure['batch_norm_modules'], 'buffer_count': structure['buffer_count'], 'buffer_sha256': structure['buffer_sha256'],
         'candidate_normalization': structure, 'optimizer_state_entries': 0, 'trainable_tensors': len(trainable),
         'parameter_elements_by_role': roles, 'no_attention_q': True}
+    if ex.science_configuration().get('ssl_recipe') is not None:
+        from retrain.ssl_stage import _derived_state, _non_encoder_state
+        expected.update(public_tensor_sha256=model.public_initialization_receipt['public_tensor_sha256'],
+                        public_encoder_tensor_sha256=tensor_digest(_derived_state(model)),
+                        public_non_encoder_sha256=tensor_digest(_non_encoder_state(model)))
     if parameter_trainability is not None:
         expected['parameter_trainability'] = parameter_trainability
     initial = {'format_version': 1, 'cpu_fixture_only': True, 'identity': identity,

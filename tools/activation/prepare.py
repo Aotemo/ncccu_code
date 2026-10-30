@@ -193,7 +193,7 @@ def make_fresh(package, job, topology, execution, source_digest, initialization)
     from retrain.precision import RULE
     site = read(package / 'SITE_BINDING.json'); cfg = read(package / 'TRAIN_CONFIG.json')
     topology['stop_after_updates'] = ex.schedule()['stop_after_updates']
-    return {'format': 'glaucoma-fresh-init-v1', 'purpose': 'train',
+    result = {'format': 'glaucoma-fresh-init-v1', 'purpose': 'train',
         'plan_version': ex.science_configuration()['candidate_profile'], 'plan_sha256': sha(package / 'PLAN.md'),
         'source_digest': source_digest, 'job': job_contract(job), 'schedule': ex.schedule(),
         'execution_policy': execution, 'ema': ex.ema_rule(), 'precision_protocol': RULE,
@@ -201,6 +201,13 @@ def make_fresh(package, job, topology, execution, source_digest, initialization)
         'cache_readonly_required': True, 'startup_barrier': {
             'path': str(Path(site['round_root']) / 'control/train-startup-barrier.json'),
             'round_id': site['round_id'], 'run_ids': [cfg['run_name']]}}
+    ssl_recipe=ex.science_configuration().get('ssl_recipe')
+    if ssl_recipe is not None:
+        from retrain.ssl_stage import validate_recipe
+        validate_recipe(ssl_recipe,job,ex.metadata()['manifest.json'],len(site['gpus']))
+        result['ssl_recipe']=ssl_recipe
+        result['ssl_startup_barrier']=str(Path(site['round_root']) / 'control/ssl-startup-barrier.json')
+    return result
 
 
 if __name__ == '__main__':

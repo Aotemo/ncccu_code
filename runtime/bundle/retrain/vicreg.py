@@ -1,0 +1,64 @@
+"""Global embedding gather and VICReg-style fit-only loss; no labels, teacher or stop-gradient."""
+import torch
+import torch.distributed as dist
+
+
+class _GatherEmbeddings(torch.autograd.Function):
+    @staticmethod
+    def forward(ctx, local, rank, world_size):
+        ctx.rank = int(rank)
+        ctx.world_size = int(world_size)
+        ctx.rows = local.shape[0]
+        source = local.contiguous()
+        parts = [torch.empty_like(source) for _ in range(ctx.world_size)]
+        dist.all_gather(parts, source)
+        return torch.cat(parts, dim=0)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        # Every rank holds the same global gradient; SUM then slice so DDP's mean cancels exactly.
+        grad = grad_output.contiguous().clone()
+        dist.all_reduce(grad, op=dist.ReduceOp.SUM)
+        start = ctx.rank * ctx.rows
+        return grad[start:start + ctx.rows].contiguous(), None, None
+
+
+def gather_embeddings(local, rank=None, world_size=None):
+    """Concatenate local NxD FP32 rows in world rank order; world 1 is a no-op."""
+    if local.dim() != 2:
+        raise ValueError('gather_embeddings expects a 2D local embedding')
+    initialized = dist.is_available() and dist.is_initialized()
+    if world_size is None:
+        world_size = dist.get_world_size() if initialized else 1
+    if rank is None:
+        rank = dist.get_rank() if initialized else 0
+    if world_size == 1:
+        return local
+    if not initialized:
+        raise RuntimeError('multi-rank gather requires an initialized process group')
+    return _GatherEmbeddings.apply(local, rank, world_size)
+
+
+def vicreg_loss(z1, z2):
+    """VICReg on two already-global NxD FP32 views; every term stays differentiable."""
+    if z1.dim() != 2 or z2.dim() != 2 or z1.shape != z2.shape:
+        raise ValueError('vicreg_loss expects two equal 2D global embeddings')
+    n, d = z1.shape
+    if n < 2 or d < 1:
+        raise ValueError('vicreg_loss needs N>=2 and D>=1')
+    invariance = ((z1 - z2) ** 2).mean()
+
+    def variance_term(value):
+        var = torch.var(value, dim=0, unbiased=True)
+        return torch.relu(1.0 - torch.sqrt(var + 1e-4)).mean()
+
+    variance = 0.5 * (variance_term(z1) + variance_term(z2))
+
+    def covariance_term(value):
+        centered = value - value.mean(dim=0, keepdim=True)
+        cov = centered.transpose(0, 1) @ centered / (n - 1)
+        off_diagonal = cov - torch.diag_embed(torch.diagonal(cov))
+        return (off_diagonal ** 2).sum() / d
+
+    covariance = covariance_term(z1) + covariance_term(z2)
+    return 25.0 * invariance + 25.0 * variance + covariance

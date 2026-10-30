@@ -14,7 +14,9 @@ BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261
 FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-fitbn-v1'
 FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1'
 LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1'
-SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING)
+FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitssl1600-v1'
+SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
+                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING)
 CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
     'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
     'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
@@ -37,6 +39,7 @@ def science_configuration():
         value = json.loads(raw)
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
+                or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -53,7 +56,7 @@ def candidate_from_configuration(value):
     if value['candidate_profile'] == FIT_BN_BINDING_VERSION:
         expected.update(id='r112-resnet50-imagenetv2-24k-p4-seed20261029-fitbn-9010',
                         experiment_order=22, bn_initialization='fit_fixed_reference')
-    elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING):
+    elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -65,6 +68,9 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == LAST_STRIDE_SMALL_BINDING:
             expected.update(id='r114-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-laststride1-9010',
                             experiment_order=24)
+        if value['candidate_profile'] == FIT_SSL_SMALL_BINDING:
+            expected.update(id='r115-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitssl1600-9010',
+                            experiment_order=25)
     if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
@@ -354,8 +360,14 @@ def validate_runtime(identity, job, manifest=None, fresh=None):
         raise ValueError('9:1 runtime manifest changed')
     spec = fresh if fresh is not None else identity.get('fresh')
     if (not spec or spec.get('experiment91') != binding() or spec.get('schedule') != schedule()
-            or spec.get('ema') != ema_rule()):
+            or spec.get('ema') != ema_rule()
+            or spec.get('ssl_recipe') != science_configuration().get('ssl_recipe')):
         raise ValueError('Tiny fresh schedule/noBN EMA/binding differs')
+    if spec.get('ssl_recipe') is not None:
+        from .ssl_stage import validate_recipe
+        validate_recipe(spec['ssl_recipe'],job,metadata()['manifest.json'],len(load_site()['gpus']))
+        if spec.get('ssl_startup_barrier') != str(Path(load_site()['round_root']) / 'control/ssl-startup-barrier.json'):
+            raise ValueError('R115 joint SSL startup barrier differs')
     return True
 
 
@@ -363,6 +375,12 @@ def validate_checkpoint(payload):
     from .age import validate_checkpoint as validate_age
     job = payload['job']
     validate_runtime(payload['identity'], job, fresh=payload.get('fresh'))
+    derived=payload.get('ssl_derived')
+    recipe=payload['fresh'].get('ssl_recipe')
+    if bool(derived)!=bool(recipe and not payload.get('cpu_fixture_only')) or (derived is not None and (
+            derived.get('recipe')!=recipe or derived.get('successful_updates')!=1600
+            or derived.get('status')!='completed' or derived.get('dev_evaluations')!=0)):
+        raise ValueError('R115 fixed fit-only derived initialization lineage absent or incompatible')
     validate_age(payload, job)
     validate_normalization(payload.get('candidate_normalization', {}))
     if job.get('freeze_features_before') is not None:

@@ -78,3 +78,9 @@ R107 已有训练项约0.425秒/成功步可作同环境数量级参考；在近
 R114R1从同一公开fresh工厂零步开始，**不加载任何原R114 checkpoint、不继承Adam/EMA游标或1426步进度**；原job、sampler、输入/增强、seed29、stride1、loss/P8、LR/WD、SD/dropout、800/24000/patience4/绝对1600及每attempt的21600/28800/32400秒上限全部保持。新Git正式原生流程实核50c tensor及独立non-tensor stride/全部可训/空Adam，再由当前唯一执行A `e62c5cb0-3516-4798-8b37-ed8da2d958ad` 核实时身份和资源后一次activation/launch。旧终态、原clock/token、冻结包和失败证据原样保留，新attempt有自己的clock/token；不重置或覆盖原attempt。
 
 失败与重试各自记录真实耗时、计算及准备成本，并在本阶段累计，不能把R114R1记作首attempt或免费补跑；本次授权不自动扩为R114R2或改变实例资源。official仅在新attempt完整内部freeze后执行一次。方向主判仍等待R114R1工程有效的完整内部结果，按原selector严格比较R107 `0.9884405731067525`；AP与partial不能替代。SSL仅保留后续文本备选，此时不推进或冻结；本补充不是新的批准门。
+
+## R114R1 完整内部终态与分支收口
+
+2026-10-30 一次文本核对 `work/r114r1-20261030-a/progress-2030/SINGLE-MODEL-FREEZE.json` 与 `TRAIN_RESULT.json`：7200次成功更新/7200次尝试、skip0、9次dev评估、bad4早停，freeze完整18条；原selector唯一选择 **c5 ONLINE@4000，AUROC `0.9875399010946536`、AP `0.8091074656953037`、error_twice20696**。EMA最佳为c6@4800，AUROC `0.9875025737786443`、AP `0.8230870989975856`，不据此改换所选variant。TRAIN组件exit0、hard_deadline_met=true、signals=[]，组件wall `4002.716028690338` 秒；整轮20:30:51已safe由A实际核验报告，规划未读取官方指标。
+
+完整selected AUROC未严格超过预登记R107 `0.9884405731067525`，因此**结束laststride1分支，不启动seed27，不扫描步幅/分辨率**。该结论只否定本次合同的主目标支持，不泛化为空间信息无用。原R114的1426步工程失败与本次fresh分别保留、累计成本，partial不混入主判。总体目标未完成；下一独立问题由已采用的[R115 fit-only自监督续训合同](R115-DECISION.md)接续，不修改本轮冻结产物。本文至此停止过程更新。

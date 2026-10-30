@@ -378,7 +378,7 @@ def flatten_training_views(images, labels, age_features, training_views=None):
 class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
     def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
-                 training_scale=None, training_views=None):
+                 training_scale=None, training_views=None, include_labels=True):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
@@ -395,6 +395,7 @@ class ImageDataset:
         if training_views is not None and (type(training_views) is not int or training_views not in (1, 2)):
             raise ValueError('training_views must be None, 1, or 2')
         self.training_views = 1 if training_views is None else training_views
+        self.include_labels = bool(include_labels)
         self.age = age
         if age is not None:
             from .age import validate_spec
@@ -435,6 +436,10 @@ class ImageDataset:
                                   self._image_tensor(image.copy(), _seed(augmentation_seed, 'training-view', 1))))
         else:
             tensor = self._image_tensor(image, augmentation_seed)
+        if not self.include_labels:
+            if self.age is not None:
+                raise ValueError('label-free views cannot include age features')
+            return tensor, int(index)
         result = (tensor, float(row.get('label', 0)), int(index))
         if self.age and self.age['enabled']:
             from .age import features
