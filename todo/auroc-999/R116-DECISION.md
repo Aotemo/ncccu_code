@@ -73,3 +73,9 @@ Base单视图激活随通道增长、参数/Adam/EMA随参数量增长；历史S
 阶段先1fresh。只有工程有效、完整内部按原selector所选AUROC **严格大于R107 `0.9884405731067525`**，才另行冻结同一Base干预的既定seed20261027，对照R108 `0.9872328538178018`。第二轮身份本页不提前注册，不选最好seed；AP单报、固定难组只作描述，不用官方/test/AP救主指标。正结果也不证明容量机制、普遍收益或消除固定dev自适应偏差。
 
 首跑不胜关闭此Base+公开checkpoint组合，不自动升级Large、换384权重、调LR/SD或继续搜seed；若来源/全预算工程失败，区分未完成与科学阴性。分析等待解除后的每个完整结果均由规划主动形成下一独立问题决策并交协调，不长期空报；本页不预批第三方向。raw AUROC未达0.999，整体目标未完成。
+
+## 最终内部结论（2026-10-31）
+
+已文本核对本机 `work/r116-20261030-a/progress-0130/SINGLE-MODEL-FREEZE.json` 与 `TRAIN_RESULT.json`：6400 successful=attempted、skip0、8次完整dev/16条、bad4正常early_stopping；唯一selected为EMA c4@3200，AUROC **0.987677169289011**、AP **0.8222910002960596**、error_twice **20468**。TRAIN completed/exit0、hard_deadline_met=true、signals为空。这是完整内部结果，不是partial；未严格胜R107 **0.9884405731067525**，关闭此Base组合，不做seed27或相邻扫描，不泛化为更大模型/空间信息无效。
+
+原件记录training 3471.292秒、evaluation 234.987秒、checkpoint 228.560秒/27次，训练组件wall 4079.423秒；不将其早停耗时当满24k成本。协调01:31:21北京时间的资源消息为原once official仍pending、ROUND/done未出、owner仍持锁/device有用户，safe=false；本页没有读取官方指标或追加资源查询，不推断随后状态。整体目标尚未达到，下一独立问题另由协调采用，原官方自然运行和实际安全交接继续由A负责。

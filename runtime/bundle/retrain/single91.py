@@ -12,6 +12,19 @@ from .ema import select_variant, tensor_digest
 from .n05_metrics import metrics as exact_metrics
 
 
+def immutable_buffers(state):
+    if ex.candidate()['model'] == 'swin_base':
+        from .swin_model import static_index_buffers
+        return static_index_buffers(state)
+    return {name: tensor for name, tensor in state.items()
+            if name.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
+
+
+def immutable_buffer_count():
+    candidate = ex.candidate()
+    return candidate.get('static_index_buffers', candidate['batch_norm_buffers'])
+
+
 def write_exclusive(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -111,23 +124,25 @@ def freeze_training(folder, destination, *, technical_fixture=False):
     sources = {str(p.relative_to(bundle)): sha256_file(p) for p in sorted([*bundle.glob('*.py'), *(bundle / 'retrain').glob('*.py')])}
     if canonical_digest(sources) != payload['identity']['source_digest']:
         raise ValueError('evaluation bundle differs from trained source')
-    bn = {n: t for n, t in state.items() if n.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
-    if (len(bn) != ex.candidate()['batch_norm_buffers']
-            or tensor_digest(bn) != payload['candidate_normalization']['buffer_sha256']):
-        raise ValueError('freeze immutable BN running buffers differ')
+    buffers = immutable_buffers(state)
+    if (len(buffers) != immutable_buffer_count()
+            or tensor_digest(buffers) != payload['candidate_normalization']['buffer_sha256']):
+        raise ValueError('freeze immutable model buffers differ')
     ex.validate_normalization(payload['candidate_normalization'])
     value = {'format': 'single-model-9010-official-freeze-v1', 'experiment91': ex.binding(),
         'cpu_fixture_only': technical_fixture, 'experiment_order': ex.candidate()['experiment_order'],
         'round_id': payload['identity'].get('round_id', folder.parent.name),
         'precision': 'fp32', 'view': 'identity', 'geometry': {'image_size': 512, 'prepared_size': 512},
-        'candidate_normalization': payload['candidate_normalization'], 'buffer_sha256': tensor_digest(bn), 'initialization': payload['identity']['initialization'],
+        'candidate_normalization': payload['candidate_normalization'], 'buffer_sha256': tensor_digest(buffers), 'initialization': payload['identity']['initialization'],
         'selection_rule': ['error_twice_ascending', 'AP_descending', 'successful_update_ascending', 'EMA_priority'],
         'training_completion': complete,
         'dev_entries': entries, 'selected': selected, 'checkpoint': str(path.resolve()), 'blob_sha256': record['sha256'],
         'variant': selected['variant'], 'tensor_sha256': tensor_digest(state), 'job': payload['job'],
         'identity': payload['identity'], 'fresh': payload['fresh'], 'source_files': sources,
         'source_digest': payload['identity']['source_digest'], 'normalization': payload['job']['normalization'],
-        'official_evaluations_allowed': 1, 'official_metadata_used_for_selection': False}
+        'official_evaluations_allowed': int(ex.official_allowed_for_selected(
+            ex.science_configuration().get('official_evaluation'), selected)),
+        'official_metadata_used_for_selection': False}
     if payload['fresh'].get('ssl_recipe') is not None:
         if complete.get('ssl_derived') != payload.get('ssl_derived'):
             raise ValueError('R115 completed joint SSL lineage differs from selected checkpoint')
@@ -145,7 +160,9 @@ def validate_freeze(path, *, allow_fixture=False):
             or value.get('precision') != 'fp32' or value.get('view') != 'identity' or value.get('experiment_order') != ex.candidate()['experiment_order']
             or value.get('geometry') != {'image_size': 512, 'prepared_size': 512}
             or value.get('initialization') != value['identity']['initialization']
-            or value.get('official_evaluations_allowed') != 1 or value.get('official_metadata_used_for_selection') is not False
+            or value.get('official_evaluations_allowed') != int(ex.official_allowed_for_selected(
+                ex.science_configuration().get('official_evaluation'), value['selected']))
+            or value.get('official_metadata_used_for_selection') is not False
             or value.get('selected') != select_checkpoint(value['dev_entries'],
                 completed_cycles=ex.validate_training_completion(value['training_completion']))
             or value.get('variant') != value['selected']['variant']
@@ -179,11 +196,11 @@ def validate_freeze(path, *, allow_fixture=False):
 
 def validate_frozen_checkpoint(value, payload, actual):
     ex.validate_checkpoint(payload)
-    bn = {n: t for n, t in select_variant(payload, value['variant']).items() if n.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
+    buffers = immutable_buffers(select_variant(payload, value['variant']))
     if (payload['job'] != value['job'] or payload['identity'] != value['identity']
             or payload['successful_updates'] != value['selected']['successful_updates']
             or actual.get('variant') != value['variant'] or actual.get('tensor_sha256') != value['tensor_sha256']
-            or tensor_digest(bn) != value['buffer_sha256'] or len(bn) != ex.candidate()['batch_norm_buffers']
+            or tensor_digest(buffers) != value['buffer_sha256'] or len(buffers) != immutable_buffer_count()
             or payload['candidate_normalization'] != value['candidate_normalization']):
         raise ValueError('actual loaded variant/source/data/BN differs from freeze')
 
@@ -196,8 +213,8 @@ def load_frozen_model(path, device='cpu', *, allow_fixture=False):
             or origin.get('successful_updates') != value['selected']['successful_updates']
             or origin.get('tensor_sha256') != value['tensor_sha256'] or tensor_digest(model.state_dict()) != value['tensor_sha256']):
         raise ValueError('actual strict reload variant/tensor differs from frozen single model')
-    bn = {n: t for n, t in model.state_dict().items() if n.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
-    if (len(bn) != ex.candidate()['batch_norm_buffers'] or tensor_digest(bn) != value['buffer_sha256']
+    buffers = immutable_buffers(model.state_dict())
+    if (len(buffers) != immutable_buffer_count() or tensor_digest(buffers) != value['buffer_sha256']
             or ex.describe_model(model) != value['candidate_normalization']):
         raise ValueError('strict reload Tiny noBN/LN identity differs')
     return model, job, origin, selected_device
@@ -205,6 +222,8 @@ def load_frozen_model(path, device='cpu', *, allow_fixture=False):
 
 def reserve_official(path, output_root, *, allow_fixture=False):
     value = validate_freeze(path, allow_fixture=allow_fixture)
+    if value['official_evaluations_allowed'] != 1:
+        raise ValueError('official evaluation deferred by frozen policy')
     output_root = Path(output_root)
     record = {'status': 'reserved_do_not_retry', 'freeze_path': str(Path(path).resolve()),
         'freeze_sha256': sha256_file(path), 'variant': value['variant'], 'blob_sha256': value['blob_sha256'],

@@ -39,6 +39,12 @@ def validate_state(state,reference,successful,rule=None):
  if rule.get('batch_norm_buffers')==0 and any(n.endswith(('.running_mean','.running_var','.num_batches_tracked')) for n in reference):raise ValueError('Tiny noBN EMA state contains BN buffers')
  fixed={name for name in reference if name.endswith(('.running_mean','.running_var','.num_batches_tracked'))} if rule.get('frozen_bn_buffers')=='copy' else set()
  if rule.get('frozen_bn_buffers')=='copy' and len(fixed)!=159:raise ValueError('EMA fixed BN buffers missing')
+ if rule.get('static_integer_buffers')=='relative_position_index':
+  from .swin_model import static_index_buffers
+  indices=static_index_buffers(reference)
+  if len(indices)!=rule['static_integer_buffer_count'] or any(
+      not torch.equal(tensors[name], value) for name,value in indices.items()):
+   raise ValueError('EMA static Swin relative-position index differs')
  for name,value in tensors.items():
   ref=reference[name]
   if (not isinstance(value,torch.Tensor) or value.shape!=ref.shape or value.dtype!=ref.dtype
@@ -75,7 +81,15 @@ class EMA:
   source=online.state_dict();target=self.model.state_dict()
   if source.keys()!=target.keys():raise ValueError('EMA live keys differ')
   fixed=set(self.frozen_parameter_names)
-  if self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):raise ValueError('Tiny noBN EMA live buffers differ')
+  if self.rule.get('static_integer_buffers')=='relative_position_index':
+   from .swin_model import static_index_buffers
+   source_indices=static_index_buffers(online);target_indices=static_index_buffers(self.model)
+   if (set(source_indices)!=set(dict(online.named_buffers()))
+       or set(target_indices)!=set(dict(self.model.named_buffers()))
+       or any(not torch.equal(value,target_indices[name]) for name,value in source_indices.items())):
+    raise ValueError('Swin static EMA indices changed')
+   fixed.update(source_indices)
+  elif self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):raise ValueError('Tiny noBN EMA live buffers differ')
   if self.rule.get('frozen_bn_buffers')=='copy':
    from .imagenet_resnet import ImageNetResnetBinary
    if isinstance(online,ImageNetResnetBinary):

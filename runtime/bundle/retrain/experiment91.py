@@ -16,8 +16,26 @@ FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-
 LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1'
 FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitssl1600-v1'
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+SWIN_BINDING = 'single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
-                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING)
+                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING)
+OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
+    'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
+    'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
+    'below_status': 'not_run_by_policy'}
+
+
+def official_allowed_for_selected(policy, selected):
+    """Gate one official run only after the complete internal selector has frozen."""
+    if policy is None:
+        return True
+    if policy != OFFICIAL_GATE_0996 or not isinstance(selected, dict):
+        raise ValueError('versioned official gate differs')
+    auroc = selected.get('auroc')
+    if (isinstance(auroc, bool) or not isinstance(auroc, (int, float))
+            or not math.isfinite(auroc) or not 0 <= auroc <= 1):
+        raise ValueError('complete selected internal dev AUROC required for official gate')
+    return auroc >= policy['threshold']
 CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
     'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
     'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
@@ -41,6 +59,8 @@ def science_configuration():
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
+                or (value.get('candidate_profile') == SWIN_BINDING
+                    and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -80,6 +100,14 @@ def candidate_from_configuration(value):
             'batch_norm_buffers': 0, 'attention_pool': None,
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
+    elif value['candidate_profile'] == SWIN_BINDING:
+        expected = {'id': 'r117-swin-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order': 27, 'model': 'swin_base', 'public_revision': source['revision'],
+            'readout': 'native_final_LN_gap_dropout_linear_plus_age', 'features': 1024,
+            'final_norm_eps': 1e-5, 'internal_norm_eps': 1e-5,
+            'batch_norm_modules': 0, 'batch_norm_buffers': 0, 'static_index_buffers': 24,
+            'attention_pool': None, 'stochastic_depth': value['job']['stochastic_depth'],
+            'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
     if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
@@ -104,8 +132,8 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base'):
-            raise ValueError('ConvNeXt requires its independently verified public asset')
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'swin_base'):
+            raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
     root = Path(site['work_root']).resolve()
@@ -130,7 +158,7 @@ def verify_public_asset(science, site):
         return receipt
     if (receipt.get('passed') is not True or receipt.get('schema_version') != 1
             or receipt['execution']['uid'] != site['pod']['uid']
-            or receipt['model'] != science['job']['model']
+            or receipt['model'] != source['model']
             or receipt['revision'] != source['revision']
             or receipt['converted'] != {'path': site['public_weight'], 'sha256': source['sha256']}
             or receipt['provenance'] != {'path': site['public_provenance'], 'sha256': source['provenance_sha256']}
@@ -173,6 +201,9 @@ def _metadata(root):
     values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-nobn-v1',
         'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
         'floating_buffers': 'same_as_parameters', 'integer_buffers': 'copy', 'batch_norm_buffers': 0}
+    if candidate()['model'] == 'swin_base':
+        values['EMA-TINY.json'].update(static_integer_buffers='relative_position_index',
+                                      static_integer_buffer_count=24)
     if candidate()['model'] == 'resnet50_imagenet':
         values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-frozenbn-v1',
             'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
@@ -256,6 +287,45 @@ def describe_model(model):
     import torch
     from .ema import tensor_digest
     nn = torch.nn
+    if candidate()['model'] == 'swin_base':
+        from torchvision.models.swin_transformer import SwinTransformerBlock, ShiftedWindowAttention
+        from torchvision.ops import StochasticDepth
+        from .swin_model import SwinBinary, static_index_buffers
+        if not isinstance(model, SwinBinary):
+            raise ValueError('registered Swin V1 binary wrapper required')
+        network = model.network
+        buffers = dict(model.named_buffers())
+        indices = static_index_buffers(model)
+        norms = [{'name': name, 'eps': float(module.eps),
+                  'normalized_shape': list(module.normalized_shape)}
+                 for name, module in model.named_modules() if isinstance(module, nn.LayerNorm)]
+        blocks = [module for module in model.modules() if type(module) is SwinTransformerBlock]
+        attentions = [module for module in model.modules() if type(module) is ShiftedWindowAttention]
+        depth = [{'name': name, 'p': module.p, 'mode': module.mode}
+                 for name, module in model.named_modules() if isinstance(module, StochasticDepth)]
+        final = network.classifier[-1]
+        count_bn = sum(isinstance(module, nn.modules.batchnorm._BatchNorm) for module in model.modules())
+        stage_widths = [network.features[0][0].out_channels,
+                        *[network.features[index][0].attn.qkv.in_features for index in (3, 5, 7)]]
+        value = {'candidate': candidate(), 'batch_norm_modules': count_bn,
+                 'buffer_count': len(buffers), 'buffer_sha256': tensor_digest(buffers),
+                 'static_index_names': sorted(indices), 'layer_norms': norms,
+                 'head_in_features': final.in_features, 'head_out_features': final.out_features,
+                 'dropout': network.classifier[0].p, 'stochastic_depth': depth,
+                 'stage_widths': stage_widths,
+                 'attention': [{'heads': item.num_heads, 'window': list(item.window_size),
+                                'shift': list(item.shift_size), 'dropout': item.dropout,
+                                'attention_dropout': item.attention_dropout} for item in attentions]}
+        if (count_bn or set(buffers) != set(indices) or not isinstance(network.head, nn.Identity)
+                or not isinstance(network.norm, nn.LayerNorm)
+                or not isinstance(network.avgpool, nn.AdaptiveAvgPool2d)
+                or network.avgpool.output_size != 1
+                or not isinstance(network.classifier[0], nn.Dropout)
+                or not isinstance(final, nn.Linear)
+                or len(blocks) != 24 or len(attentions) != 24):
+            raise ValueError('actual Swin V1 architecture/static buffers differ')
+        validate_normalization(value)
+        return value
     if candidate()['model'] == 'resnet50_imagenet':
         from .imagenet_resnet import ImageNetResnetBinary
         if not isinstance(model, ImageNetResnetBinary):
@@ -315,6 +385,30 @@ def describe_model(model):
 
 def validate_normalization(value):
     import hashlib
+    if candidate()['model'] == 'swin_base':
+        science = science_configuration()
+        norms, depth, attention = (value.get(key, []) for key in
+                                   ('layer_norms', 'stochastic_depth', 'attention'))
+        expected_attention = [
+            {'heads': heads, 'window': [7, 7], 'shift': [0 if index % 2 == 0 else 3] * 2,
+             'dropout': 0.0, 'attention_dropout': 0.0}
+            for heads, count in zip((4, 8, 16, 32), (2, 2, 18, 2)) for index in range(count)]
+        if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
+                or value.get('buffer_count') != 24
+                or value.get('buffer_sha256') != science.get('initial_buffer_sha256')
+                or len(value.get('static_index_names', [])) != 24
+                or any(not name.endswith('.relative_position_index') for name in value['static_index_names'])
+                or value.get('stage_widths') != [128, 256, 512, 1024]
+                or value.get('head_in_features') != 1024 or value.get('head_out_features') != 1
+                or value.get('dropout') != science['job']['dropout']
+                or len(norms) != structure_contract()['layer_norms']
+                or any(item['eps'] != 1e-5 for item in norms)
+                or len(depth) != 24
+                or any(item['mode'] != 'row' or item['p'] != science['job']['stochastic_depth'] * index / 23
+                       for index, item in enumerate(depth))
+                or attention != expected_attention):
+            raise ValueError('actual Swin V1 LN/index/window/head/SD contract differs')
+        return True
     if candidate()['model'] == 'resnet50_imagenet':
         layers = value.get('batch_norms', [])
         digest = value.get('buffer_sha256')

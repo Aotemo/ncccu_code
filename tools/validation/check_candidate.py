@@ -65,6 +65,7 @@ def main(args):
     import r92_initial_gate as initial_gate
     model = create_cpu_fresh_model(job)
     is_r50 = job['model'] == 'resnet50_imagenet'
+    is_swin = job['model'] == 'swin_base'
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('public1000_strict_exact_finite_FP32_then_fresh_binary', bool(public)
@@ -76,11 +77,26 @@ def main(args):
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
-          and structure['buffer_count'] == contract.get('buffer_count', 0)
-          and len(dict(model.named_buffers())) == contract.get('buffer_count', 0) and model.age_metadata == job['age']
+          and structure['buffer_count'] == contract.get('static_index_buffers', contract.get('buffer_count', 0))
+          and len(dict(model.named_buffers())) == contract.get('static_index_buffers', contract.get('buffer_count', 0)) and model.age_metadata == job['age']
           and model.age_weight.numel() == 2 and bool((model.age_weight == 0).all())
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
-                  for module in model.modules()) == contract['gelu_modules'], structure)
+                  for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
+    if is_swin:
+        check('R117_selected_internal_AUROC_0996_official_gate_bound',
+              ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996)
+        original_mode = model.training
+        model.eval()
+        with torch.inference_mode():
+            output_512 = model(torch.zeros(1, 3, 512, 512, dtype=torch.float32),
+                               torch.zeros(1, 2, dtype=torch.float32))
+        model.train(original_mode)
+        check('Swin_512_window7_padding_binary_age_forward_finite',
+              tuple(output_512.shape) == (1,) and bool(torch.isfinite(output_512).all())
+              and not torch.cuda.is_initialized(),
+              {'input': [1, 3, 512, 512], 'output': list(output_512.shape),
+               'logit': float(output_512[0]), 'window': contract['window'],
+               'GPU_initialized': torch.cuda.is_initialized()})
     if is_r50:
         layers = model.assert_bn_mode()
         from retrain.distributed_engine import validate_explicit_microbatch_normalization
@@ -91,9 +107,10 @@ def main(args):
     else:
         wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
         rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
-        model.network.classifier[0].eps = 1e-12
+        final_norm = model.network.norm if is_swin else model.network.classifier[0]
+        final_norm.eps = 1e-12
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
-        model.network.classifier[0].eps = 1e-6
+        final_norm.eps = ex.candidate()['final_norm_eps']
     optimizer = _optimizer(model, job)
     from retrain.models import feature_freeze_proof
     parameter_trainability = feature_freeze_proof(model, job, optimizer)
@@ -109,12 +126,12 @@ def main(args):
              for role in ('backbone', 'head', 'age')}
     head = {id(parameter) for parameter in (model.classifier if is_r50 else model.network.classifier)[-1].parameters()}
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == contract.get('backbone_parameter_tensors', contract['backbone_state_tensors']) + 3
+        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + 3
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
         and roles == {'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()), 'head': contract['features'] + 1, 'age': 2}
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
-        and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
+        and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == (1e-4 if group['role'] == 'age' or any(
             named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) for group in groups),
@@ -209,6 +226,35 @@ def main(args):
                           for name, value in ema.model.named_buffers()))
             boundaries[str(update)] = {key: value for key, value in state.items() if key != 'model'}
         model.load_state_dict(loaded['model'], strict=True)
+    elif is_swin:
+        class IndexedToy(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.weight = torch.nn.Parameter(torch.zeros(1))
+                self.blocks = torch.nn.ModuleList()
+                for _ in range(24):
+                    block = torch.nn.Module()
+                    block.register_buffer('relative_position_index', torch.zeros(2401, dtype=torch.int64))
+                    self.blocks.append(block)
+        toy = IndexedToy(); toy_ema = EMA(toy, ex.ema_rule()); boundaries = {}
+        for update in (warmup - 1, warmup, warmup + 1, total):
+            prior = update - 1
+            state = toy_ema.state_dict()
+            state.update(update_count=prior, copy_count=min(prior, warmup),
+                         blend_count=max(0, prior-warmup), last_update_success=prior)
+            toy_ema.successful = prior
+            validate_state(state, toy.state_dict(), prior, ex.ema_rule())
+            with torch.no_grad():
+                toy_ema.model.weight.fill_(float(prior))
+                toy.weight.fill_(float(update))
+            toy_ema.update(toy, update)
+            state = toy_ema.state_dict(); validate_state(state, toy.state_dict(), update, ex.ema_rule())
+            expected_weight = float(update) if update <= warmup else update - ex.ema_rule()['decay']
+            check('Swin_static_index_EMA_boundary_' + str(update),
+                  math.isclose(toy_ema.model.weight.item(), expected_weight, abs_tol=.002)
+                  and all(torch.equal(dict(toy.named_buffers())[name], value)
+                          for name, value in toy_ema.model.named_buffers()))
+            boundaries[str(update)] = {key: value for key, value in state.items() if key != 'model'}
     else:
         scalar = torch.nn.Linear(1, 1, bias=False); scalar.weight.data.zero_()
         scalar_ema = EMA(scalar, ex.ema_rule()); boundaries = {}

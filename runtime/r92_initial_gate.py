@@ -24,7 +24,7 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
     from retrain.experiment91 import candidate, validate_normalization
     require(expected['candidate'] == candidate()
             and expected['batch_norm_modules'] == candidate()['batch_norm_modules']
-            and expected['buffer_count'] == candidate()['batch_norm_buffers'],
+            and expected['buffer_count'] == candidate().get('static_index_buffers', candidate()['batch_norm_buffers']),
             'CPU expected candidate/noBN identity differs')
     require(type(expected_world) is int and expected_world == 8
             and len(initials) == expected_world and all(type(x.get('rank')) is int for x in initials)
@@ -142,9 +142,10 @@ def maybe_release(root, atomic, sha):
     require(tensor_digest(state) == full_digest and payload['candidate_normalization'] == expected['candidate_normalization'], 'native tensor/actual LN differs')
     require(payload.get('parameter_trainability') == expected.get('parameter_trainability'),
             'native frozen/trainable/optimizer identity differs')
-    buffers = {k: v for k, v in state.items() if k.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
+    from retrain.single91 import immutable_buffers
+    buffers = immutable_buffers(state)
     require(len(buffers) == expected['buffer_count'] and tensor_digest(buffers) == expected['buffer_sha256'],
-            'native immutable BN buffers differ')
+            'native immutable model buffers differ')
     validate_state(payload['ema'], state, 0, ema_rule())
     require(payload['ema']['rule'] == fresh['ema'] == ema_rule() and tensor_digest(payload['ema']['model']) == full_digest, 'initial EMA differs')
     require(not torch.cuda.is_initialized(), 'gate initialized CUDA')

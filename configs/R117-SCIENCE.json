@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "6ce556f69ade1c1c80256399814559525301c1cfe1e605710810330898d666c3",
+  "candidate": {
+    "id": "r117-swin-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 27,
+    "model": "swin_base",
+    "public_revision": "a6a1eb2321b4f556fa0fa243fb777d47679f13c9",
+    "readout": "native_final_LN_gap_dropout_linear_plus_age",
+    "features": 1024,
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "static_index_buffers": 24,
+    "attention_pool": null,
+    "weight_sha256": "e33d263f60b587908b7bdce89cb2669a70aefaf5d92c70c67bbdd32cf47a9eb6",
+    "provenance_sha256": "162b7b962045ce7d2daf67997efa059c885e0dabc5a9f78b0f50a2e53ffc0121",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "swin_base_patch4_window7_224",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "a6a1eb2321b4f556fa0fa243fb777d47679f13c9",
+    "source_url": "https://huggingface.co/timm/swin_base_patch4_window7_224.ms_in22k_ft_in1k/resolve/a6a1eb2321b4f556fa0fa243fb777d47679f13c9/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "9fb4d0bcc5b543d8900b75a4a0e98a988c165a6bd1b009b0f0e6e5d199bafaa2",
+    "sha256": "e33d263f60b587908b7bdce89cb2669a70aefaf5d92c70c67bbdd32cf47a9eb6",
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "license_file": "../original/LICENSE-MIT.txt",
+    "provenance_sha256": "162b7b962045ce7d2daf67997efa059c885e0dabc5a9f78b0f50a2e53ffc0121"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/r117-20261031-e62a/SWIN-HANDOFF.json",
+    "sha256": "c2570b1089da45dd6866fef9749e2b54c2b60a3630eb71072b3eae6658c4d478"
+  },
+  "structure": {
+    "features": 1024,
+    "public_state_tensors": 353,
+    "parameter_tensors": 329,
+    "backbone_parameter_tensors": 327,
+    "static_index_buffers": 24,
+    "static_index_dtype": "torch.int64",
+    "public_parameters": 87768224,
+    "backbone_parameters": 86743224,
+    "layer_norms": 53,
+    "stochastic_depth_modules": 24,
+    "full_head_shape": [
+      1000,
+      1024
+    ],
+    "window": [
+      7,
+      7
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/r117-swinbase22k/converted/swin-base-tv-a6a1eb23.pt",
+    "public_provenance": "assets/r117-swinbase22k/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "swin-base",
+    "model": "swin_base",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-05,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "R117 directly compares with fixed R107 Small seed20261029. The coupled change is Swin V1 Base plus its matching public natural-image ImageNet22K-to-1K full1000 source. The fixed 9:1 data, single-view 512 scale085 augmentation, G64/P8/448-pair loss, FP32/noTF32, original optimizer/EMA and 24000/800/patience4/warmup1600 schedule remain. Only complete selected overall internal AUROC strictly above R107 0.9884405731067525 permits a later fixed seed27 pair; AP and once-official results do not select parameters.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  },
+  "initial_buffer_sha256": "5f4e99dde00e119364b720a90e473c9d2c6989aada34d71d63bd2342409cf831"
+}

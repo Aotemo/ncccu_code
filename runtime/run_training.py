@@ -230,6 +230,18 @@ def main():
   freeze_result=run_component('freeze',freeze_command,freeze_deadline,CONTROL/'freeze-no-ranks',freeze_env)
   frozen=read(freeze_path)
   if frozen.get('cpu_fixture_only') or frozen['source_digest']!=fresh['source_digest']:raise ValueError('production single-model freeze differs')
+  from retrain.experiment91 import official_allowed_for_selected
+  evaluation=read(ROOT/'SCIENCE.json').get('official_evaluation')
+  official_allowed=official_allowed_for_selected(evaluation,frozen['selected'])
+  if frozen.get('official_evaluations_allowed')!=int(official_allowed):raise ValueError('official gate/freeze differs')
+  if not official_allowed:
+   terminal.update(status='completed',phase='complete',freeze_component=freeze_result,
+     single_model_freeze_sha256=sha(freeze_path),official_status='not_run_by_policy',
+     official_reason='threshold_not_met',official_evaluated=False,
+     selected_internal_dev_auroc=frozen['selected']['auroc'],official_result_sha256=None,
+     official_metrics=None,target_auroc_at_least_0_999=None)
+   atomic(EVIDENCE/'ROUND_RESULT.json',terminal,exclusive=True)
+   return
   terminal['phase']='official'
   official_env=env.copy()
   official_env['TRAIN_IMAGE_CACHE']=str(Path(assets['prepared512_cache']['remote_root'])/'valid/sealed')
@@ -244,7 +256,8 @@ def main():
   official_result=read(official_root/'OFFICIAL-RESULT.json')
   if official_result['status']!='completed' or (official_result['rows'],official_result['positive'],official_result['negative'])!=(5849,191,5658):raise ValueError('official full coverage not complete')
   terminal.update(status='completed',phase='complete',freeze_component=freeze_result,official_component=official_component,
-    single_model_freeze_sha256=sha(freeze_path),official_result_sha256=sha(official_root/'OFFICIAL-RESULT.json'),
+    single_model_freeze_sha256=sha(freeze_path),official_status='completed',official_evaluated=True,
+    selected_internal_dev_auroc=frozen['selected']['auroc'],official_result_sha256=sha(official_root/'OFFICIAL-RESULT.json'),
     official_metrics=official_result['metrics'],target_auroc_at_least_0_999=official_result['target_auroc_at_least_0_999'])
   atomic(EVIDENCE/'ROUND_RESULT.json',terminal,exclusive=True)
  except BaseException as exc:

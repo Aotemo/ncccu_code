@@ -218,12 +218,12 @@ def validate_initialization(initialization):
             'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
             'license_file': '../original/LICENSE-apache-2.0.txt'}
         provenance_sha = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-        if meta['model'] in ('convnext_small', 'convnext_base'):
+        if meta['model'] in ('convnext_small', 'convnext_base', 'swin_base_patch4_window7_224'):
             from .experiment91 import public_source
             source = public_source()
             expected = {key: source[key] for key in expected}
             if expected['model'] != meta['model']:
-                raise ValueError('ConvNeXt provenance requires its pinned scientific source')
+                raise ValueError('public backbone provenance requires its pinned scientific source')
             provenance_sha = source['provenance_sha256']
         if (any(meta.get(key) != value for key, value in expected.items())
                 or _hash(meta_path) != provenance_sha
@@ -299,6 +299,9 @@ def create_model(job, initialize=True):
     if job['model'] == 'dinov2_vits14':
         from .dinov2_model import create_dinov2_binary
         return create_dinov2_binary(job, initialize=initialize)
+    if job['model'] == 'swin_base':
+        from .swin_model import create_swin_binary
+        return create_swin_binary(job, initialize=initialize)
     from torchvision import models
     name = job['model']
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}
