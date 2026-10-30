@@ -360,6 +360,8 @@ def create_model(job, initialize=True):
     if job.get('attention_pool') is not None:
         from .attention_pool import attach
         attach(result, job)
+    from .spatial_stride import apply_final_downsample_stride
+    apply_final_downsample_stride(result, job)
     apply_feature_freeze(result, job)
     if job.get('experiment91') is not None:
         from .experiment91 import describe_model

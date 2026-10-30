@@ -13,7 +13,8 @@ FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
 FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-fitbn-v1'
 FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1'
-SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING)
+LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1'
+SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING)
 CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
     'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
     'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
@@ -52,7 +53,7 @@ def candidate_from_configuration(value):
     if value['candidate_profile'] == FIT_BN_BINDING_VERSION:
         expected.update(id='r112-resnet50-imagenetv2-24k-p4-seed20261029-fitbn-9010',
                         experiment_order=22, bn_initialization='fit_fixed_reference')
-    elif value['candidate_profile'] == FROZEN_SMALL_BINDING:
+    elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -61,6 +62,9 @@ def candidate_from_configuration(value):
             'batch_norm_buffers': 0, 'attention_pool': None,
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
+        if value['candidate_profile'] == LAST_STRIDE_SMALL_BINDING:
+            expected.update(id='r114-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-laststride1-9010',
+                            experiment_order=24)
     if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
@@ -216,6 +220,7 @@ def validate_job(job):
         'training_scale': configured.get('training_scale'),
         'training_views': configured.get('training_views'),
         'freeze_features_before': configured.get('freeze_features_before'),
+        'final_downsample_stride': configured.get('final_downsample_stride'),
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
@@ -277,6 +282,13 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if 'final_downsample_stride' in science_configuration()['job']:
+        convolution = network.features[6][1]
+        if not isinstance(convolution, nn.Conv2d):
+            raise ValueError('actual final Small downsample must remain Conv2d')
+        result['final_downsample'] = {'name': 'network.features.6.1', 'stride': list(convolution.stride),
+            'kernel_size': list(convolution.kernel_size), 'padding': list(convolution.padding),
+            'dilation': list(convolution.dilation)}
     validate_normalization(result)
     return result
 
@@ -300,6 +312,12 @@ def validate_normalization(value):
             raise ValueError('actual R50 fixed BN/buffer/head identity differs')
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
+    configured = science_configuration()['job']
+    if 'final_downsample_stride' in configured:
+        stride = configured['final_downsample_stride']
+        if value.get('final_downsample') != {'name': 'network.features.6.1', 'stride': [stride, stride],
+                'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}:
+            raise ValueError('actual final Small downsample geometry differs from pinned job')
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
             or value.get('buffer_count') != 0 or value.get('buffer_sha256') != hashlib.sha256(b'').hexdigest()
             or value.get('head_in_features') != candidate()['features'] or value.get('head_out_features') != 1

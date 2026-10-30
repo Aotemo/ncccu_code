@@ -58,6 +58,9 @@ def default_job(name, model, kind='random'):
 def validate_job(job):
     from .classification_loss import validate_loss
     validate_loss(job.get('loss'))
+    if 'final_downsample_stride' in job and (type(job['final_downsample_stride']) is not int
+            or job['final_downsample_stride'] != 1 or job['model'] != 'convnext_small'):
+        raise ValueError('final downsample stride supports only explicit Small stride1')
     if 'freeze_features_before' in job and (type(job['freeze_features_before']) is not int
             or job['freeze_features_before'] != 4 or job['model'] != 'convnext_small'):
         raise ValueError('feature freezing supports only explicit Small features[:4]')
@@ -231,7 +234,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'head_seed', 'bn_statistics', 'freeze_features_before'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

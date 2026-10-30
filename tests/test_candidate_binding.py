@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
-CONVNEXT22 = json.loads((ROOT / "configs/R113-SCIENCE.json").read_text())["candidate"]
+CONVNEXT22 = json.loads((ROOT / "configs/R114-SCIENCE.json").read_text())["candidate"]
 
 
 class CandidateBindingTest(unittest.TestCase):
@@ -22,9 +22,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R113-SCIENCE.json'
+        self.configuration = root / 'configs/R114-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R113-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R114-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -33,7 +33,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1',
+                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1',
                                  'candidate': copy.deepcopy(CONVNEXT22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -70,7 +70,8 @@ class CandidateBindingTest(unittest.TestCase):
             self.assertEqual(experiment.validate_job(job)['positive_per_batch'], science['job']['positive_per_batch'])
             self.assertEqual(experiment.validate_job(job).get('training_scale'), science['job'].get('training_scale'))
             self.assertEqual(experiment.validate_job(job).get('training_views'), science['job'].get('training_views'))
-            self.assertEqual(experiment.validate_job(job).get('freeze_features_before'), 4)
+            self.assertEqual(experiment.validate_job(job).get('freeze_features_before'), science['job'].get('freeze_features_before'))
+            self.assertEqual(experiment.validate_job(job).get('final_downsample_stride'), science['job']['final_downsample_stride'])
             wrong = copy.deepcopy(job); wrong['backbone_lr'] = 2e-4
             with self.assertRaises(ValueError):
                 experiment.validate_job(wrong)
@@ -131,24 +132,25 @@ class CandidateBindingTest(unittest.TestCase):
         with patch.dict(os.environ, {}, clear=True), self.assertRaises(ValueError):
             experiment.candidate()
 
-    def test_R113_freeze_field_is_the_only_R107_learning_change_and_optional(self):
+    def test_R114_stride_field_is_the_only_R107_learning_change_and_optional(self):
         from retrain.config import load_config, job_contract
         old = json.loads((ROOT / 'configs/R107-SCIENCE.json').read_text())
         new = experiment.science_configuration()
-        self.assertEqual({k: v for k, v in new['job'].items() if k != 'freeze_features_before'}, old['job'])
-        self.assertEqual(new['job']['freeze_features_before'], 4)
+        self.assertEqual({k: v for k, v in new['job'].items() if k != 'final_downsample_stride'}, old['job'])
+        self.assertEqual(new['job']['final_downsample_stride'], 1)
+        self.assertNotIn('freeze_features_before', new['job'])
         for key in ('public_source', 'public_asset_receipt', 'structure', 'paths', 'data_split',
                     'schedule', 'early_stopping', 'initial_model_tensor_sha256'):
             self.assertEqual(new[key], old[key])
-        raw = {'jobs': [{'name': 'freeze-fixture', 'model': 'convnext_small', 'precision': 'fp32'}]}
-        path = self.configuration.parent / 'freeze-training.json'
+        raw = {'jobs': [{'name': 'stride-fixture', 'model': 'convnext_small', 'precision': 'fp32'}]}
+        path = self.configuration.parent / 'stride-training.json'
         path.write_text(json.dumps(raw))
         legacy = load_config(path, environ={})['jobs'][0]
-        self.assertNotIn('freeze_features_before', job_contract(legacy))
-        raw['jobs'][0]['freeze_features_before'] = 4
+        self.assertNotIn('final_downsample_stride', job_contract(legacy))
+        raw['jobs'][0]['final_downsample_stride'] = 1
         path.write_text(json.dumps(raw))
         current = load_config(path, environ={})['jobs'][0]
-        self.assertEqual(job_contract(current)['freeze_features_before'], 4)
+        self.assertEqual(job_contract(current)['final_downsample_stride'], 1)
 
     def test_training_scale_roundtrip_preserves_legacy_job_identity(self):
         from retrain.config import load_config, job_contract
@@ -210,6 +212,10 @@ class CandidateBindingTest(unittest.TestCase):
                      + [{'name': 'fixture.' + str(i), 'eps': 1e-6} for i in range(contract['layer_norms'] - 1)],
                  'stochastic_depth': [{'name': str(i), 'mode': 'row', 'p': maximum * i / (count - 1)}
                                       for i in range(count)]}
+        if 'final_downsample_stride' in experiment.science_configuration()['job']:
+            stride = experiment.science_configuration()['job']['final_downsample_stride']
+            value['final_downsample'] = {'name': 'network.features.6.1', 'stride': [stride, stride],
+                'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}
         self.assertTrue(experiment.validate_normalization(value))
         bad = copy.deepcopy(value); bad['layer_norms'][0]['eps'] = 1e-12
         with self.assertRaises(ValueError):
