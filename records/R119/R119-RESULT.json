@@ -1,0 +1,93 @@
+{
+  "schema": "r119-token-free-engineering-screen-v1",
+  "created_at_beijing": "2026-10-31T05:29:05.282907+08:00",
+  "candidate": "r119-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-nativecenter-9010",
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-nativecenter-v1",
+  "experiment_order": 29,
+  "round_intended": "r119-small22k-seed20261029-scale085-pairlog-nativecenter-24k-p4-9010-20261031",
+  "stage": "stopped_after_single_fixed64_reader_probe",
+  "capacity": {
+    "observed_at_beijing": "2026-10-31T05:22:05.163549+08:00",
+    "disk_free_bytes_at_observation": 126804295680,
+    "local_cache_51396_entries_upper_bytes": 42103603200,
+    "small_healthy_9C_plus_I_peak_estimate_bytes": 7517229768,
+    "remaining_before_runtime_floor_bytes": 75035159864,
+    "runtime_floor_bytes": 17179869184,
+    "remaining_after_runtime_floor_bytes": 57855290680,
+    "screen_passed": true,
+    "note": "Original CAPACITY-R119.json field remaining_after_all_estimates_bytes is before subtracting runtime_floor_bytes; original receipt unchanged."
+  },
+  "fixed64_reader_probe": {
+    "observed_at_beijing": "2026-10-31T05:25:25.877525+08:00",
+    "selection_sha256": "0d15207f7a7f37d0784523a1bb6575f11be774eb58b11eab0e74f0a14e5a8276",
+    "fit_images": 64,
+    "readers": 8,
+    "images_per_reader": 8,
+    "passes": 8,
+    "first_pass_seconds": 1.0136382030323148,
+    "repeat_pass_seconds": [
+      0.9238145272247493,
+      0.954261529725045,
+      0.7532274178229272,
+      0.7674844870343804,
+      0.7719245781190693,
+      0.756119379773736,
+      0.7637193482369184
+    ],
+    "mean_seconds": 0.8380236838711426,
+    "p95_seconds": 1.0136382030323148,
+    "limits_seconds": {
+      "mean_seconds": 0.6,
+      "p95_seconds": 0.7
+    },
+    "temporary_cache_build_seconds": 19.723026495892555,
+    "temporary_cache_npy_bytes": 37792256,
+    "temporary_cache_receipt_bytes": 38280,
+    "wall_seconds": 29.112619705032557,
+    "screen_passed": false,
+    "scope_note": "Only the predetermined 64 fit images in a 12-CPU preparation share; no claim about 96-CPU training throughput or scientific value."
+  },
+  "execution": {
+    "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "cpu_mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "cpu_receipt_sha256": {
+      "capacity": "28312ef6ea11f17cbfebc3441ce740860b56f05df6b7b47b3537395452090261",
+      "probe": "6b42654650c44a2bb9c0f5ab9a07a7d8b8841c5e7ebf1d3777a0d2189391bab5"
+    },
+    "model_import_or_forward": false,
+    "gpu_execution": false,
+    "dev_or_official_images_read": false,
+    "formal_package_or_activation_or_training": false,
+    "full_fit_dev_local_cache_built": false
+  },
+  "scientific_result": {
+    "internal_dev_auroc": null,
+    "official_auroc": null,
+    "status": "no_training_or_evaluation",
+    "meaning": "Engineering reader screen failed; no scientific comparison was run."
+  },
+  "original_receipts": {
+    "capacity": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r119-20261031-a/CAPACITY-R119.json",
+      "sha256": "b0b52dbbbd82a3f7c144329be83ffa45c547d1953fa6f4a2ba7311d0a58d8167"
+    },
+    "probe": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r119-20261031-a/PROBE-R119.json",
+      "sha256": "6e7b80ebf143faa7defdfd154b58033c2dc325cf6af0134fb246660b5746afdc"
+    }
+  },
+  "production_source_status": "R119 production integration and B helper/test remain unverified and unpublished."
+}
