@@ -50,6 +50,8 @@ def validate_state(state,reference,successful,rule=None):
 
 class EMA:
  def __init__(self,online,rule,*,state=None,successful=0):
+  self.frozen_parameter_names=tuple(sorted(name for name,parameter in online.named_parameters()
+                                          if not parameter.requires_grad))
   self.rule=copy.deepcopy(validate_rule(rule))
   from .persistence import canonical_digest
   self.age_metadata_sha256=canonical_digest(getattr(online,'age_metadata',None))
@@ -72,7 +74,7 @@ class EMA:
   if successful!=self.successful+1:raise ValueError('EMA updates must match each successful online step')
   source=online.state_dict();target=self.model.state_dict()
   if source.keys()!=target.keys():raise ValueError('EMA live keys differ')
-  fixed=set()
+  fixed=set(self.frozen_parameter_names)
   if self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):raise ValueError('Tiny noBN EMA live buffers differ')
   if self.rule.get('frozen_bn_buffers')=='copy':
    from .imagenet_resnet import ImageNetResnetBinary
@@ -80,7 +82,7 @@ class EMA:
     from .imagenet_resnet import frozen_bn_names
    else:
     from .flair_model import frozen_bn_names
-   fixed=frozen_bn_names(online)
+   fixed.update(frozen_bn_names(online))
   for name,value in target.items():
    current=source[name]
    if current.shape!=value.shape or current.dtype!=value.dtype:raise ValueError('EMA live dtype / shape differs')

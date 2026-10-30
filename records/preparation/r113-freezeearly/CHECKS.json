@@ -1,0 +1,38 @@
+{
+  "scope": "R113_early_feature_freeze_affected_CPU_checks",
+  "passed": true,
+  "tests_run": 6,
+  "failures": 0,
+  "errors": 0,
+  "ast_files": [
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/distributed_engine.py",
+    "runtime/bundle/retrain/ema.py",
+    "runtime/r92_initial_gate.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_candidate_binding.py",
+    "tests/test_frozen_features.py"
+  ],
+  "wall_seconds": 7.923921585083008,
+  "gpu_initialized": false,
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "intra_threads": 12,
+  "interop_threads": 1,
+  "data_images": 0,
+  "production_model_forwards": 0
+}

@@ -32,6 +32,8 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
         require(rank['model_sha256'] == expected['model_tensor_sha256'] and rank['optimizer_state_entries'] == 0
                 and rank['bn_modules'] == expected['batch_norm_modules'] and rank['scaler'] == {} and not rank.get('attention_pool'), 'fresh tensor/Adam/BN/noq differs')
         require(rank.get('candidate_normalization') == expected['candidate_normalization'], 'actual rank LN/noBN differs')
+        require(rank.get('parameter_trainability') == expected.get('parameter_trainability'),
+                'actual rank frozen/trainable/optimizer identity differs')
         validate_normalization(rank['candidate_normalization'])
         precision = rank.get('precision_runtime', {})
         require(precision.get('precision') == 'fp32' and precision.get('effective_scale') == 1.0
@@ -87,6 +89,8 @@ def maybe_release(root, atomic, sha):
     state = payload['model']
     require('attention_pool_weight' not in state and 'q' not in state and int(torch.count_nonzero(state['age_weight'])) == 0, 'noq/zeroage state differs')
     require(tensor_digest(state) == full_digest and payload['candidate_normalization'] == expected['candidate_normalization'], 'native tensor/actual LN differs')
+    require(payload.get('parameter_trainability') == expected.get('parameter_trainability'),
+            'native frozen/trainable/optimizer identity differs')
     buffers = {k: v for k, v in state.items() if k.endswith(('.running_mean', '.running_var', '.num_batches_tracked'))}
     require(len(buffers) == expected['buffer_count'] and tensor_digest(buffers) == expected['buffer_sha256'],
             'native immutable BN buffers differ')
@@ -102,6 +106,8 @@ def maybe_release(root, atomic, sha):
         'initial_files_sha256': {str(p.relative_to(root)): sha(p) for p in paths},
         'native_initial_blob': str(store.directory / record['file']), 'native_initial_blob_sha256': record['sha256'],
         'public_weights_reloaded_by_gate': False, 'new_model_created_by_gate': False, 'CUDA_initialized': False}
+    if expected.get('parameter_trainability') is not None:
+        receipt['parameter_trainability'] = expected['parameter_trainability']
     atomic(receipt_path, receipt, exclusive=True)
     barrier = fresh['startup_barrier']
     atomic(barrier_path, {'round_id': barrier['round_id'], 'plan_sha256': fresh['plan_sha256'], 'source_digest': source,

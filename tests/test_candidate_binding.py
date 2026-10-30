@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
-CONVNEXT22 = json.loads((ROOT / "configs/R111-SCIENCE.json").read_text())["candidate"]
+CONVNEXT22 = json.loads((ROOT / "configs/R113-SCIENCE.json").read_text())["candidate"]
 
 
 class CandidateBindingTest(unittest.TestCase):
@@ -22,9 +22,9 @@ class CandidateBindingTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)
         root = Path(self.temp.name)
-        self.configuration = root / 'configs/R111-SCIENCE.json'
+        self.configuration = root / 'configs/R113-SCIENCE.json'
         self.configuration.parent.mkdir()
-        self.configuration.write_bytes((ROOT / 'configs/R111-SCIENCE.json').read_bytes())
+        self.configuration.write_bytes((ROOT / 'configs/R113-SCIENCE.json').read_bytes())
         self.site = {'schema_version': 1, 'round_id': 'candidate-fixture', 'git_commit': 'b' * 40,
                      'work_root': str(root), 'round_root': str(root / 'rounds/fixture'),
                      'pod': {'namespace': 'ns', 'name': 'pod', 'container': 'container',
@@ -33,7 +33,7 @@ class CandidateBindingTest(unittest.TestCase):
                                'vram_total_bytes': 68702699520} for n in range(8)],
                      'metadata_root': str(root / 'stage1'), 'public_weight': str(root / 'public/weight.pt'),
                      'public_provenance': str(root / 'public/provenance.json'),
-                     'science': {'binding_version': 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1',
+                     'science': {'binding_version': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1',
                                  'candidate': copy.deepcopy(CONVNEXT22),
                                  'configuration': {'path': str(self.configuration),
                                      'sha256': hashlib.sha256(self.configuration.read_bytes()).hexdigest()}}}
@@ -70,6 +70,7 @@ class CandidateBindingTest(unittest.TestCase):
             self.assertEqual(experiment.validate_job(job)['positive_per_batch'], science['job']['positive_per_batch'])
             self.assertEqual(experiment.validate_job(job).get('training_scale'), science['job'].get('training_scale'))
             self.assertEqual(experiment.validate_job(job).get('training_views'), science['job'].get('training_views'))
+            self.assertEqual(experiment.validate_job(job).get('freeze_features_before'), 4)
             wrong = copy.deepcopy(job); wrong['backbone_lr'] = 2e-4
             with self.assertRaises(ValueError):
                 experiment.validate_job(wrong)
@@ -91,7 +92,7 @@ class CandidateBindingTest(unittest.TestCase):
 
     def test_same_length_configuration_change_invalidates_pin(self):
         original = self.configuration.read_text()
-        self.configuration.write_text(original.replace('0.00002', '0.00003', 1))
+        self.configuration.write_text(original.replace('0.0001', '0.0002', 1))
         with self.assertRaises(ValueError):
             experiment.candidate()
 
@@ -129,6 +130,25 @@ class CandidateBindingTest(unittest.TestCase):
     def test_absent_site_has_no_legacy_candidate_fallback(self):
         with patch.dict(os.environ, {}, clear=True), self.assertRaises(ValueError):
             experiment.candidate()
+
+    def test_R113_freeze_field_is_the_only_R107_learning_change_and_optional(self):
+        from retrain.config import load_config, job_contract
+        old = json.loads((ROOT / 'configs/R107-SCIENCE.json').read_text())
+        new = experiment.science_configuration()
+        self.assertEqual({k: v for k, v in new['job'].items() if k != 'freeze_features_before'}, old['job'])
+        self.assertEqual(new['job']['freeze_features_before'], 4)
+        for key in ('public_source', 'public_asset_receipt', 'structure', 'paths', 'data_split',
+                    'schedule', 'early_stopping', 'initial_model_tensor_sha256'):
+            self.assertEqual(new[key], old[key])
+        raw = {'jobs': [{'name': 'freeze-fixture', 'model': 'convnext_small', 'precision': 'fp32'}]}
+        path = self.configuration.parent / 'freeze-training.json'
+        path.write_text(json.dumps(raw))
+        legacy = load_config(path, environ={})['jobs'][0]
+        self.assertNotIn('freeze_features_before', job_contract(legacy))
+        raw['jobs'][0]['freeze_features_before'] = 4
+        path.write_text(json.dumps(raw))
+        current = load_config(path, environ={})['jobs'][0]
+        self.assertEqual(job_contract(current)['freeze_features_before'], 4)
 
     def test_training_scale_roundtrip_preserves_legacy_job_identity(self):
         from retrain.config import load_config, job_contract

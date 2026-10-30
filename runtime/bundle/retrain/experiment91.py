@@ -12,7 +12,8 @@ from .site_binding import load_site
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
 FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-fitbn-v1'
-SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION)
+FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1'
+SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING)
 CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
     'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
     'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
@@ -51,13 +52,23 @@ def candidate_from_configuration(value):
     if value['candidate_profile'] == FIT_BN_BINDING_VERSION:
         expected.update(id='r112-resnet50-imagenetv2-24k-p4-seed20261029-fitbn-9010',
                         experiment_order=22, bn_initialization='fit_fixed_reference')
+    elif value['candidate_profile'] == FROZEN_SMALL_BINDING:
+        expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
+            'experiment_order': 23, 'model': 'convnext_small',
+            'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
+            'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 768,
+            'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6, 'batch_norm_modules': 0,
+            'batch_norm_buffers': 0, 'attention_pool': None,
+            'stochastic_depth': value['job']['stochastic_depth'],
+            'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
     if (any(actual.get(key) != wanted for key, wanted in expected.items())
             or actual['model'] != value['job']['model']
             or actual['weight_sha256'] != source['sha256']
             or actual['provenance_sha256'] != source['provenance_sha256']
             or actual['public_revision'] != source['revision']
             or actual['features'] != value['structure']['features']
-            or actual['bn_initialization'] != value['job']['bn_statistics']['kind']):
+            or (actual['model'] == 'resnet50_imagenet'
+                and actual['bn_initialization'] != value['job']['bn_statistics']['kind'])):
         raise ValueError('candidate, public source and measured structure differ')
     return copy.deepcopy(actual)
 
@@ -204,10 +215,11 @@ def validate_job(job):
         'head_lr': configured['head_lr'], 'weight_decay': 1e-4, 'loss': configured.get('loss'),
         'training_scale': configured.get('training_scale'),
         'training_views': configured.get('training_views'),
+        'freeze_features_before': configured.get('freeze_features_before'),
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': configured['frozen_bn'],
-        'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured['head_seed'],
-        'bn_statistics': configured['bn_statistics']}
+        'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
+        'bn_statistics': configured.get('bn_statistics')}
     init = job.get('initialization', {})
     site = load_site()
     if (any(job.get(k) != v for k, v in expected.items()) or job.get('physical_batch') not in (64 // len(site['gpus']), 32)
@@ -335,6 +347,20 @@ def validate_checkpoint(payload):
     validate_runtime(payload['identity'], job, fresh=payload.get('fresh'))
     validate_age(payload, job)
     validate_normalization(payload.get('candidate_normalization', {}))
+    if job.get('freeze_features_before') is not None:
+        proof = payload.get('parameter_trainability', {})
+        names = sorted(payload['model'])
+        frozen = [n for n in names if n.startswith(tuple('network.features.' + str(i) + '.'
+                  for i in range(job['freeze_features_before'])))]
+        trainable = sorted(set(names) - set(frozen))
+        if (proof.get('freeze_features_before') != job['freeze_features_before']
+                or proof.get('all_parameter_names') != names or proof.get('frozen_parameter_names') != frozen
+                or proof.get('trainable_parameter_names') != trainable
+                or proof.get('optimizer_parameter_names') != trainable):
+            raise ValueError('checkpoint frozen/trainable/optimizer identity differs')
+        import torch
+        if any(not torch.equal(payload['model'][n], payload['ema']['model'][n]) for n in frozen):
+            raise ValueError('EMA frozen features differ from online checkpoint')
     if (payload.get('manifest_digest') != binding()['manifest_digest'] or payload.get('mode') != 'train'
             or any(payload.get('schedule', {}).get(k) != v for k, v in schedule().items())
             or payload.get('ema', {}).get('rule') != ema_rule()):

@@ -1,0 +1,7 @@
+# R113 affected CPU checks
+
+The final pre-publication snapshot passed six focused tests: three tiny frozen-feature/optimizer/EMA checks and three actual scientific configuration checks. All nine changed Python files parsed in the current verified Pod. Tests took4.278s; the complete guarded driver took7.923921585083008s, with12 intra-op threads, one inter-op thread and CPU mask0–11. No data images or production-model forward was used; GPU remained uninitialized.
+
+`CHECKS.json` is the unchanged Pod aggregate, SHA `84d630c18d1fb1f07e155f0d9752e7a316c6004bf37af697fbd24dddc033a3c2`. `CPU-RECEIPT.json` is the unchanged guard original, SHA `e993fedb19834b70d557fcda740964df573ca13219a03386c9f97b71ee857c5c`/exit0. Originals remain at `exp-v3/technical-prep/r113-freezeearly-20261030-a/check-1/CHECKS.json` and `exp-v3/technical-prep/environment-20261028-51fe3daf/tasks/19c0bc67-1a8c-462a-afb6-f6b80d090986-675wfxw4/CPU-RECEIPT.json`.
+
+These checks establish the affected semantics, not production Small admission or scientific benefit. The actual new Git formal package must independently retain full public strict loading and the complete initial tensor, and record all/frozen/trainable parameter names and real optimizer members. No independent GPU preview or old test suite is a prerequisite. R113's pre-registered scientific contract and finite stopping rule are in `todo/auroc-999/R113-DECISION.md`.

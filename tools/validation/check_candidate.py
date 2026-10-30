@@ -95,7 +95,11 @@ def main(args):
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         model.network.classifier[0].eps = 1e-6
     optimizer = _optimizer(model, job)
+    from retrain.models import feature_freeze_proof
+    parameter_trainability = feature_freeze_proof(model, job, optimizer)
     named = dict(model.named_parameters()); names = {id(parameter): name for name, parameter in named.items()}
+    trainable = {name: parameter for name, parameter in named.items() if parameter.requires_grad}
+    frozen = {name: parameter for name, parameter in named.items() if not parameter.requires_grad}
     groups = [{'role': group['role'], 'lr': group['lr'], 'initial_lr': group['initial_lr'],
         'weight_decay': group['weight_decay'], 'parameters': [
             {'name': names[id(parameter)], 'shape': list(parameter.shape), 'numel': parameter.numel()}
@@ -105,15 +109,18 @@ def main(args):
              for role in ('backbone', 'head', 'age')}
     head = {id(parameter) for parameter in (model.classifier if is_r50 else model.network.classifier)[-1].parameters()}
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == len(members) == len({id(parameter) for parameter in members}) == contract.get('backbone_parameter_tensors', contract['backbone_state_tensors']) + 3
+        and len(named) == contract.get('backbone_parameter_tensors', contract['backbone_state_tensors']) + 3
+        and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
-        and roles == {'backbone': contract['backbone_parameters'], 'head': contract['features'] + 1, 'age': 2}
+        and roles == {'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()), 'head': contract['features'] + 1, 'age': 2}
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == (1e-4 if group['role'] == 'age' or any(
             named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) for group in groups),
-        {'trainable_tensors': len(named), 'elements_by_role': roles, 'group_count': len(groups)})
+        {'all_parameter_tensors': len(named), 'trainable_tensors': len(trainable),
+         'frozen_tensors': len(frozen), 'parameter_trainability': parameter_trainability,
+         'elements_by_role': roles, 'group_count': len(groups)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
           and model_digest == ex.science_configuration()['initial_model_tensor_sha256']
@@ -132,14 +139,18 @@ def main(args):
           and (topology['world_size'], topology['per_rank_batch'], topology['accumulation']) == (8, 8, 1))
     expected = {'source_digest': digest, 'candidate': ex.candidate(), 'model_tensor_sha256': model_digest,
         'batch_norm_modules': structure['batch_norm_modules'], 'buffer_count': structure['buffer_count'], 'buffer_sha256': structure['buffer_sha256'],
-        'candidate_normalization': structure, 'optimizer_state_entries': 0, 'trainable_tensors': len(named),
+        'candidate_normalization': structure, 'optimizer_state_entries': 0, 'trainable_tensors': len(trainable),
         'parameter_elements_by_role': roles, 'no_attention_q': True}
+    if parameter_trainability is not None:
+        expected['parameter_trainability'] = parameter_trainability
     initial = {'format_version': 1, 'cpu_fixture_only': True, 'identity': identity,
         'job': job, 'mode': 'train', 'age': job['age'], 'manifest_digest': ex.binding()['manifest_digest'],
         'fresh': fresh, 'successful_updates': 0, 'attempted_updates': 0, 'evaluated_cycle': 0,
         'schedule': {**ex.schedule(), 'successful_updates': 0}, 'model': model.state_dict(),
         'ema': ema.state_dict(), 'optimizer': optimizer.state_dict(), 'scaler': {},
         'candidate_normalization': structure}
+    if parameter_trainability is not None:
+        initial['parameter_trainability'] = parameter_trainability
     store = CheckpointStore(args.output / 'CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint')
     checkpoint = store.save(initial); loaded = store.load('last', map_location='cpu')
     ex.validate_checkpoint(loaded); validate_state(loaded['ema'], loaded['model'], 0, ex.ema_rule())
@@ -158,6 +169,8 @@ def main(args):
         'bn_modules': structure['batch_norm_modules'], 'scaler': {}, 'precision_runtime': {**runtime_proof(RULE, device='cpu'),
             'scaler_enabled': False, 'scaler_state_dict': {}, 'effective_scale': 1.0},
         'candidate_normalization': structure, 'cpu_fixture_only': True} for rank in range(8)]
+    if parameter_trainability is not None:
+        for record in initials: record['parameter_trainability'] = parameter_trainability
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',
         initial_gate.verify_records(initials, groups, groups, expected, expected_world=8) == model_digest)
     rejected('initial_gate_missing_rank_rejected', lambda: initial_gate.verify_records(initials[:-1], groups, groups, expected, expected_world=8))

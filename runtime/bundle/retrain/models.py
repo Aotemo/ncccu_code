@@ -243,6 +243,47 @@ def validate_initialization(initialization):
             'original_sha256':meta.get('original_sha256'),'final_norm_eps':meta.get('final_norm_eps')}
 
 
+def apply_feature_freeze(model, job):
+    """Freeze the registered Small early features without changing mode or RNG."""
+    if 'freeze_features_before' not in job:
+        return ()
+    if (job.get('model') != 'convnext_small' or type(job['freeze_features_before']) is not int
+            or job['freeze_features_before'] != 4):
+        raise ValueError('feature freezing supports only explicit Small features[:4]')
+    selected = {id(p) for module in model.network.features[:job['freeze_features_before']]
+                for p in module.parameters()}
+    names = []
+    for name, parameter in model.named_parameters():
+        if id(parameter) in selected:
+            parameter.requires_grad_(False)
+            names.append(name)
+    if not names:
+        raise ValueError('registered early features contain no parameters')
+    return tuple(sorted(names))
+
+
+def feature_freeze_proof(model, job, optimizer):
+    """Read the real online mask and its optimizer membership for initial proof."""
+    if 'freeze_features_before' not in job:
+        return None
+    selected = {id(p) for module in model.network.features[:job['freeze_features_before']]
+                for p in module.parameters()}
+    named = dict(model.named_parameters())
+    expected = sorted(name for name, p in named.items() if id(p) in selected)
+    frozen = sorted(name for name, p in named.items() if not p.requires_grad)
+    trainable = sorted(name for name, p in named.items() if p.requires_grad)
+    names = {id(p): name for name, p in named.items()}
+    members = [names[id(p)] for group in optimizer.param_groups for p in group['params']]
+    if not frozen or frozen != expected or sorted(members) != trainable or len(members) != len(set(members)):
+        raise ValueError('actual early-feature mask or optimizer membership differs')
+    return {'freeze_features_before': job['freeze_features_before'],
+        'all_parameter_names': sorted(named), 'frozen_parameter_names': frozen,
+        'trainable_parameter_names': trainable, 'optimizer_parameter_names': sorted(members),
+        'all_parameter_elements': sum(p.numel() for p in named.values()),
+        'frozen_parameter_elements': sum(named[name].numel() for name in frozen),
+        'trainable_parameter_elements': sum(named[name].numel() for name in trainable)}
+
+
 def create_model(job, initialize=True):
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job
@@ -319,6 +360,7 @@ def create_model(job, initialize=True):
     if job.get('attention_pool') is not None:
         from .attention_pool import attach
         attach(result, job)
+    apply_feature_freeze(result, job)
     if job.get('experiment91') is not None:
         from .experiment91 import describe_model
         result.candidate_normalization = describe_model(result)
