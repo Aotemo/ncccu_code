@@ -1,6 +1,6 @@
 # R120：有界对称成对排序目标
 
-**状态：root已采用，现有A/B进行必要实施；新SCIENCE、Git、正式包、activation及训练尚待实际回执。** 本页是科学合同，不是GPU实证或新增审批门。2026-10-31。
+**最终状态：完整工程有效，selected内部AUROC严格胜预冻R107；按原规则接固定seed27的R121复核，尚不升级方法基线。** 官方未达.996按政策未运行，A实际回执确认整轮safe；详见末尾。下文实施清单保留原预登记，不是当前待办。2026-10-31。
 
 | 身份 | 唯一值 |
 |---|---|
@@ -32,7 +32,7 @@
 
 复用原`gather_pairwise_inputs`本体：默认全局WORLD可微logit gather、普通label gather，每rank同算完整mean；Gather backward SUM与DDP平均抵消，不乘除world_size。多数rank无正例，不得落入rank-local loss。单卡旧入口仍拒绝本次pairwise，保留正式8rank/accum1及无mixup的限制；日志保留64/8P56N/448对与实际global loss。
 
-## 最短实施与必要证据
+## 最短实施与必要证据（原预登记）
 
 - [ ] **B独占** `runtime/bundle/retrain/classification_loss.py`与`tests/test_pairwise_sigmoid_loss.py`：新增显式版本，提供`PAIRWISE_LOSS_KINDS` tuple给A识别；原None/focal/logistic及gather本体不改。
 - [ ] **A独占其余接线**：config/engine/distributed/experiment91/SCIENCE和生产binding统一消费两种已知pairwise种类，覆盖全局路由、限制及日志。R119未验代码由A精确保留patch并从后续生产路径隔离，不盲reset；目前不能声称隔离已完成。
@@ -46,3 +46,11 @@
 先一次fresh；完整工程有效且原selector所选内部AUROC严格胜R107 **.9884405731067525**，才另冻既定seed20261027，对照R108 **.9872328538178018**。首跑未胜关闭本固定surrogate，不扫温度、scale、混合或seed；AP/固定难组/官方不救主判。两seed方向同向也不宣称显著或已消除dev自适应偏差。
 
 仅完整训练及唯一checkpoint冻结后，selected内部AUROC≥.996才完整official5849一次；否则`not_run_by_policy/threshold_not_met`、metrics=null，不当失败。该门独立于seed27复核，中途partial不触发；不授权平台test产物或提交。总体raw AUROC .999目标保持。阶段结束由规划依据完整内部结果主动提出下一独立问题，不把分支停止当项目无限期暂停，也不在本页预占下一候选。
+
+## 完整结果与预定复核触发
+
+2026-10-31 07:03:05.983327北京A实际终态：completed/early_stopping，8000success=attempt/24000、skip0、eval10、bad4；完整freeze20条唯一selected为**EMA c6@4800，AUROC .9894773092062407、AP .8313831149805229、error_twice17478**，tensor SHA `f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85`。已一次文本核`work/r120-20261031-a/progress-0700/round/SINGLE-MODEL-FREEZE.json`的selected与`round/evidence/TRAIN_RESULT.json`；TRAIN completed/exit0/hard_deadline_met、signals[]。
+
+按A实际回执、由root转交：official=`not_run_by_policy/threshold_not_met`、evaluated=false、metrics=null，ROUND/done completed；owner247028Z不称reaped、原8rank退出、lockholders[]、deviceusers[]、8idle、scanDenied0，safe=true。规划未另读官方或查询资源。progress原Pod SHA `726d0ebd8a7ba25563fc838668bb12107a172d851d8990732274297974199937`，CPU guard SHA `d44b3ef52a7ff98419603c0ef49b9dc1290b13932100fa2d241e86f8571b4166`，仅记录交接值，未本机重算。
+
+本次完整selected严格胜R107 **.9884405731067525**，成为当前固定9:1的单次内部新高，满足原定固定seed27复核条件；root已采用[R121](R121-DECISION.md)。比较阈值仍预冻R107/R108，不按本次峰值或partial移动。尚不证明两seed稳健、显著性、机制或.999可达，也未消除同dev反复适应偏差；不依AP或官方补救主判。R120原包、clock/token保持，selected checkpoint保护真实依赖；必要tokenfree结果归档由A统一处理，不重复训练/官方。本文至此收口停写。

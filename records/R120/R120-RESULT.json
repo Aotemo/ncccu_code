@@ -1,0 +1,44 @@
+{
+  "at_beijing": "2026-10-31T07:09:20.197554+08:00",
+  "candidate": "r120-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-9010",
+  "experiment_order": 30,
+  "official": {
+    "official_evaluated": false,
+    "official_metrics": null,
+    "official_reason": "threshold_not_met",
+    "official_status": "not_run_by_policy"
+  },
+  "original_sha256": {
+    "done": "ca1034aca9b533127863d873d219866e113e623f8c5343d78dc3e2753dc1275b",
+    "freeze": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2",
+    "round": "cf5c7fa0c535c6efba62fbf887fe6da5042770d95113e5666ed6883d1de8aad3",
+    "train": "955a0107c842f5bddb93c485063a60101f5772f576edca3ae77193e5d721cdfb"
+  },
+  "pre_frozen_R107_auroc": 0.9884405731067525,
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-v1",
+  "progress_receipt_sha256": "726d0ebd8a7ba25563fc838668bb12107a172d851d8990732274297974199937",
+  "round_id": "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "safe_at_observation": true,
+  "schema": "r120-token-free-closeout-v1",
+  "science_config_sha256": "a612fe234e5d6aab6c4d5be228c47755a097fde016c15bbaba4ebe94b7bab3a8",
+  "selected_internal": {
+    "ap": 0.8313831149805229,
+    "auroc": 0.9894773092062407,
+    "cycle": 6,
+    "error_twice": 17478,
+    "successful_updates": 4800,
+    "tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+    "variant": "ema"
+  },
+  "strictly_beats_R107": true,
+  "train": {
+    "attempted_updates": 8000,
+    "component_exit_code": 0,
+    "early_stop_bad_cycles": 4,
+    "evaluated_cycles": 10,
+    "skipped_updates": 0,
+    "status": "completed",
+    "successful_updates": 8000,
+    "termination_reason": "early_stopping"
+  }
+}

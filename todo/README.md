@@ -2,7 +2,9 @@
 
 目标是在固定 9:1、单模型和内部 dev 唯一选点的合同下继续实验；raw AUROC 尚未达到 0.999，不称总体完成。自 R117 起，只有完整训练并冻结的所选内部 dev AUROC 达到 `0.996`，才运行一次官方 5849 验证；未达则记 `not_run_by_policy`。官方结果不用于训练、选点或下一轮调参。长期约束见 [AGENTS.md](../AGENTS.md)，执行入口见 [EXECUTION.md](../docs/EXECUTION.md)。
 
-**当前接续为已采用的[R120有界对称pairwise sigmoid](auroc-999/R120-DECISION.md)**，order30、配置`configs/R120-SCIENCE.json`。直接匹配R107，单编码/原prepared512，唯一科学变化为`2*mean(sigmoid(z_negative-z_positive))`；原模型、来源、采样、学习与6h/8h/9h合同不变。A/B已获必要实施分工，新SCIENCE、Git、正式包、activation及训练仍待实际回执，不能将页面采用记成已开训。完整selected严格胜R107才固定seed27对R108复核；.996官方门独立。阶段结果后继续决策下一问题，不自动扫系数或seed。
+**当前接续为已采用的[R121固定seed27复核](auroc-999/R121-DECISION.md)**，order31、配置`configs/R121-SCIENCE.json`。R120完整胜R107已触发原定分支；相对R120只改训练seed及自然fresh初态/身份，其余单编码、原缓存、固定sigmoid目标与6h/8h/9h合同不变。新SCIENCE、Git、正式包、activation及首成功仍待A实际回执，不把页面采用记成开训。R121完整selected须严格胜R108 `.9872328538178018`，才算第二seed方向通过；比较基线仍R107/R108，不按partial移动。`.996`官方门独立，阶段后继续决策，不扫系数或seed。
+
+[R120](auroc-999/R120-DECISION.md)已完整工程有效：8000成功/0skip/eval10/bad4早停，唯一EMA c6@4800内部AUROC **.9894773092062407**、AP **.8313831149805229**，为当前单次内部新高，严格胜预冻R107 `.9884405731067525`。尚不升级基线或宣称两seed稳健/显著性；未到`.996`，官方按政策未运行，A实际07:03终态确认整轮safe。原冻结包不改，selected checkpoint保护实际依赖，必要归档由A统一处理。
 
 R113 冻结早期特征与 R114R1 最后下采样 stride1 均已完整结束，内部主指标未严格胜 R107 `0.9884405731067525`，各自分支按预定停止。原 R114 1426 步是工程失败，不充当完整科学结论。精简记录见 [R113](../records/R113/README.md)、[R114R1](../records/R114R1/README.md)及对应决定页。
 

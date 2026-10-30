@@ -67,7 +67,8 @@ def main(args):
     is_r50 = job['model'] == 'resnet50_imagenet'
     is_dino = ex.science_configuration()['candidate_profile'] == ex.DINO_R50_BINDING
     is_swin = job['model'] == 'swin_base'
-    is_pair_sigmoid = ex.science_configuration()['candidate_profile'] == ex.PAIR_SIGMOID_SMALL_BINDING
+    is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
+        ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -87,7 +88,7 @@ def main(args):
                   for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
     if is_pair_sigmoid:
         from retrain.classification_loss import PAIRWISE_LOSS_KINDS
-        check('R120_fixed_sigmoid_WORLD_loss_and_conditional_official_bound',
+        check('fixed_sigmoid_WORLD_loss_and_conditional_official_bound',
               job['loss'] == ex.PAIR_SIGMOID_LOSS
               and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
