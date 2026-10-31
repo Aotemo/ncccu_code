@@ -1,0 +1,413 @@
+{
+  "schema": "r132-first-recorded-success-v1",
+  "status": "first_success_observed",
+  "at_beijing": "2026-11-01T06:20:04.257854+08:00",
+  "round_id": "r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101",
+  "git_commit": "c11a0829f9f6e75b4f03872248008ee7cd9aae00",
+  "science_sha256": "8d48dd163240ec2df99ef2435445bbb088a771e055f8d65c9a895a09697790a4",
+  "site_binding_sha256": "f80a0f9ac4954833f0bd44de9f2a1b6933a53f0f8d30b624ea0ba20119bc82cd",
+  "owner": {
+    "pid": 350819,
+    "start_ticks": "351239598",
+    "state": "S",
+    "observed_start_ticks": "351239598",
+    "start_match": true,
+    "argv_match": true,
+    "mask": [
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "active_match": true
+  },
+  "rank_processes": [
+    {
+      "pid": 350831,
+      "start_ticks": "351243834",
+      "state": "S",
+      "observed_start_ticks": "351243834",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "active_match": true,
+      "rank": 0
+    },
+    {
+      "pid": 350832,
+      "start_ticks": "351243836",
+      "state": "S",
+      "observed_start_ticks": "351243836",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "active_match": true,
+      "rank": 1
+    },
+    {
+      "pid": 350833,
+      "start_ticks": "351243837",
+      "state": "S",
+      "observed_start_ticks": "351243837",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "active_match": true,
+      "rank": 2
+    },
+    {
+      "pid": 350834,
+      "start_ticks": "351243839",
+      "state": "S",
+      "observed_start_ticks": "351243839",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "active_match": true,
+      "rank": 3
+    },
+    {
+      "pid": 350835,
+      "start_ticks": "351243840",
+      "state": "S",
+      "observed_start_ticks": "351243840",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "active_match": true,
+      "rank": 4
+    },
+    {
+      "pid": 350836,
+      "start_ticks": "351243842",
+      "state": "S",
+      "observed_start_ticks": "351243842",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "active_match": true,
+      "rank": 5
+    },
+    {
+      "pid": 350837,
+      "start_ticks": "351243843",
+      "state": "S",
+      "observed_start_ticks": "351243843",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "active_match": true,
+      "rank": 6
+    },
+    {
+      "pid": 350838,
+      "start_ticks": "351243844",
+      "state": "S",
+      "observed_start_ticks": "351243844",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "active_match": true,
+      "rank": 7
+    }
+  ],
+  "actual_owner_and_rank_masks_match": true,
+  "rank_devices": [
+    {
+      "rank": 0,
+      "world_size": 8,
+      "device": "cuda:0",
+      "physical_pci": "0000:09:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 1,
+      "world_size": 8,
+      "device": "cuda:1",
+      "physical_pci": "0000:36:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 2,
+      "world_size": 8,
+      "device": "cuda:2",
+      "physical_pci": "0000:55:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 3,
+      "world_size": 8,
+      "device": "cuda:3",
+      "physical_pci": "0000:77:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 4,
+      "world_size": 8,
+      "device": "cuda:4",
+      "physical_pci": "0000:85:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 5,
+      "world_size": 8,
+      "device": "cuda:5",
+      "physical_pci": "0000:b5:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 6,
+      "world_size": 8,
+      "device": "cuda:6",
+      "physical_pci": "0000:d5:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 7,
+      "world_size": 8,
+      "device": "cuda:7",
+      "physical_pci": "0000:f5:00.0",
+      "total_memory_bytes": 68702699520
+    }
+  ],
+  "progress": {
+    "status": "running",
+    "successful_updates": 150,
+    "attempted_updates": 150,
+    "skipped_updates": 0,
+    "cycle": 0,
+    "evaluated_cycle": 0,
+    "stop_reason": null
+  },
+  "initial": {
+    "actual_gate_completed": true,
+    "rank_count": 8,
+    "group_count": 5,
+    "all_rank_initial_Adam_empty": true,
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "parameter_elements_by_role": {
+      "age": 2,
+      "backbone": 49454688,
+      "head": 769
+    },
+    "batch_norm_modules": 0,
+    "receipt_sha256": "303cc2a0ebcab451335de1c5de983fd6d745d8967e817e387dca15b97ecbf084"
+  },
+  "first_update": {
+    "event_observed": true,
+    "recorded_update_inputs_and_finite_loss_valid": true,
+    "event_line_sha256": "a9a6bb2207ae157a87a02229665e200569d016fb95c7bdf4014281f784eac2f8",
+    "actual": {
+      "event": "update",
+      "at": 1793485150.60193,
+      "successful_updates": 25,
+      "attempted_updates": 25,
+      "cycle": 0,
+      "loss": 0.6728774905204773,
+      "global_loss": 0.6728774905204773,
+      "skipped": false,
+      "primary_inputs": 64,
+      "view_inputs": 64,
+      "pairwise_global": {
+        "global_inputs": 64,
+        "positive_inputs": 8,
+        "negative_inputs": 56,
+        "pair_count": 448,
+        "world_size": 8
+      },
+      "rank_inputs": [
+        {
+          "rank": 0,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 4
+        },
+        {
+          "rank": 1,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 2,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 3,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 4,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 4
+        },
+        {
+          "rank": 5,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 6,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 7,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        }
+      ],
+      "learning_rates": [
+        1.6250000000000001e-06,
+        1.6250000000000001e-06,
+        1.6250000000000002e-05,
+        1.6250000000000002e-05,
+        1.6250000000000002e-05
+      ]
+    },
+    "metrics_prefix_bytes_read": 7467,
+    "metrics_prefix_cap_bytes": 2097152,
+    "step1_Adam_state_observed": false,
+    "per_rank_Adam_steps_observed": false
+  },
+  "output_regularization": {
+    "version": "global-raw-logit-square01-v1",
+    "coefficient": 0.1,
+    "dtype": "float32",
+    "scope": "global_batch",
+    "reduction": "mean",
+    "logits": "final_image_plus_age_raw",
+    "schedule": "constant_from_step1"
+  },
+  "activation_exit_zero": true,
+  "activation_call_markers": 1,
+  "dispatch_present": true,
+  "prelaunch_absence_preserved": true,
+  "checkpoint_loaded_by_observer": false,
+  "model_created_by_observer": false,
+  "forward_executed_by_observer": false,
+  "official_result_present": false,
+  "observer_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}

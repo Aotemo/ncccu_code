@@ -1,5 +1,9 @@
 # R132：固定 raw-logit 平方0.1联合目标
 
+**已实际启动：06:20:04.257854北京时间实查running150success=attempt/0skip/eval0。** owner350819/start351239598与8rank350831–38均argv/start active匹配，真实control112–119+rank24–111/96核及8PCI/显存正确；ACTUAL_FRESH_INITIAL completed（SHA `303cc2a0ebcab451335de1c5de983fd6d745d8967e817e387dca15b97ecbf084`），345全训/实际5组/八rank空Adam/50c。首实际已记录update25=attempt25、finite loss/global_loss `.6728774905204773`、全64/P8/56neg/448pairs与8rank输入完整；step1和逐rank Adam step未单独观察，不能冒作已测。原log_every25、模型/通信不改，observer只读首7467B，无blob/model/forward。[真实启动小件](../../records/R132/README.md)保存完整边界，以下“尚未运行”仅指当时准备阶段。
+
+实际runGit `c11a0829f9f6e75b4f03872248008ee7cd9aae00`/tree `ddef80b03fc2ab4ebba70e5cd94887ad9a544183`，normalformal仅一次18/18、709源码Gitblob/mode exact、预期whole50c实际重建通过；13项启动前marker缺失后唯一activation0/正确live launch0。GPU入口已移除未执行的预taskset，保留uncontracted初次自核；SITE SHA由A12 pin，未放宽任何准入或重跑formal。SCI SHA `8d48dd163240ec2df99ef2435445bbb088a771e055f8d65c9a895a09697790a4`，formal CPU `ea78fc23a6f1c2e8280e70267089e26171a80d4444727be9a37368662c5550c0`、deployment `6058d1cd798489e88438f61c830759a6cb179698c025798098c28fbc760a39e8`、SITE `f80a0f9ac4954833f0bd44de9f2a1b6933a53f0f8d30b624ea0ba20119bc82cd`。新9h grant独立，旧R130/R1/R131及R120/KEEP保护保持；归档commit另列，不热改本runGit。
+
 用户已授权持续推进，根在R131完整结果与actualsafe后采用本轮。R131为11200success=attempt/0skip/eval14/bad4正常早停，唯一online c10@8000 AUROC `.9809751099048635`，未胜R107或R120 singlebest，关闭精确r8/no seed27。原R1301503中断、R1/R131完整产物及R120/KEEP全部保留，不加载旧checkpoint或initial、不拼接曲线或成本。
 
 ## 冻结身份与唯一科学变化

@@ -1,0 +1,62 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101",
+  "git_commit": "c11a0829f9f6e75b4f03872248008ee7cd9aae00",
+  "tree_sha": "ddef80b03fc2ab4ebba70e5cd94887ad9a544183",
+  "science_sha256": "8d48dd163240ec2df99ef2435445bbb088a771e055f8d65c9a895a09697790a4",
+  "candidate": {
+    "id": "r132-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-logitsquare01-9010",
+    "experiment_order": 43,
+    "output_regularization": {
+      "version": "global-raw-logit-square01-v1",
+      "coefficient": 0.1,
+      "dtype": "float32",
+      "scope": "global_batch",
+      "reduction": "mean",
+      "logits": "final_image_plus_age_raw",
+      "schedule": "constant_from_step1"
+    },
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "parameter_elements_by_role": {
+    "backbone": 49454688,
+    "head": 769,
+    "age": 2
+  },
+  "trainable_tensors": 345,
+  "named_group_count": 5,
+  "all_parameter_tensors": 345,
+  "frozen_parameter_tensors": 0,
+  "output_regularization": {
+    "version": "global-raw-logit-square01-v1",
+    "coefficient": 0.1,
+    "dtype": "float32",
+    "scope": "global_batch",
+    "reduction": "mean",
+    "logits": "final_image_plus_age_raw",
+    "schedule": "constant_from_step1"
+  },
+  "optimizer_state_entries": 0,
+  "package_manifest_sha256": "494775a1db7bb40d118e73bbe3b5b00d3a56dbceb7de6ff429fd174d3686a5fe",
+  "cpu_prep_sha256": "aa43e2d10be943564df9b15ba044a8774e09db86ebce6200737cadac16652519",
+  "deployment_sha256": "6058d1cd798489e88438f61c830759a6cb179698c025798098c28fbc760a39e8",
+  "site_sha256": "f80a0f9ac4954833f0bd44de9f2a1b6933a53f0f8d30b624ea0ba20119bc82cd",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "formal_runs": 1
+}

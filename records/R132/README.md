@@ -1,0 +1,13 @@
+# R132：固定raw-logit平方0.1已真实开始训练
+
+运行Git `c11a0829f9f6e75b4f03872248008ee7cd9aae00`，parent `e0f3d618c7efcea48f0318b3b1930f4f71a091a7`，tree `ddef80b03fc2ab4ebba70e5cd94887ad9a544183`；SCIENCE SHA `8d48dd163240ec2df99ef2435445bbb088a771e055f8d65c9a895a09697790a4`。order43直接R107/seed29/public fresh/原345全训，只加精确0.1 raw-logit平方项，原pairlog六字段不变，无LoRA/layerwise。R131完整双门false及原R1301503/R1结果分别保留，不加载旧checkpoint或initial，不拼曲线。
+
+唯一新身份窄验1/1通过，本轮normalformal仅一次18/18；公开native1000 strict后真实whole仍`50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`，345可训/0冻结/实际5命名组/空Adam/0BN，roles backbone49454688/head769/age2。既有数学/Gloo两项未重跑，没有独立公开fresh测量或GPU预演。[准备回执](PREPARATION-RESULT.json)对应709源码Git blob/mode exact，deployment SHA `6058d1cd798489e88438f61c830759a6cb179698c025798098c28fbc760a39e8`，formal CPU SHA `ea78fc23a6f1c2e8280e70267089e26171a80d4444727be9a37368662c5550c0`。
+
+22:16:16Z真实新根[13项marker全缺失](PRELAUNCH-ABSENCE.txt)、实际调用前均0，随后唯一activation0/正确live launch0。GPU首次入口保留原uncontracted affinity，由launcher自核后绑定；未执行的预taskset运输错误已在调用前移除。SITE SHA `f80a0f9ac4954833f0bd44de9f2a1b6933a53f0f8d30b624ea0ba20119bc82cd`在A12 guard核出，GPU段只read/stat后直接exec，不在本机或登录节点hash/解析。preflight SHA `b673e0cb296a851dfddf1bd2b867cd40c8f69ea19e5534c7432072c0181692f7`、activation audit SHA `095d87bfb3cce9b36427beb1844e37d93efc02f187410cba2fae5c9fb38723f1`。新9h软件grant SHA `c1b87ed50a1f3f5cfc5bb415a8efabbb7c0d9e0ac2f01d9f473e0f46394e2ca0`，实核effective120，训练96核24–119与准备池0–23互斥；A只用0–11，根12–23保留未用，旧grant/clock/token不改。
+
+06:17:54首观测仅见进程、初态尚未产出，原`START-PENDING-R132-1.json`留prep，不把spawn冒作成功。随后[真实首成功观测](START-OBSERVATION-R132-2.json)于2026-11-01 **06:20:04.257854北京时间**确认running150success=attempt/0skip/eval0：owner350819/start351239598及8rank350831–350838全部argv/start active匹配，control112–119、rank24–111/96核和8PCI/每卡68702699520B符合本轮绑定。ACTUAL_FRESH_INITIAL completed SHA `303cc2a0ebcab451335de1c5de983fd6d745d8967e817e387dca15b97ecbf084`，真实8rank初态345/实际5组/空Adam/50c。
+
+首条实际已记录成功update为**25success=attempt25**（epoch1793485150.60193），loss/global_loss均`.6728774905204773`、finite、skippedfalse；8rank各8输入/总64，P8/56neg/448pairs/world8，实际local positives为`[4,0,0,0,4,0,0,0]`。允许本地零正样本，原WORLD gather承担全局目标。原log_every25保持；**step1及逐rank Adam step未单独观察**，不能把初态Adam0冒作150步后仍空，也不伪造step1证据。observer只读metrics首7467B（2MiB上限），未load checkpoint/模型或forward。START SHA `5ded0c67da9022caa8b8b5b3729c5f9fa3647ea959fad3faf3a0e23f537c4e77`，[CPU原件](START-CPU-RECEIPT.json) SHA `1b70ac23c665815fe82b99ea148d5df6a7561b05d2a7468054b5e1a938454a8a`、guard0。
+
+当前尚无完整AUROC/selector/official或双门结论，raw`.999`未证。当前small-check只用本轮SITE+本轮真实START2及新输出路径，R131 completion仅历史；本机入口`work/r132-20261101-a/pod-context.env`。根唯一heartbeat按[R132合同](../../todo/auroc-999/R132-DECISION.md)继续观察。运行产物仍在独立R132 round及prep，所有旧保护资产保留；此次纯归档commit与runGit分列，不热改运行包或加自引用提交。
