@@ -76,6 +76,7 @@ def main(args):
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
     is_content_pool = ex.science_configuration()['candidate_profile'] == ex.CONTENT_POOL_SMALL_BINDING
+    is_stage3_residual = ex.science_configuration()['candidate_profile'] == ex.STAGE3_RESIDUAL_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -97,6 +98,11 @@ def main(args):
                     'shape': [1, 768], 'dtype': 'torch.float32'}
                 and tuple(model.attention_pool_weight.shape) == (1, 768)
                 and bool((model.attention_pool_weight == 0).all())))
+          and (not is_stage3_residual or (job['stage3_residual'] == ex.candidate()['stage3_residual']
+                and structure['stage3_residual'] == {'parameter_name': 'stage3_residual_weight',
+                    'shape': [1, 384], 'dtype': 'torch.float32', 'feature_index': 5, 'channels': 384}
+                and tuple(model.stage3_residual_weight.shape) == (1, 384)
+                and bool((model.stage3_residual_weight == 0).all())))
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
                   for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
     if is_pair_sigmoid:
@@ -198,12 +204,14 @@ def main(args):
     head = {id(parameter) for parameter in (model.classifier if is_r50 else model.network.classifier)[-1].parameters()}
     if is_content_pool:
         head.add(id(model.attention_pool_weight))
+    if is_stage3_residual:
+        head.add(id(model.stage3_residual_weight))
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool)
+        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool) + int(is_stage3_residual)
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
         and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()),
-                       'head': contract['features'] + 1 + (768 if is_content_pool else 0),
+                       'head': contract['features'] + 1 + (768 if is_content_pool else 0) + (384 if is_stage3_residual else 0),
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
@@ -215,10 +223,10 @@ def main(args):
          'elements_by_role': roles, 'group_count': len(groups)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
-                                   if name != 'attention_pool_weight'}) if is_content_pool else model_digest
+                                   if name not in ('attention_pool_weight', 'stage3_residual_weight')}) if (is_content_pool or is_stage3_residual) else model_digest
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
           and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
-               if is_content_pool else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
+               if (is_content_pool or is_stage3_residual) else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
           and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
           and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members})
     fresh = build.make_fresh(package, job, topology, policy, digest, public['initialization'])
@@ -245,6 +253,16 @@ def main(args):
               and model.age_metadata == job['age'] and job['age']['enabled'] is True,
               {'common_tensor_sha256': common_digest, 'new_full_tensor_sha256': model_digest,
                'attention_pool': expected['attention_pool']})
+    if is_stage3_residual:
+        weight = model.stage3_residual_weight
+        expected['stage3_residual'] = {'shape': list(weight.shape), 'dtype': str(weight.dtype),
+            'nonzero': int(torch.count_nonzero(weight.detach()))}
+        check('R125_original_seed29_common_state_exact_and_stage3_q_zero',
+              common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
+              and expected['stage3_residual'] == {'shape': [1, 384], 'dtype': 'torch.float32', 'nonzero': 0}
+              and model.age_metadata == job['age'] and job['age']['enabled'] is True,
+              {'common_tensor_sha256': common_digest, 'new_full_tensor_sha256': model_digest,
+               'stage3_residual': expected['stage3_residual']})
     if ex.science_configuration().get('ssl_recipe') is not None:
         from retrain.ssl_stage import _derived_state, _non_encoder_state
         expected.update(public_tensor_sha256=model.public_initialization_receipt['public_tensor_sha256'],
@@ -274,6 +292,8 @@ def main(args):
           and reload_job == job and reloaded is not model
           and (not is_content_pool or (hasattr(reloaded, 'attention_pool_weight')
                and torch.equal(reloaded.attention_pool_weight, model.attention_pool_weight)))
+          and (not is_stage3_residual or (hasattr(reloaded, 'stage3_residual_weight')
+               and torch.equal(reloaded.stage3_residual_weight, model.stage3_residual_weight)))
           and tensor_digest(reloaded.state_dict()) == model_digest
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
@@ -284,6 +304,8 @@ def main(args):
         'candidate_normalization': structure, 'cpu_fixture_only': True} for rank in range(8)]
     if is_content_pool:
         for record in initials: record['attention_pool'] = expected['attention_pool']
+    if is_stage3_residual:
+        for record in initials: record['stage3_residual'] = expected['stage3_residual']
     if parameter_trainability is not None:
         for record in initials: record['parameter_trainability'] = parameter_trainability
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',

@@ -451,6 +451,10 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if job.get('attention_pool') is not None:
                 from .attention_pool import describe
                 attention_initial['attention_pool']=describe(base,optimizer)
+            if job.get('stage3_residual') is not None:
+                weight=base.stage3_residual_weight
+                attention_initial['stage3_residual']={'shape':list(weight.shape),
+                    'dtype':str(weight.dtype),'nonzero':int(torch.count_nonzero(weight.detach()))}
             initial_ranks=ctx.values({'rank':ctx.rank,'model_sha256':digest.hexdigest(),
                 'optimizer_state_entries':len(optimizer.state),'scaler':scaler.state_dict(),
                 'precision_runtime':precision_runtime,

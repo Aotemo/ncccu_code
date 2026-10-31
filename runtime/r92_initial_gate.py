@@ -33,7 +33,8 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
     for rank in initials:
         require(rank['model_sha256'] == expected['model_tensor_sha256'] and rank['optimizer_state_entries'] == 0
                 and rank['bn_modules'] == expected['batch_norm_modules'] and rank['scaler'] == {}
-                and rank.get('attention_pool') == expected.get('attention_pool'),
+                and rank.get('attention_pool') == expected.get('attention_pool')
+                and rank.get('stage3_residual') == expected.get('stage3_residual'),
                 'fresh tensor/Adam/BN/attention identity differs')
         require(rank.get('candidate_normalization') == expected['candidate_normalization'], 'actual rank LN/noBN differs')
         require(rank.get('parameter_trainability') == expected.get('parameter_trainability'),
@@ -50,12 +51,15 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
         role = current['role']
         for p in current['parameters']:
             require(p['name'] not in names and p['name'] != 'q'
-                    and (p['name'] != 'attention_pool_weight' or expected.get('attention_pool') is not None),
+                    and (p['name'] != 'attention_pool_weight' or expected.get('attention_pool') is not None)
+                    and (p['name'] != 'stage3_residual_weight' or expected.get('stage3_residual') is not None),
                     'duplicate/unregistered attention parameter')
             names.add(p['name']); roles[role] = roles.get(role, 0) + p['numel']
     require(len(names) == expected['trainable_tensors'] and roles == expected['parameter_elements_by_role'], 'actual Tiny parameter topology differs')
     require(('attention_pool_weight' in names) == (expected.get('attention_pool') is not None),
             'native content pooling optimizer membership differs')
+    require(('stage3_residual_weight' in names) == (expected.get('stage3_residual') is not None),
+            'native stage3 residual optimizer membership differs')
     return expected['model_tensor_sha256']
 
 
@@ -146,10 +150,15 @@ def maybe_release(root, atomic, sha):
                 'R115 native supervised initial does not equal fixed SSL encoder plus public fresh head/age')
     age_enabled = payload['job']['age']['enabled']
     has_attention = expected.get('attention_pool') is not None
+    has_stage3 = expected.get('stage3_residual') is not None
     require(('attention_pool_weight' in state) == has_attention and 'q' not in state
             and (not has_attention or (tuple(state['attention_pool_weight'].shape) == (1, 768)
                                        and state['attention_pool_weight'].dtype == torch.float32
                                        and int(torch.count_nonzero(state['attention_pool_weight'])) == 0))
+            and ('stage3_residual_weight' in state) == has_stage3
+            and (not has_stage3 or (tuple(state['stage3_residual_weight'].shape) == (1, 384)
+                                    and state['stage3_residual_weight'].dtype == torch.float32
+                                    and int(torch.count_nonzero(state['stage3_residual_weight'])) == 0))
             and ('age_weight' in state) == age_enabled
             and (not age_enabled or int(torch.count_nonzero(state['age_weight'])) == 0),
             'attention/resolved-age state differs')

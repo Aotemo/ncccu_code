@@ -142,7 +142,9 @@ def evaluate(model, rows, indices, data_root, job, device, output_csv=None):
 
 def _optimizer(model, job):
     from .attention_pool import validate_model as validate_attention_model
+    from .stage3_residual import validate_model as validate_stage3_model
     validate_attention_model(model, job)
+    validate_stage3_model(model, job)
     # Both supported architectures name their classification head 'classifier'.
     # Bias and normalization vectors receive no decay, including LayerNorm.
     head_ids=None
@@ -163,7 +165,7 @@ def _optimizer(model, job):
             age_parameters.append(parameter)
             continue
         head = id(parameter) in head_ids if head_ids is not None else 'classifier' in name.split('.')
-        if name == 'attention_pool_weight':
+        if name in ('attention_pool_weight', 'stage3_residual_weight'):
             head = True
         decay = parameter.ndim > 1 and not name.endswith('.bias')
         key = (head, decay)

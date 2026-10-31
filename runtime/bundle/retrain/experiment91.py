@@ -23,6 +23,7 @@ PAIR_SIGMOID_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-2
 PHOTO_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-photoidentity-v1'
 NO_AGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-noage-v1'
 CONTENT_POOL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1'
+STAGE3_RESIDUAL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stage3residual-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -33,7 +34,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
-                      NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING)
+                      NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -78,7 +79,8 @@ def science_configuration():
                                                        PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                                        PHOTO_IDENTITY_SMALL_BINDING,
-                                                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING)
+                                                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING,
+                                                       STAGE3_RESIDUAL_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -93,6 +95,12 @@ def science_configuration():
                          or value.get('job', {}).get('training_photometric') is not None
                          or value.get('job', {}).get('training_views') is not None
                          or value.get('candidate', {}).get('attention_pool') != value.get('job', {}).get('attention_pool')))
+                or (value.get('candidate_profile') == STAGE3_RESIDUAL_SMALL_BINDING
+                    and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or value.get('job', {}).get('training_photometric') is not None
+                         or value.get('job', {}).get('training_views') is not None
+                         or value.get('job', {}).get('attention_pool') is not None
+                         or value.get('candidate', {}).get('stage3_residual') != value.get('job', {}).get('stage3_residual')))
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
@@ -123,7 +131,7 @@ def candidate_from_configuration(value):
                                         FIT_SSL_SMALL_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                                         PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                         PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
-                                        CONTENT_POOL_SMALL_BINDING):
+                                        CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -156,6 +164,12 @@ def candidate_from_configuration(value):
                             experiment_order=34,
                             readout='native_content_attention_pool_final_LN_dropout_linear_plus_age',
                             attention_pool=ATTENTION_POOL_RULE)
+        if value['candidate_profile'] == STAGE3_RESIDUAL_SMALL_BINDING:
+            from .stage3_residual import STAGE3_RESIDUAL_RULE
+            expected.update(id='r125-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stage3residual-9010',
+                            experiment_order=35,
+                            readout='native_final_LN_dropout_linear_plus_stage3_gap_residual_plus_age',
+                            stage3_residual=STAGE3_RESIDUAL_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -355,6 +369,7 @@ def validate_job(job):
         'final_downsample_stride': configured.get('final_downsample_stride'),
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': configured.get('attention_pool'), 'initial_checkpoint': None,
+        'stage3_residual': configured.get('stage3_residual'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -449,6 +464,8 @@ def describe_model(model):
             or network.classifier[-2].p != science_configuration()['job']['dropout']
             or (science_configuration()['candidate_profile'] != CONTENT_POOL_SMALL_BINDING
                 and any(n == 'attention_pool_weight' or n == 'q' for n, _ in model.named_parameters()))
+            or (science_configuration()['candidate_profile'] != STAGE3_RESIDUAL_SMALL_BINDING
+                and any(n == 'stage3_residual_weight' for n, _ in model.named_parameters()))
             or not any(n['name'] == 'network.classifier.0' for n in norms)
             or any(n['eps'] != (candidate()['final_norm_eps'] if n['name'] == 'network.classifier.0' else 1e-6) for n in norms)):
         raise ValueError('actual Tiny native avgpool/768/noq/noBN/LN/dropout differs')
@@ -461,6 +478,17 @@ def describe_model(model):
         weight = model.attention_pool_weight
         result['attention_pool'] = {'parameter_name': 'attention_pool_weight',
                                     'shape': list(weight.shape), 'dtype': str(weight.dtype)}
+    if science_configuration()['candidate_profile'] == STAGE3_RESIDUAL_SMALL_BINDING:
+        from .stage3_residual import validate_model
+        validate_model(model, science_configuration()['job'])
+        weight = model.stage3_residual_weight
+        convolution = network.features[4][1]
+        if (not isinstance(convolution, nn.Conv2d) or convolution.out_channels != 384
+                or len(network.features) != 8):
+            raise ValueError('stage3 Small feature stack differs')
+        result['stage3_residual'] = {'parameter_name': 'stage3_residual_weight',
+            'shape': list(weight.shape), 'dtype': str(weight.dtype),
+            'feature_index': 5, 'channels': convolution.out_channels}
     if ('final_downsample_stride' in science_configuration()['job']
             or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
         convolution = network.features[6][1]
@@ -527,6 +555,12 @@ def validate_normalization(value):
             raise ValueError('actual Small content pooling parameter differs')
     elif value.get('attention_pool') is not None:
         raise ValueError('unregistered attention pooling parameter')
+    if science_configuration()['candidate_profile'] == STAGE3_RESIDUAL_SMALL_BINDING:
+        if value.get('stage3_residual') != {'parameter_name': 'stage3_residual_weight',
+                'shape': [1, 384], 'dtype': 'torch.float32', 'feature_index': 5, 'channels': 384}:
+            raise ValueError('actual Small stage3 residual parameter differs')
+    elif value.get('stage3_residual') is not None:
+        raise ValueError('unregistered stage3 residual parameter')
     if ('final_downsample_stride' in configured
             or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
         stride = configured.get('final_downsample_stride', 2)
@@ -595,6 +629,16 @@ def validate_checkpoint(payload):
         raise ValueError('R115 fixed fit-only derived initialization lineage absent or incompatible')
     validate_age(payload, job)
     validate_normalization(payload.get('candidate_normalization', {}))
+    if science_configuration()['candidate_profile'] == STAGE3_RESIDUAL_SMALL_BINDING:
+        import torch
+        from .stage3_residual import STAGE3_RESIDUAL_RULE
+        if job.get('stage3_residual') != STAGE3_RESIDUAL_RULE:
+            raise ValueError('checkpoint stage3 residual protocol differs')
+        for state in (payload['model'], payload['ema']['model']):
+            weight = state.get('stage3_residual_weight')
+            if (not isinstance(weight, torch.Tensor) or tuple(weight.shape) != (1, 384)
+                    or weight.dtype != torch.float32 or not bool(torch.isfinite(weight).all())):
+                raise ValueError('checkpoint stage3 residual tensor differs')
     if job.get('freeze_features_before') is not None:
         proof = payload.get('parameter_trainability', {})
         names = sorted(payload['model'])

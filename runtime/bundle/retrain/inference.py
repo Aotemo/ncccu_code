@@ -378,7 +378,7 @@ def export_model(source, output, *, checkpoint='best', threshold=.5, precision=N
         package = Path(__file__).resolve().parent
         (temporary / 'retrain').mkdir()
         files = ['__init__.py', 'data.py', 'verification.py', 'preprocessing.py',
-                 'engine.py', 'inference.py', 'models.py', 'persistence.py', 'ema.py','finite.py','age.py','attention_pool.py','imagenet_resnet.py']
+                 'engine.py', 'inference.py', 'models.py', 'persistence.py', 'ema.py','finite.py','age.py','attention_pool.py','stage3_residual.py','imagenet_resnet.py']
         for name in files:
             shutil.copy2(package / name, temporary / 'retrain' / name)
         for entry in ('predict.py', 'cost.py'):

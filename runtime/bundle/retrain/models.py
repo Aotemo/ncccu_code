@@ -406,6 +406,9 @@ def create_model(job, initialize=True):
             if hasattr(self, 'attention_pool_weight'):
                 from .attention_pool import image_logits
                 logits = image_logits(self, images)
+            elif hasattr(self, 'stage3_residual_weight'):
+                from .stage3_residual import image_logits
+                logits = image_logits(self, images)
             else:
                 logits = self.network(images).flatten()
             if hasattr(self, 'age_weight'):
@@ -418,6 +421,9 @@ def create_model(job, initialize=True):
         attach_age(result, job['age'])
     if job.get('attention_pool') is not None:
         from .attention_pool import attach
+        attach(result, job)
+    if job.get('stage3_residual') is not None:
+        from .stage3_residual import attach
         attach(result, job)
     from .spatial_stride import apply_final_downsample_stride
     apply_final_downsample_stride(result, job)

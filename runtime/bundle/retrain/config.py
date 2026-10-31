@@ -91,6 +91,11 @@ def validate_job(job):
         validate_spec(job['attention_pool'])
         if job['model'] not in ('convnext_tiny', 'convnext_small') or job['precision'] != 'fp32':
             raise ValueError('content attention pooling requires a registered FP32 768-wide model')
+    if job.get('stage3_residual') is not None:
+        from .stage3_residual import _validate_spec
+        _validate_spec(job['stage3_residual'])
+        if job['model'] != 'convnext_small' or job['precision'] != 'fp32' or job.get('attention_pool') is not None:
+            raise ValueError('stage3 residual requires the registered FP32 Small final-GAP model')
     if job.get('mixup') is not None:
         from .mixup import validate_spec
         validate_spec(job['mixup'])
@@ -243,7 +248,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

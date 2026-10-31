@@ -1,4 +1,4 @@
-"""R124R1 one-shot CPU preflight and activation, without a transport round trip."""
+"""One-shot CPU preflight and activation, without a transport round trip."""
 import argparse
 import hashlib
 import json
@@ -17,7 +17,7 @@ def sha(path):
 
 
 def execute_sequence(preflight_command, audit_prefix, preflight_path, observed_at, launch,
-                     now=time.time):
+                     now=time.time, round_id=ROUND):
     """Run one preflight, then pass that exact receipt into one audit call."""
     for command in (preflight_command, audit_prefix):
         position = command.index('--observed-at')
@@ -29,7 +29,7 @@ def execute_sequence(preflight_command, audit_prefix, preflight_path, observed_a
         raise ValueError('R124R1 preflight failed; activation not called')
     receipt = json.loads(Path(preflight_path).read_text())
     if (receipt.get('exit_code') != 0 or receipt.get('observed_at') != observed_at
-            or receipt.get('round_id') != ROUND):
+            or receipt.get('round_id') != round_id):
         raise ValueError('R124R1 preflight receipt identity differs; activation not called')
     # Reserve a few seconds for the existing, unchanged 120-second activation gate.
     if not 0 <= now() - observed_at <= 110:
@@ -44,13 +44,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--work-root', type=Path, required=True)
     parser.add_argument('--authorization-reference', required=True)
+    parser.add_argument('--round-id', default=ROUND)
     args = parser.parse_args()
     root = args.work_root.resolve(strict=True)
     formal = root / 'formal-cpu'
     site = formal / 'package/SITE_BINDING.json'
     site_value = json.loads(site.read_text())
-    if (site_value['round_id'] != ROUND or
-            Path(site_value['round_root']).name != ROUND):
+    if (site_value['round_id'] != args.round_id or
+            Path(site_value['round_root']).name != args.round_id):
         raise ValueError('R124R1 must have its own round root')
     pod_live = root / 'POD-LIVE.json'
     observed_at = pod_live.stat().st_mtime  # Time the fresh kubectl snapshot was received.
@@ -89,8 +90,8 @@ def main():
                                   stderr=subprocess.STDOUT, check=False).returncode
 
     receipt_sha = execute_sequence(preflight_command, audit_prefix, preflight,
-                                   observed_at, launch)
-    result = {'status': 'R124R1_unique_activation_exit0', 'round_id': ROUND,
+                                   observed_at, launch, round_id=args.round_id)
+    result = {'status': 'unique_activation_exit0', 'round_id': args.round_id,
               'observed_at': observed_at, 'preflight_sha256': receipt_sha,
               'activation_audit_sha256': sha(audit_root / 'FORMAL-BINDING-AUDIT.json'),
               'GPU_started': False}
