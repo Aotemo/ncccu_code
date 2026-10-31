@@ -15,6 +15,11 @@ build = importlib.util.module_from_spec(spec); spec.loader.exec_module(build)
 CHECKS = []
 
 
+def layerwise_profile(profile):
+    from retrain import experiment91 as ex
+    return profile in (ex.LAYERWISE_LR_SMALL_BINDING, ex.LAYERWISE_LR_SMALL_R1_BINDING)
+
+
 def group_lrs_match(groups, job):
     expected = {'backbone': job['backbone_lr'], 'head': job['head_lr']}
     if job['age']['enabled']:
@@ -87,7 +92,7 @@ def main(args):
     is_stage3_residual = ex.science_configuration()['candidate_profile'] == ex.STAGE3_RESIDUAL_SMALL_BINDING
     is_rolewise_clip = ex.science_configuration()['candidate_profile'] == ex.ROLEWISE_CLIP_SMALL_BINDING
     is_head_warmup = ex.science_configuration()['candidate_profile'] == ex.HEAD_WARMUP_SMALL_BINDING
-    is_layerwise = ex.science_configuration()['candidate_profile'] == ex.LAYERWISE_LR_SMALL_BINDING
+    is_layerwise = layerwise_profile(ex.science_configuration()['candidate_profile'])
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)

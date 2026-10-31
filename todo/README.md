@@ -1,8 +1,12 @@
 # 当前任务与接续
 
-**最新接续：用户已迁移设备并明确解除暂停，继续挑战赛；本轮新建规划与执行 Sol/A。** [独立接续审计与方案](DEVICE-RESUME-AUDIT-20261101.md)保留初次缺文件、初始账号认证失败和用户纠正账号后的实查：SSH 网络/握手已到达，更正账号下的给定 RSA 公钥已提交但服务器仍未接受（exit255），需核匹配密钥/公钥授权；尚未进入 Pod，Pod/资源/资产/deadline/grant/index 实时状态仍全部 unknown。原 R130 one-shot owner 没有合法恢复入口，不能按原合同直接续训；R130 保持 interrupted/1503/无最终 selector、无 official、双门未判，不把旧 safe 当当前安全。未启动训练，单一 R130R1 fresh 草案待明确新合同授权，当前不自行 fresh、继承或 seed27。
+**最新用户指令：“不需要续训，直接重头开始训练 R130 即可”。现按原科学方案准备独立fresh新轮R130R1。** [接续审计](DEVICE-RESUME-AUDIT-20261101.md)保留初次缺文件和旧认证失败，并接续新入口实际成功：唯一Ready Pod与原R130五项绑定匹配，Python/依赖、120有效CPU、8张BW3000及占用/存储/必要资产已实核；20%准备新份额仅A实际12核，训练计划96核互斥。原implementation已过期，训练/整轮deadline及原grant观察时尚有效，但原one-shot无合法恢复入口；原R130保持interrupted/1503/无最终selector/无official/双门未判，checkpoint只stat/小件未hash/load。用户已明确授权step0/空Adam/公开初始化，A完成必要新身份和Git冻结、准入后直接启动，不复用旧clock/launch、不再等待额外批准。具体本次tokenfree小回执与边界见审计；尚不冒称新训练已启动。
 
 当前 server `srv_KqW7XmJdXxGJ`；规划 `6b8ad6f4-d29a-4647-8fcf-d986715575f0` 仅文本只读；执行 Sol/A `7c17043e-8381-43e9-b185-6e142634ad72` 是唯一 Git 写入、Pod 和潜在 GPU owner；根协调 `b2a18d8d-628c-4c7c-9cf7-9345e736e0ac`。无 B、无派生、不恢复旧 Agent。下文原暂停、旧 owner 与运行状态均为历史原文；本页首接续覆盖其中等待用户解除暂停的条件，不覆盖原 one-shot/clock/token/lease 及科学约束。
+
+独立新轮正式身份及最小执行步骤见 [R130R1合同](auroc-999/R130R1-DECISION.md)：order41、同seed原科学值、公开fresh/step0/空Adam。用户另已明确授权每30分钟汇报、每5分钟小检测完成并持续推进后续训练；根实际新建唯一 active heartbeat `9c70b2bc`，`*/5`、Asia/Shanghai、无maxRuns/expiry，`:00/:30`汇报、其他5分钟轻检，完整终态与实际安全确认后推进。旧 `1c2c8c3b` 不恢复，A不另建schedule/监控服务；后续按完整内部结果和固定分支规则推进，不按官方调参。
+
+R130R1唯一新增身份窄验已实际1/1 PASS：旧40/新41均接受，除profile/id/order/note外科学配置整件一致，且均进入原正式layerwise路径。新profile未支持的真实先行失败与修正后通过分列保存；GREEN CPU回执SHA `56b1e755a4ac59f285cedfe26c02cf66faa8ba314e3b669235dc1d09b6aa9c98`。当前正在汇集Git同步/精确部署，尚未把normal formal、新grant、activation或GPU训练写成完成；原3算法fixture不重跑。
 
 **用户最高优先新指令：『直接暂停本轮训练,等我迁移设备后继续』。R130已按用户要求中断并实际安全停止，当前无活跃训练，唯一heartbeat已删除。** 此指令覆盖旧“本轮结束后暂停”，不再等待自然完成。不自动恢复本轮、派seed27、新fresh或方法评议；须用户迁移后明确恢复，再核保存与原deadline/启动约束，不能承诺直接续训。当前实例未关闭、资源未续租。设备单一入口为[最终停止交接](DEVICE-HANDOFF-20261101.md)，已从准备草稿定稿。
 
