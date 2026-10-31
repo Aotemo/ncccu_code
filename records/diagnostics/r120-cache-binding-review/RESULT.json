@@ -1,0 +1,73 @@
+{
+  "asset_binding_mismatch": {
+    "R120": false,
+    "R122": false
+  },
+  "binding_lexical_difference_fields": [],
+  "binding_paths_absolute": {
+    "R120_cache_root": true,
+    "R120_data_root": true,
+    "R122_cache_root": true,
+    "R122_data_root": true
+  },
+  "binding_resolved_difference_fields": [],
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "diagnostic_private_cwd_affects_relative_binding": false,
+  "elapsed_seconds": 0.2383430846966803,
+  "entry_count": 1,
+  "entry_metadata": {
+    "npy": {
+      "exists": false
+    },
+    "receipt": {
+      "exists": false
+    }
+  },
+  "existing_error_chain_category": "entry_missing",
+  "failure_category": "entry_missing",
+  "first_failed_entry_identified": true,
+  "metadata_types_read": [
+    "R120_SITE_BINDING",
+    "R120_ASSETS",
+    "R122_SITE_BINDING",
+    "R122_ASSETS",
+    "frozen_preparation_source_constants",
+    "Pillow_distribution_metadata",
+    "original_WORKER_ERROR",
+    "original_WORKER_log",
+    "original_private_roster",
+    "sealed_manifest",
+    "one_receipt_stat",
+    "one_npy_stat",
+    "one_source_file_stat_only"
+  ],
+  "namespace_equal": true,
+  "namespace_sha256": {
+    "R120": "429cbdbda7d0827c564d279fcfcef12d5bf3784f127c7226841d9b5948fee960",
+    "R122": "429cbdbda7d0827c564d279fcfcef12d5bf3784f127c7226841d9b5948fee960"
+  },
+  "no_model_or_image_array_bytes": true,
+  "original_fit256_status_unchanged": "unknown",
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "policy_difference_fields": [],
+  "policy_pillow_version_equal": true,
+  "policy_preparation_version_equal": true,
+  "policy_prepared_size_equal": true,
+  "schema": "r120-cache-binding-review-v1",
+  "source_stat_kind": "regular",
+  "status": "complete_metadata_only",
+  "within_300_seconds": true
+}
