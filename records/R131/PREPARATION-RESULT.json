@@ -1,0 +1,53 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101",
+  "git_commit": "7aa3232b7a2e47dedf68839e19deb29ce4ec6751",
+  "tree_sha": "0a8d04b9e951f54379ede80c01474a7e69baba10",
+  "science_sha256": "45995c2fe6783199c8df561accd5da623c6726c2276eef491c2d429ba0b7a321",
+  "candidate": {
+    "id": "r131-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-pointwise-lora8-9010",
+    "experiment_order": 42,
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "low_rank_policy": {
+      "version": "convnext-small-pointwise-lora8-v1",
+      "rank": 8,
+      "alpha": 8,
+      "targets": "all-36-block-pointwise-3-5",
+      "base": "frozen",
+      "merge": false
+    }
+  },
+  "checks": 21,
+  "actual_model_tensor_sha256": "9a0665aac156939f13bb6dffbb10077d8c583d193f1eb291526c187834680fc4",
+  "parameter_elements_by_role": {
+    "backbone": 1082880,
+    "head": 769,
+    "age": 2
+  },
+  "trainable_tensors": 147,
+  "named_group_count": 4,
+  "all_parameter_tensors": 489,
+  "frozen_parameter_tensors": 342,
+  "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+  "optimizer_state_entries": 0,
+  "package_manifest_sha256": "1998bac0c5215ddfe29f15e1dd6366717814f1ce060a00b7b337f906a70362fa",
+  "cpu_prep_sha256": "86008c3d48de4fddb8c812313c57f0a6803f690d4673138ac1d6f253ea496376",
+  "deployment_sha256": "3bf7d2c70c05363df838907d0ef2b5064ee1bd30bd3cb8783136f0d07c9eee0c",
+  "site_sha256": "f397887e2d345a8b6de534a95b6142d34a02a342e3eafa34f7b7007a6fc0ed25",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "formal_runs": 1
+}

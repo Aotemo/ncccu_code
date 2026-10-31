@@ -1,0 +1,445 @@
+{
+  "schema": "r131-first-success-v1",
+  "status": "first_success_observed",
+  "at_beijing": "2026-11-01T05:07:33.619216+08:00",
+  "round_id": "r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101",
+  "git_commit": "7aa3232b7a2e47dedf68839e19deb29ce4ec6751",
+  "science_sha256": "45995c2fe6783199c8df561accd5da623c6726c2276eef491c2d429ba0b7a321",
+  "site_binding_sha256": "f397887e2d345a8b6de534a95b6142d34a02a342e3eafa34f7b7007a6fc0ed25",
+  "owner": {
+    "pid": 342435,
+    "start_ticks": "350805912",
+    "state": "S",
+    "observed_start_ticks": "350805912",
+    "start_match": true,
+    "argv_match": true,
+    "mask": [
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "active_match": true
+  },
+  "rank_processes": [
+    {
+      "pid": 342447,
+      "start_ticks": "350810152",
+      "state": "R",
+      "observed_start_ticks": "350810152",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "active_match": true,
+      "rank": 0
+    },
+    {
+      "pid": 342448,
+      "start_ticks": "350810153",
+      "state": "R",
+      "observed_start_ticks": "350810153",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "active_match": true,
+      "rank": 1
+    },
+    {
+      "pid": 342449,
+      "start_ticks": "350810155",
+      "state": "S",
+      "observed_start_ticks": "350810155",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "active_match": true,
+      "rank": 2
+    },
+    {
+      "pid": 342450,
+      "start_ticks": "350810156",
+      "state": "R",
+      "observed_start_ticks": "350810156",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "active_match": true,
+      "rank": 3
+    },
+    {
+      "pid": 342451,
+      "start_ticks": "350810157",
+      "state": "R",
+      "observed_start_ticks": "350810157",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "active_match": true,
+      "rank": 4
+    },
+    {
+      "pid": 342452,
+      "start_ticks": "350810159",
+      "state": "R",
+      "observed_start_ticks": "350810159",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "active_match": true,
+      "rank": 5
+    },
+    {
+      "pid": 342453,
+      "start_ticks": "350810160",
+      "state": "S",
+      "observed_start_ticks": "350810160",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "active_match": true,
+      "rank": 6
+    },
+    {
+      "pid": 342454,
+      "start_ticks": "350810161",
+      "state": "S",
+      "observed_start_ticks": "350810161",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "active_match": true,
+      "rank": 7
+    }
+  ],
+  "rank_devices": [
+    {
+      "rank": 0,
+      "world_size": 8,
+      "device": "cuda:0",
+      "physical_pci": "0000:09:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 1,
+      "world_size": 8,
+      "device": "cuda:1",
+      "physical_pci": "0000:36:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 2,
+      "world_size": 8,
+      "device": "cuda:2",
+      "physical_pci": "0000:55:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 3,
+      "world_size": 8,
+      "device": "cuda:3",
+      "physical_pci": "0000:77:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 4,
+      "world_size": 8,
+      "device": "cuda:4",
+      "physical_pci": "0000:85:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 5,
+      "world_size": 8,
+      "device": "cuda:5",
+      "physical_pci": "0000:b5:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 6,
+      "world_size": 8,
+      "device": "cuda:6",
+      "physical_pci": "0000:d5:00.0",
+      "total_memory_bytes": 68702699520
+    },
+    {
+      "rank": 7,
+      "world_size": 8,
+      "device": "cuda:7",
+      "physical_pci": "0000:f5:00.0",
+      "total_memory_bytes": 68702699520
+    }
+  ],
+  "progress": {
+    "status": "running",
+    "successful_updates": 225,
+    "attempted_updates": 225,
+    "skipped_updates": 0,
+    "cycle": 0,
+    "evaluated_cycle": 0,
+    "stop_reason": null
+  },
+  "initial": {
+    "actual_gate_completed": true,
+    "rank_count": 8,
+    "group_count": 4,
+    "all_rank_initial_Adam_empty": true,
+    "model_tensor_sha256": "9a0665aac156939f13bb6dffbb10077d8c583d193f1eb291526c187834680fc4",
+    "parameter_tensors": 147,
+    "parameter_elements_by_role": {
+      "age": 2,
+      "backbone": 1082880,
+      "head": 769
+    },
+    "batch_norm_modules": 0,
+    "receipt_sha256": "e8bd4df3e7278f7959f1204a0dc1ff900f94dff6dcc0d9df441fe22d409a46c9"
+  },
+  "first_update": {
+    "event_observed": true,
+    "all_eight_actual_proofs_valid": true,
+    "event_line_sha256": "009652b729c82beb4c9abc1837f31c47585f83d0f17f0cce1b056b6d76929dcb",
+    "rank_proofs": [
+      {
+        "rank": 0,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 1,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 2,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 3,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 4,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 5,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 6,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      },
+      {
+        "rank": 7,
+        "successful_updates": 1,
+        "world_finite": true,
+        "optimizer_state_entries": 147,
+        "observed_Adam_steps": [
+          1
+        ],
+        "trainable_parameter_tensors": 147,
+        "frozen_parameter_tensors": 342,
+        "frozen_gradients_absent": true,
+        "frozen_Adam_absent": true,
+        "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+        "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e"
+      }
+    ]
+  },
+  "activation_exit_zero": true,
+  "activation_call_markers": 1,
+  "dispatch_present": true,
+  "prelaunch_absence_preserved": true,
+  "checkpoint_loaded_by_observer": false,
+  "model_created_by_observer": false,
+  "forward_executed_by_observer": false,
+  "official_result_present": false,
+  "observer_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}

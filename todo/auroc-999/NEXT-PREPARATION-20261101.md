@@ -1,6 +1,6 @@
 # R130R1运行期间：固定第二seed与一个后续方向的有界准备
 
-**接续：R130R1完整两门false/actualsafe，根已正式采纳唯一R131/order42固定pointwise-r8。** R1最终11200/eval14/bad4，唯一online c10@8000 AUROC `.9850016436060114`，固定layerwise .8关闭/no seed27，见[完整结果](../../records/R130R1/README.md)。R131正式身份和步骤转入[R131决定页](R131-DECISION.md)；新公开fresh whole实测`9a0665aac156939f13bb6dffbb10077d8c583d193f1eb291526c187834680fc4`，原345共同50c/489总/342冻/147训/4组/空Adam。新SCI显式`.996`门，当前正做新身份窄验与一次normalformal准备，尚未启动GPU。本文仍由A唯一写入。
+**接续：R130R1完整两门false/actualsafe；唯一R131/order42固定pointwise-r8已获真实首成功。** R1最终11200/eval14/bad4，唯一online c10@8000 AUROC `.9850016436060114`，固定layerwise .8关闭/no seed27，见[完整结果](../../records/R130R1/README.md)。R131身份和步骤转入[R131决定页](R131-DECISION.md)：runGit7aa3232，身份1/1、normalformal一次21/21、692源码exact及唯一activation/正确launch0；05:07:33.619实查running225/0skip/eval0，真实八rank初态与自然step1的147实际Adam[1]/WORLDfinite/冻基座exact已证。新public whole9a0665、原345共同50c/489总/342冻/147训/4组，空Adam只指初态。新SCI显式`.996`，尚无完整科学结果；小件见[启动归档](../../records/R131/README.md)，不重toy或新增GPU预演。本文仍由A唯一写入。
 
 下文保留准备阶段的两条条件路径与证据边界：A路径因R1两门未过而关闭；B方向现已作为唯一R131采纳，不与R1叠加。历史“未采纳/无身份”仅指当时阶段，新身份/新时钟/新grant由R131独立承接，旧轮与保护资产保持。
 

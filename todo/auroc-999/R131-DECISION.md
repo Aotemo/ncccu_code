@@ -2,6 +2,8 @@
 
 根依据用户持续推进授权，在R130R1完整收口后正式采用本轮。R1为完整11200成功更新/14轮/bad4早停，唯一online c10@8000 AUROC `.9850016436060114`，未胜R107及R120 singlebest；固定layerwise .8关闭/no seed27，不扫邻近factor/LR/group/seed。R130原1503中断仍单独保留，不拼曲线或继承其initial/Adam。
 
+**R131已真实运行，05:07:33.619216北京时间观察为225success=attempt/0skip/eval0。** runGit `7aa3232b7a2e47dedf68839e19deb29ce4ec6751`；身份窄验1/1、normalformal一次21/21及692源码exact均已通过，唯一activation0/正确live launch0。真实8rank初态489/147/4组/Adam0与自然step1的147个实际Adamstate/observed[1]/WORLDfinite/frozen342基座exact已证；owner342435与8rank342447–54的start/argv/实际96核mask/设备均匹配。完整小件和阶段pins见[启动归档](../../records/R131/README.md)。首个05:06 pending是正常等待原controller初态门，未重复入口/重clock。
+
 ## 唯一身份与比较
 
 | 字段 | 冻结值 |
@@ -41,7 +43,9 @@
 - 6h训练/8h整轮/9h软件grant、Small12GiB/free20GiB/floor16GiB/300s保护保持；不新增物理资源、不续租、不关闭实例。全部R130 source/manifest/cache/checkpoint/protected、R120及KEEP-MODELS保留。
 - 新鲜薄链只在R131新根一次activation+一次正确live launch，真实8rank初态核489/147/空Adam/4组与frozen base；首自然成功核WORLDfinite、147个实际Adam state/step1及冻结基座exact，不追加forward/GPU预演。新saved-ID与后续step从实际state读，不用期望游标造证明。
 
-现阶段尚无本轮normalformal、activation/launch、GPU首步或科学结果；状态以随后的实际回执接续。通用standalone export/predict仍未支持或验证22K→1K材料与experiment91依赖闭包，本轮使用现有single91完整checkpoint冻结路径，不扩建导出平台。额外因子与保存边界冻基座hash的实际GPU吞吐、显存、保存时延、满24k时耗、500MB交付或100ms均未证；若需要新平台/缓存或扩大资源，报告具体不兼容并撤回该实现路径。
+normalformal、一次启动和真实首步已由本页首小件证实；尚无完整科学结果。活动冻结包不改，后续归档commit不冒runGit。通用standalone export/predict仍未支持或验证22K→1K材料与experiment91依赖闭包，本轮使用现有single91完整checkpoint冻结路径，不扩建导出平台。额外因子与保存边界冻基座hash的实际长期GPU吞吐、显存、保存时延、满24k时耗、500MB交付或100ms均未证；若需要新平台/缓存或扩大资源，报告具体不兼容并撤回该实现路径。
+
+当前轻查仅复用既有工具，在本轮prep的`CHECK-RUNNING-SMALL.py`显式传当前source-git observer、本轮live `SITE_BINDING.json`、`START-OBSERVATION-R131-2.json`及独立新输出路径；核round/Git/site SHA与首次实证一致后新读done/status及进程PID-start。R1completion不作R131 locator，旧helper和原件保留，不为适配额外观察。当前A软件entry为f5c193、有效至epoch1793486122.2924988；过期只另建future prep绑定，不热改本轮冻结grant。
 
 ## 完整结果分支
 
