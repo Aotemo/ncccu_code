@@ -1,0 +1,31 @@
+{
+  "completed_count_partial": 0,
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "driver_sha256": "f5639a19d057bb5df582c3fff675049270837c1d022133b1ef1c11ea994288b9",
+  "failure_stage": "readonly_prepared_forward",
+  "failure_type": "ValueError",
+  "freeze_sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2",
+  "no_partial_scientific_conclusion": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "round": "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+  "schema": "r120-fit256-aggregate-v1",
+  "selected_checkpoint_blob_sha256": "25229efdea3a91baeb0b5e5142a470c2a68a15bab9470f92e9de76b1b616cac6",
+  "selected_ema_tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+  "source_git_commit": "7922dd788f982bcb72d30a1a8e6d6e7761e42e88",
+  "status": "unknown",
+  "timed_out": false,
+  "total_wall_seconds": 23.740717126987875
+}
