@@ -378,11 +378,13 @@ def flatten_training_views(images, labels, age_features, training_views=None):
 class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
     def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
-                 training_scale=None, training_views=None, include_labels=True):
+                 training_scale=None, training_views=None, include_labels=True, training_photometric=None):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
             raise ValueError('unknown normalization')
+        if training_photometric not in (None, 'identity-v1'):
+            raise ValueError("training_photometric must be None or 'identity-v1'")
         self.root, self.rows = Path(data_root), rows
         self.image_size, self.training = image_size, bool(training)
         self.normalization = normalization
@@ -396,6 +398,7 @@ class ImageDataset:
             raise ValueError('training_views must be None, 1, or 2')
         self.training_views = 1 if training_views is None else training_views
         self.include_labels = bool(include_labels)
+        self.training_photometric = training_photometric
         self.age = age
         if age is not None:
             from .age import validate_spec
@@ -456,9 +459,15 @@ class ImageDataset:
             rng = random.Random(int(augmentation_seed))
             if rng.random() < .5:
                 image = ImageOps.mirror(image)
-            image = ImageEnhance.Brightness(image).enhance(rng.uniform(.9, 1.1))
-            image = ImageEnhance.Contrast(image).enhance(rng.uniform(.9, 1.1))
-            image = ImageEnhance.Color(image).enhance(rng.uniform(.9, 1.1))
+            if self.training_photometric == 'identity-v1':
+                # Keep the historical draw count and positions so geometry and the
+                # sample-key random stream are unchanged; the factors are unused.
+                for _ in range(3):
+                    rng.uniform(.9, 1.1)
+            else:
+                image = ImageEnhance.Brightness(image).enhance(rng.uniform(.9, 1.1))
+                image = ImageEnhance.Contrast(image).enhance(rng.uniform(.9, 1.1))
+                image = ImageEnhance.Color(image).enhance(rng.uniform(.9, 1.1))
             image = image.rotate(rng.uniform(-15, 15), resample=Image.Resampling.BILINEAR,
                                  expand=True, fillcolor=(0, 0, 0))
             scale, dx, dy = rng.uniform(*self.training_scale), rng.uniform(.25, .75), rng.uniform(.25, .75)

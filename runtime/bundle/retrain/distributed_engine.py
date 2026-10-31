@@ -588,7 +588,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         if successful<target and not early['stopped']:
             dataset=ImageDataset(data_root,manifest['rows'],job['image_size'],training=True,
                 normalization=job.get('normalization','unit'),prepared_size=job.get('prepared_size',0),age=job.get('age'),
-                training_scale=job.get('training_scale'),training_views=job.get('training_views'))
+                training_scale=job.get('training_scale'),training_views=job.get('training_views'),
+                training_photometric=job.get('training_photometric'))
             sampler=RankBatchSampler(manifest['rows'],manifest['fit_indices'],plan['reference_physical_batch'],
                 job['effective_batch'],job['positive_per_batch'],job['seed'],sampler_start(stage_spec,attempted) if stage_spec else attempted,
                 (target-successful+1)*101,rank=ctx.rank,world_size=ctx.world_size,per_rank_microbatch=plan.get('explicit_per_rank_microbatch'))
@@ -609,6 +610,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 from .age import unpack_batch,forward
                 before=time.monotonic();batch=next(iterator);waiting+=time.monotonic()-before
                 images,labels,indices,age_features=unpack_batch(batch,job,device)
+                if attempted==0 and micro==0:
+                    log('first_batch_dataset_policy',training_photometric=dataset.training_photometric,
+                        primary_samples=int(images.shape[0]))
                 local_indices.extend(indices.tolist())
                 images=images.to(device,non_blocking=True);labels=labels.to(device,dtype=torch.float32,non_blocking=True).reshape(-1)
                 primary_inputs+=images.shape[0]

@@ -69,6 +69,7 @@ def main(args):
     is_swin = job['model'] == 'swin_base'
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
+    is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -93,6 +94,22 @@ def main(args):
               and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
               and job.get('training_views') is None and job.get('native_local_view') is None)
+    if is_photo_identity:
+        from unittest.mock import patch
+        from retrain.data import ImageDataset
+        with patch('retrain.data.configured_cache', return_value=None):
+            training_dataset = ImageDataset(Path('.'), [], job['image_size'], training=True,
+                training_scale=job.get('training_scale'),
+                training_photometric=job.get('training_photometric'))
+            evaluation_dataset = ImageDataset(Path('.'), [], job['image_size'], training=False)
+        check('R122_training_Dataset_photometric_identity_and_logistic_official_binding',
+              job['loss'] == ex.PAIR_LOGISTIC_LOSS
+              and job.get('training_photometric') == training_dataset.training_photometric == 'identity-v1'
+              and evaluation_dataset.training_photometric is None
+              and job.get('training_views') is None and job.get('native_local_view') is None
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996,
+              {'training_dataset_policy': training_dataset.training_photometric,
+               'evaluation_dataset_policy': evaluation_dataset.training_photometric})
     if is_swin:
         check('R117_selected_internal_AUROC_0996_official_gate_bound',
               ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996)
