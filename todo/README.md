@@ -2,7 +2,9 @@
 
 目标是在固定 9:1、单模型和内部 dev 唯一选点的合同下继续实验；raw AUROC 尚未达到 0.999，不称总体完成。自 R117 起，只有完整训练并冻结的所选内部 dev AUROC 达到 `0.996`，才运行一次官方 5849 验证；未达则记 `not_run_by_policy`。官方结果不用于训练、选点或下一轮调参。长期约束见 [AGENTS.md](../AGENTS.md)，执行入口见 [EXECUTION.md](../docs/EXECUTION.md)。
 
-**[R127 训练旋转identity消融](auroc-999/R127-DECISION.md)已由协调方采用并交A/B必要准备，仅一次seed20261029 fresh。** order37/configs/R127-SCIENCE.json；直接R107，只设job/candidate.training_rotation=`identity-v1`：照耗原angle draw但不应用rotate，其余原三光度、mirror、scale/dxdy及总8draw保持，eval原样。原None光度/globalclip1/GAP+age路径恢复，不继承已关闭分支。SCIENCE落地/Git/新正式包/activation/8rank/首成功全部待A实际回执，不把采用或文档成稿写成开训。完整strict>R107 `.9884405731067525`才正向且strict>singlebest R120 `.9894773092062407`才由协调方另派27对R108 `.9872328538178018`；未过不扫角度/scale/插值/几何或seed，独立完整freeze`.996`官方门和资源合同不变。A唯一Git/GPU，B仅data.py与新rotation测试文本，规划仅本页和R127决定页；必要准入齐直接原一次activation/fresh，无文档或用户重新批准门。
+**[R127 训练旋转identity消融](auroc-999/R127-DECISION.md)已完整工程有效并安全退出；科学门通过、实用晋级门未通过，有限正向但未刷新best，本阶段结束/no seed27。** A实际2026-10-31 20:02:37.455终态：9600success=attempt/max24000/skip0/eval12/earlybad4，completed/early_stopping；唯一EMA c8@6400内部AUROC `.9886320261146719`、AP `.825473259026753`、error_twice18882。规划已一次文本核freeze selected/顶层blob与TRAIN completed/exit0/harddeadline/signals[]/9600；attempt、官方与safe引用A `1d021ca4` / `4d967de4`回执。strict>R107 `.9884405731067525`为true，strict>singlebest R120 `.9894773092062407`为false，不写双门false或科学阴性。实际训练/选点R127为9600/EMA6400、R107为6400/EMA3200，不称等更新或等计算、显著或稳定复现。不因AP/partial/官方救第二门，不角度/scale/插值/其他几何或seed补考；R107原None旋转继续比较路径，不升级本轮为方法基线。
+
+据A实际回执，3窄验、19formal、native50c、实际firstbatch及唯一activation/launch分阶段保留；runGit `be43b1143bb74c030492136b902d25ec8184fe9d`，tree仅已有短值 `ac9e9d96`不补全。官方不足`.996`按政策未运行/evaluatedfalse/metricsnull，无新前向，TRAIN/ROUND/done正常completed。20:02:37实际safe：owner302238/start346919942匹配现Z不称reaped，原8rank退出、锁/设备使用者空、denied0/8busy0；非agent idle推断。当前无活跃训练或新轮派发；必要4件归档由A处理，不假填archive Git。原R107/R108锚点、R120仅singlebest、独立`.996`官方门及`.999`持续目标、6h8h9h/12GiB/floors/保存全部保持。仅接一次有界文本评议，不注册下一候选或延长旧诊断，阶段结束非总体暂停。
 
 **[R126 按优化器角色分别裁剪](auroc-999/R126-DECISION.md)已关闭并完成必要归档。** A实际2026-10-31 17:34:48.499终态：6400success=attempt/max24000/skip0/eval8/bad4/early_stopping；唯一EMA c4@3200内部AUROC `.9867283329981902`、AP `.8252218982626471`、error_twice22044，低于R107 `.9884405731067525`及singlebest R120 `.9894773092062407`。固定三role norm1分支关闭/no seed27。规划已一次文本核freeze selected与TRAIN completed/exit0/6400/signals[]；attempt/官方/safe等引A回执。官方不足`.996`按政策未运行/metricsnull，TRAIN/ROUND/done正常完整，owner294462原start346304405匹配现Z不称reaped、原8rank退出、锁设备空/denied0/8busy0/actualsafe true。
 
@@ -12,9 +14,9 @@
 
 用户于2026-10-31约17:55明确说明 `True_Label` 按“单张图可见征象”判定，原观测范围unknown据此解除；这是用户说明，并非独立取得的赛方原文、标注验证或临床确认。患者关系等仍未知，不由此推断错标、无噪声、`.999`可达或应移除年龄支路；现材料也尚未区分优化、表示与泛化原因。不要求临床审计或资料上传，不将信息缺口设为未来合法实验的硬门，也无需用户重新批准训练。此前有界评议及此次指定rotation问题评议均已完成，后者由协调方采用为唯一R127；L2-SP/参数锚定已有非等价历史反例，此前未采用，不包装成未试新方案或据跨版本结果宣布方法普遍无效。不延长旧诊断或另建候选队列，持续目标不变。
 
-原 `data.py` 训练像素路径已文本核为mirror→三项photometric→`rotate(angle[-15,15], BILINEAR, expand=True)`→scale `[.85,1]`/dx/dy→整图缩放并放入512画布，不是random-resized-crop或随机裁切。R104/R105也未新增裁切，不能以“裁剪丢失征象”立论。R127检验旋转策略净效应，同时影响方向增强、expand尺寸/黑边与后续有效内容尺度，非纯插值因果或已证临床细节损坏，不能恢复prepared512之前信息。R104/R105尺度两seed正向和R122去光度阴性均为反例，收益未知。
+原 `data.py` 训练像素路径已文本核为mirror→三项photometric→`rotate(angle[-15,15], BILINEAR, expand=True)`→scale `[.85,1]`/dx/dy→整图缩放并放入512画布，不是random-resized-crop或随机裁切。R104/R105也未新增裁切，不能以“裁剪丢失征象”立论。R127检验旋转策略净效应，同时影响方向增强、expand尺寸/黑边与后续有效内容尺度；本次有限正向不证明纯插值因果或临床细节损坏，也不能恢复prepared512之前信息。R104/R105尺度两seed正向和R122去光度阴性仍是去增强先验的反例，不由本轮扩展几何扫描。
 
-协调方转交：上份README单文件同步已实际完成，main `dece30d557bea7c3d0c072651c24e830f3a7d760`、parent `81d3360496681c0ff84a7719e8926bfdc3cab927`，1file正文exact；不将这次历史同步写成R127新Git或正式证据。当前两页由规划文本freeze后交协调方，A随必要源码统一同步。
+协调方转交：此前README单文件同步已实际完成，main `dece30d557bea7c3d0c072651c24e830f3a7d760`、parent `81d3360496681c0ff84a7719e8926bfdc3cab927`，1file正文exact；不将这次历史同步写成R127结果归档。当前收口两页由规划文本freeze后交协调方，A随必要结果统一归档。
 
 **[R125 第三阶段GAP残差读出](auroc-999/R125-DECISION.md)已完整工程有效并安全退出，固定分支关闭/no seed27。** A实际2026-10-31 16:02:58.840终态：6400success=attempt/max24000/skip0/eval8/bad4/early_stopping；唯一EMA c4@3200内部AUROC `.9867572315654234`、AP `.8252083971535648`、error_twice21996，低于R107 `.9884405731067525`与singlebest R120 `.9894773092062407`两门。规划已一次文本核freeze selected及TRAIN completed/exit0/6400/signals[]；其余attempt、官方和safe转引A回执。官方不足`.996`按政策未运行/metricsnull，TRAIN/ROUND/done完整；owner286715原start345764120匹配现Z不称reaped，原8rank退出、锁设备空、denied0/8busy0/actualsafe true。
 

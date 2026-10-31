@@ -1,6 +1,6 @@
 # R127：训练旋转 identity 单项消融
 
-**状态：协调方已采用，仅授权 seed20261029 一次新 fresh，A/B 必要准备中。** SCIENCE落地、Git同步、正式验收、部署、activation、真实8rank与首成功均待A实际回执；本文不是开训实证或新增批准门。2026-10-31。采用及本次activation授权reference为协调消息 `15069bfb-e9c6-4227-b113-bf9530a6aecb`。
+**最终状态：完整工程有效且actual safe；同seed科学门通过、实用晋级门未通过，有限正向但未刷新best，本阶段结束/no seed27。** 2026-10-31 20:02:37.455终态，唯一EMA c8@6400内部AUROC `.9886320261146719`、AP `.825473259026753`。不写双门false或科学阴性，不升级方法基线或扫描几何参数。下文保留原预登记合同，末尾记录实际证据；采用及本次activation授权reference仍为协调消息 `15069bfb-e9c6-4227-b113-bf9530a6aecb`。
 
 ## 唯一身份
 
@@ -51,3 +51,18 @@ A每个计算入口工具动态核原Pod UID/Ready/Python/effectiveCPU/本人ent
 完整工程有效selected内部5140 AUROC严格大于R107 **.9884405731067525**才是同seed科学正向；同时严格大于singlebest R120 **.9894773092062407**才由协调方另派固定seed20261027对R108 **.9872328538178018**。只过第一门为有限正向、无新best，阶段结束；未胜R107关闭本固定rotation identity。仅本次首seed授权，不自动seed27，不角度/scale/插值/其他几何或seed补考；AP/partial/难组/official/platform不救主判。
 
 完整训练并按原selector冻结唯一checkpoint后，selected内部AUROC **>=.996**才完整official5849一次；不足正常completed并记 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，safe另实核。中途partial达阈不触发；工程未启动没有selected不能写threshold_not_met。此门独立于两科学门，无平台test CSV/提交。`.999`未达，阶段结束仍由协调方接续科学判断，不称总体完成或自动派下一方向。
+
+## 实际终态与有限结论
+
+协调方转交A `1d021ca4` / `4d967de4`实际回执：2026-10-31 **20:02:37.455** completed/early_stopping，success=attempt **9600** / max24000 / skip0 / eval12 / earlybad4。规划一次文本核本机 `work/r127-20261031-a/progress-2000/SINGLE-MODEL-FREEZE.json` selected与顶层checkpoint/blob、`evidence/TRAIN_RESULT.json`必要字段，确认唯一EMA **c8@6400**、内部5140 AUROC **.9886320261146719**、AP **.825473259026753**、error_twice **18882**，TRAIN completed/exit0/hard_deadline_met=true/signals[]/successful_updates9600。其他attempt、官方及安全事实引用A原回执，未读官方用于科学选择，未读预测或重算。
+
+科学门 strict>R107 **.9884405731067525** 为 **true**，实用晋级门 strict>singlebest R120 **.9894773092062407** 为 **false**。按原规则记同seed有限正向、未刷新best，本阶段结束/no seed27；不是双门false或科学阴性。R127实际训练9600/所选EMA6400与R107训练6400/所选EMA3200不同，不称等更新、等计算或稳定复现；不据小正差宣称显著、临床像素瓶颈或`.999`可达。AP、partial、官方均不救第二门；不挑seed，不角度/scale/插值/其他几何或seed补考。R107原 `training_rotation=None` 继续比较路径，R120仅singlebest，R107/R108科学锚点不变。
+
+据A原证据，3项必要窄验、19项正式验收、native50c初态、真实firstbatch policy及唯一activation/launch与本次完整终态分阶段保留，不能用相同初态代替输入policy消费证据。运行Git为 `be43b1143bb74c030492136b902d25ec8184fe9d`，parent为 `dece30d557bea7c3d0c072651c24e830f3a7d760`；tree目前转交短值 `ac9e9d96`，不猜补全。原部署/source/clock与原件不改；必要最终4件归档由A处理，尚无本页可记录的新archive commit。
+
+所选checkpoint为 `checkpoint-f6309ab072fe45909a11fe9a7ef35ad2.pt`；selected tensor SHA `e6bd15b353706b039734ef648d2a0229e352c4a66abdcfca01822f6b30f4ba76`，顶层checkpoint blob SHA `18b7b35603da912da404daa8e14df8e12c9b362adcfd9ad21befaae95ea192b0`。以下为A转交的原件pins，不是本机重算，也不与tensor/blob或未来summary SHA混用：
+
+- freeze文件 SHA `131c1b801fb4857bf5d27a82afc454274dcfe984b538b10d2a4f9c4782d63e59`；TRAIN文件 SHA `e444f807b453a7b72dd43cd10da00d1c9dd559b8dc48918f64543d121a04504f`。
+- progress Pod SHA `389f63064def30514b8cbd366e4a059bff5aa1aee067d40443e6549dce60d1a3`；CPU回执 SHA `c483d78011556f1c39e5bc9d4d70164011e014a68246871ec2622477366ba0ea`。
+
+selected不足`.996`，official正常 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`、无新官方前向，非执行失败；TRAIN/ROUND/done完整completed。安全来源为20:02:37 A实核：owner302238/start346919942现Z不称reaped，原8rank302250–302257退出，locks[]/deviceusers[]/scanDenied0/8busy0/actualsafe true，不以agent idle作证。资源合同、独立`.996`官方门与`.999`持续目标不变；阶段结束不等于总体暂停。原用户说明及历史反例继续有效，旧诊断不重开。
