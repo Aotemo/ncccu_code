@@ -1,0 +1,50 @@
+{
+  "at_beijing": "2026-10-31T12:07:55.635643+08:00",
+  "candidate": "r123-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-noage-9010",
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "seed20261027_followup": false,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false
+  },
+  "experiment_order": 33,
+  "official": {
+    "official_evaluated": false,
+    "official_metrics": null,
+    "official_reason": "threshold_not_met",
+    "official_status": "not_run_by_policy"
+  },
+  "original_sha256": {
+    "done": "bc6a9ec2b73a070e682ad237b28b1fd70a2aec2ddce81fb3c30aa8160fb46e8d",
+    "freeze": "5239824f7b4de780d00dd1a9ea436bc2eff5932e069524d61d8903d24e8f63ce",
+    "round": "e2118236dda7cc695285a98b1b0c78296d2861db5739d62522f6560a6a343659",
+    "train": "74c77eb277126d27d4f4d0ca66bac6ae19241ba8b3efbe2cceba5d23082b4775"
+  },
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-noage-v1",
+  "progress_receipt_sha256": "362817e9b8d47223435f68332a9018dedb57caf4a03a1ba21374ba89c020a7b3",
+  "round_id": "r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "safe_at_observation": true,
+  "safe_observed_at_beijing": "2026-10-31T12:03:28.793906+08:00",
+  "schema": "r123-token-free-closeout-v1",
+  "science_config_sha256": "cc77fb67ef5601f536fd042696c2978ec2359493290a0e0ed9b5c97dd238907c",
+  "selected_internal": {
+    "ap": 0.8255658133774761,
+    "auroc": 0.9867584356723914,
+    "cycle": 5,
+    "error_twice": 21994,
+    "successful_updates": 4000,
+    "tensor_sha256": "bc86edde5547c8069a2117b176fe4f172cf93ccc1b66a58986b5943462b7e7b3",
+    "variant": "ema"
+  },
+  "train": {
+    "attempted_updates": 7200,
+    "component_exit_code": 0,
+    "early_stop_bad_cycles": 4,
+    "evaluated_cycles": 9,
+    "skipped_updates": 0,
+    "status": "completed",
+    "successful_updates": 7200,
+    "termination_reason": "early_stopping"
+  }
+}

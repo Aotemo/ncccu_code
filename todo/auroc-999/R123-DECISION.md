@@ -1,6 +1,6 @@
 # R123：无年龄支路的匹配消融
 
-状态：协调方已采用并交现有 A/B 必要实施，仅授权本轮 fresh。SCIENCE、实际 Git、正式包、activation、8 rank 初态和首成功更新均待 A 回执；本文不将合同写成执行实证，也不是启动审批门。必要准入齐后由唯一 A 直接执行。
+状态：完整内部结果已核，2026-10-31 12:03:28 北京时间 A 实际终态确认安全退出；无年龄合同未胜两道预定门槛，分支关闭、不做 seed27。以下保留原预登记合同，最终证据和解释边界见末段。
 
 ## 唯一身份与科学问题
 
@@ -51,3 +51,13 @@ CPU17 是已交的当前分配线索，仍由 A 在使用时实核 UID/Ready/TTL
 完整训练及唯一 checkpoint 冻结后，selected 内部 AUROC `>=.996` 才运行一次官方5849；不足则 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，整轮可正常 completed 并实际 safe。这与科学正向、单次 best 和第二 seed 门槛分开；不运行平台 test CSV。总体 raw AUROC `.999` 目标不变。
 
 完整结果后由规划/协调方按上述条件收口并决定下一问题，不把关闭本分支当总体暂停；当前不排新候选队列。A 是唯一 Git/GPU 执行者，本文冻结后不追逐过程状态改写。
+
+## 完整结果与分支收口（2026-10-31）
+
+本次仅文本核对 `work/r123-20261031-a/progress-1200/SINGLE-MODEL-FREEZE.json` 的唯一 selected 与 `evidence/TRAIN_RESULT.json`：7200成功更新、9周期，early_stopping/bad4，TRAIN completed/exit0、hard_deadline_met=true、signals空、live_owned_ranks空。唯一 selected 为 **EMA c5@4000，内部 AUROC `.9867584356723914`、AP `.8255658133774761`、error_twice `21994`**；tensor `bc86edde5547c8069a2117b176fe4f172cf93ccc1b66a58986b5943462b7e7b3`。7200attempt=success、skip0/eval9以及整轮安全事实引用协调方转交 A 的实际12:03:28回执，不另查 Pod 或读取官方结果。
+
+所选 AUROC 低于直接 R107 `.9884405731067525`，也低于单次 best R120 `.9894773092062407`。按原判据关闭整个无年龄合同，**no seed27**；不继续年龄分箱、非线性、正则权重或 seed 扫描。原缺省 `age_enabled=true` 路径继续作为比较基线；本结果不证明年龄普遍必需或任何临床因果。R120仍仅单次 best，不升级方法基线。
+
+内部未达`.996`，A确认官方 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，无官方前向；TRAIN/ROUND/done完整。owner270599为Z（不称reaped），原8 rank270625..270632已不在proc，locks/deviceusers为空、scanDenied0、8busy0、actualsafe=true。原冻结包、clock与token不改。转交实证 pins：progress `362817e9b8d47223435f68332a9018dedb57caf4a03a1ba21374ba89c020a7b3`，CPU `302621f2b051ee83ee0050af483ba0a3f1aec6e40d5876aa7477d7045973ae53`；本文未重算或校验这些SHA。
+
+本页收口并停写，交唯一A随必要结果归档。总体`.999`未达；下一独立问题仅由规划作有界文本评议交协调方，本收口不授权新轮、计算或实现。
