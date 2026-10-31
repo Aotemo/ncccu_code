@@ -75,6 +75,7 @@ def main(args):
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
+    is_rotation_identity = ex.science_configuration()['candidate_profile'] == ex.ROTATION_IDENTITY_SMALL_BINDING
     is_content_pool = ex.science_configuration()['candidate_profile'] == ex.CONTENT_POOL_SMALL_BINDING
     is_stage3_residual = ex.science_configuration()['candidate_profile'] == ex.STAGE3_RESIDUAL_SMALL_BINDING
     is_rolewise_clip = ex.science_configuration()['candidate_profile'] == ex.ROLEWISE_CLIP_SMALL_BINDING
@@ -129,6 +130,27 @@ def main(args):
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996,
               {'training_dataset_policy': training_dataset.training_photometric,
                'evaluation_dataset_policy': evaluation_dataset.training_photometric})
+    if is_rotation_identity:
+        from unittest.mock import patch
+        from retrain.data import ImageDataset
+        with patch('retrain.data.configured_cache', return_value=None):
+            training_dataset = ImageDataset(Path('.'), [], job['image_size'], training=True,
+                training_scale=job.get('training_scale'),
+                training_photometric=job.get('training_photometric'),
+                training_rotation=job.get('training_rotation'))
+            evaluation_dataset = ImageDataset(Path('.'), [], job['image_size'], training=False,
+                training_rotation=job.get('training_rotation'))
+        check('R127_training_Dataset_rotation_identity_and_logistic_official_binding',
+              job['loss'] == ex.PAIR_LOGISTIC_LOSS
+              and job.get('training_rotation') == training_dataset.training_rotation == 'identity-v1'
+              and evaluation_dataset.training_rotation == 'identity-v1'
+              and job.get('training_photometric') is None
+              and training_dataset.training_photometric is None
+              and job.get('training_views') is None and job.get('native_local_view') is None
+              and ex.candidate()['training_rotation'] == 'identity-v1'
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996,
+              {'training_dataset_policy': training_dataset.training_rotation,
+               'evaluation_dataset_policy': evaluation_dataset.training_rotation})
     if is_content_pool:
         was_training = model.training
         feature_shapes = []

@@ -533,8 +533,10 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
                                    prepared_size=int(job.get('prepared_size', 0)),
                                    training_scale=job.get('training_scale'),
                                    training_views=job.get('training_views'),
-                                   training_photometric=job.get('training_photometric'))
-            log('training_dataset_policy', training_photometric=dataset.training_photometric)
+                                   training_photometric=job.get('training_photometric'),
+                                   training_rotation=job.get('training_rotation'))
+            log('training_dataset_policy', training_photometric=dataset.training_photometric,
+                training_rotation=dataset.training_rotation)
             # At most 100 consecutive skips are tolerated. The sampler is lazy;
             # this upper bound does not precompute its large attempt stream.
             batch_sampler = BalancedBatchSampler(manifest['rows'], manifest['fit_indices'], physical,

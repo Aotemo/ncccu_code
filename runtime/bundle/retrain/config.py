@@ -82,6 +82,8 @@ def validate_job(job):
             raise ValueError('training_scale requires 0 < lower <= upper <= 1')
     if 'training_photometric' in job and job['training_photometric'] not in (None, 'identity-v1'):
         raise ValueError('training_photometric must be None or identity-v1')
+    if 'training_rotation' in job and job['training_rotation'] not in (None, 'identity-v1'):
+        raise ValueError('training_rotation must be None or identity-v1')
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job as validate91
         validate91(job)
@@ -256,7 +258,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

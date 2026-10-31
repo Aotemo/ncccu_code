@@ -25,6 +25,7 @@ NO_AGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-
 CONTENT_POOL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1'
 STAGE3_RESIDUAL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stage3residual-v1'
 ROLEWISE_CLIP_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-roleclip1-v1'
+ROTATION_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-rotationidentity-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -36,7 +37,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
-                      ROLEWISE_CLIP_SMALL_BINDING)
+                      ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -84,7 +85,8 @@ def science_configuration():
                                                        PHOTO_IDENTITY_SMALL_BINDING,
                                                        NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING,
                                                        STAGE3_RESIDUAL_SMALL_BINDING,
-                                                       ROLEWISE_CLIP_SMALL_BINDING)
+                                                       ROLEWISE_CLIP_SMALL_BINDING,
+                                                       ROTATION_IDENTITY_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -119,6 +121,15 @@ def science_configuration():
                 or (value.get('candidate_profile') == PHOTO_IDENTITY_SMALL_BINDING
                     and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
                          or value.get('job', {}).get('training_photometric') != 'identity-v1'))
+                or (value.get('candidate_profile') == ROTATION_IDENTITY_SMALL_BINDING
+                    and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or value.get('job', {}).get('training_rotation') != 'identity-v1'
+                         or value.get('candidate', {}).get('training_rotation') != 'identity-v1'
+                         or value.get('job', {}).get('training_photometric') is not None
+                         or value.get('job', {}).get('training_views') is not None
+                         or value.get('job', {}).get('gradient_clip_policy') is not None
+                         or value.get('job', {}).get('stage3_residual') is not None
+                         or value.get('job', {}).get('attention_pool') is not None))
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -144,7 +155,7 @@ def candidate_from_configuration(value):
                                         PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                         PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
                                         CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
-                                        ROLEWISE_CLIP_SMALL_BINDING):
+                                        ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -187,6 +198,9 @@ def candidate_from_configuration(value):
             from .gradient_clip import ROLEWISE_CLIP_RULE
             expected.update(id='r126-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-roleclip1-9010',
                             experiment_order=36, gradient_clip_policy=ROLEWISE_CLIP_RULE)
+        if value['candidate_profile'] == ROTATION_IDENTITY_SMALL_BINDING:
+            expected.update(id='r127-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-rotationidentity-9010',
+                            experiment_order=37, training_rotation='identity-v1')
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -382,6 +396,7 @@ def validate_job(job):
         'training_scale': configured.get('training_scale'),
         'training_views': configured.get('training_views'),
         'training_photometric': configured.get('training_photometric'),
+        'training_rotation': configured.get('training_rotation'),
         'freeze_features_before': configured.get('freeze_features_before'),
         'final_downsample_stride': configured.get('final_downsample_stride'),
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
