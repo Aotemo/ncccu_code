@@ -1,5 +1,9 @@
 # 当前任务与接续
 
+**最新接续：用户已迁移设备并明确解除暂停，继续挑战赛；本轮新建规划与执行 Sol/A。** [独立接续审计与方案](DEVICE-RESUME-AUDIT-20261101.md)记录：原 R130 one-shot owner 没有合法恢复入口，不能按原合同直接续训；当前尚缺新设备 SSH 连接信息，Pod/资源/资产/deadline/grant/index 的实时状态全部 unknown，未发 Pod 命令或启动训练。R130 保持 interrupted/1503/无最终 selector、无 official、双门未判；不把旧 safe 当当前安全。单一 R130R1 fresh 草案待明确新合同授权，当前不自行 fresh、继承或 seed27。
+
+当前 server `srv_KqW7XmJdXxGJ`；规划 `6b8ad6f4-d29a-4647-8fcf-d986715575f0` 仅文本只读；执行 Sol/A `7c17043e-8381-43e9-b185-6e142634ad72` 是唯一 Git 写入、Pod 和潜在 GPU owner；根协调 `b2a18d8d-628c-4c7c-9cf7-9345e736e0ac`。无 B、无派生、不恢复旧 Agent。下文原暂停、旧 owner 与运行状态均为历史原文；本页首接续覆盖其中等待用户解除暂停的条件，不覆盖原 one-shot/clock/token/lease 及科学约束。
+
 **用户最高优先新指令：『直接暂停本轮训练,等我迁移设备后继续』。R130已按用户要求中断并实际安全停止，当前无活跃训练，唯一heartbeat已删除。** 此指令覆盖旧“本轮结束后暂停”，不再等待自然完成。不自动恢复本轮、派seed27、新fresh或方法评议；须用户迁移后明确恢复，再核保存与原deadline/启动约束，不能承诺直接续训。当前实例未关闭、资源未续租。设备单一入口为[最终停止交接](DEVICE-HANDOFF-20261101.md)，已从准备草稿定稿。
 
 固定9:1、单模型及内部dev唯一选点不变；raw AUROC尚未达到0.999，用户暂停不称总体完成。自R117起，完整训练并冻结的所选内部dev AUROC达到 `0.996` 才官方5849一次，完整selected不足才记 `not_run_by_policy/threshold_not_met`。**R130未产生最终selector或official，不能套用threshold_not_met。** 官方不用于训练、选点或调参，下文历史继续推进/条件seed27均受最新即时暂停覆盖。长期约束见[AGENTS.md](../AGENTS.md)，执行入口见[EXECUTION.md](../docs/EXECUTION.md)。
