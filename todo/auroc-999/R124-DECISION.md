@@ -1,6 +1,6 @@
 # R124：固定内容加权汇聚的匹配对照
 
-状态：协调方已采用，已交现有 A/B 必要实施；仅授权本轮唯一 fresh。SCIENCE、Git、正式包、新初态、8 rank/first batch及首成功均待 A 实际回执。本文不是启动审批门；必要准入齐后由唯一 A 直接一次 activation/fresh，不等待文档确认。
+状态：R124 原工程 attempt 在唯一 activation audit 失败后收口，未启动 GPU/训练，无科学结果；不得在原 prep/root 重试。原科学合同保留，协调方已另授权一次独立未来 [R124R1 工程续接](R124R1-DECISION.md)。以下保留预登记内容，实际失败与已通过证据见末段。
 
 - order：`34`；配置：`configs/R124-SCIENCE.json`（A 生成）。
 - profile：`single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1`。
@@ -61,3 +61,13 @@ R107其余不变：Small公开fe6b/seed20261029/fulltrain/stride2、单图prepar
 完整工程有效selected内部AUROC **strict > R107 `.9884405731067525`** 才科学正向；还须 **strict > 单次best R120 `.9894773092062407`**，才由协调方另定固定seed27对R108 `.9872328538178018`复核。本页仅授权R124，不自动启动第二seed。只胜R107未破R120则有限正向、无新best，本阶段结束；未胜R107关闭该固定读出×当前合同。不继续q温度、维数、公式、pool架构、LR或seed网格。AP独立报告，partial/AP/official不救主指标；收益与`.999`可达均未知。
 
 完整训练及唯一checkpoint冻结后，selected内部 `>=.996` 才完整官方5849一次；不足则 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，不当运行失败。此门与科学/实用/条件seed门独立，无平台test。总体`.999`目标持续；完整结果后依预定分支收口再由协调规划决策下一问题，当前不列新候选队列。本页freeze后停写，执行实证由唯一A交回。
+
+## 启动前工程失败收口（2026-10-31）
+
+以下引用协调方转交 A 实际回执，规划未另查 Pod、运行测试或重算SHA。原实际 Git main `8bd6abf3dff915e5459ea7899a3033999f715530`、tree `f1b7c757c8f6b05890f64a76f57e83ae0bf861b3`，精确10文件回读/source615核实。B两toy已PASS；A绑定fixture首次因错误mock site失败，只复未过项后PASS，原失败保留。正式CPU20/20 GREEN，新whole `1ea8442bb4b9c41009eded6863d7f4c2906144e0f15e6726fe34b594545d643c`，原345张量exact、新q全0、age enabled和空Adam已有实证；这些是本attempt证据，不冒充未来包的新实跑。
+
+site preflight exit0，随后唯一 activation AUDIT exit1：`verify_preflight: fresh CPU site preflight differs`。原 observed_at=`1793420919.712`，activation exit=`1793421045.579`，协调方文本核确认120秒freshness已过且两处检查位于第一次正式mutation前；SSH/wrapper/回执往返延时与此次过期相关。只读失败后核实 `FORMAL-CLOCK`、`FORMAL_BINDING_RECEIPT`、round_root、dispatch均不存在。未进入GPU/训练，没有内部选点、AUROC或可报告训练进度；官方属于工程启动前未执行，**不是 `threshold_not_met`**，因为尚无selected。
+
+原activation已attempted，按不可逆约束禁止重试同prep/root/audit；不删除marker、改时间戳、伪造observed_at/Ready、重写receipt或放宽120秒。旧失败原件和已通过证据全部保留；不存在的旧clock不补造。此结果不构成内容汇聚科学阴性，不关闭pool研究问题。
+
+协调方仅授权R124R1一个独立未来工程attempt，科学profile/candidate/order34与完整resolved job保持，使用新prep/round/root/未来绑定及授权引用。工程时间与失败attempt如实累计，不改称原attempt首次成功；R124R1再次失败不得自动第三次尝试。具体连续preflight→audit修复和停止边界见[R124R1合同](R124R1-DECISION.md)。本页到此收口并冻结，无新科学候选。

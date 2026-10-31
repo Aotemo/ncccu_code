@@ -2,7 +2,11 @@
 
 目标是在固定 9:1、单模型和内部 dev 唯一选点的合同下继续实验；raw AUROC 尚未达到 0.999，不称总体完成。自 R117 起，只有完整训练并冻结的所选内部 dev AUROC 达到 `0.996`，才运行一次官方 5849 验证；未达则记 `not_run_by_policy`。官方结果不用于训练、选点或下一轮调参。长期约束见 [AGENTS.md](../AGENTS.md)，执行入口见 [EXECUTION.md](../docs/EXECUTION.md)。
 
-**当前已采用 [R124 固定内容加权汇聚](auroc-999/R124-DECISION.md)，order34，A/B已获必要实施，执行实证待A回执。** 直接匹配R107，只启用原 `content-attention-pool-v1` 全字典，恢复原enabled年龄；单编码/原缓存/pairlog等保持。旧R26仅探索正向、区间略跨0，R20/N11反证保留，不能称未试空间方法或已证收益。q零初始化但须在图；新增参数使whole SHA不同50c，实际共有stateexact/q0/optimizer/正式8rank/age tuple4/首成功均待实证。SCIENCE/Git/formal/activation未收到不填完成，必要准入齐A直接唯一fresh，不等文档审批。完整selected严格胜R107 `.9884405731067525`且超R120 singlebest `.9894773092062407`才条件固定27对R108 `.9872328538178018`；只胜前者则阶段结束，无pool/温度/维数/LR/seed网格，完整freeze`.996`官方门独立。
+**当前已授权 [R124R1 独立工程续接](auroc-999/R124R1-DECISION.md)，科学合同保持R124/order34，新attempt执行实证待A。** 新prep `technical-prep/r124r1-20261031-e62a`、新round/root/未来绑定及授权引用；长准备/Git/部署/传输完成后，取真实新live观测，同一次Pod受控链连续site_preflight→activate_audit并直接传receipt SHA。120秒freshness和一次attempt不可逆语义不变，不修改旧包或旧失败回执。新package/正式clock/activation/8rank/age tuple4/首success均未据通知预填完成；A必要准入齐直接一次fresh，不等文档批准，再失败不自动第三次尝试。
+
+**[原R124](auroc-999/R124-DECISION.md)已因启动前工程失败收口，未进入GPU/训练，无内部selected或科学指标。** 据协调方转交A实证，原Git `8bd6abf3dff915e5459ea7899a3033999f715530`/tree `f1b7c757c8f6b05890f64a76f57e83ae0bf861b3`精确10文件/source615核实；B两toy及A只复未过绑定项PASS、formalCPU20/20 GREEN，新whole `1ea8442bb4b9c41009eded6863d7f4c2906144e0f15e6726fe34b594545d643c`，原345张量exact/q0/age真/空Adam。site preflight exit0，但唯一activation AUDIT因观测超过120秒exit1；两处freshness位于首个正式mutation之前，失败后FORMAL-CLOCK/FORMAL_BINDING_RECEIPT/round_root/dispatch均确认不存在。原attempt不可重试/删marker/改时间戳或receipt/放宽120秒；官方是工程启动前未执行，非threshold_not_met。不是pool科学阴性，旧失败与成本保留，旧20/20不能写成R124R1新实跑。
+
+R124R1仍直接匹配R107，原固定content-attention-pool/age enabled/单编码缓存/pairlog与全部6h8h9h/12GiB资源合同不变。完整selected严格胜R107 `.9884405731067525`且超R120 singlebest `.9894773092062407`才条件固定27对R108 `.9872328538178018`；只胜前者则阶段结束，不扫pool/温度/维数/LR/seed。完整freeze`.996`官方门独立，`.999`总目标保持，无平台test；此次不展开新科学候选。
 
 **[R123 无年龄消融](auroc-999/R123-DECISION.md)已完整结束并安全退出，分支关闭/no seed27。** 内部freeze唯一 EMA c5@4000，AUROC `.9867584356723914`、AP `.8255658133774761`、error_twice21994；7200成功/attempt相同/0skip/eval9/bad4，TRAIN completed/exit0。低于直接R107 `.9884405731067525`和单次best R120 `.9894773092062407`，不继续年龄分箱、非线性、正则权重或seed扫描；原缺省 `age_enabled=true` 继续比较基线，不推出年龄普遍必需或临床因果。内部selected未达`.996`，官方按政策未运行/metricsnull；整轮safe引用A实际2026-10-31 12:03:28回执，ownerZ不称reaped、原8rank退出、锁与设备使用者为空。原包/clock不改，必要归档由唯一A处理。
 
