@@ -1,6 +1,6 @@
 # R126：按优化器角色分别进行 L2 norm1 梯度裁剪
 
-状态：协调方已采用，现有A/B已获必要实施分工；只授权本轮seed29一次fresh。SCIENCE、Git、新formal、实际裁剪policy消费、activation及首success均待A实际回执。本页不是执行通过或开训证明，不增加用户/协调方批准或文档等待门。R125与更早决定页保持冻结。
+状态：R126已完整工程有效，A于2026-10-31 17:34:48.499北京时间实核整轮completed/safe。唯一内部selected低于R107与R120两门，关闭固定三role norm1分支/no seed27。以下保留预登记合同，实际各阶段与解释边界见末段；R125与更早决定页保持冻结。
 
 ## 身份与可证伪问题
 
@@ -63,3 +63,17 @@ DDP平均梯度与unscale完成后，先只读取得全部3个L2 norm；在任�
 完整工程有效selected内部AUROC **strict > R107 `.9884405731067525`** 才同seed正向；同时 **strict > R120 singlebest `.9894773092062407`** 才由协调方另定固定seed20261027，对照R108 `.9872328538178018`。只过第一门则有限正向后本阶段结束；未胜关闭此固定三role norm1规则，不global cap/role阈值/自适应clip/LR/seed网格。只授权R126首seed，不自动27或下一科学候选；AP、partial、official、平台分数均不救主判。
 
 完整训练并冻结唯一checkpoint后，selected内部`>=.996`才完整官方5849一次；未达为 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，可正常completed，safe仍由A实际核。该门独立于晋级，不生成平台CSV，不保证`.999`。R120仅singlebest、R107/R108锚点不动；总体授权持续，本阶段结果后由协调方按完整内部证据决定下一问题。两页冻结后规划停写，不成为启动等待门。
+
+## 完整内部结果与最终收口（2026-10-31）
+
+规划仅一次文本核 `work/r126-20261031-a/progress-1730/SINGLE-MODEL-FREEZE.json` selected及 `evidence/TRAIN_RESULT.json` 必要字段：唯一 **EMA c4@3200，内部AUROC `.9867283329981902`、AP `.8252218982626471`、error_twice22044**；tensor `d4294587db120b143898e07aaa6916b0bda097d5e60e28945a9a7b8e053b7351`、blob `0e25aeff2e17470ea0340de9568ba4c99c8161deeb030cded1341e3c21ee0dbc`。TRAIN completed/exit0、successful_updates6400、cycles8、bad4/stopped=true、hard_deadline_met=true、signals及live_owned_ranks为空。success=attempt6400/max24000/skip0/eval8/early_stopping及以下官方/安全状态引用协调方转交A回执 `f1d8c1d3-ce5a-4cb2-8e36-ed5e22fe9793`，不另查Pod、官方、预测或重算。
+
+完整selected低于直接R107 `.9884405731067525`及singlebest R120 `.9894773092062407`，双门false，关闭**此固定三role norm1 × 当前R107合同**，no seed27，不global cap/role阈值/adaptive clip/LR/seed补考。AP不救；不推裁剪普遍无效或全局1普遍最优，原None globalclip1继续R107比较路径。原update1默认WORLD finite与三role实际消费已有直接证据，保留为首成功步证据，不推广为长期裁剪频率、某角色主导或梯度爆炸；不增加norm审计/forward补证。
+
+工程阶段分别保留：原汇总脚本沿旧 `backbone=27820128` 错断言exit1；随后按实际formal19项生成成功摘要exit0，没有formal重跑。正式19/19、唯一activation/launch、真实首75及本次完整终态分列，不删旧失败或把摘要修复记成重新训练。运行Git `c03c11738178929fedfbcda78c171911cf1ec3a9`、tree `79367a4527f770fa0de2cbe9aca2fe86398612f9`；必要最终归档待唯一A完成，不假填新archive Git。
+
+selected不足`.996`，official为 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，正常completed而非评估失败，TRAIN/ROUND/done完整。owner294462、原start346304405匹配现Z，只称Z不称reaped；原8rank294494–294501退出，lockholders/deviceusers为空、denied0/8busy0，17:34 actualsafe=true。以上引A实证。新CPU20软件allocation SHA `a0fb90eb98615680367dd3591d1ff3e68596a138e17522d64427cc3bed734a08`、valid_until `1793442754.9876158`，当次A0..11/12与train24..119互斥，动态UID51fe…Ready/Python3.12.7/probe0；仅为已发生入口证据，不作为下一入口默认，CPU19过期禁止新入口。不新资源续租或修改旧grant/clock。
+
+原件pins均转引A、不本机重算：progress `2b30be736d5bab157c53cdf606289491e4ae133a95a1b8664283d69a87f4492b`，CPU `c88981b943be19388e00d15c4752029eb041a3bc2fe1f817d8014cbb6d56840d`；freeze `5bc10e7d94d54029e6ed763ba2f3da488c0f48b6c05bee99ddd1ee7e2a17d8b2`，TRAIN `2111c6be7ab859dd860761b2c7e9f081a87a5afc04812cd5819f4f6e52cba69e`，ROUND `1695351f684e4fbcdcbbde77143df67c668a154b7e18635f0ab433e72f01db1f`，done `3f22fa49cfdf669bf02f3887bfd0da8e7059a380672bc34c00db52daedc722bf`。
+
+R107/R108科学锚点、R120仅singlebest、`.996`官方门、`.999`总体目标及6h8h9h/default12GiB/floors/保存合同不变。本页收口冻结交A必要归档；持续授权未暂停，下一问题仅作一次有界既有文本评议交协调方，不注册新轮次、派工、扩裁剪网格或重开FIT/cache/C0审计。

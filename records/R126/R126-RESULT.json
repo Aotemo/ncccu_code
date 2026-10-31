@@ -1,0 +1,109 @@
+{
+  "schema": "r126-closeout-v1",
+  "at_beijing": "2026-10-31T17:40:53.666390+08:00",
+  "experiment_order": 36,
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-roleclip1-v1",
+  "candidate": "r126-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-roleclip1-9010",
+  "round_id": "r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "science_config_sha256": "086669a181f601548c3400827a65a8754183119e56a9cbc34c94a049183b4129",
+  "git_commit": "c03c11738178929fedfbcda78c171911cf1ec3a9",
+  "original_sha256": {
+    "freeze": "5bc10e7d94d54029e6ed763ba2f3da488c0f48b6c05bee99ddd1ee7e2a17d8b2",
+    "train": "2111c6be7ab859dd860761b2c7e9f081a87a5afc04812cd5819f4f6e52cba69e",
+    "round": "1695351f684e4fbcdcbbde77143df67c668a154b7e18635f0ab433e72f01db1f",
+    "done": "3f22fa49cfdf669bf02f3887bfd0da8e7059a380672bc34c00db52daedc722bf",
+    "official": null,
+    "progress": "2b30be736d5bab157c53cdf606289491e4ae133a95a1b8664283d69a87f4492b",
+    "cpu": "c88981b943be19388e00d15c4752029eb041a3bc2fe1f817d8014cbb6d56840d"
+  },
+  "first_success_receipt_sha256": "8cb446cba158ebfd9cb1d37025b39d884acb22a5367d28a5a536002e5c4bd9b5",
+  "preparation_result_sha256": "582f221b24831f4c39841766f676c05c4971898d5db58f5883d26900c448d916",
+  "safe_observed_at_beijing": "2026-10-31T17:34:48.499230+08:00",
+  "safe_at_observation": true,
+  "safe_evidence": {
+    "owner_state": "Z_not_reaped",
+    "owner_start_ticks_match": true,
+    "rank_processes_exited": true,
+    "lock_holders": 0,
+    "device_users": 0,
+    "device_scan_denied": 0,
+    "admitted_cards_idle": 8
+  },
+  "train": {
+    "status": "completed",
+    "component_exit_code": 0,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "max_updates": 24000,
+    "skipped_updates": 0,
+    "evaluated_cycles": 8,
+    "early_stop_bad_cycles": 4,
+    "termination_reason": "early_stopping",
+    "signals_sent": false
+  },
+  "selected_internal": {
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "auroc": 0.9867283329981902,
+    "ap": 0.8252218982626471,
+    "error_twice": 22044,
+    "tensor_sha256": "d4294587db120b143898e07aaa6916b0bda097d5e60e28945a9a7b8e053b7351"
+  },
+  "selected_blob_sha256": "0e25aeff2e17470ea0340de9568ba4c99c8161deeb030cded1341e3c21ee0dbc",
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false,
+    "seed20261027_followup": false
+  },
+  "official": {
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "official_metrics": null
+  },
+  "first_success_role_clip": {
+    "successful_updates": 1,
+    "rank_count": 8,
+    "world_finite": true,
+    "roles": {
+      "backbone": {
+        "parameter_tensors": 342,
+        "parameter_elements": 49454688,
+        "preclip_norm": 13.748153686523438,
+        "coefficient": 0.07273703813552856,
+        "clipped": true
+      },
+      "head": {
+        "parameter_tensors": 2,
+        "parameter_elements": 769,
+        "preclip_norm": 4.393540382385254,
+        "coefficient": 0.22760683298110962,
+        "clipped": true
+      },
+      "age": {
+        "parameter_tensors": 1,
+        "parameter_elements": 2,
+        "preclip_norm": 0.21580223739147186,
+        "coefficient": 1.0,
+        "clipped": false
+      }
+    },
+    "scope": "first_successful_update_only"
+  },
+  "preparation": {
+    "new_narrow_checks_passed": 3,
+    "formal_cpu_checks": 19,
+    "formal_cpu_receipt_status": "passed",
+    "initial_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "initial_trainable_tensors": 345,
+    "initial_optimizer_state_entries": 0,
+    "prior_reporting_assertion": "exit1_preserved_after_formal_and_deployment",
+    "finalizer": "existing_formal_receipts_only_exit0_no_formal_rerun",
+    "deployment_exit_code": 0,
+    "new_activation_calls": 1,
+    "new_launch_calls": 1
+  }
+}
