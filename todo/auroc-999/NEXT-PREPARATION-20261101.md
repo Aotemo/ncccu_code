@@ -1,4 +1,30 @@
-# R130R1运行期间：固定第二seed与一个后续方向的有界准备
+# 当前运行与结果无关的 CPU 准备
+
+**2026-11-01 05:30槽接续：R131保持冻结7aa3232，新增raw-logit平方项仅获CPU技术准备授权。** 05:30:23.258身份轻检为owner及8rank active/start全匹配、fresh done absent；05:31:23.741唯一256KiB尾部与fresh status均为6050success=attempt/0skip/eval7/earlybad0，阶段best EMA c7@5600 AUROC `.9789052500267914`。这不是完整selector或双门判定；R131若完整两门通过，固定seed27仍优先。本段下方原R1/LoRA准备与采纳阶段保留，不把CPU新方向当作已采纳的下一GPU实验。
+
+## 当前授权：固定0.1 raw-logit平方项的CPU准备
+
+根已授权实现及两个必要正向检查，独立目录为`exp-v3/technical-prep/output-logit-l2-cpu-20261101-7c17`。A复用仍有效的f5c1934本人12核0–11/nice19/隐藏CUDA、HIP、ROCR入口；每次入口核当前UID/Ready/TTL，根12–23仍保留未用，训练96核24–119完全不动。05:35等轻检及半小时有界汇报优先，CPU任务串行；到期只为未来准备另建软件绑定，不改旧allocation、clock或GPU grant。未注册新order/profile/SCIENCE、正式root或grant，不预跑formal、不派GPU。
+
+固定科学草案直接回R107/seed20261029/公开fe6b358a fresh，345张量全部训练，`low_rank_policy=None`、`layerwise_lr_policy=None`。保持原9:1/splitseed、G64P8、FP32/noTF32、GAP+age、512/scale[.85,1]及原旋转光度、SD.1/dropout.2、backbone1e-4/head-age1e-3/原WD/globalclip1、24k成功步/800双variant评估/p4、1600warmup及EMA、唯一selector和6h/8h/9h存储保护。原`_optimizer`的backbone/head按decay分桶加age不变：全参数Small通常为5组；R131实际LoRA为4组。未来正式验收采用真实成员/role/LR/WD及保存ID，不为草案的组数另设硬编码门或改变优化器。
+
+原pairlog六字段保持原样，只新增非空`output_regularization`：`version=global-raw-logit-square01-v1`、`coefficient=0.1`、`dtype=float32`、`scope=global_batch`、`reduction=mean`、`logits=final_image_plus_age_raw`、`schedule=constant_from_step1`。目标固定为
+
+`L = mean_448 softplus(z_negative - z_positive) + 0.1 * mean_64(z_i²)`。
+
+`z`是同一次原图像forward加age残差后的64个raw logits；在现有可微WORLD gather后计算，所有样本等权，从step1起常数作用，不中心化、不detach、不截断、不退火、不classweight。不得新增collective、WORLD倍率或图像forward。新增直接logit梯度为`0.2*z/N`，因此公共bias和age链也收到梯度。它与有界surrogate尾部替换不同，也不是纯特征效应；推理/dev/official继续原raw预测，不用正则损失、校准或AP挽救AUROC主判。
+
+理论边界：Gradient Starvation论文在交叉熵及线性化网络分析中以logit L2替代参数L2，不能直接推广到本任务pairlog+AdamW；本草案继续原AdamW，因此是一个不同的联合策略，不声称复现其理论或获得`.999`收益。[原论文§3.4](https://proceedings.neurips.cc/paper_files/paper/2021/file/0987b8b338d6c90bbedd8631bc499221-Paper.pdf) DomainBed的SD实现为多类CE加raw输出平方均值，其默认系数0.1仅提供本次单一值的来源，不是当前任务最优证据。[SD实现](https://raw.githubusercontent.com/facebookresearch/DomainBed/main/domainbed/algorithms.py)、[默认超参](https://raw.githubusercontent.com/facebookresearch/DomainBed/main/domainbed/hparams_registry.py) 只原创最小PyTorch helper，不导入DomainBed或复制其类。
+
+最小实现范围为`classification_loss.py`的固定policy/生产总目标、`config.py`的可选字段及None序列化省略、`distributed_engine.py`在既有pairwise loss处接入原finite/backward；现有正式profile明确不允许该非空policy偷启。其他入口沿既有配置/不支持入口拒绝，不建通用正则框架；不改模型、optimizer、EMA、selector、保存算法或训练框架。非空policy沿真实`job_contract`进入现有保存身份；None保持旧value/grad/RNG与旧序列化字节身份。
+
+仅新增`tests/test_output_regularization.py`两项：第一项以独立标量数学推导值/解析梯度，覆盖公共bias和age链及None兼容；第二项用真实两rank Gloo、一个rank零正样本，调用生产总目标并与独立全局reference比共享参数梯度，核无额外WORLD比例，并沿真实配置/保存/加载接口保留非空policy。实际RED两FAIL/0error、原因为生产总目标尚不存在，随后最小实现；首次GREEN运输在SSH kex阶段关闭exit255，未执行测试，原日志保留。同一明确入口的GREEN-2是唯一实际GREEN：2/2、0fail/error、8.547秒，6个受改Python在Pod compile通过；未重旧pairwise、LoRA或fixture全套。[CPU-CHECKS](../../records/preparation/output-logit-l2-cpu-20261101/CPU-CHECKS.json) SHA `415f2bd2a233fd9a5e1f4c1cf8906f7e0f05ddd01e1ef73c5888f223c01ad4e9`；guard SHA `1886f4744c5cc87baca020a275503a24eb45929932dd14b31bffbc2c6e7aef30`，exit0/A12/nice19/GPU未初始化。两rank实际loss均`.4426952600479126`，共享weight/bias/age梯度与独立global reference匹配，bias实际`.02895835041999817`、local-positive `[0,8]`、全64/448pair；None旧值/梯度零容差、Python/NumPy/Torch RNG和canonical job identity保持。非空policy经真实配置/CheckpointStore保存加载及consumer验证，但小fixture不是完整Small/Adam恢复、正常formal或真实八rank更新。单卡engine只补非空policy明确拒绝，不改其算法。规划一次只读review未见Critical/Important；这不替代上述实际执行证据。
+
+保留已有focal、Mixup及其他固定正则负先验；R120/R121有界sigmoid一正一负不支持邻近surrogate扫描；R131冻结基座+低秩+因子WD/EMA是不同整体策略，完整结果未到不作阴性。Random Erasing明确不选，也不形成备用队列。若未来根依R131完整结果采纳本目标，才冻结新身份/SCIENCE并实际push/readback、正常formal一次、真实公开fresh345全训/实际命名组/空Adam与自然首步；目前不执行这些环节。
+
+有限停止规则保持：完整工程有效selected须同时严格大于R107 `.9884405731067525`与R120 singlebest `.9894773092062407`才取得固定seed27资格；任一未胜就关闭这个精确0.1目标，不扫系数/中心化/classweight/WD/LR/seed，不转Erasing。工程中断或不完整结果不冒科学阴性。完整freeze selected达到`.996`才官方5849一次；raw `.999`仍未证，不称总体完成。
+
+## 下列为R130R1期间及R131采纳的历史准备
 
 **接续：R130R1完整两门false/actualsafe；唯一R131/order42固定pointwise-r8已获真实首成功。** R1最终11200/eval14/bad4，唯一online c10@8000 AUROC `.9850016436060114`，固定layerwise .8关闭/no seed27，见[完整结果](../../records/R130R1/README.md)。R131身份和步骤转入[R131决定页](R131-DECISION.md)：runGit7aa3232，身份1/1、normalformal一次21/21、692源码exact及唯一activation/正确launch0；05:07:33.619实查running225/0skip/eval0，真实八rank初态与自然step1的147实际Adam[1]/WORLDfinite/冻基座exact已证。新public whole9a0665、原345共同50c/489总/342冻/147训/4组，空Adam只指初态。新SCI显式`.996`，尚无完整科学结果；小件见[启动归档](../../records/R131/README.md)，不重toy或新增GPU预演。本文仍由A唯一写入。
 

@@ -1,0 +1,56 @@
+{
+  "schema": "output-logit-square-cpu-preparation-v1",
+  "stage": "RED",
+  "started_at": 1793482409.493933,
+  "finished_at": 1793482409.515467,
+  "base_git": "91fb6d576870feeb4bd2f0243976efcc8865d65e",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/output-logit-l2-cpu-20261101-7c17/source",
+  "source_sha256": {
+    "runtime/bundle/retrain/classification_loss.py": "eb09bfb320ba1a642f64892c2f4c30966c9140e50e913aa9eb00fa7c9b7719fe",
+    "runtime/bundle/retrain/config.py": "1d1d91f476dc99243ec5b443683854a5102b504236b9207e9506a141bea6a823",
+    "runtime/bundle/retrain/distributed_engine.py": "361f4d455c2563b595393c704ae4cac92f8ca9a564a2d726281f97d12bc59d93",
+    "runtime/bundle/retrain/experiment91.py": "30694260deaa899c72c0e722562a675aabcaf9a294161592948271e76bc3daf6",
+    "runtime/bundle/retrain/engine.py": "582f13671c9f8b2145fcb27436a67049cb93668062fe1414f41d6c95c29c627c",
+    "tests/test_output_regularization.py": "f00c10e9931dc54c829a038deea6da089ab2f6ba725980fbea6fb868a521782b"
+  },
+  "tests_run": 2,
+  "failures": 2,
+  "errors": 0,
+  "skipped": 0,
+  "passed": false,
+  "compiled": [],
+  "pod": {
+    "NCCCU_POD_NAMESPACE": "acfwvv9ejn",
+    "NCCCU_POD_NAME": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "NCCCU_POD_UID": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "NCCCU_CONTAINER": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12"
+  },
+  "cpu_allocation_sha256": "f5c19340844c353b257725717b6ec195215b17bd7ac776d3ea08c0e9ff4cf5b0",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "torch_num_threads": 1,
+  "torch_interop_threads": 1,
+  "gpu_visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "gpu_initialized": false,
+  "normal_formal_run": false,
+  "new_round_registered_or_launched": false,
+  "active_R131_run_git": "7aa3232b7a2e47dedf68839e19deb29ce4ec6751"
+}

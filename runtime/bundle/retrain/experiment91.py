@@ -492,6 +492,9 @@ def validate_job(job):
         # Existing profiles have no adapter identity. A future adopted profile
         # must explicitly register the same policy in its candidate mapping.
         'low_rank_policy': candidate().get('low_rank_policy'),
+        # A future adopted identity must explicitly register this objective;
+        # none of the existing profiles permits enabling it as an extra field.
+        'output_regularization': None,
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}

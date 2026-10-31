@@ -10,7 +10,8 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from .data import ImageDataset, flatten_training_views
-from .classification_loss import PAIRWISE_LOSS_KINDS, classification_loss, gather_pairwise_inputs
+from .classification_loss import (PAIRWISE_LOSS_KINDS, classification_loss, gather_pairwise_inputs,
+                                  regularized_pairwise_loss, validate_output_regularization_job)
 from .parallel_evaluation import evaluate as parallel_evaluate, recovery_checkpoint_due
 from .distributed import RankBatchSampler,ReferenceBatchNorm
 from . import engine as single
@@ -189,6 +190,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         raise ValueError('absolute runtime deadline requires a finite fresh contract')
     plan=identity['distributed'];device=ctx.device
     pairwise=(job.get('loss') or {}).get('kind') in PAIRWISE_LOSS_KINDS
+    if job.get('output_regularization') is not None:
+        validate_output_regularization_job(job)
     if pairwise and (mode!='train' or not fresh_spec or ctx.world_size!=8 or plan['world_size']!=8
             or plan['accumulation']!=1 or job.get('mixup') is not None or job.get('training_views',1)!=1):
         raise ValueError('global pairwise loss requires formal eight-rank single-view accumulation-one training without mixup')
@@ -714,7 +717,11 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                     logits=forward(model,images,age_features,job).reshape(-1)
                     if pairwise:
                         global_logits,global_targets=gather_pairwise_inputs(logits,labels)
-                        loss=classification_loss(global_logits,global_targets,job['loss'])
+                        if job.get('output_regularization') is None:
+                            loss=classification_loss(global_logits,global_targets,job['loss'])
+                        else:
+                            loss=regularized_pairwise_loss(global_logits,global_targets,job['loss'],
+                                                           job['output_regularization'])
                     else:
                         loss=classification_loss(logits,labels,job.get('loss'))
                 if sampled_loss is not None:

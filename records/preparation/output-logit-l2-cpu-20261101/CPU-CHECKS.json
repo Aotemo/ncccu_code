@@ -1,0 +1,63 @@
+{
+  "schema": "output-logit-square-cpu-preparation-v1",
+  "stage": "GREEN-2",
+  "started_at": 1793482589.432545,
+  "finished_at": 1793482598.0594218,
+  "base_git": "91fb6d576870feeb4bd2f0243976efcc8865d65e",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/output-logit-l2-cpu-20261101-7c17/source",
+  "source_sha256": {
+    "runtime/bundle/retrain/classification_loss.py": "849b20c66cd77060464ca41e2320b19caab6966bbe9afe039b35380e94fe67b2",
+    "runtime/bundle/retrain/config.py": "b9876dfa409690bf6be76fa394640edea47a1c99d9b95e9204697abb5742b15f",
+    "runtime/bundle/retrain/distributed_engine.py": "761770a2445bbf1ff8796949ec408cb6ee631213a6c6ab150187f10f566194e8",
+    "runtime/bundle/retrain/experiment91.py": "7c952e1b73421a294d60b7be7b77ca582cfe3250f6866ffffeb4ec678136d0cc",
+    "runtime/bundle/retrain/engine.py": "eaffd55b2dbf6757a8c76e33c44c16eb71f92bf660bec21b0423b686b0b1d99a",
+    "tests/test_output_regularization.py": "f00c10e9931dc54c829a038deea6da089ab2f6ba725980fbea6fb868a521782b"
+  },
+  "tests_run": 2,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "compiled": [
+    "runtime/bundle/retrain/classification_loss.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/distributed_engine.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/engine.py",
+    "tests/test_output_regularization.py"
+  ],
+  "pod": {
+    "NCCCU_POD_NAMESPACE": "acfwvv9ejn",
+    "NCCCU_POD_NAME": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "NCCCU_POD_UID": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "NCCCU_CONTAINER": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12"
+  },
+  "cpu_allocation_sha256": "f5c19340844c353b257725717b6ec195215b17bd7ac776d3ea08c0e9ff4cf5b0",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "torch_num_threads": 1,
+  "torch_interop_threads": 1,
+  "gpu_visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "gpu_initialized": false,
+  "normal_formal_run": false,
+  "new_round_registered_or_launched": false,
+  "active_R131_run_git": "7aa3232b7a2e47dedf68839e19deb29ce4ec6751"
+}

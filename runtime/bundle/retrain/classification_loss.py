@@ -1,6 +1,12 @@
 """Explicit binary losses and WORLD pairwise gather; validation imports no Torch."""
 import math
 
+OUTPUT_REGULARIZATION_RULE = {
+    'version': 'global-raw-logit-square01-v1', 'coefficient': .1,
+    'dtype': 'float32', 'scope': 'global_batch', 'reduction': 'mean',
+    'logits': 'final_image_plus_age_raw', 'schedule': 'constant_from_step1',
+}
+
 
 PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid')
 _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
@@ -38,6 +44,30 @@ def validate_loss(specification):
     return specification
 
 
+def validate_output_regularization(specification):
+    if specification is not None and specification != OUTPUT_REGULARIZATION_RULE:
+        raise ValueError('output regularization requires the fixed raw-logit square01 contract')
+    return specification
+
+
+def validate_output_regularization_job(job):
+    policy = validate_output_regularization(job.get('output_regularization'))
+    if policy is None:
+        return
+    loss = validate_loss(job.get('loss'))
+    if (not loss or loss['kind'] != 'binary_pairwise_logistic'
+            or job.get('model') != 'convnext_small' or job.get('precision') != 'fp32'
+            or not (job.get('age') or {}).get('enabled')
+            or job.get('effective_batch') != 64 or job.get('positive_per_batch') != 8
+            or job.get('training_views', 1) != 1
+            or any(job.get(key) is not None for key in
+                   ('low_rank_policy', 'layerwise_lr_policy', 'head_warmup_policy',
+                    'gradient_clip_policy', 'mixup', 'attention_pool', 'stage3_residual',
+                    'freeze_features_before', 'final_downsample_stride',
+                    'training_rotation', 'training_photometric'))):
+        raise ValueError('raw-logit square01 requires the full FP32 Small age pairlog G64P8 path')
+
+
 def classification_loss(logits, targets, specification=None):
     specification = validate_loss(specification)
     import torch
@@ -62,6 +92,24 @@ def classification_loss(logits, targets, specification=None):
         return bce.mean()
     modulation = (1. - torch.exp(-bce)).pow(gamma)
     return (bce * modulation).mean()
+
+
+def regularized_pairwise_loss(logits, targets, specification, output_regularization=None):
+    """Consume the already gathered final raw logits; add no communication.
+
+    The None path returns the original objective unchanged. The fixed nonempty
+    policy uses each image-plus-age logit once, including its shared bias edge.
+    """
+    policy = validate_output_regularization(output_regularization)
+    if policy is None:
+        return classification_loss(logits, targets, specification)
+    loss = validate_loss(specification)
+    if not loss or loss['kind'] != 'binary_pairwise_logistic':
+        raise ValueError('raw-logit square01 requires the original pairwise logistic objective')
+    import torch
+    with torch.autocast(device_type=logits.device.type, enabled=False):
+        raw = logits.float().reshape(-1)
+        return classification_loss(raw, targets, specification) + policy['coefficient'] * raw.square().mean()
 
 
 def gather_pairwise_inputs(logits, targets):

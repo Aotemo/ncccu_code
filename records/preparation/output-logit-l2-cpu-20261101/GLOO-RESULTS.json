@@ -1,0 +1,66 @@
+{
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/output-logit-l2-cpu-20261101-7c17/GREEN-2-STDOUT.txt",
+  "source_sha256": "736335c96527d1a0e4777cceb5c36cec852bfb7bfefcdd057c2e208adca5e575",
+  "reports": [
+    {
+      "passed": true,
+      "rank": 0,
+      "local_positives": 0,
+      "global_samples": 64,
+      "global_pairs": 448,
+      "loss": 0.4426952600479126,
+      "gradients": {
+        "weight": [
+          -0.5256388783454895,
+          0.011423250660300255,
+          0.0025996584445238113
+        ],
+        "bias": 0.02895835041999817,
+        "age_weight": [
+          -0.26924005150794983,
+          -0.010620884597301483
+        ]
+      },
+      "saved_policy": {
+        "version": "global-raw-logit-square01-v1",
+        "coefficient": 0.1,
+        "dtype": "float32",
+        "scope": "global_batch",
+        "reduction": "mean",
+        "logits": "final_image_plus_age_raw",
+        "schedule": "constant_from_step1"
+      },
+      "gpu_initialized": false
+    },
+    {
+      "passed": true,
+      "rank": 1,
+      "local_positives": 8,
+      "global_samples": 64,
+      "global_pairs": 448,
+      "loss": 0.4426952600479126,
+      "gradients": {
+        "weight": [
+          -0.5256388783454895,
+          0.011423250660300255,
+          0.0025996584445238113
+        ],
+        "bias": 0.02895835041999817,
+        "age_weight": [
+          -0.26924005150794983,
+          -0.010620884597301483
+        ]
+      },
+      "saved_policy": {
+        "version": "global-raw-logit-square01-v1",
+        "coefficient": 0.1,
+        "dtype": "float32",
+        "scope": "global_batch",
+        "reduction": "mean",
+        "logits": "final_image_plus_age_raw",
+        "schedule": "constant_from_step1"
+      },
+      "gpu_initialized": false
+    }
+  ]
+}
