@@ -184,7 +184,35 @@ def _optimizer(model, job):
                            weight_decay=1e-4, role='age'))
     if not groups:
         raise ValueError('model has no trainable parameters')
+    if job.get('layerwise_lr_policy') is not None:
+        from .layerwise_lr import build_layerwise_groups
+        groups = build_layerwise_groups(model, groups, job['layerwise_lr_policy'])
     return torch.optim.AdamW(groups)
+
+
+def _validate_layerwise_optimizer_state(model, optimizer, saved, policy):
+    """Bind saved optimizer positions to the exact named layerwise groups."""
+    if policy is None:
+        return None
+    from .layerwise_lr import group_identity
+    expected = group_identity(model, optimizer.param_groups, policy)
+    stored = saved.get('param_groups')
+    if not isinstance(stored, list) or len(stored) != len(expected):
+        raise ValueError('saved layerwise optimizer group count differs')
+    keys = tuple(expected[0])
+    positions = []
+    for row, group in zip(expected, stored):
+        if any(group.get(key) != row[key] for key in keys):
+            raise ValueError('saved layerwise optimizer group identity differs')
+        ids = group.get('params')
+        if not isinstance(ids, list) or len(ids) != len(row['param_names']):
+            raise ValueError('saved layerwise optimizer parameter positions differ')
+        positions.extend(ids)
+    if len(positions) != len(set(positions)):
+        raise ValueError('saved layerwise optimizer parameter positions repeat')
+    if not set(saved.get('state', {})).issubset(positions):
+        raise ValueError('saved layerwise Adam state has an unbound parameter position')
+    return expected
 
 
 def _clip_gradients(parameters, role_groups, any_bad=None):
@@ -384,7 +412,13 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
     if previous is not None or stage is not None:
         source = previous if previous is not None else stage
         model.load_state_dict(source['model'])
+        layerwise_identity = _validate_layerwise_optimizer_state(
+            model, optimizer, source['optimizer'], job.get('layerwise_lr_policy'))
         optimizer.load_state_dict(source['optimizer'])
+        if layerwise_identity is not None:
+            from .layerwise_lr import group_identity
+            if group_identity(model, optimizer.param_groups, job['layerwise_lr_policy']) != layerwise_identity:
+                raise ValueError('restored layerwise optimizer group identity differs')
         if previous is not None:
             scaler.load_state_dict(source['scaler'])
         else:

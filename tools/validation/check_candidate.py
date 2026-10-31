@@ -19,6 +19,13 @@ def group_lrs_match(groups, job):
     expected = {'backbone': job['backbone_lr'], 'head': job['head_lr']}
     if job['age']['enabled']:
         expected['age'] = job['age']['contract']['lr']
+    if job.get('layerwise_lr_policy') is not None:
+        return ({group['role'] for group in groups} == set(expected)
+                and all(group['role'] in expected
+                        and group['base_initial_lr'] == expected[group['role']]
+                        and group['initial_lr'] == group['lr'] ==
+                            expected[group['role']] * group['lr_scale']
+                        for group in groups))
     return ({group['role'] for group in groups} == set(expected)
             and all(group['role'] in expected and group['lr'] == group['initial_lr'] == expected[group['role']]
                     for group in groups))
@@ -80,6 +87,7 @@ def main(args):
     is_stage3_residual = ex.science_configuration()['candidate_profile'] == ex.STAGE3_RESIDUAL_SMALL_BINDING
     is_rolewise_clip = ex.science_configuration()['candidate_profile'] == ex.ROLEWISE_CLIP_SMALL_BINDING
     is_head_warmup = ex.science_configuration()['candidate_profile'] == ex.HEAD_WARMUP_SMALL_BINDING
+    is_layerwise = ex.science_configuration()['candidate_profile'] == ex.LAYERWISE_LR_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -218,6 +226,8 @@ def main(args):
     trainable = {name: parameter for name, parameter in named.items() if parameter.requires_grad}
     frozen = {name: parameter for name, parameter in named.items() if not parameter.requires_grad}
     groups = [{'role': group['role'], 'lr': group['lr'], 'initial_lr': group['initial_lr'],
+        **({key:group[key] for key in ('layer_id','lr_scale','base_initial_lr','param_names')}
+           if is_layerwise else {}),
         'weight_decay': group['weight_decay'], 'parameters': [
             {'name': names[id(parameter)], 'shape': list(parameter.shape), 'numel': parameter.numel()}
             for parameter in group['params']]} for group in optimizer.param_groups]
@@ -284,6 +294,17 @@ def main(args):
               and not optimizer.state,
               {'policy': job['head_warmup_policy'], 'elements_by_role': roles,
                'parameter_tensors_by_role': {role:len(parameters) for role,parameters in update_groups.items()}})
+    if is_layerwise:
+        from retrain.layerwise_lr import LAYERWISE_LR_RULE, group_identity
+        signature = group_identity(model, optimizer.param_groups, job['layerwise_lr_policy'])
+        check('R130_layerwise_group_identity_and_empty_Adam',
+              job['layerwise_lr_policy'] == ex.candidate()['layerwise_lr_policy'] == LAYERWISE_LR_RULE
+              and job['precision'] == 'fp32' and job['age']['enabled'] is True
+              and job['loss'] == ex.PAIR_LOGISTIC_LOSS
+              and not optimizer.state and len(signature) == len(groups)
+              and all(row['param_names'] == [part['name'] for part in group['parameters']]
+                      for row, group in zip(signature, groups)),
+              {'group_identity': signature, 'optimizer_state_entries': len(optimizer.state)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
                                    if name not in ('attention_pool_weight', 'stage3_residual_weight')}) if (is_content_pool or is_stage3_residual) else model_digest
@@ -333,6 +354,8 @@ def main(args):
                         public_non_encoder_sha256=tensor_digest(_non_encoder_state(model)))
     if parameter_trainability is not None:
         expected['parameter_trainability'] = parameter_trainability
+    if is_layerwise:
+        expected['layerwise_group_identity'] = signature
     initial = {'format_version': 1, 'cpu_fixture_only': True, 'identity': identity,
         'job': job, 'mode': 'train', 'age': job['age'], 'manifest_digest': ex.binding()['manifest_digest'],
         'fresh': fresh, 'successful_updates': 0, 'attempted_updates': 0, 'evaluated_cycle': 0,
@@ -361,6 +384,13 @@ def main(args):
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
+    if is_layerwise:
+        from retrain.engine import _validate_layerwise_optimizer_state
+        check('R130_strict_reload_preserves_named_optimizer_groups',
+              loaded['job']['layerwise_lr_policy'] == job['layerwise_lr_policy']
+              and reload_job['layerwise_lr_policy'] == job['layerwise_lr_policy']
+              and _validate_layerwise_optimizer_state(model, optimizer, loaded['optimizer'],
+                                                     job['layerwise_lr_policy']) == signature)
     if is_head_warmup:
         check('R128_strict_reload_preserves_non_tensor_warmup_identity',
               loaded['job']['head_warmup_policy'] == job['head_warmup_policy']

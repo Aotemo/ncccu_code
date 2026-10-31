@@ -286,7 +286,14 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     head_warmup_groups=build_update_groups(optimizer,job.get('head_warmup_policy'))
     scaler=torch.amp.GradScaler(device.type,enabled=job['precision']=='fp16')
     if previous is not None:
-        base.load_state_dict(previous['model']);optimizer.load_state_dict(previous['optimizer'])
+        base.load_state_dict(previous['model'])
+        layerwise_identity=single._validate_layerwise_optimizer_state(
+            base,optimizer,previous['optimizer'],job.get('layerwise_lr_policy'))
+        optimizer.load_state_dict(previous['optimizer'])
+        if layerwise_identity is not None:
+            from .layerwise_lr import group_identity
+            if group_identity(base,optimizer.param_groups,job['layerwise_lr_policy'])!=layerwise_identity:
+                raise ValueError('restored layerwise optimizer group identity differs')
         if precision_runtime is not None:
             from .precision import validate_scaler_state
             validate_scaler_state(previous['scaler'], job['precision'])
@@ -495,6 +502,11 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 weight=base.stage3_residual_weight
                 attention_initial['stage3_residual']={'shape':list(weight.shape),
                     'dtype':str(weight.dtype),'nonzero':int(torch.count_nonzero(weight.detach()))}
+            if job.get('layerwise_lr_policy') is not None:
+                from .layerwise_lr import group_identity
+                signature=group_identity(base,optimizer.param_groups,job['layerwise_lr_policy'])
+                attention_initial['layerwise_group_identity_sha256']=hashlib.sha256(
+                    json.dumps(signature,sort_keys=True,separators=(',',':')).encode()).hexdigest()
             initial_ranks=ctx.values({'rank':ctx.rank,'model_sha256':digest.hexdigest(),
                 'optimizer_state_entries':len(optimizer.state),'scaler':scaler.state_dict(),
                 'precision_runtime':precision_runtime,
@@ -504,6 +516,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 **attention_initial})
             if len({v['model_sha256'] for v in initial_ranks})!=1:
                 raise ValueError('fresh ranks initial model tensors differ')
+            if job.get('layerwise_lr_policy') is not None and len({v['layerwise_group_identity_sha256'] for v in initial_ranks})!=1:
+                raise ValueError('fresh ranks layerwise optimizer groups differ')
         before=save_started if ema else time.monotonic()
         if ctx.primary:
             payload={'format_version':1,'identity':identity,'job':dict(job),'mode':mode,
@@ -540,6 +554,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         atomic_json(folder/'initial-ranks.json',initial_ranks)
                         names={id(p):name for name,p in base.named_parameters()}
                         groups=[{'role':g['role'],'initial_lr':g['initial_lr'],'lr':g['lr'],
+                                 **({key:g[key] for key in ('layer_id','lr_scale','base_initial_lr','param_names')}
+                                    if job.get('layerwise_lr_policy') is not None else {}),
                                  'weight_decay':g['weight_decay'],
                                  'parameters':[{'name':names[id(p)],'shape':list(p.shape),'numel':p.numel()} for p in g['params']]}
                                 for g in optimizer.param_groups]
@@ -716,6 +732,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             role_clip_proof=None
             warmup_info=None
             warmup_before=None
+            layerwise_first_lrs = ([group['lr'] for group in optimizer.param_groups]
+                                   if successful == 0 and job.get('layerwise_lr_policy') is not None else None)
             if head_warmup_groups is None:
                 finite,role_norms,coefficients=single._clip_gradients(base.parameters(),role_groups,ctx.any)
             else:
@@ -751,6 +769,32 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 if bad_adam:raise FloatingPointError('nonfinite Adam state on a DDP rank')
                 single._apply_lr(optimizer,successful,total,warmup)
                 if ema:ema.update(base,successful)
+                if successful == 1 and layerwise_first_lrs is not None:
+                    from .layerwise_lr import group_identity
+                    identities = group_identity(base,optimizer.param_groups,job['layerwise_lr_policy'])
+                    factor = single._lr_factor(0,total,warmup)
+                    actual_steps = []
+                    for group in optimizer.param_groups:
+                        actual_steps.extend(int(optimizer.state[p]['step'])
+                                            for p in group['params'] if p in optimizer.state)
+                    proof = {'rank':ctx.rank,'successful_updates':1,'world_finite':True,
+                        'group_count':len(identities),'role_counts':{
+                            role:sum(len(group['params']) for group in optimizer.param_groups
+                                     if group['role']==role) for role in ('backbone','head','age')},
+                        'optimizer_state_entries':len(optimizer.state),
+                        'all_optimizer_steps_one':len(actual_steps)==sum(len(g['params']) for g in optimizer.param_groups)
+                            and all(step==1 for step in actual_steps),
+                        'groups':[{'role':row['role'],'layer_id':row['layer_id'],'lr_scale':row['lr_scale'],
+                                   'base_initial_lr':row['base_initial_lr'],'initial_lr':row['initial_lr'],
+                                   'consumed_lr':lr,'expected_lr':row['initial_lr']*factor,
+                                   'parameter_tensors':len(row['param_names'])}
+                                  for row,lr in zip(identities,layerwise_first_lrs)]}
+                    proofs=ctx.values(proof)
+                    if any(not item['all_optimizer_steps_one'] or
+                           any(group['consumed_lr']!=group['expected_lr'] for group in item['groups'])
+                           for item in proofs):
+                        raise ValueError('layerwise first update group LR or Adam state differs')
+                    log('layerwise_first_update_proof',rank_proofs=proofs)
                 if head_warmup_groups is not None and successful in (1,1600,1601):
                     state_proof=head_warmup_optimizer_proof(optimizer,head_warmup_groups,successful)
                     local={'rank':ctx.rank,'successful_updates':successful,

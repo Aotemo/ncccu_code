@@ -1,12 +1,22 @@
 # 当前任务与接续
 
-目标是在固定 9:1、单模型和内部 dev 唯一选点的合同下继续实验；raw AUROC 尚未达到 0.999，不称总体完成。自 R117 起，只有完整训练并冻结的所选内部 dev AUROC 达到 `0.996`，才运行一次官方 5849 验证；未达则记 `not_run_by_policy`。官方结果不用于训练、选点或下一轮调参。长期约束见 [AGENTS.md](../AGENTS.md)，执行入口见 [EXECUTION.md](../docs/EXECUTION.md)。
+**用户最新指令：仅完成本轮R130，之后暂停所有后续训练（包括seed27）及新方法评议，转到另一设备接续。** R130正常完成或不可重试的工程终态后，等待用户在另一设备明确恢复；双门通过也只记录复核资格，不派seed27。不关闭当前实例、不新建资源或续租。设备单一接续入口为[DEVICE-HANDOFF-20261101.md](DEVICE-HANDOFF-20261101.md)，当前是草稿，最终结果、安全、Git与heartbeat停用实证待补。
+
+固定9:1、单模型及内部dev唯一选点不变；raw AUROC尚未达到0.999，按用户暂停不称总体完成。自R117起，只有完整训练并冻结的所选内部dev AUROC达到 `0.996`，才运行一次官方5849验证；未达则记 `not_run_by_policy`。官方结果不用于训练、选点或下一轮调参。下文历史继续推进/条件seed27安排受上述最新暂停指令覆盖。长期约束见[AGENTS.md](../AGENTS.md)，执行入口见[EXECUTION.md](../docs/EXECUTION.md)。
+
+**[R130 Small固定0.8逐层学习率](auroc-999/R130-DECISION.md)已由根采用，order40，当前必要准备中，尚无本轮正式/Git冻结/activation/launch/实际首success或指标回执。** 唯一配置 `configs/R130-SCIENCE.json`，round `r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101`；直接R107 seed29及原Small22K→1K fe6b358a fresh，只加固定layerwise_lr_policy，不沿R129来源或R128头预热。全参数从step1 active，原globalclip1、原旋转/光度/GAP+age/pairlog/数据与时钟不变；按真实network.名称映射，finalLN仍backbone、head为network.classifier.3，多维layer_scale原WD保持。各组scaled initial_lr乘原global cursor factor一次，完整group成员/顺序/param-ID保存加载绑定。
+
+A唯一执行授权reference `2e1c4016-d1c9-49d7-ab38-c474da99a643`、ack `56b3c366`；B `layerwise_lr.py`与`test_layerwise_lr.py`已按 `44065732` / `91153d8d` 文本冻结并由根交A，不称已运行/PASS。A负责其余生产/配置及第三绑定fixture；三项必要窄验、正常formal实际数量、原345/50c/空Adam、新非tensor组身份、真实8rank首自然success组LR与全role Adamstep1均待actual，不能抄旧formal或把原初态50c当policy消费证明。必要Git/精确部署/动态资源身份准入及原120s薄链齐后直接唯一activation/fresh，不因文档等批准。
+
+完整selected strict>R107 `.9884405731067525`才科学正向，且strict>R120 singlebest `.9894773092062407`才取得固定27对R108 `.9872328538178018`复核资格；**用户已要求本轮后暂停，有资格也不派27**。只第一门为有限正向endstage/no27，未胜则关闭本固定0.8映射，不factor/分组层数/LR/seed补考。独立完整freeze`.996`官方一次、6h训练/8h整轮/9hgrant、Small12GiB/free20启动/floor16运行及300s全保存保护不变。更多组调度非免费，满24k+30eval约3–3.5h仅旧Small估，500MB/指定100ms未证。当前仅R130必要执行在途，不预报已开训或另派下一方法。
 
 **[R129 同Small架构的22K-only公开初始化对照](auroc-999/R129-DECISION.md)已完整工程有效并安全退出，双门false，固定合同关闭/no seed27。** A实际2026-11-01 **00:36:08.609北京时间**：completed/early_stopping，success=attempt6400/max24000/skip0/eval8/earlybad4；唯一EMA c4@3200内部5140 AUROC **.9884188991813276**、AP **.8233186216195478**、error_twice19236。规划一次文本核freeze selected/顶层blob及TRAIN限定字段completed/exit0/6400/harddeadline true/signals[]；attempt/官方/safe引用根转交A实证，不整件打印含token TRAIN。低于预冻R107 `.9884405731067525`与singlebest R120 `.9894773092062407`，不source epoch/384源/LR/seed补考，不推来源普遍无效或统计显著等价，AP不救。
 
 该轮直接R107，只换`timm/convnext_small.fb_in22k`固定revision `4cde7ae59c8f7fcff3f9547de274819f54863dfd`，其余下游合同不变；同ancestor谱系未证，不称撤销同一checkpoint的1K阶段或证实1K遗忘。早期代理503与API仅广告阶段保留，后续A已实证原bin实际SHA `11b2027c5b6f0b94b98a0e67b6d8bf9a4d73f0079921db7e1fe50b849780e844`/265124753 B、转换SHA `c4e529be17e8eada4bdeb7ff34e69739ea743e7ed83ae1541294ed0ea1474f50`、K=21841、344public/342backbone/完整公头strict、41LN/36GELU-SD/40conv/0BN。3/3窄验、18/18正式、658blob+mode精确部署、新whole `515f4e6340cc2c8c07934dbd971977c810f1aa89fee181da6af2d0787464540a`/345state/初态空Adam、真实首150与完整6400分阶段记录，不称150步后Adam仍空。runGit `04cdb75c170476a7fc80febeb4b4940b74cfa156`、parent `19efc9884d3d5a010e1244888af3e1b2c1f35a0f`，tree仅短`70e96098`不补猜。
 
-唯一activation exit0后，首次外wrapper误传`formal-cpu`而exit1，runpy尚未进入真实launcher，五项launch marker当时均absent；根明确授权`89e468b7-ee93-497b-8238-83fbd746a0a8`后，同activated root正确live round_root/launch_once.py的一次真正调用exit0。未再次activation/reclock，不能写第二次真实launch或全部firsttry成功；原错误与absence证据保留。完整selected不足`.996`，official正常`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`、未新增官方；TRAIN/ROUND/done完整，00:36:08.609 actualsafe=true，owner318913/start348860089现Z不称reaped，8rank318925–318932 absent、锁/设备使用者空/denied0/8busy0。当前无活跃训练、无新候选或下一fresh派发，不查旧safe轮；A负责R129两个结果小件与本页/决定页一次必要四件归档，尚不冒填archive Git。R107/R108比较锚点、R120仅singlebest、独立完整freeze`.996`官方一次、总体`.999`及6h8h9h/12GiB/floors/300s保存保护不变，500MB/指定100ms未证；旧FIT/cache/C0诊断关闭。Tiny评议已结束未采用，非来源禁用或普遍无效；本阶段结束不等总体暂停。
+唯一activation exit0后，首次外wrapper误传`formal-cpu`而exit1，runpy尚未进入真实launcher，五项launch marker当时均absent；根明确授权`89e468b7-ee93-497b-8238-83fbd746a0a8`后，同activated root正确live round_root/launch_once.py的一次真正调用exit0。未再次activation/reclock，不能写第二次真实launch或全部firsttry成功；原错误与absence证据保留。完整selected不足`.996`，official正常`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`、未新增官方；TRAIN/ROUND/done完整，00:36:08.609 actualsafe=true，owner318913/start348860089现Z不称reaped，8rank318925–318932 absent、锁/设备使用者空/denied0/8busy0。R129已无运行，不查旧safe轮；当前接续为页首R130必要准备。
+
+根转交A实际R129四件归档已完成：main/commit `5f5072ca2c7b05fa5a9a7a15a85c0c053dee8623`、parent `04cdb75c170476a7fc80febeb4b4940b74cfa156`、tree `b3a34b522bb9b81db5224f253665a7e4cdac97db`，4path/4blob远端正文exact；RESULT SHA `8cd605602e30985aa3e252e6381a730e193d57cb59204ad33c651af7ff282062`、归档README SHA `85e9faafc8d314e678b6072618caf6d9e389bdc0ef8a80ab89da6007750f214a`。只转引，不重查或重算，不冒R130 runGit。R107/R108比较锚点、R120仅singlebest、独立完整freeze`.996`官方一次、总体`.999`及资源合同保持，旧FIT/cache/C0诊断关闭。Tiny、SAM、L2-SP及EMA教师有界评议已结束未采用，非方法/来源普遍无效；本次固定0.8层倍率评议已结束且R130已采用，不再评议。R129原收口页继续冻结，最新用户暂停在本R130结束后执行。
 
 **[R128 前1600成功步仅更新head/age](auroc-999/R128-DECISION.md)已完整工程有效并安全退出，双门false，固定分支关闭/no seed27。** A实际2026-10-31 **22:38:23.630北京时间**：completed/early_stopping，success=attempt8000/max24000/skip0/eval10/earlybad4；唯一 **EMA c6@4800**、internal5140 AUROC **.9882093845688875**、AP **.8282870957132695**、error_twice19584。低于R107 `.9884405731067525`及R120 singlebest `.9894773092062407`，不长度/LR/ramp/近邻解冻或seed补考；AP不救，不推所有LP-FT/冻结均无效。8000/selected4800对R1076400/selected3200非等更新或等计算。规划一次文本核freeze selected/顶层blob与TRAIN限定字段completed/exit0/8000/harddeadline true/signals[]，未整件打印含token TRAIN；其余attempt/官方/safe引根转交A实证。
 
@@ -16,11 +26,11 @@
 
 selected不足`.996`，official正常`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`；TRAIN/ROUND/done完整，同次actualsafe=true：owner310573/start348080922现Z只称Z不reaped，8rank310585–310592 absent、locks[]/deviceusers[]/denied0/8busy0，非agent idle推断。R128已无活跃训练，不查旧safe轮；原冻结包/部署/clock/token不改。22:02原running快照已由此完整终态接续，不能再当当前进度。后续R129也已完整收口，见页首实际终态。
 
-本轮完整selected strict>R107 `.9884405731067525`才科学正向，且strict>R120 singlebest `.9894773092062407`才根另派固定27对R108 `.9872328538178018`；只第一门有限正向endstage/no27，不阶段长度/LR/ramp/近邻解冻或seed补考。独立完整freeze`.996`官方一次、总体`.999`、原6h8h9h/12GiB/floors/300s及全部保存保护不变；原24k+30eval约3–3.5h仅历史估，500MB/指定硬件100ms仍未证。无第二候选或下一fresh自动队列，状态以实际回执接续。
+R128原预冻双门均未通过，固定1600策略关闭/no27，不阶段长度/LR/ramp/近邻解冻或seed补考。独立完整freeze`.996`官方一次、总体`.999`、原6h8h9h/12GiB/floors/300s及全部保存保护不变；原24k+30eval约3–3.5h仅历史估，500MB/指定硬件100ms仍未证。当前R130与本轮结束后的用户暂停见页首，无下一fresh自动队列。
 
-**轮间优化接续。** 原唯一heartbeat `1c2c8c3b`已原位改为每5分钟cron、Asia/Shanghai，公开progress每30分钟（:00/:30），完成/错误即时，无第二逻辑timer。每tick优先读根heartbeat_control最新状态，不沿旧prompt的旧query在途或首25；仅活跃轮非公开tick轻量读既有completion done标记，pending即停，不扫metrics历史/锁设备，终态同次bundle+safe。R128/R129均已actualsafe，当前无活跃训练，不查旧safe轮或追加query，不把旧22:00query写成未完成。unknown不猜空闲/续训，不自动训练；已有observer保持唯一入口，不手写新round轮询脚本。
+**轮间优化接续。** 原唯一heartbeat `1c2c8c3b`已原位改为每5分钟cron、Asia/Shanghai，公开progress每30分钟（:00/:30），完成/错误即时，无第二逻辑timer。当前仅服务已采用的R130；尚在准备不冒称已有活跃训练。每tick优先读根heartbeat_control最新状态，不沿旧prompt的旧query在途或首25；仅活跃轮非公开tick轻量读既有completion done标记，pending即停，不扫metrics历史/锁设备，终态同次bundle+safe。R128/R129均已actualsafe，不查旧safe轮；A执行/查询在途不追加query，unknown不猜空闲/续训，不自动训练。根将在R130完整收口、实际安全及交接后停用此heartbeat，**实际停用回执尚待，现不能写已删除/已停用**。新设备不按旧prompt恢复定时任务，不新写round轮询器。
 
-B任务 `0607211b`的observer两文件已由A实际2/2验收，以Git `f0d6902ef2b8e8cd424cfbbbad33db4990bda376`独立部署；首正常22:35 progress调用实际在22:38消费terminal bundle+safe成功。显式formal-root/first-success-receipt/output/tag/mode(completion|progress)，无loop/defaultPod/资源分配/model/forward，未热改R128冻结包。根转交原freeze component end至首completed observation为87.327秒，仅这一口径，非精确done创建/通知延迟或总轮间节省，未另重算。实际总轮间节省尚未测，不能把工具通过当吞吐收益。[DCU页](DCU-UTILIZATION-20261031.md)所属利用率独立会话已finished，无剩余门；根负责heartbeat/科学协调，A唯一Git/GPU/Pod，工具完成不新增R129启动门。无新Agent/资源/租约/监控/自动训练队列；后续科学问题仍由根单一决定，不生成自动候选队列或自引用文档提交循环。
+B任务 `0607211b`的observer两文件已由A实际2/2验收，以Git `f0d6902ef2b8e8cd424cfbbbad33db4990bda376`独立部署；首正常22:35 progress调用实际在22:38消费terminal bundle+safe成功。显式formal-root/first-success-receipt/output/tag/mode(completion|progress)，无loop/defaultPod/资源分配/model/forward，未热改R128冻结包。根转交原freeze component end至首completed observation为87.327秒，仅这一口径，非精确done创建/通知延迟或总轮间节省，未另重算。实际总轮间节省尚未测，不能把工具通过当吞吐收益。[DCU页](DCU-UTILIZATION-20261031.md)所属利用率独立会话已finished，无剩余门；根负责heartbeat/科学协调，A唯一Git/GPU/Pod，工具完成不新增启动门。无新Agent/资源/租约/监控/自动训练队列；R130之后不再新方法评议，等待用户另一设备明确恢复，不生成自动候选队列或自引用文档提交循环。
 
 **[R127 训练旋转identity消融](auroc-999/R127-DECISION.md)已完整工程有效并安全退出；科学门通过、实用晋级门未通过，有限正向但未刷新best，本阶段结束/no seed27。** A实际2026-10-31 20:02:37.455终态：9600success=attempt/max24000/skip0/eval12/earlybad4，completed/early_stopping；唯一EMA c8@6400内部AUROC `.9886320261146719`、AP `.825473259026753`、error_twice18882。规划已一次文本核freeze selected/顶层blob与TRAIN completed/exit0/harddeadline/signals[]/9600；attempt、官方与safe引用A `1d021ca4` / `4d967de4`回执。strict>R107 `.9884405731067525`为true，strict>singlebest R120 `.9894773092062407`为false，不写双门false或科学阴性。实际训练/选点R127为9600/EMA6400、R107为6400/EMA3200，不称等更新或等计算、显著或稳定复现。不因AP/partial/官方救第二门，不角度/scale/插值/其他几何或seed补考；R107原None旋转继续比较路径，不升级本轮为方法基线。
 
@@ -32,7 +42,7 @@ B任务 `0607211b`的observer两文件已由A实际2/2验收，以Git `f0d6902ef
 
 协调方转交A实际回执 `f8ca55bc`：R126必要归档 main/commit `81d3360496681c0ff84a7719e8926bfdc3cab927`、parent `c03c11738178929fedfbcda78c171911cf1ec3a9`、tree `8677f20aa2b37fcb005415b2b974c67e9e1fda3a`，nonforce/readback比较恰4files/4blob exact；RESULT Pod SHA `60a733c241914d616fcd389aa2892304c1a20524db2b06e47750c11f99153127`、archive CPU SHA `1b6201c9574a18991af09b4d105532acf8bfd9041b82885f955d781becef68ea`。本文仅转引，未另查或重算；R126原决定页继续冻结。
 
-用户于2026-10-31约17:55明确说明 `True_Label` 按“单张图可见征象”判定，原观测范围unknown据此解除；这是用户说明，并非独立取得的赛方原文、标注验证或临床确认。患者关系等仍未知，不由此推断错标、无噪声、`.999`可达或应移除年龄支路；现材料也尚未区分优化、表示与泛化原因。不要求临床审计或资料上传，不将信息缺口设为未来合法实验的硬门，也无需用户重新批准训练。此前有界评议及此次指定rotation问题评议均已完成，后者由协调方采用为唯一R127；L2-SP/参数锚定已有非等价历史反例，此前未采用，不包装成未试新方案或据跨版本结果宣布方法普遍无效。不延长旧诊断或另建候选队列，持续目标不变。
+用户于2026-10-31约17:55明确说明 `True_Label` 按“单张图可见征象”判定，原观测范围unknown据此解除；这是用户说明，并非独立取得的赛方原文、标注验证或临床确认。患者关系等仍未知，不由此推断错标、无噪声、`.999`可达或应移除年龄支路；现材料也尚未区分优化、表示与泛化原因。不要求临床审计或资料上传，不将信息缺口设为合法实验的硬门；这项标签说明本身不是训练批准，R130之后仍须按用户最新暂停指令等待明确恢复。此前有界评议及指定rotation问题评议均已完成，后者由协调方采用为R127并已收口；L2-SP/参数锚定已有非等价历史反例，此前未采用，不包装成未试新方案或据跨版本结果宣布方法普遍无效。不延长旧诊断或另建候选队列，总体目标未达。
 
 原 `data.py` 训练像素路径已文本核为mirror→三项photometric→`rotate(angle[-15,15], BILINEAR, expand=True)`→scale `[.85,1]`/dx/dy→整图缩放并放入512画布，不是random-resized-crop或随机裁切。R104/R105也未新增裁切，不能以“裁剪丢失征象”立论。R127检验旋转策略净效应，同时影响方向增强、expand尺寸/黑边与后续有效内容尺度；本次有限正向不证明纯插值因果或临床细节损坏，也不能恢复prepared512之前信息。R104/R105尺度两seed正向和R122去光度阴性仍是去增强先验的反例，不由本轮扩展几何扫描。
 
@@ -70,7 +80,7 @@ R120/R121固定pairsigmoid配对已完整结束，一胜一负，停止该分支
 
 R113 冻结早期特征与 R114R1 最后下采样 stride1 均已完整结束，内部主指标未严格胜 R107 `0.9884405731067525`，各自分支按预定停止。原 R114 1426 步是工程失败，不充当完整科学结论。精简记录见 [R113](../records/R113/README.md)、[R114R1](../records/R114R1/README.md)及对应决定页。
 
-R115 的固定 fit-only SSL1600 联合轮已完整结束，内部所选 EMA c4 AUROC `0.9863815501913928`，未胜 R107，分支按预定停止；原 once official 单报，不参与选参。必要归档见 [R115](../records/R115/README.md)。指定的[全历史复盘](auroc-999/EXPERIMENT-REVIEW-20261030.md)已完成，用户暂停后续训练的等待条件由协调确认解除。
+R115 的固定 fit-only SSL1600 联合轮已完整结束，内部所选 EMA c4 AUROC `0.9863815501913928`，未胜 R107，分支按预定停止；原 once official 单报，不参与选参。必要归档见 [R115](../records/R115/README.md)。指定的[全历史复盘](auroc-999/EXPERIMENT-REVIEW-20261030.md)已完成，当时等待该复盘的条件已解除；此历史事实不覆盖页首用户最新要求的R130结束后暂停。
 
 R116 Base 配对完整内部所选 EMA c4 AUROC `0.987677169289011`，未严格胜 R107，分支不做 seed27；原一次官方已自然完成并单报，资源安全退出。精简结论见 [R116](../records/R116/README.md)。
 
