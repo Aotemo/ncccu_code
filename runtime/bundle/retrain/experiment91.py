@@ -32,6 +32,7 @@ LAYERWISE_LR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earl
 LAYERWISE_LR_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-layerdecay08-r1-v1'
 POINTWISE_LORA8_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-pointwise-lora8-v1'
 LOGIT_SQUARE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-logitsquare01-v1'
+TRI3_DOWNSAMPLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-tri3downsample-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -46,7 +47,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
                       HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
-                      POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING)
+                      POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
+                      TRI3_DOWNSAMPLE_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -89,6 +91,8 @@ def science_configuration():
         if hashlib.sha256(raw).hexdigest() != reference['sha256']:
             raise ValueError('pinned science configuration path/SHA differs')
         value = json.loads(raw)
+        if value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING:
+            from .tri3_downsample import TRI3_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -105,7 +109,8 @@ def science_configuration():
                                                        LAYERWISE_LR_SMALL_BINDING,
                                                        LAYERWISE_LR_SMALL_R1_BINDING,
                                                        POINTWISE_LORA8_SMALL_BINDING,
-                                                       LOGIT_SQUARE_SMALL_BINDING)
+                                                       LOGIT_SQUARE_SMALL_BINDING,
+                                                       TRI3_DOWNSAMPLE_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -191,8 +196,20 @@ def science_configuration():
                 or (value.get('candidate_profile') != LOGIT_SQUARE_SMALL_BINDING
                     and (value.get('job', {}).get('output_regularization') is not None
                          or value.get('candidate', {}).get('output_regularization') is not None))
-                or value.get('job', {}).get('tri3_downsample_policy') is not None
-                or value.get('candidate', {}).get('tri3_downsample_policy') is not None
+                or (value.get('candidate_profile') != TRI3_DOWNSAMPLE_SMALL_BINDING
+                    and (value.get('job', {}).get('tri3_downsample_policy') is not None
+                         or value.get('candidate', {}).get('tri3_downsample_policy') is not None))
+                or (value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING
+                    and (value.get('job', {}).get('tri3_downsample_policy') != TRI3_RULE
+                         or value.get('candidate', {}).get('tri3_downsample_policy') != TRI3_RULE
+                         or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or 'final_downsample_stride' in value.get('job', {})
+                         or any(value.get('job', {}).get(key) is not None for key in
+                                ('output_regularization', 'low_rank_policy', 'layerwise_lr_policy',
+                                 'head_warmup_policy', 'gradient_clip_policy', 'attention_pool',
+                                 'stage3_residual', 'freeze_features_before', 'training_rotation',
+                                 'training_photometric', 'training_views'))
+                         or value.get('public_source', {}).get('format') != 'torchvision-1000-state-dict-v1'))
                 or (value.get('candidate_profile') == LOGIT_SQUARE_SMALL_BINDING
                     and (value.get('job', {}).get('output_regularization') != OUTPUT_REGULARIZATION_RULE
                          or value.get('candidate', {}).get('output_regularization') != OUTPUT_REGULARIZATION_RULE
@@ -232,7 +249,8 @@ def candidate_from_configuration(value):
                                         HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
                                         LAYERWISE_LR_SMALL_BINDING,
                                         LAYERWISE_LR_SMALL_R1_BINDING,
-                                        POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING):
+                                        POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
+                                        TRI3_DOWNSAMPLE_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -301,6 +319,10 @@ def candidate_from_configuration(value):
             from .classification_loss import OUTPUT_REGULARIZATION_RULE
             expected.update(id='r132-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-logitsquare01-9010',
                             experiment_order=43, output_regularization=OUTPUT_REGULARIZATION_RULE)
+        if value['candidate_profile'] == TRI3_DOWNSAMPLE_SMALL_BINDING:
+            from .tri3_downsample import TRI3_RULE
+            expected.update(id='r133-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-tri3downsample-9010',
+                            experiment_order=44, tri3_downsample_policy=TRI3_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -516,8 +538,8 @@ def validate_job(job):
         'low_rank_policy': candidate().get('low_rank_policy'),
         # Only the exact registered R132 candidate carries this objective.
         'output_regularization': candidate().get('output_regularization'),
-        # Tri3 is CPU preparation only, with no adopted scientific profile yet.
-        'tri3_downsample_policy': None,
+        # Only the exact registered R133 candidate carries these three operators.
+        'tri3_downsample_policy': candidate().get('tri3_downsample_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -705,8 +727,27 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
-    if configured.get('tri3_downsample_policy') is not None or value.get('tri3_downsample') is not None:
-        raise ValueError('Tri3 has no adopted formal profile')
+    if configured.get('tri3_downsample_policy') != candidate().get('tri3_downsample_policy'):
+        raise ValueError('Tri3 job has no matching registered candidate identity')
+    if configured.get('tri3_downsample_policy') is not None:
+        from .tri3_downsample import TRI3_RULE
+        expected_tri3 = {'policy': TRI3_RULE, 'targets': [
+            {'feature_index': index, 'normalization_name': f'network.features.{index}.0',
+             'convolution_name': f'network.features.{index}.1',
+             'input_channels': inputs, 'output_channels': outputs,
+             'convolution_kernel': [2, 2], 'convolution_stride': [1, 1],
+             'convolution_padding': [0, 0],
+             'tail': [{'kind': 'ReflectionPad2d', 'padding': [1, 1, 1, 1]},
+                      *[{'kind': 'AvgPool2d', 'kernel_size': 2, 'stride': stride,
+                         'padding': 0, 'ceil_mode': False, 'count_include_pad': True,
+                         'divisor_override': None} for stride in (1, 2)]]}
+            for index, inputs, outputs in ((2, 96, 192), (4, 192, 384), (6, 384, 768))]}
+        if (science_configuration()['candidate_profile'] != TRI3_DOWNSAMPLE_SMALL_BINDING
+                or configured['tri3_downsample_policy'] != TRI3_RULE
+                or value.get('tri3_downsample') != expected_tri3):
+            raise ValueError('actual three native LN/convolution/Tri3 descriptions differ')
+    elif value.get('tri3_downsample') is not None:
+        raise ValueError('unregistered Tri3 structure')
     if configured.get('low_rank_policy') != candidate().get('low_rank_policy'):
         raise ValueError('low-rank job has no matching registered candidate identity')
     if configured.get('low_rank_policy') is not None:

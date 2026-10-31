@@ -1,4 +1,10 @@
-# R132：固定raw-logit平方0.1已真实开始训练
+# R132：固定raw-logit平方0.1完整结果
+
+2026-11-01 **07:37:29.470813北京时间**的一次[完整completion](COMPLETION-R132.json)确认done/TRAIN/ROUND completed、9600success=attempt/0skip/eval12/bad4、component exit0/signals[]/errornull。[结果摘要](R132-RESULT.json)唯一选点为EMA c8@6400，内部AUROC **`.985972153822257`**、AP `.8116258295518979`、error_twice23300，strict>R107 `.9884405731067525`和>singlebestR120 `.9894773092062407`两门均false。精确0.1方案关闭/no seed27，不外推所有输出正则，不扫系数/中心化/classweight/WD/LR/seed、不转Erasing。
+
+完整selected不足`.996`，官方政策仅引ROUND：not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull，observer official_readfalse；未官方前向。freeze.status回执原值null，保留其完整selected/variant而不冒写该字段completed。冻结blob未hash/load，tensorSHA只转引原小件；raw`.999`未达。
+
+actualsafe=true/terminal_idle：owner350819/start351239598为Z、不称reaped；8rank350831–38全absent，锁文件present但holders[]、deviceusers[]、scanDenied0、8expectedPCI均seen/busy0。[terminal CPU原件](TERMINAL-CPU-RECEIPT.json) SHA `6f39347b7d9cc56b7685ee1957429ec8e7d8584562e3405b97cd87fba0f3bacb`、672/A12 guard0；completion SHA `6cf497e098f37eceffa93254e3df9e339690ced3280baa78047e0330cfa35414`。仅复制已核小件，不为归档再查旧safe，不改clock/token/grant或保护资产。根采用下一独立[R133](../../todo/auroc-999/R133-DECISION.md)。以下保留本轮原始启动记录，运行Git不因归档改变。
 
 运行Git `c11a0829f9f6e75b4f03872248008ee7cd9aae00`，parent `e0f3d618c7efcea48f0318b3b1930f4f71a091a7`，tree `ddef80b03fc2ab4ebba70e5cd94887ad9a544183`；SCIENCE SHA `8d48dd163240ec2df99ef2435445bbb088a771e055f8d65c9a895a09697790a4`。order43直接R107/seed29/public fresh/原345全训，只加精确0.1 raw-logit平方项，原pairlog六字段不变，无LoRA/layerwise。R131完整双门false及原R1301503/R1结果分别保留，不加载旧checkpoint或initial，不拼曲线。
 

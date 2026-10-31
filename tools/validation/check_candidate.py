@@ -94,6 +94,7 @@ def main(args):
     is_head_warmup = ex.science_configuration()['candidate_profile'] == ex.HEAD_WARMUP_SMALL_BINDING
     is_layerwise = layerwise_profile(ex.science_configuration()['candidate_profile'])
     is_low_rank = job.get('low_rank_policy') is not None
+    is_tri3 = job.get('tri3_downsample_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -323,14 +324,18 @@ def main(args):
                       for row, group in zip(signature, groups)),
               {'group_identity': signature, 'optimizer_state_entries': len(optimizer.state)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
+    tri3_ema_structure = ex.describe_model(ema.model) if is_tri3 else None
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
                                    if name not in ('attention_pool_weight', 'stage3_residual_weight')
                                    and not (is_low_rank and name.endswith(('.lora_A', '.lora_B')))}) if (is_content_pool or is_stage3_residual or is_low_rank) else model_digest
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
+          and (not is_tri3 or tri3_ema_structure == structure)
           and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
                if (is_content_pool or is_stage3_residual) else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
           and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
-          and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members})
+          and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members},
+          {'online_tri3': structure['tri3_downsample'],
+           'ema_tri3': tri3_ema_structure['tri3_downsample']} if is_tri3 else None)
     if is_low_rank:
         check('pointwise_original345_fresh_common_state_and_distinct_whole',
               common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
@@ -404,6 +409,8 @@ def main(args):
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
           and reload_job == job and reloaded is not model
+          and (not is_tri3 or (reload_origin.get('tri3_downsample') == structure['tri3_downsample']
+                              and ex.describe_model(reloaded) == structure))
           and (not is_content_pool or (hasattr(reloaded, 'attention_pool_weight')
                and torch.equal(reloaded.attention_pool_weight, model.attention_pool_weight)))
           and (not is_stage3_residual or (hasattr(reloaded, 'stage3_residual_weight')
