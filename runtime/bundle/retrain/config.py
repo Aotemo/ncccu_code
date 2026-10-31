@@ -106,6 +106,15 @@ def validate_job(job):
                 or job.get('attention_pool') is not None or job.get('stage3_residual') is not None
                 or not (job.get('age') or {}).get('enabled')):
             raise ValueError('rolewise clip requires the registered FP32 Small age model')
+    if job.get('head_warmup_policy') is not None:
+        from .head_warmup import HEAD_WARMUP_RULE
+        if job['head_warmup_policy'] != HEAD_WARMUP_RULE:
+            raise ValueError('head warmup policy differs from the frozen protocol')
+        if (job['model'] != 'convnext_small' or job['precision'] != 'fp32'
+                or job.get('gradient_clip_policy') is not None
+                or job.get('attention_pool') is not None or job.get('stage3_residual') is not None
+                or not (job.get('age') or {}).get('enabled')):
+            raise ValueError('head warmup requires the registered FP32 Small age model')
     if job.get('mixup') is not None:
         from .mixup import validate_spec
         validate_spec(job['mixup'])
@@ -258,7 +267,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy'), 'job')
         job.update(item)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:

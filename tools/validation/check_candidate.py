@@ -79,6 +79,7 @@ def main(args):
     is_content_pool = ex.science_configuration()['candidate_profile'] == ex.CONTENT_POOL_SMALL_BINDING
     is_stage3_residual = ex.science_configuration()['candidate_profile'] == ex.STAGE3_RESIDUAL_SMALL_BINDING
     is_rolewise_clip = ex.science_configuration()['candidate_profile'] == ex.ROLEWISE_CLIP_SMALL_BINDING
+    is_head_warmup = ex.science_configuration()['candidate_profile'] == ex.HEAD_WARMUP_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -262,6 +263,27 @@ def main(args):
                    for role,parameters in role_groups.items()} == roles,
               {'policy': job['gradient_clip_policy'], 'elements_by_role': roles,
                'parameter_tensors_by_role': {role:len(parameters) for role,parameters in role_groups.items()}})
+    if is_head_warmup:
+        from retrain.head_warmup import HEAD_WARMUP_RULE, build_update_groups, expected_optimizer_steps
+        update_groups = build_update_groups(optimizer, job['head_warmup_policy'])
+        check('R128_exact_head_warmup_policy_and_empty_role_Adam',
+              job['head_warmup_policy'] == ex.candidate()['head_warmup_policy'] == HEAD_WARMUP_RULE
+              and job['precision'] == 'fp32' and job['age']['enabled'] is True
+              and job['loss'] == ex.PAIR_LOGISTIC_LOSS
+              and job.get('gradient_clip_policy') is None
+              and job.get('training_rotation') is None and job.get('training_photometric') is None
+              and job.get('attention_pool') is None and job.get('stage3_residual') is None
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
+              and set(update_groups) == {'backbone', 'head', 'age'}
+              and {id(parameter) for parameters in update_groups.values() for parameter in parameters}
+                    == {id(parameter) for parameter in members}
+              and sum(len(parameters) for parameters in update_groups.values()) == len(members)
+              and {role:sum(parameter.numel() for parameter in parameters)
+                   for role,parameters in update_groups.items()} == roles
+              and expected_optimizer_steps(0) == {'backbone': None, 'head': None, 'age': None}
+              and not optimizer.state,
+              {'policy': job['head_warmup_policy'], 'elements_by_role': roles,
+               'parameter_tensors_by_role': {role:len(parameters) for role,parameters in update_groups.items()}})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
                                    if name not in ('attention_pool_weight', 'stage3_residual_weight')}) if (is_content_pool or is_stage3_residual) else model_digest
@@ -339,6 +361,13 @@ def main(args):
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
+    if is_head_warmup:
+        check('R128_strict_reload_preserves_non_tensor_warmup_identity',
+              loaded['job']['head_warmup_policy'] == job['head_warmup_policy']
+              and reload_job['head_warmup_policy'] == job['head_warmup_policy']
+              and reloaded.age_metadata == job['age']
+              and loaded['optimizer']['state'] == {}
+              and tensor_digest(reloaded.state_dict()) == model_digest)
     initials = [{'rank': rank, 'model_sha256': model_digest, 'optimizer_state_entries': 0,
         'bn_modules': structure['batch_norm_modules'], 'scaler': {}, 'precision_runtime': {**runtime_proof(RULE, device='cpu'),
             'scaler_enabled': False, 'scaler_state_dict': {}, 'effective_scale': 1.0},

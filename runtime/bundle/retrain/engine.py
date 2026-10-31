@@ -378,6 +378,8 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
     optimizer = _optimizer(model, job)
     from .gradient_clip import build_role_groups
     role_groups = build_role_groups(optimizer, job.get('gradient_clip_policy'))
+    from .head_warmup import build_update_groups
+    head_warmup_groups = build_update_groups(optimizer, job.get('head_warmup_policy'))
     scaler = torch.amp.GradScaler(device.type, enabled=job['precision'] == 'fp16')
     if previous is not None or stage is not None:
         source = previous if previous is not None else stage
@@ -578,7 +580,11 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
             attempted += 1
             coverage.update(attempt_indices)
             scaler.unscale_(optimizer)
-            finite_grad, _, _ = _clip_gradients(model.parameters(), role_groups)
+            if head_warmup_groups is None:
+                finite_grad, _, _ = _clip_gradients(model.parameters(), role_groups)
+            else:
+                from .head_warmup import mask_and_clip_gradients_
+                finite_grad, _ = mask_and_clip_gradients_(head_warmup_groups, successful)
             if not finite_grad and not scaler.is_enabled():
                 raise FloatingPointError('nonfinite gradients without enabled GradScaler')
             old_scale = scaler.get_scale()

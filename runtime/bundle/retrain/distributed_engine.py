@@ -80,6 +80,32 @@ def initialize_store(folder):
     return store
 
 
+def head_warmup_optimizer_proof(optimizer, groups, successful):
+    """Inspect the actual partial Adam state at fresh/resume and phase boundaries."""
+    from .head_warmup import expected_optimizer_steps
+    expected = expected_optimizer_steps(successful)
+    proof = {}
+    for role, parameters in groups.items():
+        present = 0
+        for parameter in parameters:
+            state = optimizer.state.get(parameter)
+            wanted = expected[role]
+            if wanted is None:
+                if state:
+                    raise ValueError('head warmup created Adam state before role activation')
+                continue
+            if not state or not {'step', 'exp_avg', 'exp_avg_sq'} <= set(state):
+                raise ValueError('head warmup active role lacks complete Adam state')
+            if (int(state['step']) != wanted or state['exp_avg'].shape != parameter.shape
+                    or state['exp_avg_sq'].shape != parameter.shape):
+                raise ValueError('head warmup Adam role step or shape differs')
+            present += 1
+        proof[role] = {'parameter_tensors': len(parameters), 'parameter_elements': sum(
+            parameter.numel() for parameter in parameters), 'state_entries': present,
+            'expected_step': expected[role]}
+    return proof
+
+
 def prime_reducer(model,base,job,ctx):
     """Rebuild DDP buckets before real updates, without changing model or RNG."""
     if ctx.world_size==1:return
@@ -256,6 +282,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     optimizer=single._optimizer(base,job)
     from .gradient_clip import build_role_groups
     role_groups=build_role_groups(optimizer,job.get('gradient_clip_policy'))
+    from .head_warmup import build_update_groups
+    head_warmup_groups=build_update_groups(optimizer,job.get('head_warmup_policy'))
     scaler=torch.amp.GradScaler(device.type,enabled=job['precision']=='fp16')
     if previous is not None:
         base.load_state_dict(previous['model']);optimizer.load_state_dict(previous['optimizer'])
@@ -282,6 +310,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if previous is not None:restore_rank_rng(previous,ctx,parent_spec['sha256'] if from_parent else None)
     mirror=ReferenceBatchNorm(base,ctx)
     successful=int(previous['successful_updates']) if previous else 0
+    if head_warmup_groups is not None:
+        head_warmup_optimizer_proof(optimizer,head_warmup_groups,successful)
     attempted=int(previous['attempted_updates']) if previous else 0
     evaluated=int(previous['evaluated_cycle']) if previous else 0
     early=copy.deepcopy(previous['early_stop']) if previous else {'reference_auroc':None,'bad_cycles':0,'stopped':False}
@@ -394,10 +424,18 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                           stage0_metrics=best if best and best.get('cycle')==0 else None,
                           result_kind='stage-probe' if mode=='stage-probe' else 'training')
         if fresh_spec:
+            if head_warmup_groups is None:
+                expected_step = successful
+                role_steps = None
+            else:
+                from .head_warmup import expected_optimizer_steps
+                expected_step = None
+                role_steps = expected_optimizer_steps(successful)
             result.update(purpose=fresh_spec['purpose'],fresh=fresh_spec,fresh_guard=overflow_guard.state(),
-                          sampler_attempted_updates=attempted,optimizer_expected_step=successful,
+                          sampler_attempted_updates=attempted,optimizer_expected_step=expected_step,
                           absolute_deadline_at=deadline_at,stop_reason=stop_reason,
                           result_kind='fresh-probe' if mode=='fresh-probe' else 'training')
+            if role_steps is not None:result['optimizer_expected_steps_by_role']=role_steps
         if derived_receipt is not None:result['ssl_derived']=derived_receipt
         if ema:
             result.update(ema={k:v for k,v in ema.state_dict().items() if k!='model'},
@@ -590,6 +628,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if mode in ('train','stage-probe','fresh-probe'):validate_pending()
     if stopping():return interrupt()
     first_role_clip_logged=successful>0
+    first_head_warmup_logged=successful>0
     iterator=None;loader=None
     try:
         if successful<target and not early['stopped']:
@@ -675,7 +714,17 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         or len({r['gradient_sha256'] for r in probe_gradient_proofs})!=1):
                     raise ValueError('probe rank gradient ownership / synchronization proof failed')
             role_clip_proof=None
-            finite,role_norms,coefficients=single._clip_gradients(base.parameters(),role_groups,ctx.any)
+            warmup_info=None
+            warmup_before=None
+            if head_warmup_groups is None:
+                finite,role_norms,coefficients=single._clip_gradients(base.parameters(),role_groups,ctx.any)
+            else:
+                from .head_warmup import mask_and_clip_gradients_
+                if successful == 0 and not first_head_warmup_logged:
+                    warmup_before={role:[p.detach().cpu().clone() for p in parameters]
+                                   for role,parameters in head_warmup_groups.items()}
+                finite,warmup_info=mask_and_clip_gradients_(head_warmup_groups,successful,ctx.any)
+                role_norms=coefficients=None
             if coefficients is not None and not first_role_clip_logged:
                 role_clip_proof={'rank':ctx.rank,'world_finite':True,
                     'roles':{role:{'parameter_tensors':len(role_groups[role]),
@@ -702,6 +751,27 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 if bad_adam:raise FloatingPointError('nonfinite Adam state on a DDP rank')
                 single._apply_lr(optimizer,successful,total,warmup)
                 if ema:ema.update(base,successful)
+                if head_warmup_groups is not None and successful in (1,1600,1601):
+                    state_proof=head_warmup_optimizer_proof(optimizer,head_warmup_groups,successful)
+                    local={'rank':ctx.rank,'successful_updates':successful,
+                           'phase':warmup_info['phase'],
+                           'active_roles':warmup_info['active_roles'],
+                           'role_state':state_proof,
+                           'world_finite':True}
+                    if successful==1:
+                        local['role_changed']={role:any(not torch.equal(parameter.detach().cpu(),before)
+                            for parameter,before in zip(parameters,warmup_before[role]))
+                            for role,parameters in head_warmup_groups.items()}
+                        local['preclip_norms']={role:float(value) for role,value in warmup_info['role_norms'].items()}
+                        local['active_global_norm']=float(warmup_info['active_global_norm'])
+                        local['clip_coefficient']=float(warmup_info['clip_coefficient'])
+                        first_head_warmup_logged=True
+                    proofs=ctx.values(local)
+                    if successful==1 and any(record['role_changed']['backbone'] or
+                            not all(record['role_changed'][role] for role in ('head','age')) for record in proofs):
+                        raise ValueError('head warmup first optimizer update differs from active roles')
+                    log('head_warmup_phase_proof',rank_proofs=proofs)
+                warmup_before=None
                 if role_clip_proof is not None and not first_role_clip_logged:
                     proofs=ctx.values(role_clip_proof)
                     log('first_role_clip',successful_updates=successful,rank_proofs=proofs)
