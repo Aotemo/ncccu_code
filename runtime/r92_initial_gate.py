@@ -138,7 +138,11 @@ def maybe_release(root, atomic, sha):
                 and tensor_digest(remainder) == read(evidence / 'MODEL_CPU_ADMISSION.json')['initial_state_control']['public_non_encoder_sha256']
                 and payload.get('ssl_derived') == ssl,
                 'R115 native supervised initial does not equal fixed SSL encoder plus public fresh head/age')
-    require('attention_pool_weight' not in state and 'q' not in state and int(torch.count_nonzero(state['age_weight'])) == 0, 'noq/zeroage state differs')
+    age_enabled = payload['job']['age']['enabled']
+    require('attention_pool_weight' not in state and 'q' not in state
+            and ('age_weight' in state) == age_enabled
+            and (not age_enabled or int(torch.count_nonzero(state['age_weight'])) == 0),
+            'noq/resolved-age state differs')
     require(tensor_digest(state) == full_digest and payload['candidate_normalization'] == expected['candidate_normalization'], 'native tensor/actual LN differs')
     require(payload.get('parameter_trainability') == expected.get('parameter_trainability'),
             'native frozen/trainable/optimizer identity differs')

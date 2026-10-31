@@ -149,7 +149,7 @@ def build(args):
     if science['candidate_profile'] not in ex.SUPPORTED_BINDINGS or science['schedule'] != ex.schedule():
         raise ValueError('science profile or configured successful-update schedule differs')
     job = copy.deepcopy(science['job'])
-    job.update(age=ex.metadata()['AGE.json'], experiment91=ex.binding(),
+    job.update(age=ex.resolved_age_spec(), experiment91=ex.binding(),
         initialization={'kind': 'imagenet', 'format': ex.public_source()['format'],
             'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.public_source()['sha256']})
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,

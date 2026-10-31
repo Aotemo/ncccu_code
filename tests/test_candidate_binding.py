@@ -47,6 +47,19 @@ class CandidateBindingTest(unittest.TestCase):
         self.assertEqual(experiment.candidate(), CONVNEXT22)
         self.assertEqual(experiment.candidate()['stochastic_depth'], experiment.science_configuration()['job']['stochastic_depth'])
 
+    def test_resolved_age_preserves_frozen_contract_and_legacy_default(self):
+        frozen = {'enabled': True, 'contract': {'fit_only': True}, 'contract_sha256': 'frozen'}
+        with patch.object(experiment, 'metadata', return_value={'AGE.json': frozen}), \
+                patch.object(experiment, 'science_configuration', return_value={'age_enabled': False}):
+            disabled = experiment.resolved_age_spec()
+        with patch.object(experiment, 'metadata', return_value={'AGE.json': frozen}), \
+                patch.object(experiment, 'science_configuration', return_value={}):
+            legacy = experiment.resolved_age_spec()
+        self.assertEqual(disabled, {**frozen, 'enabled': False})
+        self.assertEqual(legacy, frozen)
+        self.assertIsNot(disabled['contract'], frozen['contract'])
+        self.assertTrue(frozen['enabled'])
+
     def test_R94_only_changes_backbone_LR_scientific_fields(self):
         old = json.loads((ROOT / 'configs/R93-SCIENCE.json').read_text())
         new = json.loads((ROOT / 'configs/R94-SCIENCE.json').read_text())
@@ -102,7 +115,7 @@ class CandidateBindingTest(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('candidate_LR_checker', location)
         checker = importlib.util.module_from_spec(spec); spec.loader.exec_module(checker)
         job = experiment.science_configuration()['job']
-        job['age'] = {'contract': {'lr': 1e-3}}
+        job['age'] = {'enabled': True, 'contract': {'lr': 1e-3}}
         groups = [{'role': role, 'lr': lr, 'initial_lr': lr}
                   for role, lr in [('backbone', job['backbone_lr']), ('head', job['head_lr']), ('age', 1e-3)]]
         self.assertTrue(checker.group_lrs_match(groups, job))

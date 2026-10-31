@@ -21,6 +21,7 @@ DINO_R50_BINDING = 'single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-see
 PAIR_SIGMOID_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-v1'
 PAIR_SIGMOID_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-v1'
 PHOTO_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-photoidentity-v1'
+NO_AGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-noage-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -30,7 +31,8 @@ PAIR_LOGISTIC_LOSS = {'version': 'binary-pairwise-logistic-v1', 'kind': 'binary_
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
                       LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
-                      PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING)
+                      PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
+                      NO_AGE_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -74,8 +76,17 @@ def science_configuration():
                 or (value.get('candidate_profile') in (SWIN_BINDING, DINO_R50_BINDING,
                                                        PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,
-                                                       PHOTO_IDENTITY_SMALL_BINDING)
+                                                       PHOTO_IDENTITY_SMALL_BINDING,
+                                                       NO_AGE_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
+                or type(value.get('age_enabled', True)) is not bool
+                or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
+                    and value.get('age_enabled', True) is not True)
+                or (value.get('candidate_profile') == NO_AGE_SMALL_BINDING
+                    and (value.get('age_enabled') is not False
+                         or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or value.get('job', {}).get('training_photometric') is not None
+                         or value.get('job', {}).get('training_views') is not None))
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
@@ -105,7 +116,7 @@ def candidate_from_configuration(value):
     elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING,
                                         FIT_SSL_SMALL_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                                         PAIR_SIGMOID_SMALL_SEED27_BINDING,
-                                        PHOTO_IDENTITY_SMALL_BINDING):
+                                        PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -129,6 +140,9 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == PHOTO_IDENTITY_SMALL_BINDING:
             expected.update(id='r122-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-photoidentity-9010',
                             experiment_order=32)
+        if value['candidate_profile'] == NO_AGE_SMALL_BINDING:
+            expected.update(id='r123-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-noage-9010',
+                            experiment_order=33, readout='native_avgpool_final_LN_dropout_linear')
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -274,6 +288,13 @@ def binding():
     return copy.deepcopy(metadata()['binding'])
 
 
+def resolved_age_spec():
+    """Keep the frozen fit-only age contract while resolving this round's readout."""
+    result = copy.deepcopy(metadata()['AGE.json'])
+    result['enabled'] = science_configuration().get('age_enabled', True)
+    return result
+
+
 def schedule():
     raw = science_configuration()['schedule']
     return {k: raw[k] for k in ('steps_per_cycle', 'total_updates', 'warmup_updates', 'stop_after_updates')}
@@ -326,7 +347,7 @@ def validate_job(job):
     init = job.get('initialization', {})
     site = load_site()
     if (any(job.get(k) != v for k, v in expected.items()) or job.get('physical_batch') not in (64 // len(site['gpus']), 32)
-            or job.get('experiment91') != binding() or job.get('age') != metadata()['AGE.json']
+            or job.get('experiment91') != binding() or job.get('age') != resolved_age_spec()
             or init.get('kind') != 'imagenet' or init.get('sha256') != public_source()['sha256']
             or init.get('format') != public_source()['format']
             or Path(init.get('path', '')).resolve() != Path(site['public_weight']).resolve()

@@ -16,10 +16,12 @@ CHECKS = []
 
 
 def group_lrs_match(groups, job):
-    expected = {'backbone': job['backbone_lr'], 'head': job['head_lr'],
-                'age': job['age']['contract']['lr']}
-    return all(group['role'] in expected and group['lr'] == group['initial_lr'] == expected[group['role']]
-               for group in groups)
+    expected = {'backbone': job['backbone_lr'], 'head': job['head_lr']}
+    if job['age']['enabled']:
+        expected['age'] = job['age']['contract']['lr']
+    return ({group['role'] for group in groups} == set(expected)
+            and all(group['role'] in expected and group['lr'] == group['initial_lr'] == expected[group['role']]
+                    for group in groups))
 
 
 def check(name, condition, actual=None):
@@ -84,7 +86,8 @@ def main(args):
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
           and structure['buffer_count'] == contract.get('static_index_buffers', contract.get('buffer_count', 0))
           and len(dict(model.named_buffers())) == contract.get('static_index_buffers', contract.get('buffer_count', 0)) and model.age_metadata == job['age']
-          and model.age_weight.numel() == 2 and bool((model.age_weight == 0).all())
+          and (not hasattr(model, 'age_weight') if not job['age']['enabled'] else
+               model.age_weight.numel() == 2 and bool((model.age_weight == 0).all()))
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
                   for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
     if is_pair_sigmoid:
@@ -162,14 +165,16 @@ def main(args):
             {'name': names[id(parameter)], 'shape': list(parameter.shape), 'numel': parameter.numel()}
             for parameter in group['params']]} for group in optimizer.param_groups]
     members = [parameter for group in optimizer.param_groups for parameter in group['params']]
+    expected_roles = ('backbone', 'head', 'age') if job['age']['enabled'] else ('backbone', 'head')
     roles = {role: sum(row['numel'] for group in groups if group['role'] == role for row in group['parameters'])
-             for role in ('backbone', 'head', 'age')}
+             for role in expected_roles}
     head = {id(parameter) for parameter in (model.classifier if is_r50 else model.network.classifier)[-1].parameters()}
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + 3
+        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2)
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
-        and roles == {'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()), 'head': contract['features'] + 1, 'age': 2}
+        and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()),
+                       'head': contract['features'] + 1, **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
         and group_lrs_match(groups, job)

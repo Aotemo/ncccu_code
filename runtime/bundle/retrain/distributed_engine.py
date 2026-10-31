@@ -612,7 +612,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 images,labels,indices,age_features=unpack_batch(batch,job,device)
                 if attempted==0 and micro==0:
                     log('first_batch_dataset_policy',training_photometric=dataset.training_photometric,
-                        primary_samples=int(images.shape[0]))
+                        primary_samples=int(images.shape[0]), batch_arity=len(batch),
+                        age_enabled=bool(job['age']['enabled']),
+                        age_features_present=age_features is not None)
                 local_indices.extend(indices.tolist())
                 images=images.to(device,non_blocking=True);labels=labels.to(device,dtype=torch.float32,non_blocking=True).reshape(-1)
                 primary_inputs+=images.shape[0]
