@@ -1,6 +1,6 @@
 # R128：预热1600成功步仅更新head/age，再全量更新
 
-协调方已正式采用，仅授权一次seed20261029 fresh，直接科学对照R107。当前为必要准备；SCIENCE、Git、正式验收、activation、实际policy消费与首成功均待A真实回执。本页不构成新增批准或启动等待门，不是R127续训或第二工程attempt；总体raw AUROC尚未达到`.999`。
+R128已完整工程有效并于2026-10-31 22:38:23.630北京时间实际安全退出。唯一EMA c6@4800内部AUROC `.9882093845688875`，低于R107科学门及R120实用门；本固定1600 head+age策略关闭/no seed27，不长度/LR/ramp/近邻解冻或seed补考。下文保留原预登记科学合同，实际分阶段证据与有限结论见末段；不是所有LP-FT/冻结方法均无效，也不是总体暂停。raw AUROC尚未达到`.999`。
 
 ## 唯一身份与科学问题
 
@@ -62,8 +62,8 @@ SD.1/dropout.2、FP32/noTF32、backbone LR1e-4/head与age各1e-3、原WD/AdamW/g
 
 - **B仅两新文件**：`runtime/bundle/retrain/head_warmup.py`、`tests/test_head_warmup.py`。接口为`HEAD_WARMUP_RULE`、`build_update_groups`、`mask_and_clip_gradients_`、`expected_optimizer_steps`，只文本实现，不执行。两toy分别覆盖：①真实AdamW/独立手算active合并globalclip、前段无WD无state和1600/1601角色计数；②被mask骨干NaN/Inf、合成norm非finite和WORLD拒绝均发生在mutation前，无部分修改。
 - **A独占其余**production/config/experiment91/两个engine/SCIENCE/正式绑定及`tests/test_head_warmup_binding.py`；第三项覆盖1599/1600/1601保存恢复对连续参考的参数、Adam/role步、EMA/RNG一致及SCIENCE/None兼容绑定。规划仅本页与todo入口，不同人不共写。
-- 合计仅三项，由A在动态核验的本人prep guard实际执行；尚未运行不称GREEN。不重source/loss/Gloo/cache/EMA大套件、拒绝矩阵、控制模型或独立GPU预演。正常原生formal实际数量不抄旧轮；50c/空Adam不证明非tensor policy已消费。
-- 真实首成功须记录骨干unchanged/nostate、head/age更新及原tuple4/age true/输入policy；1600/1601仅自然边界各一次小日志记录阶段与Adam角色计数。由正常半小时回执消费，不增forward/model/gradprobe/query/poller。新formal、8rank和首成功尚待actual，未发生不预填。
+- 本轮三项窄验及正式20/20均已由A实际完成，详见末段，不重source/loss/Gloo/cache/EMA大套件、拒绝矩阵、控制模型或独立GPU预演；50c/空Adam与非tensor policy消费分别实证，不互相代替。
+- 实际首成功及自然1600/1601阶段证据已由原回执消费，核骨干状态、head/age更新与各role Adam计数；未增加forward/model/gradprobe/query/poller。不把这三个时点推广为全程梯度主导或科学收益。
 
 ## 成本、执行与判据
 
@@ -74,3 +74,20 @@ A唯一Git/GPU，B与规划仅文本；沿现有三角色，不新Agent/子Agent
 完整工程有效原selector selected内部5140 AUROC **strict>.9884405731067525（R107）**才同seed科学正向，同时 **strict>.9894773092062407（R120 singlebest）**才由根另派固定seed20261027对 **R108 .9872328538178018**。只第一门为有限正向endstage/no27；未胜关闭本固定1600策略，不阶段长度/LR/ramp/近邻解冻/seed补考。本次仅首seed，无自动27；AP/partial/难组/official/platform不救主判。R120不升级方法基线，R107/R108仍科学锚点。
 
 完整训练结束并冻结唯一checkpoint后，selected内部 **>=.996**才原official5849完整一次；未达正常completed并记`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，safe另实核。partial不触发；工程未启动无selected不能写threshold_not_met。无平台testCSV/提交，官方不选参；总体raw`.999`未达持续协调，不保证收益、显著性或可达，不称总体暂停/完成。此页到此freeze，不生成第二候选或下一评议。
+
+## 实际终态与有限结论
+
+根转交A实际2026-10-31 **22:38:23.630北京时间**终态：completed/early_stopping，success=attempt **8000** / max24000 / skip0 / eval10 / earlybad4，TRAIN completed/exit0/hard_deadline_met=true/signals[]，ROUND/done complete。规划仅一次文本核本机freeze的selected/顶层blob及TRAIN限定字段，未整件打印含token的TRAIN，未读预测或官方。唯一 **EMA c6@4800**、internal5140 AUROC **.9882093845688875**、AP **.8282870957132695**、error_twice **19584**；其他attempt/官方/safe等沿A经根转交的实证。
+
+science_gate strict>R107 **.9884405731067525**为false，practical_best_gate strict>R120 **.9894773092062407**为false。关闭本固定1600策略/no27；不长度/LR/ramp/近邻解冻或seed补考，AP不救。R128训练8000/selected4800相对R107训练6400/selected3200并非等更新或等计算；结果不证明所有LP-FT/冻结普遍无效、预训练特征优劣或临床原因。R107原全程更新路径继续比较，R120仅singlebest、R107/R108锚点和总体`.999`目标保持。
+
+原新三项窄验、formal20/20、native345/whole50c/空Adam、首25及实际成功步1/1600/1601的8rank policy消费、唯一activation/launch均分阶段保留，不重验。1600骨干342参数无Adam state、head2/age1 step1600；1601骨干step1、head/age1601，写expected_step前已逐参数核step和矩，不仅配置声明。原精确树首次缺R127归档三件的构建失败保留，remote补齐后的正式成功不覆盖失败。runGit为 `9caaf3e060da6b5d4d4291456094463e8cddf1be`、tree `277119598438b7eeb888afd4bb3690c138a93a6f`；当前actual main `f0d6902ef2b8e8cd424cfbbbad33db4990bda376`为独立observer提交，不冒充运行Git或本轮结果归档，archive Git待A actual。原source/部署/clock/token与原件不改。
+
+selected不足`.996`，official正常`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，不是执行失败。同次actualsafe=true：owner310573/start348080922现Z，只称Z不称reaped；原8rank310585–310592 absent，locks[]/deviceusers[]/denied0/8busy0，非agent idle推断。资源与保存合同保持，无活跃训练，不查询旧safe轮或自动新fresh。
+
+本机raw根为 `work/r128-20261031-a/progress-2235/`，内部文件按exp-v3相对路径位于 `rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json` 和同round的 `evidence/TRAIN_RESULT.json`，不是旧平铺目录。以下pins仅转引原回执，不本机重算；模型tensor、checkpoint blob与文件SHA分别记录：
+
+- selected tensor：`0edb6ee48f74935e662fde8151255053e86ab5c1319c1554a8222865719b8be1`；checkpoint blob：`7068d3f955640a326fc6dc64cb97fe36724d92b675e128c36e699f40dca7404b`。
+- progress文件：`cfcfc8384246419de1452b7642f3895e35f0e0b859b89e8cdb116e013cd83246`；CPU回执：`a1c881e60583da1608dfedd1e0ec515247686aee836853b9293f4dc64841cbed`。
+- freeze文件：`1e27800cb27b08b932e45bd23c071b278b937bdd23c19a114613da8153454f3d`；TRAIN文件：`0d16d3d61de755560329b33bfc3f3b48c9bc189e82167d02450c67b758cae481`。
+- ROUND文件：`7cbc343f8102be313e4acae9f45e8ed588e6811f79fdc4039cedb4c5dc2dadd5`；done文件：`b118950a67d3601d6b2ae00beebd97e21dbc780f41694eff88edfa932f58f17f`。官方和安全事实仅引回执，不用官方选科学。

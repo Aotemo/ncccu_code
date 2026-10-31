@@ -1,0 +1,181 @@
+{
+  "schema": "r128-closeout-v1",
+  "at_beijing": "2026-10-31T22:51:41.101080+08:00",
+  "experiment_order": 38,
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-headwarmup1600-v1",
+  "candidate": "r128-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-headwarmup1600-9010",
+  "round_id": "r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "science_config_sha256": "b28ba1df329b41da3535d5a8d668a70cebdefcd9a816523a6ad25caf940d59f0",
+  "run_git_commit": "9caaf3e060da6b5d4d4291456094463e8cddf1be",
+  "run_git_tree": "277119598438b7eeb888afd4bb3690c138a93a6f",
+  "observer_git_commit": "f0d6902ef2b8e8cd424cfbbbad33db4990bda376",
+  "original_sha256": {
+    "freeze": "1e27800cb27b08b932e45bd23c071b278b937bdd23c19a114613da8153454f3d",
+    "train": "0d16d3d61de755560329b33bfc3f3b48c9bc189e82167d02450c67b758cae481",
+    "round": "7cbc343f8102be313e4acae9f45e8ed588e6811f79fdc4039cedb4c5dc2dadd5",
+    "done": "b118950a67d3601d6b2ae00beebd97e21dbc780f41694eff88edfa932f58f17f",
+    "progress": "cfcfc8384246419de1452b7642f3895e35f0e0b859b89e8cdb116e013cd83246",
+    "cpu": "a1c881e60583da1608dfedd1e0ec515247686aee836853b9293f4dc64841cbed",
+    "first_success": "5926238e5ee686795c2a80da93f3fae929441ff93c79077542260912282928f4",
+    "official": null
+  },
+  "safe_observed_at_beijing": "2026-10-31T22:38:23.630278+08:00",
+  "safe_at_observation": true,
+  "safe_evidence": {
+    "owner_state": "Z_not_reaped",
+    "owner_start_ticks_match": true,
+    "rank_processes_exited": true,
+    "lock_holders": 0,
+    "device_users": 0,
+    "device_scan_denied": 0,
+    "admitted_cards_idle": 8
+  },
+  "train": {
+    "status": "completed",
+    "component_exit_code": 0,
+    "hard_deadline_met": true,
+    "successful_updates": 8000,
+    "attempted_updates": 8000,
+    "max_updates": 24000,
+    "skipped_updates": 0,
+    "evaluated_cycles": 10,
+    "early_stop_bad_cycles": 4,
+    "termination_reason": "early_stopping",
+    "signals_sent": false
+  },
+  "selected_internal": {
+    "variant": "ema",
+    "cycle": 6,
+    "successful_updates": 4800,
+    "auroc": 0.9882093845688875,
+    "ap": 0.8282870957132695,
+    "error_twice": 19584,
+    "tensor_sha256": "0edb6ee48f74935e662fde8151255053e86ab5c1319c1554a8222865719b8be1"
+  },
+  "selected_blob_sha256": "7068d3f955640a326fc6dc64cb97fe36724d92b675e128c36e699f40dca7404b",
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false,
+    "interpretation": "fixed_head_warmup1600_closed_below_R107_and_R120",
+    "seed20261027_followup": false,
+    "stage": "closed"
+  },
+  "official": {
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "official_metrics": null
+  },
+  "first_success": {
+    "proven": true,
+    "initial_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "initial_optimizer_state_entries": 0,
+    "initial_rank_count": 8,
+    "actual_first_batch_training_photometric": null,
+    "actual_first_batch_training_rotation": null,
+    "primary_samples_per_rank": 8,
+    "batch_arity": 4,
+    "age_enabled": true
+  },
+  "head_warmup_actual_phase_proof": {
+    "1": {
+      "rank_count": 8,
+      "all_world_finite": true,
+      "all_rank_proofs_equal": true,
+      "phase": "warmup",
+      "active_roles": [
+        "head",
+        "age"
+      ],
+      "role_state": {
+        "backbone": {
+          "parameter_tensors": 342,
+          "parameter_elements": 49454688,
+          "state_entries": 0,
+          "expected_step": null
+        },
+        "head": {
+          "parameter_tensors": 2,
+          "parameter_elements": 769,
+          "state_entries": 2,
+          "expected_step": 1
+        },
+        "age": {
+          "parameter_tensors": 1,
+          "parameter_elements": 2,
+          "state_entries": 1,
+          "expected_step": 1
+        }
+      }
+    },
+    "1600": {
+      "rank_count": 8,
+      "all_world_finite": true,
+      "all_rank_proofs_equal": true,
+      "phase": "warmup",
+      "active_roles": [
+        "head",
+        "age"
+      ],
+      "role_state": {
+        "backbone": {
+          "parameter_tensors": 342,
+          "parameter_elements": 49454688,
+          "state_entries": 0,
+          "expected_step": null
+        },
+        "head": {
+          "parameter_tensors": 2,
+          "parameter_elements": 769,
+          "state_entries": 2,
+          "expected_step": 1600
+        },
+        "age": {
+          "parameter_tensors": 1,
+          "parameter_elements": 2,
+          "state_entries": 1,
+          "expected_step": 1600
+        }
+      }
+    },
+    "1601": {
+      "rank_count": 8,
+      "all_world_finite": true,
+      "all_rank_proofs_equal": true,
+      "phase": "full",
+      "active_roles": [
+        "backbone",
+        "head",
+        "age"
+      ],
+      "role_state": {
+        "backbone": {
+          "parameter_tensors": 342,
+          "parameter_elements": 49454688,
+          "state_entries": 342,
+          "expected_step": 1
+        },
+        "head": {
+          "parameter_tensors": 2,
+          "parameter_elements": 769,
+          "state_entries": 2,
+          "expected_step": 1601
+        },
+        "age": {
+          "parameter_tensors": 1,
+          "parameter_elements": 2,
+          "state_entries": 1,
+          "expected_step": 1601
+        }
+      }
+    }
+  },
+  "completion_detection": {
+    "freeze_component_end_at": 1793457416.3028953,
+    "first_completed_observation_at": 1793457503.630278,
+    "freeze_end_to_observation_seconds": 87.32738280296326,
+    "meaning": "elapsed from recorded freeze component end to first completed observer read; exact done-marker creation time is not recorded"
+  }
+}
