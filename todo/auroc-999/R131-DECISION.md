@@ -1,5 +1,7 @@
 # R131：公开Small的固定pointwise rank8适配
 
+**完整收口：2026-11-01 05:56:58.071936北京时间actualsafe=true。** TRAIN/ROUND/done正常completed、11200success=attempt/0skip/eval14/bad4，train-component exit0/signals[]。唯一online c10@8000内部AUROC `.9809751099048635`、AP `.7859642705348402`、error_twice31600，未胜R107或singlebestR120，两门false，关闭精确r8/no seed27，不扫rank/alpha/位置/WD/LR/seed或推所有LoRA无效。完整selected不足`.996`，official正常not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull；无额外官方前向。owner同start现Z不称reaped、8rank absent，锁holders[]/device_users[]/scanDenied0/8PCI busy0；原blob未hash/load。完整小件见[结果归档](../../records/R131/README.md)。根已采纳唯一[R132](R132-DECISION.md)，下文启动与“尚无结果”为历史阶段，不作当前运行状态。
+
 根依据用户持续推进授权，在R130R1完整收口后正式采用本轮。R1为完整11200成功更新/14轮/bad4早停，唯一online c10@8000 AUROC `.9850016436060114`，未胜R107及R120 singlebest；固定layerwise .8关闭/no seed27，不扫邻近factor/LR/group/seed。R130原1503中断仍单独保留，不拼曲线或继承其initial/Adam。
 
 **R131已真实运行，05:07:33.619216北京时间观察为225success=attempt/0skip/eval0。** runGit `7aa3232b7a2e47dedf68839e19deb29ce4ec6751`；身份窄验1/1、normalformal一次21/21及692源码exact均已通过，唯一activation0/正确live launch0。真实8rank初态489/147/4组/Adam0与自然step1的147个实际Adamstate/observed[1]/WORLDfinite/frozen342基座exact已证；owner342435与8rank342447–54的start/argv/实际96核mask/设备均匹配。完整小件和阶段pins见[启动归档](../../records/R131/README.md)。首个05:06 pending是正常等待原controller初态门，未重复入口/重clock。

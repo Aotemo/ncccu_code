@@ -1,4 +1,10 @@
-# R131：固定pointwise-r8已获真实首成功
+# R131：固定pointwise-r8完整结果
+
+2026-11-01 05:56:58.071936北京时间完整终态：completed/early_stopping，11200success=attempt/0skip/eval14/bad4，唯一online c10@8000内部AUROC **.9809751099048635**、AP `.7859642705348402`、error_twice31600。未胜R107 `.9884405731067525`或singlebestR120 `.9894773092062407`，两门false、关闭精确r8/no seed27；不扫rank/alpha/位置/WD/LR/seed，不推所有LoRA普遍无效。AP或partial不救主判，原1503中断不拼曲线。
+
+[R131-RESULT](R131-RESULT.json)、[COMPLETION](COMPLETION-R131.json)及[终态CPU回执](TERMINAL-CPU-RECEIPT.json)来自唯一已核completion；SHA分别由Pod归档回执固定，completion为`41d41e92c694d2d300c2283baa87affcd4f259cf34e453f3100fc6cab5f7b2e1`、CPU为`48b144c0d7a82a531a19ae1b9621cf4428090cef669613740e3b0a86f38768a4`。TRAIN/ROUND/done complete、train-component exit0/signals[]/errornull。完整selected不足`.996`，official正常not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull，未新增官方前向。
+
+同次actualsafe=true/terminal_idle：owner342435/start350805912现Z仅Z非reaped，8rank342447–54 absent，锁present/readable/holders[]、device_users[]、scanDenied0，8expectedPCI全见且busy均0。未为归档再查旧safe，未hash/load旧大blob；freeze报告的selected tensor SHA `e570a4fddc33c2d16b76379e6778962130d22380425f6ee147894856e0d9ec09`只是原件广告，不冒重载实证。全部R130/R1/R131及R120/KEEP依赖保留。根已采纳独立[R132合同](../../todo/auroc-999/R132-DECISION.md)，以下启动/partial原文为历史阶段。
 
 运行Git `7aa3232b7a2e47dedf68839e19deb29ce4ec6751`，parent `6f31002ab63d43031a3524e8d10fe648a934d411`，tree `0a8d04b9e951f54379ede80c01474a7e69baba10`；SCIENCE SHA `45995c2fe6783199c8df561accd5da623c6726c2276eef491c2d429ba0b7a321`。本轮为order42，直接R107/seed29/public fresh、无R1层倍率；原R1301503和R130R1完整11200结果分别保留，不加载其checkpoint或initial，不拼曲线。
 

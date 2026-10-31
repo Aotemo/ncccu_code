@@ -31,6 +31,7 @@ SMALL_22K_ONLY_BINDING = 'single-convnext-small-in22konly-fixed-9010-24k-earlyst
 LAYERWISE_LR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-layerdecay08-v1'
 LAYERWISE_LR_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-layerdecay08-r1-v1'
 POINTWISE_LORA8_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-pointwise-lora8-v1'
+LOGIT_SQUARE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-logitsquare01-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -45,7 +46,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
                       HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
-                      POINTWISE_LORA8_SMALL_BINDING)
+                      POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -76,6 +77,7 @@ def science_configuration():
     from .head_warmup import HEAD_WARMUP_RULE
     from .layerwise_lr import LAYERWISE_LR_RULE
     from .low_rank import LOW_RANK_RULE
+    from .classification_loss import OUTPUT_REGULARIZATION_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -102,7 +104,8 @@ def science_configuration():
                                                        SMALL_22K_ONLY_BINDING,
                                                        LAYERWISE_LR_SMALL_BINDING,
                                                        LAYERWISE_LR_SMALL_R1_BINDING,
-                                                       POINTWISE_LORA8_SMALL_BINDING)
+                                                       POINTWISE_LORA8_SMALL_BINDING,
+                                                       LOGIT_SQUARE_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -185,6 +188,19 @@ def science_configuration():
                                  'final_downsample_stride', 'training_rotation', 'training_photometric',
                                  'training_views'))
                          or value.get('public_source', {}).get('format') != 'torchvision-1000-state-dict-v1'))
+                or (value.get('candidate_profile') != LOGIT_SQUARE_SMALL_BINDING
+                    and (value.get('job', {}).get('output_regularization') is not None
+                         or value.get('candidate', {}).get('output_regularization') is not None))
+                or (value.get('candidate_profile') == LOGIT_SQUARE_SMALL_BINDING
+                    and (value.get('job', {}).get('output_regularization') != OUTPUT_REGULARIZATION_RULE
+                         or value.get('candidate', {}).get('output_regularization') != OUTPUT_REGULARIZATION_RULE
+                         or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or any(value.get('job', {}).get(key) is not None for key in
+                                ('low_rank_policy', 'layerwise_lr_policy', 'head_warmup_policy',
+                                 'gradient_clip_policy', 'attention_pool', 'stage3_residual',
+                                 'freeze_features_before', 'final_downsample_stride',
+                                 'training_rotation', 'training_photometric', 'training_views'))
+                         or value.get('public_source', {}).get('format') != 'torchvision-1000-state-dict-v1'))
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -214,7 +230,7 @@ def candidate_from_configuration(value):
                                         HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
                                         LAYERWISE_LR_SMALL_BINDING,
                                         LAYERWISE_LR_SMALL_R1_BINDING,
-                                        POINTWISE_LORA8_SMALL_BINDING):
+                                        POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -279,6 +295,10 @@ def candidate_from_configuration(value):
             from .low_rank import LOW_RANK_RULE
             expected.update(id='r131-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-pointwise-lora8-9010',
                             experiment_order=42, low_rank_policy=LOW_RANK_RULE)
+        if value['candidate_profile'] == LOGIT_SQUARE_SMALL_BINDING:
+            from .classification_loss import OUTPUT_REGULARIZATION_RULE
+            expected.update(id='r132-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-logitsquare01-9010',
+                            experiment_order=43, output_regularization=OUTPUT_REGULARIZATION_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -492,9 +512,8 @@ def validate_job(job):
         # Existing profiles have no adapter identity. A future adopted profile
         # must explicitly register the same policy in its candidate mapping.
         'low_rank_policy': candidate().get('low_rank_policy'),
-        # A future adopted identity must explicitly register this objective;
-        # none of the existing profiles permits enabling it as an extra field.
-        'output_regularization': None,
+        # Only the exact registered R132 candidate carries this objective.
+        'output_regularization': candidate().get('output_regularization'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}

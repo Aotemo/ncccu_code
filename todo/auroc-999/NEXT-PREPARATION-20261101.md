@@ -1,5 +1,7 @@
 # 当前运行与结果无关的 CPU 准备
 
+**当前接续：R131完整两门false/actualsafe，根已采用唯一R132固定raw-logit平方0.1。** R131最终11200/eval14/bad4，online c10@8000 AUROC `.9809751099048635`，精确r8关闭/no seed27；[完整小件](../../records/R131/README.md)不重查旧safe或大blob。R132/order43正式身份与执行顺序已转入[R132决定页](R132-DECISION.md)，直接R107/seed29/原345全训，无LoRA/layerwise；e0f3 CPU两项2/2与703源码pin是技术准备，R132另做唯一新身份窄验及正常formal一次。本页下方“未采纳GPU/尚无R131结果”仅为当时阶段，旧科学值和所有保护资产保持；新轮真实正式执行未通过前不冒启动。
+
 **2026-11-01 05:30槽接续：R131保持冻结7aa3232，新增raw-logit平方项仅获CPU技术准备授权。** 05:30:23.258身份轻检为owner及8rank active/start全匹配、fresh done absent；05:31:23.741唯一256KiB尾部与fresh status均为6050success=attempt/0skip/eval7/earlybad0，阶段best EMA c7@5600 AUROC `.9789052500267914`。这不是完整selector或双门判定；R131若完整两门通过，固定seed27仍优先。本段下方原R1/LoRA准备与采纳阶段保留，不把CPU新方向当作已采纳的下一GPU实验。
 
 ## 当前授权：固定0.1 raw-logit平方项的CPU准备
