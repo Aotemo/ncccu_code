@@ -1,6 +1,6 @@
 # R124：固定内容加权汇聚的匹配对照
 
-状态：R124 原工程 attempt 在唯一 activation audit 失败后收口，未启动 GPU/训练，无科学结果；不得在原 prep/root 重试。原科学合同保留，协调方已另授权一次独立未来 [R124R1 工程续接](R124R1-DECISION.md)。以下保留预登记内容，实际失败与已通过证据见末段。
+状态：原R124在唯一activation audit失败后收口，未启动GPU/训练，无科学结果；原prep/root不得重试。独立[R124R1](R124R1-DECISION.md)现已完整工程有效且科学主判失败，此固定内容汇聚合同最终关闭/no seed27。以下保留原预登记及原工程失败事实，不把R1结果倒写为原attempt结果。
 
 - order：`34`；配置：`configs/R124-SCIENCE.json`（A 生成）。
 - profile：`single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1`。
@@ -71,3 +71,9 @@ site preflight exit0，随后唯一 activation AUDIT exit1：`verify_preflight: 
 原activation已attempted，按不可逆约束禁止重试同prep/root/audit；不删除marker、改时间戳、伪造observed_at/Ready、重写receipt或放宽120秒。旧失败原件和已通过证据全部保留；不存在的旧clock不补造。此结果不构成内容汇聚科学阴性，不关闭pool研究问题。
 
 协调方仅授权R124R1一个独立未来工程attempt，科学profile/candidate/order34与完整resolved job保持，使用新prep/round/root/未来绑定及授权引用。工程时间与失败attempt如实累计，不改称原attempt首次成功；R124R1再次失败不得自动第三次尝试。具体连续preflight→audit修复和停止边界见[R124R1合同](R124R1-DECISION.md)。本页到此收口并冻结，无新科学候选。
+
+## R124R1完成后的科学结论
+
+2026-10-31 14:33:14.994031北京时间A完整终态确认R124R1工程有效且safe；已到本机内部freeze/TRAIN的必要字段文本核实见[R1收口](R124R1-DECISION.md)。7200成功/attempt相同/skip0/eval9/bad4，唯一EMA c5@4000 AUROC `.9861082179096462`、AP `.8290710437486213`、error_twice23074，低于R107和R120两门，关闭此固定pool×Small/pairlog合同/no seed27，不扫q温度、维数、公式、架构、LR或seed。q online/EMA均768非零、online Adam step7200等终态实证只证参与更新，不救科学阴性。
+
+R1完整selected低于`.996`，官方按政策未运行/metricsnull，正常completed且A实证safe；原R124仍是启动前失败、没有selected，不记threshold_not_met。原 `13>12` 准备失败、后续合规guard0及旧failure审计分别保留，不改原件。原None读出/R107-R108锚点和R120singlebest地位不变；总体`.999`未达，不自动复活此分支或扩下一候选。本页最终freeze。

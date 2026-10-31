@@ -1,0 +1,71 @@
+{
+  "schema": "r124r1-token-free-closeout-v1",
+  "at_beijing": "2026-10-31T14:36:59.740270+08:00",
+  "experiment_order": 34,
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1",
+  "candidate": "r124-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-contentpool-9010",
+  "round_id": "r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "science_config_sha256": "f7c1f1b06ee83102ab0ef4f6ac4bf341ed8641fbee7edd8d34ea2d982ca86180",
+  "git_commit": "fa7125c1bd723aa1cde3ce75a5a70229a955b10c",
+  "original_sha256": {
+    "freeze": "7ae9390f8db3de618db8ba921c1ed0e14bec4db00b12ffd904d0b95e7b7ac839",
+    "train": "8f5672805cdb30ac49b074d224f3c466b940cab89feb962cf385aa84bd1fc8cf",
+    "round": "9d6201445f0fe6e70ed01265b0b3258cfeaf2645adacd6c5e97b9d6686e7656b",
+    "done": "2731ea9e1093919e659945943b77aab1af65caa286028f2ae55c433fa3a99970"
+  },
+  "progress_receipt_sha256": "756ce87b07f140676f7e4960f91613270afd9f1ffbfc5e9c085515389d655a42",
+  "progress_cpu_receipt_sha256": "7e706f678e266962339b9d9f5df7f8c3a47694b747f20c5a3248e42d59b0b99e",
+  "safe_observed_at_beijing": "2026-10-31T14:33:14.994031+08:00",
+  "safe_at_observation": true,
+  "train": {
+    "status": "completed",
+    "component_exit_code": 0,
+    "successful_updates": 7200,
+    "attempted_updates": 7200,
+    "skipped_updates": 0,
+    "evaluated_cycles": 9,
+    "early_stop_bad_cycles": 4,
+    "termination_reason": "early_stopping",
+    "signals_sent": false
+  },
+  "selected_internal": {
+    "variant": "ema",
+    "cycle": 5,
+    "successful_updates": 4000,
+    "auroc": 0.9861082179096462,
+    "ap": 0.8290710437486213,
+    "error_twice": 23074,
+    "tensor_sha256": "fc83bc5df278a4fc3f8449696c24aaf2d02622f6e47234269cff40561c47ff74"
+  },
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false,
+    "seed20261027_followup": false
+  },
+  "official": {
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "official_metrics": null
+  },
+  "attention_pool_training_end": {
+    "online_nonzero": 768,
+    "online_l2_norm": 3.7132256031036377,
+    "online_Adam_step": 7200,
+    "online_Adam_state_entries": [
+      "exp_avg",
+      "exp_avg_sq",
+      "step"
+    ],
+    "ema_nonzero": 768,
+    "ema_l2_norm": 3.5872137546539307
+  },
+  "attempt_history": {
+    "R124_original": "activation_failed_before_clock_and_GPU; no scientific result",
+    "R124R1_first_formal_CPU": "outer_guard_peak_runnable_13_exceeded_own_12; preserved",
+    "R124R1_final_formal_CPU": "outer_guard_exit0_and_20_of_20_checks; separate package",
+    "R124R1_unique_activation_and_fresh": "exit0; completed_and_safe"
+  }
+}
