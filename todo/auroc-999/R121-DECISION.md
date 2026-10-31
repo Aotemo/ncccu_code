@@ -1,6 +1,6 @@
 # R121：固定seed27复核有界对称成对排序目标
 
-**状态：R120完整结果已触发预定分支，root已采用并派A接续；本页不是SCIENCE/Git/正式包/activation/首成功回执或新审批门。** 2026-10-31。不引入新方法，不搜索seed。
+**最终状态：完整工程有效，但seed27未严格胜预冻R108，固定pairsigmoid分支停止主线升级。** 两seed一胜一负，不追加seed或近邻补考；整体目标未达，不等于项目暂停。末尾记录实际终态，下文保留原预登记。2026-10-31。
 
 | 身份 | 唯一值 |
 |---|---|
@@ -38,3 +38,11 @@
 完整工程有效且原selector唯一selected AUROC **严格大于R108 .9872328538178018**，才算第二seed方向通过；AP独立分报，不救主目标。若未胜，停止本固定surrogate的主线升级，不挑最好seed、不再补seed或扫描温度/scale/混合。只有两个既定seed均胜，才可考虑作为方法候选/升级基线；仍不证明显著性、泛化稳定、消除dev自适应偏差或.999可达，不依据partial移动阈值。
 
 完整训练及唯一checkpoint冻结后，selected内部AUROC≥.996才完整official5849一次；否则正常`not_run_by_policy/threshold_not_met`、evaluated=false、metrics=null。该测试门与第二seed胜负独立，中途partial不触发；不授权平台test CSV或提交。整体.999目标不变。复核收口后规划主动据完整内部证据决定下一问题，本文不预立其它候选。
+
+## 完整终态与分支停止
+
+2026-10-31 08:31:36.467785北京A实际终态：completed/early_stopping，6400success=attempt/24000、skip0、eval8、bad4；完整freeze16条唯一selected **EMA c4@3200，AUROC .9869089490433972、AP .8355471078657948、error_twice21744**，tensor SHA `273cb362219e0c2569648a410aa0c9d9359af9d07f4f3f16676c9ae8db65c71f`。一次文本核`work/r121-20261031-a/progress-0830/round/SINGLE-MODEL-FREEZE.json`的selected及`round/evidence/TRAIN_RESULT.json`；TRAIN completed/exit0/hard_deadline_met、signals[]。
+
+AUROC严格低于预冻R108 **.9872328538178018**，故第二seed方向未通过。AP略高于R108的.8354670944168833不挽救主目标。R120 seed29胜出保留为单次内部best，不挑好seed救本次、不将两seed平均或挑选代替原判据；固定surrogate停止主线升级，不追加第三seed、温度/scale/混合或近邻surrogate补考。比较基线仍R107/R108，不推整类排序目标无效，也不诊断噪声或饱和为原因。
+
+按A已实核、root转交：official=`not_run_by_policy/threshold_not_met`、evaluated=false、metrics=null，ROUND/done completed；owner254956Z不称reaped、原8rank退出、lockholders[]、deviceusers[]、scanDenied0、8idle、safe=true。未另读官方或查询Pod。progress原Pod SHA `5644d80536516a028b892658569b4be5a1302e0b83d0d89944a40b3770934820`，guard SHA `4ca63351bb025355d067557a2701c8942ba8f5c1c9df26ece86cfa1548627a`，仅原样记录、未重算。A负责必要归档，旧包/clock不改；R120 selected及真实依赖继续保护，尚未成为正式新基线。下一独立问题另作有限文本建议交root，不在此页注册新轮次。本文收口停写。

@@ -1,0 +1,57 @@
+{
+  "at_beijing": "2026-10-31T08:35:13.994506+08:00",
+  "candidate": "r121-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-9010",
+  "experiment_order": 31,
+  "official": {
+    "official_evaluated": false,
+    "official_metrics": null,
+    "official_reason": "threshold_not_met",
+    "official_status": "not_run_by_policy"
+  },
+  "original_sha256": {
+    "done": "8c6fe6654e377f27effeaf8ab1d6953a944d83869f818ec57a36c2c13eaab4b0",
+    "freeze": "aa2b2f26598ec6d8f17fcc15976dd671d6450233e12d6f3641baa2a27fe7cdb4",
+    "round": "45f753b8b2f7ce0e5b0ac2e0c80b1f7a5f5791b138102b1b5096d7337d676186",
+    "train": "3198ae4eacbeaa53fde07dbeb7510d31c8430dda552d9f71d07dc45c2371a78c"
+  },
+  "prior_token_free_summary_sha256": "545fa6c427afa625d0335c96391c17d162ed7bebef70f9834d70e441b509b53d",
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-v1",
+  "progress_receipt_sha256": "5644d80536516a028b892658569b4be5a1302e0b83d0d89944a40b3770934820",
+  "round_id": "r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261027-b64-p8-fp32",
+  "safe_at_observation": true,
+  "safe_observed_at_beijing": "2026-10-31T08:31:36.467785+08:00",
+  "schema": "r121-token-free-closeout-v1",
+  "science_config_sha256": "43745ca79017251fff104e0038f8d81459715cd411d8834a5b5b554e281ad97d",
+  "selected_internal": {
+    "ap": 0.8355471078657948,
+    "auroc": 0.9869089490433972,
+    "cycle": 4,
+    "error_twice": 21744,
+    "successful_updates": 3200,
+    "tensor_sha256": "273cb362219e0c2569648a410aa0c9d9359af9d07f4f3f16676c9ae8db65c71f",
+    "variant": "ema"
+  },
+  "train": {
+    "attempted_updates": 6400,
+    "component_exit_code": 0,
+    "early_stop_bad_cycles": 4,
+    "evaluated_cycles": 8,
+    "skipped_updates": 0,
+    "status": "completed",
+    "successful_updates": 6400,
+    "termination_reason": "early_stopping"
+  },
+  "two_seed_comparison": {
+    "seed20261027_R121": {
+      "pre_frozen_R108_auroc": 0.9872328538178018,
+      "selected_internal_auroc": 0.9869089490433972,
+      "strictly_beats_reference": false
+    },
+    "seed20261029_R120": {
+      "pre_frozen_R107_auroc": 0.9884405731067525,
+      "selected_internal_auroc": 0.9894773092062407,
+      "strictly_beats_reference": true
+    },
+    "two_seed_direction_passed": false
+  }
+}
