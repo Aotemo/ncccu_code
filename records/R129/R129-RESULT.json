@@ -1,0 +1,122 @@
+{
+  "schema": "r129-closeout-v1",
+  "at_beijing": "2026-11-01T00:41:57.361856+08:00",
+  "experiment_order": 39,
+  "profile": "single-convnext-small-in22konly-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "candidate": "r129-convnext-small-imagenet22k-only-24k-p4-seed20261029-scale085-pairlog-9010",
+  "round_id": "r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "science_config_sha256": "ad67ca33a0006575b4384f69887698ea7d41589875c44291135a973f24e3c712",
+  "run_git_commit": "04cdb75c170476a7fc80febeb4b4940b74cfa156",
+  "run_git_tree": "70e9609806d9e0a384d66a2c550f049a52e6e156",
+  "original_sha256": {
+    "freeze": "cd7cd15bbbf78a76cf015b77d1baf1b0dfd769b6532c2a6f586f8e4120fed072",
+    "train": "455d99d3412ad488d780c59b19a5a23aa9eaabcb609806443bfa160ef96866fa",
+    "round": "17a15acd924ccf832df3e0ac06fc2bb5e7c90fd9c1e8fab910ad3f85d92f615d",
+    "done": "d31354597f6b7b6d852f74fd03957b14ee1cef2636c2c33ce7b0291e4cbd5380",
+    "completion_observation": "74dd4a0dcfbb4aeb468573334a4ec956b8c31236edd01acec4c86e92c13b894a",
+    "completion_cpu": "cea66c9972612ec794a22093f107d77cc24d577a2c6679a4a07b61d3f3c34b69",
+    "first_success_observation": "06de3ab9dee71dbe3ef244dc49a96c68f428620f74eba042b75f800372deb928",
+    "first_success_cpu": "ec8e5923fd1866a5bdd7a05c82a3bbf2d764f2b2e439dab97987c600a8dcf8e6",
+    "first_pending_observation": "78c426fcc46949a0a0ee8849fedfa467389128f55021d4ec952154fdead2fabb",
+    "first_pending_cpu": "365b2b46d1cd38ce39ccb0ce2e56da9263804de83587710fe81515b2d4c111e7",
+    "first_wrapper_absence": "de63f280cf940e661610d0787bf10567b7617852015d8f4d29cdf11006ba6c47",
+    "science_config": "ad67ca33a0006575b4384f69887698ea7d41589875c44291135a973f24e3c712",
+    "formal_preparation": "7865f6ffe318091f56894bbf1bb4b00b6ac8bf4c886cde00d462ef1011ce54e9"
+  },
+  "original_first_wrapper_cpu_sha256": "04358e8fbc0f5831d07169a0e60b912c65d9fa47155c4457c53decbd9ddfe6ab",
+  "original_absence_cpu_sha256": "af73527937b2232c0d6d897c91c2d13f0f6d14f94e0ddab71ee0691659314054",
+  "source": {
+    "repo": "timm/convnext_small.fb_in22k",
+    "revision": "4cde7ae59c8f7fcff3f9547de274819f54863dfd",
+    "format": "torchvision-small22k-only-full-head-state-dict-v1",
+    "training_data": "ImageNet-22K pretraining (no ImageNet-1K fine-tuning)",
+    "num_classes": 21841,
+    "original_weight_sha256": "11b2027c5b6f0b94b98a0e67b6d8bf9a4d73f0079921db7e1fe50b849780e844",
+    "converted_full_head_sha256": "c4e529be17e8eada4bdeb7ff34e69739ea743e7ed83ae1541294ed0ea1474f50",
+    "strict_receipt_sha256": "2b1b7345387d5e98671fecf2695195ec41d8b5fc82c1fb1a25ac8ccd783f9122",
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "full_head_strict_before_discard": true
+  },
+  "necessary_checks": {
+    "source_mapping_and_two_binding_fixtures": "3/3 passed",
+    "native_formal": "18/18 passed",
+    "exact_git_source_blobs_and_modes": 658
+  },
+  "launch_history": {
+    "first_external_wrapper_exit_code": 1,
+    "first_wrapper_error": "formal_cpu_path_instead_of_live_round_root",
+    "first_wrapper_entered_real_launcher": false,
+    "first_wrapper_irreversible_dispatch_markers_present": false,
+    "corrected_external_wrapper_calls": 1,
+    "corrected_real_launcher_exit_code": 0,
+    "same_activated_round_and_clock": true,
+    "additional_activation_or_reclock": false
+  },
+  "first_success": {
+    "observed_at_epoch": 1793461402.932112,
+    "successful_updates_at_observation": 150,
+    "attempted_updates_at_observation": 150,
+    "rank_count": 8,
+    "rank_identity_match": true,
+    "initial_model_tensor_sha256": "515f4e6340cc2c8c07934dbd971977c810f1aa89fee181da6af2d0787464540a",
+    "initial_trainable_tensors": 345,
+    "initial_optimizer_state_entries": 0,
+    "initial_batch_norm_modules": 0,
+    "first_batch_training_rotation": null,
+    "first_batch_training_photometric": null,
+    "primary_samples_per_rank": 8,
+    "batch_arity": 4,
+    "age_enabled": true,
+    "age_features_present": true
+  },
+  "safe_observed_at_beijing": "2026-11-01T00:36:08.608798+08:00",
+  "safe_at_observation": true,
+  "safe_evidence": {
+    "owner_state": "Z_not_reaped",
+    "owner_start_ticks_match": true,
+    "rank_processes_exited": true,
+    "lock_holders": 0,
+    "device_users": 0,
+    "device_scan_denied": 0,
+    "admitted_cards_idle": 8
+  },
+  "train": {
+    "status": "completed",
+    "component_exit_code": 0,
+    "hard_deadline_met": true,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "max_updates": 24000,
+    "skipped_updates": 0,
+    "evaluated_cycles": 8,
+    "early_stop_bad_cycles": 4,
+    "termination_reason": "early_stopping",
+    "signals_sent": false
+  },
+  "selected_internal": {
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "auroc": 0.9884188991813276,
+    "ap": 0.8233186216195478,
+    "error_twice": 19236,
+    "tensor_sha256": "173a9c1cf719310d502f44c4a9762c55df9796b3ca69bd0cd2c89842e3299671"
+  },
+  "selected_blob_sha256": "c816cf8776a2ee1bd75ebcd7c49809c5e28720fd321c67781ff34db16c8a7f52",
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false,
+    "interpretation": "fixed_22k_only_source_closed_below_R107_and_R120",
+    "seed20261027_followup": false,
+    "stage": "closed"
+  },
+  "official": {
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "official_metrics": null
+  }
+}

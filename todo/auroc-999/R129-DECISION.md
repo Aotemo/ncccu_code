@@ -1,6 +1,6 @@
 # R129：同Small架构的ImageNet22K-only公开初始化对照
 
-根已正式采用本轮，仅授权一次seed20261029 fresh。根转交A已实证唯一source revision及fixed API身份，B三个来源文本文件已freeze并交A；权重实际字节/完整strict、正式CPU、Git/部署、activation/launch、八rank初态或首成功尚无回执。公开分类数K、preprocessing、实际原blob/转换/provenance/strict receipt SHA及新whole初态仍待A在既有Pod正常实证，不能填1000、22000或50c，也不能将API广告SHA冒充实际权重。本文不是启动批准门，必要准入齐后A直接执行；不注册第二候选或自动seed27。
+本轮已完整工程有效并安全退出。A实际2026-11-01 **00:36:08.609北京时间**：6400success=attempt/0skip/eval8/earlybad4，completed/early_stopping；唯一EMA c4@3200内部AUROC **.9884188991813276**、AP **.8233186216195478**。低于预冻R107与R120两门，根关闭固定22K-only×R107合同/no seed27，不source epoch/384源/LR/seed补考。来源、初态、窄验、唯一activation、包装命令失败及一次真实launch分阶段实证见末节；不把失败记录覆盖成全部firsttry成功。以下保留原预登记合同，结果归档由唯一A处理，本文不新增批准门。
 
 ## 唯一身份与问题
 
@@ -26,15 +26,15 @@
 
 ## 固定来源、完整公头与初始化边界
 
-根转交A `85adad07`实证：唯一revision为上述`4cde7ae59c8f7fcff3f9547de274819f54863dfd`，fixed API为public/ungated并声明Apache2.0；代理503失败原件保留，raw-byte relay后已在Pod解析身份通过。API广告bin SHA `11b2027c5b6f0b94b98a0e67b6d8bf9a4d73f0079921db7e1fe50b849780e844`、265124753bytes仅为广告，不是actual weight验收。API raw Pod SHA `1d560d7b32429ba9da56ad4f064d2dfb356539e6a90437132ccbde728c0c6018`，pin回执SHA `2c9ce02548b90ee2fc0f7efb2c7c82aad6e574642f0c21448480b0dd7ca558bf`，CPU回执SHA `680239f73977e9db33c40f77ce86ccb617343b31b12bc8815adb79881eb226ab`；只转引，不本机重算。K/preprocessing/actual bin/full strict/newwhole均仍未证。
+根转交A `85adad07`的早期实证：唯一revision为上述`4cde7ae59c8f7fcff3f9547de274819f54863dfd`，fixed API为public/ungated并声明Apache2.0；代理503失败原件保留，raw-byte relay后已在Pod解析身份通过。当时API广告bin SHA/265124753bytes仅为广告，尚不是实际权重验收。API raw Pod SHA `1d560d7b32429ba9da56ad4f064d2dfb356539e6a90437132ccbde728c0c6018`，pin回执SHA `2c9ce02548b90ee2fc0f7efb2c7c82aad6e574642f0c21448480b0dd7ca558bf`，CPU回执SHA `680239f73977e9db33c40f77ce86ccb617343b31b12bc8815adb79881eb226ab`；只转引，不本机重算。后续A已实证原bin实际SHA `11b2027c5b6f0b94b98a0e67b6d8bf9a4d73f0079921db7e1fe50b849780e844`、265124753 B，转换SHA `c4e529be17e8eada4bdeb7ff34e69739ea743e7ed83ae1541294ed0ea1474f50`，公开分类数K=21841及完整公头strict通过；不将后续实证倒写成早期已验。
 
-A后续只从该固定revision元数据与实际张量绑定原blob/转换/provenance/strict receipt SHA、精确K与normalization；`public_source.num_classes`显式绑定实证K。不换revision，不把广告SHA当实际bytes，或沿旧22K→1K provenance/format冒配新源。不并列其他tag、不医学源/N06/FLAIR/teacher/BN或旧训练权重。
+A按原合同从该固定revision元数据与实际张量绑定来源身份；`public_source.num_classes`为实证K=21841。本文不补猜本次转交未列的provenance/strict receipt SHA或预处理字段值。不换revision，不沿旧22K→1K provenance/format冒配新源。不并列其他tag、不医学源/N06/FLAIR/teacher/BN或旧训练权重。
 
-源factory及TV完整K类模型先strict/exact/FP32有限加载与映射，再移除公开分类头；不先删head后strict=False。复用`strict_load.target_key`的stem、stage/downsample/block映射，仅gamma允许[C]→[C,1,1]。Small结构期望为344公开tensor（342backbone含finalLN＋2源head）、41个LN eps1e-6、36个GELU及SD、768末特征、无BN，均待新源actual核。`head.norm`映射`classifier.0`并保留公开LN参数；仅丢`head.fc`两tensor，替换为原binary，再附原age。源大分类头不进入optimizer、比赛训练或推理。
+源factory及TV完整K类模型先strict/exact/FP32有限加载与映射，再移除公开分类头；不先删head后strict=False。复用`strict_load.target_key`的stem、stage/downsample/block映射，仅gamma允许[C]→[C,1,1]。A已实证344公开tensor（342backbone含finalLN＋2源head）、41个LN、36个GELU及SD、40个conv、0 BN；LN eps1e-6及768末特征沿原固定结构合同。`head.norm`映射`classifier.0`并保留公开LN参数；仅丢`head.fc`两tensor，替换为原binary，再附原age。源大分类头不进入optimizer、比赛训练或推理。
 
 生产仍按R107原TV1000构造顺序建立Small。仅新format分支，在保存/恢复CPU RNG的局部上下文（例如`fork_rng(devices=[])`，不初始化GPU）内临时换成K类public head并完成全源strict加载，然后回原顺序创建binary head/age。不能直接改构造num_classes后任其多耗RNG，导致比赛head也变；旧1000/缺省路径数值与RNG保持。必要toy及实际factory局部证据核binary/age初值和构造后RNG守恒，不另建full控制模型。
 
-新backbone/finalLN与whole初态由A实算，不能沿50c。生产binary预期仍345state＝342backbone＋2head＋1age，角色成员与空Adam通过正常formal和真实八rankfresh核实；相同结构不能代替新来源消费实证。`initialize=False`只复建binary并strict载入训练checkpoint，不再建立公开大head、读取公开源或访问网络，保持保存与推理身份一致。
+新whole初态已由A实证为`515f4e6340cc2c8c07934dbd971977c810f1aa89fee181da6af2d0787464540a`，不是旧50c。生产binary为345state＝342backbone＋2head＋1age，初态空Adam；真实首150成功更新与初始化分别记录，不能称150步后Adam仍空。`initialize=False`只复建binary并strict载入训练checkpoint，不再建立公开大head、读取公开源或访问网络，保持保存与推理身份一致。
 
 ## 直接R107保留合同
 
@@ -46,13 +46,13 @@ SD.1/dropout.2、FP32/noTF32、backbone LR1e-4/head与age各1e-3、原WD/AdamW/g
 
 ## 最短实施边界与三类必要证据
 
-B仅根任务`483a40da-3ffd-45a3-ad05-a7eea064ecab`划定的三个来源文本文件（新来源工具、strict转换及对应窄fixture），不执行、不改旧来源常量冒新身份。根转交B `c3d9e359`三件已freeze，经根全文文本核后由`99432522`实质交A；未执行、不称PASS，不再等待B交稿。A独占其余production/config/models/experiment91/SCIENCE/正式绑定与必要binding fixture，唯一Pod/Git/GPU。规划仅本页和todo入口，不同人不共写；通过根实质handoff，不直接联系A/B。
+B仅根任务`483a40da-3ffd-45a3-ad05-a7eea064ecab`划定的三个来源文本文件（新来源工具、strict转换及对应窄fixture），不执行、不改旧来源常量冒新身份。根转交B `c3d9e359`三件freeze后，经根全文文本核及`99432522`实质交A；B文本完成与A后续真实3/3窄验分开。A独占其余production/config/models/experiment91/SCIENCE/正式绑定与必要binding fixture，唯一Pod/Git/GPU。规划仅本页和todo入口，不同人不共写；通过根实质handoff，不直接联系A/B。
 
 1. 新来源固定revision/license/API及实际原blob/转换SHA、完整K头strict映射、normalization/non-tensor验收；小mapping fixture可并入，不追加拒绝矩阵。复用映射不等新source已验。
 2. 临时公头RNG隔离、仅源fc丢弃及旧缺省兼容的小synthetic fixture；新binary/age初始化及构造后RNG必须可比，不另造full控制模型。
 3. SCIENCE→新source/fresh factory→保存/initializeFalse推理绑定窄fixture。正常formal实际数量、新whole/原binary结构/角色组/空Adam另沿原链，真实八rank初态和首success记录新来源消费，不抄R12820/20。
 
-不重旧source/loss/Gloo/cache/pixel/EMA大全套，不独立GPU预演、额外forward/model/数据probe。失败只由文件所有者窄修未过项，已过不重跑。已核API/revision不冒充实际权重；K/preprocessing/实际source/新whole、三类窄证据、正式/Git/部署/activation/八rank/首success仍待A实际回执。这些属于正常必要验收，不是用户、临床或文档批准门。
+不重旧source/loss/Gloo/cache/pixel/EMA大全套，不独立GPU预演、额外forward/model/数据probe。失败只由文件所有者窄修未过项，已过不重跑。A已实际完成3/3窄验、18/18正式验收、精确Git/部署、新初态、唯一activation与一次真实launch及首150成功；不抄R128正式数量，不以早期API回执代替后续完整来源验收。这些是已完成的正常验收，不新增用户、临床或文档批准门。
 
 ## 执行、预算与停止规则
 
@@ -65,3 +65,15 @@ R128已完整safe且归档，不查询旧轮status/model/GPU。新root/newfuture
 完整工程有效、原selector所选internal5140 AUROC **strict>R107 .9884405731067525**才同seed科学正向，且 **strict>R120 singlebest .9894773092062407**才根另派固定seed20261027对 **R108 .9872328538178018**。只第一门为有限正向endstage/no27；未胜关闭本固定22K-only×R107合同，不source epoch/384源/LR/seed补考。只首seed，无自动27；AP/partial/难组/official/platform不救AUROC或选参。R120仍仅singlebest，不升级方法基线。
 
 完整结束并由原selector冻结唯一checkpoint后，selected内部 **>=.996**才原official5849完整一次；未达正常completed，记`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，safe另实核。工程启动前无selected不能写threshold_not_met。无平台testCSV/提交；raw`.999`未达持续协调，不保证收益、显著性或可达，不称总体暂停/完成。本页freeze后由根交A随必要源码统一同步，不继续下一评议或候选队列。
+
+## 完整实际结果与收口
+
+规划一次本机文本核原freeze的selected/顶层blob及TRAIN限定字段：唯一EMA c4@3200，internal5140 AUROC `.9884188991813276`、AP `.8233186216195478`、error_twice19236；selected tensor SHA `173a9c1cf719310d502f44c4a9762c55df9796b3ca69bd0cd2c89842e3299671`，checkpoint blob SHA `c816cf8776a2ee1bd75ebcd7c49809c5e28720fd321c67781ff34db16c8a7f52`。TRAIN completed/exit0/6400成功/hard_deadline_met=true/signals[]，未整件打印含token TRAIN。其余attempt6400/skip0/eval8/earlybad4、ROUND/done completed与00:36:08.609实际终态沿根转交A回执。
+
+科学门strict>R107 `.9884405731067525`与实用门strict>R120 `.9894773092062407`均false。固定22K-only×R107合同关闭/no27，不source epoch/384源/LR/seed补考；AP不救。不推出来源普遍无效、同ancestor的1K遗忘因果或统计显著等价。R107/R108比较锚点不变，R120仅singlebest，raw`.999`未达；本阶段关闭不是总体暂停。
+
+运行Git为`04cdb75c170476a7fc80febeb4b4940b74cfa156`，parent `19efc9884d3d5a010e1244888af3e1b2c1f35a0f`，tree仅已转交短值`70e96098`不补猜；658blob+mode精确部署。实际原bin/转换、K=21841/完整head strict、3/3窄验、18/18正式、新whole/345state/初态空Adam、真实首150和完整6400分别记录，不混成同一阶段或借初态声称后续无Adam状态。
+
+工程错误保留：唯一activation exit0后，第一次外wrapper误传`formal-cpu`而exit1，runpy尚未进入真实launcher，当时五项launch marker均absent。根另以`89e468b7-ee93-497b-8238-83fbd746a0a8`明确允许同activated root、正确live round_root/launch_once.py的一次真正调用，实际exit0；没有再次activation/reclock或第二次真实launch。错误与absence原件保留，不改写成所有命令firsttry0。
+
+selected不足`.996`，official正常`not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，未新增官方前向。A同次实际safe=true：owner318913/start348860089现Z只称Z不reaped，8rank318925–318932 absent，锁/设备使用者空、denied0/8busy0，非agent idle推断。当前无活跃训练，不查询旧safe轮。raw为`work/r129-20261031-a/progress-0035/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031/`下freeze和`evidence/TRAIN_RESULT.json`，不是旧平铺。A统一生成records/R129两个小件并随本页/todo入口一次必要四件归档；本次未获archive Git，不冒填或另造自引用提交。
