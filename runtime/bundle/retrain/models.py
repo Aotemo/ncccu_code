@@ -32,6 +32,45 @@ DINO_RESNET = {
     'training_data': 'ImageNet self-supervised DINO v1',
 }
 
+SMALL_22K_ONLY_FORMAT = 'torchvision-small22k-only-full-head-state-dict-v1'
+
+
+def validate_small22k_only_provenance(initialization):
+    """Bind the accepted complete public K-head state before binary replacement."""
+    from .experiment91 import public_source
+    source = public_source()
+    path, meta_path = Path(initialization['path']), Path(initialization['provenance'])
+    if (initialization.get('kind') != 'imagenet'
+            or initialization.get('format') != SMALL_22K_ONLY_FORMAT
+            or source.get('format') != SMALL_22K_ONLY_FORMAT
+            or initialization.get('sha256') != source.get('sha256')
+            or not path.is_absolute() or not meta_path.is_absolute()
+            or path.is_symlink() or meta_path.is_symlink()
+            or not path.is_file() or not meta_path.is_file()
+            or _hash(path) != source['sha256']
+            or _hash(meta_path) != source['provenance_sha256']):
+        raise ValueError('Small 22K-only public asset/provenance bytes differ')
+    meta = json.loads(meta_path.read_text())
+    expected = {key: source[key] for key in
+                ('model', 'format', 'repo', 'tag', 'revision', 'training_data',
+                 'num_classes', 'original_sha256', 'sha256')}
+    if (any(meta.get(key) != value for key, value in expected.items())
+            or meta.get('passed') is not True
+            or meta.get('structure') != source['structure']
+            or meta.get('redistribution_confirmed') is not True
+            or meta.get('public_head_disposition', {}).get('full_K_head_verified') is not True):
+        raise ValueError('Small 22K-only complete public provenance differs')
+    license_path = (meta_path.parent / meta['license_file']).resolve()
+    if license_path.is_symlink() or not license_path.is_file() or not license_path.read_text().strip():
+        raise ValueError('Small 22K-only license file absent')
+    return {'kind': 'imagenet', 'model': 'convnext_small', 'format': SMALL_22K_ONLY_FORMAT,
+            'weights_sha256': source['sha256'], 'provenance_sha256': source['provenance_sha256'],
+            'original_sha256': source['original_sha256'], 'source_url': meta['source_url'],
+            'training_data': source['training_data'], 'source_commit': source['revision'],
+            'num_classes': source['num_classes'], 'final_norm_eps': source['final_norm_eps'],
+            'license_sha256': _hash(license_path), 'license_file': meta['license_file'],
+            'code_license': 'Apache-2.0', 'weight_license_status': 'public_model_card_apache_2_0'}
+
 
 def _hash(path):
     h = hashlib.sha256()
@@ -171,7 +210,10 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
     if _hash(proof_path) != expected_proof:
         raise ValueError('provenance hash differs from frozen training/material identity')
     meta = json.loads(proof_path.read_text(encoding='utf-8'))
-    if job['initialization'].get('format') == DINO_RESNET['format']:
+    if job['initialization'].get('format') == SMALL_22K_ONLY_FORMAT:
+        proof = validate_small22k_only_provenance(job['initialization'])
+        license_path = (proof_path.parent / meta['license_file']).resolve()
+    elif job['initialization'].get('format') == DINO_RESNET['format']:
         proof = validate_dino_resnet_provenance(job['initialization'])
         license_path = (proof_path.parent / meta['license_file']).resolve()
         if _hash(proof_path) != DINO_RESNET['provenance_sha256']:
@@ -201,6 +243,9 @@ def validate_initialization(initialization):
     if (initialization.get('kind') == 'imagenet'
             and initialization.get('format') == DINO_RESNET['format']):
         return validate_dino_resnet_provenance(initialization)
+    if (initialization.get('kind') == 'imagenet'
+            and initialization.get('format') == SMALL_22K_ONLY_FORMAT):
+        return validate_small22k_only_provenance(initialization)
     if initialization['kind'] == 'retinal_vision_language':
         path, meta_path = Path(initialization['path']), Path(initialization['provenance'])
         fixed='62dbdc8020ac2d0412092d01617ebff7ebfb499420629f03426c3b8ad75758c2'
@@ -378,13 +423,23 @@ def create_model(job, initialize=True):
         if proof.get('final_norm_eps') is not None and float(job.get('final_norm_eps',1e-6))!=proof['final_norm_eps']:
             raise ValueError('Published final LayerNorm epsilon differs from the scientific job contract')
         state = torch.load(init['path'], map_location='cpu', weights_only=True)
-        loaded = model.load_state_dict(state, strict=True)
+        small22k_only = init.get('format') == SMALL_22K_ONLY_FORMAT
+        if small22k_only:
+            # The native factory already constructed its 1000 head.  A temporary
+            # public K head must not advance the binary head/age RNG stream.
+            with torch.random.fork_rng(devices=[]):
+                model.classifier[-1] = nn.Linear(model.classifier[-1].in_features,
+                                                 proof['num_classes'])
+                loaded = model.load_state_dict(state, strict=True)
+        else:
+            loaded = model.load_state_dict(state, strict=True)
         if job.get('experiment91') is not None:
             from .ema import tensor_digest
             from .experiment91 import public_source
             actual = model.state_dict()
             if (proof['provenance_sha256'] != public_source()['provenance_sha256'] or loaded.missing_keys or loaded.unexpected_keys
-                    or actual.keys() != state.keys() or model.classifier[-1].out_features != 1000
+                    or actual.keys() != state.keys()
+                    or model.classifier[-1].out_features != (proof['num_classes'] if small22k_only else 1000)
                     or any(not torch.equal(actual[n], t) or t.dtype != torch.float32
                            or not bool(torch.isfinite(t).all()) for n, t in state.items())):
                 raise ValueError('ConvNeXt complete public1000 strict/exact/FP32/finite proof differs')

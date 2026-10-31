@@ -169,8 +169,12 @@ def validate_job(job):
         if not re.fullmatch('[0-9a-f]{64}', init['sha256']):
             raise ValueError('Weight sha256 must be a full lowercase 64-character SHA256')
         if init.get('format','torchvision-1000-state-dict-v1') not in (
-                'torchvision-1000-state-dict-v1', 'torchvision-resnet50-backbone-state-dict-v1'):
+                'torchvision-1000-state-dict-v1', 'torchvision-resnet50-backbone-state-dict-v1',
+                'torchvision-small22k-only-full-head-state-dict-v1'):
             raise ValueError('unsupported public initialization state format')
+        if (init.get('format') == 'torchvision-small22k-only-full-head-state-dict-v1'
+                and job.get('model') != 'convnext_small'):
+            raise ValueError('Small 22K-only public format requires the registered Small factory')
         if (init.get('format') == 'torchvision-resnet50-backbone-state-dict-v1'
                 and job.get('model') != 'resnet50_imagenet'):
             raise ValueError('DINO backbone format requires the registered R50 factory')

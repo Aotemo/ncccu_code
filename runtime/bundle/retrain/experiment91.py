@@ -27,6 +27,7 @@ STAGE3_RESIDUAL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-e
 ROLEWISE_CLIP_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-roleclip1-v1'
 ROTATION_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-rotationidentity-v1'
 HEAD_WARMUP_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-headwarmup1600-v1'
+SMALL_22K_ONLY_BINDING = 'single-convnext-small-in22konly-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -39,7 +40,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
                       ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
-                      HEAD_WARMUP_SMALL_BINDING)
+                      HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -90,7 +91,8 @@ def science_configuration():
                                                        STAGE3_RESIDUAL_SMALL_BINDING,
                                                        ROLEWISE_CLIP_SMALL_BINDING,
                                                        ROTATION_IDENTITY_SMALL_BINDING,
-                                                       HEAD_WARMUP_SMALL_BINDING)
+                                                       HEAD_WARMUP_SMALL_BINDING,
+                                                       SMALL_22K_ONLY_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -144,6 +146,15 @@ def science_configuration():
                          or value.get('job', {}).get('gradient_clip_policy') is not None
                          or value.get('job', {}).get('stage3_residual') is not None
                          or value.get('job', {}).get('attention_pool') is not None))
+                or (value.get('candidate_profile') == SMALL_22K_ONLY_BINDING
+                    and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or any(value.get('job', {}).get(key) is not None for key in
+                                ('head_warmup_policy', 'training_rotation', 'training_photometric',
+                                 'training_views', 'gradient_clip_policy', 'stage3_residual',
+                                 'attention_pool'))
+                         or value.get('public_source', {}).get('format') !=
+                            'torchvision-small22k-only-full-head-state-dict-v1'
+                         or value.get('public_source', {}).get('num_classes') != 21841))
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -170,7 +181,7 @@ def candidate_from_configuration(value):
                                         PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
                                         CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
                                         ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
-                                        HEAD_WARMUP_SMALL_BINDING):
+                                        HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -220,6 +231,9 @@ def candidate_from_configuration(value):
             from .head_warmup import HEAD_WARMUP_RULE
             expected.update(id='r128-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-headwarmup1600-9010',
                             experiment_order=38, head_warmup_policy=HEAD_WARMUP_RULE)
+        if value['candidate_profile'] == SMALL_22K_ONLY_BINDING:
+            expected.update(id='r129-convnext-small-imagenet22k-only-24k-p4-seed20261029-scale085-pairlog-9010',
+                            experiment_order=39, public_revision=source['revision'])
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -298,6 +312,11 @@ def verify_public_asset(science, site):
                 or files['provenance.json']['sha256'] != source['provenance_sha256']):
             raise ValueError('current public ImageNet R50 asset proof differs')
         return receipt
+    if science['candidate_profile'] == SMALL_22K_ONLY_BINDING:
+        if (receipt.get('repo') != source['repo'] or receipt.get('tag') != source['tag']
+                or receipt.get('num_classes') != source['num_classes']
+                or receipt.get('strict_load', {}).get('sha256') != source['strict_receipt_sha256']):
+            raise ValueError('Small 22K-only complete public source identity differs')
     if (receipt.get('passed') is not True or receipt.get('schema_version') != 1
             or receipt['execution']['uid'] != site['pod']['uid']
             or receipt['model'] != source['model']
@@ -305,7 +324,8 @@ def verify_public_asset(science, site):
             or receipt['converted'] != {'path': site['public_weight'], 'sha256': source['sha256']}
             or receipt['provenance'] != {'path': site['public_provenance'], 'sha256': source['provenance_sha256']}
             or receipt['original']['sha256'] != source['original_sha256']
-            or receipt['structure'] != science['structure']):
+            or receipt['structure'] != (source['structure'] if science['candidate_profile'] == SMALL_22K_ONLY_BINDING
+                                        else science['structure'])):
         raise ValueError('public source, paths or measured structure differ from handoff')
     return receipt
 

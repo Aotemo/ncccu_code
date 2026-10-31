@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-small-in22konly-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "515f4e6340cc2c8c07934dbd971977c810f1aa89fee181da6af2d0787464540a",
+  "candidate": {
+    "id": "r129-convnext-small-imagenet22k-only-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 39,
+    "model": "convnext_small",
+    "public_revision": "4cde7ae59c8f7fcff3f9547de274819f54863dfd",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "c4e529be17e8eada4bdeb7ff34e69739ea743e7ed83ae1541294ed0ea1474f50",
+    "provenance_sha256": "f22119774ec4ca10770497630a49c11d11e7982a6aa893f9d9edc290294154e4",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_small",
+    "format": "torchvision-small22k-only-full-head-state-dict-v1",
+    "repo": "timm/convnext_small.fb_in22k",
+    "tag": "fb_in22k",
+    "revision": "4cde7ae59c8f7fcff3f9547de274819f54863dfd",
+    "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k/resolve/4cde7ae59c8f7fcff3f9547de274819f54863dfd/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining (no ImageNet-1K fine-tuning)",
+    "num_classes": 21841,
+    "original_sha256": "11b2027c5b6f0b94b98a0e67b6d8bf9a4d73f0079921db7e1fe50b849780e844",
+    "sha256": "c4e529be17e8eada4bdeb7ff34e69739ea743e7ed83ae1541294ed0ea1474f50",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "f22119774ec4ca10770497630a49c11d11e7982a6aa893f9d9edc290294154e4",
+    "strict_receipt_sha256": "2b1b7345387d5e98671fecf2695195ec41d8b5fc82c1fb1a25ac8ccd783f9122",
+    "structure": {
+      "features": 768,
+      "num_classes": 21841,
+      "public_state_tensors": 344,
+      "backbone_state_tensors": 342,
+      "head_state_tensors": 2,
+      "backbone_parameters": 49454688,
+      "public_parameters": 66250417,
+      "full_head_shape": [21841, 768],
+      "layer_norms": 41,
+      "gelu_modules": 36,
+      "stochastic_depth_modules": 36,
+      "convolutions": 40
+    }
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/r129-20261031-e62a/HANDOFF-R129.json",
+    "sha256": "2f49d17f2096217bb75a51a3b4535c91c4900ed0dcba36876eacc9feaf07457e"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      21841,
+      768
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "technical-prep/r129-20261031-e62a/assets/converted/convnext-small-tv-in22konly-4cde7ae5.pt",
+    "public_provenance": "technical-prep/r129-20261031-e62a/assets/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "convnext_small",
+    "seed": 20261029,
+    "training_scale": [0.85, 1.0],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "R129 directly changes only the R107 Small seed20261029 public initialization from ImageNet-22K-to-1K to the pinned ImageNet-22K-only original-author source. The full 21841-class public model is strictly verified before replacing only its classifier with the original fresh binary head and age branch. No shared-ancestor lineage is asserted. Complete selected internal AUROC must strictly exceed R107 0.9884405731067525 and then recorded single-seed best R120 0.9894773092062407 before fixed seed20261027 replication is considered. Partial, AP and official results do not select the branch.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}
