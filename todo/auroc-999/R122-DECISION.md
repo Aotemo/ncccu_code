@@ -1,6 +1,6 @@
 # R122：训练光度增强整组identity消融
 
-**状态：root已采用并派现有A/B必要实施；新SCIENCE、Git、正式包、activation及首成功仍待actual。** 本页不是GPU实证或新增批准门，必要准入齐后A直接唯一fresh。2026-10-31。
+**最终状态：完整工程有效，但selected内部AUROC低于R107及单次best R120；本整组关闭消融结束，不做seed27或拆分扫描。** 原None光度增强继续作为比较基线。末尾记录实际终态，下文保留原预登记。2026-10-31。
 
 | 身份 | 唯一值 |
 |---|---|
@@ -44,3 +44,13 @@
 完整工程有效、原selector所选内部AUROC **严格胜R107 .9884405731067525**才称科学对照正向；还须**同时严格胜已记录单次best R120 .9894773092062407**，才投入固定seed20261027对R108 **.9872328538178018**的复核。R120不是单变量对照，该额外门只限制后续预算。仅胜R107未超R120，记有限正向/无新最佳并停止本阶段；未胜则本消融不支持。均不拆三因子、range、LR或seed扫描，AP不救主判，两seed亦不称显著或消除dev自适应偏差。
 
 完整训练且唯一checkpoint冻结后，selected内部AUROC≥.996才完整official5849一次；未达正常`not_run_by_policy/threshold_not_met`、evaluated=false、metrics=null。此门与复核双门独立，中途partial不触发；无平台test授权。R120/121一胜一负已停止主线升级，R120仅单次best保留，R107/R108继续作比较锚点。总体.999目标未达且不保证可达；本阶段结束由规划据完整结果主动接下一独立问题，不在本页预立其它候选。
+
+## 完整终态与有限结论
+
+2026-10-31 10:02:02北京A实际终态：completed/early_stopping，5600success=attempt/24000、skip0、eval7、bad4；完整freeze14条唯一selected **EMA c3@2400，AUROC .9874796957462513、AP .8211659433777129、error_twice20796**，tensor SHA `4aa597b03788019483a0b348f108876435f264c19b3b0b1f9be302176ecfbb2f`。一次文本核`work/r122-20261031-a/progress-1000/SINGLE-MODEL-FREEZE.json`的selected及同根`evidence/TRAIN_RESULT.json`；TRAIN completed/exit0/hard_deadline_met、signals[]。此根无`round/`前缀。
+
+主指标低于直接R107 **.9884405731067525**，也未超过单次best R120 **.9894773092062407**；两门均未通过，关闭本整组photoidentity消融，不做seed27、不拆Brightness/Contrast/Color或扫描range/LR/seed。只否定本合同下整组关闭的收益，不归因某个因子、光度病因或标签问题；原None增强路径保留。R120仅singlebest，不因此升级方法基线。
+
+以下官方/安全事实引用A实际回执经root转交，规划未另读official或查询Pod：official=`not_run_by_policy/threshold_not_met`、evaluated=false、metrics=null，ROUND/done completed；owner262727Z不称reaped、8rank消失、lockholders[]、deviceusers[]、denied0、8busy0、safe=true。progress原Pod SHA `6fd08ef4aceced9a24821c49c3abf1a310c894640425ce11521cc6691971f853`，guard SHA `fabd140512817a78c21200250c94d85b4de91017c93bf7c4addbcb879fef843e`，仅记录交接值，未重算。最新actual main由A/root记录为`c70494f6b06941a6c606868c0efa3413e1834606`，R122必要tokenfree归档由A另做，旧包/clock不改。
+
+连续阴性未说明512缓存必然缺失所需信息，也未证明其充分；现有8例审计缺独立标注定义/诊断依据，不能把模型错误当错标。下一步优先补一个可判别的有限fit-only证据缺口，另以文本提案交root，不机械排下一个增强/系数/模型tag。总体.999未达但不宣称不可达，本页至此收口停写，不预立新轮次。

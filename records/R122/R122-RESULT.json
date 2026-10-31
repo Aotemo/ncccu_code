@@ -1,0 +1,50 @@
+{
+  "at_beijing": "2026-10-31T10:08:57.241401+08:00",
+  "candidate": "r122-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-photoidentity-9010",
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "seed20261027_followup": false,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false
+  },
+  "experiment_order": 32,
+  "official": {
+    "official_evaluated": false,
+    "official_metrics": null,
+    "official_reason": "threshold_not_met",
+    "official_status": "not_run_by_policy"
+  },
+  "original_sha256": {
+    "done": "5114825d4320b08569343fbe4d2a03fcb2405e60578a694dfa00e1de69bfb923",
+    "freeze": "7aca63ca3011e154982675d55965107bd6d9312b187d55a63746b632132d38e4",
+    "round": "2e9a257e042d1d9d7fe1e7190a12866293c6a654dcbf13707bc7668c5725d2db",
+    "train": "191979384fa557ff15794d9d87d517f415b9ac087e5212714d0414da68bb2106"
+  },
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-photoidentity-v1",
+  "progress_receipt_sha256": "6fd08ef4aceced9a24821c49c3abf1a310c894640425ce11521cc6691971f853",
+  "round_id": "r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "safe_at_observation": true,
+  "safe_observed_at_beijing": "2026-10-31T10:02:02.959384+08:00",
+  "schema": "r122-token-free-closeout-v1",
+  "science_config_sha256": "aefc32117dd86c6aca9c95a1acf6e7ac584d63f1a8fac9f2ed63ab1caa9a0547",
+  "selected_internal": {
+    "ap": 0.8211659433777129,
+    "auroc": 0.9874796957462513,
+    "cycle": 3,
+    "error_twice": 20796,
+    "successful_updates": 2400,
+    "tensor_sha256": "4aa597b03788019483a0b348f108876435f264c19b3b0b1f9be302176ecfbb2f",
+    "variant": "ema"
+  },
+  "train": {
+    "attempted_updates": 5600,
+    "component_exit_code": 0,
+    "early_stop_bad_cycles": 4,
+    "evaluated_cycles": 7,
+    "skipped_updates": 0,
+    "status": "completed",
+    "successful_updates": 5600,
+    "termination_reason": "early_stopping"
+  }
+}
