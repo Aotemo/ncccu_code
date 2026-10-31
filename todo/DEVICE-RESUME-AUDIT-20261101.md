@@ -1,6 +1,6 @@
 # 设备迁移接续审计与单一后续草案
 
-用户最新明确指令为：**“不需要续训，直接重头开始训练 R130 即可”。** 现按原 R130 科学方案准备独立新轮 fresh，公开初始化、step0、空 Adam，不加载原1503步或 initial。原 one-shot/clock 不复用，原 R130 继续保留 interrupted/1503/无最终 selector。新入口已连接成功，当前 Pod 与原绑定五项身份一致，依赖、资源和一次小件实查已完成；下文保留此前缺文件与认证失败的历史。总体 raw AUROC 0.999 尚未达到。
+用户最新明确指令为：**“不需要续训，直接重头开始训练 R130 即可”。** 已按原R130科学方案实际启动独立R130R1：公开初始化、step0、空Adam，不加载原1503步或initial。03:12:11.386北京时间已核owner/8rank active，metrics自然首成功step1已证；当时status.json仍初态0快照，不把它当0个真实更新。原one-shot/clock不复用，原R130继续保留interrupted/1503/无最终selector。下文保留连接失败、现场小件、准备及空运输修正的各阶段实证。总体raw AUROC0.999尚未达到。
 
 本页独立接续 [停止交接](DEVICE-HANDOFF-20261101.md)，不改 R130 历史结果、决定页或冻结产物。下述新 fresh 已由用户明确授权，沿现有链完成必要身份配置与冻结后直接启动，不新增用户批准门。
 
@@ -120,6 +120,16 @@
 
 仍由 A 唯一串行 GPU，训练80%整树与准备20%互斥；Small12GiB、启动 free20GiB/运行 floor16GiB、300s atomic/prune/failfast 与全部资产保护保持。不新建计算资源、不关闭实例、不续租、不恢复旧 timer/heartbeat；新观测安排由根按用户最新指令处理。新轮吞吐、完整训练容量、满24k耗时、500MB包体或100ms均未证。
 
-当前连接已通、用户已授权独立fresh；A沿既有直接链完成新身份/必要窄检查/实际Git同步冻结和准入后直接启动，不再等待额外文档或用户批准。不继承原checkpoint，不擅自更改固定方案；后续安排由根按完整结果与用户最新持续推进指令协调。根已实际创建唯一active heartbeat `9c70b2bc`（`*/5`，Asia/Shanghai，无maxRuns/expiry），含每5分钟完成小检测、`:00/:30`报告；不恢复旧 `1c2c8c3b`，A不另建timer。
+本次按用户授权沿既有直接链完成新身份、必要窄检查、实际Git同步冻结、准入和真实启动，分阶段实证见下一节，不另等文档或用户批准。不继承原checkpoint，不擅自更改固定方案；后续安排由根按完整结果与用户最新持续推进指令协调。根已实际创建唯一active heartbeat `9c70b2bc`（`*/5`，Asia/Shanghai，无maxRuns/expiry），含每5分钟完成小检测、`:00/:30`报告；不恢复旧 `1c2c8c3b`，A不另建timer。
 
-新增唯一身份窄验 `tests/test_layerwise_lr_r1_identity.py` 已在新prep narrow-source、本人有效guard中执行：先行1项失败精确为新profile尚未接受，随后仅补精确新身份映射和现有formal分类，实际1/1 PASS，旧40/新41接受与科学值全等、公开fresh/seed/无initial及两profile的正式layerwise路径同时覆盖。RED CPU回执 `tasks/7c17043e-8381-43e9-b185-6e142634ad72-d7avud6_/CPU-RECEIPT.json` SHA `cf34f1ad2468a2edabfc737ddf18eb69fae42e0b9c3e8bbf0d383296b157a188`；GREEN `tasks/7c17043e-8381-43e9-b185-6e142634ad72-3tckykfx/CPU-RECEIPT.json` SHA `56b1e755a4ac59f285cedfe26c02cf66faa8ba314e3b669235dc1d09b6aa9c98`，均在本次audit prep下。原算法与保存fixture未重跑；formal将从已同步commit新建，仅登记测试身份不冒作正式初态或训练通过。
+新增唯一身份窄验 `tests/test_layerwise_lr_r1_identity.py` 已在新prep narrow-source、本人有效guard中执行：先行1项失败精确为新profile尚未接受，随后仅补精确新身份映射和现有formal分类，实际1/1 PASS，旧40/新41接受与科学值全等、公开fresh/seed/无initial及两profile的正式layerwise路径同时覆盖。RED CPU回执 `tasks/7c17043e-8381-43e9-b185-6e142634ad72-d7avud6_/CPU-RECEIPT.json` SHA `cf34f1ad2468a2edabfc737ddf18eb69fae42e0b9c3e8bbf0d383296b157a188`；GREEN `tasks/7c17043e-8381-43e9-b185-6e142634ad72-3tckykfx/CPU-RECEIPT.json` SHA `56b1e755a4ac59f285cedfe26c02cf66faa8ba314e3b669235dc1d09b6aa9c98`，均在本次audit prep下。原算法与保存fixture未重跑；该窄验阶段尚未formal，随后从已同步commit新做一次，不能仅凭登记身份冒作正式初态或训练通过。
+
+## R130R1已冻结并实际首成功
+
+runGit为 `bc5d788b51bb2d1be3a9f76f6088e7c3cc3aabdd`、parent `dbedf126d7f32fb3cdceac1528370b2f894835e6`、tree `c9b4567980b90d91c609dd4b42463cc732bdf6e1`，8path远端回读一致后，从该实际commit精确部署673个源码文件。原始[工程准备回执](../records/R130R1/PREPARATION-RESULT.json)分列一次normal formal 20/20、native50c/345tensor/30组/空Adam与部署；准备阶段的clock/GPU=false不冒作随后运行状态。SCIENCE SHA `85549dfc4387681e9c81b3d6166bbbd7cd0be5bc51b028c723616ef749daa2ab`，formal CPU SHA `aec9136a6781727f1f89ff5f512b59e66e83c143fa6a89ca32e8d9e3585fd77b`，deployment SHA `1c1fb6017aa464d3abf433068f41d94d4142977d38d4e3e46b7211bcb5214e9c`；新site SHA `cfaaa0a032ac9a339db6b673b9ee5f1efcf16562d980f3f7f194477e51d4dc6e`、新9h grant SHA `460450d1dbc9971f9c680af44c19b2a706d948366e90edbb978e3e14ee174bd7`。
+
+首次外层运输漏了两段kubectl stdin开关，外包装虽回0，CPU/GPU脚本未送入，不能记activation或launcher通过。[修正前真实缺失证据](../records/R130R1/EMPTY-TRANSPORT-ABSENCE.txt)于19:09:37Z核新root、FORMAL-CLOCK、ACTIVATION-FAILURE、audit、PREFLIGHT、CHAIN/CPU/LIVE日志及dispatch/pod-admission/controller-start共13项全absent，真实activation/launcher此前均0。原命令转录 `../work/device-resume-20261101-a/EMPTY-TRANSPORT-1.command.sh`、原stdout/stderr和旧Pod快照均保留；仅在该absence分支修正运输、重新取得真实新鲜UID/Ready快照，随后完成第一次真实activation0和正确新live launch0，未删启动marker、改旧clock或放宽120秒。ACTIVATION audit SHA `a3015629c17e2170c30afe33e63170e5ab70c3a44143518c04030453f09a6d4e`，CPUguard `tasks/7c17043e-8381-43e9-b185-6e142634ad72-kpt7bhmb/CPU-RECEIPT.json` SHA `b240ee93a607b49f2c499898d19bdcde7f0bb50fb93c9340fd9df7f435573180`。真实入口各一次，不能把两次外包装写成两次真实launch。
+
+[首次真实启动观察](../records/R130R1/START-OBSERVATION-R130R1-1.json)于2026-11-01 03:12:11.386055北京时间取得，Pod SHA `e96ba6a292fb5993d93bd16abec3b706fafe106671c3c608ce8846afae7c09db`，其CPUguard `tasks/7c17043e-8381-43e9-b185-6e142634ad72-s5an5644/CPU-RECEIPT.json` SHA `5425b8e7e8a6831e6e85d84f86581bcd01dddc20ac4c64a19552afc615cf3e50`、exit0。owner333936/start350121193与8rank333948–333955均argv/start匹配active，8卡实际ordinal/PCI/显存对应；控制mask112–119、rank分片24–111，总96核，与准备池0–23互斥。真实原生初态whole50c、345tensor/0BN/30组/8rank空Adam，实际gate SHA `2507bd4c57ce1d78c0198926888a81156e2085141babd5c45d456a072a148ee2`。随后metrics记录八rank自然首成功step1、WORLD finite、30组consumed LR等于scaled initial_lr乘原cursor、345状态全Adamstep1；初态空Adam与首步后Adam1分别报告，不称当前仍空。status.json此时只是running0/eval0启动快照；首成功1来自metrics，不推测25/125或当前更新数。observer只读小件/进程，无Torch/blob/model/forward。
+
+当前没有完整selector、内部AUROC、官方或双门结论；根唯一heartbeat继续按用户指令轻检和报告。后续普通进度应读取现有小件与有界metrics最近完整progress，不新增前向、不重启当前运行。A准备软件TTL过期后仅为未来准备新建显式绑定，旧allocation及新训练grant引用保持原件不动。本次归档commit另列，不改当前runGit、source、clock/token或任何冻结部署。

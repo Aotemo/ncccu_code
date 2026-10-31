@@ -1,0 +1,15 @@
+observed_at=2026-10-31T19:09:37Z
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/formal-cpu/FORMAL-CLOCK.json
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/formal-cpu/ACTIVATION-FAILURE.json
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/activation-audit
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/SITE-PREFLIGHT.json
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/CHAIN-PREFLIGHT.log
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/CHAIN-AUDIT.log
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/CHAIN-RESULT.json
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/ACTIVATION-CPU.log
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/LIVE-LAUNCH.log
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/control/dispatch.json
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/control/pod-admission.json
+ABSENT /public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/control/controller-start.json
+real_activation_calls_before_fix=0 real_live_launcher_calls_before_fix=0

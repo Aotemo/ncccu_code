@@ -1,6 +1,8 @@
 # R130R1：固定0.8逐层学习率的独立fresh合同与实施步骤
 
-**用户已明确授权：“不需要续训，直接重头开始训练 R130 即可”。本轮采用原R130科学方案，以独立R130R1身份从公开初始化、step0及空Adam开始。** 用户随后授权每30分钟报告、每5分钟检查完成并持续推进后续训练；旧暂停、fresh未授权及禁止定时观测的条件已被覆盖。当前不另设设计或文档批准门，A可并行完成代码、Git冻结和实际准入后直接启动；本页不冒称新轮已运行。
+**R130R1已实际启动，8rank自然首成功step1已证。** 用户授权“直接重头开始训练 R130”后，本轮按独立身份从公开初始化、step0及空Adam开始。A转交03:12:11.386+08首观测：owner与8rank身份匹配active，首成功1来自metrics事件；`status.json`仍是running0/eval0初态快照，不冒写25/125或当前更新游标。暂无完整selector、官方或本轮AUROC，详见下方分阶段实证。
+
+用户已授权每30分钟报告、每5分钟检查完成并持续推进后续训练；旧暂停、fresh未授权及禁止定时观测的条件已被覆盖。不另设设计或文档批准门，不热改当前冻结运行。
 
 > 执行者：现有Sol A按 `superpowers:executing-plans` 落实下列最小步骤；不另派Agent。规划仅编辑本页，A汇集、唯一Git写入并唯一串行执行Pod/GPU。勾选只代表已有对应实证，不代替回执。
 
@@ -56,22 +58,22 @@ R130 order40仍是用户中断：1503success=attempt、0skip、eval1、无最终
 
 ### 1. 独立身份与现有formal路径
 
-- [ ] A创建上述新SCIENCE；`experiment91.py`增添精确R1 profile与candidate/order41映射，同时保留旧R130映射及全部科学校验。
-- [ ] `check_candidate.py`以最小 `layerwise_profile(profile)` 谓词精确枚举R130与R130R1，供main与窄验共用；两profile均执行现有30组identity/空Adam及strict reload检查，不只改SCIENCE文件名而漏正式路径。
-- [ ] 在A自己的新prep、有效Pod CPU guard内，只运行 `test_layerwise_lr_r1_identity.py` 中 `test_new_fresh_identity_preserves_science_and_existing_formal_route`。该项核实际`science_configuration/candidate`接受旧40/新41，除profile/id/order/note外整件科学相等，seed20261029、`initial_checkpoint=None`及正式layerwise路由；记录改映射前实际未支持失败和修正后的实际PASS，不造失败或重测已经通过的算法。
+- [x] A创建上述新SCIENCE；`experiment91.py`增添精确R1 profile与candidate/order41映射，同时保留旧R130映射及全部科学校验。
+- [x] `check_candidate.py`以最小 `layerwise_profile(profile)` 谓词精确枚举R130与R130R1，供main与窄验共用；两profile均执行现有30组identity/空Adam及strict reload检查，不只改SCIENCE文件名而漏正式路径。
+- [x] 在A自己的新prep、有效Pod CPU guard内，只运行 `test_layerwise_lr_r1_identity.py` 中 `test_new_fresh_identity_preserves_science_and_existing_formal_route`。该项核实际`science_configuration/candidate`接受旧40/新41，除profile/id/order/note外整件科学相等，seed20261029、`initial_checkpoint=None`及正式layerwise路由；记录改映射前实际未支持失败和修正后的实际PASS，不造失败或重测已经通过的算法。
 
 窄验命令在已部署源码根、Pod guard内为 `python -m unittest discover -s tests -p test_layerwise_lr_r1_identity.py -v`，`python`须替换为当次已核解释器绝对路径；不得在本机直接执行。通过口径是该唯一测试实际成功，非登记文件存在。R130原3项算法/保存fixture不重跑；现有normal formal仍对本轮实际配置/来源/初态/组产生新回执。
 
 ### 2. 正常formal、同步与精确部署
 
-- [ ] A沿现有prepare与`check_candidate.py`完成本轮normal formal，明确新config/profile/实际source身份、native初态、30组与空Adam；未跑与失败如实保留，不写成R130旧20/20已覆盖新轮。
-- [ ] A汇集实际最小diff（含本页），提交并push唯一仓库，回读远端commit/tree，再按该commit精确打包部署到本轮newprep/formal root；记录实际文件SHA、source digest、SCIENCE身份和部署回执。代码尚未同步不得GPU执行，不热改旧包。
-- [ ] A按当下实核身份与RESOURCE-POLICY为本轮创建有效GPU grant及两池互斥绑定，保留准备池并行；核旧精确进程已退出、锁/设备占用、储存余量及声明资源时限。沿现有薄链准入，不增加文档批准或全体prep退场条件。
+- [x] A汇集实际最小diff（含本页），提交并push唯一仓库，回读远端commit/tree，再按该commit精确打包部署到本轮newprep/formal root；记录实际文件SHA、source digest、SCIENCE身份和部署回执。代码尚未同步不得GPU执行，不热改旧包。
+- [x] A沿现有prepare与`check_candidate.py`从实际运行commit构建并完成本轮normal formal，明确新config/profile/实际source身份、native初态、30组与空Adam；本轮一次20/20，不转抄R130旧结果。
+- [x] A按当下实核身份与RESOURCE-POLICY完成新轮准入及两池互斥绑定，真实启动已核96核训练池，控制112–119、rank24–111；准备池保持独立。18:41旧观察中的未创建grant是此前阶段，不能当新轮已启动后的现状。沿现有薄链准入，不增加文档批准或全体prep退场条件。
 
 ### 3. 新轮一次启动与真实首步
 
-- [ ] 只在新R130R1 root执行一次activation、一次live launch，产生本轮新clock/token；不重复旧入口或重置旧标记，不用环境RESUME绕过fresh合同。
-- [ ] 由真实训练入口证明8rank设备/CPU身份、native345/0BN/初态空Adam/30组一致；首自然成功核WORLD finite、scaled initial_lr乘原cursor的actual LR与345tensor Adamstep1。初态证据和首步证据分列，不追加forward/optimizer probe，不要求每个低LR参数都有可见FP32位移。
+- [x] 只在新R130R1 root执行一次activation、一次live launch，产生本轮新clock/token；不重复旧入口或重置旧标记，不用环境RESUME绕过fresh合同。此前外运输空执行及absence证据单列于下方。
+- [x] 由真实训练入口证明8rank设备/CPU身份、native345/0BN/初态空Adam/30组一致；首自然成功核WORLD finite、scaled initial_lr乘原cursor的actual LR与345tensor Adamstep1。初态证据和首步证据分列，不追加forward/optimizer probe，不要求每个低LR参数都有可见FP32位移。
 - [ ] 记录实际进度、eval次数、跳步、保存状态及资源；观测失败记unknown，不据此重启或判设备空闲。complete后才进入冻结/官方/安全退出判定。
 
 ### 4. 完整结果、后续分支与唯一观测
@@ -84,4 +86,14 @@ R130 order40仍是用户中断：1503success=attempt、0skip、eval1、无最终
 
 总体目标仍为raw AUROC `0.999`，内部dev、完整官方5849与用户平台成绩分别报告。内部达到`.999`只证明内部值，不宣布官方或平台达标；完整一次官方raw达到`.999`才可报告官方目标达到，平台目标只有平台实际成绩才能证明，未经授权不生成或提交平台test CSV。未达到对应目标且没有新停止指令时，按上述完整结果分支持续推进；不把本页落盘、启动成功或某个阶段完成当总体目标完成。
 
-本页完成的是已授权合同与可执行步骤，不是新formal、Git同步、activation或训练成功回执。上述实施状态由A后续真实结果接续，不为计划文案新增批准门或重复验证。
+## 实际冻结、运输边界与首成功
+
+以下由Sol A直接转交实证，规划只接续文本，未另查Pod、重hash/load或重跑测试。运行Git为 `bc5d788b51bb2d1be3a9f76f6088e7c3cc3aabdd`，tree `c9b4567980b90d91c609dd4b42463cc732bdf6e1`，8path remote exact/clean；实际冻结673源码文件，deployment SHA `1c1fb6017aa464d3abf433068f41d94d4142977d38d4e3e46b7211bcb5214e9c`。此运行身份不随本页后续归档改变，不热改已启动副本。
+
+唯一新增身份窄验实际1/1 GREEN、exit0，CPU回执SHA `56b1e755a4ac59f285cedfe26c02cf66faa8ba314e3b669235dc1d09b6aa9c98`；先前RED为新profile未支持、旧40已接受，原失败保留，不是训练失败。由上述commit构建的一次normal formal实际20/20，CPU SHA `aec9136a6781727f1f89ff5f512b59e66e83c143fa6a89ca32e8d9e3585fd77b`，native50c/345tensor/30组/Adam0；不重原三项算法fixture或独立GPU预演。
+
+首次外运输遗漏 `kubectl -i`，外层回报0但未进入真实activation/launcher；19:09:37Z原全markers absence证据已保留，当时两真实入口调用数均为0。根确认必要运输修正后，第一次真实activation exit0、正确live launch exit0；activation audit SHA `a3015629c17e2170c30afe33e63170e5ab70c3a44143518c04030453f09a6d4e`。该过程不能写成两次真实启动或全程firsttry成功；旧R130 clock未动，新轮无重复activation/reclock。
+
+03:12:11.386+08的 `START-OBSERVATION-R130R1-1.json` SHA `e96ba6a292fb5993d93bd16abec3b706fafe106671c3c608ce8846afae7c09db`：owner333936/start350121193，8rank333948–333955的argv/start均匹配active，实际8卡PCI与96核池一致，控制112–119、rank24–111。真实初态native50c/345tensor/0BN/30组/8rank Adam0，ACTUAL_FRESH_INITIAL SHA `2507bd4c57ce1d78c0198926888a81156e2085141babd5c45d456a072a148ee2`。
+
+8rank自然首成功step1/WORLD finite、30组actual LR消费正确及345个Adam state全step1已记录。此首成功来自metrics事件，观测时 `status.json`仍为running0/eval0初态快照，不能伪造更晚游标或说没有首成功；Adam0只指初态。没有本轮完整selector、AUROC、官方或安全终态，后续仍按唯一heartbeat及完整结果分支推进。本次文档归档不追加forward、重复检查、自引用commit或启动审批。
