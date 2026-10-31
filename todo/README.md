@@ -1,6 +1,6 @@
 # 当前任务与接续
 
-**最新接续：用户已迁移设备并明确解除暂停，继续挑战赛；本轮新建规划与执行 Sol/A。** [独立接续审计与方案](DEVICE-RESUME-AUDIT-20261101.md)记录：原 R130 one-shot owner 没有合法恢复入口，不能按原合同直接续训；当前尚缺新设备 SSH 连接信息，Pod/资源/资产/deadline/grant/index 的实时状态全部 unknown，未发 Pod 命令或启动训练。R130 保持 interrupted/1503/无最终 selector、无 official、双门未判；不把旧 safe 当当前安全。单一 R130R1 fresh 草案待明确新合同授权，当前不自行 fresh、继承或 seed27。
+**最新接续：用户已迁移设备并明确解除暂停，继续挑战赛；本轮新建规划与执行 Sol/A。** [独立接续审计与方案](DEVICE-RESUME-AUDIT-20261101.md)保留初次缺文件、初始账号认证失败和用户纠正账号后的实查：SSH 网络/握手已到达，更正账号下的给定 RSA 公钥已提交但服务器仍未接受（exit255），需核匹配密钥/公钥授权；尚未进入 Pod，Pod/资源/资产/deadline/grant/index 实时状态仍全部 unknown。原 R130 one-shot owner 没有合法恢复入口，不能按原合同直接续训；R130 保持 interrupted/1503/无最终 selector、无 official、双门未判，不把旧 safe 当当前安全。未启动训练，单一 R130R1 fresh 草案待明确新合同授权，当前不自行 fresh、继承或 seed27。
 
 当前 server `srv_KqW7XmJdXxGJ`；规划 `6b8ad6f4-d29a-4647-8fcf-d986715575f0` 仅文本只读；执行 Sol/A `7c17043e-8381-43e9-b185-6e142634ad72` 是唯一 Git 写入、Pod 和潜在 GPU owner；根协调 `b2a18d8d-628c-4c7c-9cf7-9345e736e0ac`。无 B、无派生、不恢复旧 Agent。下文原暂停、旧 owner 与运行状态均为历史原文；本页首接续覆盖其中等待用户解除暂停的条件，不覆盖原 one-shot/clock/token/lease 及科学约束。
 

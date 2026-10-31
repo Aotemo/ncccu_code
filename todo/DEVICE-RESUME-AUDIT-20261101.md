@@ -1,10 +1,10 @@
 # 设备迁移接续审计与单一后续草案
 
-用户已迁移设备并明确解除暂停，继续挑战赛；本轮先核现有连接、计算 Pod 和 R130 第 1503 步 checkpoint 能否按原合同续接。**源码审计结论：原 one-shot 启动链没有已终止 owner 的合法恢复入口，不能按原合同直接续训。** 当前连接信息缺失，Pod、资源、资产、原 deadline/grant 的实时状态均为 `unknown`；不能据此声称它们不存在、不可达或已过期。总体 raw AUROC 0.999 尚未达到。
+用户已迁移设备并明确解除暂停，继续挑战赛；本轮先核现有连接、计算 Pod 和 R130 第 1503 步 checkpoint 能否按原合同续接。**源码审计结论：原 one-shot 启动链没有已终止 owner 的合法恢复入口，不能按原合同直接续训。** 初次缺少连接信息；用户补齐文件并确认纠正账号后已到达 SSH 握手，但服务器仍未接受提供的公钥，尚未进入 Pod。Pod、资源、资产、原 deadline/grant 的实时状态仍为 `unknown`；不能据此声称它们不存在、不可达或已过期。总体 raw AUROC 0.999 尚未达到。
 
 本页独立接续 [停止交接](DEVICE-HANDOFF-20261101.md)，不改 R130 历史结果、决定页或冻结产物。下述新 fresh 仅为具体方案，尚未授权启动。
 
-## 当前角色与实查范围
+## 当前角色与初次实查范围
 
 当前 Paseo server 为 `srv_KqW7XmJdXxGJ`，本轮新建配对为：
 
@@ -14,7 +14,7 @@
 | 规划 | `6b8ad6f4-d29a-4647-8fcf-d986715575f0` | 文本只读审计和单一方案 |
 | 执行 Sol / A | `7c17043e-8381-43e9-b185-6e142634ad72` | 唯一 Git 写入、Pod 操作及潜在 GPU owner |
 
-`list_hosts`、`list_agents` 和两位新 Agent 的 `get_agent_status` 已实查；规划与 A 为 running。无 B、无派生 Agent；旧 Agent 不恢复。本机仅文本、Git、连接来源检查与展示，没有本机或登录节点 Python、JSON 解析、哈希、模型加载或测试。
+`list_hosts`、`list_agents` 和两位新 Agent 的 `get_agent_status` 已实查；初次核验时规划与 A 均为 running。无 B、无派生 Agent；旧 Agent 不恢复。本机仅文本、Git、连接来源检查与展示，没有本机或登录节点 Python、JSON 解析、哈希、模型加载或测试。以下保留 `d8915e5e1525f441e3755d3a961fe76572d3623e` 中的初次连接快照，后续补充见下一节。
 
 | 连接来源 | 本次实际结果 |
 | --- | --- |
@@ -25,9 +25,27 @@
 | Kubernetes 本地入口 | `KUBECONFIG` 空、`~/.kube` 缺失，本机未发现 kubectl；项目要求仍经既有 SSH 连接动态发现 |
 | 迁移小原件 | 此设备没有交接所引 `../work/r130-20261101-a/stop/`；仓库中的历史 RESULT/README 可文本读取，不能冒作这次实查原件 |
 
-没有从 known_hosts、入站 SSH 环境或历史地址猜目标，没有尝试旧地址。根已一次性向用户索取当前 SSH 目标/已有 config 的绝对路径及认证方式；不要求把密码、私钥或 token 发进聊天/Git。连通后 namespace、Pod、UID、容器和 Python 应由工具发现，无须用户沿用旧常量。
+初次没有从 known_hosts、入站 SSH 环境或历史地址猜目标，没有尝试旧地址。根当时一次性向用户索取当前 SSH 目标/已有 config 的绝对路径及认证方式；不要求把密码、私钥或 token 发进聊天/Git。连通后 namespace、Pod、UID、容器和 Python 应由工具发现，无须用户沿用旧常量。
 
-目前未执行 `pod_cpu.sh discover/interpreters/budget/probe/run` 或任何 Pod 命令，未创建 technical-prep、软件 CPU allocation/TTL、训练 grant、clock 或 token。没有部署、训练、GPU 前向、官方评估、大 checkpoint hash/load 或已通过 fixture 重跑。实时安全、8 卡类型/显存/PCI/NUMA、CPU affinity/cpuset/quota、内存/磁盘、进程/设备使用者/锁、依赖与资产可见性全部未核；旧 safe 仅在原观察时成立。
+该初次快照时未执行 `pod_cpu.sh discover/interpreters/budget/probe/run` 或任何 Pod 命令，未创建 technical-prep、软件 CPU allocation/TTL、训练 grant、clock 或 token。没有部署、训练、GPU 前向、官方评估、大 checkpoint hash/load 或已通过 fixture 重跑。实时安全、8 卡类型/显存/PCI/NUMA、CPU affinity/cpuset/quota、内存/磁盘、进程/设备使用者/锁、依赖与资产可见性全部未核；旧 safe 仅在原观察时成立。
+
+## 用户补充连接后的实查
+
+本节首次记录时间为 `2026-10-31T18:26:05Z`，纠正账号后记录时间为 `2026-10-31T18:28:18Z`（北京时间 2026-11-01 02:28:18），均为本机记录时间，不用于推算原 Pod deadline。执行前已实际 fetch，干净 `main=origin/main=d8915e5e1525f441e3755d3a961fe76572d3623e`。
+
+用户随后提供 `other/ssh` 和认证文件位置；在用户指定范围自主定位到实际 `other/ssh.md` 与 regular/600 的密钥文件。此时文件已存在，不覆盖上节初次目录为空的观察。A 只读取连接配置文本，私钥仅供 SSH 认证；没有 cat、回显、复制私钥，配置与密钥均不入 Git 或传至远端。
+
+| 次序 | 实际命令/阶段 | 结果与边界 |
+| --- | --- | --- |
+| 1 | 以配置中的真实目标/端口/账号和给定认证文件运行 `pod_cpu.sh discover` | exit255，`Host key verification failed`；默认 `StrictHostKeyChecking=ask`，未进入认证或 kubectl |
+| 2 | 本次独立临时 SSH 配置仅用 `accept-new` 接受首次新主机密钥，仍拒绝已有密钥冲突；再次 discover | 服务器 ED25519 记入 known_hosts；到达认证后 `Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password)`，exit255 |
+| 3 | 唯一一次定向 SSH debug，目标与账号不变，远端命令仅 `true` | 已知主机 ED25519 匹配；explicit RSA 公钥被 `Offering public key`，服务器未 `Server accepts key`，继而 `No more authentication methods` 与 Permission denied，exit255 |
+| 4 | 用户明确确认初始用户名给错；根已更正用户连接文件，A 同步更正本次临时配置，只换为用户确认的账号，再次 discover | host/port/密钥不变；仍 Permission denied，exit255，未进入 kubectl/Pod |
+| 5 | 对纠正后的账号做一次定向 SSH debug，远端命令仅 `true` | 当前账号身份符合用户确认；主机密钥匹配，同一 explicit RSA 公钥被 offer，但服务器仍未接受；无签名阶段，exit255 |
+
+可确认网络/SSH 握手到达服务器、用户确认账号与当前入口下提供的公钥仍未获接受。没有出现 key 格式/加载/passphrase 错误，但认证未到签名阶段，**不能据此声称已验证私钥可解密**。初始账号与历史资产目录字符串不同，当时仅列为需确认；随后用户明确纠正，A 据此定向尝试，不是猜旧用户名。纠正后仍拒绝的具体原因未证，不能断言是服务器公钥配置、账号状态或某一具体权限错误。根已向用户索取匹配该账号/入口的有效密钥或认证配置路径；A 不试其他账号、密钥或泛化认证参数，不绕过认证。
+
+原始连接日志仅留本机 `../work/device-resume-20261101-a/connection/` 的 `DISCOVER.txt`、`DISCOVER-2.txt`、`AUTH-DEBUG.txt`、`DISCOVER-3.txt`、`AUTH-DEBUG-CORRECTED-USER.txt`，不当作 Pod CPU 回执，不入 Git。当前 `discover` 未成功，没有 kubectl/Pod 命令成功执行；interpreters、allocation/TTL、guard、probe、8卡/CPU/占用/存储/资产及原 clock/marker/index 小件均未核验。未创建远端 technical-prep，未改变任何原运行/资产；大 blob 未 hash/load，实时状态仍 unknown。认证取得新证据后再做一次针对性连接，沿既定有界核验继续。
 
 ## R130 不能按原链续接的具体原因
 
