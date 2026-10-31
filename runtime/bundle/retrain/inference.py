@@ -132,6 +132,9 @@ def _load_model(source, device='cpu', checkpoint='best', model_factory=None, var
     from .age import validate_model
     validate_model(model,job)
     model.load_state_dict(state, strict=True)
+    if job.get('tri3_downsample_policy') is not None:
+        from .tri3_downsample import describe_tri3
+        origin['tri3_downsample'] = describe_tri3(model, job)
     if job.get('low_rank_policy') is not None:
         from .low_rank import frozen_digest, restore_base_reference
         if exported:

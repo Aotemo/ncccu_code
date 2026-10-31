@@ -191,6 +191,8 @@ def science_configuration():
                 or (value.get('candidate_profile') != LOGIT_SQUARE_SMALL_BINDING
                     and (value.get('job', {}).get('output_regularization') is not None
                          or value.get('candidate', {}).get('output_regularization') is not None))
+                or value.get('job', {}).get('tri3_downsample_policy') is not None
+                or value.get('candidate', {}).get('tri3_downsample_policy') is not None
                 or (value.get('candidate_profile') == LOGIT_SQUARE_SMALL_BINDING
                     and (value.get('job', {}).get('output_regularization') != OUTPUT_REGULARIZATION_RULE
                          or value.get('candidate', {}).get('output_regularization') != OUTPUT_REGULARIZATION_RULE
@@ -514,6 +516,8 @@ def validate_job(job):
         'low_rank_policy': candidate().get('low_rank_policy'),
         # Only the exact registered R132 candidate carries this objective.
         'output_regularization': candidate().get('output_regularization'),
+        # Tri3 is CPU preparation only, with no adopted scientific profile yet.
+        'tri3_downsample_policy': None,
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -616,6 +620,10 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['job'].get('tri3_downsample_policy') is not None:
+        from .tri3_downsample import describe_tri3
+        result['tri3_downsample'] = describe_tri3(model, {**science_configuration()['job'],
+                                                       'age': resolved_age_spec()})
     if science_configuration()['job'].get('low_rank_policy') is not None:
         from .low_rank import describe_low_rank
         result['low_rank'] = describe_low_rank(model, {**science_configuration()['job'],
@@ -697,6 +705,8 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if configured.get('tri3_downsample_policy') is not None or value.get('tri3_downsample') is not None:
+        raise ValueError('Tri3 has no adopted formal profile')
     if configured.get('low_rank_policy') != candidate().get('low_rank_policy'):
         raise ValueError('low-rank job has no matching registered candidate identity')
     if configured.get('low_rank_policy') is not None:

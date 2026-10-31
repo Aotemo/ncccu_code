@@ -1,0 +1,172 @@
+{
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/tri3-cpu-20261101-7c17/GREEN-1-TEST-OUTPUT.txt",
+  "source_sha256": "3e1348d43ba46a40b20635ee6661aa1b031841e71b83acba9fd946f72cd14762",
+  "tri3_native": {
+    "parameter_tensors": 345,
+    "buffers": 0,
+    "descriptor": {
+      "policy": {
+        "version": "convnext-small-tri3-downsample-v1",
+        "targets": [
+          2,
+          4,
+          6
+        ],
+        "convolution": "native2-stride1-pad0",
+        "filter": "reflect1-box2s1-box2s2"
+      },
+      "targets": [
+        {
+          "feature_index": 2,
+          "normalization_name": "network.features.2.0",
+          "convolution_name": "network.features.2.1",
+          "input_channels": 96,
+          "output_channels": 192,
+          "convolution_kernel": [
+            2,
+            2
+          ],
+          "convolution_stride": [
+            1,
+            1
+          ],
+          "convolution_padding": [
+            0,
+            0
+          ],
+          "tail": [
+            {
+              "kind": "ReflectionPad2d",
+              "padding": [
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "kind": "AvgPool2d",
+              "kernel_size": 2,
+              "stride": 1,
+              "padding": 0,
+              "ceil_mode": false,
+              "count_include_pad": true,
+              "divisor_override": null
+            },
+            {
+              "kind": "AvgPool2d",
+              "kernel_size": 2,
+              "stride": 2,
+              "padding": 0,
+              "ceil_mode": false,
+              "count_include_pad": true,
+              "divisor_override": null
+            }
+          ]
+        },
+        {
+          "feature_index": 4,
+          "normalization_name": "network.features.4.0",
+          "convolution_name": "network.features.4.1",
+          "input_channels": 192,
+          "output_channels": 384,
+          "convolution_kernel": [
+            2,
+            2
+          ],
+          "convolution_stride": [
+            1,
+            1
+          ],
+          "convolution_padding": [
+            0,
+            0
+          ],
+          "tail": [
+            {
+              "kind": "ReflectionPad2d",
+              "padding": [
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "kind": "AvgPool2d",
+              "kernel_size": 2,
+              "stride": 1,
+              "padding": 0,
+              "ceil_mode": false,
+              "count_include_pad": true,
+              "divisor_override": null
+            },
+            {
+              "kind": "AvgPool2d",
+              "kernel_size": 2,
+              "stride": 2,
+              "padding": 0,
+              "ceil_mode": false,
+              "count_include_pad": true,
+              "divisor_override": null
+            }
+          ]
+        },
+        {
+          "feature_index": 6,
+          "normalization_name": "network.features.6.0",
+          "convolution_name": "network.features.6.1",
+          "input_channels": 384,
+          "output_channels": 768,
+          "convolution_kernel": [
+            2,
+            2
+          ],
+          "convolution_stride": [
+            1,
+            1
+          ],
+          "convolution_padding": [
+            0,
+            0
+          ],
+          "tail": [
+            {
+              "kind": "ReflectionPad2d",
+              "padding": [
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "kind": "AvgPool2d",
+              "kernel_size": 2,
+              "stride": 1,
+              "padding": 0,
+              "ceil_mode": false,
+              "count_include_pad": true,
+              "divisor_override": null
+            },
+            {
+              "kind": "AvgPool2d",
+              "kernel_size": 2,
+              "stride": 2,
+              "padding": 0,
+              "ceil_mode": false,
+              "count_include_pad": true,
+              "divisor_override": null
+            }
+          ]
+        }
+      ]
+    },
+    "image_forward": false
+  },
+  "tri3_saved_inference": {
+    "policy_retained": true,
+    "three_stateless_stage_forwards_equal": true,
+    "gpu_initialized": false
+  }
+}

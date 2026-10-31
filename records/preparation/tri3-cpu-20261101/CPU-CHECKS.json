@@ -1,0 +1,139 @@
+{
+  "schema": "tri3-cpu-preparation-v1",
+  "stage": "GREEN-1",
+  "started_at": 1793487788.7449598,
+  "finished_at": 1793487793.5825372,
+  "base_git": "fd0dcd7558c2b535cde2441694cb7c374e9f1567",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/tri3-cpu-20261101-7c17/source",
+  "tests_run": 2,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "source_sha256": {
+    "runtime/bundle/retrain/tri3_downsample.py": "c100147704f316dd926566fe01b31615f495ccff3b2b5f9ec64c2ae2a5eeac9c",
+    "runtime/bundle/retrain/models.py": "b81c2a11f0eb814fb7343f93bdbe7f1852f5b7b6f8b5bee4db8ca0cfa33d1dd4",
+    "runtime/bundle/retrain/config.py": "0c39bb6cdb7674db72c4ed6c30544af6ad1cc8c0781477396cba43a1c7c71047",
+    "runtime/bundle/retrain/inference.py": "47017a65ecd7e229fcf5502b74cbe1b4644e33dcd8ab59acd56df4586f52e321",
+    "runtime/bundle/retrain/experiment91.py": "cb9ab18d74c040bed59a5d0334be6c6812c3da5392d5df8b56203c5e3143b911",
+    "tests/test_tri3_downsample.py": "9e593db1e0a143c813d1956ac61066c15dc2502424833bbf1aa15dc9b5deaf11"
+  },
+  "compiled": [
+    "runtime/bundle/retrain/tri3_downsample.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tests/test_tri3_downsample.py"
+  ],
+  "resource_estimate": {
+    "kind": "static_operation_and_materialization_counts_not_benchmark",
+    "transitions": [
+      {
+        "feature_index": 2,
+        "input_channels": 96,
+        "output_channels": 192,
+        "input_side": 128,
+        "dense_side": 127,
+        "final_side": 64,
+        "original_conv_MACs_per_image": 301989888,
+        "dense_conv_MACs_per_image": 1189158912,
+        "additional_conv_MACs_per_image": 887169024,
+        "FP32_batch8_explicit_tensor_bytes": {
+          "dense": 99096576,
+          "reflect": 102242304,
+          "first_box": 100663296,
+          "final": 25165824
+        }
+      },
+      {
+        "feature_index": 4,
+        "input_channels": 192,
+        "output_channels": 384,
+        "input_side": 64,
+        "dense_side": 63,
+        "final_side": 32,
+        "original_conv_MACs_per_image": 301989888,
+        "dense_conv_MACs_per_image": 1170505728,
+        "additional_conv_MACs_per_image": 868515840,
+        "FP32_batch8_explicit_tensor_bytes": {
+          "dense": 48771072,
+          "reflect": 51916800,
+          "first_box": 50331648,
+          "final": 12582912
+        }
+      },
+      {
+        "feature_index": 6,
+        "input_channels": 384,
+        "output_channels": 768,
+        "input_side": 32,
+        "dense_side": 31,
+        "final_side": 16,
+        "original_conv_MACs_per_image": 301989888,
+        "dense_conv_MACs_per_image": 1133641728,
+        "additional_conv_MACs_per_image": 831651840,
+        "FP32_batch8_explicit_tensor_bytes": {
+          "dense": 23617536,
+          "reflect": 26763264,
+          "first_box": 25165824,
+          "final": 6291456
+        }
+      }
+    ],
+    "additional_conv_MACs_per_image": 2587336704,
+    "additional_conv_MACs_per_global64_forward": 165589549056,
+    "additional_conv_MACs_24000_global64_forwards": 3974149177344000,
+    "additional_conv_MACs_30_dual_variant_dev5140": 797934639513600,
+    "largest_new_explicit_tensor_bytes_per_rank_batch8": 102242304,
+    "MAC_definition": "one multiply-accumulate; pooling/backward/workspace not included",
+    "tensor_sizes_are_not_peak_or_incremental_peak": true,
+    "R107_historical_small_summary": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/tri3-cpu-20261101-7c17/source/records/R107/SINGLE-MODEL-FREEZE.json",
+      "sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435",
+      "bytes": 100158,
+      "successful_updates": 6400,
+      "timing": {
+        "checkpoint_count": 27,
+        "checkpoint_seconds": 136.52563719637692,
+        "data_wait_seconds": 4.69845284987241,
+        "evaluation_seconds": 146.15305019868538,
+        "measured_seconds": 0.0,
+        "training_seconds": 2718.788118756842,
+        "warmup_seconds": 0.0
+      },
+      "wall_seconds_this_process": 3066.313751355745,
+      "environment_match_to_current_not_reverified": true
+    },
+    "full_24000_plus_30_dual_dev_and_save_wall_budget_proven": false,
+    "GPU_peak_and_backend_padding_determinism_proven": false,
+    "image_forward_or_benchmark_for_estimate": false
+  },
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "torch_threads": 2,
+  "interop_threads": 1,
+  "gpu_initialized": false,
+  "gpu_visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "allocation_sha256": "672ddae2788b8a81d6421eee980cfee31db548f56f664934f64f93433818492a",
+  "public_weights_loaded": false,
+  "normal_formal_run": false,
+  "new_GPU_adopted": false,
+  "active_R132_run_git_unchanged": "c11a0829f9f6e75b4f03872248008ee7cd9aae00"
+}

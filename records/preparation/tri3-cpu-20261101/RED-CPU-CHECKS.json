@@ -1,0 +1,50 @@
+{
+  "schema": "tri3-cpu-preparation-v1",
+  "stage": "RED",
+  "started_at": 1793487405.63516,
+  "finished_at": 1793487405.6852915,
+  "base_git": "fd0dcd7558c2b535cde2441694cb7c374e9f1567",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/tri3-cpu-20261101-7c17/source",
+  "tests_run": 2,
+  "failures": 2,
+  "errors": 0,
+  "passed": false,
+  "source_sha256": {
+    "runtime/bundle/retrain/tri3_downsample.py": null,
+    "runtime/bundle/retrain/models.py": "6ed5d64bafedc7602e85f4424bc62d91326a3d4b272a25715743f8eb37b27e1d",
+    "runtime/bundle/retrain/config.py": "b9876dfa409690bf6be76fa394640edea47a1c99d9b95e9204697abb5742b15f",
+    "runtime/bundle/retrain/inference.py": "20e06e1ff04589838388c3a8e838331341ec589d0c3a25f9064fb8b7452cfa3b",
+    "runtime/bundle/retrain/experiment91.py": "0ea89b4df35855fba038a6dbbc143aa760fa656e75649fda9b606d7ee982d32d",
+    "tests/test_tri3_downsample.py": "9e593db1e0a143c813d1956ac61066c15dc2502424833bbf1aa15dc9b5deaf11"
+  },
+  "compiled": [],
+  "resource_estimate": null,
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "torch_threads": 2,
+  "interop_threads": 1,
+  "gpu_initialized": false,
+  "gpu_visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "allocation_sha256": "672ddae2788b8a81d6421eee980cfee31db548f56f664934f64f93433818492a",
+  "public_weights_loaded": false,
+  "normal_formal_run": false,
+  "new_GPU_adopted": false,
+  "active_R132_run_git_unchanged": "c11a0829f9f6e75b4f03872248008ee7cd9aae00"
+}

@@ -477,6 +477,9 @@ def create_model(job, initialize=True):
     if job.get('age') is not None:
         from .age import attach_age
         attach_age(result, job['age'])
+    if job.get('tri3_downsample_policy') is not None:
+        from .tri3_downsample import attach_tri3
+        attach_tri3(result, job)
     if job.get('attention_pool') is not None:
         from .attention_pool import attach
         attach(result, job)
