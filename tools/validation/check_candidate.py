@@ -77,6 +77,7 @@ def main(args):
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
     is_content_pool = ex.science_configuration()['candidate_profile'] == ex.CONTENT_POOL_SMALL_BINDING
     is_stage3_residual = ex.science_configuration()['candidate_profile'] == ex.STAGE3_RESIDUAL_SMALL_BINDING
+    is_rolewise_clip = ex.science_configuration()['candidate_profile'] == ex.ROLEWISE_CLIP_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -221,6 +222,24 @@ def main(args):
         {'all_parameter_tensors': len(named), 'trainable_tensors': len(trainable),
          'frozen_tensors': len(frozen), 'parameter_trainability': parameter_trainability,
          'elements_by_role': roles, 'group_count': len(groups)})
+    if is_rolewise_clip:
+        from retrain.gradient_clip import ROLEWISE_CLIP_RULE, build_role_groups
+        role_groups = build_role_groups(optimizer, job['gradient_clip_policy'])
+        check('R126_exact_rolewise_policy_and_unique_optimizer_membership',
+              job['gradient_clip_policy'] == ex.candidate()['gradient_clip_policy'] == ROLEWISE_CLIP_RULE
+              and job['precision'] == 'fp32' and job['age']['enabled'] is True
+              and job['loss'] == ex.PAIR_LOGISTIC_LOSS
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
+              and not hasattr(model, 'attention_pool_weight')
+              and not hasattr(model, 'stage3_residual_weight')
+              and set(role_groups) == {'backbone', 'head', 'age'}
+              and {id(parameter) for parameters in role_groups.values() for parameter in parameters}
+                    == {id(parameter) for parameter in members}
+              and sum(len(parameters) for parameters in role_groups.values()) == len(members)
+              and {role:sum(parameter.numel() for parameter in parameters)
+                   for role,parameters in role_groups.items()} == roles,
+              {'policy': job['gradient_clip_policy'], 'elements_by_role': roles,
+               'parameter_tensors_by_role': {role:len(parameters) for role,parameters in role_groups.items()}})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
                                    if name not in ('attention_pool_weight', 'stage3_residual_weight')}) if (is_content_pool or is_stage3_residual) else model_digest

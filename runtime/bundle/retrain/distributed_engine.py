@@ -254,6 +254,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     validate_explicit_microbatch_normalization(base, plan)
     base=ctx.prepare_model(base)
     optimizer=single._optimizer(base,job)
+    from .gradient_clip import build_role_groups
+    role_groups=build_role_groups(optimizer,job.get('gradient_clip_policy'))
     scaler=torch.amp.GradScaler(device.type,enabled=job['precision']=='fp16')
     if previous is not None:
         base.load_state_dict(previous['model']);optimizer.load_state_dict(previous['optimizer'])
@@ -587,6 +589,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         log('stage0_evaluation',metrics=metrics);save(True);status('running')
     if mode in ('train','stage-probe','fresh-probe'):validate_pending()
     if stopping():return interrupt()
+    first_role_clip_logged=successful>0
     iterator=None;loader=None
     try:
         if successful<target and not early['stopped']:
@@ -669,8 +672,15 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 if (any(not r['optimizer_owns_each_once'] or r['missing_gradients'] or r['nonfinite_gradients'] for r in probe_gradient_proofs)
                         or len({r['gradient_sha256'] for r in probe_gradient_proofs})!=1):
                     raise ValueError('probe rank gradient ownership / synchronization proof failed')
-            norm=torch.nn.utils.clip_grad_norm_(base.parameters(),1.0)
-            finite=not ctx.any(not bool(torch.isfinite(norm)))
+            role_clip_proof=None
+            finite,role_norms,coefficients=single._clip_gradients(base.parameters(),role_groups,ctx.any)
+            if coefficients is not None and not first_role_clip_logged:
+                role_clip_proof={'rank':ctx.rank,'world_finite':True,
+                    'roles':{role:{'parameter_tensors':len(role_groups[role]),
+                        'parameter_elements':sum(parameter.numel() for parameter in role_groups[role]),
+                        'preclip_norm':float(role_norms[role]),
+                        'coefficient':float(coefficients[role]),
+                        'clipped':bool(coefficients[role]<1.0)} for role in role_groups}}
             if not finite and not scaler.is_enabled():raise FloatingPointError('nonfinite DDP gradients without AMP')
             old_scale=scaler.get_scale();scaler.step(optimizer);scaler.update()
             if fixed_fp32_scaler:
@@ -690,6 +700,10 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 if bad_adam:raise FloatingPointError('nonfinite Adam state on a DDP rank')
                 single._apply_lr(optimizer,successful,total,warmup)
                 if ema:ema.update(base,successful)
+                if role_clip_proof is not None and not first_role_clip_logged:
+                    proofs=ctx.values(role_clip_proof)
+                    log('first_role_clip',successful_updates=successful,rank_proofs=proofs)
+                    first_role_clip_logged=True
             single._synchronize(device)
             local_elapsed=time.monotonic()-started
             if mode=='fresh-probe' and 50<successful<=100 and not skipped:

@@ -24,6 +24,7 @@ PHOTO_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-ea
 NO_AGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-noage-v1'
 CONTENT_POOL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1'
 STAGE3_RESIDUAL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stage3residual-v1'
+ROLEWISE_CLIP_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-roleclip1-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -34,7 +35,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
-                      NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING)
+                      NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
+                      ROLEWISE_CLIP_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -61,6 +63,7 @@ CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010',
 
 def science_configuration():
     """Read the exact versioned science file pinned by this package's site."""
+    from .gradient_clip import ROLEWISE_CLIP_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -80,7 +83,8 @@ def science_configuration():
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                                        PHOTO_IDENTITY_SMALL_BINDING,
                                                        NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING,
-                                                       STAGE3_RESIDUAL_SMALL_BINDING)
+                                                       STAGE3_RESIDUAL_SMALL_BINDING,
+                                                       ROLEWISE_CLIP_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -101,6 +105,14 @@ def science_configuration():
                          or value.get('job', {}).get('training_views') is not None
                          or value.get('job', {}).get('attention_pool') is not None
                          or value.get('candidate', {}).get('stage3_residual') != value.get('job', {}).get('stage3_residual')))
+                or (value.get('candidate_profile') == ROLEWISE_CLIP_SMALL_BINDING
+                    and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or value.get('job', {}).get('training_photometric') is not None
+                         or value.get('job', {}).get('training_views') is not None
+                         or value.get('job', {}).get('attention_pool') is not None
+                         or value.get('job', {}).get('stage3_residual') is not None
+                         or value.get('job', {}).get('gradient_clip_policy') != ROLEWISE_CLIP_RULE
+                         or value.get('candidate', {}).get('gradient_clip_policy') != value.get('job', {}).get('gradient_clip_policy')))
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
@@ -131,7 +143,8 @@ def candidate_from_configuration(value):
                                         FIT_SSL_SMALL_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                                         PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                         PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
-                                        CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING):
+                                        CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
+                                        ROLEWISE_CLIP_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -170,6 +183,10 @@ def candidate_from_configuration(value):
                             experiment_order=35,
                             readout='native_final_LN_dropout_linear_plus_stage3_gap_residual_plus_age',
                             stage3_residual=STAGE3_RESIDUAL_RULE)
+        if value['candidate_profile'] == ROLEWISE_CLIP_SMALL_BINDING:
+            from .gradient_clip import ROLEWISE_CLIP_RULE
+            expected.update(id='r126-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-roleclip1-9010',
+                            experiment_order=36, gradient_clip_policy=ROLEWISE_CLIP_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -370,6 +387,7 @@ def validate_job(job):
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
         'attention_pool': configured.get('attention_pool'), 'initial_checkpoint': None,
         'stage3_residual': configured.get('stage3_residual'),
+        'gradient_clip_policy': configured.get('gradient_clip_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}

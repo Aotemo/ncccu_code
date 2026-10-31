@@ -187,6 +187,22 @@ def _optimizer(model, job):
     return torch.optim.AdamW(groups)
 
 
+def _clip_gradients(parameters, role_groups, any_bad=None):
+    """Return finite status, preclip norms, coefficients; agree before role mutation."""
+    if role_groups is None:
+        norm = torch.nn.utils.clip_grad_norm_(parameters, 1.0)
+        local_bad = not bool(torch.isfinite(norm))
+        bad = any_bad(local_bad) if any_bad is not None else local_bad
+        return not bad, None, None
+    from .gradient_clip import measure_role_norms, apply_role_clip_
+    norms = measure_role_norms(role_groups)
+    local_bad = not bool(torch.stack([torch.isfinite(value) for value in norms.values()]).all())
+    bad = any_bad(local_bad) if any_bad is not None else local_bad
+    if bad:
+        return False, norms, None
+    return True, norms, apply_role_clip_(role_groups, norms)
+
+
 def _lr_factor(successful_updates, total_updates, warmup_updates):
     # The LR of the next successful update is a pure function of committed
     # progress. Overflow attempts therefore retry the same LR.
@@ -360,6 +376,8 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
         model_factory = create_model
     model = model_factory(job, initialize=previous is None and stage is None).to(device)
     optimizer = _optimizer(model, job)
+    from .gradient_clip import build_role_groups
+    role_groups = build_role_groups(optimizer, job.get('gradient_clip_policy'))
     scaler = torch.amp.GradScaler(device.type, enabled=job['precision'] == 'fp16')
     if previous is not None or stage is not None:
         source = previous if previous is not None else stage
@@ -558,8 +576,7 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
             attempted += 1
             coverage.update(attempt_indices)
             scaler.unscale_(optimizer)
-            grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-            finite_grad = bool(torch.isfinite(grad_norm))
+            finite_grad, _, _ = _clip_gradients(model.parameters(), role_groups)
             if not finite_grad and not scaler.is_enabled():
                 raise FloatingPointError('nonfinite gradients without enabled GradScaler')
             old_scale = scaler.get_scale()
