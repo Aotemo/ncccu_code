@@ -54,7 +54,10 @@ def main(args):
     from retrain.site_binding import load_site, require_cpu_channel
     site = load_site(); require_cpu_channel(site)
     import torch
-    torch.set_num_threads(int(os.environ['NCCCU_CPU_THREADS'])); torch.set_num_interop_threads(1)
+    # Leave room for the validation parent and helper threads inside its 12-CPU
+    # preparation allocation; this does not alter the model or training site.
+    torch.set_num_threads(max(1, int(os.environ['NCCCU_CPU_THREADS']) - 2))
+    torch.set_num_interop_threads(1)
     check('CPU_only_before_model', not torch.cuda.is_initialized())
     from retrain import experiment91 as ex
     from retrain.engine import _optimizer, _lr_factor
