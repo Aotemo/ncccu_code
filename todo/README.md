@@ -2,9 +2,11 @@
 
 目标是在固定 9:1、单模型和内部 dev 唯一选点的合同下继续实验；raw AUROC 尚未达到 0.999，不称总体完成。自 R117 起，只有完整训练并冻结的所选内部 dev AUROC 达到 `0.996`，才运行一次官方 5849 验证；未达则记 `not_run_by_policy`。官方结果不用于训练、选点或下一轮调参。长期约束见 [AGENTS.md](../AGENTS.md)，执行入口见 [EXECUTION.md](../docs/EXECUTION.md)。
 
+**当前已采用 [R124 固定内容加权汇聚](auroc-999/R124-DECISION.md)，order34，A/B已获必要实施，执行实证待A回执。** 直接匹配R107，只启用原 `content-attention-pool-v1` 全字典，恢复原enabled年龄；单编码/原缓存/pairlog等保持。旧R26仅探索正向、区间略跨0，R20/N11反证保留，不能称未试空间方法或已证收益。q零初始化但须在图；新增参数使whole SHA不同50c，实际共有stateexact/q0/optimizer/正式8rank/age tuple4/首成功均待实证。SCIENCE/Git/formal/activation未收到不填完成，必要准入齐A直接唯一fresh，不等文档审批。完整selected严格胜R107 `.9884405731067525`且超R120 singlebest `.9894773092062407`才条件固定27对R108 `.9872328538178018`；只胜前者则阶段结束，无pool/温度/维数/LR/seed网格，完整freeze`.996`官方门独立。
+
 **[R123 无年龄消融](auroc-999/R123-DECISION.md)已完整结束并安全退出，分支关闭/no seed27。** 内部freeze唯一 EMA c5@4000，AUROC `.9867584356723914`、AP `.8255658133774761`、error_twice21994；7200成功/attempt相同/0skip/eval9/bad4，TRAIN completed/exit0。低于直接R107 `.9884405731067525`和单次best R120 `.9894773092062407`，不继续年龄分箱、非线性、正则权重或seed扫描；原缺省 `age_enabled=true` 继续比较基线，不推出年龄普遍必需或临床因果。内部selected未达`.996`，官方按政策未运行/metricsnull；整轮safe引用A实际2026-10-31 12:03:28回执，ownerZ不称reaped、原8rank退出、锁与设备使用者为空。原包/clock不改，必要归档由唯一A处理。
 
-当前只作一次有界文本评议：既有内容加权汇聚在当前R107合同下是否构成可辩护的匹配问题，先核R20/R26历史与实际代码；尚未注册下一轮/order/SCIENCE或授权实现。R120仍仅单次best，R107/R108科学锚点、完整freeze`.996`官方门及总体`.999`目标不变；不延长metadata/fit诊断、缓存修复或已关闭分支。
+协调方已转交R123必要四件实际归档 main `2e17d3ee78f2350044f5f0fab6509e058f5f9039`、tree `9b8dca45fb46aac83be112c9bec11096d8c986ce`，远端四blob回读通过，tokenfree RESULT Pod SHA `b9bc6213a69c9b22660c59c913bd3c61d7d0f51ca564fe93f48425678d53ff8a`；本文未另查或重算。R123原决定页继续冻结。R120仍仅singlebest，R107/R108为科学锚点；R124不与R123作单变量比较，不延长metadata/fit诊断、缓存修复或已关闭分支。
 
 **R122训练光度整组identity消融已完整结束并安全退出，主判据未通过。** [收口页](auroc-999/R122-DECISION.md)记录5600成功/0skip/eval7/bad4，unique EMA c3@2400内部AUROC `.9874796957462513`、AP `.8211659433777129`，低于R107 `.9884405731067525`及单次best R120 `.9894773092062407`。本分支关闭/no seed27，不拆三因子或扫描range/LR/seed；原None光度增强路径继续作为比较基线。官方未达`.996`按政策未运行，A实际10:02终态确认safe。协调方已转交A实际tokenfree归档：main `18dd3418ea978e90bfcfe8975016b5b8f4cc1f5f`、tree `6fa959e6d14f7ed5eaaa9db8864893f5969c1e2e`，仅result/README/R122页三件；本文未另查运行或校验原件。
 
@@ -14,7 +16,7 @@
 
 **[Fit联合输入一致性元数据核对](auroc-999/FIT-INPUT-CONSISTENCY-20261031.md)已一次实际完成，C=0，任务收口。** 据协调方转交A回执，R107/R120原manifest、fit_indices及age身份一致，原age校验通过；fit46256=P1490+N44766，既存SHA+实际FP32两维age数值key（±0合并）全部有限。重复key/涉及行、cross-label key/其中P/N行均为0；metadata `2.163719s`，当次CPU17本人12核guard0，无Torch/图像/cache/stat/模型/forward/训练。只排除该严格元数据冲突，不能证明标签正确、实际cache像素或拟合充分，不能推出`.999`可达或dev/平台上限。原FIT256仍unknown且不补跑，首cache缺项不扩查。
 
-协调方已转交该 metadata 任务实际归档 main `733869f7e08ae8c551b169342a9571d5daa1738f`、tree `b9e456f74bd60db3fe70efb67367573ad3836bf6`；本文未另查或校验原件。C=0不构成标签正确、拟合充分或选择R123的证据；原FIT256 unknown/0of256与首条cache missing均已关闭，不延展审计、不修后补考。当前接续是协调方独立采用的R123训练问题，不据这些metadata结果改标、去重、设权采样或修cache。R120仍仅单次best，R107/R108仍为科学比较锚点。
+协调方已转交该 metadata 任务实际归档 main `733869f7e08ae8c551b169342a9571d5daa1738f`、tree `b9e456f74bd60db3fe70efb67367573ad3836bf6`；本文未另查或校验原件。C=0不构成标签正确、拟合充分或后续方法收益的证据；原FIT256 unknown/0of256与首条cache missing均已关闭，不延展审计、不修后补考，不据这些metadata结果改标、去重、设权采样或修cache。当前独立训练接续见页首R124；R120仍仅单次best，R107/R108仍为科学比较锚点。
 
 R120/R121固定pairsigmoid配对已完整结束，一胜一负，停止该分支主线升级。[R121](auroc-999/R121-DECISION.md)6400成功/0skip/eval8/bad4，unique EMA c4@3200内部AUROC `.9869089490433972`、AP `.8355471078657948`，未严格胜预冻R108 `.9872328538178018`；AP小高不救主判。官方未达`.996`按政策不运行，A实际08:31终态确认整轮safe。无第三seed/温度/scale/混合或近邻surrogate补考。必要归档已由A实核同步Git `ee5c1b9e470c4b1a46539a1cd9bff42c3f7cef50`、tree `638d1fb2eb421b975ddd93ffa4cc3d40f2a191ad`；原冻结产物不改，资源仍以执行当次实核为准。
 

@@ -28,8 +28,8 @@ def attach(model, job):
     spec = validate_spec(job.get('attention_pool'))
     if spec is None:
         return
-    if job['model'] != 'convnext_tiny' or job['precision'] != 'fp32':
-        raise ValueError('content attention pooling requires the registered FP32 Tiny model')
+    if job['model'] not in ('convnext_tiny', 'convnext_small') or job['precision'] != 'fp32':
+        raise ValueError('content attention pooling requires a registered FP32 768-wide model')
     reference = next(model.network.parameters())
     # Allocation consumes no RNG; all original parameters retain their initialization.
     model.attention_pool_weight = nn.Parameter(torch.zeros(1, 768, device=reference.device, dtype=torch.float32))

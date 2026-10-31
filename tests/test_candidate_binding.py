@@ -60,6 +60,36 @@ class CandidateBindingTest(unittest.TestCase):
         self.assertIsNot(disabled['contract'], frozen['contract'])
         self.assertTrue(frozen['enabled'])
 
+    def test_R124_content_pool_science_job_and_age_binding(self):
+        from retrain.attention_pool import ATTENTION_POOL_RULE
+        from retrain.config import job_contract
+        old = json.loads((ROOT / 'configs/R107-SCIENCE.json').read_text())
+        new = json.loads((ROOT / 'configs/R124-SCIENCE.json').read_text())
+        self.assertEqual({key for key in old['job'] if old['job'][key] != new['job'][key]},
+                         {'attention_pool'})
+        self.assertEqual(new['job']['attention_pool'], ATTENTION_POOL_RULE)
+        self.assertEqual(new['candidate']['attention_pool'], ATTENTION_POOL_RULE)
+        self.assertEqual(new['job']['loss'], old['job']['loss'])
+        self.assertNotIn('age_enabled', new)
+        frozen_age = {'enabled': True, 'contract': {'fit_only': True},
+                      'contract_sha256': 'frozen'}
+        with patch.object(experiment, 'science_configuration', return_value=new), \
+                patch.object(experiment, 'metadata', return_value={'AGE.json': frozen_age}), \
+                patch.object(experiment, 'binding', return_value={'fixture': 'binding'}), \
+                patch.object(experiment, 'candidate', return_value=new['candidate']):
+            self.assertEqual(experiment.candidate_from_configuration(new), new['candidate'])
+            age = experiment.resolved_age_spec()
+            self.assertEqual(age, frozen_age)
+            self.assertIsNot(age, frozen_age)
+            job = copy.deepcopy(new['job'])
+            job.update(age=age, experiment91={'fixture': 'binding'},
+                       initialization={'kind': 'imagenet', 'sha256': new['public_source']['sha256'],
+                                       'format': new['public_source']['format'],
+                                       'path': self.site['public_weight'],
+                                       'provenance': self.site['public_provenance']})
+            self.assertEqual(experiment.validate_job(job), job)
+            self.assertEqual(job_contract(job)['attention_pool'], ATTENTION_POOL_RULE)
+
     def test_R94_only_changes_backbone_LR_scientific_fields(self):
         old = json.loads((ROOT / 'configs/R93-SCIENCE.json').read_text())
         new = json.loads((ROOT / 'configs/R94-SCIENCE.json').read_text())

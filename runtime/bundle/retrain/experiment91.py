@@ -22,6 +22,7 @@ PAIR_SIGMOID_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earl
 PAIR_SIGMOID_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-v1'
 PHOTO_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-photoidentity-v1'
 NO_AGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-noage-v1'
+CONTENT_POOL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -32,7 +33,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
-                      NO_AGE_SMALL_BINDING)
+                      NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -77,7 +78,7 @@ def science_configuration():
                                                        PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                                        PHOTO_IDENTITY_SMALL_BINDING,
-                                                       NO_AGE_SMALL_BINDING)
+                                                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -87,6 +88,11 @@ def science_configuration():
                          or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
                          or value.get('job', {}).get('training_photometric') is not None
                          or value.get('job', {}).get('training_views') is not None))
+                or (value.get('candidate_profile') == CONTENT_POOL_SMALL_BINDING
+                    and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or value.get('job', {}).get('training_photometric') is not None
+                         or value.get('job', {}).get('training_views') is not None
+                         or value.get('candidate', {}).get('attention_pool') != value.get('job', {}).get('attention_pool')))
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
@@ -116,7 +122,8 @@ def candidate_from_configuration(value):
     elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING,
                                         FIT_SSL_SMALL_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                                         PAIR_SIGMOID_SMALL_SEED27_BINDING,
-                                        PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING):
+                                        PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
+                                        CONTENT_POOL_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -143,6 +150,12 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == NO_AGE_SMALL_BINDING:
             expected.update(id='r123-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-noage-9010',
                             experiment_order=33, readout='native_avgpool_final_LN_dropout_linear')
+        if value['candidate_profile'] == CONTENT_POOL_SMALL_BINDING:
+            from .attention_pool import ATTENTION_POOL_RULE
+            expected.update(id='r124-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-contentpool-9010',
+                            experiment_order=34,
+                            readout='native_content_attention_pool_final_LN_dropout_linear_plus_age',
+                            attention_pool=ATTENTION_POOL_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -341,7 +354,8 @@ def validate_job(job):
         'freeze_features_before': configured.get('freeze_features_before'),
         'final_downsample_stride': configured.get('final_downsample_stride'),
         'dropout': configured['dropout'], 'stochastic_depth': configured['stochastic_depth'], 'head_lr_scope': 'last_linear', 'mixup': None,
-        'attention_pool': None, 'initial_checkpoint': None, 'frozen_bn': configured['frozen_bn'],
+        'attention_pool': configured.get('attention_pool'), 'initial_checkpoint': None,
+        'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
     init = job.get('initialization', {})
@@ -433,13 +447,20 @@ def describe_model(model):
             or not isinstance(final, nn.Linear) or (final.in_features, final.out_features) != (candidate()['features'], 1)
             or not isinstance(network.classifier[-2], nn.Dropout)
             or network.classifier[-2].p != science_configuration()['job']['dropout']
-            or any(n == 'attention_pool_weight' or n == 'q' for n, _ in model.named_parameters())
+            or (science_configuration()['candidate_profile'] != CONTENT_POOL_SMALL_BINDING
+                and any(n == 'attention_pool_weight' or n == 'q' for n, _ in model.named_parameters()))
             or not any(n['name'] == 'network.classifier.0' for n in norms)
             or any(n['eps'] != (candidate()['final_norm_eps'] if n['name'] == 'network.classifier.0' else 1e-6) for n in norms)):
         raise ValueError('actual Tiny native avgpool/768/noq/noBN/LN/dropout differs')
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['candidate_profile'] == CONTENT_POOL_SMALL_BINDING:
+        from .attention_pool import validate_model
+        validate_model(model, science_configuration()['job'])
+        weight = model.attention_pool_weight
+        result['attention_pool'] = {'parameter_name': 'attention_pool_weight',
+                                    'shape': list(weight.shape), 'dtype': str(weight.dtype)}
     if ('final_downsample_stride' in science_configuration()['job']
             or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
         convolution = network.features[6][1]
@@ -500,6 +521,12 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if science_configuration()['candidate_profile'] == CONTENT_POOL_SMALL_BINDING:
+        if value.get('attention_pool') != {'parameter_name': 'attention_pool_weight',
+                                           'shape': [1, 768], 'dtype': 'torch.float32'}:
+            raise ValueError('actual Small content pooling parameter differs')
+    elif value.get('attention_pool') is not None:
+        raise ValueError('unregistered attention pooling parameter')
     if ('final_downsample_stride' in configured
             or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
         stride = configured.get('final_downsample_stride', 2)

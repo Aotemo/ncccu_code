@@ -72,6 +72,7 @@ def main(args):
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
+    is_content_pool = ex.science_configuration()['candidate_profile'] == ex.CONTENT_POOL_SMALL_BINDING
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -80,7 +81,7 @@ def main(args):
           and public['full_head_shape'] == contract['full_head_shape']
           and public.get('backbone_only', False) is is_dino
           and not public['strict_missing_keys'] and not public['strict_unexpected_keys'], public)
-    check('actual_measured_LN_GELU_native_avgpool_noBN_noq_binary_agezero',
+    check('actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
@@ -88,6 +89,11 @@ def main(args):
           and len(dict(model.named_buffers())) == contract.get('static_index_buffers', contract.get('buffer_count', 0)) and model.age_metadata == job['age']
           and (not hasattr(model, 'age_weight') if not job['age']['enabled'] else
                model.age_weight.numel() == 2 and bool((model.age_weight == 0).all()))
+          and (not is_content_pool or (job['attention_pool'] == ex.candidate()['attention_pool']
+                and structure['attention_pool'] == {'parameter_name': 'attention_pool_weight',
+                    'shape': [1, 768], 'dtype': 'torch.float32'}
+                and tuple(model.attention_pool_weight.shape) == (1, 768)
+                and bool((model.attention_pool_weight == 0).all())))
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
                   for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
     if is_pair_sigmoid:
@@ -113,6 +119,24 @@ def main(args):
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996,
               {'training_dataset_policy': training_dataset.training_photometric,
                'evaluation_dataset_policy': evaluation_dataset.training_photometric})
+    if is_content_pool:
+        was_training = model.training
+        feature_shapes = []
+        hook = model.network.features.register_forward_hook(
+            lambda _module, _input, output: feature_shapes.append(list(output.shape)))
+        model.eval()
+        with torch.inference_mode():
+            output_512 = model(torch.zeros(1, 3, 512, 512, dtype=torch.float32),
+                               torch.zeros(1, 2, dtype=torch.float32))
+        hook.remove()
+        model.train(was_training)
+        check('R124_512_features_S256_binary_age_readout_and_q_zero',
+              feature_shapes == [[1, 768, 16, 16]]
+              and tuple(output_512.shape) == (1,) and bool(torch.isfinite(output_512).all())
+              and bool((model.attention_pool_weight == 0).all())
+              and not torch.cuda.is_initialized(),
+              {'feature_shapes': feature_shapes, 'positions': 256,
+               'logit': float(output_512[0]), 'GPU_initialized': torch.cuda.is_initialized()})
     if is_swin:
         check('R117_selected_internal_AUROC_0996_official_gate_bound',
               ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996)
@@ -169,12 +193,15 @@ def main(args):
     roles = {role: sum(row['numel'] for group in groups if group['role'] == role for row in group['parameters'])
              for role in expected_roles}
     head = {id(parameter) for parameter in (model.classifier if is_r50 else model.network.classifier)[-1].parameters()}
+    if is_content_pool:
+        head.add(id(model.attention_pool_weight))
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2)
+        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool)
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
         and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()),
-                       'head': contract['features'] + 1, **({'age': 2} if job['age']['enabled'] else {})})
+                       'head': contract['features'] + 1 + (768 if is_content_pool else 0),
+                       **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
         and group_lrs_match(groups, job)
@@ -184,8 +211,11 @@ def main(args):
          'frozen_tensors': len(frozen), 'parameter_trainability': parameter_trainability,
          'elements_by_role': roles, 'group_count': len(groups)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
+    common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
+                                   if name != 'attention_pool_weight'}) if is_content_pool else model_digest
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
-          and model_digest == ex.science_configuration()['initial_model_tensor_sha256']
+          and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
+               if is_content_pool else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
           and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
           and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members})
     fresh = build.make_fresh(package, job, topology, policy, digest, public['initialization'])
@@ -202,7 +232,16 @@ def main(args):
     expected = {'source_digest': digest, 'candidate': ex.candidate(), 'model_tensor_sha256': model_digest,
         'batch_norm_modules': structure['batch_norm_modules'], 'buffer_count': structure['buffer_count'], 'buffer_sha256': structure['buffer_sha256'],
         'candidate_normalization': structure, 'optimizer_state_entries': 0, 'trainable_tensors': len(trainable),
-        'parameter_elements_by_role': roles, 'no_attention_q': True}
+        'parameter_elements_by_role': roles, 'no_attention_q': not is_content_pool}
+    if is_content_pool:
+        from retrain.attention_pool import describe as describe_attention
+        expected['attention_pool'] = describe_attention(model, optimizer)
+        check('R124_original_seed29_common_state_exact_and_new_q_zero',
+              common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
+              and expected['attention_pool']['nonzero'] == 0
+              and model.age_metadata == job['age'] and job['age']['enabled'] is True,
+              {'common_tensor_sha256': common_digest, 'new_full_tensor_sha256': model_digest,
+               'attention_pool': expected['attention_pool']})
     if ex.science_configuration().get('ssl_recipe') is not None:
         from retrain.ssl_stage import _derived_state, _non_encoder_state
         expected.update(public_tensor_sha256=model.public_initialization_receipt['public_tensor_sha256'],
@@ -230,6 +269,8 @@ def main(args):
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
           and reload_job == job and reloaded is not model
+          and (not is_content_pool or (hasattr(reloaded, 'attention_pool_weight')
+               and torch.equal(reloaded.attention_pool_weight, model.attention_pool_weight)))
           and tensor_digest(reloaded.state_dict()) == model_digest
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
@@ -238,6 +279,8 @@ def main(args):
         'bn_modules': structure['batch_norm_modules'], 'scaler': {}, 'precision_runtime': {**runtime_proof(RULE, device='cpu'),
             'scaler_enabled': False, 'scaler_state_dict': {}, 'effective_scale': 1.0},
         'candidate_normalization': structure, 'cpu_fixture_only': True} for rank in range(8)]
+    if is_content_pool:
+        for record in initials: record['attention_pool'] = expected['attention_pool']
     if parameter_trainability is not None:
         for record in initials: record['parameter_trainability'] = parameter_trainability
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',

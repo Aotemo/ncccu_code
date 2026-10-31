@@ -89,8 +89,8 @@ def validate_job(job):
     if job.get('attention_pool') is not None:
         from .attention_pool import validate_spec
         validate_spec(job['attention_pool'])
-        if job['model'] != 'convnext_tiny' or job['precision'] != 'fp32':
-            raise ValueError('content attention pooling requires the registered FP32 Tiny model')
+        if job['model'] not in ('convnext_tiny', 'convnext_small') or job['precision'] != 'fp32':
+            raise ValueError('content attention pooling requires a registered FP32 768-wide model')
     if job.get('mixup') is not None:
         from .mixup import validate_spec
         validate_spec(job['mixup'])
