@@ -93,6 +93,7 @@ def main(args):
     is_rolewise_clip = ex.science_configuration()['candidate_profile'] == ex.ROLEWISE_CLIP_SMALL_BINDING
     is_head_warmup = ex.science_configuration()['candidate_profile'] == ex.HEAD_WARMUP_SMALL_BINDING
     is_layerwise = layerwise_profile(ex.science_configuration()['candidate_profile'])
+    is_low_rank = job.get('low_rank_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -233,6 +234,7 @@ def main(args):
     groups = [{'role': group['role'], 'lr': group['lr'], 'initial_lr': group['initial_lr'],
         **({key:group[key] for key in ('layer_id','lr_scale','base_initial_lr','param_names')}
            if is_layerwise else {}),
+        **({key:group[key] for key in ('param_names','param_shapes')} if is_low_rank else {}),
         'weight_decay': group['weight_decay'], 'parameters': [
             {'name': names[id(parameter)], 'shape': list(parameter.shape), 'numel': parameter.numel()}
             for parameter in group['params']]} for group in optimizer.param_groups]
@@ -246,20 +248,30 @@ def main(args):
     if is_stage3_residual:
         head.add(id(model.stage3_residual_weight))
     check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
-        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool) + int(is_stage3_residual)
+        and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool) + int(is_stage3_residual) + (144 if is_low_rank else 0)
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
-        and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()),
+        and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()) + (1082880 if is_low_rank else 0),
                        'head': contract['features'] + 1 + (768 if is_content_pool else 0) + (384 if is_stage3_residual else 0),
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
-        and any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters'])
+        and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else
+             any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == (1e-4 if group['role'] == 'age' or any(
             named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) for group in groups),
         {'all_parameter_tensors': len(named), 'trainable_tensors': len(trainable),
          'frozen_tensors': len(frozen), 'parameter_trainability': parameter_trainability,
          'elements_by_role': roles, 'group_count': len(groups)})
+    if is_low_rank:
+        from retrain.low_rank import LOW_RANK_RULE, optimizer_update_proof
+        low_rank_initial = optimizer_update_proof(model, optimizer, 0)
+        check('fixed_pointwise_rank8_actual_mask_groups_emptyAdam',
+              job['low_rank_policy'] == ex.candidate().get('low_rank_policy') == LOW_RANK_RULE
+              and len(named) == 489 and len(frozen) == 342 and len(trainable) == 147
+              and parameter_trainability['trainable_parameter_elements'] == 1083651
+              and all(int(torch.count_nonzero(p)) == 0 for n, p in named.items() if n.endswith('.lora_B')),
+              {'parameter_trainability': parameter_trainability, 'actual_optimizer': low_rank_initial})
     if is_rolewise_clip:
         from retrain.gradient_clip import ROLEWISE_CLIP_RULE, build_role_groups
         role_groups = build_role_groups(optimizer, job['gradient_clip_policy'])
@@ -312,12 +324,19 @@ def main(args):
               {'group_identity': signature, 'optimizer_state_entries': len(optimizer.state)})
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
-                                   if name not in ('attention_pool_weight', 'stage3_residual_weight')}) if (is_content_pool or is_stage3_residual) else model_digest
+                                   if name not in ('attention_pool_weight', 'stage3_residual_weight')
+                                   and not (is_low_rank and name.endswith(('.lora_A', '.lora_B')))}) if (is_content_pool or is_stage3_residual or is_low_rank) else model_digest
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
           and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
                if (is_content_pool or is_stage3_residual) else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
           and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
           and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members})
+    if is_low_rank:
+        check('pointwise_original345_fresh_common_state_and_distinct_whole',
+              common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
+              and model_digest == ex.science_configuration()['initial_model_tensor_sha256']
+              and model_digest != common_digest,
+              {'common_tensor_sha256': common_digest, 'full_tensor_sha256': model_digest})
     fresh = build.make_fresh(package, job, topology, policy, digest, public['initialization'])
     identity = {'format': 'glaucoma-retrain-v1', 'source_digest': digest,
         'manifest_digest': ex.binding()['manifest_digest'], 'job': job_contract(job),
@@ -359,6 +378,8 @@ def main(args):
                         public_non_encoder_sha256=tensor_digest(_non_encoder_state(model)))
     if parameter_trainability is not None:
         expected['parameter_trainability'] = parameter_trainability
+    if is_low_rank:
+        expected['low_rank_optimizer'] = low_rank_initial
     if is_layerwise:
         expected['layerwise_group_identity'] = signature
     initial = {'format_version': 1, 'cpu_fixture_only': True, 'identity': identity,
@@ -369,6 +390,8 @@ def main(args):
         'candidate_normalization': structure}
     if parameter_trainability is not None:
         initial['parameter_trainability'] = parameter_trainability
+    if is_low_rank:
+        initial['low_rank_optimizer'] = low_rank_initial
     store = CheckpointStore(args.output / 'CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint')
     checkpoint = store.save(initial); loaded = store.load('last', map_location='cpu')
     ex.validate_checkpoint(loaded); validate_state(loaded['ema'], loaded['model'], 0, ex.ema_rule())
@@ -403,6 +426,12 @@ def main(args):
               and reloaded.age_metadata == job['age']
               and loaded['optimizer']['state'] == {}
               and tensor_digest(reloaded.state_dict()) == model_digest)
+    if is_low_rank:
+        from retrain.low_rank import low_rank_proof, validate_optimizer_state
+        check('pointwise_strict_reload_named_groups_and_frozen_base',
+              reload_job['low_rank_policy'] == job['low_rank_policy']
+              and low_rank_proof(reloaded, reload_job)['frozen_tensor_sha256'] == parameter_trainability['frozen_tensor_sha256']
+              and validate_optimizer_state(model, optimizer, loaded['optimizer']) == parameter_trainability['optimizer_groups'])
     initials = [{'rank': rank, 'model_sha256': model_digest, 'optimizer_state_entries': 0,
         'bn_modules': structure['batch_norm_modules'], 'scaler': {}, 'precision_runtime': {**runtime_proof(RULE, device='cpu'),
             'scaler_enabled': False, 'scaler_state_dict': {}, 'effective_scale': 1.0},
@@ -413,6 +442,8 @@ def main(args):
         for record in initials: record['stage3_residual'] = expected['stage3_residual']
     if parameter_trainability is not None:
         for record in initials: record['parameter_trainability'] = parameter_trainability
+    if is_low_rank:
+        for record in initials: record['low_rank_optimizer'] = low_rank_initial
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',
         initial_gate.verify_records(initials, groups, groups, expected, expected_world=8) == model_digest)
     rejected('initial_gate_missing_rank_rejected', lambda: initial_gate.verify_records(initials[:-1], groups, groups, expected, expected_world=8))

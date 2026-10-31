@@ -287,9 +287,16 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     scaler=torch.amp.GradScaler(device.type,enabled=job['precision']=='fp16')
     if previous is not None:
         base.load_state_dict(previous['model'])
+        if job.get('low_rank_policy') is not None:
+            from .low_rank import restore_base_reference, validate_optimizer_state
+            restore_base_reference(base,job,previous)
+            validate_optimizer_state(base,optimizer,previous['optimizer'])
         layerwise_identity=single._validate_layerwise_optimizer_state(
             base,optimizer,previous['optimizer'],job.get('layerwise_lr_policy'))
         optimizer.load_state_dict(previous['optimizer'])
+        if job.get('low_rank_policy') is not None:
+            from .low_rank import optimizer_update_proof
+            optimizer_update_proof(base,optimizer,previous['successful_updates'])
         if layerwise_identity is not None:
             from .layerwise_lr import group_identity
             if group_identity(base,optimizer.param_groups,job['layerwise_lr_policy'])!=layerwise_identity:
@@ -495,6 +502,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             attention_initial={}
             if candidate_normalization is not None:attention_initial['candidate_normalization']=candidate_normalization
             if parameter_trainability is not None:attention_initial['parameter_trainability']=parameter_trainability
+            if job.get('low_rank_policy') is not None:
+                from .low_rank import optimizer_update_proof
+                attention_initial['low_rank_optimizer']=optimizer_update_proof(base,optimizer,successful)
             if job.get('attention_pool') is not None:
                 from .attention_pool import describe
                 attention_initial['attention_pool']=describe(base,optimizer)
@@ -539,6 +549,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                                ema_rank_proof=ema_rank_proof,evaluation_transaction='both_variants_committed' if evaluated==successful//steps else 'pending_pair')
             if candidate_normalization is not None:payload['candidate_normalization']=candidate_normalization
             if parameter_trainability is not None:payload['parameter_trainability']=parameter_trainability
+            if job.get('low_rank_policy') is not None:
+                from .low_rank import optimizer_update_proof
+                payload['low_rank_optimizer']=optimizer_update_proof(base,optimizer,successful)
             if n05_bn_proofs is not None:payload['frozen_bn_proofs']=n05_bn_proofs
             if stage_spec:payload.update(stage=copy.deepcopy(stage_spec),overflow_window=overflow_guard.state())
             if fresh_spec:
@@ -556,6 +569,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         groups=[{'role':g['role'],'initial_lr':g['initial_lr'],'lr':g['lr'],
                                  **({key:g[key] for key in ('layer_id','lr_scale','base_initial_lr','param_names')}
                                     if job.get('layerwise_lr_policy') is not None else {}),
+                                 **({key:g[key] for key in ('param_names','param_shapes')}
+                                    if job.get('low_rank_policy') is not None else {}),
                                  'weight_decay':g['weight_decay'],
                                  'parameters':[{'name':names[id(p)],'shape':list(p.shape),'numel':p.numel()} for p in g['params']]}
                                 for g in optimizer.param_groups]
@@ -769,6 +784,16 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 if bad_adam:raise FloatingPointError('nonfinite Adam state on a DDP rank')
                 single._apply_lr(optimizer,successful,total,warmup)
                 if ema:ema.update(base,successful)
+                if successful == 1 and job.get('low_rank_policy') is not None:
+                    from .low_rank import low_rank_proof, optimizer_update_proof
+                    actual = low_rank_proof(base,job,optimizer)
+                    proofs = ctx.values({'rank':ctx.rank,'world_finite':True,
+                        **optimizer_update_proof(base,optimizer,successful),
+                        'frozen_tensor_sha256':actual['frozen_tensor_sha256'],
+                        'initial_frozen_tensor_sha256':actual['initial_frozen_tensor_sha256']})
+                    if len({item['frozen_tensor_sha256'] for item in proofs}) != 1:
+                        raise ValueError('pointwise first-success frozen base differs across ranks')
+                    log('low_rank_first_update_proof',rank_proofs=proofs)
                 if successful == 1 and layerwise_first_lrs is not None:
                     from .layerwise_lr import group_identity
                     identities = group_identity(base,optimizer.param_groups,job['layerwise_lr_policy'])

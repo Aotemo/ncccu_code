@@ -187,7 +187,11 @@ def _optimizer(model, job):
     if job.get('layerwise_lr_policy') is not None:
         from .layerwise_lr import build_layerwise_groups
         groups = build_layerwise_groups(model, groups, job['layerwise_lr_policy'])
-    return torch.optim.AdamW(groups)
+    optimizer = torch.optim.AdamW(groups)
+    if job.get('low_rank_policy') is not None:
+        from .low_rank import bind_optimizer
+        bind_optimizer(model, optimizer)
+    return optimizer
 
 
 def _validate_layerwise_optimizer_state(model, optimizer, saved, policy):
@@ -412,9 +416,16 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
     if previous is not None or stage is not None:
         source = previous if previous is not None else stage
         model.load_state_dict(source['model'])
+        if job.get('low_rank_policy') is not None:
+            from .low_rank import restore_base_reference, validate_optimizer_state
+            restore_base_reference(model, job, source)
+            validate_optimizer_state(model, optimizer, source['optimizer'])
         layerwise_identity = _validate_layerwise_optimizer_state(
             model, optimizer, source['optimizer'], job.get('layerwise_lr_policy'))
         optimizer.load_state_dict(source['optimizer'])
+        if job.get('low_rank_policy') is not None:
+            from .low_rank import optimizer_update_proof
+            optimizer_update_proof(model, optimizer, source['successful_updates'])
         if layerwise_identity is not None:
             from .layerwise_lr import group_identity
             if group_identity(model, optimizer.param_groups, job['layerwise_lr_policy']) != layerwise_identity:
@@ -447,7 +458,7 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
     completed_path = run_dir / 'complete.json'
 
     def snapshot():
-        return dict(format_version=1, identity=identity, job=dict(job), mode=mode,
+        result = dict(format_version=1, identity=identity, job=dict(job), mode=mode,
                     manifest_digest=manifest_digest, model=model.state_dict(), optimizer=optimizer.state_dict(),
                     scaler=scaler.state_dict(), rng=capture_rng(), successful_updates=successful,
                     attempted_updates=attempted, cycle=successful // steps_per_cycle,
@@ -461,6 +472,12 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
                                   positive=sum(int(manifest['rows'][i]['label']) for i in coverage),
                                   negative=sum(not int(manifest['rows'][i]['label']) for i in coverage)),
                     timing=dict(timing))
+        if job.get('low_rank_policy') is not None:
+            from .models import feature_freeze_proof
+            from .low_rank import optimizer_update_proof
+            result['parameter_trainability'] = feature_freeze_proof(model, job, optimizer)
+            result['low_rank_optimizer'] = optimizer_update_proof(model, optimizer, successful)
+        return result
 
     def save(best=False):
         nonlocal last_checkpoint_time, last_checkpoint_attempt

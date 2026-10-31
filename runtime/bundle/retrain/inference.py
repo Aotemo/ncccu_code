@@ -132,6 +132,17 @@ def _load_model(source, device='cpu', checkpoint='best', model_factory=None, var
     from .age import validate_model
     validate_model(model,job)
     model.load_state_dict(state, strict=True)
+    if job.get('low_rank_policy') is not None:
+        from .low_rank import frozen_digest, restore_base_reference
+        if exported:
+            reference = metadata.get('low_rank_reference')
+            if reference is None:
+                raise ValueError('exported low-rank base reference missing')
+            if reference != frozen_digest(model):
+                raise ValueError('exported low-rank base reference differs')
+            model.low_rank_initial_frozen_sha256 = reference
+        else:
+            restore_base_reference(model, job, payload)
     model.to(selected_device).eval()
     return model, dict(job), metadata, origin, selected_device
 
@@ -379,6 +390,8 @@ def export_model(source, output, *, checkpoint='best', threshold=.5, precision=N
         (temporary / 'retrain').mkdir()
         files = ['__init__.py', 'data.py', 'verification.py', 'preprocessing.py',
                  'engine.py', 'inference.py', 'models.py', 'persistence.py', 'ema.py','finite.py','age.py','attention_pool.py','stage3_residual.py','imagenet_resnet.py']
+        if job.get('low_rank_policy') is not None:
+            files += ['low_rank.py', 'config.py', 'spatial_stride.py']
         for name in files:
             shutil.copy2(package / name, temporary / 'retrain' / name)
         for entry in ('predict.py', 'cost.py'):
@@ -396,6 +409,8 @@ def export_model(source, output, *, checkpoint='best', threshold=.5, precision=N
                       job=job,age=job.get('age'), inference=runtime, checkpoint=origin, materials=materials,
                       code_sha256=code_hashes, dependencies=versions,
                       model_bytes=(temporary / 'model.pt').stat().st_size)
+        if job.get('low_rank_policy') is not None:
+            result['low_rank_reference'] = model.low_rank_initial_frozen_sha256
         for member in temporary.rglob('*'):
             os.chmod(member,0o755 if member.is_dir() else 0o644)
         result['artifact_bytes'], result['within_500_mb_weight_limit'] = 0, True

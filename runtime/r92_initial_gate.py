@@ -39,6 +39,9 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
         require(rank.get('candidate_normalization') == expected['candidate_normalization'], 'actual rank LN/noBN differs')
         require(rank.get('parameter_trainability') == expected.get('parameter_trainability'),
                 'actual rank frozen/trainable/optimizer identity differs')
+        if expected.get('low_rank_optimizer') is not None:
+            require(rank.get('low_rank_optimizer') == expected['low_rank_optimizer'],
+                    'actual rank pointwise initial Adam coverage differs')
         validate_normalization(rank['candidate_normalization'])
         precision = rank.get('precision_runtime', {})
         require(precision.get('precision') == 'fp32' and precision.get('effective_scale') == 1.0
@@ -165,6 +168,9 @@ def maybe_release(root, atomic, sha):
     require(tensor_digest(state) == full_digest and payload['candidate_normalization'] == expected['candidate_normalization'], 'native tensor/actual LN differs')
     require(payload.get('parameter_trainability') == expected.get('parameter_trainability'),
             'native frozen/trainable/optimizer identity differs')
+    if expected.get('low_rank_optimizer') is not None:
+        require(payload.get('low_rank_optimizer') == expected['low_rank_optimizer'],
+                'native pointwise initial Adam coverage differs')
     from retrain.single91 import immutable_buffers
     buffers = immutable_buffers(state)
     require(len(buffers) == expected['buffer_count'] and tensor_digest(buffers) == expected['buffer_sha256'],

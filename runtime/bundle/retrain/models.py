@@ -363,6 +363,9 @@ def apply_feature_freeze(model, job):
 
 def feature_freeze_proof(model, job, optimizer):
     """Read the real online mask and its optimizer membership for initial proof."""
+    if job.get('low_rank_policy') is not None:
+        from .low_rank import low_rank_proof
+        return low_rank_proof(model, job, optimizer)
     if 'freeze_features_before' not in job:
         return None
     selected = {id(p) for module in model.network.features[:job['freeze_features_before']]
@@ -483,6 +486,9 @@ def create_model(job, initialize=True):
     from .spatial_stride import apply_final_downsample_stride
     apply_final_downsample_stride(result, job)
     apply_feature_freeze(result, job)
+    if job.get('low_rank_policy') is not None:
+        from .low_rank import attach_low_rank
+        attach_low_rank(result, job)
     if job.get('experiment91') is not None:
         from .experiment91 import describe_model
         result.candidate_normalization = describe_model(result)

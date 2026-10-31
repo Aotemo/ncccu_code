@@ -58,6 +58,9 @@ def default_job(name, model, kind='random'):
 def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss
     validate_loss(job.get('loss'))
+    if job.get('low_rank_policy') is not None:
+        from .low_rank import validate_job as validate_low_rank_job
+        validate_low_rank_job(job)
     if 'final_downsample_stride' in job and (type(job['final_downsample_stride']) is not int
             or job['final_downsample_stride'] != 1 or job['model'] != 'convnext_small'):
         raise ValueError('final downsample stride supports only explicit Small stride1')
@@ -282,8 +285,10 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy'), 'job')
         job.update(item)
+        if job.get('low_rank_policy') is None:
+            job.pop('low_rank_policy', None)
         cfg['jobs'].append(job)
     for variable, key in [('MODE', 'mode'), ('RUN_NAME', 'run_name'), ('OUTPUT_ROOT', 'output_root')]:
         if variable in env:
@@ -381,6 +386,8 @@ def validate_split(split):
 
 def job_contract(job):
     result = copy.deepcopy(job)
+    if result.get('low_rank_policy') is None:
+        result.pop('low_rank_policy', None)
     for key in ('device', 'workers', 'eval_workers', 'prefetch_factor', 'checkpoint_seconds',
                 'checkpoint_updates', 'log_every', 'split', 'initial_checkpoint'):
         result.pop(key, None)

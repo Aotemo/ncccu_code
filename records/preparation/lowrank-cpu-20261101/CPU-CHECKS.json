@@ -1,0 +1,60 @@
+{
+  "schema": "low-rank-cpu-preparation-v1",
+  "observed_at": 1793476135.8941045,
+  "tests_run": 2,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/lowrank-cpu-20261101-7c17/source",
+  "compiled_source_files": [
+    "tests/test_low_rank.py",
+    "tests/test_low_rank_binding.py",
+    "runtime/bundle/retrain/low_rank.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/engine.py",
+    "runtime/bundle/retrain/distributed_engine.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/r92_initial_gate.py",
+    "tools/validation/check_candidate.py"
+  ],
+  "files_sha256": {
+    "tests/test_low_rank.py": "cfe6b5da90fdf51d3bda9c99de31b8901b84592646fad3f420b86cb463224713",
+    "tests/test_low_rank_binding.py": "b12512c8041818717f9ad922667bc85962bc1bab52329f38c9b2ee47141bf4de",
+    "runtime/bundle/retrain/low_rank.py": "a7f18eca96af11e995c44153645bbff25a59dba1ff184b10c2d9dfb5660634ef",
+    "runtime/bundle/retrain/models.py": "6ed5d64bafedc7602e85f4424bc62d91326a3d4b272a25715743f8eb37b27e1d",
+    "runtime/bundle/retrain/config.py": "1d1d91f476dc99243ec5b443683854a5102b504236b9207e9506a141bea6a823",
+    "runtime/bundle/retrain/engine.py": "582f13671c9f8b2145fcb27436a67049cb93668062fe1414f41d6c95c29c627c",
+    "runtime/bundle/retrain/distributed_engine.py": "361f4d455c2563b595393c704ae4cac92f8ca9a564a2d726281f97d12bc59d93",
+    "runtime/bundle/retrain/experiment91.py": "6c2d69a29823a4ab1bf654756a5cb3139e02b0bcbb8e13375bd8433397e4a5fc",
+    "runtime/bundle/retrain/inference.py": "20e06e1ff04589838388c3a8e838331341ec589d0c3a25f9064fb8b7452cfa3b",
+    "runtime/r92_initial_gate.py": "b4dc586f79d5a1c9021a9914d08d4200de81fe7f3b2acefc8c064d304e29f4a1",
+    "tools/validation/check_candidate.py": "5ca8c6a58d1947e5d922bd82d943aab843ae8fcd03fab39b6df2237d68a92026"
+  },
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "torch_threads": 2,
+  "interop_threads": 1,
+  "gpu_initialized": false,
+  "visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "gpu_adopted": false,
+  "formal_run": false
+}

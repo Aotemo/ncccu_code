@@ -470,6 +470,9 @@ def validate_job(job):
         'gradient_clip_policy': configured.get('gradient_clip_policy'),
         'head_warmup_policy': configured.get('head_warmup_policy'),
         'layerwise_lr_policy': configured.get('layerwise_lr_policy'),
+        # Existing profiles have no adapter identity. A future adopted profile
+        # must explicitly register the same policy in its candidate mapping.
+        'low_rank_policy': candidate().get('low_rank_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -572,6 +575,10 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['job'].get('low_rank_policy') is not None:
+        from .low_rank import describe_low_rank
+        result['low_rank'] = describe_low_rank(model, {**science_configuration()['job'],
+                                                      'age': resolved_age_spec()})
     if science_configuration()['candidate_profile'] == CONTENT_POOL_SMALL_BINDING:
         from .attention_pool import validate_model
         validate_model(model, science_configuration()['job'])
@@ -649,6 +656,21 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if configured.get('low_rank_policy') != candidate().get('low_rank_policy'):
+        raise ValueError('low-rank job has no matching registered candidate identity')
+    if configured.get('low_rank_policy') is not None:
+        from .low_rank import LOW_RANK_RULE
+        proof = value.get('low_rank', {})
+        if (configured['low_rank_policy'] != LOW_RANK_RULE
+                or proof.get('low_rank_policy') != LOW_RANK_RULE
+                or len(proof.get('targets', [])) != 72
+                or len(proof.get('all_parameter_names', [])) != 489
+                or len(proof.get('frozen_parameter_names', [])) != 342
+                or len(proof.get('trainable_parameter_names', [])) != 147
+                or proof.get('initial_frozen_tensor_sha256') != proof.get('frozen_tensor_sha256')):
+            raise ValueError('actual fixed pointwise/frozen/FP32 identity differs')
+    elif value.get('low_rank') is not None:
+        raise ValueError('unregistered low-rank structure')
     if science_configuration()['candidate_profile'] == CONTENT_POOL_SMALL_BINDING:
         if value.get('attention_pool') != {'parameter_name': 'attention_pool_weight',
                                            'shape': [1, 768], 'dtype': 'torch.float32'}:
@@ -728,6 +750,9 @@ def validate_checkpoint(payload):
             or derived.get('status')!='completed' or derived.get('dev_evaluations')!=0)):
         raise ValueError('R115 fixed fit-only derived initialization lineage absent or incompatible')
     validate_age(payload, job)
+    if job.get('low_rank_policy') is not None:
+        from .low_rank import validate_checkpoint as validate_low_rank_checkpoint
+        validate_low_rank_checkpoint(payload, job)
     validate_normalization(payload.get('candidate_normalization', {}))
     if science_configuration()['candidate_profile'] == STAGE3_RESIDUAL_SMALL_BINDING:
         import torch
