@@ -1,0 +1,2898 @@
+{
+  "schema": "r131-public-fresh-cpu-initial-v1",
+  "observed_at": 1793479849.0920293,
+  "source_commit": "6f31002ab63d43031a3524e8d10fe648a934d411",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/lowrank-cpu-20261101-7c17/source-frozen",
+  "identity": {
+    "namespace": "acfwvv9ejn",
+    "name": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12"
+  },
+  "public_initialization": {
+    "strict": true,
+    "public_tensor_count": 344,
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "exact_FP32_finite": true
+  },
+  "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+  "common_345_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "new_489_tensor_sha256": "9a0665aac156939f13bb6dffbb10077d8c583d193f1eb291526c187834680fc4",
+  "parameter_trainability": {
+    "low_rank_policy": {
+      "version": "convnext-small-pointwise-lora8-v1",
+      "rank": 8,
+      "alpha": 8,
+      "targets": "all-36-block-pointwise-3-5",
+      "base": "frozen",
+      "merge": false
+    },
+    "targets": [
+      {
+        "name": "network.features.1.0.block.3",
+        "in_features": 96,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          96
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.1.0.block.5",
+        "in_features": 384,
+        "out_features": 96,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          96,
+          8
+        ]
+      },
+      {
+        "name": "network.features.1.1.block.3",
+        "in_features": 96,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          96
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.1.1.block.5",
+        "in_features": 384,
+        "out_features": 96,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          96,
+          8
+        ]
+      },
+      {
+        "name": "network.features.1.2.block.3",
+        "in_features": 96,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          96
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.1.2.block.5",
+        "in_features": 384,
+        "out_features": 96,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          96,
+          8
+        ]
+      },
+      {
+        "name": "network.features.3.0.block.3",
+        "in_features": 192,
+        "out_features": 768,
+        "A_shape": [
+          8,
+          192
+        ],
+        "B_shape": [
+          768,
+          8
+        ]
+      },
+      {
+        "name": "network.features.3.0.block.5",
+        "in_features": 768,
+        "out_features": 192,
+        "A_shape": [
+          8,
+          768
+        ],
+        "B_shape": [
+          192,
+          8
+        ]
+      },
+      {
+        "name": "network.features.3.1.block.3",
+        "in_features": 192,
+        "out_features": 768,
+        "A_shape": [
+          8,
+          192
+        ],
+        "B_shape": [
+          768,
+          8
+        ]
+      },
+      {
+        "name": "network.features.3.1.block.5",
+        "in_features": 768,
+        "out_features": 192,
+        "A_shape": [
+          8,
+          768
+        ],
+        "B_shape": [
+          192,
+          8
+        ]
+      },
+      {
+        "name": "network.features.3.2.block.3",
+        "in_features": 192,
+        "out_features": 768,
+        "A_shape": [
+          8,
+          192
+        ],
+        "B_shape": [
+          768,
+          8
+        ]
+      },
+      {
+        "name": "network.features.3.2.block.5",
+        "in_features": 768,
+        "out_features": 192,
+        "A_shape": [
+          8,
+          768
+        ],
+        "B_shape": [
+          192,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.0.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.0.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.1.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.1.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.2.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.2.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.3.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.3.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.4.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.4.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.5.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.5.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.6.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.6.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.7.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.7.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.8.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.8.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.9.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.9.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.10.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.10.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.11.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.11.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.12.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.12.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.13.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.13.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.14.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.14.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.15.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.15.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.16.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.16.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.17.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.17.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.18.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.18.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.19.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.19.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.20.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.20.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.21.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.21.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.22.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.22.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.23.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.23.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.24.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.24.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.25.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.25.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.26.block.3",
+        "in_features": 384,
+        "out_features": 1536,
+        "A_shape": [
+          8,
+          384
+        ],
+        "B_shape": [
+          1536,
+          8
+        ]
+      },
+      {
+        "name": "network.features.5.26.block.5",
+        "in_features": 1536,
+        "out_features": 384,
+        "A_shape": [
+          8,
+          1536
+        ],
+        "B_shape": [
+          384,
+          8
+        ]
+      },
+      {
+        "name": "network.features.7.0.block.3",
+        "in_features": 768,
+        "out_features": 3072,
+        "A_shape": [
+          8,
+          768
+        ],
+        "B_shape": [
+          3072,
+          8
+        ]
+      },
+      {
+        "name": "network.features.7.0.block.5",
+        "in_features": 3072,
+        "out_features": 768,
+        "A_shape": [
+          8,
+          3072
+        ],
+        "B_shape": [
+          768,
+          8
+        ]
+      },
+      {
+        "name": "network.features.7.1.block.3",
+        "in_features": 768,
+        "out_features": 3072,
+        "A_shape": [
+          8,
+          768
+        ],
+        "B_shape": [
+          3072,
+          8
+        ]
+      },
+      {
+        "name": "network.features.7.1.block.5",
+        "in_features": 3072,
+        "out_features": 768,
+        "A_shape": [
+          8,
+          3072
+        ],
+        "B_shape": [
+          768,
+          8
+        ]
+      },
+      {
+        "name": "network.features.7.2.block.3",
+        "in_features": 768,
+        "out_features": 3072,
+        "A_shape": [
+          8,
+          768
+        ],
+        "B_shape": [
+          3072,
+          8
+        ]
+      },
+      {
+        "name": "network.features.7.2.block.5",
+        "in_features": 3072,
+        "out_features": 768,
+        "A_shape": [
+          8,
+          3072
+        ],
+        "B_shape": [
+          768,
+          8
+        ]
+      }
+    ],
+    "initial_frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+    "frozen_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+    "all_parameter_names": [
+      "age_weight",
+      "network.classifier.0.bias",
+      "network.classifier.0.weight",
+      "network.classifier.3.bias",
+      "network.classifier.3.weight",
+      "network.features.0.0.bias",
+      "network.features.0.0.weight",
+      "network.features.0.1.bias",
+      "network.features.0.1.weight",
+      "network.features.1.0.block.0.bias",
+      "network.features.1.0.block.0.weight",
+      "network.features.1.0.block.2.bias",
+      "network.features.1.0.block.2.weight",
+      "network.features.1.0.block.3.bias",
+      "network.features.1.0.block.3.lora_A",
+      "network.features.1.0.block.3.lora_B",
+      "network.features.1.0.block.3.weight",
+      "network.features.1.0.block.5.bias",
+      "network.features.1.0.block.5.lora_A",
+      "network.features.1.0.block.5.lora_B",
+      "network.features.1.0.block.5.weight",
+      "network.features.1.0.layer_scale",
+      "network.features.1.1.block.0.bias",
+      "network.features.1.1.block.0.weight",
+      "network.features.1.1.block.2.bias",
+      "network.features.1.1.block.2.weight",
+      "network.features.1.1.block.3.bias",
+      "network.features.1.1.block.3.lora_A",
+      "network.features.1.1.block.3.lora_B",
+      "network.features.1.1.block.3.weight",
+      "network.features.1.1.block.5.bias",
+      "network.features.1.1.block.5.lora_A",
+      "network.features.1.1.block.5.lora_B",
+      "network.features.1.1.block.5.weight",
+      "network.features.1.1.layer_scale",
+      "network.features.1.2.block.0.bias",
+      "network.features.1.2.block.0.weight",
+      "network.features.1.2.block.2.bias",
+      "network.features.1.2.block.2.weight",
+      "network.features.1.2.block.3.bias",
+      "network.features.1.2.block.3.lora_A",
+      "network.features.1.2.block.3.lora_B",
+      "network.features.1.2.block.3.weight",
+      "network.features.1.2.block.5.bias",
+      "network.features.1.2.block.5.lora_A",
+      "network.features.1.2.block.5.lora_B",
+      "network.features.1.2.block.5.weight",
+      "network.features.1.2.layer_scale",
+      "network.features.2.0.bias",
+      "network.features.2.0.weight",
+      "network.features.2.1.bias",
+      "network.features.2.1.weight",
+      "network.features.3.0.block.0.bias",
+      "network.features.3.0.block.0.weight",
+      "network.features.3.0.block.2.bias",
+      "network.features.3.0.block.2.weight",
+      "network.features.3.0.block.3.bias",
+      "network.features.3.0.block.3.lora_A",
+      "network.features.3.0.block.3.lora_B",
+      "network.features.3.0.block.3.weight",
+      "network.features.3.0.block.5.bias",
+      "network.features.3.0.block.5.lora_A",
+      "network.features.3.0.block.5.lora_B",
+      "network.features.3.0.block.5.weight",
+      "network.features.3.0.layer_scale",
+      "network.features.3.1.block.0.bias",
+      "network.features.3.1.block.0.weight",
+      "network.features.3.1.block.2.bias",
+      "network.features.3.1.block.2.weight",
+      "network.features.3.1.block.3.bias",
+      "network.features.3.1.block.3.lora_A",
+      "network.features.3.1.block.3.lora_B",
+      "network.features.3.1.block.3.weight",
+      "network.features.3.1.block.5.bias",
+      "network.features.3.1.block.5.lora_A",
+      "network.features.3.1.block.5.lora_B",
+      "network.features.3.1.block.5.weight",
+      "network.features.3.1.layer_scale",
+      "network.features.3.2.block.0.bias",
+      "network.features.3.2.block.0.weight",
+      "network.features.3.2.block.2.bias",
+      "network.features.3.2.block.2.weight",
+      "network.features.3.2.block.3.bias",
+      "network.features.3.2.block.3.lora_A",
+      "network.features.3.2.block.3.lora_B",
+      "network.features.3.2.block.3.weight",
+      "network.features.3.2.block.5.bias",
+      "network.features.3.2.block.5.lora_A",
+      "network.features.3.2.block.5.lora_B",
+      "network.features.3.2.block.5.weight",
+      "network.features.3.2.layer_scale",
+      "network.features.4.0.bias",
+      "network.features.4.0.weight",
+      "network.features.4.1.bias",
+      "network.features.4.1.weight",
+      "network.features.5.0.block.0.bias",
+      "network.features.5.0.block.0.weight",
+      "network.features.5.0.block.2.bias",
+      "network.features.5.0.block.2.weight",
+      "network.features.5.0.block.3.bias",
+      "network.features.5.0.block.3.lora_A",
+      "network.features.5.0.block.3.lora_B",
+      "network.features.5.0.block.3.weight",
+      "network.features.5.0.block.5.bias",
+      "network.features.5.0.block.5.lora_A",
+      "network.features.5.0.block.5.lora_B",
+      "network.features.5.0.block.5.weight",
+      "network.features.5.0.layer_scale",
+      "network.features.5.1.block.0.bias",
+      "network.features.5.1.block.0.weight",
+      "network.features.5.1.block.2.bias",
+      "network.features.5.1.block.2.weight",
+      "network.features.5.1.block.3.bias",
+      "network.features.5.1.block.3.lora_A",
+      "network.features.5.1.block.3.lora_B",
+      "network.features.5.1.block.3.weight",
+      "network.features.5.1.block.5.bias",
+      "network.features.5.1.block.5.lora_A",
+      "network.features.5.1.block.5.lora_B",
+      "network.features.5.1.block.5.weight",
+      "network.features.5.1.layer_scale",
+      "network.features.5.10.block.0.bias",
+      "network.features.5.10.block.0.weight",
+      "network.features.5.10.block.2.bias",
+      "network.features.5.10.block.2.weight",
+      "network.features.5.10.block.3.bias",
+      "network.features.5.10.block.3.lora_A",
+      "network.features.5.10.block.3.lora_B",
+      "network.features.5.10.block.3.weight",
+      "network.features.5.10.block.5.bias",
+      "network.features.5.10.block.5.lora_A",
+      "network.features.5.10.block.5.lora_B",
+      "network.features.5.10.block.5.weight",
+      "network.features.5.10.layer_scale",
+      "network.features.5.11.block.0.bias",
+      "network.features.5.11.block.0.weight",
+      "network.features.5.11.block.2.bias",
+      "network.features.5.11.block.2.weight",
+      "network.features.5.11.block.3.bias",
+      "network.features.5.11.block.3.lora_A",
+      "network.features.5.11.block.3.lora_B",
+      "network.features.5.11.block.3.weight",
+      "network.features.5.11.block.5.bias",
+      "network.features.5.11.block.5.lora_A",
+      "network.features.5.11.block.5.lora_B",
+      "network.features.5.11.block.5.weight",
+      "network.features.5.11.layer_scale",
+      "network.features.5.12.block.0.bias",
+      "network.features.5.12.block.0.weight",
+      "network.features.5.12.block.2.bias",
+      "network.features.5.12.block.2.weight",
+      "network.features.5.12.block.3.bias",
+      "network.features.5.12.block.3.lora_A",
+      "network.features.5.12.block.3.lora_B",
+      "network.features.5.12.block.3.weight",
+      "network.features.5.12.block.5.bias",
+      "network.features.5.12.block.5.lora_A",
+      "network.features.5.12.block.5.lora_B",
+      "network.features.5.12.block.5.weight",
+      "network.features.5.12.layer_scale",
+      "network.features.5.13.block.0.bias",
+      "network.features.5.13.block.0.weight",
+      "network.features.5.13.block.2.bias",
+      "network.features.5.13.block.2.weight",
+      "network.features.5.13.block.3.bias",
+      "network.features.5.13.block.3.lora_A",
+      "network.features.5.13.block.3.lora_B",
+      "network.features.5.13.block.3.weight",
+      "network.features.5.13.block.5.bias",
+      "network.features.5.13.block.5.lora_A",
+      "network.features.5.13.block.5.lora_B",
+      "network.features.5.13.block.5.weight",
+      "network.features.5.13.layer_scale",
+      "network.features.5.14.block.0.bias",
+      "network.features.5.14.block.0.weight",
+      "network.features.5.14.block.2.bias",
+      "network.features.5.14.block.2.weight",
+      "network.features.5.14.block.3.bias",
+      "network.features.5.14.block.3.lora_A",
+      "network.features.5.14.block.3.lora_B",
+      "network.features.5.14.block.3.weight",
+      "network.features.5.14.block.5.bias",
+      "network.features.5.14.block.5.lora_A",
+      "network.features.5.14.block.5.lora_B",
+      "network.features.5.14.block.5.weight",
+      "network.features.5.14.layer_scale",
+      "network.features.5.15.block.0.bias",
+      "network.features.5.15.block.0.weight",
+      "network.features.5.15.block.2.bias",
+      "network.features.5.15.block.2.weight",
+      "network.features.5.15.block.3.bias",
+      "network.features.5.15.block.3.lora_A",
+      "network.features.5.15.block.3.lora_B",
+      "network.features.5.15.block.3.weight",
+      "network.features.5.15.block.5.bias",
+      "network.features.5.15.block.5.lora_A",
+      "network.features.5.15.block.5.lora_B",
+      "network.features.5.15.block.5.weight",
+      "network.features.5.15.layer_scale",
+      "network.features.5.16.block.0.bias",
+      "network.features.5.16.block.0.weight",
+      "network.features.5.16.block.2.bias",
+      "network.features.5.16.block.2.weight",
+      "network.features.5.16.block.3.bias",
+      "network.features.5.16.block.3.lora_A",
+      "network.features.5.16.block.3.lora_B",
+      "network.features.5.16.block.3.weight",
+      "network.features.5.16.block.5.bias",
+      "network.features.5.16.block.5.lora_A",
+      "network.features.5.16.block.5.lora_B",
+      "network.features.5.16.block.5.weight",
+      "network.features.5.16.layer_scale",
+      "network.features.5.17.block.0.bias",
+      "network.features.5.17.block.0.weight",
+      "network.features.5.17.block.2.bias",
+      "network.features.5.17.block.2.weight",
+      "network.features.5.17.block.3.bias",
+      "network.features.5.17.block.3.lora_A",
+      "network.features.5.17.block.3.lora_B",
+      "network.features.5.17.block.3.weight",
+      "network.features.5.17.block.5.bias",
+      "network.features.5.17.block.5.lora_A",
+      "network.features.5.17.block.5.lora_B",
+      "network.features.5.17.block.5.weight",
+      "network.features.5.17.layer_scale",
+      "network.features.5.18.block.0.bias",
+      "network.features.5.18.block.0.weight",
+      "network.features.5.18.block.2.bias",
+      "network.features.5.18.block.2.weight",
+      "network.features.5.18.block.3.bias",
+      "network.features.5.18.block.3.lora_A",
+      "network.features.5.18.block.3.lora_B",
+      "network.features.5.18.block.3.weight",
+      "network.features.5.18.block.5.bias",
+      "network.features.5.18.block.5.lora_A",
+      "network.features.5.18.block.5.lora_B",
+      "network.features.5.18.block.5.weight",
+      "network.features.5.18.layer_scale",
+      "network.features.5.19.block.0.bias",
+      "network.features.5.19.block.0.weight",
+      "network.features.5.19.block.2.bias",
+      "network.features.5.19.block.2.weight",
+      "network.features.5.19.block.3.bias",
+      "network.features.5.19.block.3.lora_A",
+      "network.features.5.19.block.3.lora_B",
+      "network.features.5.19.block.3.weight",
+      "network.features.5.19.block.5.bias",
+      "network.features.5.19.block.5.lora_A",
+      "network.features.5.19.block.5.lora_B",
+      "network.features.5.19.block.5.weight",
+      "network.features.5.19.layer_scale",
+      "network.features.5.2.block.0.bias",
+      "network.features.5.2.block.0.weight",
+      "network.features.5.2.block.2.bias",
+      "network.features.5.2.block.2.weight",
+      "network.features.5.2.block.3.bias",
+      "network.features.5.2.block.3.lora_A",
+      "network.features.5.2.block.3.lora_B",
+      "network.features.5.2.block.3.weight",
+      "network.features.5.2.block.5.bias",
+      "network.features.5.2.block.5.lora_A",
+      "network.features.5.2.block.5.lora_B",
+      "network.features.5.2.block.5.weight",
+      "network.features.5.2.layer_scale",
+      "network.features.5.20.block.0.bias",
+      "network.features.5.20.block.0.weight",
+      "network.features.5.20.block.2.bias",
+      "network.features.5.20.block.2.weight",
+      "network.features.5.20.block.3.bias",
+      "network.features.5.20.block.3.lora_A",
+      "network.features.5.20.block.3.lora_B",
+      "network.features.5.20.block.3.weight",
+      "network.features.5.20.block.5.bias",
+      "network.features.5.20.block.5.lora_A",
+      "network.features.5.20.block.5.lora_B",
+      "network.features.5.20.block.5.weight",
+      "network.features.5.20.layer_scale",
+      "network.features.5.21.block.0.bias",
+      "network.features.5.21.block.0.weight",
+      "network.features.5.21.block.2.bias",
+      "network.features.5.21.block.2.weight",
+      "network.features.5.21.block.3.bias",
+      "network.features.5.21.block.3.lora_A",
+      "network.features.5.21.block.3.lora_B",
+      "network.features.5.21.block.3.weight",
+      "network.features.5.21.block.5.bias",
+      "network.features.5.21.block.5.lora_A",
+      "network.features.5.21.block.5.lora_B",
+      "network.features.5.21.block.5.weight",
+      "network.features.5.21.layer_scale",
+      "network.features.5.22.block.0.bias",
+      "network.features.5.22.block.0.weight",
+      "network.features.5.22.block.2.bias",
+      "network.features.5.22.block.2.weight",
+      "network.features.5.22.block.3.bias",
+      "network.features.5.22.block.3.lora_A",
+      "network.features.5.22.block.3.lora_B",
+      "network.features.5.22.block.3.weight",
+      "network.features.5.22.block.5.bias",
+      "network.features.5.22.block.5.lora_A",
+      "network.features.5.22.block.5.lora_B",
+      "network.features.5.22.block.5.weight",
+      "network.features.5.22.layer_scale",
+      "network.features.5.23.block.0.bias",
+      "network.features.5.23.block.0.weight",
+      "network.features.5.23.block.2.bias",
+      "network.features.5.23.block.2.weight",
+      "network.features.5.23.block.3.bias",
+      "network.features.5.23.block.3.lora_A",
+      "network.features.5.23.block.3.lora_B",
+      "network.features.5.23.block.3.weight",
+      "network.features.5.23.block.5.bias",
+      "network.features.5.23.block.5.lora_A",
+      "network.features.5.23.block.5.lora_B",
+      "network.features.5.23.block.5.weight",
+      "network.features.5.23.layer_scale",
+      "network.features.5.24.block.0.bias",
+      "network.features.5.24.block.0.weight",
+      "network.features.5.24.block.2.bias",
+      "network.features.5.24.block.2.weight",
+      "network.features.5.24.block.3.bias",
+      "network.features.5.24.block.3.lora_A",
+      "network.features.5.24.block.3.lora_B",
+      "network.features.5.24.block.3.weight",
+      "network.features.5.24.block.5.bias",
+      "network.features.5.24.block.5.lora_A",
+      "network.features.5.24.block.5.lora_B",
+      "network.features.5.24.block.5.weight",
+      "network.features.5.24.layer_scale",
+      "network.features.5.25.block.0.bias",
+      "network.features.5.25.block.0.weight",
+      "network.features.5.25.block.2.bias",
+      "network.features.5.25.block.2.weight",
+      "network.features.5.25.block.3.bias",
+      "network.features.5.25.block.3.lora_A",
+      "network.features.5.25.block.3.lora_B",
+      "network.features.5.25.block.3.weight",
+      "network.features.5.25.block.5.bias",
+      "network.features.5.25.block.5.lora_A",
+      "network.features.5.25.block.5.lora_B",
+      "network.features.5.25.block.5.weight",
+      "network.features.5.25.layer_scale",
+      "network.features.5.26.block.0.bias",
+      "network.features.5.26.block.0.weight",
+      "network.features.5.26.block.2.bias",
+      "network.features.5.26.block.2.weight",
+      "network.features.5.26.block.3.bias",
+      "network.features.5.26.block.3.lora_A",
+      "network.features.5.26.block.3.lora_B",
+      "network.features.5.26.block.3.weight",
+      "network.features.5.26.block.5.bias",
+      "network.features.5.26.block.5.lora_A",
+      "network.features.5.26.block.5.lora_B",
+      "network.features.5.26.block.5.weight",
+      "network.features.5.26.layer_scale",
+      "network.features.5.3.block.0.bias",
+      "network.features.5.3.block.0.weight",
+      "network.features.5.3.block.2.bias",
+      "network.features.5.3.block.2.weight",
+      "network.features.5.3.block.3.bias",
+      "network.features.5.3.block.3.lora_A",
+      "network.features.5.3.block.3.lora_B",
+      "network.features.5.3.block.3.weight",
+      "network.features.5.3.block.5.bias",
+      "network.features.5.3.block.5.lora_A",
+      "network.features.5.3.block.5.lora_B",
+      "network.features.5.3.block.5.weight",
+      "network.features.5.3.layer_scale",
+      "network.features.5.4.block.0.bias",
+      "network.features.5.4.block.0.weight",
+      "network.features.5.4.block.2.bias",
+      "network.features.5.4.block.2.weight",
+      "network.features.5.4.block.3.bias",
+      "network.features.5.4.block.3.lora_A",
+      "network.features.5.4.block.3.lora_B",
+      "network.features.5.4.block.3.weight",
+      "network.features.5.4.block.5.bias",
+      "network.features.5.4.block.5.lora_A",
+      "network.features.5.4.block.5.lora_B",
+      "network.features.5.4.block.5.weight",
+      "network.features.5.4.layer_scale",
+      "network.features.5.5.block.0.bias",
+      "network.features.5.5.block.0.weight",
+      "network.features.5.5.block.2.bias",
+      "network.features.5.5.block.2.weight",
+      "network.features.5.5.block.3.bias",
+      "network.features.5.5.block.3.lora_A",
+      "network.features.5.5.block.3.lora_B",
+      "network.features.5.5.block.3.weight",
+      "network.features.5.5.block.5.bias",
+      "network.features.5.5.block.5.lora_A",
+      "network.features.5.5.block.5.lora_B",
+      "network.features.5.5.block.5.weight",
+      "network.features.5.5.layer_scale",
+      "network.features.5.6.block.0.bias",
+      "network.features.5.6.block.0.weight",
+      "network.features.5.6.block.2.bias",
+      "network.features.5.6.block.2.weight",
+      "network.features.5.6.block.3.bias",
+      "network.features.5.6.block.3.lora_A",
+      "network.features.5.6.block.3.lora_B",
+      "network.features.5.6.block.3.weight",
+      "network.features.5.6.block.5.bias",
+      "network.features.5.6.block.5.lora_A",
+      "network.features.5.6.block.5.lora_B",
+      "network.features.5.6.block.5.weight",
+      "network.features.5.6.layer_scale",
+      "network.features.5.7.block.0.bias",
+      "network.features.5.7.block.0.weight",
+      "network.features.5.7.block.2.bias",
+      "network.features.5.7.block.2.weight",
+      "network.features.5.7.block.3.bias",
+      "network.features.5.7.block.3.lora_A",
+      "network.features.5.7.block.3.lora_B",
+      "network.features.5.7.block.3.weight",
+      "network.features.5.7.block.5.bias",
+      "network.features.5.7.block.5.lora_A",
+      "network.features.5.7.block.5.lora_B",
+      "network.features.5.7.block.5.weight",
+      "network.features.5.7.layer_scale",
+      "network.features.5.8.block.0.bias",
+      "network.features.5.8.block.0.weight",
+      "network.features.5.8.block.2.bias",
+      "network.features.5.8.block.2.weight",
+      "network.features.5.8.block.3.bias",
+      "network.features.5.8.block.3.lora_A",
+      "network.features.5.8.block.3.lora_B",
+      "network.features.5.8.block.3.weight",
+      "network.features.5.8.block.5.bias",
+      "network.features.5.8.block.5.lora_A",
+      "network.features.5.8.block.5.lora_B",
+      "network.features.5.8.block.5.weight",
+      "network.features.5.8.layer_scale",
+      "network.features.5.9.block.0.bias",
+      "network.features.5.9.block.0.weight",
+      "network.features.5.9.block.2.bias",
+      "network.features.5.9.block.2.weight",
+      "network.features.5.9.block.3.bias",
+      "network.features.5.9.block.3.lora_A",
+      "network.features.5.9.block.3.lora_B",
+      "network.features.5.9.block.3.weight",
+      "network.features.5.9.block.5.bias",
+      "network.features.5.9.block.5.lora_A",
+      "network.features.5.9.block.5.lora_B",
+      "network.features.5.9.block.5.weight",
+      "network.features.5.9.layer_scale",
+      "network.features.6.0.bias",
+      "network.features.6.0.weight",
+      "network.features.6.1.bias",
+      "network.features.6.1.weight",
+      "network.features.7.0.block.0.bias",
+      "network.features.7.0.block.0.weight",
+      "network.features.7.0.block.2.bias",
+      "network.features.7.0.block.2.weight",
+      "network.features.7.0.block.3.bias",
+      "network.features.7.0.block.3.lora_A",
+      "network.features.7.0.block.3.lora_B",
+      "network.features.7.0.block.3.weight",
+      "network.features.7.0.block.5.bias",
+      "network.features.7.0.block.5.lora_A",
+      "network.features.7.0.block.5.lora_B",
+      "network.features.7.0.block.5.weight",
+      "network.features.7.0.layer_scale",
+      "network.features.7.1.block.0.bias",
+      "network.features.7.1.block.0.weight",
+      "network.features.7.1.block.2.bias",
+      "network.features.7.1.block.2.weight",
+      "network.features.7.1.block.3.bias",
+      "network.features.7.1.block.3.lora_A",
+      "network.features.7.1.block.3.lora_B",
+      "network.features.7.1.block.3.weight",
+      "network.features.7.1.block.5.bias",
+      "network.features.7.1.block.5.lora_A",
+      "network.features.7.1.block.5.lora_B",
+      "network.features.7.1.block.5.weight",
+      "network.features.7.1.layer_scale",
+      "network.features.7.2.block.0.bias",
+      "network.features.7.2.block.0.weight",
+      "network.features.7.2.block.2.bias",
+      "network.features.7.2.block.2.weight",
+      "network.features.7.2.block.3.bias",
+      "network.features.7.2.block.3.lora_A",
+      "network.features.7.2.block.3.lora_B",
+      "network.features.7.2.block.3.weight",
+      "network.features.7.2.block.5.bias",
+      "network.features.7.2.block.5.lora_A",
+      "network.features.7.2.block.5.lora_B",
+      "network.features.7.2.block.5.weight",
+      "network.features.7.2.layer_scale"
+    ],
+    "frozen_parameter_names": [
+      "network.classifier.0.bias",
+      "network.classifier.0.weight",
+      "network.features.0.0.bias",
+      "network.features.0.0.weight",
+      "network.features.0.1.bias",
+      "network.features.0.1.weight",
+      "network.features.1.0.block.0.bias",
+      "network.features.1.0.block.0.weight",
+      "network.features.1.0.block.2.bias",
+      "network.features.1.0.block.2.weight",
+      "network.features.1.0.block.3.bias",
+      "network.features.1.0.block.3.weight",
+      "network.features.1.0.block.5.bias",
+      "network.features.1.0.block.5.weight",
+      "network.features.1.0.layer_scale",
+      "network.features.1.1.block.0.bias",
+      "network.features.1.1.block.0.weight",
+      "network.features.1.1.block.2.bias",
+      "network.features.1.1.block.2.weight",
+      "network.features.1.1.block.3.bias",
+      "network.features.1.1.block.3.weight",
+      "network.features.1.1.block.5.bias",
+      "network.features.1.1.block.5.weight",
+      "network.features.1.1.layer_scale",
+      "network.features.1.2.block.0.bias",
+      "network.features.1.2.block.0.weight",
+      "network.features.1.2.block.2.bias",
+      "network.features.1.2.block.2.weight",
+      "network.features.1.2.block.3.bias",
+      "network.features.1.2.block.3.weight",
+      "network.features.1.2.block.5.bias",
+      "network.features.1.2.block.5.weight",
+      "network.features.1.2.layer_scale",
+      "network.features.2.0.bias",
+      "network.features.2.0.weight",
+      "network.features.2.1.bias",
+      "network.features.2.1.weight",
+      "network.features.3.0.block.0.bias",
+      "network.features.3.0.block.0.weight",
+      "network.features.3.0.block.2.bias",
+      "network.features.3.0.block.2.weight",
+      "network.features.3.0.block.3.bias",
+      "network.features.3.0.block.3.weight",
+      "network.features.3.0.block.5.bias",
+      "network.features.3.0.block.5.weight",
+      "network.features.3.0.layer_scale",
+      "network.features.3.1.block.0.bias",
+      "network.features.3.1.block.0.weight",
+      "network.features.3.1.block.2.bias",
+      "network.features.3.1.block.2.weight",
+      "network.features.3.1.block.3.bias",
+      "network.features.3.1.block.3.weight",
+      "network.features.3.1.block.5.bias",
+      "network.features.3.1.block.5.weight",
+      "network.features.3.1.layer_scale",
+      "network.features.3.2.block.0.bias",
+      "network.features.3.2.block.0.weight",
+      "network.features.3.2.block.2.bias",
+      "network.features.3.2.block.2.weight",
+      "network.features.3.2.block.3.bias",
+      "network.features.3.2.block.3.weight",
+      "network.features.3.2.block.5.bias",
+      "network.features.3.2.block.5.weight",
+      "network.features.3.2.layer_scale",
+      "network.features.4.0.bias",
+      "network.features.4.0.weight",
+      "network.features.4.1.bias",
+      "network.features.4.1.weight",
+      "network.features.5.0.block.0.bias",
+      "network.features.5.0.block.0.weight",
+      "network.features.5.0.block.2.bias",
+      "network.features.5.0.block.2.weight",
+      "network.features.5.0.block.3.bias",
+      "network.features.5.0.block.3.weight",
+      "network.features.5.0.block.5.bias",
+      "network.features.5.0.block.5.weight",
+      "network.features.5.0.layer_scale",
+      "network.features.5.1.block.0.bias",
+      "network.features.5.1.block.0.weight",
+      "network.features.5.1.block.2.bias",
+      "network.features.5.1.block.2.weight",
+      "network.features.5.1.block.3.bias",
+      "network.features.5.1.block.3.weight",
+      "network.features.5.1.block.5.bias",
+      "network.features.5.1.block.5.weight",
+      "network.features.5.1.layer_scale",
+      "network.features.5.10.block.0.bias",
+      "network.features.5.10.block.0.weight",
+      "network.features.5.10.block.2.bias",
+      "network.features.5.10.block.2.weight",
+      "network.features.5.10.block.3.bias",
+      "network.features.5.10.block.3.weight",
+      "network.features.5.10.block.5.bias",
+      "network.features.5.10.block.5.weight",
+      "network.features.5.10.layer_scale",
+      "network.features.5.11.block.0.bias",
+      "network.features.5.11.block.0.weight",
+      "network.features.5.11.block.2.bias",
+      "network.features.5.11.block.2.weight",
+      "network.features.5.11.block.3.bias",
+      "network.features.5.11.block.3.weight",
+      "network.features.5.11.block.5.bias",
+      "network.features.5.11.block.5.weight",
+      "network.features.5.11.layer_scale",
+      "network.features.5.12.block.0.bias",
+      "network.features.5.12.block.0.weight",
+      "network.features.5.12.block.2.bias",
+      "network.features.5.12.block.2.weight",
+      "network.features.5.12.block.3.bias",
+      "network.features.5.12.block.3.weight",
+      "network.features.5.12.block.5.bias",
+      "network.features.5.12.block.5.weight",
+      "network.features.5.12.layer_scale",
+      "network.features.5.13.block.0.bias",
+      "network.features.5.13.block.0.weight",
+      "network.features.5.13.block.2.bias",
+      "network.features.5.13.block.2.weight",
+      "network.features.5.13.block.3.bias",
+      "network.features.5.13.block.3.weight",
+      "network.features.5.13.block.5.bias",
+      "network.features.5.13.block.5.weight",
+      "network.features.5.13.layer_scale",
+      "network.features.5.14.block.0.bias",
+      "network.features.5.14.block.0.weight",
+      "network.features.5.14.block.2.bias",
+      "network.features.5.14.block.2.weight",
+      "network.features.5.14.block.3.bias",
+      "network.features.5.14.block.3.weight",
+      "network.features.5.14.block.5.bias",
+      "network.features.5.14.block.5.weight",
+      "network.features.5.14.layer_scale",
+      "network.features.5.15.block.0.bias",
+      "network.features.5.15.block.0.weight",
+      "network.features.5.15.block.2.bias",
+      "network.features.5.15.block.2.weight",
+      "network.features.5.15.block.3.bias",
+      "network.features.5.15.block.3.weight",
+      "network.features.5.15.block.5.bias",
+      "network.features.5.15.block.5.weight",
+      "network.features.5.15.layer_scale",
+      "network.features.5.16.block.0.bias",
+      "network.features.5.16.block.0.weight",
+      "network.features.5.16.block.2.bias",
+      "network.features.5.16.block.2.weight",
+      "network.features.5.16.block.3.bias",
+      "network.features.5.16.block.3.weight",
+      "network.features.5.16.block.5.bias",
+      "network.features.5.16.block.5.weight",
+      "network.features.5.16.layer_scale",
+      "network.features.5.17.block.0.bias",
+      "network.features.5.17.block.0.weight",
+      "network.features.5.17.block.2.bias",
+      "network.features.5.17.block.2.weight",
+      "network.features.5.17.block.3.bias",
+      "network.features.5.17.block.3.weight",
+      "network.features.5.17.block.5.bias",
+      "network.features.5.17.block.5.weight",
+      "network.features.5.17.layer_scale",
+      "network.features.5.18.block.0.bias",
+      "network.features.5.18.block.0.weight",
+      "network.features.5.18.block.2.bias",
+      "network.features.5.18.block.2.weight",
+      "network.features.5.18.block.3.bias",
+      "network.features.5.18.block.3.weight",
+      "network.features.5.18.block.5.bias",
+      "network.features.5.18.block.5.weight",
+      "network.features.5.18.layer_scale",
+      "network.features.5.19.block.0.bias",
+      "network.features.5.19.block.0.weight",
+      "network.features.5.19.block.2.bias",
+      "network.features.5.19.block.2.weight",
+      "network.features.5.19.block.3.bias",
+      "network.features.5.19.block.3.weight",
+      "network.features.5.19.block.5.bias",
+      "network.features.5.19.block.5.weight",
+      "network.features.5.19.layer_scale",
+      "network.features.5.2.block.0.bias",
+      "network.features.5.2.block.0.weight",
+      "network.features.5.2.block.2.bias",
+      "network.features.5.2.block.2.weight",
+      "network.features.5.2.block.3.bias",
+      "network.features.5.2.block.3.weight",
+      "network.features.5.2.block.5.bias",
+      "network.features.5.2.block.5.weight",
+      "network.features.5.2.layer_scale",
+      "network.features.5.20.block.0.bias",
+      "network.features.5.20.block.0.weight",
+      "network.features.5.20.block.2.bias",
+      "network.features.5.20.block.2.weight",
+      "network.features.5.20.block.3.bias",
+      "network.features.5.20.block.3.weight",
+      "network.features.5.20.block.5.bias",
+      "network.features.5.20.block.5.weight",
+      "network.features.5.20.layer_scale",
+      "network.features.5.21.block.0.bias",
+      "network.features.5.21.block.0.weight",
+      "network.features.5.21.block.2.bias",
+      "network.features.5.21.block.2.weight",
+      "network.features.5.21.block.3.bias",
+      "network.features.5.21.block.3.weight",
+      "network.features.5.21.block.5.bias",
+      "network.features.5.21.block.5.weight",
+      "network.features.5.21.layer_scale",
+      "network.features.5.22.block.0.bias",
+      "network.features.5.22.block.0.weight",
+      "network.features.5.22.block.2.bias",
+      "network.features.5.22.block.2.weight",
+      "network.features.5.22.block.3.bias",
+      "network.features.5.22.block.3.weight",
+      "network.features.5.22.block.5.bias",
+      "network.features.5.22.block.5.weight",
+      "network.features.5.22.layer_scale",
+      "network.features.5.23.block.0.bias",
+      "network.features.5.23.block.0.weight",
+      "network.features.5.23.block.2.bias",
+      "network.features.5.23.block.2.weight",
+      "network.features.5.23.block.3.bias",
+      "network.features.5.23.block.3.weight",
+      "network.features.5.23.block.5.bias",
+      "network.features.5.23.block.5.weight",
+      "network.features.5.23.layer_scale",
+      "network.features.5.24.block.0.bias",
+      "network.features.5.24.block.0.weight",
+      "network.features.5.24.block.2.bias",
+      "network.features.5.24.block.2.weight",
+      "network.features.5.24.block.3.bias",
+      "network.features.5.24.block.3.weight",
+      "network.features.5.24.block.5.bias",
+      "network.features.5.24.block.5.weight",
+      "network.features.5.24.layer_scale",
+      "network.features.5.25.block.0.bias",
+      "network.features.5.25.block.0.weight",
+      "network.features.5.25.block.2.bias",
+      "network.features.5.25.block.2.weight",
+      "network.features.5.25.block.3.bias",
+      "network.features.5.25.block.3.weight",
+      "network.features.5.25.block.5.bias",
+      "network.features.5.25.block.5.weight",
+      "network.features.5.25.layer_scale",
+      "network.features.5.26.block.0.bias",
+      "network.features.5.26.block.0.weight",
+      "network.features.5.26.block.2.bias",
+      "network.features.5.26.block.2.weight",
+      "network.features.5.26.block.3.bias",
+      "network.features.5.26.block.3.weight",
+      "network.features.5.26.block.5.bias",
+      "network.features.5.26.block.5.weight",
+      "network.features.5.26.layer_scale",
+      "network.features.5.3.block.0.bias",
+      "network.features.5.3.block.0.weight",
+      "network.features.5.3.block.2.bias",
+      "network.features.5.3.block.2.weight",
+      "network.features.5.3.block.3.bias",
+      "network.features.5.3.block.3.weight",
+      "network.features.5.3.block.5.bias",
+      "network.features.5.3.block.5.weight",
+      "network.features.5.3.layer_scale",
+      "network.features.5.4.block.0.bias",
+      "network.features.5.4.block.0.weight",
+      "network.features.5.4.block.2.bias",
+      "network.features.5.4.block.2.weight",
+      "network.features.5.4.block.3.bias",
+      "network.features.5.4.block.3.weight",
+      "network.features.5.4.block.5.bias",
+      "network.features.5.4.block.5.weight",
+      "network.features.5.4.layer_scale",
+      "network.features.5.5.block.0.bias",
+      "network.features.5.5.block.0.weight",
+      "network.features.5.5.block.2.bias",
+      "network.features.5.5.block.2.weight",
+      "network.features.5.5.block.3.bias",
+      "network.features.5.5.block.3.weight",
+      "network.features.5.5.block.5.bias",
+      "network.features.5.5.block.5.weight",
+      "network.features.5.5.layer_scale",
+      "network.features.5.6.block.0.bias",
+      "network.features.5.6.block.0.weight",
+      "network.features.5.6.block.2.bias",
+      "network.features.5.6.block.2.weight",
+      "network.features.5.6.block.3.bias",
+      "network.features.5.6.block.3.weight",
+      "network.features.5.6.block.5.bias",
+      "network.features.5.6.block.5.weight",
+      "network.features.5.6.layer_scale",
+      "network.features.5.7.block.0.bias",
+      "network.features.5.7.block.0.weight",
+      "network.features.5.7.block.2.bias",
+      "network.features.5.7.block.2.weight",
+      "network.features.5.7.block.3.bias",
+      "network.features.5.7.block.3.weight",
+      "network.features.5.7.block.5.bias",
+      "network.features.5.7.block.5.weight",
+      "network.features.5.7.layer_scale",
+      "network.features.5.8.block.0.bias",
+      "network.features.5.8.block.0.weight",
+      "network.features.5.8.block.2.bias",
+      "network.features.5.8.block.2.weight",
+      "network.features.5.8.block.3.bias",
+      "network.features.5.8.block.3.weight",
+      "network.features.5.8.block.5.bias",
+      "network.features.5.8.block.5.weight",
+      "network.features.5.8.layer_scale",
+      "network.features.5.9.block.0.bias",
+      "network.features.5.9.block.0.weight",
+      "network.features.5.9.block.2.bias",
+      "network.features.5.9.block.2.weight",
+      "network.features.5.9.block.3.bias",
+      "network.features.5.9.block.3.weight",
+      "network.features.5.9.block.5.bias",
+      "network.features.5.9.block.5.weight",
+      "network.features.5.9.layer_scale",
+      "network.features.6.0.bias",
+      "network.features.6.0.weight",
+      "network.features.6.1.bias",
+      "network.features.6.1.weight",
+      "network.features.7.0.block.0.bias",
+      "network.features.7.0.block.0.weight",
+      "network.features.7.0.block.2.bias",
+      "network.features.7.0.block.2.weight",
+      "network.features.7.0.block.3.bias",
+      "network.features.7.0.block.3.weight",
+      "network.features.7.0.block.5.bias",
+      "network.features.7.0.block.5.weight",
+      "network.features.7.0.layer_scale",
+      "network.features.7.1.block.0.bias",
+      "network.features.7.1.block.0.weight",
+      "network.features.7.1.block.2.bias",
+      "network.features.7.1.block.2.weight",
+      "network.features.7.1.block.3.bias",
+      "network.features.7.1.block.3.weight",
+      "network.features.7.1.block.5.bias",
+      "network.features.7.1.block.5.weight",
+      "network.features.7.1.layer_scale",
+      "network.features.7.2.block.0.bias",
+      "network.features.7.2.block.0.weight",
+      "network.features.7.2.block.2.bias",
+      "network.features.7.2.block.2.weight",
+      "network.features.7.2.block.3.bias",
+      "network.features.7.2.block.3.weight",
+      "network.features.7.2.block.5.bias",
+      "network.features.7.2.block.5.weight",
+      "network.features.7.2.layer_scale"
+    ],
+    "trainable_parameter_names": [
+      "age_weight",
+      "network.classifier.3.bias",
+      "network.classifier.3.weight",
+      "network.features.1.0.block.3.lora_A",
+      "network.features.1.0.block.3.lora_B",
+      "network.features.1.0.block.5.lora_A",
+      "network.features.1.0.block.5.lora_B",
+      "network.features.1.1.block.3.lora_A",
+      "network.features.1.1.block.3.lora_B",
+      "network.features.1.1.block.5.lora_A",
+      "network.features.1.1.block.5.lora_B",
+      "network.features.1.2.block.3.lora_A",
+      "network.features.1.2.block.3.lora_B",
+      "network.features.1.2.block.5.lora_A",
+      "network.features.1.2.block.5.lora_B",
+      "network.features.3.0.block.3.lora_A",
+      "network.features.3.0.block.3.lora_B",
+      "network.features.3.0.block.5.lora_A",
+      "network.features.3.0.block.5.lora_B",
+      "network.features.3.1.block.3.lora_A",
+      "network.features.3.1.block.3.lora_B",
+      "network.features.3.1.block.5.lora_A",
+      "network.features.3.1.block.5.lora_B",
+      "network.features.3.2.block.3.lora_A",
+      "network.features.3.2.block.3.lora_B",
+      "network.features.3.2.block.5.lora_A",
+      "network.features.3.2.block.5.lora_B",
+      "network.features.5.0.block.3.lora_A",
+      "network.features.5.0.block.3.lora_B",
+      "network.features.5.0.block.5.lora_A",
+      "network.features.5.0.block.5.lora_B",
+      "network.features.5.1.block.3.lora_A",
+      "network.features.5.1.block.3.lora_B",
+      "network.features.5.1.block.5.lora_A",
+      "network.features.5.1.block.5.lora_B",
+      "network.features.5.10.block.3.lora_A",
+      "network.features.5.10.block.3.lora_B",
+      "network.features.5.10.block.5.lora_A",
+      "network.features.5.10.block.5.lora_B",
+      "network.features.5.11.block.3.lora_A",
+      "network.features.5.11.block.3.lora_B",
+      "network.features.5.11.block.5.lora_A",
+      "network.features.5.11.block.5.lora_B",
+      "network.features.5.12.block.3.lora_A",
+      "network.features.5.12.block.3.lora_B",
+      "network.features.5.12.block.5.lora_A",
+      "network.features.5.12.block.5.lora_B",
+      "network.features.5.13.block.3.lora_A",
+      "network.features.5.13.block.3.lora_B",
+      "network.features.5.13.block.5.lora_A",
+      "network.features.5.13.block.5.lora_B",
+      "network.features.5.14.block.3.lora_A",
+      "network.features.5.14.block.3.lora_B",
+      "network.features.5.14.block.5.lora_A",
+      "network.features.5.14.block.5.lora_B",
+      "network.features.5.15.block.3.lora_A",
+      "network.features.5.15.block.3.lora_B",
+      "network.features.5.15.block.5.lora_A",
+      "network.features.5.15.block.5.lora_B",
+      "network.features.5.16.block.3.lora_A",
+      "network.features.5.16.block.3.lora_B",
+      "network.features.5.16.block.5.lora_A",
+      "network.features.5.16.block.5.lora_B",
+      "network.features.5.17.block.3.lora_A",
+      "network.features.5.17.block.3.lora_B",
+      "network.features.5.17.block.5.lora_A",
+      "network.features.5.17.block.5.lora_B",
+      "network.features.5.18.block.3.lora_A",
+      "network.features.5.18.block.3.lora_B",
+      "network.features.5.18.block.5.lora_A",
+      "network.features.5.18.block.5.lora_B",
+      "network.features.5.19.block.3.lora_A",
+      "network.features.5.19.block.3.lora_B",
+      "network.features.5.19.block.5.lora_A",
+      "network.features.5.19.block.5.lora_B",
+      "network.features.5.2.block.3.lora_A",
+      "network.features.5.2.block.3.lora_B",
+      "network.features.5.2.block.5.lora_A",
+      "network.features.5.2.block.5.lora_B",
+      "network.features.5.20.block.3.lora_A",
+      "network.features.5.20.block.3.lora_B",
+      "network.features.5.20.block.5.lora_A",
+      "network.features.5.20.block.5.lora_B",
+      "network.features.5.21.block.3.lora_A",
+      "network.features.5.21.block.3.lora_B",
+      "network.features.5.21.block.5.lora_A",
+      "network.features.5.21.block.5.lora_B",
+      "network.features.5.22.block.3.lora_A",
+      "network.features.5.22.block.3.lora_B",
+      "network.features.5.22.block.5.lora_A",
+      "network.features.5.22.block.5.lora_B",
+      "network.features.5.23.block.3.lora_A",
+      "network.features.5.23.block.3.lora_B",
+      "network.features.5.23.block.5.lora_A",
+      "network.features.5.23.block.5.lora_B",
+      "network.features.5.24.block.3.lora_A",
+      "network.features.5.24.block.3.lora_B",
+      "network.features.5.24.block.5.lora_A",
+      "network.features.5.24.block.5.lora_B",
+      "network.features.5.25.block.3.lora_A",
+      "network.features.5.25.block.3.lora_B",
+      "network.features.5.25.block.5.lora_A",
+      "network.features.5.25.block.5.lora_B",
+      "network.features.5.26.block.3.lora_A",
+      "network.features.5.26.block.3.lora_B",
+      "network.features.5.26.block.5.lora_A",
+      "network.features.5.26.block.5.lora_B",
+      "network.features.5.3.block.3.lora_A",
+      "network.features.5.3.block.3.lora_B",
+      "network.features.5.3.block.5.lora_A",
+      "network.features.5.3.block.5.lora_B",
+      "network.features.5.4.block.3.lora_A",
+      "network.features.5.4.block.3.lora_B",
+      "network.features.5.4.block.5.lora_A",
+      "network.features.5.4.block.5.lora_B",
+      "network.features.5.5.block.3.lora_A",
+      "network.features.5.5.block.3.lora_B",
+      "network.features.5.5.block.5.lora_A",
+      "network.features.5.5.block.5.lora_B",
+      "network.features.5.6.block.3.lora_A",
+      "network.features.5.6.block.3.lora_B",
+      "network.features.5.6.block.5.lora_A",
+      "network.features.5.6.block.5.lora_B",
+      "network.features.5.7.block.3.lora_A",
+      "network.features.5.7.block.3.lora_B",
+      "network.features.5.7.block.5.lora_A",
+      "network.features.5.7.block.5.lora_B",
+      "network.features.5.8.block.3.lora_A",
+      "network.features.5.8.block.3.lora_B",
+      "network.features.5.8.block.5.lora_A",
+      "network.features.5.8.block.5.lora_B",
+      "network.features.5.9.block.3.lora_A",
+      "network.features.5.9.block.3.lora_B",
+      "network.features.5.9.block.5.lora_A",
+      "network.features.5.9.block.5.lora_B",
+      "network.features.7.0.block.3.lora_A",
+      "network.features.7.0.block.3.lora_B",
+      "network.features.7.0.block.5.lora_A",
+      "network.features.7.0.block.5.lora_B",
+      "network.features.7.1.block.3.lora_A",
+      "network.features.7.1.block.3.lora_B",
+      "network.features.7.1.block.5.lora_A",
+      "network.features.7.1.block.5.lora_B",
+      "network.features.7.2.block.3.lora_A",
+      "network.features.7.2.block.3.lora_B",
+      "network.features.7.2.block.5.lora_A",
+      "network.features.7.2.block.5.lora_B"
+    ],
+    "all_parameter_elements": 50538339,
+    "frozen_parameter_elements": 49454688,
+    "trainable_parameter_elements": 1083651,
+    "optimizer_groups": [
+      {
+        "role": "backbone",
+        "initial_lr": 0.0001,
+        "weight_decay": 0.0001,
+        "param_names": [
+          "network.features.1.0.block.3.lora_A",
+          "network.features.1.0.block.3.lora_B",
+          "network.features.1.0.block.5.lora_A",
+          "network.features.1.0.block.5.lora_B",
+          "network.features.1.1.block.3.lora_A",
+          "network.features.1.1.block.3.lora_B",
+          "network.features.1.1.block.5.lora_A",
+          "network.features.1.1.block.5.lora_B",
+          "network.features.1.2.block.3.lora_A",
+          "network.features.1.2.block.3.lora_B",
+          "network.features.1.2.block.5.lora_A",
+          "network.features.1.2.block.5.lora_B",
+          "network.features.3.0.block.3.lora_A",
+          "network.features.3.0.block.3.lora_B",
+          "network.features.3.0.block.5.lora_A",
+          "network.features.3.0.block.5.lora_B",
+          "network.features.3.1.block.3.lora_A",
+          "network.features.3.1.block.3.lora_B",
+          "network.features.3.1.block.5.lora_A",
+          "network.features.3.1.block.5.lora_B",
+          "network.features.3.2.block.3.lora_A",
+          "network.features.3.2.block.3.lora_B",
+          "network.features.3.2.block.5.lora_A",
+          "network.features.3.2.block.5.lora_B",
+          "network.features.5.0.block.3.lora_A",
+          "network.features.5.0.block.3.lora_B",
+          "network.features.5.0.block.5.lora_A",
+          "network.features.5.0.block.5.lora_B",
+          "network.features.5.1.block.3.lora_A",
+          "network.features.5.1.block.3.lora_B",
+          "network.features.5.1.block.5.lora_A",
+          "network.features.5.1.block.5.lora_B",
+          "network.features.5.2.block.3.lora_A",
+          "network.features.5.2.block.3.lora_B",
+          "network.features.5.2.block.5.lora_A",
+          "network.features.5.2.block.5.lora_B",
+          "network.features.5.3.block.3.lora_A",
+          "network.features.5.3.block.3.lora_B",
+          "network.features.5.3.block.5.lora_A",
+          "network.features.5.3.block.5.lora_B",
+          "network.features.5.4.block.3.lora_A",
+          "network.features.5.4.block.3.lora_B",
+          "network.features.5.4.block.5.lora_A",
+          "network.features.5.4.block.5.lora_B",
+          "network.features.5.5.block.3.lora_A",
+          "network.features.5.5.block.3.lora_B",
+          "network.features.5.5.block.5.lora_A",
+          "network.features.5.5.block.5.lora_B",
+          "network.features.5.6.block.3.lora_A",
+          "network.features.5.6.block.3.lora_B",
+          "network.features.5.6.block.5.lora_A",
+          "network.features.5.6.block.5.lora_B",
+          "network.features.5.7.block.3.lora_A",
+          "network.features.5.7.block.3.lora_B",
+          "network.features.5.7.block.5.lora_A",
+          "network.features.5.7.block.5.lora_B",
+          "network.features.5.8.block.3.lora_A",
+          "network.features.5.8.block.3.lora_B",
+          "network.features.5.8.block.5.lora_A",
+          "network.features.5.8.block.5.lora_B",
+          "network.features.5.9.block.3.lora_A",
+          "network.features.5.9.block.3.lora_B",
+          "network.features.5.9.block.5.lora_A",
+          "network.features.5.9.block.5.lora_B",
+          "network.features.5.10.block.3.lora_A",
+          "network.features.5.10.block.3.lora_B",
+          "network.features.5.10.block.5.lora_A",
+          "network.features.5.10.block.5.lora_B",
+          "network.features.5.11.block.3.lora_A",
+          "network.features.5.11.block.3.lora_B",
+          "network.features.5.11.block.5.lora_A",
+          "network.features.5.11.block.5.lora_B",
+          "network.features.5.12.block.3.lora_A",
+          "network.features.5.12.block.3.lora_B",
+          "network.features.5.12.block.5.lora_A",
+          "network.features.5.12.block.5.lora_B",
+          "network.features.5.13.block.3.lora_A",
+          "network.features.5.13.block.3.lora_B",
+          "network.features.5.13.block.5.lora_A",
+          "network.features.5.13.block.5.lora_B",
+          "network.features.5.14.block.3.lora_A",
+          "network.features.5.14.block.3.lora_B",
+          "network.features.5.14.block.5.lora_A",
+          "network.features.5.14.block.5.lora_B",
+          "network.features.5.15.block.3.lora_A",
+          "network.features.5.15.block.3.lora_B",
+          "network.features.5.15.block.5.lora_A",
+          "network.features.5.15.block.5.lora_B",
+          "network.features.5.16.block.3.lora_A",
+          "network.features.5.16.block.3.lora_B",
+          "network.features.5.16.block.5.lora_A",
+          "network.features.5.16.block.5.lora_B",
+          "network.features.5.17.block.3.lora_A",
+          "network.features.5.17.block.3.lora_B",
+          "network.features.5.17.block.5.lora_A",
+          "network.features.5.17.block.5.lora_B",
+          "network.features.5.18.block.3.lora_A",
+          "network.features.5.18.block.3.lora_B",
+          "network.features.5.18.block.5.lora_A",
+          "network.features.5.18.block.5.lora_B",
+          "network.features.5.19.block.3.lora_A",
+          "network.features.5.19.block.3.lora_B",
+          "network.features.5.19.block.5.lora_A",
+          "network.features.5.19.block.5.lora_B",
+          "network.features.5.20.block.3.lora_A",
+          "network.features.5.20.block.3.lora_B",
+          "network.features.5.20.block.5.lora_A",
+          "network.features.5.20.block.5.lora_B",
+          "network.features.5.21.block.3.lora_A",
+          "network.features.5.21.block.3.lora_B",
+          "network.features.5.21.block.5.lora_A",
+          "network.features.5.21.block.5.lora_B",
+          "network.features.5.22.block.3.lora_A",
+          "network.features.5.22.block.3.lora_B",
+          "network.features.5.22.block.5.lora_A",
+          "network.features.5.22.block.5.lora_B",
+          "network.features.5.23.block.3.lora_A",
+          "network.features.5.23.block.3.lora_B",
+          "network.features.5.23.block.5.lora_A",
+          "network.features.5.23.block.5.lora_B",
+          "network.features.5.24.block.3.lora_A",
+          "network.features.5.24.block.3.lora_B",
+          "network.features.5.24.block.5.lora_A",
+          "network.features.5.24.block.5.lora_B",
+          "network.features.5.25.block.3.lora_A",
+          "network.features.5.25.block.3.lora_B",
+          "network.features.5.25.block.5.lora_A",
+          "network.features.5.25.block.5.lora_B",
+          "network.features.5.26.block.3.lora_A",
+          "network.features.5.26.block.3.lora_B",
+          "network.features.5.26.block.5.lora_A",
+          "network.features.5.26.block.5.lora_B",
+          "network.features.7.0.block.3.lora_A",
+          "network.features.7.0.block.3.lora_B",
+          "network.features.7.0.block.5.lora_A",
+          "network.features.7.0.block.5.lora_B",
+          "network.features.7.1.block.3.lora_A",
+          "network.features.7.1.block.3.lora_B",
+          "network.features.7.1.block.5.lora_A",
+          "network.features.7.1.block.5.lora_B",
+          "network.features.7.2.block.3.lora_A",
+          "network.features.7.2.block.3.lora_B",
+          "network.features.7.2.block.5.lora_A",
+          "network.features.7.2.block.5.lora_B"
+        ],
+        "param_shapes": [
+          [
+            8,
+            96
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            96,
+            8
+          ],
+          [
+            8,
+            96
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            96,
+            8
+          ],
+          [
+            8,
+            96
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            96,
+            8
+          ],
+          [
+            8,
+            192
+          ],
+          [
+            768,
+            8
+          ],
+          [
+            8,
+            768
+          ],
+          [
+            192,
+            8
+          ],
+          [
+            8,
+            192
+          ],
+          [
+            768,
+            8
+          ],
+          [
+            8,
+            768
+          ],
+          [
+            192,
+            8
+          ],
+          [
+            8,
+            192
+          ],
+          [
+            768,
+            8
+          ],
+          [
+            8,
+            768
+          ],
+          [
+            192,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            384
+          ],
+          [
+            1536,
+            8
+          ],
+          [
+            8,
+            1536
+          ],
+          [
+            384,
+            8
+          ],
+          [
+            8,
+            768
+          ],
+          [
+            3072,
+            8
+          ],
+          [
+            8,
+            3072
+          ],
+          [
+            768,
+            8
+          ],
+          [
+            8,
+            768
+          ],
+          [
+            3072,
+            8
+          ],
+          [
+            8,
+            3072
+          ],
+          [
+            768,
+            8
+          ],
+          [
+            8,
+            768
+          ],
+          [
+            3072,
+            8
+          ],
+          [
+            8,
+            3072
+          ],
+          [
+            768,
+            8
+          ]
+        ]
+      },
+      {
+        "role": "head",
+        "initial_lr": 0.001,
+        "weight_decay": 0.0,
+        "param_names": [
+          "network.classifier.3.bias"
+        ],
+        "param_shapes": [
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "role": "head",
+        "initial_lr": 0.001,
+        "weight_decay": 0.0001,
+        "param_names": [
+          "network.classifier.3.weight"
+        ],
+        "param_shapes": [
+          [
+            1,
+            768
+          ]
+        ]
+      },
+      {
+        "role": "age",
+        "initial_lr": 0.001,
+        "weight_decay": 0.0001,
+        "param_names": [
+          "age_weight"
+        ],
+        "param_shapes": [
+          [
+            2
+          ]
+        ]
+      }
+    ],
+    "optimizer_parameter_names": [
+      "age_weight",
+      "network.classifier.3.bias",
+      "network.classifier.3.weight",
+      "network.features.1.0.block.3.lora_A",
+      "network.features.1.0.block.3.lora_B",
+      "network.features.1.0.block.5.lora_A",
+      "network.features.1.0.block.5.lora_B",
+      "network.features.1.1.block.3.lora_A",
+      "network.features.1.1.block.3.lora_B",
+      "network.features.1.1.block.5.lora_A",
+      "network.features.1.1.block.5.lora_B",
+      "network.features.1.2.block.3.lora_A",
+      "network.features.1.2.block.3.lora_B",
+      "network.features.1.2.block.5.lora_A",
+      "network.features.1.2.block.5.lora_B",
+      "network.features.3.0.block.3.lora_A",
+      "network.features.3.0.block.3.lora_B",
+      "network.features.3.0.block.5.lora_A",
+      "network.features.3.0.block.5.lora_B",
+      "network.features.3.1.block.3.lora_A",
+      "network.features.3.1.block.3.lora_B",
+      "network.features.3.1.block.5.lora_A",
+      "network.features.3.1.block.5.lora_B",
+      "network.features.3.2.block.3.lora_A",
+      "network.features.3.2.block.3.lora_B",
+      "network.features.3.2.block.5.lora_A",
+      "network.features.3.2.block.5.lora_B",
+      "network.features.5.0.block.3.lora_A",
+      "network.features.5.0.block.3.lora_B",
+      "network.features.5.0.block.5.lora_A",
+      "network.features.5.0.block.5.lora_B",
+      "network.features.5.1.block.3.lora_A",
+      "network.features.5.1.block.3.lora_B",
+      "network.features.5.1.block.5.lora_A",
+      "network.features.5.1.block.5.lora_B",
+      "network.features.5.10.block.3.lora_A",
+      "network.features.5.10.block.3.lora_B",
+      "network.features.5.10.block.5.lora_A",
+      "network.features.5.10.block.5.lora_B",
+      "network.features.5.11.block.3.lora_A",
+      "network.features.5.11.block.3.lora_B",
+      "network.features.5.11.block.5.lora_A",
+      "network.features.5.11.block.5.lora_B",
+      "network.features.5.12.block.3.lora_A",
+      "network.features.5.12.block.3.lora_B",
+      "network.features.5.12.block.5.lora_A",
+      "network.features.5.12.block.5.lora_B",
+      "network.features.5.13.block.3.lora_A",
+      "network.features.5.13.block.3.lora_B",
+      "network.features.5.13.block.5.lora_A",
+      "network.features.5.13.block.5.lora_B",
+      "network.features.5.14.block.3.lora_A",
+      "network.features.5.14.block.3.lora_B",
+      "network.features.5.14.block.5.lora_A",
+      "network.features.5.14.block.5.lora_B",
+      "network.features.5.15.block.3.lora_A",
+      "network.features.5.15.block.3.lora_B",
+      "network.features.5.15.block.5.lora_A",
+      "network.features.5.15.block.5.lora_B",
+      "network.features.5.16.block.3.lora_A",
+      "network.features.5.16.block.3.lora_B",
+      "network.features.5.16.block.5.lora_A",
+      "network.features.5.16.block.5.lora_B",
+      "network.features.5.17.block.3.lora_A",
+      "network.features.5.17.block.3.lora_B",
+      "network.features.5.17.block.5.lora_A",
+      "network.features.5.17.block.5.lora_B",
+      "network.features.5.18.block.3.lora_A",
+      "network.features.5.18.block.3.lora_B",
+      "network.features.5.18.block.5.lora_A",
+      "network.features.5.18.block.5.lora_B",
+      "network.features.5.19.block.3.lora_A",
+      "network.features.5.19.block.3.lora_B",
+      "network.features.5.19.block.5.lora_A",
+      "network.features.5.19.block.5.lora_B",
+      "network.features.5.2.block.3.lora_A",
+      "network.features.5.2.block.3.lora_B",
+      "network.features.5.2.block.5.lora_A",
+      "network.features.5.2.block.5.lora_B",
+      "network.features.5.20.block.3.lora_A",
+      "network.features.5.20.block.3.lora_B",
+      "network.features.5.20.block.5.lora_A",
+      "network.features.5.20.block.5.lora_B",
+      "network.features.5.21.block.3.lora_A",
+      "network.features.5.21.block.3.lora_B",
+      "network.features.5.21.block.5.lora_A",
+      "network.features.5.21.block.5.lora_B",
+      "network.features.5.22.block.3.lora_A",
+      "network.features.5.22.block.3.lora_B",
+      "network.features.5.22.block.5.lora_A",
+      "network.features.5.22.block.5.lora_B",
+      "network.features.5.23.block.3.lora_A",
+      "network.features.5.23.block.3.lora_B",
+      "network.features.5.23.block.5.lora_A",
+      "network.features.5.23.block.5.lora_B",
+      "network.features.5.24.block.3.lora_A",
+      "network.features.5.24.block.3.lora_B",
+      "network.features.5.24.block.5.lora_A",
+      "network.features.5.24.block.5.lora_B",
+      "network.features.5.25.block.3.lora_A",
+      "network.features.5.25.block.3.lora_B",
+      "network.features.5.25.block.5.lora_A",
+      "network.features.5.25.block.5.lora_B",
+      "network.features.5.26.block.3.lora_A",
+      "network.features.5.26.block.3.lora_B",
+      "network.features.5.26.block.5.lora_A",
+      "network.features.5.26.block.5.lora_B",
+      "network.features.5.3.block.3.lora_A",
+      "network.features.5.3.block.3.lora_B",
+      "network.features.5.3.block.5.lora_A",
+      "network.features.5.3.block.5.lora_B",
+      "network.features.5.4.block.3.lora_A",
+      "network.features.5.4.block.3.lora_B",
+      "network.features.5.4.block.5.lora_A",
+      "network.features.5.4.block.5.lora_B",
+      "network.features.5.5.block.3.lora_A",
+      "network.features.5.5.block.3.lora_B",
+      "network.features.5.5.block.5.lora_A",
+      "network.features.5.5.block.5.lora_B",
+      "network.features.5.6.block.3.lora_A",
+      "network.features.5.6.block.3.lora_B",
+      "network.features.5.6.block.5.lora_A",
+      "network.features.5.6.block.5.lora_B",
+      "network.features.5.7.block.3.lora_A",
+      "network.features.5.7.block.3.lora_B",
+      "network.features.5.7.block.5.lora_A",
+      "network.features.5.7.block.5.lora_B",
+      "network.features.5.8.block.3.lora_A",
+      "network.features.5.8.block.3.lora_B",
+      "network.features.5.8.block.5.lora_A",
+      "network.features.5.8.block.5.lora_B",
+      "network.features.5.9.block.3.lora_A",
+      "network.features.5.9.block.3.lora_B",
+      "network.features.5.9.block.5.lora_A",
+      "network.features.5.9.block.5.lora_B",
+      "network.features.7.0.block.3.lora_A",
+      "network.features.7.0.block.3.lora_B",
+      "network.features.7.0.block.5.lora_A",
+      "network.features.7.0.block.5.lora_B",
+      "network.features.7.1.block.3.lora_A",
+      "network.features.7.1.block.3.lora_B",
+      "network.features.7.1.block.5.lora_A",
+      "network.features.7.1.block.5.lora_B",
+      "network.features.7.2.block.3.lora_A",
+      "network.features.7.2.block.3.lora_B",
+      "network.features.7.2.block.5.lora_A",
+      "network.features.7.2.block.5.lora_B"
+    ]
+  },
+  "actual_optimizer": {
+    "successful_updates": 0,
+    "optimizer_state_entries": 0,
+    "observed_Adam_steps": [],
+    "trainable_parameter_tensors": 147,
+    "frozen_parameter_tensors": 342,
+    "frozen_gradients_absent": true,
+    "frozen_Adam_absent": true
+  },
+  "science_sha256": "ac66335ad5c54e77f776c5556c26c60b1531bde459708402ee0a34cc7b5ff54e",
+  "gpu_initialized": false,
+  "normal_formal": false,
+  "round_started": false,
+  "prior_checkpoint_loaded": false
+}

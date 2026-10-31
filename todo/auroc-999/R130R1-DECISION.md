@@ -1,6 +1,8 @@
 # R130R1：固定0.8逐层学习率的独立fresh合同与实施步骤
 
-**R130R1已实际启动，8rank自然首成功step1已证。** 用户授权“直接重头开始训练 R130”后，本轮按独立身份从公开初始化、step0及空Adam开始。A转交03:12:11.386+08首观测：owner与8rank身份匹配active，首成功1来自metrics事件；`status.json`仍是running0/eval0初态快照，不冒写25/125或当前更新游标。暂无完整selector、官方或本轮AUROC，详见下方分阶段实证。
+**R130R1已完整结束，固定.8方案关闭/no seed27。** 04:44:14.857北京时间唯一completion确认11200success=attempt/0skip/eval14/bad4早停；唯一online c10@8000内部AUROC `.9850016436060114`、AP `.7899286280804421`、error_twice24912。低于R107 `.9884405731067525`及R120 singlebest `.9894773092062407`，完整两门false，不做邻近factor/LR/group/seed补考。TRAIN/ROUND/done completed、exit0/signals[]；完整selected不足`.996`，official正常not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull。actualsafe=true，owner同start现Z未reaped、8rank absent、锁/设备使用者空/denied0/8busy0。原件与精简结果见[完整归档](../../records/R130R1/README.md)，归档不再查旧safe或hash/load大blob。
+
+根据用户持续推进授权已采纳唯一[R131/order42固定pointwise-r8](R131-DECISION.md)，直接R107/seed29/public fresh，不继承本轮倍率或状态。原R1301503仍独立中断历史、全部依赖保留。下方启动观测和实施清单为当时分阶段记录；最终状态以本页首及完整原件为准，不将旧partial当完整结果。
 
 用户已授权每30分钟报告、每5分钟检查完成并持续推进后续训练；旧暂停、fresh未授权及禁止定时观测的条件已被覆盖。不另设设计或文档批准门，不热改当前冻结运行。
 

@@ -30,6 +30,7 @@ HEAD_WARMUP_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-early
 SMALL_22K_ONLY_BINDING = 'single-convnext-small-in22konly-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 LAYERWISE_LR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-layerdecay08-v1'
 LAYERWISE_LR_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-layerdecay08-r1-v1'
+POINTWISE_LORA8_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-pointwise-lora8-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -43,7 +44,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
                       ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
                       HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
-                      LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING)
+                      LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
+                      POINTWISE_LORA8_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -73,6 +75,7 @@ def science_configuration():
     from .gradient_clip import ROLEWISE_CLIP_RULE
     from .head_warmup import HEAD_WARMUP_RULE
     from .layerwise_lr import LAYERWISE_LR_RULE
+    from .low_rank import LOW_RANK_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -98,7 +101,8 @@ def science_configuration():
                                                        HEAD_WARMUP_SMALL_BINDING,
                                                        SMALL_22K_ONLY_BINDING,
                                                        LAYERWISE_LR_SMALL_BINDING,
-                                                       LAYERWISE_LR_SMALL_R1_BINDING)
+                                                       LAYERWISE_LR_SMALL_R1_BINDING,
+                                                       POINTWISE_LORA8_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -171,6 +175,16 @@ def science_configuration():
                                  'training_views', 'gradient_clip_policy', 'stage3_residual',
                                  'attention_pool'))
                          or value.get('public_source', {}).get('format') != 'torchvision-1000-state-dict-v1'))
+                or (value.get('candidate_profile') == POINTWISE_LORA8_SMALL_BINDING
+                    and (value.get('job', {}).get('low_rank_policy') != LOW_RANK_RULE
+                         or value.get('candidate', {}).get('low_rank_policy') != LOW_RANK_RULE
+                         or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or any(value.get('job', {}).get(key) is not None for key in
+                                ('layerwise_lr_policy', 'head_warmup_policy', 'gradient_clip_policy',
+                                 'attention_pool', 'stage3_residual', 'freeze_features_before',
+                                 'final_downsample_stride', 'training_rotation', 'training_photometric',
+                                 'training_views'))
+                         or value.get('public_source', {}).get('format') != 'torchvision-1000-state-dict-v1'))
                 or any(type(value['job'].get(key)) not in (int, float)
                        or not math.isfinite(value['job'][key]) or value['job'][key] <= 0
                        for key in ('backbone_lr', 'head_lr'))):
@@ -199,7 +213,8 @@ def candidate_from_configuration(value):
                                         ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
                                         HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
                                         LAYERWISE_LR_SMALL_BINDING,
-                                        LAYERWISE_LR_SMALL_R1_BINDING):
+                                        LAYERWISE_LR_SMALL_R1_BINDING,
+                                        POINTWISE_LORA8_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -260,6 +275,10 @@ def candidate_from_configuration(value):
             from .layerwise_lr import LAYERWISE_LR_RULE
             expected.update(id='r130r1-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-layerdecay08-9010',
                             experiment_order=41, layerwise_lr_policy=LAYERWISE_LR_RULE)
+        if value['candidate_profile'] == POINTWISE_LORA8_SMALL_BINDING:
+            from .low_rank import LOW_RANK_RULE
+            expected.update(id='r131-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-pointwise-lora8-9010',
+                            experiment_order=42, low_rank_policy=LOW_RANK_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
