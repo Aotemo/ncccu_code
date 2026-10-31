@@ -1,0 +1,78 @@
+{
+  "schema": "r125-token-free-closeout-v1",
+  "at_beijing": "2026-10-31T16:08:37.233955+08:00",
+  "experiment_order": 35,
+  "profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stage3residual-v1",
+  "candidate": "r125-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stage3residual-9010",
+  "round_id": "r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32",
+  "science_config_sha256": "d5d1f8144f393edddb0cd6aad25afe6ce0c4f336c0ba54983bda0780fac7c24c",
+  "git_commit": "ecda98df3cb7d846233c91d534eb8c8328f0181d",
+  "original_sha256": {
+    "freeze": "705d791851ecb46e87de4d0b7907297070b51d27f6741d107e641360026f8859",
+    "train": "89a6927593db979ef87bd8644e5fa08539ab5cf4ebcad8c35ae8e7fbb8499374",
+    "round": "ddef05e48b9a3f1cf96a86f65c277352f385f549a057c8611916b3e9fd52b951",
+    "done": "86ebd1dae69f3a61e344ea3245a8e1f43e97e5e0dc8732ffffe0a47c04010661"
+  },
+  "progress_receipt_sha256": "c74b2d273b9337eaa78387c5c48683efa3dfa73cd81c7182c6efac1070527a06",
+  "progress_cpu_receipt_sha256": "d0f1c557961f8501e53a3126adeb9cf1f593491da7cfd3493e0287d9013f85f3",
+  "safe_observed_at_beijing": "2026-10-31T16:02:58.840224+08:00",
+  "safe_at_observation": true,
+  "safe_evidence": {
+    "owner_state": "Z_not_reaped",
+    "rank_processes_exited": true,
+    "lock_holders": 0,
+    "device_users": 0,
+    "device_scan_denied": 0,
+    "admitted_cards_idle": 8
+  },
+  "train": {
+    "status": "completed",
+    "component_exit_code": 0,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "max_updates": 24000,
+    "skipped_updates": 0,
+    "evaluated_cycles": 8,
+    "early_stop_bad_cycles": 4,
+    "termination_reason": "early_stopping",
+    "signals_sent": false
+  },
+  "selected_internal": {
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "auroc": 0.9867572315654234,
+    "ap": 0.8252083971535648,
+    "error_twice": 21996,
+    "tensor_sha256": "fe81a1d83f6d6d92902e32de4e252780bf44adab39e7f72836374ba6562ef13a"
+  },
+  "selected_blob_sha256": "d24b42aab2ef47964d3f5a27132806d892b30544d7aa1606a7fae529e56c9d95",
+  "comparison": {
+    "pre_frozen_R107_auroc": 0.9884405731067525,
+    "recorded_R120_single_seed_best_auroc": 0.9894773092062407,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false,
+    "seed20261027_followup": false
+  },
+  "official": {
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "official_metrics": null
+  },
+  "stage3_residual_training_end": {
+    "status": "not_directly_observed",
+    "reason": "existing_status_and_metrics_have_no_q_update_or_Adam_statistics"
+  },
+  "preparation": {
+    "formal_cpu_checks": 19,
+    "formal_cpu_receipt_status": "passed",
+    "shared_seed29_initial_tensors_exact": 345,
+    "new_q_initial_zero": true,
+    "initial_model_tensor_sha256": "eba436adbf68ef515b4e83d7aebcff8d58d10b1c0656c0449efc6babc4f52924",
+    "preparation_result_sha256": "786307a56ebfc01ef9520b636fc2577e729dd6b5fe6c3499bd40a03d5d1b64d9",
+    "initial_first_success_receipt_sha256": "8cf7627b7e21d38b7055f56ec3db7e8b406809dea4fbf3575bef8b3543ad7fd9",
+    "outer_reporting_assertion": "failed_after_formal_checks_and_deployment; original_failure_preserved",
+    "finalizer": "existing_receipts_only; no_formal_rerun"
+  }
+}

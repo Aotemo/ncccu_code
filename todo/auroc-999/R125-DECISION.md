@@ -1,6 +1,6 @@
 # R125：第三阶段 GAP 残差读出
 
-状态：协调方已采用，现有 A/B 已获必要实施分工；本页是固定科学合同，不是启动或验收回执。SCIENCE、Git、正式包、activation、实际8rank初态及首success均待A实证。仅授权本轮seed29一次fresh，必要准入齐直接执行，不等文档批准。原R124/R124R1已收口，冻结页与失败审计不改。
+状态：R125已完整工程有效，A于2026-10-31 16:02:58.840北京时间实核completed/early_stopping及整轮safe。完整内部selected低于R107与R120两门，关闭此固定第三阶段GAP残差合同/no seed27。以下保留原预登记合同；各阶段实际结果与未核边界见末段，原R124/R124R1及失败审计不改。
 
 ## 身份与问题
 
@@ -53,3 +53,17 @@ CPU18已过期；A每入口动态核当前Pod UID/Ready/Python、effective CPU�
 完整工程有效selected内部AUROC **strict > R107 `.9884405731067525`** 才为同seed正向；同时 **strict > R120 singlebest `.9894773092062407`** 才由协调方另定固定seed20261027，对照R108 `.9872328538178018`。仅胜R107未破R120则有限正向后本阶段结束；未胜关闭此固定第三阶段残差，不扫层号/层组合/归一化/维数/系数/LR/seed。只授权R125首seed，不自动启动27；AP、partial、难组、official或平台分数不救主判。R120仍是单次best，不升级方法基线。
 
 完整训练并冻结唯一checkpoint后，selected内部`>=.996`才完整官方5849一次；未达记 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，整轮可正常completed，safe仍须A实际核实。该门独立于科学与实用门，不生成平台test CSV。总体`.999`未达、持续授权不暂停；本轮结果后协调方依据完整内部证据决定下一问题，不自动扩候选队列。本页冻结后规划停写，不作为A执行等待门。
+
+## 完整内部结果与最终收口（2026-10-31）
+
+规划仅一次文本核 `work/r125-20261031-a/progress-1600/SINGLE-MODEL-FREEZE.json` 的selected及 `evidence/TRAIN_RESULT.json` 必要字段：唯一 **EMA c4@3200，内部AUROC `.9867572315654234`、AP `.8252083971535648`、error_twice21996**；tensor `fe81a1d83f6d6d92902e32de4e252780bf44adab39e7f72836374ba6562ef13a`、blob `d24b42aab2ef47964d3f5a27132806d892b30544d7aa1606a7fae529e56c9d95`。TRAIN completed/exit0、successful_updates6400、cycles8、bad4/stopped=true、hard_deadline_met=true、signals及live_owned_ranks为空。
+
+success=attempt6400/max24000/skip0/eval8/early_stopping及官方/安全状态引用协调方转交A实际回执 `31202ca6-5b9d-4095-b783-9deeab2f684f`，不另查Pod、预测或官方。完整AUROC低于直接R107 `.9884405731067525`，也低于singlebest R120 `.9894773092062407`，双门false；关闭**此固定stage3 GAP残差 × 当前Small/pairlog合同**，no seed27，不层号/层组合/归一化/维数/系数/LR/seed补考。AP不救，不能泛化所有中层表征无效。R107原None扩展读出、age true继续比较路径，R120仍仅singlebest、不升方法基线。
+
+工程阶段分开记录：原收尾汇总exit1保留；随后CPU19依原回执重生成摘要exit0，不能写成formal重新运行或删除旧失败。3项窄验、19项正式检查、新初态及真实首50属于先前准备/启动证据，与本次完整终态分别引用A实证。运行Git为 `ecda98df3cb7d846233c91d534eb8c8328f0181d`、tree `2ba815c6e577ffe468ec76eca2f67b220e50b7dd`；必要最终归档尚由A处理，不假填新的Git。
+
+现有status/metrics没有本轮 `stage3_residual_weight` 384维参数的更新或Adam直接统计，**仍未核**；不从toy、注册、初态或首success推为已测更新。R124R1的768维q统计不是本轮证据，不挪用，不新增加载/forward或审批门补证。这里的未核不改变已完整训练及预登记selected主判。
+
+完整selected不足`.996`，官方为 `not_run_by_policy/threshold_not_met/evaluated=false/metrics=null`，未运行且非失败；TRAIN/ROUND/done正常完整。owner286715、原start345764120匹配现Z，只称Z不称reaped；原8rank退出、lockholders/deviceusers为空、denied0/8busy0/actualsafe=true。上述均据A实际回执。协调方仅交短pin：progress `c74b2d27`、CPU `d0f1c557`、freeze `705d7918`、TRAIN `89a69275`、ROUND `ddef05e4`、done `86ebd1da`；本页不补全或重算完整SHA，准确全值以A原小回执及最终token-free结果为准。
+
+原包/clock及6h8h9h/default12GiB、保存保护与floors不变。本页收口冻结交A必要归档；`.999`总体目标未达、持续授权不暂停，下一问题只作一次有界既有文本建议交协调方，不注册新候选、派工或延长FIT/cache/C0审计。
