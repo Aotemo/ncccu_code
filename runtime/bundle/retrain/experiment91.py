@@ -36,6 +36,7 @@ TRI3_DOWNSAMPLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-e
 MIXSTYLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-v1'
 MIXSTYLE_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-r1-v1'
 STEM_XY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stem-rgbxy-v1'
+RAW_GC_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-rawgc-convlinear-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -52,7 +53,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
                       POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                       TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                      MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING)
+                      MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -101,6 +102,8 @@ def science_configuration():
             from .mixstyle import MIXSTYLE_RULE
         if value.get('candidate_profile') == STEM_XY_SMALL_BINDING:
             from .models import STEM_XY_RULE
+        if value.get('candidate_profile') == RAW_GC_SMALL_BINDING:
+            from .config import GRADIENT_CENTRALIZATION_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -120,9 +123,22 @@ def science_configuration():
                                                        LOGIT_SQUARE_SMALL_BINDING,
                                                        TRI3_DOWNSAMPLE_SMALL_BINDING,
                                                        MIXSTYLE_SMALL_BINDING,
-                                                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING)
+                                                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
+                or (value.get('candidate_profile') != RAW_GC_SMALL_BINDING
+                    and (value.get('job',{}).get('gradient_centralization_policy') is not None
+                         or value.get('candidate',{}).get('gradient_centralization_policy') is not None))
+                or (value.get('candidate_profile') == RAW_GC_SMALL_BINDING
+                    and (value.get('job',{}).get('gradient_centralization_policy') != GRADIENT_CENTRALIZATION_RULE
+                         or value.get('candidate',{}).get('gradient_centralization_policy') != value.get('job',{}).get('gradient_centralization_policy')
+                         or value.get('job',{}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or any(value.get('job',{}).get(k) is not None for k in
+                            ('gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy',
+                             'stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization',
+                             'attention_pool','stage3_residual','freeze_features_before','training_views',
+                             'training_rotation','training_photometric','head_seed','bn_statistics'))
+                         or 'final_downsample_stride' in value.get('job',{})))
                 or (value.get('candidate_profile') != STEM_XY_SMALL_BINDING
                     and (value.get('job',{}).get('stem_xy_policy') is not None
                          or value.get('candidate',{}).get('stem_xy_policy') is not None))
@@ -288,7 +304,7 @@ def candidate_from_configuration(value):
                                         LAYERWISE_LR_SMALL_R1_BINDING,
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING):
+                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -373,6 +389,10 @@ def candidate_from_configuration(value):
             from .models import STEM_XY_RULE
             expected.update(id='r135-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stem-rgbxy-9010',
                             experiment_order=47,stem_xy_policy=STEM_XY_RULE)
+        if value['candidate_profile'] == RAW_GC_SMALL_BINDING:
+            from .config import GRADIENT_CENTRALIZATION_RULE
+            expected.update(id='r136-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-rawgc-convlinear-9010',
+                            experiment_order=48,gradient_centralization_policy=GRADIENT_CENTRALIZATION_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -593,6 +613,7 @@ def validate_job(job):
         # Only the exact registered candidate carries the fixed MixStyle policy.
         'mixstyle_policy': candidate().get('mixstyle_policy'),
         'stem_xy_policy': candidate().get('stem_xy_policy'),
+        'gradient_centralization_policy': candidate().get('gradient_centralization_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -695,6 +716,12 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['job'].get('gradient_centralization_policy') is not None:
+        result['gradient_centralization']={'policy':science_configuration()['job']['gradient_centralization_policy'],
+            'targets':[{'name':name+'.weight','module':type(module).__name__,
+                        'shape':list(module._parameters['weight'].shape),
+                        'axes':list(range(1,module._parameters['weight'].ndim))}
+                       for name,module in model.named_modules() if isinstance(module,(nn.Conv2d,nn.Linear))]}
     if science_configuration()['job'].get('stem_xy_policy') is not None:
         stem=network.features[0][0]
         if not isinstance(stem,nn.Conv2d):raise ValueError('native RGBXY stem convolution missing')
@@ -792,6 +819,21 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if configured.get('gradient_centralization_policy') is not None:
+        from .config import GRADIENT_CENTRALIZATION_RULE
+        gc=value.get('gradient_centralization',{});targets=gc.get('targets',[])
+        if (science_configuration()['candidate_profile'] != RAW_GC_SMALL_BINDING
+                or configured['gradient_centralization_policy'] != GRADIENT_CENTRALIZATION_RULE
+                or gc.get('policy') != GRADIENT_CENTRALIZATION_RULE or len(targets)!=113
+                or len({r['name'] for r in targets})!=113
+                or sum(r['module']=='Conv2d' for r in targets)!=40
+                or sum(r['module']=='Linear' for r in targets)!=73
+                or any(not r['name'].endswith('.weight') or r['module'] not in ('Conv2d','Linear')
+                       or len(r['shape'])!=(4 if r['module']=='Conv2d' else 2)
+                       or r['axes']!=list(range(1,len(r['shape']))) for r in targets)):
+            raise ValueError('actual raw GC direct-weight names/shapes/axes differ')
+    elif value.get('gradient_centralization') is not None:
+        raise ValueError('unregistered raw gradient centralization')
     if configured.get('stem_xy_policy') is not None:
         from .models import STEM_XY_RULE
         expected={'policy':STEM_XY_RULE,'name':'network.features.0.0','weight_shape':[96,5,4,4],

@@ -191,6 +191,18 @@ def _optimizer(model, job):
     if job.get('low_rank_policy') is not None:
         from .low_rank import bind_optimizer
         bind_optimizer(model, optimizer)
+    if job.get('gradient_centralization_policy') is not None:
+        from .config import GRADIENT_CENTRALIZATION_RULE
+        if job['gradient_centralization_policy'] != GRADIENT_CENTRALIZATION_RULE:
+            raise ValueError('raw gradient centralization policy differs')
+        targets = [(name + '.weight', module._parameters['weight'])
+                   for name, module in model.named_modules()
+                   if isinstance(module, (nn.Conv2d, nn.Linear))]
+        owned = {id(p) for group in optimizer.param_groups for p in group['params']}
+        if (not targets or len({id(p) for _, p in targets}) != len(targets)
+                or any(id(p) not in owned or not p.requires_grad or p.dtype != torch.float32 for _, p in targets)):
+            raise ValueError('raw GC direct weight ownership differs')
+        optimizer._gradient_centralization_targets = targets
     return optimizer
 
 
@@ -219,8 +231,12 @@ def _validate_layerwise_optimizer_state(model, optimizer, saved, policy):
     return expected
 
 
-def _clip_gradients(parameters, role_groups, any_bad=None):
+def _clip_gradients(parameters, role_groups, any_bad=None, *, centralization_targets=None):
     """Return finite status, preclip norms, coefficients; agree before role mutation."""
+    if centralization_targets is not None:
+        for _, parameter in centralization_targets:
+            if parameter.grad is not None:
+                parameter.grad.sub_(parameter.grad.mean(dim=tuple(range(1, parameter.grad.ndim)), keepdim=True))
     if role_groups is None:
         norm = torch.nn.utils.clip_grad_norm_(parameters, 1.0)
         local_bad = not bool(torch.isfinite(norm))
@@ -327,6 +343,8 @@ def run_training(job, manifest, data_root, run_dir, identity, resume=False,
     most recent committed checkpoint, so half-updated parameters never replace
     a known-good recovery point.
     """
+    if job.get('gradient_centralization_policy') is not None:
+        raise ValueError('raw gradient centralization requires the audited eight-rank entry')
     if job.get('mixstyle_policy') is not None:
         raise ValueError('MixStyle requires the audited eight-rank entry with explicit attempt context')
     if job.get('output_regularization') is not None:

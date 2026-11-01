@@ -770,7 +770,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             layerwise_first_lrs = ([group['lr'] for group in optimizer.param_groups]
                                    if successful == 0 and job.get('layerwise_lr_policy') is not None else None)
             if head_warmup_groups is None:
-                finite,role_norms,coefficients=single._clip_gradients(base.parameters(),role_groups,ctx.any)
+                finite,role_norms,coefficients=single._clip_gradients(base.parameters(),role_groups,ctx.any,
+                    centralization_targets=getattr(optimizer,'_gradient_centralization_targets',None))
             else:
                 from .head_warmup import mask_and_clip_gradients_
                 if successful == 0 and not first_head_warmup_logged:
@@ -876,6 +877,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if mode in ('benchmark','stage-probe','fresh-probe'):timing['warmup_seconds' if successful-int(not skipped)<50 else 'measured_seconds']+=elapsed
             if attempted%job['log_every']==0 or skipped:
                 update={'rank':ctx.rank,'loss':loss_sum,'primary_inputs':primary_inputs,'view_inputs':view_inputs}
+                if job.get('gradient_centralization_policy') is not None:
+                    update['gradient_centralization']={'policy':job['gradient_centralization_policy'],
+                        'target_count':len(optimizer._gradient_centralization_targets)}
                 if pairwise:
                     update['positive_inputs']=int((labels==1).sum().item())
                     positives=int((global_targets==1).sum().item())
@@ -903,6 +907,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                     global_loss=sum(losses)/len(losses) if pairwise else None,
                     rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')
                         +(('positive_inputs',) if pairwise else ())
+                        +(('gradient_centralization',) if job.get('gradient_centralization_policy') is not None else ())
                         +(('mixstyle',) if mixstyle_trace is not None else ())} for item in updates])
                 status('running')
             if overflows>=100:save();raise FloatingPointError('100 consecutive DDP AMP overflows')

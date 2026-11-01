@@ -21,6 +21,39 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R136_fixed_raw_GC_identity_and_R107_science(self):
+        policy={'version':'raw-convlinear-weight-gc-v1','targets':'Conv2d_and_Linear_direct_weight','dtype':'float32',
+            'axes':'all_non_output_dimensions','position':'after_ddp_mean_mirror_merge_unscale_before_global_clip','schedule':'each_real_update'}
+        for filename,order in (('R135-SCIENCE.json',47),('R136-SCIENCE.json',48)):
+            path=ROOT/'configs'/filename;declared=json.loads(path.read_text())
+            site={'schema_version':1,'scope':'cpu_technical_prep','round_id':'identity-fixture','git_commit':'0'*40,
+                'work_root':str(ROOT),'round_root':str(ROOT/'rounds/identity-fixture'),
+                'pod':{'namespace':'fixture','name':'fixture','uid':'00000000-0000-0000-0000-000000000001','container':'fixture','python':sys.executable},
+                'gpus':[{'ordinal':i,'pci':f'0000:{i+1:02x}:00.0','vram_total_bytes':64*1024**3} for i in range(8)],
+                **{k:str(ROOT/v) for k,v in declared['paths'].items()},
+                'science':{'binding_version':declared['candidate_profile'],'candidate':declared['candidate'],
+                    'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}}
+            with tempfile.TemporaryDirectory() as folder:
+                p=Path(folder)/'SITE_BINDING.json';p.write_text(json.dumps(site))
+                with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()):
+                    try:actual=experiment.candidate_from_configuration(experiment.science_configuration())
+                    except ValueError as e:self.fail(f'adopted {filename} identity is not connected: {e}')
+            self.assertEqual((actual['id'],actual['experiment_order']),(declared['candidate']['id'],order))
+            self.assertEqual(actual.get('gradient_centralization_policy'),policy if order==48 else None)
+        current=json.loads((ROOT/'configs/R136-SCIENCE.json').read_text())
+        self.assertEqual(current['candidate_profile'],experiment.RAW_GC_SMALL_BINDING)
+        self.assertEqual(current['candidate']['gradient_centralization_policy'],policy)
+        self.assertEqual(current['job']['gradient_centralization_policy'],policy)
+        self.assertEqual(current['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+        original=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())
+        self.assertEqual(current['initial_model_tensor_sha256'],original['initial_model_tensor_sha256'])
+        left,right=copy.deepcopy(original),copy.deepcopy(current)
+        for value in (left,right):
+            for k in ('candidate_profile','comparison_note','official_evaluation'):value.pop(k,None)
+            for k in ('id','experiment_order','gradient_centralization_policy'):value['candidate'].pop(k,None)
+            value['job'].pop('gradient_centralization_policy',None)
+        self.assertEqual(left,right)
+
     @staticmethod
     def stem_xy_fixture():
         import torch

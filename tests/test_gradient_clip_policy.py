@@ -5,8 +5,17 @@ images or forward benchmark are used; the age contract is the same minimal
 legal spec already used by the age tests.
 """
 from pathlib import Path
+from datetime import timedelta
+import copy
+import json
+import math
+import os
+import socket
+import subprocess
 import sys
+import tempfile
 import unittest
+from unittest.mock import patch
 from types import SimpleNamespace
 
 import torch
@@ -17,6 +26,185 @@ from retrain import age, ema, engine, gradient_clip
 from retrain.persistence import canonical_digest
 
 ROLES = ('backbone', 'head', 'age')
+RAW_GC = {'version': 'raw-convlinear-weight-gc-v1',
+          'targets': 'Conv2d_and_Linear_direct_weight', 'dtype': 'float32',
+          'axes': 'all_non_output_dimensions',
+          'position': 'after_ddp_mean_mirror_merge_unscale_before_global_clip',
+          'schedule': 'each_real_update'}
+
+
+class RawGCToy(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv = nn.Conv2d(2, 2, 1)
+        self.features = nn.Linear(2, 3)
+        self.norm = nn.LayerNorm(3)
+        self.layer_scale = nn.Parameter(torch.tensor([.9, 1.1]).reshape(2, 1, 1))
+        self.classifier = nn.Linear(3, 1)
+        age.attach_age(self, age_spec())
+
+    def forward(self, images, ages):
+        x = (self.conv(images) * self.layer_scale).mean(dim=(2, 3))
+        # A fixed input gain makes the toy's bias directions identifiable under
+        # pairlog; otherwise FP32 zero-gradient noise is amplified by Adam eps.
+        gain = 1 + .25 * images[:, 0].mean(dim=(1, 2))
+        return self.classifier(self.norm(self.features(x))).flatten() * gain + (ages * self.age_weight).sum(1)
+
+
+def raw_gc_job(policy=RAW_GC):
+    from retrain.config import default_job
+    value = default_job('raw-gc-fixture', 'convnext_small')
+    value.update(seed=20261029, precision='fp32', image_size=512, prepared_size=512,
+                 age=age_spec(), head_lr_scope='last_linear', loss={
+                     'version':'binary-pairwise-logistic-v1','kind':'binary_pairwise_logistic',
+                     'temperature':1.,'reduction':'mean','dtype':'float32','scope':'global_batch'})
+    if policy is not None:
+        value['gradient_centralization_policy'] = copy.deepcopy(policy)
+    return value
+
+
+def raw_gc_worker(rank, rendezvous, folder):
+    import torch.distributed as dist
+    from torch.nn.parallel import DistributedDataParallel
+    from retrain.classification_loss import classification_loss, gather_pairwise_inputs
+    from retrain.config import job_contract, load_config
+    from retrain.persistence import CheckpointStore, capture_rng, restore_rng
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
+    torch.manual_seed(43)
+    folder = Path(folder) / ('rank-' + str(rank));folder.mkdir()
+    config_path = folder / 'config.json'
+    config_path.write_text(json.dumps({'jobs':[raw_gc_job()]}))
+    job = load_config(config_path, environ={})['jobs'][0]
+    model = RawGCToy();reference = copy.deepcopy(model)
+    optimizer = engine._optimizer(model, job)
+    reference_optimizer = engine._optimizer(reference, raw_gc_job(None))
+    shadow = ema.EMA(model, ema.RULE);reference_shadow = ema.EMA(reference, ema.RULE)
+    dist.init_process_group('gloo', init_method=rendezvous, rank=rank, world_size=2,
+                            timeout=timedelta(seconds=40))
+    try:
+        ddp = DistributedDataParallel(model, broadcast_buffers=False)
+        i = torch.arange(64, dtype=torch.float32)
+        images = torch.stack([torch.sin(i / 9 + j / 3) for j in range(8)],dim=1).reshape(64,2,2,2)
+        ages = torch.stack(((i-31.5)/2, (i.remainder(3)==0).float()),dim=1)
+        labels = torch.cat((torch.zeros(56),torch.ones(8)))
+        target_names = {'conv.weight','features.weight','classifier.weight'}
+        for successful in (1,2):
+            optimizer.zero_grad(set_to_none=True);reference_optimizer.zero_grad(set_to_none=True)
+            interval = slice(rank*32,(rank+1)*32)
+            logits, targets = gather_pairwise_inputs(ddp(images[interval],ages[interval]), labels[interval])
+            classification_loss(logits,targets,job['loss']).backward()
+            z = reference(images,ages)
+            differences = z[labels==0][None,:]-z[labels==1][:,None]
+            torch.logaddexp(torch.zeros_like(differences),differences).mean().backward()
+            # Independent scalar row sums and full norm; no production GC/clip oracle.
+            for name,p in reference.named_parameters():
+                if name in target_names:
+                    rows = p.grad.reshape(p.shape[0],-1)
+                    for row in rows:
+                        mean = sum(float(v) for v in row) / row.numel()
+                        row.sub_(mean)
+            norm = math.sqrt(sum(float(v)**2 for p in reference.parameters() for v in p.grad.flatten()))
+            coefficient = min(1.,1./(norm+1e-6))
+            for p in reference.parameters():p.grad.mul_(coefficient)
+            def any_bad(value):
+                flag=torch.tensor(int(value));dist.all_reduce(flag,op=dist.ReduceOp.MAX)
+                return bool(flag)
+            original_reduce = dist.all_reduce
+            with patch.object(dist,'all_reduce',wraps=original_reduce) as calls:
+                finite,_,_ = engine._clip_gradients(model.parameters(),None,any_bad,
+                    centralization_targets=optimizer._gradient_centralization_targets)
+            if not finite or calls.call_count!=1:
+                raise AssertionError('GC changed the one existing finite-consensus collective')
+            optimizer.step();reference_optimizer.step()
+            shadow.update(model,successful);reference_shadow.update(reference,successful)
+            for name,p in model.named_parameters():
+                q=dict(reference.named_parameters())[name]
+                torch.testing.assert_close(p,q,rtol=2e-5,atol=2e-7,
+                    msg=lambda message:f'{name}: clipped actual={p.grad.tolist()} reference={q.grad.tolist()}\n'+message)
+                for key in ('exp_avg','exp_avg_sq','step'):
+                    torch.testing.assert_close(optimizer.state[p][key],reference_optimizer.state[q][key],rtol=4e-4,atol=2e-8)
+                if int(optimizer.state[p]['step'])!=successful:raise AssertionError('actual Adam step differs')
+            for name,v in shadow.model.state_dict().items():
+                torch.testing.assert_close(v,reference_shadow.model.state_dict()[name],rtol=2e-5,atol=2e-7)
+            if successful==1:
+                identity={'job':job_contract(job)}
+                payload={'format_version':1,'identity':identity,'job':job,'model':model.state_dict(),
+                    'optimizer':optimizer.state_dict(),'ema':shadow.state_dict(),'rng':capture_rng(),
+                    'manifest_digest':'synthetic-only','mode':'train','successful_updates':successful}
+                store=CheckpointStore(folder/'checkpoints');store.save(payload);loaded=store.load()
+                engine._validate_payload(loaded,identity,'synthetic-only',job,'train')
+                if loaded['job']['gradient_centralization_policy']!=RAW_GC:raise AssertionError('saved GC identity lost')
+                del ddp
+                model=RawGCToy();model.load_state_dict(loaded['model'],strict=True)
+                optimizer=engine._optimizer(model,loaded['job']);optimizer.load_state_dict(loaded['optimizer'])
+                shadow=ema.EMA(model,ema.RULE,state=loaded['ema'],successful=loaded['successful_updates'])
+                restore_rng(loaded['rng']);ddp=DistributedDataParallel(model,broadcast_buffers=False)
+        (folder/'passed.json').write_text(json.dumps({'rank':rank,'actual_step':2,'GC_targets':3,'local_positives':int(labels[rank*32:(rank+1)*32].sum())}))
+    finally:
+        dist.destroy_process_group()
+
+
+class RawGradientCentralizationTest(unittest.TestCase):
+    def test_raw_row_formula_exclusions_globalclip_order_and_None_identity(self):
+        from retrain.config import job_contract, load_config
+        from retrain.persistence import capture_rng, canonical_digest
+        import numpy as np
+        model=RawGCToy();optimizer=engine._optimizer(model,raw_gc_job())
+        self.assertTrue(hasattr(optimizer,'_gradient_centralization_targets'),'raw GC target registration is missing')
+        self.assertEqual({n for n,_ in optimizer._gradient_centralization_targets},{'conv.weight','features.weight','classifier.weight'})
+        expected={}
+        for index,(name,p) in enumerate(model.named_parameters()):
+            p.grad=(torch.arange(p.numel(),dtype=torch.float32).reshape(p.shape)+index+1)*.7
+            expected[name]=p.grad.clone()
+            if name in {'conv.weight','features.weight','classifier.weight'}:
+                for row in expected[name].reshape(p.shape[0],-1):row.sub_(sum(float(v) for v in row)/row.numel())
+        norm=math.sqrt(sum(float(v)**2 for g in expected.values() for v in g.flatten()))
+        coefficient=min(1.,1./(norm+1e-6));self.assertLess(coefficient,1.)
+        finite,_,_=engine._clip_gradients(model.parameters(),None,
+            centralization_targets=optimizer._gradient_centralization_targets)
+        self.assertTrue(finite)
+        for name,p in model.named_parameters():torch.testing.assert_close(p.grad,expected[name]*coefficient,rtol=1e-6,atol=1e-7)
+        original=raw_gc_job(None);with_none={**original,'gradient_centralization_policy':None}
+        self.assertEqual(canonical_digest(job_contract(original)),canonical_digest(job_contract(with_none)))
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'config.json';path.write_text(json.dumps({'jobs':[with_none]}))
+            self.assertNotIn('gradient_centralization_policy',load_config(path,environ={})['jobs'][0])
+        legacy=copy.deepcopy(model);baseline=copy.deepcopy(model)
+        for p,q,r in zip(model.parameters(),legacy.parameters(),baseline.parameters()):
+            q.grad=p.grad.clone();r.grad=p.grad.clone()
+        legacy_optimizer=engine._optimizer(legacy,original)
+        self.assertFalse(hasattr(legacy_optimizer,'_gradient_centralization_targets'))
+        before=capture_rng()
+        engine._clip_gradients(legacy.parameters(),None,centralization_targets=None)
+        after=capture_rng();torch.nn.utils.clip_grad_norm_(baseline.parameters(),1.)
+        for p,q in zip(legacy.parameters(),baseline.parameters()):torch.testing.assert_close(p.grad,q.grad,rtol=0,atol=0)
+        self.assertEqual(before['python'],after['python']);self.assertTrue(np.array_equal(before['numpy'][1],after['numpy'][1]))
+        self.assertTrue(torch.equal(before['torch'],after['torch']))
+        self.assertEqual(legacy_optimizer.state_dict()['state'],{})
+
+    def test_two_rank_global_gradient_Adam_and_saved_next_EMA(self):
+        self.assertTrue(hasattr(engine._optimizer(RawGCToy(),raw_gc_job()),'_gradient_centralization_targets'),
+                        'raw GC target registration is missing')
+        with tempfile.TemporaryDirectory(prefix='raw-gc-gloo-') as folder:
+            with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as endpoint:
+                endpoint.bind(('127.0.0.1',0));rendezvous=f'tcp://127.0.0.1:{endpoint.getsockname()[1]}'
+            processes=[];logs=[]
+            try:
+                for rank in range(2):
+                    log=(Path(folder)/f'rank-{rank}.log').open('wb');logs.append(log)
+                    env=dict(os.environ,GLOO_SOCKET_IFNAME='lo',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1')
+                    processes.append(subprocess.Popen([sys.executable,'-B',str(Path(__file__).resolve()),'--raw-gc-worker',str(rank),rendezvous,folder],
+                        env=env,stdout=log,stderr=subprocess.STDOUT))
+                for rank,p in enumerate(processes):
+                    code=p.wait(timeout=75);logs[rank].flush()
+                    self.assertEqual(code,0,(Path(folder)/f'rank-{rank}.log').read_text())
+                for rank in range(2):self.assertEqual(json.loads((Path(folder)/f'rank-{rank}/passed.json').read_text())['actual_step'],2)
+            finally:
+                for p in processes:
+                    if p.poll() is None:p.terminate()
+                for p in processes:p.wait(timeout=5)
+                for log in logs:log.close()
 
 
 def age_spec():
@@ -211,4 +399,7 @@ class RolewiseClipTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    if len(sys.argv)>1 and sys.argv[1]=='--raw-gc-worker':
+        raw_gc_worker(int(sys.argv[2]),sys.argv[3],sys.argv[4])
+    else:
+        unittest.main()

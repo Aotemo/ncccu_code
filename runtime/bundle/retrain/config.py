@@ -11,6 +11,11 @@ import re
 BUNDLE = Path(__file__).resolve().parents[1]
 MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'swin_base')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
+GRADIENT_CENTRALIZATION_RULE = {'version': 'raw-convlinear-weight-gc-v1',
+    'targets': 'Conv2d_and_Linear_direct_weight', 'dtype': 'float32',
+    'axes': 'all_non_output_dimensions',
+    'position': 'after_ddp_mean_mirror_merge_unscale_before_global_clip',
+    'schedule': 'each_real_update'}
 
 
 def _name(value):
@@ -59,6 +64,13 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    if job.get('gradient_centralization_policy') is not None:
+        if (job['gradient_centralization_policy'] != GRADIENT_CENTRALIZATION_RULE
+                or job.get('model') != 'convnext_small' or job.get('precision') != 'fp32'
+                or any(job.get(k) is not None for k in ('gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy',
+                    'tri3_downsample_policy','output_regularization','attention_pool','stage3_residual','freeze_features_before'))):
+            raise ValueError('fixed raw Conv2d/Linear GC configuration differs')
     if job.get('stem_xy_policy') is not None:
         from .models import STEM_XY_RULE
         if (job['stem_xy_policy'] != STEM_XY_RULE or job.get('model')!='convnext_small'
@@ -299,9 +311,9 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy'), 'job')
         job.update(item)
-        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy'):
+        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy'):
             if job.get(key) is None:
                 job.pop(key, None)
         cfg['jobs'].append(job)
@@ -401,7 +413,7 @@ def validate_split(split):
 
 def job_contract(job):
     result = copy.deepcopy(job)
-    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy'):
+    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy'):
         if result.get(key) is None:
             result.pop(key, None)
     for key in ('device', 'workers', 'eval_workers', 'prefetch_factor', 'checkpoint_seconds',

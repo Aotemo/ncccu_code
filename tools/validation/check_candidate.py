@@ -97,6 +97,7 @@ def main(args):
     is_tri3 = job.get('tri3_downsample_policy') is not None
     is_mixstyle = job.get('mixstyle_policy') is not None
     is_stem_xy = job.get('stem_xy_policy') is not None
+    is_raw_gc = job.get('gradient_centralization_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -249,6 +250,16 @@ def main(args):
             {'name': names[id(parameter)], 'shape': list(parameter.shape), 'numel': parameter.numel()}
             for parameter in group['params']]} for group in optimizer.param_groups]
     members = [parameter for group in optimizer.param_groups for parameter in group['params']]
+    if is_raw_gc:
+        targets=optimizer._gradient_centralization_targets
+        check('R136_actual_Conv2d_Linear_rawGC_targets_and_original_Adam',
+              job['gradient_centralization_policy']==ex.candidate()['gradient_centralization_policy']
+              and [{'name':name,'shape':list(parameter.shape),'axes':list(range(1,parameter.ndim))}
+                   for name,parameter in targets] ==
+                  [{k:r[k] for k in ('name','shape','axes')} for r in structure['gradient_centralization']['targets']]
+              and len(targets)==113 and {id(p) for _,p in targets} <= {id(p) for p in members}
+              and not optimizer.state,
+              structure['gradient_centralization'])
     expected_roles = ('backbone', 'head', 'age') if job['age']['enabled'] else ('backbone', 'head')
     roles = {role: sum(row['numel'] for group in groups if group['role'] == role for row in group['parameters'])
              for role in expected_roles}
@@ -336,6 +347,7 @@ def main(args):
     tri3_ema_structure = ex.describe_model(ema.model) if is_tri3 else None
     mixstyle_ema_structure = ex.describe_model(ema.model) if is_mixstyle else None
     stem_xy_ema_structure = ex.describe_model(ema.model) if is_stem_xy else None
+    raw_gc_ema_structure = ex.describe_model(ema.model) if is_raw_gc else None
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
                                    if name not in ('attention_pool_weight', 'stage3_residual_weight')
                                    and not (is_low_rank and name.endswith(('.lora_A', '.lora_B')))}) if (is_content_pool or is_stage3_residual or is_low_rank) else model_digest
@@ -343,6 +355,7 @@ def main(args):
           and (not is_tri3 or tri3_ema_structure == structure)
           and (not is_mixstyle or mixstyle_ema_structure == structure)
           and (not is_stem_xy or stem_xy_ema_structure == structure)
+          and (not is_raw_gc or raw_gc_ema_structure == structure)
           and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
                if (is_content_pool or is_stage3_residual) else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
           and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
@@ -425,6 +438,7 @@ def main(args):
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
           and reload_job == job and reloaded is not model
           and (not is_stem_xy or ex.describe_model(reloaded)==structure)
+          and (not is_raw_gc or ex.describe_model(reloaded)==structure)
           and (not is_tri3 or (reload_origin.get('tri3_downsample') == structure['tri3_downsample']
                               and ex.describe_model(reloaded) == structure))
           and (not is_mixstyle or (reload_origin.get('mixstyle') == structure['mixstyle']
