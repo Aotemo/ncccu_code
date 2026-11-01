@@ -15,9 +15,121 @@ sys.path.insert(0, str(ROOT / 'runtime/bundle'))
 from retrain import experiment91 as experiment
 
 CONVNEXT22 = json.loads((ROOT / "configs/R114-SCIENCE.json").read_text())["candidate"]
+STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y'],
+           'canvas_size':512,'coordinates':'2*k/(size-1)-1',
+           'position':'after_augmentation_and_normalization','xy_initialization':'zeros'}
 
 
 class CandidateBindingTest(unittest.TestCase):
+    @staticmethod
+    def stem_xy_fixture():
+        import torch
+        from retrain.config import default_job
+        frames=[]
+        class Network(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.features=torch.nn.Sequential(torch.nn.Sequential(torch.nn.Conv2d(3,96,4,stride=4)))
+                self.avgpool=torch.nn.AdaptiveAvgPool2d(1)
+                self.classifier=torch.nn.Sequential(torch.nn.Flatten(),torch.nn.Linear(96,1000))
+            def forward(self,images):
+                self.observed_images=images
+                return self.classifier(self.features(images)[:,:,:1,:1])
+        def native(**_kwargs):
+            network=Network();stem=network.features[0][0]
+            frames.append((id(stem.weight),stem.weight.detach().clone(),stem.bias.detach().clone()))
+            return network
+        job=default_job('rgbxy-small-fixture','convnext_small','random')
+        job.update(image_size=512,prepared_size=512,precision='fp32',dropout=0.,age=None,seed=20261029)
+        return job,native,frames
+
+    def test_R135_zero_extension_coordinates_gradient_and_None_rng(self):
+        import torch
+        import numpy as np
+        from retrain import models
+        from retrain.persistence import capture_rng,restore_rng
+        from retrain.engine import _optimizer
+        job,native,frames=self.stem_xy_fixture()
+        before=capture_rng()
+        with patch('torchvision.models.convnext_small',side_effect=native):
+            plain=models.create_model(job,initialize=False);plain_rng=capture_rng()
+            restore_rng(before);old_None=models.create_model({**job,'stem_xy_policy':None},initialize=False)
+            none_rng=capture_rng();restore_rng(before)
+            model=models.create_model({**job,'stem_xy_policy':STEM_XY},initialize=False)
+        stem=model.network.features[0][0]
+        self.assertEqual(tuple(stem.weight.shape),(96,5,4,4))
+        self.assertEqual(id(stem.weight),frames[-1][0])
+        torch.testing.assert_close(stem.weight[:,:3],frames[-1][1],rtol=0,atol=0)
+        torch.testing.assert_close(stem.bias,frames[-1][2],rtol=0,atol=0)
+        self.assertEqual(torch.count_nonzero(stem.weight[:,3:]).item(),0)
+        self.assertEqual(dict(model.named_buffers()),{})
+        self.assertEqual(set(model.state_dict()),set(plain.state_dict()))
+        for name,value in plain.state_dict().items():
+            torch.testing.assert_close(old_None.state_dict()[name],value,rtol=0,atol=0)
+            if name!='network.features.0.0.weight':
+                torch.testing.assert_close(model.state_dict()[name],value,rtol=0,atol=0)
+        for state in (none_rng,capture_rng()):
+            self.assertEqual(state['python'],plain_rng['python'])
+            np.testing.assert_equal(state['numpy'],plain_rng['numpy'])
+            torch.testing.assert_close(state['torch'],plain_rng['torch'],rtol=0,atol=0)
+        with torch.no_grad():
+            model.network.classifier[-1].weight.fill_(1);model.network.classifier[-1].bias.zero_();stem.bias.zero_()
+        image=torch.zeros(1,3,512,512,requires_grad=True);model.train();model(image).sum().backward()
+        actual=model.network.observed_images
+        self.assertEqual(tuple(actual.shape),(1,5,512,512))
+        self.assertEqual((actual[0,3,0,0].item(),actual[0,3,0,-1].item(),
+                          actual[0,4,0,0].item(),actual[0,4,-1,0].item()),(-1.,1.,-1.,1.))
+        torch.testing.assert_close(actual[0,3,:,256],torch.full((512,),1/511),rtol=0,atol=1e-7)
+        oracle=torch.tensor([-1.,-509/511,-507/511,-505/511])
+        torch.testing.assert_close(stem.weight.grad[:,3],oracle.reshape(1,1,4).expand(96,4,4),rtol=0,atol=1e-7)
+        torch.testing.assert_close(stem.weight.grad[:,4],oracle.reshape(1,4,1).expand(96,4,4),rtol=0,atol=1e-7)
+        model.eval();model(image.detach())
+        torch.testing.assert_close(model.network.observed_images,actual.detach(),rtol=0,atol=0)
+        optimizer=_optimizer(model,job)
+        membership=[g for g in optimizer.param_groups if any(p is stem.weight for p in g['params'])]
+        self.assertEqual(len(membership),1);self.assertEqual(membership[0]['role'],'backbone')
+        self.assertEqual(membership[0]['weight_decay'],job['weight_decay']);self.assertFalse(optimizer.state)
+
+    def test_R135_science_identity_and_default_factory_strict_roundtrip(self):
+        import torch
+        from retrain import models,config
+        from retrain.persistence import CheckpointStore,canonical_digest
+        from retrain.inference import _load_model
+        new=json.loads((ROOT/'configs/R135-SCIENCE.json').read_text())
+        self.configuration.write_text(json.dumps(new));self.site['science'].update(binding_version=new['candidate_profile'],candidate=new['candidate'])
+        self.site['science']['configuration']['sha256']=hashlib.sha256(self.configuration.read_bytes()).hexdigest()
+        self.path.write_text(json.dumps(self.site))
+        try:actual=experiment.science_configuration();candidate=experiment.candidate_from_configuration(actual)
+        except ValueError as exc:self.fail('R135 binding unavailable: '+str(exc))
+        self.assertEqual(candidate,new['candidate']);self.assertEqual(candidate['experiment_order'],47)
+        self.assertEqual(new['job']['stem_xy_policy'],STEM_XY);self.assertEqual(candidate['stem_xy_policy'],STEM_XY)
+        self.assertEqual(new['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+        old=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text());left,right=copy.deepcopy(old),copy.deepcopy(new)
+        for value in (left,right):
+            for key in ('candidate_profile','initial_model_tensor_sha256','comparison_note','official_evaluation'):value.pop(key,None)
+            for key in ('id','experiment_order','stem_xy_policy'):value['candidate'].pop(key,None)
+            value['job'].pop('stem_xy_policy',None)
+        self.assertEqual(left,right)
+        job,native,_=self.stem_xy_fixture();original=config.job_contract(job)
+        self.assertEqual(config.job_contract({**job,'stem_xy_policy':None}),original)
+        path=self.configuration.parent/'runtime.json';path.write_text(json.dumps({'jobs':[{**job,'stem_xy_policy':STEM_XY}]}))
+        job=config.load_config(path,environ={})['jobs'][0]
+        self.assertEqual(config.job_contract(job)['stem_xy_policy'],STEM_XY)
+        with patch('torchvision.models.convnext_small',side_effect=native):
+            model=models.create_model(job,initialize=False).eval()
+            with torch.no_grad():model.network.features[0][0].weight[:,3:].fill_(.125)
+            payload={'format_version':1,'mode':'train','job':job,'model':model.state_dict(),'age':None,
+                     'identity':{'job':config.job_contract(job)},'manifest_digest':'synthetic-only','successful_updates':0}
+            checkpoint=CheckpointStore(self.configuration.parent/'checkpoints').save(payload)
+            rebuilt,reloaded,_,_,_=_load_model(checkpoint,device='cpu',variant='online')
+            self.assertEqual(reloaded['stem_xy_policy'],STEM_XY)
+            self.assertEqual(rebuilt.stem_xy_policy,STEM_XY)
+            self.assertEqual(tuple(rebuilt.network.features[0][0].weight.shape),(96,5,4,4))
+            for name,value in model.state_dict().items():torch.testing.assert_close(rebuilt.state_dict()[name],value,rtol=0,atol=0)
+            image=torch.zeros(1,3,512,512)
+            torch.testing.assert_close(rebuilt(image),model(image),rtol=0,atol=0)
+            self.assertEqual(dict(rebuilt.named_buffers()),{})
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.temp.cleanup)

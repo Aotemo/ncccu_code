@@ -35,6 +35,7 @@ LOGIT_SQUARE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earl
 TRI3_DOWNSAMPLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-tri3downsample-v1'
 MIXSTYLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-v1'
 MIXSTYLE_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-r1-v1'
+STEM_XY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stem-rgbxy-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -51,7 +52,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
                       POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                       TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                      MIXSTYLE_SMALL_R1_BINDING)
+                      MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -98,6 +99,8 @@ def science_configuration():
             from .tri3_downsample import TRI3_RULE
         if value.get('candidate_profile') in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING):
             from .mixstyle import MIXSTYLE_RULE
+        if value.get('candidate_profile') == STEM_XY_SMALL_BINDING:
+            from .models import STEM_XY_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -117,9 +120,21 @@ def science_configuration():
                                                        LOGIT_SQUARE_SMALL_BINDING,
                                                        TRI3_DOWNSAMPLE_SMALL_BINDING,
                                                        MIXSTYLE_SMALL_BINDING,
-                                                       MIXSTYLE_SMALL_R1_BINDING)
+                                                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
+                or (value.get('candidate_profile') != STEM_XY_SMALL_BINDING
+                    and (value.get('job',{}).get('stem_xy_policy') is not None
+                         or value.get('candidate',{}).get('stem_xy_policy') is not None))
+                or (value.get('candidate_profile') == STEM_XY_SMALL_BINDING
+                    and (value.get('job',{}).get('stem_xy_policy') != STEM_XY_RULE
+                         or value.get('candidate',{}).get('stem_xy_policy') != value.get('job',{}).get('stem_xy_policy')
+                         or value.get('job',{}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or any(value.get('job',{}).get(k) is not None for k in
+                             ('mixstyle_policy','tri3_downsample_policy','output_regularization','low_rank_policy','layerwise_lr_policy',
+                              'attention_pool','stage3_residual','freeze_features_before','head_warmup_policy','gradient_clip_policy',
+                              'training_views','training_rotation','training_photometric','head_seed','bn_statistics'))
+                         or 'final_downsample_stride' in value.get('job',{})))
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
                     and value.get('age_enabled', True) is not True)
                 or (value.get('candidate_profile') == NO_AGE_SMALL_BINDING
@@ -273,7 +288,7 @@ def candidate_from_configuration(value):
                                         LAYERWISE_LR_SMALL_R1_BINDING,
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                                        MIXSTYLE_SMALL_R1_BINDING):
+                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -354,6 +369,10 @@ def candidate_from_configuration(value):
             from .mixstyle import MIXSTYLE_RULE
             expected.update(id='r134r1-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-mixstyle13-local8-9010',
                             experiment_order=46, mixstyle_policy=MIXSTYLE_RULE)
+        if value['candidate_profile'] == STEM_XY_SMALL_BINDING:
+            from .models import STEM_XY_RULE
+            expected.update(id='r135-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stem-rgbxy-9010',
+                            experiment_order=47,stem_xy_policy=STEM_XY_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -573,6 +592,7 @@ def validate_job(job):
         'tri3_downsample_policy': candidate().get('tri3_downsample_policy'),
         # Only the exact registered candidate carries the fixed MixStyle policy.
         'mixstyle_policy': candidate().get('mixstyle_policy'),
+        'stem_xy_policy': candidate().get('stem_xy_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -675,6 +695,14 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['job'].get('stem_xy_policy') is not None:
+        stem=network.features[0][0]
+        if not isinstance(stem,nn.Conv2d):raise ValueError('native RGBXY stem convolution missing')
+        result['stem_xy']={'policy':getattr(model,'stem_xy_policy',None),'name':'network.features.0.0',
+            'weight_shape':list(stem.weight.shape),'bias_shape':list(stem.bias.shape),
+            'in_channels':stem.in_channels,'out_channels':stem.out_channels,
+            'kernel_size':list(stem.kernel_size),'stride':list(stem.stride),'padding':list(stem.padding),
+            'dilation':list(stem.dilation),'groups':stem.groups,'coordinate_generation':'stateless'}
     if science_configuration()['job'].get('mixstyle_policy') is not None:
         from .mixstyle import describe_mixstyle
         result['mixstyle'] = describe_mixstyle(model, {**science_configuration()['job'],
@@ -764,6 +792,15 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if configured.get('stem_xy_policy') is not None:
+        from .models import STEM_XY_RULE
+        expected={'policy':STEM_XY_RULE,'name':'network.features.0.0','weight_shape':[96,5,4,4],
+            'bias_shape':[96],'in_channels':5,'out_channels':96,'kernel_size':[4,4],'stride':[4,4],
+            'padding':[0,0],'dilation':[1,1],'groups':1,'coordinate_generation':'stateless'}
+        if (science_configuration()['candidate_profile']!=STEM_XY_SMALL_BINDING
+                or configured['stem_xy_policy']!=STEM_XY_RULE or value.get('stem_xy')!=expected):
+            raise ValueError('actual RGBXY stem or coordinate semantics differ')
+    elif value.get('stem_xy') is not None:raise ValueError('unregistered RGBXY stem')
     if configured.get('mixstyle_policy') != candidate().get('mixstyle_policy'):
         raise ValueError('MixStyle job has no matching candidate policy')
     if configured.get('mixstyle_policy') is not None:

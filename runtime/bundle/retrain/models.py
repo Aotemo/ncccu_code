@@ -4,6 +4,9 @@ import json
 from pathlib import Path
 import re
 
+STEM_XY_RULE = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y'],
+                'canvas_size':512,'coordinates':'2*k/(size-1)-1',
+                'position':'after_augmentation_and_normalization','xy_initialization':'zeros'}
 
 IMAGENET_RESNET = {
     'model': 'resnet50',
@@ -461,6 +464,12 @@ def create_model(job, initialize=True):
             super().__init__()
             self.network = network
         def forward(self, images, age_features=None, *, mixstyle_context=None):
+            if getattr(self, 'stem_xy_policy', None) is not None:
+                if images.ndim != 4 or images.shape[1:] != (3,512,512) or images.dtype != torch.float32:
+                    raise ValueError('RGBXY requires the final FP32 RGB 512 canvas')
+                coordinate=2*torch.arange(512,device=images.device,dtype=torch.float32)/511-1
+                images=torch.cat((images,coordinate.view(1,1,1,512).expand(images.shape[0],1,512,512),
+                                  coordinate.view(1,1,512,1).expand(images.shape[0],1,512,512)),dim=1)
             if self.training and getattr(self, 'mixstyle_policy', None) is not None:
                 from .mixstyle import training_image_logits
                 logits = training_image_logits(self, images, mixstyle_context)
@@ -480,6 +489,23 @@ def create_model(job, initialize=True):
     if job.get('age') is not None:
         from .age import attach_age
         attach_age(result, job['age'])
+    if job.get('stem_xy_policy') is not None:
+        stem=model.features[0][0]
+        if (job['model']!='convnext_small' or job['stem_xy_policy']!=STEM_XY_RULE
+                or not isinstance(stem,nn.Conv2d)
+                or (stem.in_channels,stem.out_channels,stem.kernel_size,stem.stride,stem.padding,stem.dilation,stem.groups)
+                    != (3,96,(4,4),(4,4),(0,0),(1,1),1)):
+            raise ValueError('RGBXY supports only the existing native Small RGB stem')
+        from .ema import tensor_digest
+        rgb_before=tensor_digest({'rgb':stem.weight});bias_before=tensor_digest({'bias':stem.bias})
+        with torch.no_grad():
+            stem.weight.data=torch.cat((stem.weight.detach(),stem.weight.new_zeros(96,2,4,4)),dim=1)
+        stem.in_channels=5
+        result.stem_xy_policy={**STEM_XY_RULE,'channels':list(STEM_XY_RULE['channels'])}
+        if public_receipt is not None:
+            public_receipt['stem_xy_initialization']={'rgb_before':rgb_before,
+                'rgb_after':tensor_digest({'rgb':stem.weight[:,:3]}),'bias_before':bias_before,
+                'bias_after':tensor_digest({'bias':stem.bias}),'added_zero_elements':int(stem.weight[:,3:].numel())}
     if job.get('mixstyle_policy') is not None:
         from .mixstyle import attach_mixstyle
         attach_mixstyle(result, job)

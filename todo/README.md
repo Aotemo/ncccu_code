@@ -1,6 +1,6 @@
 # 当前任务与接续
 
-**当前：R134R1训练已结束；独立fit诊断已工程失败并安全收口，暂无活跃训练或GPU诊断。** 用户确认的四个既有文件方案以`a5a356f`唯一执行；八rank报LLVM文件输出过大，fit指标与完成数量均unknown/null，未重试或热改，详见[结果与安全回执](../records/R134R1/README.md)。原训练门1true/门2false/no27及官方政策不变；fitunknown不判科学阴性，也不作永久训练门，下一科学问题待规划。[结构确认规则](../AGENTS.md)继续适用，原五件及未知analysis目录保持untracked、不接入；下文均为历史阶段，不据旧header派任务。
+**当前：用户已明确开启R135/order47，唯一A正在同步代码与准备正常formal，GPU训练尚未启动。** [R135固定RGBXY首层合同](auroc-999/R135-DECISION.md)仅改获准五个既有文件及配置/决定页；两个窄目标GREEN 2/2，公开fresh新whole实测`75482be7…`，最终SCI已pin。新CPU绑定`74bd5221…`实际A12/0–11，训练仍须新独立准入/clock/grant；不复用过期217或旧one-shot。R134R1训练门1true/门2false/no27、独立fit诊断工程unknown及成本保留，详见[原结果](../records/R134R1/README.md)，不重试诊断或视作新训练前置。[结构确认规则](../AGENTS.md)继续适用，原未获准五件及未知analysis保持untracked、不接入。下文均为历史阶段，不据旧header派任务。
 
 **用户授权的受控清理已完成372个明确冗余文件，当前继续原full-fit census工程准备。** 两批实际删320历史checkpoint/initial、49 formalCPUfixture、3运输包，保护stat/小SHA全部一致，无旧锁/index/clock/token/grant/one-shot或49c8包修改；最终sharedFS free22,961,717,248→249,898,729,472B，实测差226,937,012,224B，allocated/logical另列。[存储实证](../records/storage/20261101-cleanup/README.md)与94项保护/unknown剩余分类保留。R134R1完整终态已先实际同步4968edc，selected EMA3200及strict加载/冻结/manifest/age/source/cache依赖、中断R130全部、R120/KEEP等继续保护。清理与未完成census三文件和未知analysis目录隔离；诊断生产尚未实现/GPU未启动，旧R1不再做light/completion。以下清理正在插入与running文字为历史阶段。
 
