@@ -1,0 +1,46 @@
+{
+  "status": "checked_Git_source_and_fixed_R149_R150_technical_package_ready",
+  "at": 1793566953.6093953,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "runtime/bundle/retrain/data.py": "78d702bbe6fc83a3ae12b0d77773b1939565ec1d5fd6cfed5b3aa505bb146114",
+    "runtime/bundle/retrain/preprocessing.py": "d058e8912768be2f97b2c4bfedeb79b53315a1b43b48bb67d84fe1488bcdefc1",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/experiment91.py": "1d61b6ca632a25e996a216bfc2319c4a38d3ae0ccc3fc77b9723807031824e9c",
+    "tools/validation/check_candidate.py": "1ba265a608eb838db197009f33953d293120ed1933da37204b2474b5ce5f5b7d",
+    "tests/test_photometric_policy.py": "5137e4c32ff0d23c9bcf2e73de14281e98104a80ba1657106e5894e53d92af19",
+    "tests/test_candidate_binding.py": "e414a42d09f6ddcecb34176b9a7c496198b1e7a48ef19cbfd906a5e5f0556b96"
+  },
+  "science_sha256": {
+    "R149-SCIENCE.json": "9ceb28ca0e1a5fb46228622fa8efaff1ddf6d33d37658109592d07ddcbe0259d",
+    "R150-SCIENCE.json": "4ef1433632b1728cfc4b23a610def0f9c648418d0d415ce85d5289f5bbc1dfdb"
+  },
+  "branches": [
+    {
+      "science": "R149",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r149-20261101-32e3/technical-package/package",
+      "site_sha256": "8bff1064dad27624b457c3c4b0aa46a9e7cc75c6f2040211de33d4424b9d5a54",
+      "seconds": 5.922077894210815,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    },
+    {
+      "science": "R150",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r150-20261101-32e3/technical-package/package",
+      "site_sha256": "cd0865348f289ab8a65692d245d7a1db104b7deb10262ba222055bdd0a577971",
+      "seconds": 5.859392881393433,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-NATIVE6-NEXT.py": "105c71c0d907075003555f36d0972259a78226644811355a65725946e94ae308",
+    "OBSERVE-START-NEXT.py": "ec2bcaefed6edc0959f1d82ecb59bab0ba0ed7e59fec597494b2a234ab86c782",
+    "RUN-NATIVE6-NEXT.sh": "faa127c632d17efcbea3f065f86cab10c94ab1fc0268430979628217856c0023"
+  },
+  "new_GPU_started": false
+}

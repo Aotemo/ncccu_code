@@ -1,5 +1,7 @@
 # R149 条件复验与 R150 固定六通道准备
 
+21:02:33.609395 UTC实际GitHub commit/tree与3目标/8源compile的源码、两SCI逐SHA相符；薄Python编译、shell语法及两技术包均实建通过。冻结准备Git `e6d29ac22e7647465c042da4db45b5b16dfe8c6f`、tree `cf8ab9857a36a5ac9eabf9f6d5788ea767bab0d9`，R149技术SITE8bff1064（5.922秒）、R150技术SITEcd086534（5.859秒），[完整技术回执](NEXT-READY.json)/[CPU](CPU-TECHNICAL.json)保存全SHA。尚无下一formal/grant/clock/activation/GPU；GPU仍只有冻结d546的R148。
+
 必要三项目标已覆盖通过、8源compile。原始RED 3FAIL/0ERROR；GREEN先实际通过像素/consumer和factory两项，身份目标因测试直接索引被省略的None可选字段而KeyError，原suite/guard exit1保留。仅将该断言改为get后，只重跑身份1/1（2.979秒）；Pod逐SHA确认六个runtime及像素测试字节未变，并比较候选测试模块除失败方法外的完整AST相同，复用先前两项PASS。不是同次3/3 GREEN。见[完整pins](CPU-CHECKS.json) SHA `b094fab900a6c51546c4724a61ac673899eeca1643019b0fa30ef276d60201d9`、各RED/partial/identity与CPU原件。
 
 像素目标实际核global/native各原8draw使用同seed、两组各8次局部调用且状态相同，合计16次调用对应同8个值，Python/NumPy/Torch全局RNG不推进；全局3片与旧legacy像素相同、ROI3片匹配既定Native准备。单个6通道张量经真实串行dev、并行dev、unlabeled consumer及合成valid/raw边界通过，未读实际官方。factory目标实际核原RGB/其余345参数、初始化后RNG与None factory相同、新增4608元素零、有限且非零的局部stem梯度、原5组空Adam后一次可学习更新及strict默认factory重建；合成32输入不替代后续512正式链/GPU首成功。

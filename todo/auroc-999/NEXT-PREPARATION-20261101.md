@@ -2,7 +2,7 @@
 
 ## R148期间的必要条件准备
 
-R149/R150必要CPU已完成，[原始证据](../../records/preparation/native6-20261101/README.md)：原2项PASS后仅修复身份测试的可选None索引，身份单项重跑PASS、8源compile；六runtime与未变测试作用域已在Pod确认，原partial exit1保留。R150真实public fresh whole已测ea92356b，共享RGB/其他345仍50c，新增4608零/5组空Adam，最终SCI4ef14336；派生cache回执f246绑定原98b5完整覆盖/相同index及不变cache核心，本次新写图像0。当前正同步与技术打包，无新formal/grant/clock/GPU。20:53:10.193333 UTC R148 running4800success=attempt/0skip/eval5/bad1、dev暂best`.9860612577378924`，仍无完整selector；下方“未实现/未验证”等为历史准备阶段。
+R149/R150必要CPU已完成，[原始证据](../../records/preparation/native6-20261101/README.md)：原2项PASS后仅修复身份测试的可选None索引，身份单项重跑PASS、8源compile；六runtime与未变测试作用域已在Pod确认，原partial exit1保留。R150真实public fresh whole已测ea92356b，共享RGB/其他345仍50c，新增4608零/5组空Adam，最终SCI4ef14336；派生cache回执f246绑定原98b5完整覆盖/相同index及不变cache核心，本次新写图像0。已同步e6d29ac2并实建两技术包，无新formal/grant/clock/GPU。20:53:10.193333 UTC R148 running4800success=attempt/0skip/eval5/bad1、dev暂best`.9860612577378924`，仍无完整selector；下方“未实现/未验证”等为历史准备阶段。
 
 后续固定准备：R149/order61仅R148完整双门通过后的nostoch seed27，仍public fresh、预期91507，不加载旧R108权重。独立R150/order62直接R107/public fe6b/seed29：全局prepared RGB512与既定Native半短边ROI prepared RGB512分别沿现有增强/画布/归一化后，固定按global RGB、native RGB组成6通道，一个原Small编码器、一次forward。公开3RGB完整公头strict及原binary/age初始化之后，仅原stem输入由3扩6，前3权重与bias保持，新增3片零，不额外消耗模型初始化RNG；增加4608个backbone元素，参数张量仍345/原5组。全局与ROI用同一augmentation_seed，各执行既有8draw变换：实际16次局部随机调用，对应同8个随机量，不称合计只调用8次，采样器及全局RNG不因此推进。输入变为两组RGB的整体方法，不是原inset256尺寸/位置或定位扫描，不做双编码器或分数融合；不宣称原失败已证明细节瓶颈或本法会达.999。只此6通道/零初始化一次，不扫通道顺序、局部分辨率、倍率、定位或seed。
 
