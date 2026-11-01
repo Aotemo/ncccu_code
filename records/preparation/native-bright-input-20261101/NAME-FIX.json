@@ -1,0 +1,23 @@
+{
+  "cause": "generated_run_name_exceeds_128_characters",
+  "names": [
+    {
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r144-20261101-32e3/technical-package/package",
+      "name": "r144-small22k-seed20261029-scale085-pairlog-native-brightcenter-half-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32",
+      "length": 129,
+      "valid": false,
+      "legal_characters": true,
+      "science_sha256": "f6173696a103dec9c3de15cab1832e90ce0b5c5da14b07400594f1d96b2712b5"
+    },
+    {
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r144-20261101-32e3/technical-package-v2/package",
+      "name": "r144-small22k-seed20261029-scale085-pairlog-nativebright-half-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32",
+      "length": 122,
+      "valid": true,
+      "legal_characters": true,
+      "science_sha256": "f6173696a103dec9c3de15cab1832e90ce0b5c5da14b07400594f1d96b2712b5"
+    }
+  ],
+  "science_unchanged": true,
+  "new_formal_activation_or_GPU": false
+}

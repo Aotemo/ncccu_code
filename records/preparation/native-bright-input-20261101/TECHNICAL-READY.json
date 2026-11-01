@@ -1,0 +1,35 @@
+{
+  "status": "checked_Git_source_and_R144_technical_package_ready",
+  "at": 1793555977.1377947,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "23099434573b23a6113eb419b267db2fd13fe4dcb680651be0435fee1afec852",
+    "runtime/bundle/retrain/data.py": "c191add5458e41f2bbaccf4d13b1f100e60a37901688516f1170f02ab356ba9a",
+    "runtime/bundle/retrain/preprocessing.py": "40ac0b6d4dbc26a0eef12cf3d3287963ff2ad3cfa53c54aea4ae48256a84a02b",
+    "runtime/bundle/retrain/experiment91.py": "3c3f32538ca6febacca9262455cf2b30468012bf1314d54b8bff0791af560775",
+    "tools/activation/prepare.py": "856035c47de9c18e5f5d0015af2e03810a812b5d35438bfdbc4c54d3c1ffee73",
+    "tools/activation/prepare_gpu_site.py": "a0578ec219a2e8453f8de65262532932710990dcccfa4f82c75e426a0394c7dd",
+    "tests/test_photometric_policy.py": "97feb1929509b7216573b86a8f2bf3a482a0a5e8060dea04fd7d99bcfd12627f",
+    "tests/test_candidate_binding.py": "5b1e1c066e7b4a30113ccdc994a552e094dc8da6595efb3b73a185f49dbc249c"
+  },
+  "science_sha256": {
+    "R144-SCIENCE.json": "f6173696a103dec9c3de15cab1832e90ce0b5c5da14b07400594f1d96b2712b5"
+  },
+  "branches": [
+    {
+      "science": "R144",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r144-20261101-32e3/technical-package-v2/package",
+      "site_sha256": "4ab9a8d09bd206a6b5f75191c30d347d398d529ba0a73860be1302862e5c92ad",
+      "seconds": 6.042123317718506,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-NATIVE-NEXT-V2.py": "dee8a25bab945f03967868f33ae3e1e4b8d8e76709860abfe9328673a1720519",
+    "OBSERVE-START-NEXT.py": "4ec215b829009932ec227f1ceec76a3c01d0063401f1b2b998931d2802eb1b13",
+    "RUN-NATIVE-NEXT-V2.sh": "a35f974dd452d41e3972db7ddb2c3c3fcab1392a0035f23e8330e1e5be38a98f"
+  },
+  "new_GPU_started": false
+}
