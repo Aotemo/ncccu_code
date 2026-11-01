@@ -1,6 +1,8 @@
 # R135：首层固定 RGB+X+Y
 
-用户已明确“开启训练”，授权reference `4df7d17c-b82a-4542-a774-f0513685fe98`。order47已查无占用，A为唯一Git/Pod/GPU owner；两个必要窄目标实际RED 2FAIL/0ERROR后GREEN 2/2（7.735秒），五个受改Python已编译；公开fresh初态已实测，正在Git同步与唯一正常formal准备，尚未启动GPU。fit诊断工程unknown不作本轮根因或前置门，不修复或重跑该诊断；旧五件及未知analysis保持隔离。
+用户已明确“开启训练”，授权reference `4df7d17c-b82a-4542-a774-f0513685fe98`。R135/order47已实际开启训练：2026-11-01北京时间16:14:58.385977实查running200success=attempt/0skip/eval0，首自然记录update25 finite/WORLD8/64P8/448pairs。A为唯一Git/Pod/GPU owner；冻结runGit `dbbe65531d511b91c89f63cd8a4cbba2e68e7303`，源码tree `218462c423c12a9f9ec03f3110bf2e1c26a7c213`，归档提交另列。fit诊断工程unknown不作本轮根因或前置门，不修复或重跑该诊断；旧五件及未知analysis保持隔离。
+
+两个必要窄目标实际RED 2FAIL/0ERROR后GREEN 2/2（7.735秒），五个受改Python已编译；唯一正常formal 20/20（86.866秒）通过，精确Git blob/mode部署已核。13项新入口absence后，唯一activation exit0/CPU guard0与live launch exit0；SITE SHA `9fcebc3395f33ddffb554ba9918034735c1b120ed236802131d3ae3d4f30340b`。真实八rank初态completed，345全训/实际5组/初始Adam0、新whole与stem `[96,5,4,4]`及无state的坐标descriptor均匹配formal。owner382423/start354807447及8rank382435–382442 argv/start/mask与8PCI匹配，control112–119/ranks24–111；首记录25的loss/global_loss均`.6514426469802856`。未独立观察update1或逐rank Adam step；暂无完整selector/dev/official，后续仅沿原controller运行。[启动与CPU实证](../../records/R135/README.md)保留16:13 waiting-start-barrier历史原件来源，不把它当当前进度。
 
 配置为`configs/R135-SCIENCE.json`；profile `single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stem-rgbxy-v1`，candidate `r135-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stem-rgbxy-9010`，round `r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101`，独立prep `technical-prep/r135-20261101-7c17`。
 
@@ -10,7 +12,7 @@
 
 保留固定9:1/名单seed20261024、512单视图scale[.85,1]、原旋转光度、G64/P8、FP32/noTF32、pairlog六字段、原AdamW/LR/WD/一次clip/SD/dropout/age/EMA及1600warmup，最多24000成功步、每800双variant dev、连续4轮无提升早停、唯一selector。Tri3、MixStyle、logit-square、LoRA、layerwise、旧checkpoint等不继承；public fresh/step0/空Adam。
 
-仅原位修改models/config/experiment91、check_candidate、test_candidate_binding五个既有文件，加本配置与决定页；不改训练/launch/保存/EMA/DDP/推理/监控链，不新增执行器或GPU预演。两个受影响既有测试目标先真实RED后GREEN，验证坐标与解析梯度、零扩展/名称/对象/RNG/None身份和默认factory保存strict重建。独立测得公开fresh初态whole后pin最终SCI；实际Git push/readback、精确部署、正常formal positive链仅一次，正式链承接public strict/RGB和其余参数/初态空Adam/实际组/真实结构与默认factory strict重建。真实八rank初态与自然首记录update接管GPU证据，不补step1或另forward。
+仅原位修改models/config/experiment91、check_candidate、test_candidate_binding五个既有文件，加本配置与决定页；不改训练/launch/保存/EMA/DDP/推理/监控链，不新增执行器或GPU预演。两个受影响既有测试目标先真实RED后GREEN，验证坐标与解析梯度、零扩展/名称/对象/RNG/None身份和默认factory保存strict重建。独立测得公开fresh初态whole后pin最终SCI；实际Git push/readback、精确部署、正常formal positive链仅一次，正式链已承接public strict/RGB和其余参数/初态空Adam/实际组/真实结构与默认factory strict重建。真实八rank初态与自然首记录update接管GPU证据，不补step1或另forward。当前只读观测入口为repo外`work/r135-20261101-a/pod-context.env`，绑定本轮SITE和真实`START-OBSERVATION-2.json`，复用既有通用small-check/observer；旧completion仅历史，不另建监控或timer。
 
 新软件CPU绑定SHA `74bd5221ade55e74b334e45e03a8d649ab023d33964ebf7328e19ba1d98dd9fe`实际确认同UID Ready Pod、有效120核，准备cap24，A12核0–11/root12–23保留；有效至1793529273.03317，旧217不改或复用。新GPU阶段仍须实时身份/资源准入和独立9h grant，训练整树floor80%与准备floor20%互斥；6h训练/8h整轮、Small12GiB/free20GiB/floor16GiB及保存保护不扩。上级Job lease不可读沿既有unknown语义，不作无限租期，不扩权限或资源。所有R130/R120/KEEP/R134R1 selected、原public/prepared512及历史失败成本保护。
 

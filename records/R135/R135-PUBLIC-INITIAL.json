@@ -1,0 +1,1023 @@
+{
+  "CPU_compile_count": 5,
+  "GPU_initialized": false,
+  "actual_optimizer_groups": [
+    {
+      "lr": 0.0001,
+      "names": [
+        "network.features.0.0.bias",
+        "network.features.0.1.weight",
+        "network.features.0.1.bias",
+        "network.features.1.0.block.0.bias",
+        "network.features.1.0.block.2.weight",
+        "network.features.1.0.block.2.bias",
+        "network.features.1.0.block.3.bias",
+        "network.features.1.0.block.5.bias",
+        "network.features.1.1.block.0.bias",
+        "network.features.1.1.block.2.weight",
+        "network.features.1.1.block.2.bias",
+        "network.features.1.1.block.3.bias",
+        "network.features.1.1.block.5.bias",
+        "network.features.1.2.block.0.bias",
+        "network.features.1.2.block.2.weight",
+        "network.features.1.2.block.2.bias",
+        "network.features.1.2.block.3.bias",
+        "network.features.1.2.block.5.bias",
+        "network.features.2.0.weight",
+        "network.features.2.0.bias",
+        "network.features.2.1.bias",
+        "network.features.3.0.block.0.bias",
+        "network.features.3.0.block.2.weight",
+        "network.features.3.0.block.2.bias",
+        "network.features.3.0.block.3.bias",
+        "network.features.3.0.block.5.bias",
+        "network.features.3.1.block.0.bias",
+        "network.features.3.1.block.2.weight",
+        "network.features.3.1.block.2.bias",
+        "network.features.3.1.block.3.bias",
+        "network.features.3.1.block.5.bias",
+        "network.features.3.2.block.0.bias",
+        "network.features.3.2.block.2.weight",
+        "network.features.3.2.block.2.bias",
+        "network.features.3.2.block.3.bias",
+        "network.features.3.2.block.5.bias",
+        "network.features.4.0.weight",
+        "network.features.4.0.bias",
+        "network.features.4.1.bias",
+        "network.features.5.0.block.0.bias",
+        "network.features.5.0.block.2.weight",
+        "network.features.5.0.block.2.bias",
+        "network.features.5.0.block.3.bias",
+        "network.features.5.0.block.5.bias",
+        "network.features.5.1.block.0.bias",
+        "network.features.5.1.block.2.weight",
+        "network.features.5.1.block.2.bias",
+        "network.features.5.1.block.3.bias",
+        "network.features.5.1.block.5.bias",
+        "network.features.5.2.block.0.bias",
+        "network.features.5.2.block.2.weight",
+        "network.features.5.2.block.2.bias",
+        "network.features.5.2.block.3.bias",
+        "network.features.5.2.block.5.bias",
+        "network.features.5.3.block.0.bias",
+        "network.features.5.3.block.2.weight",
+        "network.features.5.3.block.2.bias",
+        "network.features.5.3.block.3.bias",
+        "network.features.5.3.block.5.bias",
+        "network.features.5.4.block.0.bias",
+        "network.features.5.4.block.2.weight",
+        "network.features.5.4.block.2.bias",
+        "network.features.5.4.block.3.bias",
+        "network.features.5.4.block.5.bias",
+        "network.features.5.5.block.0.bias",
+        "network.features.5.5.block.2.weight",
+        "network.features.5.5.block.2.bias",
+        "network.features.5.5.block.3.bias",
+        "network.features.5.5.block.5.bias",
+        "network.features.5.6.block.0.bias",
+        "network.features.5.6.block.2.weight",
+        "network.features.5.6.block.2.bias",
+        "network.features.5.6.block.3.bias",
+        "network.features.5.6.block.5.bias",
+        "network.features.5.7.block.0.bias",
+        "network.features.5.7.block.2.weight",
+        "network.features.5.7.block.2.bias",
+        "network.features.5.7.block.3.bias",
+        "network.features.5.7.block.5.bias",
+        "network.features.5.8.block.0.bias",
+        "network.features.5.8.block.2.weight",
+        "network.features.5.8.block.2.bias",
+        "network.features.5.8.block.3.bias",
+        "network.features.5.8.block.5.bias",
+        "network.features.5.9.block.0.bias",
+        "network.features.5.9.block.2.weight",
+        "network.features.5.9.block.2.bias",
+        "network.features.5.9.block.3.bias",
+        "network.features.5.9.block.5.bias",
+        "network.features.5.10.block.0.bias",
+        "network.features.5.10.block.2.weight",
+        "network.features.5.10.block.2.bias",
+        "network.features.5.10.block.3.bias",
+        "network.features.5.10.block.5.bias",
+        "network.features.5.11.block.0.bias",
+        "network.features.5.11.block.2.weight",
+        "network.features.5.11.block.2.bias",
+        "network.features.5.11.block.3.bias",
+        "network.features.5.11.block.5.bias",
+        "network.features.5.12.block.0.bias",
+        "network.features.5.12.block.2.weight",
+        "network.features.5.12.block.2.bias",
+        "network.features.5.12.block.3.bias",
+        "network.features.5.12.block.5.bias",
+        "network.features.5.13.block.0.bias",
+        "network.features.5.13.block.2.weight",
+        "network.features.5.13.block.2.bias",
+        "network.features.5.13.block.3.bias",
+        "network.features.5.13.block.5.bias",
+        "network.features.5.14.block.0.bias",
+        "network.features.5.14.block.2.weight",
+        "network.features.5.14.block.2.bias",
+        "network.features.5.14.block.3.bias",
+        "network.features.5.14.block.5.bias",
+        "network.features.5.15.block.0.bias",
+        "network.features.5.15.block.2.weight",
+        "network.features.5.15.block.2.bias",
+        "network.features.5.15.block.3.bias",
+        "network.features.5.15.block.5.bias",
+        "network.features.5.16.block.0.bias",
+        "network.features.5.16.block.2.weight",
+        "network.features.5.16.block.2.bias",
+        "network.features.5.16.block.3.bias",
+        "network.features.5.16.block.5.bias",
+        "network.features.5.17.block.0.bias",
+        "network.features.5.17.block.2.weight",
+        "network.features.5.17.block.2.bias",
+        "network.features.5.17.block.3.bias",
+        "network.features.5.17.block.5.bias",
+        "network.features.5.18.block.0.bias",
+        "network.features.5.18.block.2.weight",
+        "network.features.5.18.block.2.bias",
+        "network.features.5.18.block.3.bias",
+        "network.features.5.18.block.5.bias",
+        "network.features.5.19.block.0.bias",
+        "network.features.5.19.block.2.weight",
+        "network.features.5.19.block.2.bias",
+        "network.features.5.19.block.3.bias",
+        "network.features.5.19.block.5.bias",
+        "network.features.5.20.block.0.bias",
+        "network.features.5.20.block.2.weight",
+        "network.features.5.20.block.2.bias",
+        "network.features.5.20.block.3.bias",
+        "network.features.5.20.block.5.bias",
+        "network.features.5.21.block.0.bias",
+        "network.features.5.21.block.2.weight",
+        "network.features.5.21.block.2.bias",
+        "network.features.5.21.block.3.bias",
+        "network.features.5.21.block.5.bias",
+        "network.features.5.22.block.0.bias",
+        "network.features.5.22.block.2.weight",
+        "network.features.5.22.block.2.bias",
+        "network.features.5.22.block.3.bias",
+        "network.features.5.22.block.5.bias",
+        "network.features.5.23.block.0.bias",
+        "network.features.5.23.block.2.weight",
+        "network.features.5.23.block.2.bias",
+        "network.features.5.23.block.3.bias",
+        "network.features.5.23.block.5.bias",
+        "network.features.5.24.block.0.bias",
+        "network.features.5.24.block.2.weight",
+        "network.features.5.24.block.2.bias",
+        "network.features.5.24.block.3.bias",
+        "network.features.5.24.block.5.bias",
+        "network.features.5.25.block.0.bias",
+        "network.features.5.25.block.2.weight",
+        "network.features.5.25.block.2.bias",
+        "network.features.5.25.block.3.bias",
+        "network.features.5.25.block.5.bias",
+        "network.features.5.26.block.0.bias",
+        "network.features.5.26.block.2.weight",
+        "network.features.5.26.block.2.bias",
+        "network.features.5.26.block.3.bias",
+        "network.features.5.26.block.5.bias",
+        "network.features.6.0.weight",
+        "network.features.6.0.bias",
+        "network.features.6.1.bias",
+        "network.features.7.0.block.0.bias",
+        "network.features.7.0.block.2.weight",
+        "network.features.7.0.block.2.bias",
+        "network.features.7.0.block.3.bias",
+        "network.features.7.0.block.5.bias",
+        "network.features.7.1.block.0.bias",
+        "network.features.7.1.block.2.weight",
+        "network.features.7.1.block.2.bias",
+        "network.features.7.1.block.3.bias",
+        "network.features.7.1.block.5.bias",
+        "network.features.7.2.block.0.bias",
+        "network.features.7.2.block.2.weight",
+        "network.features.7.2.block.2.bias",
+        "network.features.7.2.block.3.bias",
+        "network.features.7.2.block.5.bias",
+        "network.classifier.0.weight",
+        "network.classifier.0.bias"
+      ],
+      "numel": 112800,
+      "role": "backbone",
+      "weight_decay": 0.0
+    },
+    {
+      "lr": 0.0001,
+      "names": [
+        "network.features.0.0.weight",
+        "network.features.1.0.layer_scale",
+        "network.features.1.0.block.0.weight",
+        "network.features.1.0.block.3.weight",
+        "network.features.1.0.block.5.weight",
+        "network.features.1.1.layer_scale",
+        "network.features.1.1.block.0.weight",
+        "network.features.1.1.block.3.weight",
+        "network.features.1.1.block.5.weight",
+        "network.features.1.2.layer_scale",
+        "network.features.1.2.block.0.weight",
+        "network.features.1.2.block.3.weight",
+        "network.features.1.2.block.5.weight",
+        "network.features.2.1.weight",
+        "network.features.3.0.layer_scale",
+        "network.features.3.0.block.0.weight",
+        "network.features.3.0.block.3.weight",
+        "network.features.3.0.block.5.weight",
+        "network.features.3.1.layer_scale",
+        "network.features.3.1.block.0.weight",
+        "network.features.3.1.block.3.weight",
+        "network.features.3.1.block.5.weight",
+        "network.features.3.2.layer_scale",
+        "network.features.3.2.block.0.weight",
+        "network.features.3.2.block.3.weight",
+        "network.features.3.2.block.5.weight",
+        "network.features.4.1.weight",
+        "network.features.5.0.layer_scale",
+        "network.features.5.0.block.0.weight",
+        "network.features.5.0.block.3.weight",
+        "network.features.5.0.block.5.weight",
+        "network.features.5.1.layer_scale",
+        "network.features.5.1.block.0.weight",
+        "network.features.5.1.block.3.weight",
+        "network.features.5.1.block.5.weight",
+        "network.features.5.2.layer_scale",
+        "network.features.5.2.block.0.weight",
+        "network.features.5.2.block.3.weight",
+        "network.features.5.2.block.5.weight",
+        "network.features.5.3.layer_scale",
+        "network.features.5.3.block.0.weight",
+        "network.features.5.3.block.3.weight",
+        "network.features.5.3.block.5.weight",
+        "network.features.5.4.layer_scale",
+        "network.features.5.4.block.0.weight",
+        "network.features.5.4.block.3.weight",
+        "network.features.5.4.block.5.weight",
+        "network.features.5.5.layer_scale",
+        "network.features.5.5.block.0.weight",
+        "network.features.5.5.block.3.weight",
+        "network.features.5.5.block.5.weight",
+        "network.features.5.6.layer_scale",
+        "network.features.5.6.block.0.weight",
+        "network.features.5.6.block.3.weight",
+        "network.features.5.6.block.5.weight",
+        "network.features.5.7.layer_scale",
+        "network.features.5.7.block.0.weight",
+        "network.features.5.7.block.3.weight",
+        "network.features.5.7.block.5.weight",
+        "network.features.5.8.layer_scale",
+        "network.features.5.8.block.0.weight",
+        "network.features.5.8.block.3.weight",
+        "network.features.5.8.block.5.weight",
+        "network.features.5.9.layer_scale",
+        "network.features.5.9.block.0.weight",
+        "network.features.5.9.block.3.weight",
+        "network.features.5.9.block.5.weight",
+        "network.features.5.10.layer_scale",
+        "network.features.5.10.block.0.weight",
+        "network.features.5.10.block.3.weight",
+        "network.features.5.10.block.5.weight",
+        "network.features.5.11.layer_scale",
+        "network.features.5.11.block.0.weight",
+        "network.features.5.11.block.3.weight",
+        "network.features.5.11.block.5.weight",
+        "network.features.5.12.layer_scale",
+        "network.features.5.12.block.0.weight",
+        "network.features.5.12.block.3.weight",
+        "network.features.5.12.block.5.weight",
+        "network.features.5.13.layer_scale",
+        "network.features.5.13.block.0.weight",
+        "network.features.5.13.block.3.weight",
+        "network.features.5.13.block.5.weight",
+        "network.features.5.14.layer_scale",
+        "network.features.5.14.block.0.weight",
+        "network.features.5.14.block.3.weight",
+        "network.features.5.14.block.5.weight",
+        "network.features.5.15.layer_scale",
+        "network.features.5.15.block.0.weight",
+        "network.features.5.15.block.3.weight",
+        "network.features.5.15.block.5.weight",
+        "network.features.5.16.layer_scale",
+        "network.features.5.16.block.0.weight",
+        "network.features.5.16.block.3.weight",
+        "network.features.5.16.block.5.weight",
+        "network.features.5.17.layer_scale",
+        "network.features.5.17.block.0.weight",
+        "network.features.5.17.block.3.weight",
+        "network.features.5.17.block.5.weight",
+        "network.features.5.18.layer_scale",
+        "network.features.5.18.block.0.weight",
+        "network.features.5.18.block.3.weight",
+        "network.features.5.18.block.5.weight",
+        "network.features.5.19.layer_scale",
+        "network.features.5.19.block.0.weight",
+        "network.features.5.19.block.3.weight",
+        "network.features.5.19.block.5.weight",
+        "network.features.5.20.layer_scale",
+        "network.features.5.20.block.0.weight",
+        "network.features.5.20.block.3.weight",
+        "network.features.5.20.block.5.weight",
+        "network.features.5.21.layer_scale",
+        "network.features.5.21.block.0.weight",
+        "network.features.5.21.block.3.weight",
+        "network.features.5.21.block.5.weight",
+        "network.features.5.22.layer_scale",
+        "network.features.5.22.block.0.weight",
+        "network.features.5.22.block.3.weight",
+        "network.features.5.22.block.5.weight",
+        "network.features.5.23.layer_scale",
+        "network.features.5.23.block.0.weight",
+        "network.features.5.23.block.3.weight",
+        "network.features.5.23.block.5.weight",
+        "network.features.5.24.layer_scale",
+        "network.features.5.24.block.0.weight",
+        "network.features.5.24.block.3.weight",
+        "network.features.5.24.block.5.weight",
+        "network.features.5.25.layer_scale",
+        "network.features.5.25.block.0.weight",
+        "network.features.5.25.block.3.weight",
+        "network.features.5.25.block.5.weight",
+        "network.features.5.26.layer_scale",
+        "network.features.5.26.block.0.weight",
+        "network.features.5.26.block.3.weight",
+        "network.features.5.26.block.5.weight",
+        "network.features.6.1.weight",
+        "network.features.7.0.layer_scale",
+        "network.features.7.0.block.0.weight",
+        "network.features.7.0.block.3.weight",
+        "network.features.7.0.block.5.weight",
+        "network.features.7.1.layer_scale",
+        "network.features.7.1.block.0.weight",
+        "network.features.7.1.block.3.weight",
+        "network.features.7.1.block.5.weight",
+        "network.features.7.2.layer_scale",
+        "network.features.7.2.block.0.weight",
+        "network.features.7.2.block.3.weight",
+        "network.features.7.2.block.5.weight"
+      ],
+      "numel": 49344960,
+      "role": "backbone",
+      "weight_decay": 0.0001
+    },
+    {
+      "lr": 0.001,
+      "names": [
+        "network.classifier.3.bias"
+      ],
+      "numel": 1,
+      "role": "head",
+      "weight_decay": 0.0
+    },
+    {
+      "lr": 0.001,
+      "names": [
+        "network.classifier.3.weight"
+      ],
+      "numel": 768,
+      "role": "head",
+      "weight_decay": 0.0001
+    },
+    {
+      "lr": 0.001,
+      "names": [
+        "age_weight"
+      ],
+      "numel": 2,
+      "role": "age",
+      "weight_decay": 0.0001
+    }
+  ],
+  "added_stem_elements": 3072,
+  "all_parameter_elements": 49458531,
+  "at": 1793519842.825652,
+  "buffer_count": 0,
+  "cpu_allocation_sha256": "74bd5221ade55e74b334e45e03a8d649ab023d33964ebf7328e19ba1d98dd9fe",
+  "files": {
+    "runtime/bundle/retrain/config.py": "a870ce4bb45272350e45211bf4b206b90286690d6b03e6f662b150fb8604131b",
+    "runtime/bundle/retrain/experiment91.py": "dd9688563919275306ca22ccccea12ba80ad1d891011c129ea63886258c04c58",
+    "runtime/bundle/retrain/models.py": "88b8561fc4e23ca1863075d4656630ac9900b433fb54ba57a56f16cbfa036b18",
+    "tests/test_candidate_binding.py": "410726465d212024692bdc66f78437a22770735b70479ee7c1ccd9a9ececa5da",
+    "tools/validation/check_candidate.py": "0759386dbd6d9c97056337d300f62032f3b72bd07290e89704f13f127fe925d5"
+  },
+  "frozen_tensors": 0,
+  "image_forwards": 0,
+  "initial_three_vs_five_channel_bitwise_output_equality": "not_asserted",
+  "mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "model_descriptor": {
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate": {
+      "attention_pool": null,
+      "batch_norm_buffers": 0,
+      "batch_norm_modules": 0,
+      "experiment_order": 47,
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "id": "r135-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stem-rgbxy-9010",
+      "internal_norm_eps": 1e-06,
+      "model": "convnext_small",
+      "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+      "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "stem_xy_policy": {
+        "canvas_size": 512,
+        "channels": [
+          "R",
+          "G",
+          "B",
+          "X",
+          "Y"
+        ],
+        "coordinates": "2*k/(size-1)-1",
+        "position": "after_augmentation_and_normalization",
+        "version": "convnext-small-rgbxy512-v1",
+        "xy_initialization": "zeros"
+      },
+      "stochastic_depth": 0.1,
+      "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    "dropout": 0.2,
+    "head_in_features": 768,
+    "head_out_features": 1,
+    "layer_norms": [
+      {
+        "eps": 1e-06,
+        "name": "network.features.0.1",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.1.0.block.2",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.1.1.block.2",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.1.2.block.2",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.2.0",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.3.0.block.2",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.3.1.block.2",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.3.2.block.2",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.4.0",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.0.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.1.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.2.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.3.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.4.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.5.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.6.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.7.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.8.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.9.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.10.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.11.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.12.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.13.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.14.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.15.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.16.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.17.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.18.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.19.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.20.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.21.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.22.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.23.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.24.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.25.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.26.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.6.0",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.7.0.block.2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.7.1.block.2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.7.2.block.2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.classifier.0",
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "stem_xy": {
+      "bias_shape": [
+        96
+      ],
+      "coordinate_generation": "stateless",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 5,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "canvas_size": 512,
+        "channels": [
+          "R",
+          "G",
+          "B",
+          "X",
+          "Y"
+        ],
+        "coordinates": "2*k/(size-1)-1",
+        "position": "after_augmentation_and_normalization",
+        "version": "convnext-small-rgbxy512-v1",
+        "xy_initialization": "zeros"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        5,
+        4,
+        4
+      ]
+    },
+    "stochastic_depth": [
+      {
+        "mode": "row",
+        "name": "network.features.1.0.stochastic_depth",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.features.1.1.stochastic_depth",
+        "p": 0.002857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.1.2.stochastic_depth",
+        "p": 0.005714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.3.0.stochastic_depth",
+        "p": 0.008571428571428572
+      },
+      {
+        "mode": "row",
+        "name": "network.features.3.1.stochastic_depth",
+        "p": 0.011428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.3.2.stochastic_depth",
+        "p": 0.014285714285714285
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.0.stochastic_depth",
+        "p": 0.017142857142857144
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.1.stochastic_depth",
+        "p": 0.02
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.2.stochastic_depth",
+        "p": 0.022857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.3.stochastic_depth",
+        "p": 0.025714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.4.stochastic_depth",
+        "p": 0.02857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.5.stochastic_depth",
+        "p": 0.03142857142857143
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.6.stochastic_depth",
+        "p": 0.03428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.7.stochastic_depth",
+        "p": 0.037142857142857144
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.8.stochastic_depth",
+        "p": 0.04
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.9.stochastic_depth",
+        "p": 0.04285714285714286
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.10.stochastic_depth",
+        "p": 0.045714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.11.stochastic_depth",
+        "p": 0.04857142857142858
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.12.stochastic_depth",
+        "p": 0.05142857142857143
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.13.stochastic_depth",
+        "p": 0.05428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.14.stochastic_depth",
+        "p": 0.05714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.15.stochastic_depth",
+        "p": 0.060000000000000005
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.16.stochastic_depth",
+        "p": 0.06285714285714286
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.17.stochastic_depth",
+        "p": 0.06571428571428573
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.18.stochastic_depth",
+        "p": 0.06857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.19.stochastic_depth",
+        "p": 0.07142857142857142
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.20.stochastic_depth",
+        "p": 0.07428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.21.stochastic_depth",
+        "p": 0.07714285714285715
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.22.stochastic_depth",
+        "p": 0.08
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.23.stochastic_depth",
+        "p": 0.08285714285714287
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.24.stochastic_depth",
+        "p": 0.08571428571428572
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.25.stochastic_depth",
+        "p": 0.08857142857142858
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.26.stochastic_depth",
+        "p": 0.09142857142857143
+      },
+      {
+        "mode": "row",
+        "name": "network.features.7.0.stochastic_depth",
+        "p": 0.09428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.7.1.stochastic_depth",
+        "p": 0.09714285714285716
+      },
+      {
+        "mode": "row",
+        "name": "network.features.7.2.stochastic_depth",
+        "p": 0.1
+      }
+    ]
+  },
+  "new_whole_tensor_sha256": "75482be7c755c1792739c90dfc4947b8b45ada3cc2d78e855e01b7c7975dfad2",
+  "nice": 19,
+  "optimizer_state_entries": 0,
+  "parameter_tensors": 345,
+  "public_initialization": {
+    "all_public_tensors_FP32_finite": true,
+    "all_public_tensors_exact": true,
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "initialization": {
+      "final_norm_eps": 1e-06,
+      "format": "torchvision-1000-state-dict-v1",
+      "kind": "imagenet",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model": "convnext_small",
+      "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+      "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+      "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+      "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+      "weights_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    "public_tensor_count": 344,
+    "public_tensor_sha256": "966da204c7ee0668d6d2e1d51b9fa8fe1df96a9a630b12271a96d00f0a197d97",
+    "stem_xy_initialization": {
+      "added_zero_elements": 3072,
+      "bias_after": "39c4a95cf9892cec5059e4a553c28a8539880d65ddd688346144341252c6ca83",
+      "bias_before": "39c4a95cf9892cec5059e4a553c28a8539880d65ddd688346144341252c6ca83",
+      "rgb_after": "479ec20d9b362c395459135463d2e6683e48d49195e0acc4b5fa5bea6ee73faa",
+      "rgb_before": "479ec20d9b362c395459135463d2e6683e48d49195e0acc4b5fa5bea6ee73faa"
+    },
+    "strict_missing_keys": [],
+    "strict_unexpected_keys": []
+  },
+  "recovered_original_RGB345_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "science_final_sha256": "b0e57ced9cd6c6040fe60b0e6d5acd191de274414770d97a643d18a492407dda",
+  "science_measurement_input_sha256": "d849a533df586abdd466056814217aa90dcff27669bf00a035ad7c0e9e6d9659",
+  "status": "public_fresh_initial_measured_not_training",
+  "stem_shape": [
+    96,
+    5,
+    4,
+    4
+  ],
+  "trainable_tensors": 345
+}

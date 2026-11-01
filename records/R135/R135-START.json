@@ -1,0 +1,845 @@
+{
+  "schema": "r135-first-recorded-success-v1",
+  "status": "first_success_observed",
+  "observed_at": 1793520898.385733,
+  "at_beijing": "2026-11-01T16:14:58.385977+08:00",
+  "round_id": "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+  "git_commit": "dbbe65531d511b91c89f63cd8a4cbba2e68e7303",
+  "science_sha256": "b0e57ced9cd6c6040fe60b0e6d5acd191de274414770d97a643d18a492407dda",
+  "site_binding_sha256": "9fcebc3395f33ddffb554ba9918034735c1b120ed236802131d3ae3d4f30340b",
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+  "owner": {
+    "pid": 382423,
+    "start_ticks": "354807447",
+    "state": "S",
+    "observed_start_ticks": "354807447",
+    "start_match": true,
+    "argv_match": true,
+    "mask": [
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "active_match": true
+  },
+  "rank_processes": [
+    {
+      "pid": 382435,
+      "start_ticks": "354812004",
+      "state": "S",
+      "observed_start_ticks": "354812004",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "active_match": true,
+      "rank": 0
+    },
+    {
+      "pid": 382436,
+      "start_ticks": "354812005",
+      "state": "S",
+      "observed_start_ticks": "354812005",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "active_match": true,
+      "rank": 1
+    },
+    {
+      "pid": 382437,
+      "start_ticks": "354812007",
+      "state": "S",
+      "observed_start_ticks": "354812007",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "active_match": true,
+      "rank": 2
+    },
+    {
+      "pid": 382438,
+      "start_ticks": "354812008",
+      "state": "S",
+      "observed_start_ticks": "354812008",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "active_match": true,
+      "rank": 3
+    },
+    {
+      "pid": 382439,
+      "start_ticks": "354812009",
+      "state": "S",
+      "observed_start_ticks": "354812009",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "active_match": true,
+      "rank": 4
+    },
+    {
+      "pid": 382440,
+      "start_ticks": "354812011",
+      "state": "S",
+      "observed_start_ticks": "354812011",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "active_match": true,
+      "rank": 5
+    },
+    {
+      "pid": 382441,
+      "start_ticks": "354812012",
+      "state": "S",
+      "observed_start_ticks": "354812012",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "active_match": true,
+      "rank": 6
+    },
+    {
+      "pid": 382442,
+      "start_ticks": "354812014",
+      "state": "S",
+      "observed_start_ticks": "354812014",
+      "start_match": true,
+      "argv_match": true,
+      "mask": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "active_match": true,
+      "rank": 7
+    }
+  ],
+  "actual_owner_and_rank_masks_match": true,
+  "actual_rank_devices_match": true,
+  "progress": {
+    "status": "running",
+    "successful_updates": 200,
+    "attempted_updates": 200,
+    "skipped_updates": 0,
+    "cycle": 0,
+    "evaluated_cycle": 0,
+    "stop_reason": null
+  },
+  "done": null,
+  "initial": {
+    "actual_gate_completed": true,
+    "all_checks_match_formal": true,
+    "rank_count": 8,
+    "all_rank_initial_Adam_empty": true,
+    "actual_group_count": 5,
+    "model_tensor_sha256": "75482be7c755c1792739c90dfc4947b8b45ada3cc2d78e855e01b7c7975dfad2",
+    "parameter_tensors": 345,
+    "parameter_elements_by_role": {
+      "age": 2,
+      "backbone": 49457760,
+      "head": 769
+    },
+    "actual_stem_xy": {
+      "bias_shape": [
+        96
+      ],
+      "coordinate_generation": "stateless",
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 5,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "canvas_size": 512,
+        "channels": [
+          "R",
+          "G",
+          "B",
+          "X",
+          "Y"
+        ],
+        "coordinates": "2*k/(size-1)-1",
+        "position": "after_augmentation_and_normalization",
+        "version": "convnext-small-rgbxy512-v1",
+        "xy_initialization": "zeros"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        5,
+        4,
+        4
+      ]
+    },
+    "receipt_sha256": "5bc00646dc0a561d40290bd62f2f5fad6301370c8518cb5f419c037b847900c7"
+  },
+  "first_update": {
+    "event_observed": true,
+    "recorded_update_inputs_and_finite_loss_valid": true,
+    "event_line_sha256": "7513ae894a0a64e048bd3e19e3e4066f31550638a1dbca3601f09bb6c33e61fe",
+    "actual": {
+      "event": "update",
+      "at": 1793520819.0592713,
+      "successful_updates": 25,
+      "attempted_updates": 25,
+      "cycle": 0,
+      "loss": 0.6514426469802856,
+      "global_loss": 0.6514426469802856,
+      "skipped": false,
+      "primary_inputs": 64,
+      "view_inputs": 64,
+      "pairwise_global": {
+        "global_inputs": 64,
+        "positive_inputs": 8,
+        "negative_inputs": 56,
+        "pair_count": 448,
+        "world_size": 8
+      },
+      "rank_inputs": [
+        {
+          "rank": 0,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 4
+        },
+        {
+          "rank": 1,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 2,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 3,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 4,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 4
+        },
+        {
+          "rank": 5,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 6,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        },
+        {
+          "rank": 7,
+          "primary_inputs": 8,
+          "view_inputs": 8,
+          "positive_inputs": 0
+        }
+      ],
+      "learning_rates": [
+        1.6250000000000001e-06,
+        1.6250000000000001e-06,
+        1.6250000000000002e-05,
+        1.6250000000000002e-05,
+        1.6250000000000002e-05
+      ]
+    },
+    "metrics_prefix_bytes_read": 9846,
+    "metrics_prefix_cap_bytes": 2097152,
+    "step1_Adam_state_observed": false
+  },
+  "rank_devices": [
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "at": 1793520756.9985623,
+      "device": "cuda:0",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:09:00.0",
+      "pid": 382435,
+      "rank": 0,
+      "requested_cpu_ids": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "at": 1793520756.8301218,
+      "device": "cuda:1",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:36:00.0",
+      "pid": 382436,
+      "rank": 1,
+      "requested_cpu_ids": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "at": 1793520757.2176583,
+      "device": "cuda:2",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:55:00.0",
+      "pid": 382437,
+      "rank": 2,
+      "requested_cpu_ids": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "at": 1793520757.2176056,
+      "device": "cuda:3",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:77:00.0",
+      "pid": 382438,
+      "rank": 3,
+      "requested_cpu_ids": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "at": 1793520756.7425508,
+      "device": "cuda:4",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:85:00.0",
+      "pid": 382439,
+      "rank": 4,
+      "requested_cpu_ids": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "at": 1793520756.6472163,
+      "device": "cuda:5",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:b5:00.0",
+      "pid": 382440,
+      "rank": 5,
+      "requested_cpu_ids": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "at": 1793520756.683515,
+      "device": "cuda:6",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:d5:00.0",
+      "pid": 382441,
+      "rank": 6,
+      "requested_cpu_ids": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    },
+    {
+      "CPU_only_software_proof": false,
+      "actual_cpu_ids": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "at": 1793520756.7545462,
+      "device": "cuda:7",
+      "interop_threads": 1,
+      "intraop_threads": 1,
+      "native_affinity_environment": {
+        "AMD_CPU_AFFINITY": "1",
+        "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+        "NCCL_IGNORE_CPU_AFFINITY": "0"
+      },
+      "native_affinity_guard": {
+        "build_receipt": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/NATIVE-AFFINITY.json",
+          "sha256": "6ded4aebe5864977e0f6d20b62a5c7d263cc9ce13708c4b3aac267bd4f589a70"
+        },
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/native-numa-fix-1/native-build/libncccu_numa_affinity.so",
+        "sha256": "63ccf6b648c02ea8ee5719e250253ff71ebdd00e41ff86b3fdd588d08ff484eb",
+        "source": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r135-20261101-7c17/source-git/runtime/native/cpu_affinity.c",
+          "sha256": "6989064bf4434f4bf979ef902f0eadf02311a73878ac37a4cfb3edf02f1a5cc7"
+        }
+      },
+      "native_affinity_guard_loaded": true,
+      "physical_pci": "0000:f5:00.0",
+      "pid": 382442,
+      "rank": 7,
+      "requested_cpu_ids": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "total_memory_bytes": 68702699520,
+      "world_size": 8
+    }
+  ],
+  "activation_exit_zero": true,
+  "prelaunch_absence_preserved": true,
+  "blob_read": false,
+  "model_created": false,
+  "forward_executed": false,
+  "signals_sent": false,
+  "CPU_allocation_sha256": "74bd5221ade55e74b334e45e03a8d649ab023d33964ebf7328e19ba1d98dd9fe",
+  "observer_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "source_first_observation_sha256": "e908a7b32240a7c5fbdaa9e6ea0ae9bbdbe9073ca216bf04eabf7f8ab5a33ef8"
+}
