@@ -84,7 +84,7 @@ def main(args):
     is_r50 = job['model'] == 'resnet50_imagenet'
     is_dinov2 = job['model'] == 'dinov2_vits14'
     is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING)
-    is_swin = job['model'] == 'swin_base'
+    is_swin = job['model'] in ('swin_base','swin_v2_small')
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
@@ -100,7 +100,7 @@ def main(args):
     is_stem_xy = job.get('stem_xy_policy') is not None
     from retrain.config import GLOBAL_NATIVE_SIX_RULE
     is_native6 = job.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE
-    is_global768 = ex.science_configuration()['candidate_profile']==ex.GLOBAL_768_SMALL_BINDING
+    is_global768 = ex.science_configuration()['candidate_profile'] in (ex.GLOBAL_768_SMALL_BINDING,ex.GLOBAL_768_SMALL_SEED27_BINDING)
     is_raw_gc = job.get('gradient_centralization_policy') is not None
     is_lion = job.get('optimizer_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
@@ -129,8 +129,8 @@ def main(args):
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
-          and structure['buffer_count'] == contract.get('static_index_buffers', contract.get('buffer_count', 0))
-          and len(dict(model.named_buffers())) == contract.get('static_index_buffers', contract.get('buffer_count', 0)) and model.age_metadata == job['age']
+          and structure['buffer_count'] == contract.get('static_buffer_count', contract.get('static_index_buffers', contract.get('buffer_count', 0)))
+          and len(dict(model.named_buffers())) == contract.get('static_buffer_count', contract.get('static_index_buffers', contract.get('buffer_count', 0))) and model.age_metadata == job['age']
           and (not hasattr(model, 'age_weight') if not job['age']['enabled'] else
                model.age_weight.numel() == 2 and bool((model.age_weight == 0).all()))
           and (not is_content_pool or (job['attention_pool'] == ex.candidate()['attention_pool']
@@ -216,7 +216,7 @@ def main(args):
             output_512 = model(torch.zeros(1, 3, 512, 512, dtype=torch.float32),
                                torch.zeros(1, 2, dtype=torch.float32))
         model.train(original_mode)
-        check('Swin_512_window7_padding_binary_age_forward_finite',
+        check('Swin_512_native_window_binary_age_forward_finite',
               tuple(output_512.shape) == (1,) and bool(torch.isfinite(output_512).all())
               and not torch.cuda.is_initialized(),
               {'input': [1, 3, 512, 512], 'output': list(output_512.shape),
@@ -566,7 +566,10 @@ def main(args):
                 self.blocks = torch.nn.ModuleList()
                 for _ in range(24):
                     block = torch.nn.Module()
-                    block.register_buffer('relative_position_index', torch.zeros(2401, dtype=torch.int64))
+                    block.register_buffer('relative_position_index', torch.zeros(4096 if job['model']=='swin_v2_small' else 2401, dtype=torch.int64))
+                    if job['model']=='swin_v2_small':
+                        coordinates=next(t for n,t in model.named_buffers() if n.endswith('.relative_coords_table'))
+                        block.register_buffer('relative_coords_table',coordinates.clone())
                     self.blocks.append(block)
         toy = IndexedToy(); toy_ema = EMA(toy, ex.ema_rule()); boundaries = {}
         for update in (warmup - 1, warmup, warmup + 1, total):

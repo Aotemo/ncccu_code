@@ -1,0 +1,898 @@
+{
+  "status": "actual_public_fresh_initial_CPU",
+  "at": 1793576284.0011213,
+  "seconds": 1.6723864078521729,
+  "model_tensor_sha256": "4ff58b9c91fb82b9577bcd7de7711d3eb07e24bd05b8dcacd94c54c117b58726",
+  "buffer_sha256": "e03d8ca9249cb44539c4cd13937ecbee3329a3d00d704dbe13590d6f3c7477d0",
+  "parameter_tensors": 402,
+  "trainable_tensors": 402,
+  "parameter_elements": 48969213,
+  "group_count": 5,
+  "optimizer_state_entries": 0,
+  "actual_structure": {
+    "candidate": {
+      "id": "r154-swin-v2-small-imagenet1k-24k-p4-seed20261029-scale085-pairlog-9010",
+      "experiment_order": 66,
+      "model": "swin_v2_small",
+      "public_revision": "db3a0c7e5d97487e7e874c943838569b84fe8e54",
+      "readout": "native_final_LN_gap_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-05,
+      "internal_norm_eps": 1e-05,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "static_index_buffers": 24,
+      "attention_pool": null,
+      "weight_sha256": "e2052f3313bce47b14c404b18b0ca31e3e1f44cf9563cb2c9fe93faa3ac38d42",
+      "provenance_sha256": "c9471d7261940e7730259988ae976aa26f0cdc5d3dae46c1cc097059d44c2518",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "static_buffer_count": 48
+    },
+    "batch_norm_modules": 0,
+    "buffer_count": 48,
+    "buffer_sha256": "e03d8ca9249cb44539c4cd13937ecbee3329a3d00d704dbe13590d6f3c7477d0",
+    "static_index_names": [
+      "network.features.1.0.attn.relative_position_index",
+      "network.features.1.1.attn.relative_position_index",
+      "network.features.3.0.attn.relative_position_index",
+      "network.features.3.1.attn.relative_position_index",
+      "network.features.5.0.attn.relative_position_index",
+      "network.features.5.1.attn.relative_position_index",
+      "network.features.5.10.attn.relative_position_index",
+      "network.features.5.11.attn.relative_position_index",
+      "network.features.5.12.attn.relative_position_index",
+      "network.features.5.13.attn.relative_position_index",
+      "network.features.5.14.attn.relative_position_index",
+      "network.features.5.15.attn.relative_position_index",
+      "network.features.5.16.attn.relative_position_index",
+      "network.features.5.17.attn.relative_position_index",
+      "network.features.5.2.attn.relative_position_index",
+      "network.features.5.3.attn.relative_position_index",
+      "network.features.5.4.attn.relative_position_index",
+      "network.features.5.5.attn.relative_position_index",
+      "network.features.5.6.attn.relative_position_index",
+      "network.features.5.7.attn.relative_position_index",
+      "network.features.5.8.attn.relative_position_index",
+      "network.features.5.9.attn.relative_position_index",
+      "network.features.7.0.attn.relative_position_index",
+      "network.features.7.1.attn.relative_position_index"
+    ],
+    "layer_norms": [
+      {
+        "name": "network.features.0.2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.0.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.0.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.1.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.1.1.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "name": "network.features.2.norm",
+        "eps": 1e-05,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.3.0.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.3.0.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.3.1.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.3.1.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "name": "network.features.4.norm",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.0.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.0.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.1.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.1.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.2.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.2.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.3.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.3.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.4.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.4.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.5.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.5.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.6.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.6.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.7.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.7.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.8.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.8.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.9.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.9.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.10.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.10.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.11.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.11.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.12.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.12.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.13.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.13.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.14.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.14.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.15.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.15.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.16.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.16.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.17.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.5.17.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "name": "network.features.6.norm",
+        "eps": 1e-05,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.features.7.0.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.features.7.0.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.features.7.1.norm1",
+        "eps": 1e-05,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.features.7.1.norm2",
+        "eps": 1e-05,
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "name": "network.norm",
+        "eps": 1e-05,
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "head_in_features": 768,
+    "head_out_features": 1,
+    "dropout": 0.2,
+    "stochastic_depth": [
+      {
+        "name": "network.features.1.0.stochastic_depth",
+        "p": 0.0,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.1.1.stochastic_depth",
+        "p": 0.004347826086956522,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.3.0.stochastic_depth",
+        "p": 0.008695652173913044,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.3.1.stochastic_depth",
+        "p": 0.013043478260869568,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.0.stochastic_depth",
+        "p": 0.017391304347826087,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.1.stochastic_depth",
+        "p": 0.021739130434782608,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.2.stochastic_depth",
+        "p": 0.026086956521739136,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.3.stochastic_depth",
+        "p": 0.030434782608695653,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.4.stochastic_depth",
+        "p": 0.034782608695652174,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.5.stochastic_depth",
+        "p": 0.0391304347826087,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.6.stochastic_depth",
+        "p": 0.043478260869565216,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.7.stochastic_depth",
+        "p": 0.04782608695652174,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.8.stochastic_depth",
+        "p": 0.05217391304347827,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.9.stochastic_depth",
+        "p": 0.05652173913043478,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.10.stochastic_depth",
+        "p": 0.06086956521739131,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.11.stochastic_depth",
+        "p": 0.06521739130434782,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.12.stochastic_depth",
+        "p": 0.06956521739130435,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.13.stochastic_depth",
+        "p": 0.07391304347826087,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.14.stochastic_depth",
+        "p": 0.0782608695652174,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.15.stochastic_depth",
+        "p": 0.08260869565217392,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.16.stochastic_depth",
+        "p": 0.08695652173913043,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.5.17.stochastic_depth",
+        "p": 0.09130434782608696,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.7.0.stochastic_depth",
+        "p": 0.09565217391304348,
+        "mode": "row"
+      },
+      {
+        "name": "network.features.7.1.stochastic_depth",
+        "p": 0.1,
+        "mode": "row"
+      }
+    ],
+    "stage_widths": [
+      96,
+      192,
+      384,
+      768
+    ],
+    "attention": [
+      {
+        "heads": 3,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 3,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 6,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 6,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 12,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 24,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          0,
+          0
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      },
+      {
+        "heads": 24,
+        "window": [
+          8,
+          8
+        ],
+        "shift": [
+          4,
+          4
+        ],
+        "dropout": 0.0,
+        "attention_dropout": 0.0
+      }
+    ]
+  },
+  "source_files": {
+    "runtime/bundle/retrain/swin_model.py": "6d729afc519b5cbbabcb6a48f7f424043008fb3f554bddb7ee1ac642beabf96c",
+    "runtime/bundle/retrain/models.py": "50168430774acdb6608667464a531c60c12202c1ff7e96474c7c27d094ae6647",
+    "runtime/bundle/retrain/experiment91.py": "43999c63fa2117374f878c2701e6f7937f7038084421a21d72749b4c4e21fa4b",
+    "runtime/bundle/retrain/config.py": "60c2ac4d5fd5777c2becaf378c7bccf84698b57a2772a4a26a4ba87ceadebc41",
+    "runtime/bundle/retrain/ema.py": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "runtime/bundle/retrain/single91.py": "5e5463d9fddac03d7feb1b589e4b7e5ff5766c9cff8c5ff67e910b04d33632c2"
+  },
+  "science": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/source-cpu/configs/R154-SCIENCE.json",
+    "sha256": "290f67afb7263b04e71431b2dec95c65467bf5c95edda030a0f51048fd0b06f9"
+  },
+  "image_forward_executed": false,
+  "GPU_initialized": false,
+  "official_read": false,
+  "training_checkpoint_loaded": false,
+  "formal_fixture_directory_created": false
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "4ff58b9c91fb82b9577bcd7de7711d3eb07e24bd05b8dcacd94c54c117b58726",
+  "candidate": {
+    "id": "r154-swin-v2-small-imagenet1k-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 66,
+    "model": "swin_v2_small",
+    "public_revision": "db3a0c7e5d97487e7e874c943838569b84fe8e54",
+    "readout": "native_final_LN_gap_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "static_index_buffers": 24,
+    "attention_pool": null,
+    "weight_sha256": "e2052f3313bce47b14c404b18b0ca31e3e1f44cf9563cb2c9fe93faa3ac38d42",
+    "provenance_sha256": "c9471d7261940e7730259988ae976aa26f0cdc5d3dae46c1cc097059d44c2518",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "static_buffer_count": 48
+  },
+  "public_source": {
+    "model": "swinv2_small_window8_256",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "db3a0c7e5d97487e7e874c943838569b84fe8e54",
+    "source_url": "https://huggingface.co/timm/swinv2_small_window8_256.ms_in1k/resolve/db3a0c7e5d97487e7e874c943838569b84fe8e54/pytorch_model.bin",
+    "training_data": "ImageNet-1K",
+    "original_sha256": "fe5783254b12041fb00864de00e51f00826f318a8077023ac472a175f5c882a6",
+    "sha256": "e2052f3313bce47b14c404b18b0ca31e3e1f44cf9563cb2c9fe93faa3ac38d42",
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "license_file": "../original/LICENSE-MIT.txt",
+    "license_sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+    "provenance_sha256": "c9471d7261940e7730259988ae976aa26f0cdc5d3dae46c1cc097059d44c2518"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/swinv2-20261101-32e3/PUBLIC-HANDOFF.json",
+    "sha256": "a7a8e798cf59b792bdf19ef4caf8f1d141da7a22e36b551f910272717420c936"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 449,
+    "parameter_tensors": 401,
+    "backbone_parameter_tensors": 399,
+    "static_index_buffers": 24,
+    "static_buffer_count": 48,
+    "static_index_dtype": "torch.int64",
+    "static_float_buffers": 24,
+    "static_float_dtype": "torch.float32",
+    "public_parameters": 49737442,
+    "backbone_parameters": 48968442,
+    "layer_norms": 53,
+    "stochastic_depth_modules": 24,
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "window": [
+      8,
+      8
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/swinv2-small-db3a0c7e/converted/swin-v2-small-tv-db3a0c7e.pt",
+    "public_provenance": "assets/swinv2-small-db3a0c7e/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "swin-v2-small",
+    "model": "swin_v2_small",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-05,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent direct R107 fixed Swin V2 Small public ImageNet1K fresh at RGB512; original FP32/G64P8/scale085/age/AdamW/LR/WD/24k-800-p4 preserved. No global768/ROI/six channels. R117 V1 Base negative prior; source/width also differ, not pure V1-V2 cause. Complete selected must strictly beat R107 and R120 for later fixed seed27 eligibility; official isolated >=.996 once.",
+  "initial_buffer_sha256": "e03d8ca9249cb44539c4cd13937ecbee3329a3d00d704dbe13590d6f3c7477d0",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

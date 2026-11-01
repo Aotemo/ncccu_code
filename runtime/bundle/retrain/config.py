@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'swin_base')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'swin_base', 'swin_v2_small')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 LION_RULE = {'version':'lion10x-v1','betas':[.9,.99],'learning_rate_scale':.1,
     'nonzero_weight_decay_scale':10.,'precision':'fp32','state':'exp_avg_only',

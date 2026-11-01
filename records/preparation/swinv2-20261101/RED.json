@@ -1,0 +1,50 @@
+{
+  "stage": "RED",
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R154_swin_v2_static_buffers_EMA_and_strict_cold_reload"
+  ],
+  "tests_run": 1,
+  "failures": 0,
+  "errors": 1,
+  "passed": false,
+  "seconds": 2.8288707733154297,
+  "at": 1793575856.0526044,
+  "compiled_sources": 0,
+  "source_files": {
+    "runtime/bundle/retrain/swin_model.py": "2c6f7a7257199e212211ea8aad481dfb5facfb315fa8c8b55e294b37700642dd",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/experiment91.py": "47632b830bc1bcd806178c33197f60e46df4344a006f92f5ce1de2212c4b9570",
+    "runtime/bundle/retrain/ema.py": "9894ae81e6b5ee43d16e6ac219e7c1bb573dadce7d62a0e6230732897abc95fb",
+    "runtime/bundle/retrain/single91.py": "70da64d91ca5822f45af615ad5a5fe0a179455cbb3c695d0744a87003ddc0ee3",
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "tests/test_candidate_binding.py": "61dc1758cc22fb5bfaee85b3eac1f32cff4f5fdb7676527fba3d4e01d6ad9fd2"
+  },
+  "GPU_initialized": false,
+  "official_read": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "timm_installed": true
+}

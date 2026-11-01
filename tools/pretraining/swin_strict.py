@@ -127,6 +127,8 @@ def swin_mapping(source, converted, expected, indices):
 
 
 def accept(args, completed):
+    if getattr(args, 'variant', 'base') == 'v2-small':
+        return accept_v2(args, completed)
     import torch
     import torchvision
     import timm
@@ -427,10 +429,120 @@ def accept(args, completed):
             'production_binary_age_optimizer_admission': 'pending A, no binary or 512 demonstration here'}
 
 
+def accept_v2(args, completed):
+    """Fixed Small V2 extension of the same source/strict/handoff chain."""
+    import torch, torchvision, timm
+    from torchvision.models.swin_transformer import SwinTransformer, SwinTransformerBlockV2, PatchMergingV2
+    from swin_source import V2_REPO, V2_MODEL, V2_REVISION
+    context = cpu_context()
+    chain = read_pinned_receipt(args.source_receipt, args.source_receipt_sha)
+    require(chain.get('passed') is True and (chain.get('repo'), chain.get('model'), chain.get('revision'))
+            == (V2_REPO, V2_MODEL, V2_REVISION), 'fixed Swin V2 source differs')
+    require(all(chain['execution'].get(k)==v for k,v in context.items() if k!='at'),
+            'Swin V2 source CPU execution changed')
+    configure_torch_threads(context)
+    assets = {n: verify_current_content(r['path'], r['sha256']) for n,r in chain['files'].items()}
+    cfg = json.loads(Path(assets['config.json']['path']).read_text())
+    source = torch.load(assets['pytorch_model.bin']['path'], map_location='cpu', weights_only=True)
+    require(isinstance(source, dict) and len(source) == 436, 'Swin V2 complete source state differs')
+    source_model = timm.create_model(V2_REPO.split('/')[1], pretrained=False, pretrained_cfg=cfg['pretrained_cfg'],
+                                    img_size=256, drop_path_rate=.1, drop_rate=0., attn_drop_rate=0.)
+    masks = {n:t for n,t in source.items() if n.endswith('.attn_mask')}
+    require(len(masks) == 11, 'Swin V2 source mask coverage differs')
+    native = dict(source_model.named_buffers())
+    require(all(n in native and torch.equal(t,native[n]) for n,t in masks.items()), 'Swin V2 native masks differ')
+    parameters = {n:t for n,t in source.items() if n not in masks}
+    loaded_source = source_model.load_state_dict(parameters, strict=True)
+    require(not loaded_source.missing_keys and not loaded_source.unexpected_keys, 'Swin V2 strict source load differs')
+    target = SwinTransformer(patch_size=[4,4], embed_dim=96, depths=list(DEPTHS), num_heads=[3,6,12,24],
+              window_size=[8,8], stochastic_depth_prob=.1, norm_layer=partial(torch.nn.LayerNorm,eps=1e-5),
+              num_classes=1000, block=SwinTransformerBlockV2, downsample_layer=PatchMergingV2)
+    expected=target.state_dict(); converted={}; rows=[]; consumed=set()
+    for key,value in sorted(parameters.items()):
+        if key in consumed:continue
+        match=re.fullmatch(r'layers\.([0-3])\.blocks\.(\d+)\.attn\.(logit_scale|cpb_mlp\.[02]\.(?:weight|bias)|q_bias|v_bias)',key)
+        if match:
+            stage,block,tail=int(match[1]),int(match[2]),match[3]
+            name=f'features.{2*stage+1}.{block}.attn.'
+            if tail in ('q_bias','v_bias'):
+                require(tail=='q_bias', 'Swin V2 q/v mapping order differs')
+                other=key.removesuffix('q_bias')+'v_bias'
+                require(other in parameters and parameters[other].shape==value.shape, 'Swin V2 v bias missing')
+                mapped=torch.cat((value,torch.zeros_like(value),parameters[other]));name+='qkv.bias'
+                consumed.add(other); sources=[key,other]
+            else:name+=tail;mapped=value;sources=[key]
+        else:name=swin_target_key(key);mapped=value;sources=[key]
+        require(name in expected and name not in converted, 'Swin V2 mapping collision: '+key)
+        check_tensor(mapped,mapped,expected[name].shape)
+        converted[name]=mapped;consumed.add(key)
+        rows.append({'sources':sources,'target':name,'shape':list(mapped.shape),'FP32_finite_exact':True,
+                     'transform':'q_zero_k_v_concat' if len(sources)==2 else 'identity'})
+    require(consumed==set(parameters) and len(converted)==401, 'Swin V2 trainable mapping coverage differs')
+    static=dict(target.named_buffers())
+    require(len(static)==48, 'Swin V2 target static count differs')
+    for name,tensor in static.items():
+        match=re.fullmatch(r'features\.([1357])\.(\d+)\.attn\.(relative_coords_table|relative_position_index)',name)
+        require(match is not None, 'unregistered Swin V2 target buffer')
+        source_name=f'layers.{(int(match[1])-1)//2}.blocks.{match[2]}.attn.{match[3]}'
+        require(source_name in native, 'Swin V2 generated source buffer missing')
+        original=native[source_name].reshape(-1) if name.endswith('relative_position_index') else native[source_name]
+        require(torch.equal(tensor,original), 'Swin V2 deterministic source/target buffer differs: '+name)
+        converted[name]=tensor.clone()
+    require(set(converted)==set(expected) and len(converted)==449, 'Swin V2 complete target state differs')
+    loaded_target=target.load_state_dict(converted,strict=True)
+    require(not loaded_target.missing_keys and not loaded_target.unexpected_keys
+            and all(torch.equal(t,target.state_dict()[n]) for n,t in converted.items()), 'Swin V2 strict target differs')
+    source_norms,target_norms=normalization(source_model),normalization(target)
+    require(len(source_norms)==len(target_norms)==53 and all(r['eps']==1e-5 for r in source_norms+target_norms),
+            'Swin V2 native LN differs')
+    torch.manual_seed(20261031); sample=torch.randn(2,3,256,256);source_model.eval();target.eval()
+    with torch.inference_mode():a=source_model(sample);b=target(sample)
+    difference=(a-b).abs();maximum,mean=float(difference.max()),float(difference.mean())
+    require(a.shape==b.shape==(2,1000) and bool(torch.isfinite(a).all()) and bool(torch.isfinite(b).all())
+            and maximum<=1e-3 and mean<=1e-4 and torch.equal(a.argmax(1),b.argmax(1)),
+            'Swin V2 source/target FP32 numerical parity failed')
+    destination=Path(args.assets)/'converted';destination.mkdir(parents=True,exist_ok=False)
+    weight=destination/f'swin-v2-small-tv-{V2_REVISION[:8]}.pt'
+    with weight.open('xb') as stream:torch.save(converted,stream)
+    reloaded=torch.load(weight,map_location='cpu',weights_only=True)
+    require(reloaded.keys()==converted.keys() and all(torch.equal(t,reloaded[n]) for n,t in converted.items()),
+            'Swin V2 cold saved tensors differ')
+    target.load_state_dict(reloaded,strict=True)
+    structure={'features':768,'public_state_tensors':449,'parameter_tensors':401,'backbone_parameter_tensors':399,
+       'static_index_buffers':24,'static_buffer_count':48,'static_index_dtype':'torch.int64',
+       'static_float_buffers':24,'static_float_dtype':'torch.float32','public_parameters':sum(p.numel() for p in target.parameters()),
+       'backbone_parameters':sum(p.numel() for n,p in target.named_parameters() if not n.startswith('head.')),
+       'layer_norms':53,'stochastic_depth_modules':24,'full_head_shape':[1000,768],'window':[8,8]}
+    mapping=destination/'tensor-mapping.json';write_new_json(mapping,{'passed':True,'rows':rows,'generated_static_buffers':sorted(static)})
+    provenance={'passed':True,'model':V2_MODEL,'format':'torchvision-1000-state-dict-v1','revision':V2_REVISION,
+       'source_url':chain['files']['pytorch_model.bin']['url'],'training_data':'ImageNet-1K',
+       'original_sha256':assets['pytorch_model.bin']['sha256'],'sha256':sha256(weight),
+       'final_norm_eps':1e-5,'internal_norm_eps':1e-5,'license_file':'../original/LICENSE-MIT.txt',
+       'license':'MIT','license_sha256':assets['LICENSE-MIT.txt']['sha256'],'redistribution_confirmed':True,
+       'source_chain':{'path':args.source_receipt,'sha256':args.source_receipt_sha},
+       'mapping':{'path':str(mapping),'sha256':sha256(mapping)},'structure':structure}
+    provenance_path=destination/'provenance.json';write_new_json(provenance_path,provenance)
+    completed.update(source_strict=True,target_strict=True,full1000_FP32_parity=True)
+    require(not torch.cuda.is_initialized(), 'Swin V2 initialized GPU')
+    return {'schema_version':1,'passed':True,'scope':'swinv2small1k_full1000_cpu_strict','execution':context,
+       'model':V2_MODEL,'repo':V2_REPO,'revision':V2_REVISION,'structure':structure,'assets':assets,
+       'original':{'path':assets['pytorch_model.bin']['path'],'sha256':assets['pytorch_model.bin']['sha256']},
+       'converted':{'path':str(weight),'sha256':sha256(weight)},
+       'provenance':{'path':str(provenance_path),'sha256':sha256(provenance_path)},
+       'source_chain':{'path':args.source_receipt,'sha256':args.source_receipt_sha},
+       'mapping':{'path':str(mapping),'sha256':sha256(mapping)},'strict_load':completed,
+       'source_implementation_pins':{label:{'path':inspect.getsourcefile(obj),'sha256':sha256(inspect.getsourcefile(obj))}
+          for label,obj in (('timm_swin',type(source_model)),('torchvision_swin',type(target)))},
+       'numerical_parity_256':{'max_abs':maximum,'mean_abs':mean,'max_abs_limit':1e-3,'mean_abs_limit':1e-4,'top1_equal':True},
+       'GPU_initialized':False,'datasets_read':False,
+       'validation_source_sha256':{n:sha256(Path(__file__).with_name(n)) for n in ('swin_source.py','swin_strict.py','source_chain.py','strict_load.py')}}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('source-receipt', 'source-receipt-sha', 'assets', 'output', 'handoff'):
         parser.add_argument('--' + name, required=True)
+    parser.add_argument('--variant', choices=('base','v2-small'), default='base')
     args = parser.parse_args()
     completed = {}
     try:

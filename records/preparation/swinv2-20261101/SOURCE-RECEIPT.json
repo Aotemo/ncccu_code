@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "scope": "swinv2small1k_fixed_revision_download",
+  "execution": {
+    "at": "2026-11-01T23:34:10.903465+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "23",
+      "MKL_NUM_THREADS": "23",
+      "OPENBLAS_NUM_THREADS": "23"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-prep-renewal-20261101-32e3/CPU-ALLOCATION.json",
+      "sha256": "b7811b4e3e8d5c37a5639d457faf21896f82f71ab82694492297b0232a9ffd72",
+      "executor_id": "32e3b079-81b0-4f66-9604-b32491599f44",
+      "threads": 23,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "model": "swinv2_small_window8_256",
+  "repo": "timm/swinv2_small_window8_256.ms_in1k",
+  "revision": "db3a0c7e5d97487e7e874c943838569b84fe8e54",
+  "revision_source": "single_registry_metadata_read_then_all_files_at_that_commit",
+  "training_data": "ImageNet-1K",
+  "files": {
+    "model-api.json": {
+      "url": "https://huggingface.co/api/models/timm/swinv2_small_window8_256.ms_in1k/revision/db3a0c7e5d97487e7e874c943838569b84fe8e54?blobs=true",
+      "started_at": "2026-11-01T23:34:10.924907+00:00",
+      "completed_at": "2026-11-01T23:34:10.935283+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/model-api.json",
+      "bytes": 1595,
+      "sha256": "2997dcb74f74a1f6551fe5f37297c869e63165d2f7d3ab28dbdc9db6df73e3c2",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/transport/model-api.json",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/model-api.json",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/model-api.json",
+        "bytes": 1595,
+        "device": 132,
+        "inode": 18968982141,
+        "mtime_ns": 1793576050000000000,
+        "ctime_ns": 1793576050000000000
+      }
+    },
+    "config.json": {
+      "url": "https://huggingface.co/timm/swinv2_small_window8_256.ms_in1k/resolve/db3a0c7e5d97487e7e874c943838569b84fe8e54/config.json",
+      "started_at": "2026-11-01T23:34:10.937646+00:00",
+      "completed_at": "2026-11-01T23:34:10.947769+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/config.json",
+      "bytes": 633,
+      "sha256": "30c98a8fb6614b93128d6851ef9a971a8c6b4887fb7a140c4703e2d1b462740b",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/transport/config.json",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/config.json",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/config.json",
+        "bytes": 633,
+        "device": 132,
+        "inode": 18968982397,
+        "mtime_ns": 1793576050000000000,
+        "ctime_ns": 1793576050000000000
+      }
+    },
+    "README.md": {
+      "url": "https://huggingface.co/timm/swinv2_small_window8_256.ms_in1k/resolve/db3a0c7e5d97487e7e874c943838569b84fe8e54/README.md",
+      "started_at": "2026-11-01T23:34:10.949000+00:00",
+      "completed_at": "2026-11-01T23:34:10.959420+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/README.md",
+      "bytes": 4421,
+      "sha256": "776953be1d754a9e0af60a1ba07067cb2ef55f621324896e5b028e59e8d04352",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/transport/README.md",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/README.md",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/README.md",
+        "bytes": 4421,
+        "device": 132,
+        "inode": 10307419975,
+        "mtime_ns": 1793576050000000000,
+        "ctime_ns": 1793576050000000000
+      }
+    },
+    "LICENSE-MIT.txt": {
+      "url": "https://raw.githubusercontent.com/microsoft/Swin-Transformer/main/LICENSE",
+      "started_at": "2026-11-01T23:34:10.961391+00:00",
+      "completed_at": "2026-11-01T23:34:10.971127+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/LICENSE-MIT.txt",
+      "bytes": 1141,
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/transport/LICENSE-MIT.txt",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/LICENSE-MIT.txt",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/LICENSE-MIT.txt",
+        "bytes": 1141,
+        "device": 132,
+        "inode": 18968982653,
+        "mtime_ns": 1793576050000000000,
+        "ctime_ns": 1793576050000000000
+      }
+    },
+    "pytorch_model.bin": {
+      "url": "https://huggingface.co/timm/swinv2_small_window8_256.ms_in1k/resolve/db3a0c7e5d97487e7e874c943838569b84fe8e54/pytorch_model.bin",
+      "started_at": "2026-11-01T23:34:10.972682+00:00",
+      "completed_at": "2026-11-01T23:34:11.781939+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/pytorch_model.bin",
+      "bytes": 200976925,
+      "sha256": "fe5783254b12041fb00864de00e51f00826f318a8077023ac472a175f5c882a6",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/transport/pytorch_model.bin",
+      "expected_lfs_sha256": "fe5783254b12041fb00864de00e51f00826f318a8077023ac472a175f5c882a6",
+      "expected_lfs_bytes": 200976925,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/pytorch_model.bin",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/pytorch_model.bin",
+        "bytes": 200976925,
+        "device": 132,
+        "inode": 18968982909,
+        "mtime_ns": 1793576051000000000,
+        "ctime_ns": 1793576051000000000
+      }
+    }
+  },
+  "public": true,
+  "private": false,
+  "gated": false,
+  "lfs_weight": {
+    "sha256": "fe5783254b12041fb00864de00e51f00826f318a8077023ac472a175f5c882a6",
+    "bytes": 200976925
+  },
+  "public_pretrained_config": {
+    "tag": "ms_in1k",
+    "custom_load": false,
+    "input_size": [
+      3,
+      256,
+      256
+    ],
+    "fixed_input_size": true,
+    "interpolation": "bicubic",
+    "crop_pct": 0.9,
+    "crop_mode": "center",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "num_classes": 1000,
+    "pool_size": [
+      8,
+      8
+    ],
+    "first_conv": "patch_embed.proj",
+    "classifier": "head.fc",
+    "license": "mit"
+  },
+  "candidate": {
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "stochastic_depth": 0.1,
+    "source_dropout": 0.0,
+    "source_attention_dropout": 0.0,
+    "binary_head_dropout": 0.2,
+    "image_size": 512,
+    "source_card_preprocessing_is_not_candidate_preprocessing": true
+  },
+  "license": {
+    "identifier": "mit",
+    "declaration": "fixed-revision model card and registry",
+    "full_text_url": "https://raw.githubusercontent.com/microsoft/Swin-Transformer/main/LICENSE",
+    "redistribution_confirmed": true
+  },
+  "validation_source_sha256": {
+    "swin_source.py": "ff0a87007c9d59c033face6b2d53fda26d424b88268f01b9dfd0d3f1ca4178a4",
+    "source_chain.py": "5d183e1a0949e913956d57647f6b819846696c34fcb1b4f5d1c82c1510d76473"
+  },
+  "downloaded_weight_formats": [
+    "pytorch_model.bin"
+  ],
+  "forward_calls_in_source_step": 0,
+  "datasets_read": false,
+  "GPU_imported": false,
+  "download_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/original/download-receipt.json",
+    "sha256": "18bd48a7b472f938580783a45326a177b1014066ef179d8fa038badef30feb35"
+  }
+}

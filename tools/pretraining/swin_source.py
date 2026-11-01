@@ -16,9 +16,18 @@ MODEL = 'swin_base_patch4_window7_224'
 TRAINING_DATA = 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
 API_URL = f'https://huggingface.co/api/models/{REPO}?blobs=true'
 LICENSE_URL = 'https://spdx.org/licenses/MIT.txt'
+V2_REPO = 'timm/swinv2_small_window8_256.ms_in1k'
+V2_MODEL = 'swinv2_small_window8_256'
+V2_REVISION = 'db3a0c7e5d97487e7e874c943838569b84fe8e54'
 
 
-def download(assets, transport_dir=None):
+def download(assets, transport_dir=None, variant='base'):
+    require(variant in ('base', 'v2-small'), 'unregistered Swin source variant')
+    v2 = variant == 'v2-small'
+    repo, model = (V2_REPO, V2_MODEL) if v2 else (REPO, MODEL)
+    training_data = 'ImageNet-1K' if v2 else TRAINING_DATA
+    api_url = f'https://huggingface.co/api/models/{repo}/revision/{V2_REVISION}?blobs=true' if v2 else API_URL
+    license_url = 'https://raw.githubusercontent.com/microsoft/Swin-Transformer/main/LICENSE' if v2 else LICENSE_URL
     context = cpu_context()
     assets = Path(assets)
     require(assets.is_absolute() and '/exp-v3/' in str(assets), 'explicit exp-v3 asset root required')
@@ -28,16 +37,17 @@ def download(assets, transport_dir=None):
         require(Path(transport_dir).is_absolute() and '/exp-v3/' in str(transport_dir),
                 'explicit exp-v3 transport root required')
     transport = lambda name: str(Path(transport_dir) / name) if transport_dir else None
-    api_record = fetch(API_URL, original / 'model-api.json', transport_file=transport('model-api.json'))
+    api_record = fetch(api_url, original / 'model-api.json', transport_file=transport('model-api.json'))
     api = json.loads((original / 'model-api.json').read_text())
     revision = api.get('sha')
     require(isinstance(revision, str) and len(revision) == 40
             and all(character in '0123456789abcdef' for character in revision),
             'single metadata read did not return one immutable commit')
-    require(api.get('id') == REPO and api.get('private') is False and api.get('gated') is False,
+    require(api.get('id') == repo and api.get('private') is False and api.get('gated') is False,
             'fixed public non-gated registry identity differs')
     require(api.get('cardData', {}).get('license') == 'mit', 'registry license differs from MIT')
-    require('384' not in REPO and 'v2' not in REPO.lower(), 'non-approved Swin-B variant')
+    require(revision == V2_REVISION if v2 else '384' not in REPO and 'v2' not in REPO.lower(),
+            'non-approved Swin source variant or revision')
     siblings = [s for s in api['siblings'] if s['rfilename'] == 'pytorch_model.bin']
     require(len(siblings) == 1, 'exactly one pytorch_model.bin entry required at the pinned commit')
     blob = siblings[0]
@@ -45,33 +55,35 @@ def download(assets, transport_dir=None):
     require(isinstance(expected_sha, str) and len(expected_sha) == 64
             and type(expected_size) is int and expected_size > 0,
             'pinned commit must provide bin LFS SHA and size')
-    base = f'https://huggingface.co/{REPO}/resolve/{revision}'
+    base = f'https://huggingface.co/{repo}/resolve/{revision}'
     records = {'model-api.json': api_record}
     for name in ('config.json', 'README.md'):
         records[name] = fetch(base + '/' + name, original / name, transport_file=transport(name))
     config = json.loads((original / 'config.json').read_text())
     cfg = config['pretrained_cfg']
     require((config.get('architecture'), config.get('num_classes'), config.get('num_features'))
-            == (MODEL, 1000, 1024), 'public Swin-B architecture config differs')
-    require(cfg.get('tag') == 'ms_in22k_ft_in1k' and cfg.get('num_classes') == 1000
+            == (model, 1000, 768 if v2 else 1024), 'public Swin architecture config differs')
+    require(cfg.get('tag') == ('ms_in1k' if v2 else 'ms_in22k_ft_in1k') and cfg.get('num_classes') == 1000
             and cfg.get('first_conv') == 'patch_embed.proj' and cfg.get('classifier') == 'head.fc'
             and cfg.get('mean') == [.485, .456, .406] and cfg.get('std') == [.229, .224, .225]
-            and cfg.get('input_size') == [3, 224, 224], 'public non-tensor Swin-B configuration differs')
+            and cfg.get('input_size') == ([3, 256, 256] if v2 else [3, 224, 224]),
+            'public non-tensor Swin configuration differs')
     readme = (original / 'README.md').read_text()
-    require('license: mit' in readme and 'imagenet-1k' in readme and 'imagenet-22k' in readme
-            and 'ImageNet-1k' in readme and 'ImageNet-22k' in readme and 'fine-tuned' in readme,
+    require('license: mit' in readme and 'imagenet-1k' in readme
+            and ('Pretrained on ImageNet-1k by paper authors.' in readme if v2 else
+                 'imagenet-22k' in readme and 'ImageNet-1k' in readme and 'ImageNet-22k' in readme and 'fine-tuned' in readme),
             'pinned Swin-B model card license/datasets/recipe differ')
-    records['LICENSE-MIT.txt'] = fetch(LICENSE_URL, original / 'LICENSE-MIT.txt',
+    records['LICENSE-MIT.txt'] = fetch(license_url, original / 'LICENSE-MIT.txt',
                                        transport_file=transport('LICENSE-MIT.txt'))
     license_text = (original / 'LICENSE-MIT.txt').read_text()
     require('MIT License' in license_text and 'Permission is hereby granted' in license_text,
             'official MIT license text incomplete')
     records['pytorch_model.bin'] = fetch(base + '/pytorch_model.bin', original / 'pytorch_model.bin',
                                          expected_sha, expected_size, transport('pytorch_model.bin'))
-    receipt = {'schema_version': 1, 'passed': True, 'scope': 'swinbase22k_fixed_revision_download',
-               'execution': context, 'model': MODEL, 'repo': REPO, 'revision': revision,
+    receipt = {'schema_version': 1, 'passed': True, 'scope': 'swinv2small1k_fixed_revision_download' if v2 else 'swinbase22k_fixed_revision_download',
+               'execution': context, 'model': model, 'repo': repo, 'revision': revision,
                'revision_source': 'single_registry_metadata_read_then_all_files_at_that_commit',
-               'training_data': TRAINING_DATA, 'files': records,
+               'training_data': training_data, 'files': records,
                'public': True, 'private': False, 'gated': False,
                'lfs_weight': {'sha256': expected_sha, 'bytes': expected_size},
                'public_pretrained_config': cfg,
@@ -80,7 +92,7 @@ def download(assets, transport_dir=None):
                              'binary_head_dropout': .2, 'image_size': 512,
                              'source_card_preprocessing_is_not_candidate_preprocessing': True},
                'license': {'identifier': 'mit', 'declaration': 'fixed-revision model card and registry',
-                           'full_text_url': LICENSE_URL, 'redistribution_confirmed': True},
+                           'full_text_url': license_url, 'redistribution_confirmed': True},
                'validation_source_sha256': {'swin_source.py': sha256(__file__),
                                             'source_chain.py': sha256(Path(__file__).with_name('source_chain.py'))},
                'downloaded_weight_formats': ['pytorch_model.bin'], 'forward_calls_in_source_step': 0,
@@ -96,9 +108,10 @@ def main():
     parser.add_argument('--assets', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--transport-dir', help='Explicit authorized raw byte relay; all parsing and hashes stay on Pod')
+    parser.add_argument('--variant', choices=('base', 'v2-small'), default='base')
     args = parser.parse_args()
     try:
-        result = download(args.assets, args.transport_dir)
+        result = download(args.assets, args.transport_dir, args.variant)
     except Exception as error:
         write_new_json(args.output, {'schema_version': 1, 'passed': False, 'execution': cpu_context(),
                                      'error_type': type(error).__name__, 'error': str(error)})

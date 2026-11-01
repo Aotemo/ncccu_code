@@ -13,6 +13,9 @@ from .n05_metrics import metrics as exact_metrics
 
 
 def immutable_buffers(state):
+    if ex.candidate()['model'] == 'swin_v2_small':
+        from .swin_model import static_swin_buffers
+        return static_swin_buffers(state, 'swin_v2_small_window8')
     if ex.candidate()['model'] == 'swin_base':
         from .swin_model import static_index_buffers
         return static_index_buffers(state)
@@ -22,7 +25,7 @@ def immutable_buffers(state):
 
 def immutable_buffer_count():
     candidate = ex.candidate()
-    return candidate.get('static_index_buffers', candidate['batch_norm_buffers'])
+    return candidate.get('static_buffer_count', candidate.get('static_index_buffers', candidate['batch_norm_buffers']))
 
 
 def write_exclusive(path, value):

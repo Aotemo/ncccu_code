@@ -53,6 +53,8 @@ NO_MODEL_STOCH_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010
 GLOBAL_NATIVE_SIX_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-native6-v1'
 GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-native6-v1'
 GLOBAL_768_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-global768-v1'
+GLOBAL_768_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-global768-v1'
+SWIN_V2_SMALL_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -74,7 +76,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
                       GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                       NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
-                      GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING)
+                      GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
+                      GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -161,7 +164,8 @@ def science_configuration():
                                                        DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
                                                        GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                                        NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
-                                                       GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING)
+                                                       GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
+                                                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING)
@@ -185,7 +189,7 @@ def science_configuration():
                     and (value.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_SIX_RULE
                          or value.get('candidate',{}).get('input_preprocessing')!=GLOBAL_NATIVE_SIX_RULE
                          or not isinstance(value.get('composite_cache_receipt'),dict)))
-                or (value.get('candidate_profile')==GLOBAL_768_SMALL_BINDING
+                or (value.get('candidate_profile') in (GLOBAL_768_SMALL_BINDING,GLOBAL_768_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('image_size')!=768
                          or value.get('job',{}).get('prepared_size')!=768
                          or not isinstance(value.get('prepared_cache_receipt'),dict)))
@@ -388,7 +392,8 @@ def candidate_from_configuration(value):
                                         LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
                                         GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                         NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
-                                        GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING):
+                                        GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
+                                        GLOBAL_768_SMALL_SEED27_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -530,6 +535,9 @@ def candidate_from_configuration(value):
         if value['candidate_profile']==GLOBAL_768_SMALL_BINDING:
             expected.update(id='r152-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-global768-9010',
                             experiment_order=64)
+        if value['candidate_profile']==GLOBAL_768_SMALL_SEED27_BINDING:
+            expected.update(id='r153-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-global768-9010',
+                            experiment_order=65)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -538,7 +546,7 @@ def candidate_from_configuration(value):
             'batch_norm_buffers': 0, 'attention_pool': None,
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
-    elif value['candidate_profile'] == SWIN_BINDING:
+    elif value['candidate_profile'] in (SWIN_BINDING,SWIN_V2_SMALL_BINDING):
         expected = {'id': 'r117-swin-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 27, 'model': 'swin_base', 'public_revision': source['revision'],
             'readout': 'native_final_LN_gap_dropout_linear_plus_age', 'features': 1024,
@@ -546,6 +554,15 @@ def candidate_from_configuration(value):
             'batch_norm_modules': 0, 'batch_norm_buffers': 0, 'static_index_buffers': 24,
             'attention_pool': None, 'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
+        if value['candidate_profile']==SWIN_V2_SMALL_BINDING:
+            expected.update(id='r154-swin-v2-small-imagenet1k-24k-p4-seed20261029-scale085-pairlog-9010',
+                            experiment_order=66,model='swin_v2_small',features=768,static_buffer_count=48)
+            if (source.get('model')!='swinv2_small_window8_256'
+                    or source.get('revision')!='db3a0c7e5d97487e7e874c943838569b84fe8e54'
+                    or source.get('training_data')!='ImageNet-1K'
+                    or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                    or value['job'].get('image_size')!=512 or value['job'].get('prepared_size')!=512):
+                raise ValueError('fixed Swin V2 Small public/geometry/objective differs')
     elif value['candidate_profile'] in (DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING):
         expected={'id':'r141-dinov2-vits14-lvd142m-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':53,'model':'dinov2_vits14','public_revision':'7764ea0f912e53c92e82eb78a2a1631e92725fc8',
@@ -590,7 +607,7 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base', 'swin_base'):
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'swin_base', 'swin_v2_small'):
             raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
@@ -691,6 +708,9 @@ def _metadata(root):
     if candidate()['model'] == 'swin_base':
         values['EMA-TINY.json'].update(static_integer_buffers='relative_position_index',
                                       static_integer_buffer_count=24)
+    if candidate()['model'] == 'swin_v2_small':
+        values['EMA-TINY.json'].update(static_swin_buffers='swin_v2_small_window8',static_swin_buffer_count=48,
+                                      floating_buffers='same_as_parameters_except_static_swin')
     if candidate()['model'] == 'resnet50_imagenet':
         values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-frozenbn-v1',
             'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
@@ -827,20 +847,22 @@ def describe_model(model):
                 'frozen_unused_token':'backbone.mask_token','mask_token_shape':list(base.mask_token.shape)}}
         validate_normalization(value)
         return value
-    if candidate()['model'] == 'swin_base':
-        from torchvision.models.swin_transformer import SwinTransformerBlock, ShiftedWindowAttention
+    if candidate()['model'] in ('swin_base','swin_v2_small'):
+        from torchvision.models.swin_transformer import SwinTransformerBlock, ShiftedWindowAttention, SwinTransformerBlockV2, ShiftedWindowAttentionV2
         from torchvision.ops import StochasticDepth
-        from .swin_model import SwinBinary, static_index_buffers
+        from .swin_model import SwinBinary, static_index_buffers, static_swin_buffers
+        v2 = candidate()['model']=='swin_v2_small'
         if not isinstance(model, SwinBinary):
             raise ValueError('registered Swin V1 binary wrapper required')
         network = model.network
         buffers = dict(model.named_buffers())
-        indices = static_index_buffers(model)
+        fixed = static_swin_buffers(model,'swin_v2_small_window8') if v2 else static_index_buffers(model)
+        indices = {n:t for n,t in fixed.items() if n.endswith('.relative_position_index')}
         norms = [{'name': name, 'eps': float(module.eps),
                   'normalized_shape': list(module.normalized_shape)}
                  for name, module in model.named_modules() if isinstance(module, nn.LayerNorm)]
-        blocks = [module for module in model.modules() if type(module) is SwinTransformerBlock]
-        attentions = [module for module in model.modules() if type(module) is ShiftedWindowAttention]
+        blocks = [module for module in model.modules() if type(module) is (SwinTransformerBlockV2 if v2 else SwinTransformerBlock)]
+        attentions = [module for module in model.modules() if type(module) is (ShiftedWindowAttentionV2 if v2 else ShiftedWindowAttention)]
         depth = [{'name': name, 'p': module.p, 'mode': module.mode}
                  for name, module in model.named_modules() if isinstance(module, StochasticDepth)]
         final = network.classifier[-1]
@@ -856,7 +878,7 @@ def describe_model(model):
                  'attention': [{'heads': item.num_heads, 'window': list(item.window_size),
                                 'shift': list(item.shift_size), 'dropout': item.dropout,
                                 'attention_dropout': item.attention_dropout} for item in attentions]}
-        if (count_bn or set(buffers) != set(indices) or not isinstance(network.head, nn.Identity)
+        if (count_bn or set(buffers) != set(fixed) or not isinstance(network.head, nn.Identity)
                 or not isinstance(network.norm, nn.LayerNorm)
                 or not isinstance(network.avgpool, nn.AdaptiveAvgPool2d)
                 or network.avgpool.output_size != 1
@@ -994,21 +1016,22 @@ def validate_normalization(value):
                 or value.get('dino')!=expected):
             raise ValueError('original DINOv2 no-register/LN/CLS/patch/head graph differs')
         return True
-    if candidate()['model'] == 'swin_base':
+    if candidate()['model'] in ('swin_base','swin_v2_small'):
         science = science_configuration()
+        v2 = candidate()['model']=='swin_v2_small'
         norms, depth, attention = (value.get(key, []) for key in
                                    ('layer_norms', 'stochastic_depth', 'attention'))
         expected_attention = [
-            {'heads': heads, 'window': [7, 7], 'shift': [0 if index % 2 == 0 else 3] * 2,
+            {'heads': heads, 'window': [8, 8] if v2 else [7, 7], 'shift': [0 if index % 2 == 0 else 4 if v2 else 3] * 2,
              'dropout': 0.0, 'attention_dropout': 0.0}
-            for heads, count in zip((4, 8, 16, 32), (2, 2, 18, 2)) for index in range(count)]
+            for heads, count in zip((3,6,12,24) if v2 else (4,8,16,32), (2,2,18,2)) for index in range(count)]
         if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
-                or value.get('buffer_count') != 24
+                or value.get('buffer_count') != (48 if v2 else 24)
                 or value.get('buffer_sha256') != science.get('initial_buffer_sha256')
                 or len(value.get('static_index_names', [])) != 24
                 or any(not name.endswith('.relative_position_index') for name in value['static_index_names'])
-                or value.get('stage_widths') != [128, 256, 512, 1024]
-                or value.get('head_in_features') != 1024 or value.get('head_out_features') != 1
+                or value.get('stage_widths') != ([96,192,384,768] if v2 else [128,256,512,1024])
+                or value.get('head_in_features') != (768 if v2 else 1024) or value.get('head_out_features') != 1
                 or value.get('dropout') != science['job']['dropout']
                 or len(norms) != structure_contract()['layer_norms']
                 or any(item['eps'] != 1e-5 for item in norms)

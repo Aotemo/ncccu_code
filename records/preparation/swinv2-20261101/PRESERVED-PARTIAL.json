@@ -1,0 +1,12 @@
+{
+  "at": 1793576112.4425268,
+  "failure": "STRICT-RECEIPT.json",
+  "original": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/converted",
+  "preserved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/swinv2-small-db3a0c7e/converted-failed-receipt-write",
+  "files": {
+    "swin-v2-small-tv-db3a0c7e.pt": "e2052f3313bce47b14c404b18b0ca31e3e1f44cf9563cb2c9fe93faa3ac38d42",
+    "tensor-mapping.json": "eb11c83ae8ad199c1fbf32969a8b5aee3fa3b517e5b5714c53283d8b071da2b3"
+  },
+  "datasets_read": false,
+  "GPU_used": false
+}

@@ -1,18 +1,21 @@
-"""The single registered Swin V1 Base binary readout and its static indices."""
+"""Registered Swin binary readouts and deterministic position buffers."""
 from functools import partial
 
 import torch
 from torch import nn
-from torchvision.models.swin_transformer import SwinTransformer
+from torchvision.models.swin_transformer import SwinTransformer, SwinTransformerBlockV2, PatchMergingV2
 
 
 class SwinBinaryNetwork(SwinTransformer):
     def __init__(self, job):
-        super().__init__(patch_size=[4, 4], embed_dim=128, depths=[2, 2, 18, 2],
-                         num_heads=[4, 8, 16, 32], window_size=[7, 7],
+        v2 = job['model'] == 'swin_v2_small'
+        extra = {'block': SwinTransformerBlockV2, 'downsample_layer': PatchMergingV2} if v2 else {}
+        super().__init__(patch_size=[4, 4], embed_dim=96 if v2 else 128, depths=[2, 2, 18, 2],
+                         num_heads=[3, 6, 12, 24] if v2 else [4, 8, 16, 32],
+                         window_size=[8, 8] if v2 else [7, 7],
                          mlp_ratio=4.0, dropout=0.0, attention_dropout=0.0,
                          stochastic_depth_prob=job['stochastic_depth'], num_classes=1000,
-                         norm_layer=partial(nn.LayerNorm, eps=1e-5))
+                         norm_layer=partial(nn.LayerNorm, eps=1e-5), **extra)
 
     def forward(self, images):
         x = self.features(images)
@@ -52,7 +55,9 @@ def create_swin_binary(job, initialize=True):
     from .ema import tensor_digest
     from .models import validate_initialization
     network = SwinBinaryNetwork(job)
-    generated_indices = {name: tensor.clone() for name, tensor in static_index_buffers(network).items()}
+    v2 = job['model'] == 'swin_v2_small'
+    fixed = static_swin_buffers(network, 'swin_v2_small_window8') if v2 else static_index_buffers(network)
+    generated_indices = {name: tensor.clone() for name, tensor in fixed.items()}
     public_receipt = None
     if initialize:
         proof = validate_initialization(job['initialization'])
@@ -75,9 +80,11 @@ def create_swin_binary(job, initialize=True):
                           'public_tensor_count': len(state), 'public_tensor_sha256': tensor_digest(state),
                           'full_head_shape': list(network.head.weight.shape),
                           'all_public_tensors_exact': True, 'all_public_tensors_FP32_finite': True,
-                          'static_index_count': len(generated_indices)}
+                          'static_index_count': 24}
+        if v2:
+            public_receipt['static_buffer_count'] = len(generated_indices)
     network.head = nn.Identity()
-    network.classifier = nn.Sequential(nn.Dropout(job['dropout']), nn.Linear(1024, 1))
+    network.classifier = nn.Sequential(nn.Dropout(job['dropout']), nn.Linear(768 if v2 else 1024, 1))
     result = SwinBinary(network)
     if job.get('age') is not None:
         from .age import attach_age
@@ -87,3 +94,24 @@ def create_swin_binary(job, initialize=True):
         result.candidate_normalization = describe_model(result)
         result.public_initialization_receipt = public_receipt
     return result
+
+
+def static_swin_buffers(value, variant):
+    if variant != 'swin_v2_small_window8':
+        raise ValueError('unregistered static Swin buffer variant')
+    state = value.state_dict() if isinstance(value, nn.Module) else value
+    indices = {n: t for n, t in state.items() if n.endswith('.relative_position_index')}
+    coords = {n: t for n, t in state.items() if n.endswith('.relative_coords_table')}
+    axis = torch.arange(-7, 8, dtype=torch.float32)
+    expected = torch.stack(torch.meshgrid(axis, axis, indexing='ij')).permute(1, 2, 0).contiguous().unsqueeze(0)
+    expected = expected / 7 * 8
+    expected = torch.sign(expected) * torch.log2(torch.abs(expected) + 1.0) / 3.0
+    if (len(indices) != 24 or len(coords) != 24
+            or {n.removesuffix('relative_position_index') for n in indices}
+               != {n.removesuffix('relative_coords_table') for n in coords}
+            or any(t.dtype != torch.int64 or t.shape != (4096,)
+                   or not bool(((0 <= t) & (t <= 224)).all()) for t in indices.values())
+            or any(t.dtype != torch.float32 or t.shape != expected.shape
+                   or not torch.equal(t, expected.to(t.device)) for t in coords.values())):
+        raise ValueError('Swin V2 static coordinates or position indices differ')
+    return {**indices, **coords}

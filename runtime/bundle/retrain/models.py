@@ -334,11 +334,22 @@ def validate_initialization(initialization):
                 or not path.is_absolute() or not meta_path.is_absolute()
                 or path.is_symlink() or meta_path.is_symlink()):
             raise ValueError('Pinned ConvNeXt22K-to-1K source/revision/conversion/LN differs')
+    elif meta['model'] == 'swinv2_small_window8_256':
+        from .experiment91 import public_source
+        source = public_source()
+        if (source['model'] != meta['model'] or _hash(meta_path) != source['provenance_sha256']
+                or any(meta.get(k) != source[k] for k in ('model','format','revision','source_url','training_data',
+                         'original_sha256','sha256','final_norm_eps','internal_norm_eps','license_file'))
+                or meta.get('license') != 'MIT' or not path.is_absolute() or not meta_path.is_absolute()
+                or path.is_symlink() or meta_path.is_symlink()):
+            raise ValueError('Pinned Swin V2 Small source/conversion/provenance differs')
     elif meta['training_data'] != 'ImageNet-1K' or not meta['source_url'].startswith('https://'):
         raise ValueError('Only documented ImageNet-1K or the pinned Tiny22K-to-1K source is supported')
     license_path = (meta_path.parent / meta['license_file']).resolve()
     if not license_path.is_file() or not license_path.read_text().strip():
         raise ValueError('Provide the applicable full weight license as license_file')
+    if meta['model'] == 'swinv2_small_window8_256' and _hash(license_path) != source['license_sha256']:
+        raise ValueError('Pinned Swin V2 license bytes differ')
     return {'kind': 'imagenet', 'weights_sha256': initialization['sha256'],
             'provenance_sha256': _hash(meta_path), 'license_sha256': _hash(license_path),
             'model': meta['model'], 'source_url': meta['source_url'], 'training_data': meta['training_data'],
@@ -405,7 +416,7 @@ def create_model(job, initialize=True):
     if job['model'] == 'dinov2_vits14':
         from .dinov2_model import create_dinov2_binary
         return create_dinov2_binary(job, initialize=initialize)
-    if job['model'] == 'swin_base':
+    if job['model'] in ('swin_base', 'swin_v2_small'):
         from .swin_model import create_swin_binary
         return create_swin_binary(job, initialize=initialize)
     from torchvision import models

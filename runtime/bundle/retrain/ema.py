@@ -45,6 +45,11 @@ def validate_state(state,reference,successful,rule=None):
   if len(indices)!=rule['static_integer_buffer_count'] or any(
       not torch.equal(tensors[name], value) for name,value in indices.items()):
    raise ValueError('EMA static Swin relative-position index differs')
+ if rule.get('static_swin_buffers'):
+  from .swin_model import static_swin_buffers
+  fixed_swin=static_swin_buffers(reference,rule['static_swin_buffers'])
+  if len(fixed_swin)!=rule['static_swin_buffer_count'] or any(not torch.equal(tensors[n],t) for n,t in fixed_swin.items()):
+   raise ValueError('EMA static Swin coordinates/index differs')
  for name,value in tensors.items():
   ref=reference[name]
   if (not isinstance(value,torch.Tensor) or value.shape!=ref.shape or value.dtype!=ref.dtype
@@ -81,7 +86,15 @@ class EMA:
   source=online.state_dict();target=self.model.state_dict()
   if source.keys()!=target.keys():raise ValueError('EMA live keys differ')
   fixed=set(self.frozen_parameter_names)
-  if self.rule.get('static_integer_buffers')=='relative_position_index':
+  if self.rule.get('static_swin_buffers'):
+   from .swin_model import static_swin_buffers
+   source_fixed=static_swin_buffers(online,self.rule['static_swin_buffers']);target_fixed=static_swin_buffers(self.model,self.rule['static_swin_buffers'])
+   if (set(source_fixed)!=set(dict(online.named_buffers())) or set(target_fixed)!=set(dict(self.model.named_buffers()))
+       or len(source_fixed)!=self.rule['static_swin_buffer_count']
+       or any(not torch.equal(t,target_fixed[n]) for n,t in source_fixed.items())):
+    raise ValueError('Swin static EMA buffers changed')
+   fixed.update(source_fixed)
+  elif self.rule.get('static_integer_buffers')=='relative_position_index':
    from .swin_model import static_index_buffers
    source_indices=static_index_buffers(online);target_indices=static_index_buffers(self.model)
    if (set(source_indices)!=set(dict(online.named_buffers()))

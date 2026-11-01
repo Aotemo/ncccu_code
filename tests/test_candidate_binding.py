@@ -21,6 +21,74 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R153_R154_science_consumes_geometry_model_and_fresh_identity(self):
+        from retrain import age,config,single91
+        original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,order,size,seed,model in [('R153',65,768,20261027,'convnext_small'),('R154',66,512,20261029,'swin_v2_small')]:
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed'],science['job']['model']),(order,seed,model))
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),**{k:str(ROOT/v) for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':original_age}):
+                self.assertEqual(experiment.science_configuration(),science)
+                self.assertEqual(experiment.candidate(),science['candidate'])
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization={'kind':'imagenet','format':science['public_source']['format'],'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                cfg=self.path.parent/(label+'-TRAIN.json');cfg.write_text(json.dumps({'mode':'train','data':{'split':science['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
+                resolved=config.load_config(cfg,environ={})['jobs'][0]
+                self.assertEqual(experiment.validate_job(resolved),resolved)
+                self.assertEqual(single91.input_geometry(),{'image_size':size,'prepared_size':size})
+                saved=config.job_contract(resolved)
+                self.assertEqual((saved['model'],saved['seed'],saved['image_size'],saved['prepared_size']),(model,seed,size,size))
+            if label=='R153':
+                baseline=json.loads((ROOT/'configs/R152-SCIENCE.json').read_text())
+                science['job']['seed']=baseline['job']['seed']
+                for value in (science,baseline):
+                    for key in ('candidate_profile','comparison_note','initial_model_tensor_sha256'):value.pop(key)
+                    for key in ('id','experiment_order'):value['candidate'].pop(key)
+                self.assertEqual(science,baseline)
+
+    def test_R154_swin_v2_static_buffers_EMA_and_strict_cold_reload(self):
+        import torch
+        from retrain import age,models,ema,single91
+        from retrain.engine import _optimizer
+        from retrain.inference import _load_model
+        from retrain.persistence import CheckpointStore
+        job=copy.deepcopy(json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())['job'])
+        job.update(model='swin_v2_small',age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]}))
+        torch.manual_seed(job['seed']);model=models.create_model(job,initialize=False).eval()
+        buffers={n:t.clone() for n,t in model.named_buffers()}
+        self.assertEqual(len(buffers),48)
+        self.assertEqual(sum(n.endswith('.relative_coords_table') for n in buffers),24)
+        self.assertEqual(sum(n.endswith('.relative_position_index') for n in buffers),24)
+        with patch.object(experiment,'candidate',return_value={'model':'swin_v2_small','batch_norm_buffers':0,'static_buffer_count':48}):
+            self.assertEqual(single91.immutable_buffer_count(),48)
+            self.assertEqual(set(single91.immutable_buffers(model.state_dict())),set(buffers))
+        self.assertEqual(len(dict(model.named_parameters())),402)
+        optimizer=_optimizer(model,job);self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        rule={'version':'ema-warmcopy1600-decay0999-nobn-v1','warmcopy_updates':1600,'decay':.999,
+              'dtype':'torch.float32','floating_buffers':'same_as_parameters_except_static_swin',
+              'integer_buffers':'copy','batch_norm_buffers':0,'static_swin_buffers':'swin_v2_small_window8',
+              'static_swin_buffer_count':48}
+        with patch.object(experiment,'ema_rule',return_value=rule):
+            averaged=ema.EMA(model,rule)
+            for update in (1600,1601,24000):
+                averaged.successful=update-1
+                averaged.update(model,update)
+                ema.validate_state(averaged.state_dict(),model.state_dict(),update,rule)
+                for name,tensor in averaged.model.named_buffers():self.assertTrue(torch.equal(tensor,buffers[name]),name)
+        image=torch.zeros(1,3,512,512);features=torch.zeros(1,2)
+        with torch.inference_mode():expected=model(image,features)
+        self.assertEqual(tuple(expected.shape),(1,));self.assertTrue(bool(torch.isfinite(expected).all()))
+        payload={'format_version':1,'mode':'train','job':job,'model':model.state_dict(),'age':job['age'],
+                 'identity':{},'manifest_digest':'synthetic-only','successful_updates':0}
+        with tempfile.TemporaryDirectory(dir=self.path.parent) as directory:
+            checkpoint=CheckpointStore(Path(directory)/'checkpoints').save(payload)
+            cold,saved_job,_,_,_=_load_model(checkpoint,device='cpu',variant='online')
+            self.assertEqual(saved_job['model'],'swin_v2_small')
+            with torch.inference_mode():actual=cold(image,features)
+        self.assertTrue(torch.equal(expected,actual));self.assertFalse(torch.cuda.is_initialized())
+
     def test_R151_R152_fixed_science_saved_geometry_and_derived_cache(self):
         from retrain import age,config,preprocessing,single91
         self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING'))
