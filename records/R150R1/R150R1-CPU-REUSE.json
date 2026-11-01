@@ -1,0 +1,22 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native6-ddp-repair-20261101-32e3/source-git/records/preparation/native6-ddp-repair-20261101/CPU-CHECKS.json",
+    "sha256": "a37cd9be15dd9be2cc51afcd306f86d721da8001b986fcbb1ac18bdd28ebcb98"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "runtime/bundle/retrain/data.py": "78d702bbe6fc83a3ae12b0d77773b1939565ec1d5fd6cfed5b3aa505bb146114",
+    "runtime/bundle/retrain/preprocessing.py": "d058e8912768be2f97b2c4bfedeb79b53315a1b43b48bb67d84fe1488bcdefc1",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/experiment91.py": "1d61b6ca632a25e996a216bfc2319c4a38d3ae0ccc3fc77b9723807031824e9c",
+    "tools/validation/check_candidate.py": "1ba265a608eb838db197009f33953d293120ed1933da37204b2474b5ce5f5b7d",
+    "tests/test_photometric_policy.py": "5137e4c32ff0d23c9bcf2e73de14281e98104a80ba1657106e5894e53d92af19",
+    "tests/test_candidate_binding.py": "19fbec66eff843cfd50317bb1b358a7cd03c4d386f115a82da3e63b14d3386d9",
+    "runtime/bundle/retrain/distributed_engine.py": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca"
+  },
+  "science_sha256": "4ef1433632b1728cfc4b23a610def0f9c648418d0d415ce85d5289f5bbc1dfdb",
+  "targets_reused": 4,
+  "tests_rerun": false,
+  "at": 1793569153.5546675
+}

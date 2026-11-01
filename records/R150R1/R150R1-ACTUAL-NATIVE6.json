@@ -1,0 +1,469 @@
+{
+  "status": "actual_eight_rank_six_channel_stem_and_success_proved",
+  "rank_count": 8,
+  "descriptors": [
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "bias_shape": [
+        96
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "in_channels": 6,
+      "kernel_size": [
+        4,
+        4
+      ],
+      "name": "network.features.0.0",
+      "out_channels": 96,
+      "padding": [
+        0,
+        0
+      ],
+      "policy": {
+        "augmentation": "same_seed_eight_values_replayed_twice",
+        "channels": [
+          "global_R",
+          "global_G",
+          "global_B",
+          "native_R",
+          "native_G",
+          "native_B"
+        ],
+        "native": {
+          "blur_radius": 10.0,
+          "channel": "G",
+          "crop_fraction": 0.5,
+          "flat": "geometric_center",
+          "margin_fraction": 0.1,
+          "position": "original_rgb_after_border_before_preparation",
+          "thumbnail_size": 512,
+          "tie": "first_row_major",
+          "version": "rgb-green-bright-native-half-v1"
+        },
+        "position": "paired_prepared_rgb_before_augmentation_and_canvas",
+        "prepared_size": 512,
+        "stem_initialization": "public_rgb_then_zero_native_no_rng",
+        "version": "rgb-global-native6-v1"
+      },
+      "stride": [
+        4,
+        4
+      ],
+      "weight_shape": [
+        96,
+        6,
+        4,
+        4
+      ]
+    }
+  ],
+  "initial_rank_file": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150r1-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150r1-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-ranks.json",
+    "sha256": "59398944ba95134ab9a93e1e61fb8d593e9b8e536766e05b89c0766636daa0e5"
+  },
+  "model_tensor_sha256": "ea92356b21fb0cbc94f28344866859f827e4cd745c57b88bb35d1bb8a9b654e1",
+  "new_model_or_forward": false,
+  "checkpoint_loaded": false
+}

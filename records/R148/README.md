@@ -1,4 +1,6 @@
-# R148 模型随机正则联合置零：八卡首成功
+# R148 模型随机正则联合置零：完整安全结束
+
+21:21:05.270617 UTC[完整原始观测](R148-COMPLETION.json)：8000success=attempt/0skip/eval10/bad4，正常early_stopping；唯一EMA c6@4800内部AUROC`.9872244250690254`、AP`.8234500014661867`、error_twice21220，tensor`3fff7e00c84c68ea667f70c7fa26de2f3c5ab595048a303a7b3fa1a9605a98ea`。[结果](R148-RESULT.json)两门均false，关闭固定联合p0/no seed27，R149仅技术准备未formal/activation/GPU。官方threshold_not_met未跑，指标null，freeze.status原始null保持；owner Z身份匹配、8rank退出、锁/设备users空、denied0、8PCI busy0，actualsafe true，不重复扫描。原selected、clock/grant和所有依赖继续保护；下方是启动历史，无当前活跃R148。
 
 20:16:05.118783 UTC实际running50success=attempt/0skip/eval0；真实八rank345全训/5组空AdamW/whole50c与formal一致，首自然25 finite loss`.6842917203903198`、WORLD8/G64P8/448pairs。owner449447/start359140571及八rank449466–449473的start/argv/mask/8PCI匹配。[首成功](R148-START.json)与[实际随机正则元数据](R148-ACTUAL-STOCHASTICITY.json)分别证明：八rank唯一head dropout为0、各36个SD均p0；仅读初始化小件，无新模型、forward或checkpoint加载。
 
