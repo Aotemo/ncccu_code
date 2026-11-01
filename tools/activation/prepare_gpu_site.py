@@ -128,6 +128,9 @@ def main():
                        'official_manifest': 'official_manifest'}
     if public_asset:
         mapping.pop('public_weight'); mapping.pop('public_provenance')
+    from retrain.preprocessing import verify_native_cache_asset
+    if verify_native_cache_asset(science,site) is not None:
+        mapping.pop('prepared_cache')
     for key, field in mapping.items():
         require(site[key] == relocation['paths'][field], 'relocation target differs: ' + key)
     owner = os.environ['NCCCU_EXECUTOR_ID']

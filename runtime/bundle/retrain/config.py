@@ -20,6 +20,8 @@ LOCAL_CONTRAST_RULE = {'version':'rgb-local-contrast-pillow10-v1','radius':10.,
 BRIGHT_CENTER_RULE = {'version':'rgb-green-bright-center-half-v1','thumbnail_size':512,'channel':'G',
     'blur_radius':10.,'margin_fraction':.1,'crop_fraction':.5,'tie':'first_row_major',
     'flat':'geometric_center','position':'prepared_rgb_before_augmentation_and_canvas'}
+NATIVE_BRIGHT_CENTER_RULE = {**BRIGHT_CENTER_RULE,'version':'rgb-green-bright-native-half-v1',
+    'position':'original_rgb_after_border_before_preparation'}
 GRADIENT_CENTRALIZATION_RULE = {'version': 'raw-convlinear-weight-gc-v1',
     'targets': 'Conv2d_and_Linear_direct_weight', 'dtype': 'float32',
     'axes': 'all_non_output_dimensions',
@@ -74,7 +76,7 @@ def validate_job(job):
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
     if job.get('input_preprocessing') is not None:
-        if (job['input_preprocessing'] not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE) or job.get('model') != 'convnext_small'
+        if (job['input_preprocessing'] not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE) or job.get('model') != 'convnext_small'
                 or job.get('image_size') != 512 or job.get('prepared_size') != 512
                 or job.get('normalization') != 'imagenet' or job.get('precision') != 'fp32'
                 or any(job.get(key) is not None for key in ('optimizer_policy','gradient_centralization_policy',

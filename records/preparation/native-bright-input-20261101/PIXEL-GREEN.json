@@ -1,0 +1,26 @@
+{
+  "phase": "GREEN-NATIVE-1",
+  "started_at": 1793552495.2356203,
+  "ended_at": 1793552496.9230943,
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_native_bright_pixels_and_separate_readonly_cache",
+    "test_photometric_policy.PhotometricPolicyTest.test_native_bright_saved_policy_consumers_and_official_raw_boundary"
+  ],
+  "GPU_initialized": false,
+  "compiled": [
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/data.py",
+    "runtime/bundle/retrain/preprocessing.py",
+    "tests/test_photometric_policy.py"
+  ],
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "23099434573b23a6113eb419b267db2fd13fe4dcb680651be0435fee1afec852",
+    "runtime/bundle/retrain/data.py": "c191add5458e41f2bbaccf4d13b1f100e60a37901688516f1170f02ab356ba9a",
+    "runtime/bundle/retrain/preprocessing.py": "19e690e9d350b850c04f5dd3c978d2373526b93b6c6680423f0852a4140b15d6",
+    "tests/test_photometric_policy.py": "97feb1929509b7216573b86a8f2bf3a482a0a5e8060dea04fd7d99bcfd12627f"
+  }
+}

@@ -22,8 +22,8 @@ PREPARATION_VERSION = 'rgb-conservative-border-prepared-v2'
 def bright_center_box(image, policy):
     """Fixed bright-region heuristic, expressed in the input RGB pixel space."""
     from PIL import ImageFilter
-    from .config import BRIGHT_CENTER_RULE
-    if policy != BRIGHT_CENTER_RULE or image.mode!='RGB':
+    from .config import BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE
+    if policy not in (BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE) or image.mode!='RGB':
         raise ValueError('fixed RGB bright-center crop policy differs')
     width,height=image.size
     ratio=min(1.,policy['thumbnail_size']/max(width,height))
@@ -44,11 +44,49 @@ def bright_center_crop(image, policy):
     return image.crop(bright_center_box(image,policy))
 
 
-def prepare_image(image, prepared_size):
+def verify_native_cache_asset(science, site):
+    """Bind a completed derived fit/dev cache without rewriting migration proof."""
+    from .config import NATIVE_BRIGHT_CENTER_RULE
+    if science.get('job',{}).get('input_preprocessing') != NATIVE_BRIGHT_CENTER_RULE:
+        return None
+    root = Path(site['work_root']).resolve(strict=True)
+    ref = science.get('prepared_cache_receipt',{})
+    relative = Path(ref.get('path',''))
+    if relative.is_absolute() or '..' in relative.parts or not relative.parts:
+        raise ValueError('explicit relative native cache receipt required')
+    path = root / relative
+    if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != ref.get('sha256'):
+        raise ValueError('native cache receipt SHA differs')
+    value = json.loads(path.read_text())
+    expected = {'format':'native-bright-prepared-cache-v1','passed':True,'pod_uid':site['pod']['uid'],
+        'cache_root':site['prepared_cache'],'data_root':site['data_root'],'metadata_root':site['metadata_root'],
+        'manifest_sha256':hashlib.sha256((Path(site['metadata_root'])/'manifest.json').read_bytes()).hexdigest(),
+        'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count':51396,
+        'input_preprocessing':NATIVE_BRIGHT_CENTER_RULE,'prepared_size':512,'pillow':PILLOW_VERSION,
+        'official_read':False}
+    if not isinstance(value,dict) or any(value.get(k)!=v for k,v in expected.items()):
+        raise ValueError('native cache completion, policy or identity differs')
+    source = Path(__file__).resolve().parents[3]
+    implementations = ('runtime/bundle/retrain/data.py','runtime/bundle/retrain/preprocessing.py')
+    if value.get('source_files') != {n:hashlib.sha256((source/n).read_bytes()).hexdigest() for n in implementations}:
+        raise ValueError('native cache implementation differs')
+    index = value.get('index',{});index_path = Path(index.get('path',''))
+    if (not index_path.is_absolute() or not index_path.resolve().is_relative_to(root)
+            or index_path.is_symlink() or hashlib.sha256(index_path.read_bytes()).hexdigest()!=index.get('sha256')):
+        raise ValueError('native cache coverage index differs')
+    return value
+
+
+def prepare_image(image, prepared_size, input_preprocessing=None):
     from .data import _crop_black_border
     if isinstance(prepared_size, bool) or not isinstance(prepared_size, int) or prepared_size < 1:
         raise ValueError('prepared_size must be a positive integer')
     image = _crop_black_border(ImageOps.exif_transpose(image).convert('RGB'))
+    if input_preprocessing is not None:
+        from .config import NATIVE_BRIGHT_CENTER_RULE
+        if input_preprocessing != NATIVE_BRIGHT_CENTER_RULE:
+            raise ValueError('native preparation policy differs')
+        image = bright_center_crop(image,input_preprocessing)
     ratio = min(1.0, prepared_size / max(image.size))
     if ratio < 1:
         image = image.resize((max(1, round(image.width * ratio)),
@@ -57,17 +95,23 @@ def prepare_image(image, prepared_size):
 
 
 class PreparedImageCache:
-    def __init__(self, data_root, cache_root, prepared_size):
+    def __init__(self, data_root, cache_root, prepared_size, input_preprocessing=None):
         if isinstance(prepared_size, bool) or not isinstance(prepared_size, int) or prepared_size < 1:
             raise ValueError('prepared_size must be a positive integer')
         self.root = Path(data_root).resolve()
         self.prepared_size = prepared_size
+        self.input_preprocessing = input_preprocessing
         mode = os.environ.get('TRAIN_IMAGE_CACHE_READONLY','0')
         if mode not in ('0','1'):
             raise ValueError('TRAIN_IMAGE_CACHE_READONLY must be 0 or 1')
         self.readonly = mode == '1'
         self.policy = {'version': PREPARATION_VERSION, 'prepared_size': prepared_size,
                        'pillow': PILLOW_VERSION, 'dataset_root': str(self.root)}
+        if input_preprocessing is not None:
+            from .config import NATIVE_BRIGHT_CENTER_RULE
+            if input_preprocessing != NATIVE_BRIGHT_CENTER_RULE:
+                raise ValueError('native prepared cache policy differs')
+            self.policy['input_preprocessing'] = input_preprocessing
         namespace = hashlib.sha256(json.dumps(self.policy, sort_keys=True).encode()).hexdigest()
         self.directory = Path(cache_root) / namespace
         self.verifier = configured_cache(self.root) or VerificationCache(
@@ -114,7 +158,7 @@ class PreparedImageCache:
             if source_fingerprint(self.root, relative) != fingerprint:
                 raise ValueError('source changed while preparing image')
             with Image.open(io.BytesIO(raw)) as original:
-                image = prepare_image(original, self.prepared_size)
+                image = prepare_image(original, self.prepared_size,self.input_preprocessing)
             array = np.asarray(image).copy()
             buffer = io.BytesIO()
             np.save(buffer, array, allow_pickle=False)

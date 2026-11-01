@@ -1,0 +1,24 @@
+{
+  "phase": "RED-NATIVE-BIND-1",
+  "started_at": 1793552689.5996225,
+  "ended_at": 1793552689.7300954,
+  "tests": 1,
+  "failures": 1,
+  "errors": 0,
+  "successful": false,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R144_native_science_and_explicit_derived_cache_binding"
+  ],
+  "GPU_initialized": false,
+  "compiled": [],
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "23099434573b23a6113eb419b267db2fd13fe4dcb680651be0435fee1afec852",
+    "runtime/bundle/retrain/data.py": "c191add5458e41f2bbaccf4d13b1f100e60a37901688516f1170f02ab356ba9a",
+    "runtime/bundle/retrain/preprocessing.py": "19e690e9d350b850c04f5dd3c978d2373526b93b6c6680423f0852a4140b15d6",
+    "runtime/bundle/retrain/experiment91.py": "0c69a6597b32733953a47608ce799e5be02c06c6bef5c96170f1cde809b1731c",
+    "tools/activation/prepare.py": "774b8ae07d92dbe10c02895005be4447afdb55332ba76fbcc5f4b47deeefa1a1",
+    "tools/activation/prepare_gpu_site.py": "23f9dd6d7e0f5cabb9c07a843a9a46d43a291d29c0fb62b2cd761ae574ccf9c0",
+    "tests/test_photometric_policy.py": "97feb1929509b7216573b86a8f2bf3a482a0a5e8060dea04fd7d99bcfd12627f",
+    "tests/test_candidate_binding.py": "5b1e1c066e7b4a30113ccdc994a552e094dc8da6595efb3b73a185f49dbc249c"
+  }
+}

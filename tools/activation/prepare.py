@@ -111,6 +111,9 @@ def build(args):
         'official_manifest': 'official_manifest'}
     if public_asset:
         mapping.pop('public_weight'); mapping.pop('public_provenance')
+    from retrain.preprocessing import verify_native_cache_asset
+    if verify_native_cache_asset(science,site) is not None:
+        mapping.pop('prepared_cache')
     if any(site[key] != migrated['paths'][field] for key, field in mapping.items()):
         raise ValueError('site asset paths differ from the exact migration binding')
     if sha(migrated['manifest']['path']) != migrated['manifest']['sha256']:

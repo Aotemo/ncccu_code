@@ -1,0 +1,34 @@
+{
+  "previous_completion_event_at": 1793554301.028956,
+  "previous_safe_observed_at": 1793554361.8326564,
+  "new_dispatch_at": 1793554519.0335574,
+  "completion_event_to_dispatch_seconds": 218.00460147857666,
+  "event_to_dispatch_within_300_seconds": true,
+  "safe_observation_to_dispatch_seconds": 157.20090103149414,
+  "safe_observation_to_dispatch_within_300_seconds": true,
+  "first_recorded_update_at": 1793554624.45206,
+  "completion_event_to_first_recorded_update_seconds": 323.42310404777527,
+  "rank_device_proof_times": [
+    1793554575.484048,
+    1793554575.5692146,
+    1793554575.5244968,
+    1793554575.6333365,
+    1793554575.3090234,
+    1793554575.4740262,
+    1793554575.350096,
+    1793554575.4756553
+  ],
+  "latest_rank_device_proof_after_completion_seconds": 274.604380607605,
+  "delay_causes": [
+    "Terminal observation followed the last bounded native-cache preparation batch",
+    "Unique normalformal84.903s, exact deployment11.736s, unique activation",
+    "Real eight-rank startup and the natural log25 interval"
+  ],
+  "semantics": "Dispatch and rank-device initialization intervals are below300s; the natural recorded update25 interval exceeds300s. These are event/metadata intervals, not continuous DCU utilization. Continuous idle<=300s is not claimed proved.",
+  "continuous_DCU_idle_within_300_seconds_proven": false,
+  "checks_skipped": false,
+  "previous_completion_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r141-20261101-32e3/PROGRESS-1732.json",
+    "sha256": "fc5c3652f5d2e341a339d614db9de3944c088d799b3b8ab8c60efd7268d2c9e2"
+  }
+}

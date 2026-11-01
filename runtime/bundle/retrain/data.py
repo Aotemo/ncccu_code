@@ -389,10 +389,12 @@ class ImageDataset:
         if training_rotation not in (None, 'identity-v1'):
             raise ValueError("training_rotation must be None or 'identity-v1'")
         if input_preprocessing is not None:
-            from .config import LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE
-            if input_preprocessing not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE):
+            from .config import LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE
+            if input_preprocessing not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE):
                 raise ValueError('fixed RGB local contrast policy differs')
         self.input_preprocessing = input_preprocessing
+        self.native_preprocessing = (input_preprocessing if input_preprocessing is not None
+            and input_preprocessing['version']=='rgb-green-bright-native-half-v1' else None)
         self.root, self.rows = Path(data_root), rows
         self.image_size, self.training = image_size, bool(training)
         self.normalization = normalization
@@ -419,10 +421,13 @@ class ImageDataset:
                 or prepared_size < 0 or (prepared_size and prepared_size < image_size)):
             raise ValueError('prepared_size must be zero or an integer >= image_size')
         self.prepared_size = prepared_size
+        if self.native_preprocessing is not None and not prepared_size:
+            raise ValueError('native crop requires explicit prepared_size')
         self.prepared_cache = None
         if prepared_size and os.environ.get('TRAIN_IMAGE_CACHE'):
             from .preprocessing import PreparedImageCache
-            self.prepared_cache = PreparedImageCache(self.root, os.environ['TRAIN_IMAGE_CACHE'], prepared_size)
+            self.prepared_cache = PreparedImageCache(self.root, os.environ['TRAIN_IMAGE_CACHE'], prepared_size,
+                                                     self.native_preprocessing)
 
     def __len__(self):
         return len(self.rows)
@@ -437,7 +442,11 @@ class ImageDataset:
         if self.training and augmentation_seed is None:
             raise ValueError('training sample key must include an augmentation seed')
         row = self.rows[index]
-        if self.prepared_cache is not None and row.get('sha256'):
+        # The new cache contains fit/dev train rows only. Official valid is read
+        # from sealed original bytes inside the existing once-only final gate.
+        native_official = (self.native_preprocessing is not None
+            and PurePosixPath(row['relative_path']).parts[0]=='valid')
+        if self.prepared_cache is not None and row.get('sha256') and not native_official:
             image = self.prepared_cache.read(row['relative_path'], row['sha256'])
         else:
             image = self._read_image(row)
@@ -466,7 +475,7 @@ class ImageDataset:
         if self.input_preprocessing is not None and self.input_preprocessing['version']=='rgb-green-bright-center-half-v1':
             from .preprocessing import bright_center_crop
             image=bright_center_crop(image,self.input_preprocessing)
-        elif self.input_preprocessing is not None:
+        elif self.input_preprocessing is not None and self.native_preprocessing is None:
             from PIL import ImageFilter
             policy = self.input_preprocessing
             pixels = np.asarray(image).astype(np.int16)
@@ -507,15 +516,18 @@ class ImageDataset:
 
     def _read_image(self, row):
         from PIL import Image, ImageOps
-        if (self.verification_cache is not None
+        verifier = self.verification_cache
+        if verifier is None and self.native_preprocessing is not None and self.prepared_cache is not None:
+            verifier = self.prepared_cache.verifier
+        if (verifier is not None
                 and PurePosixPath(row['relative_path']).parts[0] in ('train', 'valid')):
-            image_source = io.BytesIO(self.verification_cache.read_verified(
+            image_source = io.BytesIO(verifier.read_verified(
                 row['relative_path'], row.get('sha256')))
         else:
             image_source = _safe_path(self.root, row['relative_path'])
         with Image.open(image_source) as opened:
             if self.prepared_size:
                 from .preprocessing import prepare_image
-                return prepare_image(opened, self.prepared_size)
+                return prepare_image(opened, self.prepared_size,self.native_preprocessing)
             image = ImageOps.exif_transpose(opened).convert('RGB')
         return _crop_black_border(image)

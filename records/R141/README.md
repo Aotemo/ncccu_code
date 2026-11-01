@@ -1,4 +1,8 @@
-# R141 公开 DINOv2 当前排序合同：真实八卡首成功
+# R141 公开 DINOv2 当前排序合同：完整结束，未达目标
+
+实际17600success=attempt/0skip/eval22/bad4，正常early_stopping；唯一EMA c18@14400内部dev raw AUROC **0.9418572868339332**、AP **0.5441920880700725**、error_twice96574，tensor `d8f498da488f6dc9167864194a50cf000286f7044a3a2a6f31608aac305d0acc`。strict>R107与strict>R120均false，关闭这一固定DINOv2-S14合同/no seed27；R142仅技术准备，未activation、未训练。官方未达到`.996`门，按政策未运行。
+
+2026-11-01 17:32:41.832656 UTC唯一完整终态观测确认done/TRAIN/ROUND completed、exit0/signals[]/errornull，actualsafe=true/terminal_idle。owner同birth Z非reaped，原八rank absent，同inode锁holders[]、设备users[]、denied0、8expected PCI seen/busy0；freeze.status原值null保留。[结果](R141-RESULT.json)、[终态原件](R141-COMPLETION.json)和[原CPU观测回执](R141-CPU-COMPLETION.json)仅归档既有小件，未重复旧safe、hash/load大blob或前向。原selected/冻结0c/clock/grant及所有成本与依赖保护；已独立fresh接R143。下文为启动时点，当前运行定位由todo页首覆盖。
 
 2026-11-01 16:19:04.145001 UTC观测running50success=attempt/0skip/eval0。原生实际八rank初态匹配正式CPU：whole `9b4f7a4b24cec705c7c44e81eec1ae13dd4133c65b8581d4624584be50950cfd`，178总tensor中177可训、原未用mask_token冻结，5组空AdamW；首自然log25/attempt25，finite loss`.8523908853530884`、WORLD8/G64P8/448pairs。`ACTUAL_FRESH_INITIAL.parameter_tensors=177`为可训组成员数，不写成模型总数。step1与后续Adam moment数量未额外观察。
 

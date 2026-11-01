@@ -92,6 +92,91 @@ def geometry_render(image, image_size, seed, scale_range):
 
 
 class PhotometricPolicyTest(unittest.TestCase):
+    def test_native_bright_pixels_and_separate_readonly_cache(self):
+        from retrain import config,preprocessing
+        self.assertTrue(hasattr(config,'NATIVE_BRIGHT_CENTER_RULE'),'native bright-center rule is missing')
+        import hashlib
+        import json
+        import os
+        import numpy as np
+        from PIL import Image,__version__ as pillow_version
+        policy=config.NATIVE_BRIGHT_CENTER_RULE
+        yy,xx=np.indices((1024,1024));checker=((xx+yy)%2*180+40).astype(np.uint8)
+        pixels=np.stack((checker,np.full_like(checker,100),220-checker),axis=-1)
+        image=Image.fromarray(pixels)
+        actual=preprocessing.prepare_image(image,512,input_preprocessing=policy)
+        self.assertTrue(np.array_equal(np.asarray(actual),pixels[256:768,256:768]))
+        legacy=data._crop_black_border(image).resize((512,512),Image.Resampling.BILINEAR)
+        self.assertTrue(np.array_equal(np.asarray(preprocessing.prepare_image(image,512)),np.asarray(legacy)))
+        self.assertTrue(np.array_equal(np.asarray(preprocessing.prepare_image(image,512,input_preprocessing=None)),np.asarray(legacy)))
+        prepared_crop=preprocessing.bright_center_crop(legacy,config.BRIGHT_CENTER_RULE).resize((512,512),Image.Resampling.BILINEAR)
+        self.assertFalse(np.array_equal(np.asarray(actual),np.asarray(prepared_crop)))
+        source=self.root/'train/synthetic.png';image.save(source);digest=hashlib.sha256(source.read_bytes()).hexdigest()
+        cache_root=self.root/'cache'
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE_READONLY='0'):
+            old=preprocessing.PreparedImageCache(self.root,cache_root,512)
+            native=preprocessing.PreparedImageCache(self.root,cache_root,512,input_preprocessing=policy)
+            old_policy={'version':preprocessing.PREPARATION_VERSION,'prepared_size':512,'pillow':pillow_version,'dataset_root':str(self.root.resolve())}
+            self.assertEqual(old.directory,cache_root/hashlib.sha256(json.dumps(old_policy,sort_keys=True).encode()).hexdigest())
+            self.assertNotEqual(old.directory,native.directory)
+            self.assertTrue(np.array_equal(np.asarray(native.read('train/synthetic.png',digest)),np.asarray(actual)))
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE_READONLY='1'):
+            readonly=preprocessing.PreparedImageCache(self.root,cache_root,512,input_preprocessing=policy)
+            with patch.object(readonly.verifier,'read_verified',side_effect=AssertionError('hit must not decode original')):
+                self.assertTrue(np.array_equal(np.asarray(readonly.read('train/synthetic.png',digest)),np.asarray(actual)))
+            with self.assertRaisesRegex(ValueError,'read-only prepared cache'):
+                preprocessing.PreparedImageCache(self.root,self.root/'empty',512,input_preprocessing=policy).read('train/synthetic.png',digest)
+
+    def test_native_bright_saved_policy_consumers_and_official_raw_boundary(self):
+        from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
+        self.assertTrue(hasattr(config,'NATIVE_BRIGHT_CENTER_RULE'),'native bright-center rule is missing')
+        import hashlib
+        import os
+        import numpy as np
+        import torch
+        from PIL import Image
+        policy=config.NATIVE_BRIGHT_CENTER_RULE
+        source=self.root/'train/synthetic.png';self.image.save(source)
+        digest=hashlib.sha256(source.read_bytes()).hexdigest()
+        rows=[dict(self.row,name=f'native-{i}.png',sha256=digest,label=i%2) for i in range(4)]
+        prepared=preprocessing.prepare_image(self.image,512,input_preprocessing=policy)
+        cache_root=self.root/'cache'
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE_READONLY='0'):
+            preprocessing.PreparedImageCache(self.root,cache_root,512,input_preprocessing=policy).read(rows[0]['relative_path'],digest)
+        job=dict(model='synthetic',image_size=IMAGE_SIZE,prepared_size=512,precision='fp32',normalization='imagenet',
+                 physical_batch=2,workers=0,eval_workers=0,input_preprocessing=policy,age=None,seed=SEED)
+        class Model(torch.nn.Module):
+            def __init__(self):super().__init__();self.scale=torch.nn.Parameter(torch.tensor(1.));self.inputs=[]
+            def forward(self,x):self.inputs.append(x.detach().clone());return x.mean((1,2,3))*self.scale
+        class Context:
+            rank=0;world_size=1;primary=True
+            def values(self,value):return [value]
+            def broadcast(self,value):return value
+        model=Model();before=(random.getstate(),np.random.get_state(),torch.get_rng_state())
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE=str(cache_root),TRAIN_IMAGE_CACHE_READONLY='1'):
+            self.assertEqual(engine.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'))['count'],4)
+            self.assertEqual(pe.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'),Context(),variant='online')['count'],4)
+            runtime=dict(image_size=IMAGE_SIZE,prepared_size=512,normalization='imagenet',precision='fp32',threshold=.5)
+            (self.root/'test.csv').write_text('synthetic fixture only\n')
+            with patch.object(inference,'_read_unlabeled_rows',return_value=rows),patch.object(inference,'_load_model',return_value=(model,job,{},{},torch.device('cpu'))),patch.object(inference,'_runtime',return_value=runtime):
+                self.assertEqual(inference.run_prediction('/synthetic',self.root,self.root/'native.csv',device='cpu',expected_count=4,batch_size=2)['count'],4)
+            expected=finish(prepared,IMAGE_SIZE,1.,.5,.5)
+            for inputs in model.inputs:self.assertTrue(torch.equal(inputs,expected.unsqueeze(0).expand(len(inputs),-1,-1,-1)))
+            (self.root/'valid').mkdir();self.image.save(self.root/'valid/fixture.png')
+            official_row=dict(rows[0],relative_path='valid/fixture.png')
+            dataset=data.ImageDataset(self.root,[official_row],IMAGE_SIZE,False,prepared_size=512,input_preprocessing=policy)
+            with patch.object(dataset.prepared_cache,'read',side_effect=AssertionError('official must not require fit/dev cache')):
+                self.assertTrue(torch.equal(dataset[0][0],expected))
+            training=data.ImageDataset(self.root,rows,IMAGE_SIZE,True,prepared_size=512,training_scale=SCALE,input_preprocessing=policy)
+            traces=[]
+            def factory(seed):
+                rng=TracedRandom(seed);traces.append(rng);return rng
+            with patch.object(data.random,'Random',side_effect=factory):actual=training[(0,SEED)][0]
+            self.assertTrue(torch.equal(actual,legacy_render(prepared,IMAGE_SIZE,SEED,SCALE)))
+            self.assertEqual(traces[0].random_calls,8)
+        self.assertEqual(before[0],random.getstate());self.assertTrue(np.array_equal(before[1][1],np.random.get_state()[1]))
+        self.assertTrue(torch.equal(before[2],torch.get_rng_state()));self.assertFalse(torch.cuda.is_initialized())
+
     def test_bright_center_half_crop_pixels_None_rng_and_consumers(self):
         from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
         self.assertTrue(hasattr(config,'BRIGHT_CENTER_RULE'),'fixed prepared bright-center rule is missing')

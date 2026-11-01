@@ -21,6 +21,42 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R144_native_science_and_explicit_derived_cache_binding(self):
+        from retrain import config,preprocessing
+        self.assertTrue(hasattr(experiment,'NATIVE_BRIGHT_CENTER_SMALL_BINDING'),'native bright-center binding is missing')
+        self.assertTrue(hasattr(preprocessing,'verify_native_cache_asset'),'native cache asset verifier is missing')
+        spec=copy.deepcopy(json.loads((ROOT/'configs/R143-SCIENCE.json').read_text()))
+        spec['candidate_profile']=experiment.NATIVE_BRIGHT_CENTER_SMALL_BINDING
+        spec['candidate'].update(id='r144-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-native-brightcenter-half-9010',experiment_order=56,input_preprocessing=config.NATIVE_BRIGHT_CENTER_RULE)
+        spec['job']['input_preprocessing']=config.NATIVE_BRIGHT_CENTER_RULE
+        self.assertEqual(experiment.candidate_from_configuration(spec),spec['candidate'])
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'metadata').mkdir()
+            manifest=root/'metadata/manifest.json';manifest.write_text('{}\n')
+            index=root/'CACHE-INDEX.jsonl';index.write_text('{"fixture":true}\n')
+            site={'work_root':str(root),'data_root':str(root/'data'),'metadata_root':str(root/'metadata'),
+                  'prepared_cache':str(root/'cache'),'pod':{'uid':'fixture-uid'}}
+            impl=('runtime/bundle/retrain/data.py','runtime/bundle/retrain/preprocessing.py')
+            receipt={'format':'native-bright-prepared-cache-v1','passed':True,'pod_uid':'fixture-uid',
+                'cache_root':site['prepared_cache'],'data_root':site['data_root'],'metadata_root':site['metadata_root'],
+                'manifest_sha256':hashlib.sha256(manifest.read_bytes()).hexdigest(),
+                'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count':51396,
+                'input_preprocessing':config.NATIVE_BRIGHT_CENTER_RULE,'prepared_size':512,'pillow':'12.3.0',
+                'official_read':False,'index':{'path':str(index),'sha256':hashlib.sha256(index.read_bytes()).hexdigest()},
+                'source_files':{n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in impl}}
+            path=root/'HANDOFF.json';path.write_text(json.dumps(receipt))
+            spec['prepared_cache_receipt']={'path':'HANDOFF.json','sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
+            verified=preprocessing.verify_native_cache_asset(spec,site)
+            self.assertEqual(verified['row_count'],51396)
+            declared_path=root/'SCIENCE.json';declared_path.write_text(json.dumps(spec))
+            declared_site={**site,'science':{'configuration':{'path':str(declared_path),'sha256':hashlib.sha256(declared_path.read_bytes()).hexdigest()}}}
+            with patch.object(experiment,'load_site',return_value=declared_site):
+                self.assertEqual(experiment.science_configuration()['job']['input_preprocessing'],config.NATIVE_BRIGHT_CENTER_RULE)
+            for field,value in [('verified_readonly_count',51395),('official_read',True),('cache_root',str(root/'other'))]:
+                changed=copy.deepcopy(receipt);changed[field]=value;path.write_text(json.dumps(changed))
+                spec['prepared_cache_receipt']['sha256']=hashlib.sha256(path.read_bytes()).hexdigest()
+                with self.subTest(field=field),self.assertRaises(ValueError):preprocessing.verify_native_cache_asset(spec,site)
+
     def test_R142_conditional_DINO27_and_R143_fixed_bright_crop_science(self):
         from retrain import age,config
         self.assertTrue(hasattr(experiment,'DINOV2_PAIRLOG_SEED27_BINDING'),'conditional DINO seed27 binding is missing')
