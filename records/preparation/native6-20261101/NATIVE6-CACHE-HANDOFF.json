@@ -1,0 +1,86 @@
+{
+  "format": "global-native-six-cache-pair-v1",
+  "passed": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+  "metadata_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1",
+  "native_cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-native-bright-half-v1-pillow12.3.0",
+  "global_cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "fit_count": 46256,
+  "dev_count": 5140,
+  "row_count": 51396,
+  "verified_readonly_count_each": 51396,
+  "input_preprocessing": {
+    "version": "rgb-global-native6-v1",
+    "prepared_size": 512,
+    "channels": [
+      "global_R",
+      "global_G",
+      "global_B",
+      "native_R",
+      "native_G",
+      "native_B"
+    ],
+    "native": {
+      "version": "rgb-green-bright-native-half-v1",
+      "thumbnail_size": 512,
+      "channel": "G",
+      "blur_radius": 10.0,
+      "margin_fraction": 0.1,
+      "crop_fraction": 0.5,
+      "tie": "first_row_major",
+      "flat": "geometric_center",
+      "position": "original_rgb_after_border_before_preparation"
+    },
+    "augmentation": "same_seed_eight_values_replayed_twice",
+    "stem_initialization": "public_rgb_then_zero_native_no_rng",
+    "position": "paired_prepared_rgb_before_augmentation_and_canvas"
+  },
+  "pillow": "12.3.0",
+  "official_read": false,
+  "index": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/inset-20261101-32e3/PAIR-CACHE-INDEX.jsonl",
+    "sha256": "bbe4fddabafd68acd37752eb3b49741b6d99796ee18c52e830df9ac1951972ac"
+  },
+  "seconds": 118.4046802520752,
+  "cache_images_written": 0,
+  "cache_generation_AST_unchanged": true,
+  "started_at": 1793559695.9540691,
+  "ended_at": 1793559814.3587532,
+  "GPU_started": false,
+  "base_pair_receipt": {
+    "path": "technical-prep/inset-20261101-32e3/PAIR-CACHE-HANDOFF.json",
+    "sha256": "98b5e6978e014acac87e3df5a448a276ee073d6a36013af4fbf8358431d2d693"
+  },
+  "cache_core_AST_unchanged": true,
+  "source_files": {
+    "runtime/bundle/retrain/data.py": "78d702bbe6fc83a3ae12b0d77773b1939565ec1d5fd6cfed5b3aa505bb146114",
+    "runtime/bundle/retrain/preprocessing.py": "d058e8912768be2f97b2c4bfedeb79b53315a1b43b48bb67d84fe1488bcdefc1"
+  },
+  "core_AST_sha256": {
+    "runtime/bundle/retrain/preprocessing.py:bright_center_box": "ae5313e3128c8433513fe6fe26adad144af75733c1f0720e66c7e8eb521f79cf",
+    "runtime/bundle/retrain/preprocessing.py:bright_center_crop": "dc6046413b41b08fff4d6209ec3a6c52b8b93cd7c91c3f8f96b5dce0c117f733",
+    "runtime/bundle/retrain/preprocessing.py:global_native_inset": "dbdc89898869f2ae4e3731e0580efd0eee458b8ef22e1a84ed665147bfaa8cf5",
+    "runtime/bundle/retrain/preprocessing.py:verify_native_cache_asset": "e47ad0f513763c98206ccc3dd694f774b12ce90020f5f7b7b306d4b9e2c3d4ab",
+    "runtime/bundle/retrain/preprocessing.py:prepare_image": "6ab6756c6c146ea8b7ea7705861589b1a92eadcb549b05b879b6d3f67581da87",
+    "runtime/bundle/retrain/preprocessing.py:PreparedImageCache": "ea2f650d25c93bb5f7c2b00edf494b495bab5984f064aa2d554a757f2ada1cad",
+    "runtime/bundle/retrain/data.py:_digest": "368883922e0e31b58f860a02786269ace8a8b811209cb2b9fef77273ea50f381",
+    "runtime/bundle/retrain/data.py:_file_sha": "7697abaf1623ab2b153c832dc07a08236a7271ead0f8ba938e2b6aea5e7cfe11",
+    "runtime/bundle/retrain/data.py:_safe_name": "a4a81a7502b1b9fefd79434f9c3cc17586d14ebb3550b63d64b11d2fa3731e5c",
+    "runtime/bundle/retrain/data.py:_safe_path": "f2d6b392d3dbb2b80e488e3ddc998580c874956c1c09274da61126359e6eeeff",
+    "runtime/bundle/retrain/data.py:_read_csv": "2ce5c5863eacf2e5cc3e0b547c8f3922972932010d236848c69d6cb01f5c04ac",
+    "runtime/bundle/retrain/data.py:_image_mapping": "7a76e79b64df0bb85a52f225142b571543cbf7849373060c0aeada3a1db354d2",
+    "runtime/bundle/retrain/data.py:load_source": "abfa8c95f8e5ded74ae3916a872b4dd3743ff213ad445c8ad444d03cf92be126",
+    "runtime/bundle/retrain/data.py:_age_bin": "06e3dc1ccb92f968ed7161164fc192df07adf3ae1f2eff3ea98b3d4e567ba095",
+    "runtime/bundle/retrain/data.py:_group_stratum": "c742fcb56cae052a79af73583d44cfa912260dbe41fa4613fc2b779af4bc5066",
+    "runtime/bundle/retrain/data.py:_partition_groups": "96b2c9cad2ddb6c46529dfee086d741548c0bd9482c588b5498e1b6b82a4fb2a",
+    "runtime/bundle/retrain/data.py:build_manifest": "7ec80cf9867cb8e4a7fffeede911deca68bbcbc686d32b9eeeb9411dd91cf985",
+    "runtime/bundle/retrain/data.py:_seed": "3fed59efc663d7770fed64ecb6681f089a23a7c8fcfae1d69e8d9d79648cf9a0",
+    "runtime/bundle/retrain/data.py:BalancedBatchSampler": "5adec9cb8fbff6d089fa2ed140bf316aeb4e458a5b6b355e9aa23608583a60d3",
+    "runtime/bundle/retrain/data.py:_crop_black_border": "e7d5ec6b5c9c4a4a5d5345e35a83c11b7d484f1c2ba5ce0057a328fb1e45d194",
+    "runtime/bundle/retrain/data.py:flatten_training_views": "777617143641e36ec30e2cea80eacc064f5a2b53b0c17ddd103c2cd7e08d1b8b"
+  },
+  "cache_entries_reopened_in_this_reuse": 0,
+  "image_cache_files_written": 0
+}

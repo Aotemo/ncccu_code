@@ -25,6 +25,11 @@ NATIVE_BRIGHT_CENTER_RULE = {**BRIGHT_CENTER_RULE,'version':'rgb-green-bright-na
 GLOBAL_NATIVE_INSET_RULE = {'version':'rgb-global-native-inset256-v1','global_size':512,'inset_size':256,
     'corner':[0,0],'global_fit':'centered_bilinear_black','native':NATIVE_BRIGHT_CENTER_RULE,
     'position':'prepared_rgb_before_augmentation_and_canvas'}
+GLOBAL_NATIVE_SIX_RULE = {'version':'rgb-global-native6-v1','prepared_size':512,
+    'channels':['global_R','global_G','global_B','native_R','native_G','native_B'],
+    'native':NATIVE_BRIGHT_CENTER_RULE,'augmentation':'same_seed_eight_values_replayed_twice',
+    'stem_initialization':'public_rgb_then_zero_native_no_rng',
+    'position':'paired_prepared_rgb_before_augmentation_and_canvas'}
 GRADIENT_CENTRALIZATION_RULE = {'version': 'raw-convlinear-weight-gc-v1',
     'targets': 'Conv2d_and_Linear_direct_weight', 'dtype': 'float32',
     'axes': 'all_non_output_dimensions',
@@ -79,7 +84,7 @@ def validate_job(job):
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
     if job.get('input_preprocessing') is not None:
-        if (job['input_preprocessing'] not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE) or job.get('model') != 'convnext_small'
+        if (job['input_preprocessing'] not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE,GLOBAL_NATIVE_SIX_RULE) or job.get('model') != 'convnext_small'
                 or job.get('image_size') != 512 or job.get('prepared_size') != 512
                 or job.get('normalization') != 'imagenet' or job.get('precision') != 'fp32'
                 or any(job.get(key) is not None for key in ('optimizer_policy','gradient_centralization_policy',

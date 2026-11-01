@@ -389,14 +389,15 @@ class ImageDataset:
         if training_rotation not in (None, 'identity-v1'):
             raise ValueError("training_rotation must be None or 'identity-v1'")
         if input_preprocessing is not None:
-            from .config import LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE
-            if input_preprocessing not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE):
+            from .config import LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE,GLOBAL_NATIVE_SIX_RULE
+            if input_preprocessing not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE,GLOBAL_NATIVE_SIX_RULE):
                 raise ValueError('fixed RGB local contrast policy differs')
         self.input_preprocessing = input_preprocessing
         self.native_preprocessing = (input_preprocessing if input_preprocessing is not None
             and input_preprocessing['version']=='rgb-green-bright-native-half-v1' else None)
         self.global_native_inset = bool(input_preprocessing is not None and input_preprocessing['version']=='rgb-global-native-inset256-v1')
-        if self.global_native_inset:self.native_preprocessing=NATIVE_BRIGHT_CENTER_RULE
+        self.global_native_six = bool(input_preprocessing is not None and input_preprocessing['version']=='rgb-global-native6-v1')
+        if self.global_native_inset or self.global_native_six:self.native_preprocessing=NATIVE_BRIGHT_CENTER_RULE
         self.root, self.rows = Path(data_root), rows
         self.image_size, self.training = image_size, bool(training)
         self.normalization = normalization
@@ -431,7 +432,7 @@ class ImageDataset:
             from .preprocessing import PreparedImageCache
             self.prepared_cache = PreparedImageCache(self.root, os.environ['TRAIN_IMAGE_CACHE'], prepared_size,
                                                      self.native_preprocessing)
-            if self.global_native_inset:
+            if self.global_native_inset or self.global_native_six:
                 if not os.environ.get('TRAIN_GLOBAL_IMAGE_CACHE'):raise ValueError('explicit global read-only cache required for inset input')
                 self.global_cache=PreparedImageCache(self.root,os.environ['TRAIN_GLOBAL_IMAGE_CACHE'],prepared_size)
 
@@ -454,7 +455,7 @@ class ImageDataset:
             and PurePosixPath(row['relative_path']).parts[0]=='valid')
         if self.prepared_cache is not None and row.get('sha256') and not native_official:
             image = self.prepared_cache.read(row['relative_path'], row['sha256'])
-            if self.global_native_inset:image=(self.global_cache.read(row['relative_path'],row['sha256']),image)
+            if self.global_native_inset or self.global_native_six:image=(self.global_cache.read(row['relative_path'],row['sha256']),image)
         else:
             image = self._read_image(row)
         if self.training and self.training_views == 2:
@@ -479,6 +480,11 @@ class ImageDataset:
         import numpy as np
         import torch
 
+        if self.global_native_six and isinstance(image,tuple):
+            if len(image)!=2:raise ValueError('global/native six-channel input requires two RGB images')
+            # Both RGB groups replay the same original eight values; each child
+            # owns a local Random(seed), so sampler/global RNG state is untouched.
+            return torch.cat([self._image_tensor(part,augmentation_seed) for part in image],dim=0)
         if self.global_native_inset:
             from .preprocessing import global_native_inset
             image=global_native_inset(*image,self.input_preprocessing)
@@ -538,7 +544,7 @@ class ImageDataset:
         with Image.open(image_source) as opened:
             if self.prepared_size:
                 from .preprocessing import prepare_image
-                if self.global_native_inset:
+                if self.global_native_inset or self.global_native_six:
                     return (prepare_image(opened,self.prepared_size),prepare_image(opened,self.prepared_size,self.native_preprocessing))
                 return prepare_image(opened, self.prepared_size,self.native_preprocessing)
             image = ImageOps.exif_transpose(opened).convert('RGB')

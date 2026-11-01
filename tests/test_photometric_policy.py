@@ -92,6 +92,54 @@ def geometry_render(image, image_size, seed, scale_range):
 
 
 class PhotometricPolicyTest(unittest.TestCase):
+    def test_global_native6_shared_seed_pixels_cache_and_real_consumers(self):
+        from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
+        self.assertTrue(hasattr(config,'GLOBAL_NATIVE_SIX_RULE'),'fixed paired six-channel policy is missing')
+        import hashlib,os
+        import numpy as np
+        import torch
+        policy=config.GLOBAL_NATIVE_SIX_RULE
+        global_image=preprocessing.prepare_image(self.image,512)
+        native=preprocessing.prepare_image(self.image,512,config.NATIVE_BRIGHT_CENTER_RULE)
+        source=self.root/'train/synthetic.png';self.image.save(source);digest=hashlib.sha256(source.read_bytes()).hexdigest()
+        rows=[dict(self.row,name=f'native6-{i}.png',sha256=digest,label=i%2) for i in range(4)]
+        global_root=self.root/'global-cache';native_root=self.root/'native-cache'
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE_READONLY='0'):
+            preprocessing.PreparedImageCache(self.root,global_root,512).read(rows[0]['relative_path'],digest)
+            preprocessing.PreparedImageCache(self.root,native_root,512,config.NATIVE_BRIGHT_CENTER_RULE).read(rows[0]['relative_path'],digest)
+        class Model(torch.nn.Module):
+            def __init__(self):super().__init__();self.scale=torch.nn.Parameter(torch.tensor(1.));self.inputs=[]
+            def forward(self,x):self.inputs.append(x.detach().clone());return x.mean((1,2,3))*self.scale
+        class Context:
+            rank=0;world_size=1;primary=True
+            def values(self,value):return [value]
+            def broadcast(self,value):return value
+        job=dict(model='synthetic',image_size=IMAGE_SIZE,prepared_size=512,precision='fp32',normalization='imagenet',physical_batch=2,workers=0,eval_workers=0,input_preprocessing=policy,age=None,seed=SEED)
+        model=Model();before=(random.getstate(),np.random.get_state(),torch.get_rng_state())
+        expected=torch.cat((finish(global_image,IMAGE_SIZE,1.,.5,.5),finish(native,IMAGE_SIZE,1.,.5,.5)))
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE=str(native_root),TRAIN_GLOBAL_IMAGE_CACHE=str(global_root),TRAIN_IMAGE_CACHE_READONLY='1'):
+            self.assertEqual(engine.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'))['count'],4)
+            self.assertEqual(pe.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'),Context(),variant='online')['count'],4)
+            runtime=dict(image_size=IMAGE_SIZE,prepared_size=512,normalization='imagenet',precision='fp32',threshold=.5)
+            (self.root/'test.csv').write_text('synthetic only\n')
+            with patch.object(inference,'_read_unlabeled_rows',return_value=rows),patch.object(inference,'_load_model',return_value=(model,job,{},{},torch.device('cpu'))),patch.object(inference,'_runtime',return_value=runtime):
+                self.assertEqual(inference.run_prediction('/synthetic',self.root,self.root/'native6.csv',device='cpu',expected_count=4,batch_size=2)['count'],4)
+            for inputs in model.inputs:self.assertTrue(torch.equal(inputs,expected.unsqueeze(0).expand(len(inputs),-1,-1,-1)))
+            dataset=data.ImageDataset(self.root,rows,IMAGE_SIZE,True,prepared_size=512,training_scale=SCALE,input_preprocessing=policy)
+            traces=[]
+            def factory(seed):rng=TracedRandom(seed);traces.append(rng);return rng
+            with patch.object(data.random,'Random',side_effect=factory):actual=dataset[(0,SEED)][0]
+            self.assertTrue(torch.equal(actual[:3],legacy_render(global_image,IMAGE_SIZE,SEED,SCALE)))
+            self.assertTrue(torch.equal(actual[3:],legacy_render(native,IMAGE_SIZE,SEED,SCALE)))
+            self.assertEqual(len(traces),2);self.assertEqual([rng.random_calls for rng in traces],[8,8])
+            self.assertEqual(traces[0].getstate(),traces[1].getstate())
+            (self.root/'valid').mkdir();self.image.save(self.root/'valid/native6.png')
+            official=data.ImageDataset(self.root,[dict(rows[0],relative_path='valid/native6.png')],IMAGE_SIZE,False,prepared_size=512,input_preprocessing=policy)
+            with patch.object(official.prepared_cache,'read',side_effect=AssertionError('sealed raw only')),patch.object(official.global_cache,'read',side_effect=AssertionError('sealed raw only')):
+                self.assertTrue(torch.equal(official[0][0],expected))
+        self.assertEqual(before[0],random.getstate());self.assertTrue(np.array_equal(before[1][1],np.random.get_state()[1]));self.assertTrue(torch.equal(before[2],torch.get_rng_state()))
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_global_native_inset_pixels_rng_and_real_consumers(self):
         from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
         self.assertTrue(hasattr(config,'GLOBAL_NATIVE_INSET_RULE'),'fixed global/native inset policy is missing')

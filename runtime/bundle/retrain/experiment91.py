@@ -49,6 +49,8 @@ NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixe
 GLOBAL_NATIVE_INSET_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-inset256-v1'
 GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-inset256-v1'
 NO_MODEL_STOCH_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-nostoch-v1'
+NO_MODEL_STOCH_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-nostoch-v1'
+GLOBAL_NATIVE_SIX_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-native6-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -68,7 +70,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                       LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
                       DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
-                      GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING)
+                      GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
+                      NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -129,6 +132,8 @@ def science_configuration():
             from .config import NATIVE_BRIGHT_CENTER_RULE
         if value.get('candidate_profile') in (GLOBAL_NATIVE_INSET_SMALL_BINDING,GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING):
             from .config import GLOBAL_NATIVE_INSET_RULE
+        if value.get('candidate_profile')==GLOBAL_NATIVE_SIX_SMALL_BINDING:
+            from .config import GLOBAL_NATIVE_SIX_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -151,10 +156,11 @@ def science_configuration():
                                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
                                                        DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
-                                                       GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING)
+                                                       GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
+                                                       NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
-                or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING)
+                or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING)
                     and (value.get('job',{}).get('input_preprocessing') is not None
                          or value.get('candidate',{}).get('input_preprocessing') is not None))
                 or (value.get('candidate_profile') in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING)
@@ -171,7 +177,11 @@ def science_configuration():
                     and (value.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE
                          or value.get('candidate',{}).get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE
                          or not isinstance(value.get('composite_cache_receipt'),dict)))
-                or (value.get('candidate_profile')==NO_MODEL_STOCH_SMALL_BINDING
+                or (value.get('candidate_profile')==GLOBAL_NATIVE_SIX_SMALL_BINDING
+                    and (value.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_SIX_RULE
+                         or value.get('candidate',{}).get('input_preprocessing')!=GLOBAL_NATIVE_SIX_RULE
+                         or not isinstance(value.get('composite_cache_receipt'),dict)))
+                or (value.get('candidate_profile') in (NO_MODEL_STOCH_SMALL_BINDING,NO_MODEL_STOCH_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('dropout'),value.get('job',{}).get('stochastic_depth'))!=(0.,0.))
                 or (value.get('candidate_profile') not in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('optimizer_policy') is not None
@@ -368,7 +378,8 @@ def candidate_from_configuration(value):
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
                                         MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                                         LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
-                                        GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING):
+                                        GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
+                                        NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -496,6 +507,13 @@ def candidate_from_configuration(value):
         if value['candidate_profile']==NO_MODEL_STOCH_SMALL_BINDING:
             expected.update(id='r148-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-nostoch-9010',
                             experiment_order=60,stochastic_depth=0.,head_dropout=0.)
+        if value['candidate_profile']==NO_MODEL_STOCH_SMALL_SEED27_BINDING:
+            expected.update(id='r149-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-nostoch-9010',
+                            experiment_order=61,stochastic_depth=0.,head_dropout=0.)
+        if value['candidate_profile']==GLOBAL_NATIVE_SIX_SMALL_BINDING:
+            from .config import GLOBAL_NATIVE_SIX_RULE
+            expected.update(id='r150-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-native6-9010',
+                            experiment_order=62,input_preprocessing=GLOBAL_NATIVE_SIX_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -890,6 +908,14 @@ def describe_model(model):
             'in_channels':stem.in_channels,'out_channels':stem.out_channels,
             'kernel_size':list(stem.kernel_size),'stride':list(stem.stride),'padding':list(stem.padding),
             'dilation':list(stem.dilation),'groups':stem.groups,'coordinate_generation':'stateless'}
+    from .config import GLOBAL_NATIVE_SIX_RULE
+    if science_configuration()['job'].get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE:
+        stem=network.features[0][0]
+        if not isinstance(stem,nn.Conv2d):raise ValueError('native six-channel stem convolution missing')
+        result['stem_native6']={'policy':getattr(model,'stem_native6_policy',None),'name':'network.features.0.0',
+            'weight_shape':list(stem.weight.shape),'bias_shape':list(stem.bias.shape),
+            'in_channels':stem.in_channels,'out_channels':stem.out_channels,'kernel_size':list(stem.kernel_size),
+            'stride':list(stem.stride),'padding':list(stem.padding),'dilation':list(stem.dilation),'groups':stem.groups}
     if science_configuration()['job'].get('mixstyle_policy') is not None:
         from .mixstyle import describe_mixstyle
         result['mixstyle'] = describe_mixstyle(model, {**science_configuration()['job'],
@@ -1018,6 +1044,14 @@ def validate_normalization(value):
                 or configured['stem_xy_policy']!=STEM_XY_RULE or value.get('stem_xy')!=expected):
             raise ValueError('actual RGBXY stem or coordinate semantics differ')
     elif value.get('stem_xy') is not None:raise ValueError('unregistered RGBXY stem')
+    from .config import GLOBAL_NATIVE_SIX_RULE
+    if configured.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE:
+        expected={'policy':GLOBAL_NATIVE_SIX_RULE,'name':'network.features.0.0','weight_shape':[96,6,4,4],
+            'bias_shape':[96],'in_channels':6,'out_channels':96,'kernel_size':[4,4],'stride':[4,4],
+            'padding':[0,0],'dilation':[1,1],'groups':1}
+        if science_configuration()['candidate_profile']!=GLOBAL_NATIVE_SIX_SMALL_BINDING or value.get('stem_native6')!=expected:
+            raise ValueError('actual six-channel stem geometry or input semantics differ')
+    elif value.get('stem_native6') is not None:raise ValueError('unregistered native six-channel stem')
     if configured.get('mixstyle_policy') != candidate().get('mixstyle_policy'):
         raise ValueError('MixStyle job has no matching candidate policy')
     if configured.get('mixstyle_policy') is not None:

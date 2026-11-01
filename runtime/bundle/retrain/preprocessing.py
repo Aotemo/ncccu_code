@@ -57,23 +57,38 @@ def global_native_inset(global_image, native_image, policy):
 
 
 def verify_composite_cache_asset(science, site):
-    from .config import GLOBAL_NATIVE_INSET_RULE
-    if science.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE:return None
+    from .config import GLOBAL_NATIVE_INSET_RULE,GLOBAL_NATIVE_SIX_RULE
+    policy=science.get('job',{}).get('input_preprocessing')
+    if policy not in (GLOBAL_NATIVE_INSET_RULE,GLOBAL_NATIVE_SIX_RULE):return None
+    six=policy==GLOBAL_NATIVE_SIX_RULE
     root=Path(site['work_root']).resolve(strict=True);ref=science.get('composite_cache_receipt',{});relative=Path(ref.get('path',''))
     if relative.is_absolute() or '..' in relative.parts or not relative.parts:raise ValueError('explicit relative paired-cache receipt required')
     path=root/relative
     if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest()!=ref.get('sha256'):raise ValueError('paired-cache receipt SHA differs')
     value=json.loads(path.read_text())
-    expected={'format':'global-native-inset-cache-pair-v1','passed':True,'pod_uid':site['pod']['uid'],
+    expected={'format':'global-native-six-cache-pair-v1' if six else 'global-native-inset-cache-pair-v1','passed':True,'pod_uid':site['pod']['uid'],
         'data_root':site['data_root'],'metadata_root':site['metadata_root'],'native_cache_root':site['prepared_cache'],
         'manifest_sha256':hashlib.sha256((Path(site['metadata_root'])/'manifest.json').read_bytes()).hexdigest(),
         'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count_each':51396,
-        'input_preprocessing':GLOBAL_NATIVE_INSET_RULE,'pillow':PILLOW_VERSION,'official_read':False}
+        'input_preprocessing':policy,'pillow':PILLOW_VERSION,'official_read':False}
     if not isinstance(value,dict) or any(value.get(k)!=v for k,v in expected.items()):raise ValueError('paired-cache identity or complete coverage differs')
     global_root=Path(value.get('global_cache_root',''))
     if not global_root.is_absolute() or not global_root.resolve().is_relative_to(root) or str(global_root)==site['prepared_cache']:raise ValueError('explicit separate global cache required')
     index=value.get('index',{});index_path=Path(index.get('path',''))
     if not index_path.is_absolute() or not index_path.resolve().is_relative_to(root) or index_path.is_symlink() or hashlib.sha256(index_path.read_bytes()).hexdigest()!=index.get('sha256'):raise ValueError('paired-cache coverage index differs')
+    if six:
+        base_ref=value.get('base_pair_receipt',{});base_relative=Path(base_ref.get('path',''))
+        if base_relative.is_absolute() or '..' in base_relative.parts or not base_relative.parts:raise ValueError('explicit original paired-cache reference required')
+        base_path=root/base_relative
+        if base_path.is_symlink() or hashlib.sha256(base_path.read_bytes()).hexdigest()!=base_ref.get('sha256'):raise ValueError('original paired-cache proof SHA differs')
+        base=json.loads(base_path.read_text())
+        source=Path(__file__).resolve().parents[3]
+        if (base.get('format')!='global-native-inset-cache-pair-v1' or base.get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE
+                or any(base.get(k)!=value.get(k) for k in (*[k for k in expected if k not in ('format','input_preprocessing')],'global_cache_root','index'))
+                or value.get('cache_core_AST_unchanged') is not True
+                or value.get('source_files')!={name:hashlib.sha256((source/name).read_bytes()).hexdigest()
+                    for name in ('runtime/bundle/retrain/data.py','runtime/bundle/retrain/preprocessing.py')}):
+            raise ValueError('six-channel asset reuse or unchanged cache core proof differs')
     return value
 
 

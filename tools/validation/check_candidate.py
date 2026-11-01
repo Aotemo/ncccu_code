@@ -98,6 +98,8 @@ def main(args):
     is_tri3 = job.get('tri3_downsample_policy') is not None
     is_mixstyle = job.get('mixstyle_policy') is not None
     is_stem_xy = job.get('stem_xy_policy') is not None
+    from retrain.config import GLOBAL_NATIVE_SIX_RULE
+    is_native6 = job.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE
     is_raw_gc = job.get('gradient_centralization_policy') is not None
     is_lion = job.get('optimizer_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
@@ -115,6 +117,13 @@ def main(args):
               and proof['rgb_before']==proof['rgb_after'] and proof['bias_before']==proof['bias_after']
               and proof['added_zero_elements']==3072 and not bool(torch.count_nonzero(stem.weight[:,3:])),
               {'stem':structure['stem_xy'],'initialization':proof})
+    if is_native6:
+        stem=model.network.features[0][0];proof=public['stem_native6_initialization']
+        check('R150_native_public_RGB_exact_zero_native_channels',
+              structure['stem_native6']['weight_shape']==[96,6,4,4]
+              and proof['rgb_before']==proof['rgb_after'] and proof['bias_before']==proof['bias_after']
+              and proof['added_zero_elements']==4608 and not bool(torch.count_nonzero(stem.weight[:,3:])),
+              {'stem':structure['stem_native6'],'initialization':proof})
     check('actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
@@ -292,7 +301,7 @@ def main(args):
         and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool) + int(is_stage3_residual) + (144 if is_low_rank else 0)
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
-        and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()) + (1082880 if is_low_rank else 0) + (3072 if is_stem_xy else 0),
+        and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()) + (1082880 if is_low_rank else 0) + (3072 if is_stem_xy else 0) + (4608 if is_native6 else 0),
                        'head': contract['features'] + 1 + (768 if is_content_pool else 0) + (384 if is_stage3_residual else 0),
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
@@ -367,7 +376,7 @@ def main(args):
     model_digest = tensor_digest(model.state_dict()); ema = EMA(model, ex.ema_rule())
     tri3_ema_structure = ex.describe_model(ema.model) if is_tri3 else None
     mixstyle_ema_structure = ex.describe_model(ema.model) if is_mixstyle else None
-    stem_xy_ema_structure = ex.describe_model(ema.model) if is_stem_xy else None
+    stem_xy_ema_structure = ex.describe_model(ema.model) if is_stem_xy or is_native6 else None
     raw_gc_ema_structure = ex.describe_model(ema.model) if is_raw_gc else None
     common_digest = tensor_digest({name: tensor for name, tensor in model.state_dict().items()
                                    if name not in ('attention_pool_weight', 'stage3_residual_weight')
@@ -375,7 +384,7 @@ def main(args):
     check('initial_EMA_exact_and_outside_optimizer', tensor_digest(ema.model.state_dict()) == model_digest
           and (not is_tri3 or tri3_ema_structure == structure)
           and (not is_mixstyle or mixstyle_ema_structure == structure)
-          and (not is_stem_xy or stem_xy_ema_structure == structure)
+          and (not (is_stem_xy or is_native6) or stem_xy_ema_structure == structure)
           and (not is_raw_gc or raw_gc_ema_structure == structure)
           and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
                if (is_content_pool or is_stage3_residual) else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
@@ -458,7 +467,7 @@ def main(args):
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
           and reload_job == job and reloaded is not model
-          and (not is_stem_xy or ex.describe_model(reloaded)==structure)
+          and (not (is_stem_xy or is_native6) or ex.describe_model(reloaded)==structure)
           and (not is_raw_gc or ex.describe_model(reloaded)==structure)
           and (not is_tri3 or (reload_origin.get('tri3_downsample') == structure['tri3_downsample']
                               and ex.describe_model(reloaded) == structure))
@@ -472,17 +481,17 @@ def main(args):
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
-    if is_stem_xy:
+    if is_stem_xy or is_native6:
         original_mode=model.training;model.eval()
         with torch.inference_mode():
-            image=torch.zeros(1,3,512,512,dtype=torch.float32);ages=torch.zeros(1,2,dtype=torch.float32)
+            image=torch.zeros(1,6 if is_native6 else 3,512,512,dtype=torch.float32);ages=torch.zeros(1,2,dtype=torch.float32)
             online=model(image,ages);rebuilt=reloaded(image,ages)
         model.train(original_mode)
-        check('R135_default_factory_saved_RGBXY_graph_512_finite',
+        check('R150_default_factory_saved_native6_graph_512_finite' if is_native6 else 'R135_default_factory_saved_RGBXY_graph_512_finite',
               tuple(rebuilt.shape)==(1,) and bool(torch.isfinite(rebuilt).all())
               and torch.equal(online,rebuilt) and not torch.cuda.is_initialized(),
-              {'input_shape':[1,3,512,512],'actual_stem_shape':list(reloaded.network.features[0][0].weight.shape),
-               'same_five_channel_model_roundtrip':True})
+              {'input_shape':[1,6 if is_native6 else 3,512,512],'actual_stem_shape':list(reloaded.network.features[0][0].weight.shape),
+               ('same_six_channel_model_roundtrip' if is_native6 else 'same_five_channel_model_roundtrip'):True})
     if is_layerwise:
         from retrain.engine import _validate_layerwise_optimizer_state
         check('R130_strict_reload_preserves_named_optimizer_groups',

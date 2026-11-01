@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "three_affected_targets_passed_with_unchanged_scope_reuse",
+  "passed_targets": 3,
+  "compiled_sources": 8,
+  "at": 1793566319.0128803,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "runtime/bundle/retrain/data.py": "78d702bbe6fc83a3ae12b0d77773b1939565ec1d5fd6cfed5b3aa505bb146114",
+    "runtime/bundle/retrain/preprocessing.py": "d058e8912768be2f97b2c4bfedeb79b53315a1b43b48bb67d84fe1488bcdefc1",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/experiment91.py": "1d61b6ca632a25e996a216bfc2319c4a38d3ae0ccc3fc77b9723807031824e9c",
+    "tools/validation/check_candidate.py": "1ba265a608eb838db197009f33953d293120ed1933da37204b2474b5ce5f5b7d",
+    "tests/test_photometric_policy.py": "5137e4c32ff0d23c9bcf2e73de14281e98104a80ba1657106e5894e53d92af19",
+    "tests/test_candidate_binding.py": "e414a42d09f6ddcecb34176b9a7c496198b1e7a48ef19cbfd906a5e5f0556b96"
+  },
+  "science_sha256": {
+    "R149-SCIENCE.json": "9ceb28ca0e1a5fb46228622fa8efaff1ddf6d33d37658109592d07ddcbe0259d",
+    "R150-SCIENCE.json": "4ef1433632b1728cfc4b23a610def0f9c648418d0d415ce85d5289f5bbc1dfdb"
+  },
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_global_native6_shared_seed_pixels_cache_and_real_consumers",
+    "test_candidate_binding.CandidateBindingTest.test_R150_existing_factory_rgb_preservation_rng_gradient_and_strict_reload",
+    "test_candidate_binding.CandidateBindingTest.test_R149_R150_fixed_science_saved_job_and_derived_asset"
+  ],
+  "evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-l0k261el/CPU-RECEIPT.json",
+      "sha256": "a0878eb90399124c7b0eb2b686d100b2f50173c0dbe3a0c4c1de669ef57f9c56",
+      "exit_code": 1,
+      "output_sha256": "212ff34e97f3f10be242b3dbbfb01a4ec5d78970c031200c8063135cdab2b8f9",
+      "scope": "first_two_targets_passed_identity_error_preserved"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-yuxc389q/CPU-RECEIPT.json",
+      "sha256": "be840abc9f22bb8b40b4e34ce9ca1208e66b0af0c43a8104be478698a8d388f6",
+      "exit_code": 0,
+      "output_sha256": "25795793f95d61cfc3ce0d0ff039385fa31f79b2f3505f09f342b022f1774844",
+      "scope": "identity_target_passed_and_eight_sources_compiled"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-q3b9_rld/CPU-RECEIPT.json",
+      "sha256": "a4c7259b2bd59abb1cc85ac940a53c8d01f9565751bdfd753b877eedc6bb7901",
+      "exit_code": 0,
+      "output_sha256": "b4868358956a06dc5bb529eba8ef019f1678adbb825ab37d977d396d64e981f6",
+      "scope": "actual_public_fresh_initial_CPU_only"
+    }
+  ],
+  "original_partial_suite_status": "two_passes_one_identity_test_KeyError",
+  "original_partial_guard_exit_code": 1,
+  "unchanged_passed_factory_test_module_except_failed_method_AST": true,
+  "unchanged_passed_pixel_test_exact_bytes": true,
+  "unchanged_six_runtime_sources_exact_bytes": true,
+  "scoped_identity_fix": "test optional None field indexed directly; changed only that assertion to get",
+  "public_initial": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native6-20261101-32e3/PUBLIC-FRESH-INITIAL.json",
+    "sha256": "180e7b6403d9cbde07388882eb151a152a986e5da0ab52a577840ba9be331066"
+  },
+  "model_tensor_sha256": "ea92356b21fb0cbc94f28344866859f827e4cd745c57b88bb35d1bb8a9b654e1",
+  "shared_rgb_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "cache_handoff": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native6-20261101-32e3/NATIVE6-CACHE-HANDOFF.json",
+    "sha256": "f246451354ca0bd30823be8eeba8bbec8bab5520ed24efbd3421da58e93a197e"
+  },
+  "cache_entries_reopened_for_reuse": 0,
+  "image_cache_files_written": 0,
+  "actual_GPU_initialized_by_test": false,
+  "official_read": false,
+  "new_formal_executed": false,
+  "new_activation_executed": false
+}

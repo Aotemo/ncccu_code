@@ -1,0 +1,61 @@
+{
+  "stage": "RED",
+  "status": "failed",
+  "tests_run": 3,
+  "failure_count": 3,
+  "error_count": 0,
+  "passed_targets": 0,
+  "compiled_sources": 0,
+  "seconds": 3.719966411590576,
+  "at": 1793565304.035339,
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_global_native6_shared_seed_pixels_cache_and_real_consumers",
+    "test_candidate_binding.CandidateBindingTest.test_R150_existing_factory_rgb_preservation_rng_gradient_and_strict_reload",
+    "test_candidate_binding.CandidateBindingTest.test_R149_R150_fixed_science_saved_job_and_derived_asset"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "3624b897b2012799dd2bba399bcaeaa1c817493fa069397375266ae237119e6d",
+    "runtime/bundle/retrain/data.py": "61b15bfc3a521f3656d32df1314a63defce394d2ab094d3c9c99633a376afdb3",
+    "runtime/bundle/retrain/preprocessing.py": "7e0b23e1e43fdf775525622097354332e4f2a552fc48179565b812713556f8aa",
+    "runtime/bundle/retrain/models.py": "c22bbb55f1b0ddaf8fd058a209ddc8decb4f996987adc3cd514ca584b478a23a",
+    "runtime/bundle/retrain/experiment91.py": "b4eb6fccb72a3894f8af07dfad37e4bbba1f60f56fb51e79ab49a9e84d75369e",
+    "tools/validation/check_candidate.py": "1ff8462a9cfc6139f2539954fbb70f19609717a74464895830caa965530a998a",
+    "tests/test_photometric_policy.py": "5137e4c32ff0d23c9bcf2e73de14281e98104a80ba1657106e5894e53d92af19",
+    "tests/test_candidate_binding.py": "e2c4fb9fe09cf8b646b8ecc9bed97e2da22c351482f80e87d6272f26c5322541"
+  },
+  "science_sha256": {
+    "R149-SCIENCE.json": null,
+    "R150-SCIENCE.json": null
+  },
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "CUDA_VISIBLE_DEVICES": "",
+  "official_read": false,
+  "training_checkpoint_loaded": false,
+  "public_weights_loaded_by_factory_target": false,
+  "new_formal_executed": false,
+  "new_GPU_started": false
+}

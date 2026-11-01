@@ -507,6 +507,21 @@ def create_model(job, initialize=True):
             public_receipt['stem_xy_initialization']={'rgb_before':rgb_before,
                 'rgb_after':tensor_digest({'rgb':stem.weight[:,:3]}),'bias_before':bias_before,
                 'bias_after':tensor_digest({'bias':stem.bias}),'added_zero_elements':int(stem.weight[:,3:].numel())}
+    from .config import GLOBAL_NATIVE_SIX_RULE
+    if job.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE:
+        from copy import deepcopy
+        from .ema import tensor_digest
+        stem=model.features[0][0]
+        if (name!='convnext_small' or not isinstance(stem,nn.Conv2d)
+                or (stem.in_channels,stem.out_channels,stem.kernel_size,stem.stride,stem.padding,stem.dilation,stem.groups)
+                    !=(3,96,(4,4),(4,4),(0,0),(1,1),1)):
+            raise ValueError('native six-channel input requires the original Small RGB stem')
+        rgb_before=tensor_digest({'rgb':stem.weight});bias_before=tensor_digest({'bias':stem.bias})
+        with torch.no_grad():stem.weight.data=torch.cat((stem.weight.detach(),stem.weight.new_zeros(96,3,4,4)),dim=1)
+        stem.in_channels=6;result.stem_native6_policy=deepcopy(GLOBAL_NATIVE_SIX_RULE)
+        if public_receipt is not None:
+            public_receipt['stem_native6_initialization']={'rgb_before':rgb_before,'rgb_after':tensor_digest({'rgb':stem.weight[:,:3]}),
+                'bias_before':bias_before,'bias_after':tensor_digest({'bias':stem.bias}),'added_zero_elements':int(stem.weight[:,3:].numel())}
     if job.get('mixstyle_policy') is not None:
         from .mixstyle import attach_mixstyle
         attach_mixstyle(result, job)

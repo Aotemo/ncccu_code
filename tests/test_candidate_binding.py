@@ -21,6 +21,85 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R149_R150_fixed_science_saved_job_and_derived_asset(self):
+        from retrain import age,config,preprocessing
+        self.assertTrue(hasattr(experiment,'NO_MODEL_STOCH_SMALL_SEED27_BINDING'),'conditional no-model-stochasticity binding is missing')
+        self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_SIX_SMALL_BINDING'),'six-channel binding is missing')
+        for label,base in [('R149','R148'),('R150','R107')]:
+            left=json.loads((ROOT/'configs'/f'{base}-SCIENCE.json').read_text());path=ROOT/'configs'/f'{label}-SCIENCE.json';right=json.loads(path.read_text())
+            self.assertEqual(right['candidate']['experiment_order'],61 if label=='R149' else 62)
+            self.assertEqual(right['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+            self.assertEqual(experiment.candidate_from_configuration(right),right['candidate'])
+            if label=='R149':
+                self.assertEqual(right['candidate_profile'],experiment.NO_MODEL_STOCH_SMALL_SEED27_BINDING)
+                self.assertEqual(right['job']['seed'],20261027)
+                self.assertEqual(right['initial_model_tensor_sha256'],json.loads((ROOT/'configs/R108-SCIENCE.json').read_text())['initial_model_tensor_sha256'])
+            else:
+                self.assertEqual(right['candidate_profile'],experiment.GLOBAL_NATIVE_SIX_SMALL_BINDING)
+                self.assertEqual(right['job']['input_preprocessing'],config.GLOBAL_NATIVE_SIX_RULE)
+                public=json.loads((ROOT/'records/preparation/native6-20261101/PUBLIC-FRESH-INITIAL.json').read_text())
+                self.assertEqual(right['initial_model_tensor_sha256'],public['model_tensor_sha256'])
+                self.assertEqual(public['shared_rgb_tensor_sha256'],left['initial_model_tensor_sha256'])
+                self.assertEqual((public['trainable_tensors'],public['added_zero_elements']),(345,4608))
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/f'{label}-fixture'),**{k:str(ROOT/v) for k,v in right['paths'].items()})
+            site['science']={'binding_version':right['candidate_profile'],'candidate':right['candidate'],'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            binding={'version':right['candidate_profile']};age_spec=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+            with tempfile.TemporaryDirectory() as directory:
+                p=Path(directory)/'SITE.json';p.write_text(json.dumps(site))
+                with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':age_spec}):
+                    self.assertEqual(experiment.science_configuration(),right)
+                    job=copy.deepcopy(right['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization={'kind':'imagenet','format':right['public_source']['format'],'sha256':right['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                    cfg=Path(directory)/'TRAIN.json';cfg.write_text(json.dumps({'mode':'train','data':{'split':right['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
+                    resolved=config.load_config(cfg,environ={})['jobs'][0];self.assertEqual(experiment.validate_job(resolved),resolved)
+                    self.assertEqual(config.job_contract(resolved).get('input_preprocessing'),right['job'].get('input_preprocessing'))
+            for value in (left,right):
+                for key in ('candidate_profile','comparison_note','official_evaluation','initial_model_tensor_sha256'):value.pop(key,None)
+                for key in ('id','experiment_order'):value['candidate'].pop(key)
+            if label=='R149':right['job']['seed']=left['job']['seed']
+            else:
+                right['candidate'].pop('input_preprocessing');right['job'].pop('input_preprocessing');right.pop('composite_cache_receipt');right['paths']['prepared_cache']=left['paths']['prepared_cache']
+            self.assertEqual(right,left)
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'metadata').mkdir();(root/'metadata/manifest.json').write_text('{}\n');index=root/'INDEX.jsonl';index.write_text('{}\n')
+            site={'work_root':str(root),'data_root':str(root/'data'),'metadata_root':str(root/'metadata'),'prepared_cache':str(root/'native'),'pod':{'uid':'fixture'}}
+            base={'format':'global-native-inset-cache-pair-v1','passed':True,'pod_uid':'fixture','data_root':site['data_root'],'metadata_root':site['metadata_root'],'native_cache_root':site['prepared_cache'],'global_cache_root':str(root/'global'),
+                'manifest_sha256':hashlib.sha256((root/'metadata/manifest.json').read_bytes()).hexdigest(),'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count_each':51396,'input_preprocessing':config.GLOBAL_NATIVE_INSET_RULE,'pillow':'12.3.0','official_read':False,'index':{'path':str(index),'sha256':hashlib.sha256(index.read_bytes()).hexdigest()}}
+            p=root/'BASE.json';p.write_text(json.dumps(base));value=copy.deepcopy(base)
+            value.update(format='global-native-six-cache-pair-v1',input_preprocessing=config.GLOBAL_NATIVE_SIX_RULE,base_pair_receipt={'path':'BASE.json','sha256':hashlib.sha256(p.read_bytes()).hexdigest()},cache_core_AST_unchanged=True,
+                source_files={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ('runtime/bundle/retrain/data.py','runtime/bundle/retrain/preprocessing.py')})
+            p=root/'SIX.json';p.write_text(json.dumps(value));spec={'job':{'input_preprocessing':config.GLOBAL_NATIVE_SIX_RULE},'composite_cache_receipt':{'path':'SIX.json','sha256':hashlib.sha256(p.read_bytes()).hexdigest()}}
+            self.assertEqual(preprocessing.verify_composite_cache_asset(spec,site)['global_cache_root'],str(root/'global'))
+
+    def test_R150_existing_factory_rgb_preservation_rng_gradient_and_strict_reload(self):
+        from retrain import config
+        self.assertTrue(hasattr(config,'GLOBAL_NATIVE_SIX_RULE'),'six-channel policy is missing')
+        import torch
+        from retrain import age,models
+        from retrain.engine import _optimizer
+        job=copy.deepcopy(json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())['job'])
+        job['age']=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        torch.manual_seed(job['seed']);baseline=models.create_model(job,initialize=False);rng=torch.get_rng_state().clone()
+        job['input_preprocessing']=config.GLOBAL_NATIVE_SIX_RULE
+        torch.manual_seed(job['seed']);model=models.create_model(job,initialize=False)
+        self.assertTrue(torch.equal(rng,torch.get_rng_state()))
+        old=baseline.state_dict();current=model.state_dict();self.assertEqual(old.keys(),current.keys());self.assertEqual(len(dict(model.named_parameters())),345)
+        for name,tensor in old.items():self.assertTrue(torch.equal(tensor,current[name][:,:3] if name=='network.features.0.0.weight' else current[name]),name)
+        stem=model.network.features[0][0];self.assertEqual(tuple(stem.weight.shape),(96,6,4,4));self.assertFalse(bool(torch.count_nonzero(stem.weight[:,3:])))
+        self.assertEqual(sum(p.numel() for p in model.parameters())-sum(p.numel() for p in baseline.parameters()),4608)
+        images=torch.linspace(-1,1,2*3*32*32).reshape(2,3,32,32);paired=torch.cat((images,images.flip(-1)),1);features=torch.tensor([[.25,1.],[-.25,1.]])
+        baseline.eval();model.eval()
+        with torch.no_grad():torch.testing.assert_close(model(paired,features),baseline(images,features),rtol=2e-5,atol=2e-6)
+        optimizer=_optimizer(model,job);self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        model.train();model(paired,features).sum().backward()
+        self.assertTrue(all(p.grad is not None and bool(torch.isfinite(p.grad).all()) for p in model.parameters()))
+        self.assertTrue(bool(torch.count_nonzero(stem.weight.grad[:,3:])));optimizer.step()
+        self.assertTrue(bool(torch.count_nonzero(stem.weight[:,3:])))
+        self.assertEqual(tuple(optimizer.state[stem.weight]['exp_avg'].shape),(96,6,4,4))
+        cold=models.create_model(job,initialize=False);loaded=cold.load_state_dict(model.state_dict(),strict=True)
+        self.assertFalse(loaded.missing_keys);self.assertFalse(loaded.unexpected_keys)
+        self.assertTrue(all(torch.equal(tensor,cold.state_dict()[name]) for name,tensor in model.state_dict().items()))
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_R147_R148_fixed_science_and_saved_job_contract(self):
         from retrain import age,config
         self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING'),'conditional inset binding is missing')
