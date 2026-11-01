@@ -21,6 +21,34 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R145_native_seed27_identity_and_unchanged_cache_contract(self):
+        from retrain import age,config
+        self.assertTrue(hasattr(experiment,'NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING'),'conditional native seed27 binding is missing')
+        left=json.loads((ROOT/'configs/R144-SCIENCE.json').read_text())
+        path=ROOT/'configs/R145-SCIENCE.json';right=json.loads(path.read_text())
+        self.assertEqual(right['candidate_profile'],experiment.NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING)
+        self.assertEqual(right['candidate']['experiment_order'],57);self.assertEqual(right['job']['seed'],20261027)
+        self.assertEqual(right['initial_model_tensor_sha256'],json.loads((ROOT/'configs/R108-SCIENCE.json').read_text())['initial_model_tensor_sha256'])
+        self.assertEqual(right['prepared_cache_receipt'],left['prepared_cache_receipt'])
+        site=copy.deepcopy(self.site)
+        site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds/native-seed27-fixture'),**{k:str(ROOT/v) for k,v in right['paths'].items()})
+        site['science']={'binding_version':right['candidate_profile'],'candidate':right['candidate'],
+            'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+        binding={'version':right['candidate_profile']};age_spec=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'SITE.json';p.write_text(json.dumps(site))
+            with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':age_spec}):
+                self.assertEqual(experiment.candidate_from_configuration(experiment.science_configuration()),right['candidate'])
+                job=copy.deepcopy(right['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization={'kind':'imagenet','format':right['public_source']['format'],'sha256':right['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                cfg=Path(directory)/'TRAIN.json';cfg.write_text(json.dumps({'mode':'train','data':{'split':right['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
+                resolved=config.load_config(cfg,environ={})['jobs'][0]
+                self.assertEqual(experiment.validate_job(resolved),resolved)
+                self.assertEqual(config.job_contract(resolved)['input_preprocessing'],config.NATIVE_BRIGHT_CENTER_RULE)
+        for value in (left,right):
+            for key in ('candidate_profile','comparison_note','initial_model_tensor_sha256'):value.pop(key,None)
+            for key in ('id','experiment_order'):value['candidate'].pop(key)
+        right['job']['seed']=left['job']['seed'];self.assertEqual(right,left)
+
     def test_R144_native_science_and_explicit_derived_cache_binding(self):
         from retrain import config,preprocessing
         self.assertTrue(hasattr(experiment,'NATIVE_BRIGHT_CENTER_SMALL_BINDING'),'native bright-center binding is missing')

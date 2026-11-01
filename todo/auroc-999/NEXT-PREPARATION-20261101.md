@@ -1,5 +1,11 @@
 # 当前运行与结果无关的 CPU 准备
 
+## R144期间的必要条件准备
+
+唯一GPU已为R144冻结11d9b4f；R143完整5600/eval7/bad4、唯一EMA c3@2400 AUROC`.9782357665525575`，双门false，关闭prepared裁剪配方/no27，原safe不重查。R144八rank345/5组空AdamW/whole50c与formal匹配，首自然25 finite，当前无完整selector。仅先准备R145/order57条件原生裁剪seed27：实际文件范围`experiment91.py`、既有`test_candidate_binding.py`及`configs/R145-SCIENCE.json`；只改job.seed及自然head初态预期91507（来自匹配R108的public fresh控制身份，未来新formal仍须实核），原Native定位/cache f057/age/G64P8/FP32/pairlog/AdamW/LR/EMA/24k800p4和官方隔离保持。不加载R108训练权重。仅R144完整selected同时strict>R107与R120且actualsafe后，才有R145 GPU资格；partial/AP不能替代，失败不补扫seed或定位参数。新的配置身份用一项窄CPU检查和2源compile，不重已有Native像素/cache/模型算法。
+
+接续时序改为复用现有两个入口而非新建流程：后续代码/配置/CPU证据/Git/技术包照常提前备齐；当活跃轮**训练完整停止、进入既有freeze收尾**后，可在互斥20%池调用现有PREPARE入口一次完成下一固定分支的CPU formal/部署，与旧owner的freeze收尾重叠。此时不做activation或新GPU，最终唯一selector和actualsafe仍是GPU启动前提；CPU源/结果不因之后绑定重写。随后只执行原preflight/activation/direct launch，既有formal不重复。这样减少完整安全退出之后串行CPU验收造成的等待，不改9h grant、6h训练/8h整轮、GPU唯一串行owner或任何科学合同；若分支资格最终不满足，保留未使用的纯准备成本，不启动它。
+
 ## R141期间固定接续：条件DINO seed27与亮区输入对照
 
 **R144接续已预备完成：** runGit11d9b4f/tree d520370已实际push/readback，完整CPU/资产证明字节匹配；`technical-prep/r144-20261101-32e3/technical-package-v2/package`已真实生成（6.042秒/SITE4ab9a8）。首包因生成run_name129>128在纯技术阶段失败，没有normalformal/grant/clock/activation/GPU；只把运行round短为`r144-small22k-seed20261029-scale085-pairlog-nativebright-half-24k-p4-9010-20261101`（生成run122），SCI f617不变，[原失败与v2](../../records/preparation/native-bright-input-20261101/README.md)均保留。当前R143冻结7d唯一训练不改；R143完整selected/actualsafe后，用已验本机`work/r137-20261101-a/RUN-NATIVE-NEXT-V2.sh R144`一次接续，沿原formal/部署/activation/direct launch，再核八rank初态和首自然成功。新准备/观测使用00202581本人0–22/23核、槽23/1核保留不用；不能与旧重叠prep份额并行。下方“正在同步打包”均属此前阶段，未达raw .999。

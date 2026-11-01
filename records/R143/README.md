@@ -1,4 +1,6 @@
-# R143 固定prepared亮区裁剪：真实八卡训练已启动
+# R143 固定prepared亮区裁剪：完整结束，未达目标
+
+完整5600success=attempt/0skip/eval7/bad4正常early_stopping；唯一EMA c3@2400，内部dev AUROC **0.9782357665525575**、AP **0.7877912472019675**、error_twice36150，tensor `c957955935d64fdabe3e6a6e183a462ba4a354fb44ff08ca2494bb8d4d958ded`。strict>R107及>R120均false，关闭这一精确prepared裁剪配方/no seed27；官方按`.996`门未达未运行。[结果](R143-RESULT.json)与[完整终态](R143-COMPLETION.json)实证18:23:38.112544 UTCdone/TRAIN/ROUND completed、exit0/signals[]、actualsafe=true；owner同birth Z非reaped，八rank absent、锁/设备使用者空、denied0/8PCIbusy0，freeze.status原null保留。原冻结7d/selected/clock/grant及依赖保护，仅复制既有小件，不重safe或加载大blob；后续独立fresh R144已接续。下文为启动时点。
 
 2026-11-01 17:37:18.926811 UTC实查running50success=attempt/0skip/eval0。原生八rank345全训、5组空AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与正式CPU一致；首自然记录update25/attempt25、finite loss`.6235901117324829`、WORLD8/G64P8/448pairs。owner425127/start358190187和八rank birth/argv/mask/8PCI匹配，saved input policy匹配SCIENCE，见[首成功](R143-START.json)。没有额外step1、后续Adam moment数量或独立GPU预演证据。
 

@@ -1,0 +1,24 @@
+{
+  "phase": "GREEN-NATIVE27-1",
+  "started_at": 1793558426.5436366,
+  "ended_at": 1793558427.0469048,
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R145_native_seed27_identity_and_unchanged_cache_contract"
+  ],
+  "compiled": [
+    "runtime/bundle/retrain/experiment91.py",
+    "tests/test_candidate_binding.py"
+  ],
+  "GPU_initialized": false,
+  "source_sha256": {
+    "runtime/bundle/retrain/experiment91.py": "4392ff74ff54a4a0f8bb02d6553d40078875bb3e6316c840dd830f936b778b57",
+    "tests/test_candidate_binding.py": "4d213f9837c292c5dc1b440d196aa954fc43a8c7004778fb2ebe175d0dfaa65e"
+  },
+  "science_sha256": {
+    "R145-SCIENCE.json": "0a7abca9bda2e14b577dbf27ce035fdab2a696102052d94b1f5c85b8a928344c"
+  }
+}
