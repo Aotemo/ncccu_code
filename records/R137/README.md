@@ -1,4 +1,10 @@
-# R137 固定 Lion10x：八卡实际首成功
+# R137 固定 Lion10x：完整结束，未达目标
+
+9600次成功=尝试、0跳步、12轮评估、连续4轮无提升正常早停。唯一selected为EMA c8@6400，内部dev raw AUROC **0.9854411426493483**、AP **0.8124829988951043**、error_twice24182，tensor SHA `47cbfd290f6a0a7543cba13a1439fa1e10ccc9b6bb3e757441c68bca5eaebb77`。strict>R107及strict>R120均false，关闭精确Lion10x、不做seed27；预留R138未activation、未训练。ROUND官方按`.996`门未达正常跳过，metrics=null；没有官方前向。
+
+唯一完整终态观测为2026-11-01 15:11:29.724784 UTC：done/TRAIN/ROUND completed、exit0/signals[]，actualsafe=true/terminal_idle。owner同birth Z非reaped，八rank absent，同inode锁holders[]、设备users[]、denied0、8expected PCI seen/busy0；freeze.status原值null保留。见[结果](R137-RESULT.json)、[完整终态原件](R137-COMPLETION.json)和[观测CPU树](R137-CPU-COMPLETION.json)。归档只复制已有小件，没有重复safe、hash/load大权重或补前向。原selected与全部clock/grant/失败成本和依赖保护；后续已接R139。
+
+以下为启动时实证；当时“尚无完整结果”等状态由上方终态覆盖。
 
 2026-11-01 21:53:55.416945 +08:00观测为running，250成功=尝试、0跳步、eval0。首自然log为update25/attempt25，finite loss `.6603637933731079`，WORLD8/G64/P8/448pairs。真实八rank初态全部为Lion、固定policy及有效age合同、原345全训/5组/空optimizer state，whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`，与本轮正式CPU验收逐组匹配。初态为空不代表更新后仍为空；自然rank_inputs投影未导出optimizer字段，后续moment数量未观察，不热改当前运行或补step1/GPU探针。
 

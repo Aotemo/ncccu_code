@@ -1,5 +1,7 @@
 # R137：固定 Lion10x 配方
 
+**完整结果已关闭此精确策略。** 9600success=attempt/0skip/eval12/bad4正常early_stopping，唯一EMA c8@6400 AUROC`.9854411426493483`、AP`.8124829988951043`，strict>R107和strict>R120均false/no seed27；R138仅预留技术包，未activation/未训练。2026-11-01 15:11:29.724784 UTC唯一完整终态确认done/TRAIN/ROUND completed及actualsafe=true，官方低于`.996`按政策未跑，freeze.status原值null不改。[完整结果与实际安全小件](../../records/R137/README.md)已归档；不重查旧safe或旧blob。当前GPU已独立fresh接R139，原7b冻结包/clock/grant和依赖保持。下文running/未完成均属历史阶段。
+
 实际接续已成功：runGit`7b48f495ecb85664037a03015b78216b7d7a31e9`/tree`7e1314d833b668172884532166d6fc870d7c4df5`，原3目标及8源compile精确SHA复用，唯一normalformal19/19、精确部署、唯一activation与direct live launch均exit0。21:53:55.416945实查running250success=attempt/0skip/eval0，八rank实际Lion/5组/空初态/有效age/whole50c匹配formal，首自然log25 finite/WORLD8/G64P8/448pairs。当前owner32e3与真实PID/start/argv、96/24互斥池见[启动记录](../../records/R137/README.md)。自然rank_inputs遗漏optimizer投影，后续moment数未观测；保持冻结包，不另做GPU探针或重启。当前无完整selector/双门/official；以下“尚无formal/启动”均为历史阶段。
 
 2026-11-01本次用户重新要求持续推进至指标、必要最小修改无需审批。实时Paseo仅新owner `32e3b079-81b0-4f66-9604-b32491599f44`，其接管唯一Git/Pod/GPU职责；不恢复历史Agent。原R137尚无formal/activation/launch，沿同一order49/round fresh合同接续，不重启旧轮。新准备目录 `technical-prep/r137-20261101-32e3` 和新CPU allocation `a3650fbdcd7931b5c34b371a8b31804da9b200931dd669150a0af8d01cc62212` 只绑定未启动阶段，旧CPU证据/成本原样。历史规划槽12–23保留不用，本owner0–11；后续训练使用实时80%互斥池。必要代码仅以下既有八文件；另随本次提交精简AGENTS及接续文档，未完成census/analysis保持隔离。原算法GREEN2两项、身份GREEN1一项和8源compile已找到，精确核SHA后复用，不重跑已通过目标。当前尚未证明正式CPU/GPU成功。

@@ -1,0 +1,81 @@
+{
+  "previous_terminal_observation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/PROGRESS-1511.json",
+    "sha256": "0d3a394b06f0bf4e48351d79c6b4b32189f5a221cbf8261edb2b788857794194",
+    "at": 1793545889.7247846,
+    "safe": true
+  },
+  "previous_terminal_markers": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 9600,
+      "cycles": 12,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9854411426493483,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 8,
+        "variant": "ema",
+        "successful_updates": 6400,
+        "error_twice": 24182,
+        "ap": 0.8124829988951043,
+        "auroc": 0.9854411426493483,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101/outputs/r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0008.csv",
+        "prediction_sha256": "6697e28bd68cd33b09c8d89ef6fe1a36460e41e770123b227b715fd660edac0d",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101/outputs/r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0008.csv.precision.json",
+        "precision_sha256": "6ec0b2abcce3863ca63b1a9e9a2c2f1248bb265b327245edde85c4d4d3930012",
+        "tensor_sha256": "47cbfd290f6a0a7543cba13a1439fa1e10ccc9b6bb3e757441c68bca5eaebb77"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 9600,
+      "cycles": 12,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9854411426493483,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "new_dispatch_at": 1793546074.9283996,
+  "terminal_observation_to_dispatch_seconds": 185.20361495018005,
+  "observation_to_dispatch_within_300_seconds": true,
+  "device_proof_times_if_present": [],
+  "first_recorded_update_at": 1793546206.91936,
+  "gap_semantics": "The terminal observation is later than actual prior training completion. Observation-to-dispatch is not continuous DCU idle time and does not prove an idle <=300s bound.",
+  "delay_causes": [
+    "Prior completion detected by existing metadata observer",
+    "Required single normalformal CPU acceptance, exact deployment and one activation",
+    "Eight-rank real startup and initial-state barrier"
+  ],
+  "continuous_idle_within_300_seconds_proven": false,
+  "no_extra_gpu_rehearsal": true
+}
