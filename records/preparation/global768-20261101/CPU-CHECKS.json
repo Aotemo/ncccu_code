@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "status": "three_affected_targets_passed_with_unchanged_native_factory_scope_reuse",
+  "at": 1793571370.6913767,
+  "passed_targets": 3,
+  "compiled_sources": 7,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "47632b830bc1bcd806178c33197f60e46df4344a006f92f5ce1de2212c4b9570",
+    "runtime/bundle/retrain/preprocessing.py": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456",
+    "runtime/bundle/retrain/data.py": "b3a5b585490483fda65a9eee24f18d97c21699434667aacb1c275bc7a030a15f",
+    "tools/activation/prepare.py": "88d62afdcb3395065394d95490483a3159107297ae85db2d0c97513592db1693",
+    "tools/validation/check_candidate.py": "d40a0ea0557a60385bf1d34e074783d1ffcf56ed9abc97a356d3f0dfa95aecef",
+    "tests/test_candidate_binding.py": "ac8ab78cc5754ec310fb49d380bc8171cc5c0c71d5fa40f1d26ccbfe432bb9ee",
+    "tests/test_photometric_policy.py": "f8387fa4e2dcbfe09d038306282b0ca9b8a78f234ed6ab1544f6b4907f6bbb87",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "runtime/bundle/retrain/engine.py": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/inference.py": "d7ffbbeaeea005fd3a181a7ec2e82a87647b3a14a1fa6c0d193c9ea95e1c02b8",
+    "configs/R107-SCIENCE.json": "32cff474d82ed423af9c47cb83ecf12af376255317601e811d2b3fe5af8b0982"
+  },
+  "configuration_files": {
+    "runtime/CLOCK_POLICY.json": "2c0121fcff95520fc24034db052dd38650100bb9a0db5e151770c67ffad049f8",
+    "runtime/PLAN.md": "71c871c43561856ee9cc86b936666f0003fbca765540bceceb12e1ed0d50720d"
+  },
+  "science_sha256": {
+    "R151-SCIENCE.json": "9ef14a4bd2ee7f723c9d58c3ab832b9928c6307b25532926efc4bb86e5be1d7e",
+    "R152-SCIENCE.json": "013208252c6992566ef4ed8821113ef1840830e1ae2b8599ca371e1ecd32fbd9"
+  },
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R151_R152_fixed_science_saved_geometry_and_derived_cache",
+    "test_candidate_binding.CandidateBindingTest.test_R152_native768_factory_strict_reload_and_inference_geometry",
+    "test_photometric_policy.PhotometricPolicyTest.test_global768_native_pixels_readonly_cache_and_raw_valid_boundary"
+  ],
+  "evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-w4ock0_p/CPU-RECEIPT.json",
+      "sha256": "3abb57961266612934d6ece33431d3f6f13012c0900d33cb61b7022ad913e320",
+      "exit_code": 1,
+      "output_sha256": "de11c6146211ff2b67d9d7a0dbd4d003de5ca668ae239467a55ebb8b72867d6e",
+      "scope": "native768_model_target_PASS_only_original_two_expected_failures_preserved"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-pl8g86mh/CPU-RECEIPT.json",
+      "sha256": "e1aae558f3f4d87f752928d64c3146631573d659b6b3fd4cd3ae560cf1951ae8",
+      "exit_code": 0,
+      "output_sha256": "6bd3ab32c06e812d19784985b19b4b25615c31b984f614fef65d649e2809a980",
+      "scope": "global768_pixels_cache_and_raw_valid_PASS_seven_sources_compiled"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-7o5o9dhy/CPU-RECEIPT.json",
+      "sha256": "850a93b0f0458d456b0aa49fa424b8410d684e29cce308b45cac259fc78eb519",
+      "exit_code": 0,
+      "output_sha256": "2e1186b51d76e8e1a93dde343b2cb70fc251c51dad7752dff1e24df0c9f0223e",
+      "scope": "both_final_science_saved_geometry_and_derived_asset_PASS"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-dpn9ik0y/CPU-RECEIPT.json",
+      "sha256": "a00a724b16be31caabe1497e9381648a1328275d13822312da6c82c6e1e3f2dc",
+      "exit_code": 0,
+      "output_sha256": "8e3864491942587ff6cec429adc59840caa12b892d2f959bb59603dd2f7c8d37",
+      "scope": "actual_public_fresh_R151_R152_no_image_forward"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-htezci7q/CPU-RECEIPT.json",
+      "sha256": "3dcf01ff130c4209096c998542046e9015ef0b31034ded410496489f32755eb6",
+      "exit_code": 0,
+      "output_sha256": "19ba5159b8373792bc4613d023e3e6cfcff1e20821a71495ffe5053901c4261f",
+      "scope": "historical_budget_official_memory_scenario_not_current_GPU_benchmark"
+    }
+  ],
+  "original_RED_exit_code": 1,
+  "original_RED_model_target_passed": true,
+  "original_RED_other_targets_failed": 2,
+  "new_model_target_was_not_rerun": true,
+  "native_model_target_and_its_direct_factory_dependencies_exact_bytes_unchanged": true,
+  "GPU_initialized": false,
+  "official_read": false,
+  "normalformal_executed": false,
+  "cache_handoff": {
+    "GLOBAL768-CACHE-HANDOFF.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-20261101-32e3/GLOBAL768-CACHE-HANDOFF.json",
+      "sha256": "605569da9823b2eb445f924a82ee4615f31ed2785d695ea6f866a78a27c2e251"
+    },
+    "NATIVE6-CACHE-HANDOFF.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-20261101-32e3/NATIVE6-CACHE-HANDOFF.json",
+      "sha256": "1b93d4fd615bf938f3ba805c17d02a55d17dfc78191b1df771e312688befffd6"
+    }
+  }
+}

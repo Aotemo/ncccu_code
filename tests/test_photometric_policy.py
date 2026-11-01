@@ -92,6 +92,34 @@ def geometry_render(image, image_size, seed, scale_range):
 
 
 class PhotometricPolicyTest(unittest.TestCase):
+    def test_global768_native_pixels_readonly_cache_and_raw_valid_boundary(self):
+        import hashlib
+        import numpy as np
+        import torch
+        from PIL import Image
+        from retrain.preprocessing import PreparedImageCache,prepare_image
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'train').mkdir();(root/'valid').mkdir()
+            y,x=np.mgrid[:800,:1024];array=np.stack((32+x%224,32+y%224,32+(x+y)%224),axis=-1).astype(np.uint8)
+            image=Image.fromarray(array);image.save(root/'train/x.png');image.save(root/'valid/x.png')
+            digest=hashlib.sha256((root/'train/x.png').read_bytes()).hexdigest()
+            row={'relative_path':'train/x.png','sha256':digest,'label':1}
+            prepared=prepare_image(image,768);self.assertEqual(prepared.size,(768,600))
+            self.assertEqual(prepare_image(image,512).size,(512,400))
+            with patch.dict('os.environ',{'TRAIN_IMAGE_CACHE_READONLY':'0'}):
+                cache=PreparedImageCache(root,root/'cache',768);cache.read(row['relative_path'],digest)
+            for training in (False,True):
+                with patch.dict('os.environ',{'TRAIN_IMAGE_CACHE':'','TRAIN_IMAGE_CACHE_READONLY':'1'}):raw=data.ImageDataset(root,[row],768,training,prepared_size=768,training_scale=SCALE)
+                with patch.dict('os.environ',{'TRAIN_IMAGE_CACHE':str(root/'cache'),'TRAIN_IMAGE_CACHE_READONLY':'1'}):cached=data.ImageDataset(root,[row],768,training,prepared_size=768,training_scale=SCALE)
+                key=(0,SEED) if training else 0;expected=legacy_render(prepared,768,SEED,SCALE) if training else finish(prepared,768,1.,.5,.5)
+                self.assertTrue(torch.equal(raw[key][0],expected));self.assertTrue(torch.equal(cached[key][0],expected));self.assertEqual(tuple(expected.shape),(3,768,768))
+                valid_row={**row,'relative_path':'valid/x.png'}
+                with patch.dict('os.environ',{'TRAIN_IMAGE_CACHE':str(root/'empty-valid-cache'),'TRAIN_IMAGE_CACHE_READONLY':'1'}):valid=data.ImageDataset(root,[valid_row],768,training,prepared_size=768,training_scale=SCALE)
+                with patch.object(valid.prepared_cache,'read',side_effect=AssertionError('official may not read the fit/dev cache')),patch.object(valid.prepared_cache.verifier,'read_verified',wraps=valid.prepared_cache.verifier.read_verified) as verified:
+                    self.assertTrue(torch.equal(valid[key][0],expected))
+                    verified.assert_called_once_with('valid/x.png',digest)
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_global_native6_shared_seed_pixels_cache_and_real_consumers(self):
         from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
         self.assertTrue(hasattr(config,'GLOBAL_NATIVE_SIX_RULE'),'fixed paired six-channel policy is missing')

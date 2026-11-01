@@ -451,7 +451,7 @@ class ImageDataset:
         row = self.rows[index]
         # The new cache contains fit/dev train rows only. Official valid is read
         # from sealed original bytes inside the existing once-only final gate.
-        native_official = (self.native_preprocessing is not None
+        native_official = ((self.native_preprocessing is not None or self.prepared_size==768)
             and PurePosixPath(row['relative_path']).parts[0]=='valid')
         if self.prepared_cache is not None and row.get('sha256') and not native_official:
             image = self.prepared_cache.read(row['relative_path'], row['sha256'])
@@ -533,7 +533,7 @@ class ImageDataset:
     def _read_image(self, row):
         from PIL import Image, ImageOps
         verifier = self.verification_cache
-        if verifier is None and self.native_preprocessing is not None and self.prepared_cache is not None:
+        if verifier is None and (self.native_preprocessing is not None or self.prepared_size==768) and self.prepared_cache is not None:
             verifier = self.prepared_cache.verifier
         if (verifier is not None
                 and PurePosixPath(row['relative_path']).parts[0] in ('train', 'valid')):

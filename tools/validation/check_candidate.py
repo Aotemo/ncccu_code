@@ -100,6 +100,7 @@ def main(args):
     is_stem_xy = job.get('stem_xy_policy') is not None
     from retrain.config import GLOBAL_NATIVE_SIX_RULE
     is_native6 = job.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE
+    is_global768 = ex.science_configuration()['candidate_profile']==ex.GLOBAL_768_SMALL_BINDING
     is_raw_gc = job.get('gradient_centralization_policy') is not None
     is_lion = job.get('optimizer_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
@@ -481,17 +482,17 @@ def main(args):
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
-    if is_stem_xy or is_native6:
+    if is_stem_xy or is_native6 or is_global768:
         original_mode=model.training;model.eval()
         with torch.inference_mode():
-            image=torch.zeros(1,6 if is_native6 else 3,512,512,dtype=torch.float32);ages=torch.zeros(1,2,dtype=torch.float32)
+            size=job['image_size'];image=torch.zeros(1,6 if is_native6 else 3,size,size,dtype=torch.float32);ages=torch.zeros(1,2,dtype=torch.float32)
             online=model(image,ages);rebuilt=reloaded(image,ages)
         model.train(original_mode)
-        check('R150_default_factory_saved_native6_graph_512_finite' if is_native6 else 'R135_default_factory_saved_RGBXY_graph_512_finite',
+        check('R152_default_factory_saved_global768_graph_finite' if is_global768 else ('R150_default_factory_saved_native6_graph_512_finite' if is_native6 else 'R135_default_factory_saved_RGBXY_graph_512_finite'),
               tuple(rebuilt.shape)==(1,) and bool(torch.isfinite(rebuilt).all())
               and torch.equal(online,rebuilt) and not torch.cuda.is_initialized(),
-              {'input_shape':[1,6 if is_native6 else 3,512,512],'actual_stem_shape':list(reloaded.network.features[0][0].weight.shape),
-               ('same_six_channel_model_roundtrip' if is_native6 else 'same_five_channel_model_roundtrip'):True})
+              {'input_shape':[1,6 if is_native6 else 3,size,size],'actual_stem_shape':list(reloaded.network.features[0][0].weight.shape),
+               'saved_geometry_matches':(reload_job['image_size'],reload_job['prepared_size'])==(job['image_size'],job['prepared_size'])})
     if is_layerwise:
         from retrain.engine import _validate_layerwise_optimizer_state
         check('R130_strict_reload_preserves_named_optimizer_groups',

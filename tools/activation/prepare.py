@@ -189,7 +189,7 @@ def build(args):
             'official_valid': {'remote_path': site['official_manifest'],
                               'sha256': science['official_manifest_sha256']}},
         'prepared512_cache': {'remote_root': site['prepared_cache'], 'pillow': '12.3.0',
-                              'prepared_size': 512, 'read_only': True},
+                              'prepared_size': resolved['prepared_size'], 'read_only': True},
         'public_weight': {'remote_path': site['public_weight'], 'sha256': ex.public_source()['sha256']},
         'public_provenance': {'remote_path': site['public_provenance'], 'sha256': ex.public_source()['provenance_sha256']},
         'official_manifest_content_read': False}

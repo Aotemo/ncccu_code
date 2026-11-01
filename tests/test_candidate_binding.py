@@ -21,6 +21,78 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R151_R152_fixed_science_saved_geometry_and_derived_cache(self):
+        from retrain import age,config,preprocessing,single91
+        self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING'))
+        self.assertTrue(hasattr(experiment,'GLOBAL_768_SMALL_BINDING'))
+        for label,base in [('R151','R150'),('R152','R107')]:
+            left=json.loads((ROOT/'configs'/f'{base}-SCIENCE.json').read_text());path=ROOT/'configs'/f'{label}-SCIENCE.json';right=json.loads(path.read_text())
+            self.assertEqual(right['candidate']['experiment_order'],63 if label=='R151' else 64)
+            self.assertEqual(right['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+            self.assertEqual(experiment.candidate_from_configuration(right),right['candidate'])
+            if label=='R151':
+                self.assertEqual(right['candidate_profile'],experiment.GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING)
+                self.assertEqual(right['job']['seed'],20261027)
+                public=json.loads((ROOT/'records/preparation/global768-20261101/R151-PUBLIC-FRESH-INITIAL.json').read_text())
+                self.assertEqual(right['initial_model_tensor_sha256'],public['model_tensor_sha256'])
+                self.assertEqual(public['shared_rgb_tensor_sha256'],json.loads((ROOT/'configs/R108-SCIENCE.json').read_text())['initial_model_tensor_sha256'])
+            else:
+                self.assertEqual(right['candidate_profile'],experiment.GLOBAL_768_SMALL_BINDING)
+                self.assertEqual((right['job']['image_size'],right['job']['prepared_size']),(768,768))
+                self.assertIsNone(right['job'].get('input_preprocessing'))
+                self.assertEqual(right['initial_model_tensor_sha256'],left['initial_model_tensor_sha256'])
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/f'{label}-fixture'),**{k:str(ROOT/v) for k,v in right['paths'].items()})
+            site['science']={'binding_version':right['candidate_profile'],'candidate':right['candidate'],'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            binding={'version':right['candidate_profile']};age_spec=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+            with tempfile.TemporaryDirectory() as directory:
+                p=Path(directory)/'SITE.json';p.write_text(json.dumps(site))
+                with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':age_spec}):
+                    self.assertEqual(experiment.science_configuration(),right)
+                    job=copy.deepcopy(right['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization={'kind':'imagenet','format':right['public_source']['format'],'sha256':right['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                    cfg=Path(directory)/'TRAIN.json';cfg.write_text(json.dumps({'mode':'train','data':{'split':right['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
+                    resolved=config.load_config(cfg,environ={})['jobs'][0];self.assertEqual(experiment.validate_job(resolved),resolved)
+                    self.assertEqual({k:config.job_contract(resolved)[k] for k in ('image_size','prepared_size')},single91.input_geometry())
+            for value in (left,right):
+                for key in ('candidate_profile','comparison_note','official_evaluation','initial_model_tensor_sha256'):value.pop(key,None)
+                for key in ('id','experiment_order'):value['candidate'].pop(key)
+            if label=='R151':right['job']['seed']=left['job']['seed'];right['composite_cache_receipt']=left['composite_cache_receipt']
+            else:
+                right['job'].update(image_size=512,prepared_size=512);right['paths']['prepared_cache']=left['paths']['prepared_cache'];right.pop('prepared_cache_receipt')
+            self.assertEqual(left,right)
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'metadata').mkdir();(root/'metadata/manifest.json').write_text('{}\n');index=root/'INDEX.jsonl';index.write_text('{}\n')
+            site={'work_root':str(root),'data_root':str(root/'data'),'metadata_root':str(root/'metadata'),'prepared_cache':str(root/'cache'),'pod':{'uid':'fixture'}}
+            value={'format':'global-prepared-cache-v1','passed':True,'pod_uid':'fixture','cache_root':site['prepared_cache'],'data_root':site['data_root'],'metadata_root':site['metadata_root'],
+                'manifest_sha256':hashlib.sha256((root/'metadata/manifest.json').read_bytes()).hexdigest(),'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count':51396,
+                'input_preprocessing':None,'prepared_size':768,'pillow':'12.3.0','official_read':False,'source_files':{n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in ('runtime/bundle/retrain/data.py','runtime/bundle/retrain/preprocessing.py')},'index':{'path':str(index),'sha256':hashlib.sha256(index.read_bytes()).hexdigest()}}
+            p=root/'CACHE.json';p.write_text(json.dumps(value));science={'job':{'prepared_size':768},'prepared_cache_receipt':{'path':'CACHE.json','sha256':hashlib.sha256(p.read_bytes()).hexdigest()}}
+            self.assertEqual(preprocessing.verify_native_cache_asset(science,site),value)
+
+    def test_R152_native768_factory_strict_reload_and_inference_geometry(self):
+        import torch
+        from retrain import age,models
+        from retrain.engine import _optimizer
+        from retrain.inference import _runtime
+        job=copy.deepcopy(json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())['job'])
+        job['age']=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        torch.manual_seed(job['seed']);baseline=models.create_model(job,initialize=False);rng=torch.get_rng_state().clone()
+        job.update(image_size=768,prepared_size=768)
+        torch.manual_seed(job['seed']);model=models.create_model(job,initialize=False)
+        self.assertTrue(torch.equal(rng,torch.get_rng_state()))
+        self.assertEqual(len(dict(model.named_parameters())),345)
+        for name,tensor in baseline.state_dict().items():self.assertTrue(torch.equal(tensor,model.state_dict()[name]),name)
+        optimizer=_optimizer(model,job);self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        model.eval();shapes=[];hook=model.network.features.register_forward_hook(lambda _,args,result:shapes.append(tuple(result.shape)))
+        image=torch.zeros(1,3,768,768);features=torch.zeros(1,2)
+        try:
+            with torch.no_grad():output=model(image,features)
+        finally:hook.remove()
+        self.assertEqual(shapes,[(1,768,24,24)]);self.assertTrue(bool(torch.isfinite(output).all()))
+        cold=models.create_model(job,initialize=False);loaded=cold.load_state_dict(model.state_dict(),strict=True)
+        self.assertFalse(loaded.missing_keys);self.assertFalse(loaded.unexpected_keys);cold.eval()
+        with torch.no_grad():torch.testing.assert_close(output,cold(image,features),rtol=0,atol=0)
+        runtime=_runtime(job,{});self.assertEqual((runtime['image_size'],runtime['prepared_size']),(768,768));self.assertFalse(torch.cuda.is_initialized())
+
     def test_R150_reducer_priming_consumes_six_channels_and_restores_state(self):
         import random
         from types import SimpleNamespace

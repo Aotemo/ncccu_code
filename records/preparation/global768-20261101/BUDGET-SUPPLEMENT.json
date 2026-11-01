@@ -1,0 +1,45 @@
+{
+  "status": "full_training_and_once_official_historical_scenarios_fit_final_unlaunched_policy",
+  "at": 1793570791.2551072,
+  "original_training_scenario": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-20261101-32e3/BUDGET-SCENARIO.json",
+    "sha256": "34a73227041ce31030d497cd961f635c420369c89c59727d59493d061b54c543"
+  },
+  "official_reference": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-20261101-32e3/source-cpu/records/R107/ROUND_RESULT.json",
+    "sha256": "55c9ea1ad3db96fa773e4d3d9cd4fa6830ae4ee792b332f5238a331af05adda5",
+    "component_seconds": 823.4013876914978
+  },
+  "official_pixel_scaled_plus_ten_percent_seconds": 2037.9184345364572,
+  "official_soft_window_seconds": 2250,
+  "pixel_scaled_peak_allocated_bytes": 18997672320.0,
+  "pixel_scaled_peak_reserved_bytes": 21738553344.0,
+  "physical_card_total_bytes_reference": 68702699520,
+  "policy_parts_sum": 31350,
+  "final_policy": {
+    "round_id": null,
+    "status": "DRAFT_FOR_ROUTED_ACTIVATION",
+    "total_seconds": 31500,
+    "binding_seconds": 600,
+    "train_hard_seconds": 27900,
+    "freeze_hard_seconds": 300,
+    "official_hard_seconds": 2400,
+    "cleanup_seconds": 150,
+    "native_soft_margin_seconds": 150,
+    "train_hard_formula": "min(S_train+train_hard,D-freeze_hard-official_hard-cleanup)",
+    "freeze_hard_formula": "min(S_freeze+freeze_hard,D-official_hard-cleanup)",
+    "official_admission_formula": "D-cleanup-now>=official_hard",
+    "new_probe": false,
+    "clock_reset_allowed": false
+  },
+  "unchanged_allocation_max_seconds": 32400,
+  "configuration_files": {
+    "runtime/CLOCK_POLICY.json": "2c0121fcff95520fc24034db052dd38650100bb9a0db5e151770c67ffad049f8",
+    "runtime/PLAN.md": "71c871c43561856ee9cc86b936666f0003fbca765540bceceb12e1ed0d50720d"
+  },
+  "not_current_GPU_time_or_memory_measurement": true,
+  "raw_official_decode_extra_cost_not_measured": true,
+  "guarantee": false,
+  "early_stop_assumed": false,
+  "old_clocks_changed": false
+}

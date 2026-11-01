@@ -1,0 +1,42 @@
+{
+  "status": "historical_scenario_fits_new_unlaunched_policy",
+  "at": 1793570571.4749978,
+  "reference": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-20261101-32e3/source-cpu/records/R107/SINGLE-MODEL-FREEZE.json",
+    "sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435",
+    "successful_updates": 6400,
+    "timing": {
+      "checkpoint_count": 27,
+      "checkpoint_seconds": 136.52563719637692,
+      "data_wait_seconds": 4.69845284987241,
+      "evaluation_seconds": 146.15305019868538,
+      "measured_seconds": 0.0,
+      "training_seconds": 2718.788118756842,
+      "warmup_seconds": 0.0
+    },
+    "wall_seconds_this_process": 3066.313751355745
+  },
+  "pixel_scale": 2.25,
+  "full_successful_updates": 24000,
+  "projected_training_seconds": 22939.774752010853,
+  "projected_evaluation_seconds": 1233.1663610514079,
+  "projected_checkpoint_seconds": 511.97113948641345,
+  "projected_other_seconds": 243.17604451440275,
+  "scenario_seconds": 24928.088297063077,
+  "scenario_plus_ten_percent_seconds": 27420.89712676939,
+  "train_hard_seconds": 27900,
+  "native_soft_margin_seconds": 150,
+  "policy_parts_sum": 31050,
+  "total_seconds": 31500,
+  "unchanged_gpu_allocation_max_seconds": 32400,
+  "configuration_files": {
+    "runtime/CLOCK_POLICY.json": "189a5c63553e53250a8117a08fd7c9b5459de380ef0b246216a9a6b11e89bf8a",
+    "runtime/PLAN.md": "81ed3d07e581e00bc5facc26dcf757cae90ef5db776baca488a706cdcee2688a"
+  },
+  "not_current_GPU_benchmark": true,
+  "not_throughput_or_memory_guarantee": true,
+  "early_stopping_assumed": false,
+  "live_R150R1_policy_changed": false,
+  "GPU_started": false,
+  "official_read": false
+}

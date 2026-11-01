@@ -95,7 +95,9 @@ def verify_composite_cache_asset(science, site):
 def verify_native_cache_asset(science, site):
     """Bind a completed derived fit/dev cache without rewriting migration proof."""
     from .config import NATIVE_BRIGHT_CENTER_RULE
-    if science.get('job',{}).get('input_preprocessing') != NATIVE_BRIGHT_CENTER_RULE:
+    job=science.get('job',{});native=job.get('input_preprocessing')==NATIVE_BRIGHT_CENTER_RULE
+    global768=job.get('input_preprocessing') is None and job.get('prepared_size')==768
+    if not native and not global768:
         return None
     root = Path(site['work_root']).resolve(strict=True)
     ref = science.get('prepared_cache_receipt',{})
@@ -106,11 +108,11 @@ def verify_native_cache_asset(science, site):
     if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != ref.get('sha256'):
         raise ValueError('native cache receipt SHA differs')
     value = json.loads(path.read_text())
-    expected = {'format':'native-bright-prepared-cache-v1','passed':True,'pod_uid':site['pod']['uid'],
+    expected = {'format':'native-bright-prepared-cache-v1' if native else 'global-prepared-cache-v1','passed':True,'pod_uid':site['pod']['uid'],
         'cache_root':site['prepared_cache'],'data_root':site['data_root'],'metadata_root':site['metadata_root'],
         'manifest_sha256':hashlib.sha256((Path(site['metadata_root'])/'manifest.json').read_bytes()).hexdigest(),
         'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count':51396,
-        'input_preprocessing':NATIVE_BRIGHT_CENTER_RULE,'prepared_size':512,'pillow':PILLOW_VERSION,
+        'input_preprocessing':NATIVE_BRIGHT_CENTER_RULE if native else None,'prepared_size':512 if native else job['prepared_size'],'pillow':PILLOW_VERSION,
         'official_read':False}
     if not isinstance(value,dict) or any(value.get(k)!=v for k,v in expected.items()):
         raise ValueError('native cache completion, policy or identity differs')

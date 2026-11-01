@@ -1,0 +1,53 @@
+{
+  "stage": "GREEN-PIXEL",
+  "tests_run": 1,
+  "failure_count": 0,
+  "error_count": 0,
+  "passed_targets": 1,
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_global768_native_pixels_readonly_cache_and_raw_valid_boundary"
+  ],
+  "seconds": 0.8607888221740723,
+  "at": 1793570228.8884232,
+  "compiled_sources": 7,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "47632b830bc1bcd806178c33197f60e46df4344a006f92f5ce1de2212c4b9570",
+    "runtime/bundle/retrain/preprocessing.py": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456",
+    "runtime/bundle/retrain/data.py": "b3a5b585490483fda65a9eee24f18d97c21699434667aacb1c275bc7a030a15f",
+    "tools/activation/prepare.py": "88d62afdcb3395065394d95490483a3159107297ae85db2d0c97513592db1693",
+    "tools/validation/check_candidate.py": "d40a0ea0557a60385bf1d34e074783d1ffcf56ed9abc97a356d3f0dfa95aecef",
+    "tests/test_candidate_binding.py": "ac8ab78cc5754ec310fb49d380bc8171cc5c0c71d5fa40f1d26ccbfe432bb9ee",
+    "tests/test_photometric_policy.py": "f8387fa4e2dcbfe09d038306282b0ca9b8a78f234ed6ab1544f6b4907f6bbb87"
+  },
+  "science_sha256": {
+    "R151-SCIENCE.json": null,
+    "R152-SCIENCE.json": null
+  },
+  "actual_GPU_initialized": false,
+  "official_read": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ]
+}
