@@ -1,0 +1,104 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+  "git_commit": "49c8ad727073604135fc95f4984796e6b00a7808",
+  "tree_sha": "0154ffce16096ac20b9b3508d25f89e4f5a14d09",
+  "science_sha256": "875f83957bb2e6b11ce4d6e9ae4bbd7b32df8422e565c3ae9da3d160f464c205",
+  "candidate": {
+    "id": "r134r1-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-mixstyle13-local8-9010",
+    "experiment_order": 46,
+    "mixstyle_policy": {
+      "version": "convnext-small-local8-mixstyle13-v1",
+      "sites": [
+        1,
+        3
+      ],
+      "probability": 0.5,
+      "alpha": 0.1,
+      "epsilon": 1e-06,
+      "variance_correction": 1,
+      "scope": "rank_local8",
+      "salt": "mixstyle13-local8-v1",
+      "rng": "sha256-first8-big-private-python-v1"
+    },
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "parameter_elements_by_role": {
+    "backbone": 49454688,
+    "head": 769,
+    "age": 2
+  },
+  "trainable_tensors": 345,
+  "named_group_count": 5,
+  "all_parameter_tensors": 345,
+  "frozen_parameter_tensors": 0,
+  "mixstyle_policy": {
+    "version": "convnext-small-local8-mixstyle13-v1",
+    "sites": [
+      1,
+      3
+    ],
+    "probability": 0.5,
+    "alpha": 0.1,
+    "epsilon": 1e-06,
+    "variance_correction": 1,
+    "scope": "rank_local8",
+    "salt": "mixstyle13-local8-v1",
+    "rng": "sha256-first8-big-private-python-v1"
+  },
+  "actual_mixstyle": {
+    "policy": {
+      "version": "convnext-small-local8-mixstyle13-v1",
+      "sites": [
+        1,
+        3
+      ],
+      "probability": 0.5,
+      "alpha": 0.1,
+      "epsilon": 1e-06,
+      "variance_correction": 1,
+      "scope": "rank_local8",
+      "salt": "mixstyle13-local8-v1",
+      "rng": "sha256-first8-big-private-python-v1"
+    },
+    "sites": [
+      {
+        "feature_index": 1,
+        "feature_name": "network.features.1",
+        "channels": 96,
+        "blocks": 3
+      },
+      {
+        "feature_index": 3,
+        "feature_name": "network.features.3",
+        "channels": 192,
+        "blocks": 3
+      }
+    ],
+    "training_only": true,
+    "persistent_rng_state": false
+  },
+  "optimizer_state_entries": 0,
+  "package_manifest_sha256": "0b3cd1dd40c0a8d394c53e6e2a29b5e7cb31c621e0cd45f58a864dfc89c46a64",
+  "cpu_prep_sha256": "35c71cd7eb97033b9a87215c3d8dbfe57cf17ab08e4571e778de2245279dd124",
+  "deployment_sha256": "cfc7719a5beaadc2d0fee59945e3a4426ef650377384618f2ec06eb00524ce56",
+  "site_sha256": "8bf42228fa7c6d1250ee978829773e8c8cdb07660663a60567397bf42ced3a41",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "formal_runs": 1
+}

@@ -1,5 +1,7 @@
 # 当前运行与结果无关的 CPU 准备
 
+**R134R1已真实首成功，当前唯一活跃科学方案仍固定MixStyle。** 09:47:12.813539 running50success=attempt/0skip/eval0，真实八rank初态345全训/实际5组/Adam0/50c与两site结构匹配；自然首记录update25 finite/WORLD8/64P8/448pairs、实际16site context/key/采样全部校核通过，priming不冒训练attempt0。runGit49c8ad7、两新增目标2/2、独立normalformal一次18/18、753源exact及唯一activation/launch0，见[R1合同](R134R1-DECISION.md)与[启动证据](../../records/R134R1/README.md)。R134技术失败、null游标和全部成本分列历史，不拼曲线；当前没有完整selector/双门/official，固定seed27资格仍等待完整结果，不新增CPU/GPU候选队列或改本轮。下文准备/待启动是历史阶段。
+
 **根已授权独立R134R1/order46修复同一MixStyle技术边界。** 只在原prime_reducer的两次dummy forward给非空policy临时context0/rank/micro0，无trace/保存/真实游标推进，原state/global RNG恢复、梯度清理和None调用保持。两项新增目标为真实两rank Gloo priming回归与旧45/新46科学整件一致的身份接线；不重已过数学/保存或旧套件，不加GPU预演。新SCI只改R134身份/note，不换方法/seed/参数，原技术失败和所有缺项原义保留。完整步骤与停止合同见[R134R1决定](R134R1-DECISION.md)；独立新正式验收/实际八rank初态和自然log25证明待运行，当前不冒GPU成功。
 
 **R134实际初态前技术失败；MixStyle尚无科学结论。** 原prime_reducer两次dummy forward漏传context，在`mixstyle.py:53`拒绝，尚无initial-ranks或成功update；唯一completion donefailed/selectornull/TRAIN-ROUND-freeze-official缺件、实际cursor未报告，actualsafe true/terminal_idle。根正依据[失败接续](R134-DECISION.md)确定最小修复及独立新合同；不重R134 one-shot、不重置clock/grant、不把失败写成MixStyle科学阴性或扫p/alpha/site/seed。CPU技术准备与normalformal18/18各自保留有限证据，未覆盖真实prime_reducer调用边界是本次具体缺口；旧产物/成本与失败日志全部保存。以下采纳/待启动为历史阶段。

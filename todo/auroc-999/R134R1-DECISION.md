@@ -1,5 +1,9 @@
 # R134R1：固定 MixStyle 的独立技术修复轮
 
+**已真实启动：09:47:12.813539 running50success=attempt/0skip/eval0。** owner373730/start352487166与八rank373742–49 argv/start active、96核/control112–119+rank24–111/8PCI匹配。实际初态门completed，345全训/实际5组/八rankAdam0/50c及全部两site descriptor匹配formal。首自然已记录update25=attempt25、loss/global_loss `.6595819592475891` finite、WORLD8/64P8/448pairs；实际16site attempt-beforeincrement/rank/micro及private key/gate/Beta/permutation逐项匹配。priming没有算入真实update/trace，不伪造step1或逐rankAdam步数。START3 SHA `1a91d070537aa570efe86ef5dca074a73783c96df061cde2c4a1b61f69fd89bb`，ACTUAL_FRESH_INITIAL SHA `c71f6890d256db37234502df624435e9f99525e62f61d741ee497986c10e99a5`，observer仅首12851B/2MiB cap，无blob/model/forward；前两份pending原件保留。尚无完整AUROC/selector/两门/official，[精简实证](../../records/R134R1/README.md)另列，以下待执行措辞为当时阶段。
+
+实际runGit `49c8ad727073604135fc95f4984796e6b00a7808`/parent `771f51abbd8d1d10de4aff7e40b4ed8e13f3bb62`/tree `0154ffce16096ac20b9b3508d25f89e4f5a14d09`已nonforce push/readback；本R1唯一normalformal18/18（94.406330347秒），753源Git blob/mode exact，公开whole50c、正式双site/onlineEMA/默认factory strict重建实证通过。formal CPU SHA `21aa5ae2ad087e85cea06972bbb63c0892eb734e839d960fc8f812dc897d3409`，deployment `cfc7719a5beaadc2d0fee59945e3a4426ef650377384618f2ec06eb00524ce56`，SITE `8bf42228fa7c6d1250ee978829773e8c8cdb07660663a60567397bf42ced3a41`，新独立9h grant `e977c3fcae08a4f5c2af4ae920f67e13e5d3c251b8f3926d70adaa76c102ae28`。13项absence/旧调用0后唯一activation0和correctlive launch0，CPU pin SITE SHA、正确-i、GPU uncontracted无预taskset均保持。旧R134失败入口未动，归档commit不热改本运行。
+
 根已在R134真实技术失败、actualsafe和完整失败归档后采纳本轮，fresh授权reference `848b1a9c-07ce-4b90-b347-4da79865ff27`。A为唯一文件/Git/Pod/GPU owner，不新增Agent或timer；唯一heartbeat `9c70b2bc`保持。当前正在两项新目标RED与最小修复，未证明本轮GPU成功。
 
 | 字段 | 冻结值 |

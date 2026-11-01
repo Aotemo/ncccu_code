@@ -1,0 +1,19 @@
+{
+  "schema": "r134r1-two-positive-targets-v1",
+  "observed_at": 1793497046.8686082,
+  "tests_run": 2,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "files_sha256": {
+    "runtime/bundle/retrain/distributed_engine.py": "0dcb6da9df7637d12fc34fd5cf1e7b6562b9a4d2dbf10c39b1de40382c3e2c9b",
+    "runtime/bundle/retrain/experiment91.py": "9bd105d0a611f82cf2f6865b2f31d584239f41c8a64319e835ba57336f622007",
+    "tests/test_mixstyle_priming.py": "d67ce71b78d24392a4fb238c57e9cf849e5fbde3ffc2291ecdad700c14c649ca",
+    "tests/test_mixstyle_r1_identity.py": "785474ccdd725446377d5634885ce507d1990901d690a541aaa99a13d070fb03",
+    "configs/R134R1-SCIENCE.json": "875f83957bb2e6b11ce4d6e9ae4bbd7b32df8422e565c3ae9da3d160f464c205"
+  },
+  "GPU_initialized": false,
+  "formal_runs": 0,
+  "GPU_started": false,
+  "compiled_python_sources": 4
+}
