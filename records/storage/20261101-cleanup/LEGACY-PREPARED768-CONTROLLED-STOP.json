@@ -1,0 +1,37 @@
+{
+  "authorization_reference": "efb08845-1042-4856-ab63-22cc43994962",
+  "observed_at": 1793504854.707161,
+  "owned_child": {
+    "pid": 381474,
+    "start_ticks": "353149553",
+    "state": "D",
+    "argv": [
+      "/usr/local/python3.12/bin/python3.12",
+      "-B",
+      "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/CACHE768-DELETE.py",
+      "52574c434a7b9ca7d87a737a5a96f32e77d92ba3c6ab395aa04954520ae22fc7"
+    ]
+  },
+  "manifest_sha256": "52574c434a7b9ca7d87a737a5a96f32e77d92ba3c6ab395aa04954520ae22fc7",
+  "journal_before_bytes": 10952979,
+  "journal_before_snapshot_sha256": "a089a6506cbdfbb1f7cada0fca1f2e17f4161a34f4e72d450e35fbfcf4b7a76f",
+  "signals": [
+    {
+      "signal": 2,
+      "pid": 381474,
+      "start_ticks": "353149553",
+      "argv_match": true,
+      "at": 1793504854.7246165
+    }
+  ],
+  "finished_at": 1793504854.9253337,
+  "child_after": {
+    "pid": 381474,
+    "start_ticks": "353149553",
+    "state": "Z",
+    "argv": []
+  },
+  "child_inactive": true,
+  "journal_after_snapshot_sha256": "b62f0fc394a28a96c025b66a9e1eed99797c778d5d23c1ce39d0e9da619de8a2",
+  "journal_after_bytes": 10960851
+}

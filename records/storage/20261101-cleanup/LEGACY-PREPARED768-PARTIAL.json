@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "observed_at": 1793505054.041232,
+  "authorization_reference": "efb08845-1042-4856-ab63-22cc43994962",
+  "controlled_stop_sha256": "1f1c4a5c740d4be25e961abef947aea41e9a13ed70ee427be38860bc8fe8d4d2",
+  "original_manifest_sha256": "52574c434a7b9ca7d87a737a5a96f32e77d92ba3c6ab395aa04954520ae22fc7",
+  "immutable_original_journal_sha256": "b62f0fc394a28a96c025b66a9e1eed99797c778d5d23c1ce39d0e9da619de8a2",
+  "original_cpu_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r134-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-ftlcxidf/CPU-RECEIPT.json",
+  "original_cpu_sha256": "519a4bff0ca097bd360467830cd5dd4b6350fc3f464cb39ea84d2a6c175a86cd",
+  "original_exit_code": -2,
+  "confirmed_unlinked_after_records": 18614,
+  "confirmed_unlinked_logical_bytes": 12749775753,
+  "confirmed_unlinked_allocated_bytes": 12757245440,
+  "unpaired_before_records": [],
+  "uncommitted_absent_count": 0,
+  "remaining_file_count": 81666,
+  "remaining_manifest_sha256": "3304ee9f1957daa4ed93b0448b333402ecdf013fcb8dd2d209c6855a35d37e7a",
+  "filesystem_at_boundary": {
+    "total": 477815111680,
+    "used": 215264264192,
+    "free": 262550847488
+  },
+  "new_cpu_allocation": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-census-20261101-7c17/CPU-ALLOCATION.json",
+  "new_cpu_allocation_sha256": "2171235fd9d06311af95898e8dbada0d8f5064e590f2b40f3a13df2c198d15e8",
+  "actual_cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "model_or_image_payload_read": false
+}

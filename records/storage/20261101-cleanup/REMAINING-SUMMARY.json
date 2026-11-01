@@ -1,0 +1,266 @@
+{
+  "count": 94,
+  "groups": {
+    "protected_dependency:exp-v3/rounds/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029": {
+      "count": 8,
+      "allocated_bytes": 5941125632,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029/outputs/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261027-b64-p8-fp32/convnext-small/checkpoints/checkpoint-95987c2f770c42cab7744e5e7762cd8e.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029/outputs/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261027-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5a8ef963d19a4b8daa59f4b2d6a9fc08.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/rounds/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030": {
+      "count": 4,
+      "allocated_bytes": 2772519936,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/outputs/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6d898019348941f0842e2883ba55dfa1.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/outputs/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-f0bb0f7a4b42493faa0de69f37ff926a.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030": {
+      "count": 1,
+      "allocated_bytes": 197940736,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/outputs/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/derived-encoder.pt"
+      ]
+    },
+    "protected_dependency:exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101": {
+      "count": 4,
+      "allocated_bytes": 2772620288,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/outputs/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e2d4eec2469f47f48a15e5a2b8cb400a.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/outputs/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a8d83306c30a4320a430821f0f258e10.pt"
+      ]
+    },
+    "protected_dependency:exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+      "count": 2,
+      "allocated_bytes": 1188222976,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-c4e077edb7be482fbd28a2d6dca9dafe.pt"
+      ]
+    },
+    "protected_dependency:exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": {
+      "count": 8,
+      "allocated_bytes": 5941125120,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-19b186634bd2406ab9718eaf6558346d.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-be7d1f807d384d3b8dba20858e2cd18c.pt"
+      ]
+    },
+    "protected_dependency:exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+      "count": 9,
+      "allocated_bytes": 6733277184,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-4ba52643d53b4211ab90828acd44ece4.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-1bc46efa24fb4dbf801018e25822f32a.pt"
+      ]
+    },
+    "protected_dependency:exp-v3/technical-prep/r107-frozen-2c75e7d6664c": {
+      "count": 1,
+      "allocated_bytes": 395928064,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-frozen-2c75e7d6664c/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-f1b2957deb434d09996090181cf199d0.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r111-frozen-eee2012a766b": {
+      "count": 1,
+      "allocated_bytes": 5642240,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r111-frozen-eee2012a766b/R111-SOURCE.tar"
+      ]
+    },
+    "protected_dependency:exp-v3/technical-prep/r120-20261031-e62a": {
+      "count": 1,
+      "allocated_bytes": 395928064,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r120-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-1f2eab3211ba45fc9088783da12507c0.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/mixstyle-cpu-20261101-7c17": {
+      "count": 1,
+      "allocated_bytes": 8273920,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/mixstyle-cpu-20261101-7c17/source-git.tar"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r115-20261030-e62a": {
+      "count": 5,
+      "allocated_bytes": 18168320,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r115-20261030-e62a/CPU-SOURCE-2.tar",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r115-20261030-e62a/R115-SOURCE-84e8c2e.tar"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r116-20261030-e62a": {
+      "count": 1,
+      "allocated_bytes": 354489344,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r116-20261030-e62a/transport/pytorch_model.bin"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r117-20261031-e62a": {
+      "count": 1,
+      "allocated_bytes": 352782848,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/transport/pytorch_model.bin"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r129-20261031-e62a": {
+      "count": 3,
+      "allocated_bytes": 795356160,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r129-20261031-e62a/registry-relay/pytorch_model.bin",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r129-20261031-e62a/assets/original/pytorch_model.bin"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/lowrank-cpu-20261101-7c17": {
+      "count": 1,
+      "allocated_bytes": 7761920,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/lowrank-cpu-20261101-7c17/source.tar"
+      ]
+    },
+    "protected_dependency:exp-v3/technical-prep/r108-frozen-e92311a04e0e-2": {
+      "count": 1,
+      "allocated_bytes": 395928064,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r108-frozen-e92311a04e0e-2/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-47fd7b2d9d834a6894463c53fd26435f.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r114r1-20261030-e62a": {
+      "count": 1,
+      "allocated_bytes": 6246400,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r114r1-20261030-e62a/SOURCE.tar"
+      ]
+    },
+    "protected_dependency:exp-v3/technical-prep/r130-20261101-e62a": {
+      "count": 1,
+      "allocated_bytes": 395951104,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130-20261101-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-7d0d06f4896749ae80b93f5d1498323c.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r131-20261101-7c17": {
+      "count": 1,
+      "allocated_bytes": 7905280,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r131-20261101-7c17/SOURCE.tar"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r94-cpu-20261028-51fe3daf-a-2": {
+      "count": 1,
+      "allocated_bytes": 222722560,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r94-cpu-20261028-51fe3daf-a-2/model-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-0859267351064246a7d1dc530e108544.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/small22k-20261029-b": {
+      "count": 1,
+      "allocated_bytes": 201017856,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/raw-transport-1/pytorch_model.bin"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/bn-pair-20261030-a": {
+      "count": 1,
+      "allocated_bytes": 5507072,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/bn-pair-20261030-a/CPU-SOURCE.tar"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/r112-frozen-89712c91413f": {
+      "count": 1,
+      "allocated_bytes": 5918720,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r112-frozen-89712c91413f/R112-SOURCE.tar"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/output-logit-l2-cpu-20261101-7c17": {
+      "count": 1,
+      "allocated_bytes": 7976960,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/output-logit-l2-cpu-20261101-7c17/source-git.tar"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v3/technical-prep/tri3-cpu-20261101-7c17": {
+      "count": 1,
+      "allocated_bytes": 8110080,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/tri3-cpu-20261101-7c17/source-git.tar"
+      ]
+    },
+    "protected_dependency:exp-v3/technical-prep/r134r1-20261101-7c17": {
+      "count": 2,
+      "allocated_bytes": 404327424,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r134r1-20261101-7c17/source-git.tar",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r134r1-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-7219f4caac10418b8c3b5931d1be9df8.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v2/auroc998-20261025/r2": {
+      "count": 2,
+      "allocated_bytes": 228838912,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/r2/weights/source/pytorch_model.bin",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/r2/weights/converted/convnext-tiny-tv-6166b761.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v2/auroc998-20261025/coordination-huazhong8-20261025": {
+      "count": 6,
+      "allocated_bytes": 881459200,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r13/repair1/attempt1/durable-CP0.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/executor-preparation/public-weights/converted/convnext-tiny-tv-6166b761.pt"
+      ]
+    },
+    "protected_dependency:exp-v2/auroc998-20261025/coordination-huazhong8-20261025": {
+      "count": 2,
+      "allocated_bytes": 891228160,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v2/auroc999-20261027/technical-prep": {
+      "count": 15,
+      "allocated_bytes": 910992896,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/A-n13-20261028/N13-terminal-1793131608.tar.gz",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/technical-prep/A-n14-20261028/failure-1793135911.tar.gz"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v2/auroc999-20261027/continuation-20261027": {
+      "count": 2,
+      "allocated_bytes": 32103936,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/continuation-20261027/export/N07-N08-EXPORT.tar.gz",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/continuation-20261027/n10-export/N10-TRAIN-EVIDENCE.tar.gz"
+      ]
+    },
+    "protected_dependency:exp-v2/auroc999-20261027/rounds": {
+      "count": 1,
+      "allocated_bytes": 377155072,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt"
+      ]
+    },
+    "unknown_dependency_or_not_confirmed_redundant:exp-v2/auroc999-20261027/rounds": {
+      "count": 3,
+      "allocated_bytes": 179568128,
+      "examples": [
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N03/assets/dinov2-source-7764ea0f912e53c92e82eb78a2a1631e92725fc8.zip",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N03/assets/dinov2_vits14_pretrain.pth"
+      ]
+    }
+  },
+  "explicit_unknowns": [
+    "R114 old failed/incomplete chain: full terminal unavailable",
+    "4 named CPU fixtures have no complete final CPU receipt",
+    "remaining public/legacy weights or transport packages lack a confirmed redundant/current-dependency exclusion",
+    "old prepared768 interruption was not re-audited; no cache directory deleted"
+  ],
+  "raw_and_shared_cache_not_in_deletion_scope": true,
+  "no_repeat_tree_scan": true
+}

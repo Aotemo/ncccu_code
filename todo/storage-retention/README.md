@@ -1,5 +1,9 @@
 # 三模型保留与历史产物清理
 
+**最终第三批亦已收口：100,652文件+385目录实删，旧prepared768精确路径已不存在。** [最终实证](../../records/storage/20261101-cleanup/README.md)分列前两批372项与旧缓存100280文件/385目录；全部文件allocated260478643200B，最终sharedFS free22961717248→283262320640B，点时差260300603392B。第三批完整lstat清单100665项/无链接与当前引用冲突，首次低效自有子进程经明确授权精确SIGINT后真实exit-2；旧journal确认18614项、边界无缺after/伪成功，再以新独立217软件CPU入口只接81666项，52.06秒完成/guard0，原d29与旧训练clock/grant不动。保护对象stat/小SHA、prepared512与census依赖均一致；94项保护或未证冗余model/package继续保留。以下“两批已完成/旧cache未重审”文字是前序阶段。
+
+**2026-11-01新授权清理已完成两份明确清单，历史中断原件保留。** 现有Pod动态UID/Ready/A12 guard实核后，先实际归档同步R134R1终态4968edc，再实删372文件（320历史checkpoint/initial、49已完全PASS formalCPUfixture、3过期源码运输包），两批无执行错误/跳过。最终sharedFS free22961717248→249898729472B，实测增加226937012224B；删除前allocated226940564992B与logical另列，不冒充物理释放，也不把同一FS的exp-v2/v3重复相加。[真实回执与路径分类](../../records/storage/20261101-cleanup/README.md)已落盘；两批保护对象stat/小SHA均一致，KEEP18路径可见，R130全部/R120及比较依赖/R134R1 selected与完整census依赖、原始数据/共用cache/公开来源/unknown、小结果/失败成本/锁/one-shot保持。剩94项model/package含保护和未证冗余，R114缺完整终态、4个CPUfixture缺final receipt继续保留；不为收口重扫/重载模型。以下旧Pod清理中断是历史阶段，不能据本次清单完成改写其原exit137。
+
 用户已确认：“保留这三个,然后删除其他文件,只保留实验结果”。本任务保留历史清理事实与剩余清单；最新授权的新执行A先核真实占用和依赖，不恢复旧Agent/旧清理进程，不因目录整理另发起重复删除。八卡适配及exp-v3迁移见[当前任务](../exp-v3-8card/README.md)。
 
 **清理已中断：原计算 Pod 被移除，进程真实 exit137，实时查询为 NotFound。** 只读原日志已记录 7380 个单文件 action，最后一项无用 prepared768 目录清理未取得完整终态；无最终成功回执。R92 已完成终态核实，但其后续第二阶段清理尚未执行。事实见 [CLEANUP-STATUS.md](../../records/storage/CLEANUP-STATUS.md)。不新建计算资源或自动改绑来续删。

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "observed_at": 1793503589.5507274,
+  "path": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r24/prepared768-v2-pillow12.3.0",
+  "authorization_reference": "ca477269-9928-418d-bde2-f8a0da87f773",
+  "operation": "exact_lstat_only",
+  "tree_traversed": false,
+  "deleted": false,
+  "exists": true,
+  "mode": 16877,
+  "device": 132,
+  "inode": 9868483150,
+  "nlink": 3,
+  "symlink": false,
+  "directory": true,
+  "size": 8192,
+  "allocated_bytes": 8192,
+  "mtime_ns": 1793176952000000000,
+  "status": "present_retained_pending_narrow_dependency_check"
+}

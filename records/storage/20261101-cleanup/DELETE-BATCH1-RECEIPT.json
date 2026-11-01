@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "status": "completed",
+  "authorization_reference": "b0b6057c-cfe5-4d7a-a316-a161ce2593b6",
+  "started_at": 1793502988.1028836,
+  "finished_at": 1793503000.193918,
+  "plan_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/PLAN.json",
+  "plan_sha256": "38b5b1f881ae2b4405a35dc14d6ef1a21111ed4e567a757e6ab3015a2ab3942c",
+  "inventory_sha256": "7fe671ccb07d61b8cb8ac9925b6aa0c20ee446767bbcbc46109365957830678e",
+  "deleted_count": 107,
+  "deleted_categories": {
+    "closed_round_checkpoint": {
+      "count": 104,
+      "logical_bytes": 78566025467,
+      "allocated_bytes": 78566056448
+    },
+    "expired_source_transport_package": {
+      "count": 3,
+      "logical_bytes": 24514560,
+      "allocated_bytes": 24514560
+    }
+  },
+  "skipped_during_apply": [],
+  "error": null,
+  "protected_stat_and_small_sha_unchanged": true,
+  "protected_before_sha256": "979144fcdb227ee9a1fb9d91adeb61a4ebc75b3b3bb51ada81f78447842e7360",
+  "protected_after_sha256": "979144fcdb227ee9a1fb9d91adeb61a4ebc75b3b3bb51ada81f78447842e7360",
+  "journal_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-JOURNAL.jsonl",
+  "journal_sha256": "037f003a3994ce3db425f1dcb7c5a82ba3af5b1fe251ce513d075fba80538cad",
+  "usage_before": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 477815111680,
+      "used": 454853394432,
+      "free": 22961717248
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2": {
+      "total": 477815111680,
+      "used": 454853394432,
+      "free": 22961717248
+    }
+  },
+  "usage_after": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 477815111680,
+      "used": 376262623232,
+      "free": 101552488448
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2": {
+      "total": 477815111680,
+      "used": 376262623232,
+      "free": 101552488448
+    }
+  },
+  "free_delta_bytes": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": 78590771200,
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2": 78590771200
+  },
+  "unlinked_allocated_bytes": 78590571008,
+  "unlinked_logical_bytes": 78590540027,
+  "checkpoint_blob_rehashed_or_loaded": false,
+  "sidecar_index_lock_or_one_shot_modified": false,
+  "open_file_scan_denied": [],
+  "active_model_owners": [],
+  "limitations": [
+    "Allocated bytes are pre-unlink st_blocks*512 of unique regular inodes, not a claim of backend physical reclaim.",
+    "Filesystem free delta is a point-in-time observation on a shared filesystem and may include concurrent activity.",
+    "Large checkpoint identity uses exact stat plus actual small sidecar SHA/advertised blob SHA; payload was not rehashed or loaded.",
+    "All manifest exclusions, unknown ownership, raw/shared caches and protected current dependencies remain."
+  ]
+}

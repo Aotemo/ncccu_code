@@ -1,0 +1,233 @@
+{
+  "checks": "stat identity and actual small-file SHA before/after each deletion batch; no big blob hash/load",
+  "all_batches_unchanged": true,
+  "key_objects": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt": {
+      "device": 132,
+      "inode": 19720964212,
+      "size": 377154663,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793094582000000000,
+      "allocated": 377155072
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt.json": {
+      "device": 132,
+      "inode": 19133374070,
+      "size": 196,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793094582000000000,
+      "allocated": 512,
+      "small_file_sha256": "24073bb7fb3846d182af8e20fac7e9e9fa870bb4f49c049a38c33c7c8e0dc839"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/flair-resnet50-job.json": {
+      "device": 132,
+      "inode": 9221675549,
+      "size": 2295,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793094016000000000,
+      "allocated": 2560,
+      "small_file_sha256": "58681b4383d9b974d3214690f2ec087f28693483a6f065c1c70981e2a659e6b1"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-contract.json": {
+      "device": 132,
+      "inode": 9221675805,
+      "size": 11137,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793094015000000000,
+      "allocated": 11264,
+      "small_file_sha256": "c3155fa761e8d987e314538cca622416e3940c43a634fb89c401caf279799012"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-source-files.json": {
+      "device": 132,
+      "inode": 9156226889,
+      "size": 3674,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793094015000000000,
+      "allocated": 4096,
+      "small_file_sha256": "867f5be0312e56f7b26f95d0d4d45474732c32401fa0d40cc8e2ccbc3d5e40f0"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/N06/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema-config.json": {
+      "device": 132,
+      "inode": 9221676061,
+      "size": 3198,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793094016000000000,
+      "allocated": 3584,
+      "small_file_sha256": "032b855ea7d6167b0adad2b2c1f0f037ff55a0fa2999fd54ed504641bfb82b8b"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt": {
+      "device": 132,
+      "inode": 18514790502,
+      "size": 445634953,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792982887000000000,
+      "allocated": 445635072
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt.json": {
+      "device": 132,
+      "inode": 9776956998,
+      "size": 196,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792982887000000000,
+      "allocated": 512,
+      "small_file_sha256": "a4d746cb7d99ec1d8d7dc814a05569f5fd097b2d8f8dde6f53d2085fa89fe573"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/convnext-tiny-job.json": {
+      "device": 132,
+      "inode": 9608049411,
+      "size": 2270,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792981233000000000,
+      "allocated": 2560,
+      "small_file_sha256": "233eccd241be0c196cc935a1c5ce0de720509673407144b379eb874e6972c0de"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/r17-4c-tiny-a25-b64-focal2-fp32-ema-contract.json": {
+      "device": 132,
+      "inode": 9608049667,
+      "size": 10987,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792981230000000000,
+      "allocated": 11264,
+      "small_file_sha256": "dd7cd3bc6ae4b2b5eba8fb382e92defe34945aba02077b0a1096e450915da374"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/r17-4c-tiny-a25-b64-focal2-fp32-ema-source-files.json": {
+      "device": 132,
+      "inode": 9608049923,
+      "size": 3107,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792981230000000000,
+      "allocated": 3584,
+      "small_file_sha256": "f7fcbf8975741ecf7d0b671a6f8815e84280a532fe9b0d31131b4eb939736345"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R17/r17-4c-tiny-a25-b64-focal2-fp32-ema-config.json": {
+      "device": 132,
+      "inode": 9608050179,
+      "size": 3184,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792981232000000000,
+      "allocated": 3584,
+      "small_file_sha256": "ec4174884b9d63aeb6aaf393dc94233ecb076558ae6044086e15a9a9af2851b2"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt": {
+      "device": 132,
+      "inode": 8637160750,
+      "size": 445592667,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792928608000000000,
+      "allocated": 445593088
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt.json": {
+      "device": 132,
+      "inode": 8909740314,
+      "size": 196,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792928609000000000,
+      "allocated": 512,
+      "small_file_sha256": "ab63a5169a9bf322edcac307df76c629588e4d9d89f5c4344186f85a8842a2d4"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R8-C25/convnext-tiny-job.json": {
+      "device": 132,
+      "inode": 18602529662,
+      "size": 2108,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792926156000000000,
+      "allocated": 2560,
+      "small_file_sha256": "4067ff8051c64c1d750639147c1878c4127a6577a4fc7a0d1b0a964293d290f9"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R8-C25/r8-6c-c25-image-ema-contract.json": {
+      "device": 132,
+      "inode": 18602529918,
+      "size": 9475,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792926155000000000,
+      "allocated": 9728,
+      "small_file_sha256": "ea5008b678336799f462a17bb8669da9ec212d3136f218a4c09e78869fd94436"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R8-C25/r8-6c-c25-image-ema-source-files.json": {
+      "device": 132,
+      "inode": 10946516255,
+      "size": 2280,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792926155000000000,
+      "allocated": 2560,
+      "small_file_sha256": "0fddc25a43812e2d483c3811aca304e0c7f6ceed83d2c4dae1739d55b3148018"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/retained-models/R8-C25/r8-6c-c25-image-ema-config.json": {
+      "device": 132,
+      "inode": 18602530174,
+      "size": 2873,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1792926156000000000,
+      "allocated": 3072,
+      "small_file_sha256": "b1971864823bc0ac51bb4650961bb9486793ff4d2c53076360d4ba62f8f8b187"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt": {
+      "device": 132,
+      "inode": 9459365405,
+      "size": 792155466,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793499125000000000,
+      "allocated": 792155648
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt.json": {
+      "device": 132,
+      "inode": 9459366429,
+      "size": 196,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793499126000000000,
+      "allocated": 512,
+      "small_file_sha256": "01f7d582143823121e473782408e3b83d0daab2d73819e8d5254e3a75bc04f79"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/index.json": {
+      "device": 132,
+      "inode": 19250250352,
+      "size": 1961,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793500655000000000,
+      "allocated": 2048,
+      "small_file_sha256": "36e957e37b6843ea05e18e29afda51d34ac547c37744f940a10acc058130fed5"
+    }
+  },
+  "snapshot_path_count": 321,
+  "full_snapshot_receipts": [
+    {
+      "before": "979144fcdb227ee9a1fb9d91adeb61a4ebc75b3b3bb51ada81f78447842e7360",
+      "after": "979144fcdb227ee9a1fb9d91adeb61a4ebc75b3b3bb51ada81f78447842e7360"
+    },
+    {
+      "before": "4dd886c6d0deb6b8e616d97adbf10645acb890d237d5e322c6db541ea3601f11",
+      "after": "4dd886c6d0deb6b8e616d97adbf10645acb890d237d5e322c6db541ea3601f11"
+    }
+  ],
+  "retained_scope": [
+    "all interrupted R130 artifacts/dependencies",
+    "R120 and R107/R108 comparison roots/preps",
+    "R134R1 selected EMA3200 + sidecar/index/freeze/dev prediction+precision/job/manifest/age/ASSETS/SITE/full frozen49c8 bundle/source",
+    "R134R1 initial and full current prep, pending fit-census files/prep/work",
+    "KEEP three unique weights + sidecars + all12 minimal records",
+    "raw data/shared prepared512/cache/actual public sources",
+    "all small result/failure/cost/clock/token/lock/index/one-shot records",
+    "all unknown ownership or incomplete evidence"
+  ]
+}

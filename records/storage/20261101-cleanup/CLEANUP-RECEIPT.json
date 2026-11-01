@@ -1,0 +1,131 @@
+{
+  "schema": "controlled-storage-cleanup-20261101-v1",
+  "status": "completed_for_confirmed_manifest",
+  "authorization_reference": "b0b6057c-cfe5-4d7a-a316-a161ce2593b6",
+  "finished_at": 1793503496.1559012,
+  "pod_identity": {
+    "NCCCU_POD_NAMESPACE": "acfwvv9ejn",
+    "NCCCU_POD_NAME": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "NCCCU_POD_UID": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "NCCCU_CONTAINER": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12",
+    "NCCCU_CPU_MASK": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+  },
+  "root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17",
+  "r134r1_final_archive_commit": "4968edc784d2eb11c8aadae4774b365b78a7855d",
+  "inventory_sha256": "7fe671ccb07d61b8cb8ac9925b6aa0c20ee446767bbcbc46109365957830678e",
+  "plan_sha256": [
+    "38b5b1f881ae2b4405a35dc14d6ef1a21111ed4e567a757e6ab3015a2ab3942c",
+    "8d6753d1a9f76e6ad94c64989afc9a937b2c39ecc818d1a4fd12999d3738c576"
+  ],
+  "deleted_count": 372,
+  "categories": {
+    "closed_round_checkpoint": {
+      "count": 104,
+      "logical_bytes": 78566025467,
+      "allocated_bytes": 78566056448
+    },
+    "expired_source_transport_package": {
+      "count": 3,
+      "logical_bytes": 24514560,
+      "allocated_bytes": 24514560
+    },
+    "closed_round_checkpoint_or_initial": {
+      "count": 216,
+      "logical_bytes": 130818339058,
+      "allocated_bytes": 130818394112
+    },
+    "completed_formal_cpu_fixture": {
+      "count": 49,
+      "logical_bytes": 17531585435,
+      "allocated_bytes": 17531599872
+    }
+  },
+  "deleted_logical_bytes": 226940464520,
+  "deleted_allocated_bytes": 226940564992,
+  "filesystem_before": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 477815111680,
+      "used": 454853394432,
+      "free": 22961717248
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2": {
+      "total": 477815111680,
+      "used": 454853394432,
+      "free": 22961717248
+    }
+  },
+  "filesystem_after": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 477815111680,
+      "used": 227916382208,
+      "free": 249898729472
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2": {
+      "total": 477815111680,
+      "used": 227916382208,
+      "free": 249898729472
+    }
+  },
+  "free_delta_bytes": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": 226937012224,
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2": 226937012224
+  },
+  "remaining_from_scanned_model_or_package_inventory": 94,
+  "all_protected_stat_and_small_sha_unchanged": true,
+  "big_blob_rehashed_or_loaded": false,
+  "sidecar_index_lock_one_shot_or_old_clock_grant_modified": false,
+  "cache_directories_deleted": 0,
+  "transport_failure": "One additional targeted own-process read-only status transport failed at SSH kex; no Pod command/signals occurred. Initial inventory naturally completed.",
+  "plan_failure": "First manifest attempt used wrong freeze directory; assertion stopped before deletion. Exact root freeze corrected; original failure source and CPU receipt retained.",
+  "limits": [
+    "Allocated bytes are pre-unlink st_blocks*512 of unique regular inodes, not a claim of backend physical reclaim.",
+    "Filesystem free delta is a point-in-time observation on a shared filesystem and may include concurrent activity.",
+    "Large checkpoint identity uses exact stat plus actual small sidecar SHA/advertised blob SHA; payload was not rehashed or loaded.",
+    "All manifest exclusions, unknown ownership, raw/shared caches and protected current dependencies remain.",
+    "Both exp-v2 and exp-v3 report the same filesystem; their free deltas are not additive."
+  ],
+  "source_sha256": {
+    "DELETE.py": "dff541a3b2e9014f2d945235844f33a650d8324315d4a39253aa09820f9f15f5",
+    "REMAINING.py": "50925e4929e47f80cb9cc79a51490c97a4ab582b61df46de84aacfbaf25fbffd",
+    "INVENTORY.py": "0263a03b778153694cda8a1de16fe87551fc7bad4a3fe6657360eed1659bacb3",
+    "PLAN.py": "7290ec0d58d8c33514e810f11c03c968a16e7189d32fa39f28b2ed7a4bc9fe76",
+    "PLAN-FIRST-FAILED.py": "00f25e0caee30da89329f84d2c06f557ddbe16e3c55d4d7e2fc8d57c28875d7f",
+    "BATCH2.py": "dc86de20e58ef10687c1b9aca98c827afa1c008747a5b9b250da95c578e0d86a",
+    "FINALIZE.py": "160c1a43fc8a7c4fe842a3d7809dfaa93c3a0903eb650279f03c48a343de1ae8"
+  },
+  "receipt_files": {
+    "DELETE-BATCH1-CPU-RECEIPT.json": {
+      "sha256": "044ca3d89a6f438bd505f94067ebc1cee3d5f874d805acdb6f72db838da7c3cb",
+      "bytes": 7474
+    },
+    "DELETE-BATCH2-CPU-RECEIPT.json": {
+      "sha256": "6372dcadeb953ae489170971d8a412e8299a7a0dfcafc0df33664ec19a1d88d9",
+      "bytes": 7487
+    },
+    "PRESERVATION-SUMMARY.json": {
+      "sha256": "7cf11113dae629788aaa2e5808e390a24fc14ac0dbe66cb78017ad87c28c2115",
+      "bytes": 10226
+    },
+    "DELETE-BATCH1-RECEIPT.json": {
+      "sha256": "966129661159f1ba4e8cc9df69849b3a4b016bab3372c3cf66bb5d97e92e707f",
+      "bytes": 2804
+    },
+    "DELETE-BATCH2-RECEIPT.json": {
+      "sha256": "ebffd2c8df4824327af869b996a9246d0d1744c632a01c6fe05447ae4e2ccda3",
+      "bytes": 2839
+    },
+    "CLOSED-ROUNDS-AND-CPU-FIXTURES.json": {
+      "sha256": "c935936bbf86dfca51657c0e95d44d74b6cbad738ffd478c9b6fc71854a9bfe7",
+      "bytes": 142872
+    },
+    "DELETED-FILES.json": {
+      "sha256": "dc45454e33753fb24ba4207eed724cca70cf5332493cdf15e4bad8661ea8b2df",
+      "bytes": 213881
+    },
+    "REMAINING-SUMMARY.json": {
+      "sha256": "526f610390a1eff0485236f537b17d7c834c4d14302f1546fa7d239c464fbd1f",
+      "bytes": 16015
+    }
+  }
+}

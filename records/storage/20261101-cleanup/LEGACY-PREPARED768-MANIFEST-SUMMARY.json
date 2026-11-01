@@ -1,0 +1,65 @@
+{
+  "target": "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r24/prepared768-v2-pillow12.3.0",
+  "target_identity": [
+    132,
+    9868483150
+  ],
+  "count": 100665,
+  "files": 100280,
+  "directories": 385,
+  "logical_bytes": 33510815325,
+  "allocated_bytes": 33538078208,
+  "blockers": [],
+  "segment": 1,
+  "complete": true,
+  "started_at": 1793503965.045381,
+  "last_observed_at": 1793503990.553149,
+  "last_segment_seconds": 25.507762590423226,
+  "pending_count": 0,
+  "manifest_sha256": "52574c434a7b9ca7d87a737a5a96f32e77d92ba3c6ab395aa04954520ae22fc7",
+  "current_prepared512_refs": [
+    {
+      "assets_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/ASSETS.json",
+      "assets_sha256": "7deb72b7472afe5c2a1aba414b4062e17ac15327d03dd8b634cd99065e0a80e1",
+      "cache_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "cache_realpath": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "device": 132,
+      "inode": 12952720392
+    },
+    {
+      "assets_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029/ASSETS.json",
+      "assets_sha256": "cc605e52847890acc3efd3e213b25ad1d050caf5725a27efe7109e3b8f241a62",
+      "cache_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "cache_realpath": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "device": 132,
+      "inode": 12952720392
+    },
+    {
+      "assets_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/ASSETS.json",
+      "assets_sha256": "e1ce6227ecb4eaf889c4becb5785fc141cf01a7c85b9472810b6d2f0f6abfe65",
+      "cache_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "cache_realpath": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "device": 132,
+      "inode": 12952720392
+    },
+    {
+      "assets_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/ASSETS.json",
+      "assets_sha256": "3900ec2ffafe74e214f3bbb0fa5f1cbd1c2e1e5f35999bdf4e62a2b96c4d6d67",
+      "cache_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "cache_realpath": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "device": 132,
+      "inode": 12952720392
+    },
+    {
+      "assets_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/ASSETS.json",
+      "assets_sha256": "dc24ac26e257d07a3113afb1b09cc5e52284616a71ee3a009d36b30c8e76f816",
+      "cache_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "cache_realpath": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+      "device": 132,
+      "inode": 12952720392
+    }
+  ],
+  "protected_reference_conflicts": [],
+  "status": "ready_for_exact_unlink",
+  "no_image_or_cache_payload_read": true
+}

@@ -1,0 +1,2686 @@
+{
+  "schema": 1,
+  "created_at": 1793503286.4904964,
+  "rounds": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": null,
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9867415781748388,
+        "ap": 0.8200017145302917,
+        "error_twice": 22022,
+        "tensor_sha256": "a3ddf7a133216ed86bef28e8b173b2b2f327b28ed1991fdd41ee892fbe9faa2b"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8340085897204855,
+          "auroc": 0.988291609526612,
+          "count": 5849,
+          "error_twice": 25306,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.3695857524871826,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9650053022269354
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -2.8516392707824707,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.954931071049841
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.723250389099121,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.070354461669922,
+              "sensitivity": 0.9633507853403142,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8336756585144905
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029/control/done.json": "95290585f4d572a3b5e3125923469f605107bc26835802daff4e2dd33ed2169d",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029/evidence/TRAIN_RESULT.json": "6ab8146f6c8216f7dd1ed12a3e14ee2e1bb9221166dafdbbda2f58c42b5db614",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029/evidence/ROUND_RESULT.json": "fc99ca63c7247de261ff204d97fa7efbdc348dbd0b11118dbee6d79fa85e94e1",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029/control/train-component-terminal.json": "fea9a0354ef8ed7e6e119f4fd66afb7c37f7917654e7569349736bf5ca191df1",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029/SINGLE-MODEL-FREEZE.json": "9baf741474085c098170a7dcff60996f9246d60d73e123366fe408dd0ba5a2fb"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9866645153288838,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9866645153288838,
+        "ap": 0.8193841805300731,
+        "error_twice": 22150,
+        "tensor_sha256": "82884e00eebc0ddd59b8c1165d4e5f8af3f6cc6119f1b3d154d0b49efaf6ce85"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8341015210694182,
+          "auroc": 0.9883091910818949,
+          "count": 5849,
+          "error_twice": 25268,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.3309011459350586,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9651820431247791
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -2.7975051403045654,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9554612937433722
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.705584526062012,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.0539193153381348,
+              "sensitivity": 0.9633507853403142,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.833769018904626
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029/control/done.json": "41cb28ec285e29200f98aa71f5381c1123faa9d5dd86361b9f08eb70861c05cb",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "dd253b3aa0fdd33bb6a539f01ba596d7f5520dbea1547d543787fdae69f306c1",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "c98fcb7364fd59901816435480485ce817d9543d55452e7010a9337490b08e1e",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029/control/train-component-terminal.json": "c1aeb7ba35f31197feb4eea88b59863e800c216308144ee31293e31ca591bb69",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "13aa989198ca9b4e64ed5e021f6da9b8733eda748878bd5750d19e2ebccc217b"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.983341180097075,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.983341180097075,
+        "ap": 0.825803312915609,
+        "error_twice": 27670,
+        "tensor_sha256": "dcce91a2737f50d59e2d8b028d8fcf40dbb76e773d5bee420d357c487ea2d997"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8389791978694786,
+          "auroc": 0.9889791408726744,
+          "count": 5849,
+          "error_twice": 23820,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.5740416049957275,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.968186638388123
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.01130485534668,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9498055850123719
+            },
+            "specificity_0.90": {
+              "logit_threshold": -5.945878505706787,
+              "sensitivity": 0.9790575916230366,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.9744157791137695,
+              "sensitivity": 0.9476439790575916,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8386588109948991
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029/control/done.json": "07c21d1f94b0974011ce951a01890cc1d0efbe4aca6181e7246f746c7548f0bd",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "967c225f596fb3109cab091c04b139b8c85df7e9c9533debf66e47374adb45da",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "ca6b0b88e5c344e6ea033bc9d2f537e17e3c793e39609591fd16f5eff8935f6a",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029/control/train-component-terminal.json": "e62d247fab9ea0ecc1a008a572b4ad0e8828cbc405083c9cff883214c4c7fe36",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "4ecfa8cd95dfa438a6ae6cdfb73fd9ae1998179aff5b768892b5c85eefb84e8b"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9854519796120608,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9854519796120608,
+        "ap": 0.8277913868944404,
+        "error_twice": 24164,
+        "tensor_sha256": "09db9a1d77d5a58ffb60ece36e97ea22eb021d9d6460c1467d0d00747ae0cb88"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8405994179668198,
+          "auroc": 0.9885877199313764,
+          "count": 5849,
+          "error_twice": 24666,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -3.1538808345794678,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9657122658183104
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.313020706176758,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9482149169317781
+            },
+            "specificity_0.90": {
+              "logit_threshold": -6.31965970993042,
+              "sensitivity": 0.9790575916230366,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -4.134188652038574,
+              "sensitivity": 0.9424083769633508,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.840281997188518
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029/control/done.json": "80818b2ec26d5dd4244dc11a627404a3e11753f98e943128c4dbdafbfc59796a",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "b238ef14c0b65969f6fb46483c9bfbd1c60d704330b0a00b81ce6509642dd135",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "13bb89be94c4b51dbeb10e749ff9a87feeb678c0600f573199f40021e5131785",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029/control/train-component-terminal.json": "015740169e3901fd7f74745b974f76fe96f39304d3b74ef98239395cb7fe5e87",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "b70f23889fb7a361d7e93c6f4af66ea749e544269ac54927c775c18b42a1e795"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9853363853431284,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9853363853431284,
+        "ap": 0.8194004616388242,
+        "error_twice": 24356,
+        "tensor_sha256": "2e472e71890c7281ebac406caa72548c55e2a2714666ef5c7f902f08947e3c7f"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.838850178505628,
+          "auroc": 0.9882573717610611,
+          "count": 5849,
+          "error_twice": 25380,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.18300199508667,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9683633792859667
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -3.126309871673584,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.954931071049841
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.882544994354248,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.3553078174591064,
+              "sensitivity": 0.9633507853403142,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8385346886296194
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029/control/done.json": "7db356597b212b2fd5bd7b2651126257c4917d0427d9a33c29f7fa8a9d3bc1e2",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "2b738cfdb939ea630e156091d48838e99b6123b855f92bf71df9d2fcf9fa4c32",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "2acaf6ecc85af5645e94c69ac49806ebb836bd26e1183d95a33a0a4f2a282740",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029/control/train-component-terminal.json": "fc34d2b5d7bf5d7d2d333f5d586d27a28b8cfd5c49c33c9b85cc486d483bffcc",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "a545f16f4b9444c2a7598317635e1944cdc27bea60466381d064b7a399c96841"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9843622628059786,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9843622628059786,
+        "ap": 0.8160422876816051,
+        "error_twice": 25974,
+        "tensor_sha256": "5e2b47e6850988ca2790b193713bda4972bfa6e0b7ac0e74c285cad34b2cdc55"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8423919163221405,
+          "auroc": 0.9879344263508649,
+          "count": 5849,
+          "error_twice": 26078,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.3122599124908447,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9655355249204666
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -2.7381885051727295,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9579356663131848
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.5881452560424805,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.0808334350585938,
+              "sensitivity": 0.9633507853403142,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8420957325133379
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029/control/done.json": "3e78739ac6cbd83cc78fa51389813f7dc3dc71c14913ed727ea3fdc782046298",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "c0aa9b4010b149e8abd7d436ecbfa67a6eac09e26b16db913b0865e336bd3a62",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "4bf9c5bea22e9c2d3e88256541d397bb4e538b9cc540872351097735b7fe9b88",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029/control/train-component-terminal.json": "14dc691f67c9384b3f187fcd92bdb97d58b85daf3a3df0fbd989bf920bfde4c9",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "8c895cd193fbd95c34e4b304b78c2253e8b9c4d12489c2f81bb1ba68fcee5881"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9851617898327616,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9851617898327616,
+        "ap": 0.8337256490854664,
+        "error_twice": 24646,
+        "tensor_sha256": "5a39fbcbc8c9fd37c17924c5986f17a716ee7d9f56273a5fe7073fa856d80745"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8463110838863377,
+          "auroc": 0.9879769922215498,
+          "count": 5849,
+          "error_twice": 25986,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -0.9637245535850525,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9671261930010604
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -1.4896060228347778,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9524566984800282
+            },
+            "specificity_0.90": {
+              "logit_threshold": -2.7384119033813477,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -1.5547237396240234,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8460087330237498
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029/control/done.json": "1bb36a59ebb97bfc49662e24b48f6b63aabae011466d63911264f96d76f2bd94",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "c9818cf93f13ed07036ddbfe8d5fff0b7c11955ac86af08bd5716762b7b118f7",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "710f9dfd4ce6467ae37b3def1a901e4b28fab9964ad931bdf7041aea4fdecfe4",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029/control/train-component-terminal.json": "365921d729385f3338bd09db88b4c38454c2f2c3ceac96bc929529d9ec5c6e1a",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "e4a0af3f0a17cdc7b20a7332cf2b78d386fb1a600583bbbe0b8120aab3916158"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.987161811506687,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "online",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.987161811506687,
+        "ap": 0.8058457289282671,
+        "error_twice": 21324,
+        "tensor_sha256": "4609727d59f29bc82ffb106bbe10004303322bc1bd0c0f36924c702f6f9252a0"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.817842592873573,
+          "auroc": 0.9857247024553104,
+          "count": 5849,
+          "error_twice": 30854,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -1.6657085418701172,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9658890067161541
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -2.749054193496704,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9452103216684341
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.432415962219238,
+              "sensitivity": 0.9685863874345549,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -2.504417657852173,
+              "sensitivity": 0.93717277486911,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8174156566071653
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029/control/done.json": "ab565e838acad5225aa9bf40281fdc84d776473c2d95f0b1ae095c8223a19b0c",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "f61af0168808c3a78d16fa8cd213079b807afda7a1e41d4afe5f3e5aaa044bf9",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "37f45700acf7a8758ab43537b6d515f0be6e640d71b8cd819dc6f3db7298c05d",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029/control/train-component-terminal.json": "13416d0ae26863100df38f324d1bbcbdd62234212eb25dd82cf4607b4b5c724e",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "82b582ea83446f79fd5f00e864b56a4d5a55f737e2441557ff9457006f8c7081"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 8800,
+      "cycles": 11,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9842033206861964,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 7,
+        "successful_updates": 5600,
+        "auroc": 0.9842033206861964,
+        "ap": 0.8140529507628876,
+        "error_twice": 26238,
+        "tensor_sha256": "ae0d2eaccd63914c1454cf4b85c68388237851bfa55c2bb0c5f4f24a362f9fab"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8306009685595881,
+          "auroc": 0.9860337676902833,
+          "count": 5849,
+          "error_twice": 30186,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -7.764106273651123,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.967479674796748
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -10.976183891296387,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.944503358077059
+            },
+            "specificity_0.90": {
+              "logit_threshold": -12.976078033447266,
+              "sensitivity": 0.9685863874345549,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -10.408125877380371,
+              "sensitivity": 0.9476439790575916,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8302049363821513
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029/control/done.json": "c88e9686d7eadb239c3c45919e79c33439a503b3cbb6709cc7944cef1085445a",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "b89de22738e316158338be4ceae0565f30463685d18334e58a0400c833c6bb87",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "62f8de8d105026fb5d7dda45b182073900d1adfb02a84c83b7402572cb1ef391",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029/control/train-component-terminal.json": "5db2ef9f3f5d1e8d7a5f4bb59ecc30523011ab3d9cc69854d869b81a3dfd7201",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "09500603403acc77f76b0010f08019b06468846768d149899e870895e204cb1a"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9754398301727533,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "auroc": 0.9754398301727533,
+        "ap": 0.757855599765702,
+        "error_twice": 40794,
+        "tensor_sha256": "d50010d624bfa324b67395c6f9a7f456cf1c59dff499d6b65b8f353c892a90c7"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.7731188181041838,
+          "auroc": 0.9808231499114445,
+          "count": 5849,
+          "error_twice": 41448,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -3.602109432220459,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9459172852598091
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.8979997634887695,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.911276069282432
+            },
+            "specificity_0.90": {
+              "logit_threshold": -5.23934268951416,
+              "sensitivity": 0.9633507853403142,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.417742967605591,
+              "sensitivity": 0.8848167539267016,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.7726632859679424
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030/control/done.json": "f1fdb2a726d403c9246388a3698a574075b50b4d13eb6382fb4571d4a7c6f7d9",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json": "1964275715e3c8cac4526dbc9e8253ccac2d250dd0dc290d3183b6f450ed6fed",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030/evidence/ROUND_RESULT.json": "4d36c751fd5b924d2c735e213b17041b1d39681c911e17aa494c30bd7c163525",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030/control/train-component-terminal.json": "89b0b31ec53ff1afc9fe973181b9d35588398568223097e0a118ad4719e6c705",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json": "0375464fb8e28c9bdbc5e9b3299adf463f9ff2ae8707e2b72369f574e8414615"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 10400,
+      "cycles": 13,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.6869135246498758,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 9,
+        "successful_updates": 7200,
+        "auroc": 0.6869135246498758,
+        "ap": 0.06838528019747084,
+        "error_twice": 520031,
+        "tensor_sha256": "07103a0db83ef58938043153335d08e5458cdfd76893bb0f5c63b4485fad04d1"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.07311415022835291,
+          "auroc": 0.6971095923114934,
+          "count": 5849,
+          "error_twice": 654654,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.4543111324310303,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.3066454577589254
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -2.811569929122925,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.13909508660303993
+            },
+            "specificity_0.90": {
+              "logit_threshold": -1.382422685623169,
+              "sensitivity": 0.2670157068062827,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -1.1440298557281494,
+              "sensitivity": 0.1518324607329843,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.07091602795867338
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030/control/done.json": "cd12f0af2fd65cbfbdc67e57a34f4a9ec3ff320632664e24ba690050c72a0f1e",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json": "4147ba7928412bafd49e125087dff3cadb2a00c632287efe9de57d60c09242da",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030/evidence/ROUND_RESULT.json": "2c8491dceef27b33dccbf2a79ed3da29a3eda43c5da3100220048b9631174252",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030/control/train-component-terminal.json": "52b54a010e0639b5868df85cc73a3cbd01447bea7bf2424e31222ebc1129c8a1",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json": "b66e2067ad45e79b8e9daa3870ab1e9e98c12744fd829a12c13de7e14ffd6cd3"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9863815501913928,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9863815501913928,
+        "ap": 0.810016977738777,
+        "error_twice": 22620,
+        "tensor_sha256": "66c3870a58f95c1042036f5b5fc2f1777a7c462141cb6cd6c43f544390830889"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8329898710388514,
+          "auroc": 0.9890522431288505,
+          "count": 5849,
+          "error_twice": 23662,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -3.253542900085449,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9697773064687168
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -5.543971061706543,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9471544715447154
+            },
+            "specificity_0.90": {
+              "logit_threshold": -9.078933715820312,
+              "sensitivity": 0.9790575916230366,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -5.088383674621582,
+              "sensitivity": 0.93717277486911,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8325982255403915
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/control/done.json": "d0da445811ca686b185d8fe6e9b6aa7c9b6c0149404ba63cba7778ad861d5e4b",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json": "e88feab4846a53c476c8cfc8976b9db3117b7f01f783a032aef501d45970256f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/evidence/ROUND_RESULT.json": "4a294dd9e5a685d40f5dba43c39d6a873e126639707954cd7492cf01e01742b9",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/control/train-component-terminal.json": "59a8ab23f496920f837b5f13e01cd7685fe9520de90cf5f0d4465a0e0ad925ef",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json": "3d1bc893c7467a0f8a8549284851b44d8fe8e23c034c242ddd35c235c4c13c57"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9874796957462513,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9874796957462513,
+        "ap": 0.8211659433777129,
+        "error_twice": 20796,
+        "tensor_sha256": "4aa597b03788019483a0b348f108876435f264c19b3b0b1f9be302176ecfbb2f"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031/control/done.json": "5114825d4320b08569343fbe4d2a03fcb2405e60578a694dfa00e1de69bfb923",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "191979384fa557ff15794d9d87d517f415b9ac087e5212714d0414da68bb2106",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "2e9a257e042d1d9d7fe1e7190a12866293c6a654dcbf13707bc7668c5725d2db",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031/control/train-component-terminal.json": "e04879e663c5750aa346e35b45027d3591ed90aa4acaa24bd149b3375787886b",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "7aca63ca3011e154982675d55965107bd6d9312b187d55a63746b632132d38e4"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9867584356723914,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "auroc": 0.9867584356723914,
+        "ap": 0.8255658133774761,
+        "error_twice": 21994,
+        "tensor_sha256": "bc86edde5547c8069a2117b176fe4f172cf93ccc1b66a58986b5943462b7e7b3"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031/control/done.json": "bc6a9ec2b73a070e682ad237b28b1fd70a2aec2ddce81fb3c30aa8160fb46e8d",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "74c77eb277126d27d4f4d0ca66bac6ae19241ba8b3efbe2cceba5d23082b4775",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "e2118236dda7cc695285a98b1b0c78296d2861db5739d62522f6560a6a343659",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031/control/train-component-terminal.json": "3ca92bcf67803f7d148c673e1c3169438e48d5a6c6d4685b9c4f99aea7e2ec6f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "5239824f7b4de780d00dd1a9ea436bc2eff5932e069524d61d8903d24e8f63ce"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9867283329981902,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9867283329981902,
+        "ap": 0.8252218982626471,
+        "error_twice": 22044,
+        "tensor_sha256": "d4294587db120b143898e07aaa6916b0bda097d5e60e28945a9a7b8e053b7351"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031/control/done.json": "3f22fa49cfdf669bf02f3887bfd0da8e7059a380672bc34c00db52daedc722bf",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "2111c6be7ab859dd860761b2c7e9f081a87a5afc04812cd5819f4f6e52cba69e",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "1695351f684e4fbcdcbbde77143df67c668a154b7e18635f0ab433e72f01db1f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031/control/train-component-terminal.json": "f310bb0e802933f922370255833bee685dad5bbc45e2471ec7d75284610fd847",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "5bc10e7d94d54029e6ed763ba2f3da488c0f48b6c05bee99ddd1ee7e2a17d8b2"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 9600,
+      "cycles": 12,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9886320261146719,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 8,
+        "successful_updates": 6400,
+        "auroc": 0.9886320261146719,
+        "ap": 0.825473259026753,
+        "error_twice": 18882,
+        "tensor_sha256": "e6bd15b353706b039734ef648d2a0229e352c4a66abdcfca01822f6b30f4ba76"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031/control/done.json": "73e470219791558524ba7bc30fe66e7651de9b51ea8b1d6c434d77e1344e6892",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "e444f807b453a7b72dd43cd10da00d1c9dd559b8dc48918f64543d121a04504f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "a1897ceb915d397c0d3466abe8718359f8ad04c6a5b1fb9dd1141306833672eb",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031/control/train-component-terminal.json": "ff34d2036d90344651017b6f01ee1889940286e8ead9a486e7a30b88d91a6316",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "131c1b801fb4857bf5d27a82afc454274dcfe984b538b10d2a4f9c4782d63e59"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 8000,
+      "cycles": 10,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9882093845688875,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "auroc": 0.9882093845688875,
+        "ap": 0.8282870957132695,
+        "error_twice": 19584,
+        "tensor_sha256": "0edb6ee48f74935e662fde8151255053e86ab5c1319c1554a8222865719b8be1"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031/control/done.json": "b118950a67d3601d6b2ae00beebd97e21dbc780f41694eff88edfa932f58f17f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "0d16d3d61de755560329b33bfc3f3b48c9bc189e82167d02450c67b758cae481",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "7cbc343f8102be313e4acae9f45e8ed588e6811f79fdc4039cedb4c5dc2dadd5",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031/control/train-component-terminal.json": "9ac5de4f0256eff23abc611ee68218d355697ab7b7c1c53a0cacb48fc7253e94",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "1e27800cb27b08b932e45bd23c071b278b937bdd23c19a114613da8153454f3d"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9884188991813276,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9884188991813276,
+        "ap": 0.8233186216195478,
+        "error_twice": 19236,
+        "tensor_sha256": "173a9c1cf719310d502f44c4a9762c55df9796b3ca69bd0cd2c89842e3299671"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031/control/done.json": "d31354597f6b7b6d852f74fd03957b14ee1cef2636c2c33ce7b0291e4cbd5380",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "455d99d3412ad488d780c59b19a5a23aa9eaabcb609806443bfa160ef96866fa",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "17a15acd924ccf832df3e0ac06fc2bb5e7c90fd9c1e8fab910ad3f85d92f615d",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031/control/train-component-terminal.json": "274a9dc31238a5ebf67eebcf1a793aa7f5c82c8a5d56f239c0cf7397e63a7800",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "cd7cd15bbbf78a76cf015b77d1baf1b0dfd769b6532c2a6f586f8e4120fed072"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 11200,
+      "cycles": 14,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9850016436060114,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "online",
+        "cycle": 10,
+        "successful_updates": 8000,
+        "auroc": 0.9850016436060114,
+        "ap": 0.7899286280804421,
+        "error_twice": 24912,
+        "tensor_sha256": "6c921246106f352c7bbdcbf9ab86715e6f8036f719a672fe7301b24adaa23e7d"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/control/done.json": "8fdd277b6b87ee34ef45605c23db4083c85373b849ad8ab65b3127689ab73e32",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json": "89e224b808279fc02c875a0769e06c3f724d8d4cadfc73138d64a6b423cdd28b",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/evidence/ROUND_RESULT.json": "e7039f9891f2dd91f011b4280404590df91e4ea3a47d966161c3638bf4630214",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/control/train-component-terminal.json": "bf919bf85bcdaab495945547355fdd8aed391e8a2736c8ce9ffd4faac40572b9",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json": "8657cbe7023c11c4172fa5c0f37c9ed8baa23b0409216868e344a2bd7f2ab7ba"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9857614351028487,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9857614351028487,
+        "ap": 0.8072697309724365,
+        "error_twice": 23650,
+        "tensor_sha256": "7e2742d425ff5b1711378a5afeb2b448bc3287fa4bd3d8a7fa4f4069b79c719a"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101/control/done.json": "9ede27af82b25d102760c12d4862dce9c0fab368d8734b3d43f78ce5c42a6c64",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json": "451d937e45e7adfe223dda0940f29f7e54ae5614d1dfe5630c87596b1262436f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101/evidence/ROUND_RESULT.json": "6278b8feec970cef7366a9dfec9eee55047de83da1cd8294e01df429b2989896",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101/control/train-component-terminal.json": "3f522fcdaa9d2a50dcff8804b96fdc3793c8a3eb2ce1c275256824c9224e41bb",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json": "f5ab83451f90a3efd17840aa664fa38b90d9f912772553d0001020e64362a6cf"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.989123301757635,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.989123301757635,
+        "ap": 0.8334499172214856,
+        "error_twice": 18066,
+        "tensor_sha256": "1442a625f8596cf8357a9c1d58f4c7b40d998d1dbe9dfc6eb880a193edf10462"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/control/done.json": "eb1c8fbd245e8744607264a02fe76ce7bec2faf532fe9c92012e85e8bd61df78",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json": "c7050b1331ae6907fe3850fbd3ad1a980c1666c732664add9b0922e6635c78a9",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/evidence/ROUND_RESULT.json": "2d1c6c6a8d8f138af48771a29adbee68453e3c3ff21c22c1ec957c623e487709",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/control/train-component-terminal.json": "56e0ddf2be7388b9d9a405b80d9886c1b3c5006d8e1bc2d90cd6cfb7fc847418",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json": "524fb6fc568364fe2d25d02c375628cdb41525b87f66b30fce18c4fc5c4a4782"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": null,
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9866344126546825,
+        "ap": 0.8167243430095755,
+        "error_twice": 22200,
+        "tensor_sha256": "7ed9a7d4597c5401b0b84ea30b389333f253b18343ab02071e5b47a1098e0093"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8424437871775934,
+          "auroc": 0.9887607594491606,
+          "count": 5849,
+          "error_twice": 24292,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -1.3350774049758911,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9720749381406858
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -2.636526107788086,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9512195121951219
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.742241382598877,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -2.6804420948028564,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8421156746404361
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/control/done.json": "05a605978701f40efe65bdede0dc0064310c4bde7dada4845661d947a599b9f8",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/evidence/TRAIN_RESULT.json": "96e20869ae47351d7ee3b686e585aa810aaa6ce6a7a3590d4cb1a6ed28438fda",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/evidence/ROUND_RESULT.json": "b77778841d3112d577520868a303848541bf99c8269768a4af7747f0acab26aa",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/control/train-component-terminal.json": "7f116e26dcc57b39cf7a9801f9b92d5ae1977634f3b3b67980ea374f62b982d3",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028/SINGLE-MODEL-FREEZE.json": "4459db88d353628864a9ea9a369c03ee7894f29c4afc0a1972927be260b3e6b0"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9843911613732117,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9843911613732117,
+        "ap": 0.8278718323176861,
+        "error_twice": 25926,
+        "tensor_sha256": "d41f6f629a3f4b456e8191a54c56cf468009e494e37b06b5fe9b41ac2b7ba882"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8548787074889032,
+          "auroc": 0.9889671113874808,
+          "count": 5849,
+          "error_twice": 23846,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.6157596111297607,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9717214563449982
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.706295967102051,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9418522446094026
+            },
+            "specificity_0.90": {
+              "logit_threshold": -6.340897083282471,
+              "sensitivity": 0.9790575916230366,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -4.156774044036865,
+              "sensitivity": 0.9476439790575916,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8545678103917194
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029/control/done.json": "b157694e31ce89e7db54633c777a3eb2c1ccbf50b98d0d1e8a9098e153fe7dde",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "f198c07f18cbf684a341c2ebba6a7cedceccca4092c05586d1cc9ed45e603225",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "fa93dc401d9a062df8a242d9278a9f2eace3e2e28f11a59bb4277840e66f58dc",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029/control/train-component-terminal.json": "93a10d9a777eb84ea9a37dde9a1aca9a54feb24e40e498107d1f01566df2a0e0",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "6783af788175b731b96c018c010f4a45aa60e7bc28c8bea9207bb424f54ca604"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9867391699609026,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9867391699609026,
+        "ap": 0.8333424024491386,
+        "error_twice": 22026,
+        "tensor_sha256": "744c55ab2da605e328b392e78f42599ff0cae7e108a44911923500f250e03c51"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8431683677756685,
+          "auroc": 0.9879658880813711,
+          "count": 5849,
+          "error_twice": 26010,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -1.9704142808914185,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9696005655708732
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -3.050837993621826,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.953340402969247
+            },
+            "specificity_0.90": {
+              "logit_threshold": -5.10352087020874,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.2484288215637207,
+              "sensitivity": 0.9685863874345549,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8428346315404082
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029/control/done.json": "64c4193cd80cb328cef86e859e5ca9cb0541149eb941c607b57c8dd336e0d809",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "59a72f04012fb728a119d0d7f7ce46b76544ca2f537f48a668624829311b0864",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "cf2b3acef8dc305fa2e75b8228e8553429e4f49c49d39459b75c65354f251262",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029/control/train-component-terminal.json": "b48e0d0047203273de4fb73367b297abe881c797faebf1c5b374a0f3823a48ee",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "4a9ccb7646de8c63ec872e0ceb71fae0c200d1bd9c59ec6ca32f33690d9f68a4"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 10400,
+      "cycles": 13,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9840901346312001,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 9,
+        "successful_updates": 7200,
+        "auroc": 0.9840901346312001,
+        "ap": 0.8089351087388285,
+        "error_twice": 26426,
+        "tensor_sha256": "7c0e9b8e79314abee1f6078ccefd9ea57656a101c7c3be395e9d380a4b223309"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8131226498592974,
+          "auroc": 0.9890744514092079,
+          "count": 5849,
+          "error_twice": 23614,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -7.243046760559082,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.971898197242842
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -10.323004722595215,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9402615765288088
+            },
+            "specificity_0.90": {
+              "logit_threshold": -11.435208320617676,
+              "sensitivity": 0.9738219895287958,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -9.539261817932129,
+              "sensitivity": 0.93717277486911,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.812413332670269
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029/control/done.json": "80bec4a76fdd1532ac32510362dc3af20d8c816b5fd46255506e9a78d7c78915",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "8e01269893a5e22247492056fc47ccb31c42bdb057a663ceb3ddc07a17939ee3",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "a576307ae50c8c674bc9bc8662025f1073e939890193f10e967d50f1f8589fea",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029/control/train-component-terminal.json": "fc78d7c29a4b2ca4e0ea2f1e0372b0886ddb561e4251583ea244ce1059d8aab2",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "552f29f35d1f73e5733afb3d264b9bb543a57caf52d4857173d72b3c81d381fa"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9850823187728706,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "auroc": 0.9850823187728706,
+        "ap": 0.8116753198258198,
+        "error_twice": 24778,
+        "tensor_sha256": "2b92b6700417671f14cb775fc63711ad98a2c944eab3898666dec75af3766456"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8258091877865354,
+          "auroc": 0.9878233849490783,
+          "count": 5849,
+          "error_twice": 26318,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -1.4817792177200317,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.972605160834217
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.353236675262451,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9321314952279958
+            },
+            "specificity_0.90": {
+              "logit_threshold": -5.587779998779297,
+              "sensitivity": 0.9738219895287958,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.2758548259735107,
+              "sensitivity": 0.9319371727748691,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8253839976493721
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029/control/done.json": "cb0b5596f53d8abf76b793fd096007624dfeddbae09f6a5c185d7ab8145644f4",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "bd250a25db76b88ad0f104dc3f95ca604077d9af23ed6f685a5b0d2abebd3f76",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "07d1b2a4b1e888063e2a97421d4fd904bd55854267b92e64ea415734edfdd837",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029/control/train-component-terminal.json": "e310012a552e81fb1a2ae8b0c1051da028af63fa2f601c3406b3c9b10774a295",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "e810b994214e64f287a39a02cfa6cc767f878ab35f82dbe42992c5e0398236ae"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9855326547789199,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9855326547789199,
+        "ap": 0.8333775688375845,
+        "error_twice": 24030,
+        "tensor_sha256": "464dff76748fc5eb002bd1568e6172cd00fcfd9a6b2e146dc6fcc9f64c539070"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8484972461588262,
+          "auroc": 0.9886312111470762,
+          "count": 5849,
+          "error_twice": 24572,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -0.42430737614631653,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9708377518557795
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -1.935067057609558,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9536938847649346
+            },
+            "specificity_0.90": {
+              "logit_threshold": -4.918660640716553,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -2.2063989639282227,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8481863205661314
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029/control/done.json": "da243adb8dc04f28c5351109f4ee0948000767155ae9833e62dbec20c4a22054",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "ae3f53e7f00a7da8ecdb1d8ba198792bc1f99994520f1cac8e3a6e6b61b6adcc",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "a59f1a622e215ad2250b4d5888d803666048daedbddd4d8427d0391604151501",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029/control/train-component-terminal.json": "264163d1128f2119aa441f12f3d0705c0e23bac665e68b06b28b151e12aee993",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "6f3071726fe6d86855054b4151cf1556cb460fd02bed52e331dc2bc4c827ec52"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9870727075910516,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "auroc": 0.9870727075910516,
+        "ap": 0.8203871316564739,
+        "error_twice": 21472,
+        "tensor_sha256": "d61a06f76e0e6af63270b78c748cdc0242dae2c5ba8d6cffedfd3e91aa8a3fe6"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.841618434786672,
+          "auroc": 0.987351458991485,
+          "count": 5849,
+          "error_twice": 27338,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -4.4579548835754395,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9736656062212796
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -7.9066386222839355,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9462707670554966
+            },
+            "specificity_0.90": {
+              "logit_threshold": -11.009363174438477,
+              "sensitivity": 0.9685863874345549,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -7.3695478439331055,
+              "sensitivity": 0.9476439790575916,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8412703728044523
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029/control/done.json": "48949feea7448c5ce3160beb955abc4f49e368b38d73d29931855a758ba26618",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json": "38e31a0610d503b06ed4672986e35711ee4929d543a63bec441b5fa14efcab15",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029/evidence/ROUND_RESULT.json": "ce44e18f88525cffd8ca93aedba8ac1e559fa3c857250ec68f1c32f47602015d",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029/control/train-component-terminal.json": "996393c8a817084922d54a3e40921e2b09fe3cbb47573ce18a95d197814f72aa",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json": "0690273a96d648d7c7b8d4b3e46b3724713e2c4076897c616e91c988a7ce3d9e"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9838264352051979,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "online",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9838264352051979,
+        "ap": 0.7807106637265128,
+        "error_twice": 26864,
+        "tensor_sha256": "25373ba20df5de5114bcdef70b52671989aa056c7438225ff8e2aa0bcdc88173"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.7836110512813446,
+          "auroc": 0.9832808662709891,
+          "count": 5849,
+          "error_twice": 36136,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -0.9368486404418945,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9612937433722163
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.242956638336182,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9257688229056203
+            },
+            "specificity_0.90": {
+              "logit_threshold": -5.896196365356445,
+              "sensitivity": 0.9633507853403142,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -1.8878931999206543,
+              "sensitivity": 0.9109947643979057,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.7831330429448892
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030/control/done.json": "71231819c44a6a7157c113ac22c6865cb90dca65c95b4234d4de9f13f87bb176",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json": "888d977cc759dffbeb43d14bdbb1671927efb41db55d81cc97385cfccf38f3f4",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030/evidence/ROUND_RESULT.json": "356251621a7ecfb2ce1a572add4d8c6481b39044644ee78a09b154769d758291",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030/control/train-component-terminal.json": "820b197a21309b52024820f24e9f507597ed4780c906e5ec57ff8cb0b3a98e64",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json": "45b9adc3710082468fe38748df36cabfc0f271f70d906a0924e30b0a6bf15c40"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9875399010946536,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "online",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "auroc": 0.9875399010946536,
+        "ap": 0.8091074656953037,
+        "error_twice": 20696,
+        "tensor_sha256": "f8be9d3c66dd45dba1f8b04de61a7a8a38902a458e7f55bb2ecf45f2d55c6696"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8111057344928366,
+          "auroc": 0.9859708442292708,
+          "count": 5849,
+          "error_twice": 30322,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -1.7497241497039795,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9648285613290916
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -4.938206672668457,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9277129727819018
+            },
+            "specificity_0.90": {
+              "logit_threshold": -6.628930568695068,
+              "sensitivity": 0.9685863874345549,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -3.1226844787597656,
+              "sensitivity": 0.9162303664921466,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8105447629450773
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/control/done.json": "75babf9981915823f2e7a79341942ee4294ace73bdb15f42f619eff33e09cb63",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json": "b08e3d05c1da7fe5c99d325dea209b0eea7d149a5abcdec1a36c5771429bd465",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/evidence/ROUND_RESULT.json": "820226d7c1b7bf5ccf28578d9f15093fa38f713915b5c64cc0a2de70a083aa60",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/control/train-component-terminal.json": "a6e50b2be63e8445e7f550690ed7192c505b16b137b146211bafea91f0c3b11d",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json": "85ed041d8b0310a1732217df166a5f1edcf25afd9bd9535efa196d465a240974"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.987677169289011,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.987677169289011,
+        "ap": 0.8222910002960596,
+        "error_twice": 20468,
+        "tensor_sha256": "ca285aa69ddcf887c040fa79927b4835e5fef4a7d38c59a00173f0c688ae622d"
+      },
+      "official": {
+        "official_status": null,
+        "official_reason": null,
+        "official_evaluated": null,
+        "official_metrics": {
+          "ap": 0.8452081777306721,
+          "auroc": 0.9891096145197737,
+          "count": 5849,
+          "error_twice": 23538,
+          "negative_count": 5658,
+          "operating_points": {
+            "sensitivity_0.90": {
+              "logit_threshold": -2.099349021911621,
+              "sensitivity": 0.900523560209424,
+              "specificity": 0.9734888653234358
+            },
+            "sensitivity_0.95": {
+              "logit_threshold": -5.2550458908081055,
+              "sensitivity": 0.9528795811518325,
+              "specificity": 0.9487451396253093
+            },
+            "specificity_0.90": {
+              "logit_threshold": -8.90791130065918,
+              "sensitivity": 0.9842931937172775,
+              "specificity": 0.900141392718275
+            },
+            "specificity_0.95": {
+              "logit_threshold": -5.041082859039307,
+              "sensitivity": 0.9476439790575916,
+              "specificity": 0.9501590668080594
+            }
+          },
+          "positive_count": 191,
+          "pr_auc": 0.8448710839365052
+        }
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030/control/done.json": "2b2d3ce34e15d51ebca2b691c15728cff7ef31b8f86c4e0628951615d4cf8901",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json": "701d11328cc5c37b2296f29e64bb4d86685ebae87a833a650a76fd812cb3af49",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030/evidence/ROUND_RESULT.json": "5e8e724cf2392b5a396f8cc9fc82220f1ca5a8d90a02e0e770b77227a478a222",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030/control/train-component-terminal.json": "14a6899f2421b505fefc92a7dad67a35adbf233e4b61d2a1554126b92b9173e6",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json": "f31fa37f1b0c0ddd6a3acdfc8468d004f81438581777a5463ed94606457358e1"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 8800,
+      "cycles": 11,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9850076641408516,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 7,
+        "successful_updates": 5600,
+        "auroc": 0.9850076641408516,
+        "ap": 0.805972999257521,
+        "error_twice": 24902,
+        "tensor_sha256": "b7822ab843eeb81827bd5fad1f8377a397d46447598db06dbea31e3a891d9319"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031/control/done.json": "1aaa8e2261f028c04f5f060feb8b75ff85fa940ab37cbfbf9e1ced57484b750e",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "50990b720f8dd9ad45560e11ea0e5762c1e9b80c4e42fdfdbfe22a84eaf3b5f1",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "c695e1c66ecd23b1696a33a840e4c5ecf4622e161e465f0ed24e91ff854c642f",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031/control/train-component-terminal.json": "babd24ed2eb16356b79d7e844dabb4de019dd24132b65981399a6e4e98b2ccdd",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "445628099f1e2688a06a2ae16d6bb8b3e25228bf49dbc70a979b3c0d82c56ff4"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.970734180141627,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "online",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "auroc": 0.970734180141627,
+        "ap": 0.7233388551998549,
+        "error_twice": 48610,
+        "tensor_sha256": "e30fdd6d519d9e56a6b1676040de3c5477f465d42f69b9618350044776e02b49"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031/control/done.json": "857df178478954d54c16ee8609fb40acc07712d5e53d367a1108a3470557ba8c",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "71d49bea781b9017bb7517554c1eeae7ef6358ac98bd9db074c3bcdaf72cb1ac",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "880a9e593c516c3cbce4ee6c1cc5ad3ae4eef7640345ac622c8a385887a746c1",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031/control/train-component-terminal.json": "9192961863704610e5ba61c102d2984d002da72b134887b64fd59d0dbba0886b",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "1955be005d461a846eac300eb5b1f7045b8c51db8c2f42fb4f046bb9d6973205"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9869089490433972,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9869089490433972,
+        "ap": 0.8355471078657948,
+        "error_twice": 21744,
+        "tensor_sha256": "273cb362219e0c2569648a410aa0c9d9359af9d07f4f3f16676c9ae8db65c71f"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031/control/done.json": "8c6fe6654e377f27effeaf8ab1d6953a944d83869f818ec57a36c2c13eaab4b0",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "3198ae4eacbeaa53fde07dbeb7510d31c8430dda552d9f71d07dc45c2371a78c",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "45f753b8b2f7ce0e5b0ac2e0c80b1f7a5f5791b138102b1b5096d7337d676186",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031/control/train-component-terminal.json": "278b0a90421b1ce81b623b0b8cb0dcdb6604b7760b4d3f1abec10fb0884eb4b6",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "aa2b2f26598ec6d8f17fcc15976dd671d6450233e12d6f3641baa2a27fe7cdb4"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9861082179096462,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "auroc": 0.9861082179096462,
+        "ap": 0.8290710437486213,
+        "error_twice": 23074,
+        "tensor_sha256": "fc83bc5df278a4fc3f8449696c24aaf2d02622f6e47234269cff40561c47ff74"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031/control/done.json": "2731ea9e1093919e659945943b77aab1af65caa286028f2ae55c433fa3a99970",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "8f5672805cdb30ac49b074d224f3c466b940cab89feb962cf385aa84bd1fc8cf",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "9d6201445f0fe6e70ed01265b0b3258cfeaf2645adacd6c5e97b9d6686e7656b",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031/control/train-component-terminal.json": "bb2a44327e837f6340d0123fc7f5ff4fc7976a2b742d70f1b72ba0ef0f0f1118",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "7ae9390f8db3de618db8ba921c1ed0e14bec4db00b12ffd904d0b95e7b7ac839"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9867572315654234,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "auroc": 0.9867572315654234,
+        "ap": 0.8252083971535648,
+        "error_twice": 21996,
+        "tensor_sha256": "fe81a1d83f6d6d92902e32de4e252780bf44adab39e7f72836374ba6562ef13a"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031/control/done.json": "86ebd1dae69f3a61e344ea3245a8e1f43e97e5e0dc8732ffffe0a47c04010661",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json": "89a6927593db979ef87bd8644e5fa08539ab5cf4ebcad8c35ae8e7fbb8499374",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031/evidence/ROUND_RESULT.json": "ddef05e48b9a3f1cf96a86f65c277352f385f549a057c8611916b3e9fd52b951",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031/control/train-component-terminal.json": "9a74195a2ea1baf0b7d2d89240f6ee6bcd9a5347e482fde841a9250ad8da2d57",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json": "705d791851ecb46e87de4d0b7907297070b51d27f6741d107e641360026f8859"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 11200,
+      "cycles": 14,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9809751099048635,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "online",
+        "cycle": 10,
+        "successful_updates": 8000,
+        "auroc": 0.9809751099048635,
+        "ap": 0.7859642705348402,
+        "error_twice": 31600,
+        "tensor_sha256": "e570a4fddc33c2d16b76379e6778962130d22380425f6ee147894856e0d9ec09"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101/control/done.json": "36f7768a7a3403c3c8c43ae5a6003a563522fdb36e308ca570807e6c03fc782b",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json": "335300b7b2541fd0d74daee6b40aad32d9f30f5202838ed0bd8c9384211001bf",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101/evidence/ROUND_RESULT.json": "0240b247dbce4069a880ff208f457e1126912ec56f445c1c47e07c0f41658b03",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101/control/train-component-terminal.json": "98635d96b54ce332dea8f773b88e0b4b82a548655ce474a734d201dac23bb31a",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json": "839b6f50079db78e3407b915ad155e94a8b1a316e639aa656fb9d7dcb0eb3898"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101": {
+      "done_status": "completed",
+      "train_status": "completed",
+      "round_status": "completed",
+      "successful_updates": 9600,
+      "cycles": 12,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.985972153822257,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "component_exit_code": 0,
+      "signals": [],
+      "selected": {
+        "variant": "ema",
+        "cycle": 8,
+        "successful_updates": 6400,
+        "auroc": 0.985972153822257,
+        "ap": 0.8116258295518979,
+        "error_twice": 23300,
+        "tensor_sha256": "ab3adca0f5c58958c1b9edaf2ae2634e3a10683eb151dd0ff5f49ae5023f096a"
+      },
+      "official": {
+        "official_status": "not_run_by_policy",
+        "official_reason": "threshold_not_met",
+        "official_evaluated": false,
+        "official_metrics": null
+      },
+      "source_metadata_sha256": {
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101/control/done.json": "08c99f8e2208881cc1713ed69043a3585d1f031f07c3d87f27dac7b02b03a365",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json": "cd0c132b494d2e38725f83ec1a85cceea7437ac6f5368239bf150dcbffab6637",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101/evidence/ROUND_RESULT.json": "8a807e4a28148370f02b8e8bc6b6449f2a947bddad9306f7bd40714d2915fe09",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101/control/train-component-terminal.json": "86165fa4d184a86d3ebb6c61149f94ca5a5712cad251f254a89fabfddfd9c4ef",
+        "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json": "cb24b6726de11476c2170fc4f6e8ea363bc2ba79d8135cced820da1511e32998"
+      },
+      "current_cleanup_open_scan_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/DELETE-RECEIPT.json",
+      "cleanup_safety_interpretation": "completed original chain plus current complete open-file/process scan; no fresh model/safe probe"
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/R92-TINY1K-9010": {
+      "archived_final_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261101-7c17/repository-evidence/records/R92/FINAL-RECEIPT.json",
+      "sha256": "6c4e8264dc743f90feecd401baf60f22ccf6e0835aead3b246758e1c9a18cb1f",
+      "status": "experiment_evidence_verified",
+      "audit_exit_code": 0,
+      "summary": "Full R92 results/22-check audit already archived in records/R92; historical second-stage storage protection released by user."
+    }
+  },
+  "cpu_fixtures": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-20af511b0177/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-ab55b1acf1114a61b8f1b124728105b5.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-20af511b0177/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "4b1e1f956d06ac7fae140cda2e90675d0a050ef45a6e8556cebc723b91ed239f",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-628eb00837e0/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-340b5bbaff364f9ebb963c3ac28c3907.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-628eb00837e0/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "6e5b29649c4c8ba61d808d92d55b4fe4a455d407756b6c2d76b35b8069bce0df",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r94-frozen-212b41f9d3aa/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-9bee5e0afcd04c989961fced082488d8.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r94-frozen-212b41f9d3aa/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "8ef9c6256d0573f203bc8a059ff76319e7fcb3301e0c66c6778f385481dc3dc6",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r95-frozen-992c3de8a079/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-8c83a66aeb494595bce4bd817d8a78db.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r95-frozen-992c3de8a079/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "8e7ee8a0efc751738475dfdcd19dcc1526d5b426938173c19bf021473f7e8d5b",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r97-frozen-33e35d68d8f9/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-334f6cd682d24138987958c3f228e59b.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r97-frozen-33e35d68d8f9/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "1bb0dd47dd37723a5f0dcae1e3db6daad966f8523238b57946bd822a6dbfdb23",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r109-frozen-fb64a822735f/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-99b1bb2b6da6453e8737e9ca3a4df1eb.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r109-frozen-fb64a822735f/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "8f0a9df7c19c6b2d9a57c261ab3cea10f9d434b85a4633724c969f6f79b28a57",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r110-frozen-3f24398968c1/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-2ef4dee2683f4bd5bfc76891f16d2be6.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r110-frozen-3f24398968c1/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "c95f0f3c9d53181ca950a0b149ad32982d93c7c0a0773fa9abadd49f0c3708fe",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r111-frozen-eee2012a766b/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-887395f92b1641afa6524513a3a98c7c.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r111-frozen-eee2012a766b/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "95559ae5085941c1d661793ce01040d7345124886bb1259ada8c38a6f0f82be4",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r125-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-e7c888ddb9b44849af9f669c0be9c227.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r125-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "5a48fa2e58963ca836249177b4b62c76a23eaf26839671d16e841ca299fc0375",
+      "checks": 19,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r126-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-db433ed36d4b4ad6ad4109e142b14f6e.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r126-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "e99d5c6f3d4b0f775e647631e41bb3083def64fb213938c86c109ce0c586bf98",
+      "checks": 19,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/production-cpu-1/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-e7e175c1dc94400195c7c678e51fe5ff.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adaptation-cpu-20261028-51fe3daf-a/production-cpu-1/CPU-RECEIPT.json",
+      "sha256": "4dd5dfee07bcc662f2d8e4aca53c5a3a596421da101ed7233cfd33b115143d19",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-8c52cdb33963/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-275af6bf4dfe46e49406108127484a57.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-8c52cdb33963/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "9b7cb857dd842ffce7b4ae338e78cff83a1aa15fe13154fc5c8839de633dd374",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r101-frozen-a215f6fb76fc/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-86833a0e12d349a89635abbd30af8711.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r101-frozen-a215f6fb76fc/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "9ae819f55ffc226a9e9e845f2406652da25d16843bc1266a08703735189b296c",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r102-frozen-620baa9d524f/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-4b03c3289d1941beadd82df9da2cfa68.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r102-frozen-620baa9d524f/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "74d260768df3b25850a8bb3941ecf1724322a00332b7f686bba36e72e8fe0e35",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r103-frozen-44b883ece72f/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-5efedd1e5839433cb9fb0a341b6b935b.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r103-frozen-44b883ece72f/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "62229b62a82a5a91a260b1f9beafdc34e4ba9d45ff4204f3dcd4b515bcec0502",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r104-frozen-018fc627d1a9/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-77ff0933577e43498d9a8a220b4de227.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r104-frozen-018fc627d1a9/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "d71c677f98d14bd7f61dd451134f25615fe3b4bd0aadf61785c1d15de6b007bd",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r114-laststride1-20261030-a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-376d08fd48e745298c4bd0bdadde190b.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r114-laststride1-20261030-a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "a13459b5d89efade732ec9a6afd860b205878a4f69787b062591f3d53f238ac3",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r115-20261030-e62a/formal-1/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-67c13c661a7a4c4d8c46d69d933fceb9.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r115-20261030-e62a/formal-1/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "0cbb77404e629788f91c8485489e47020ced09506705dd77a899ed1bb1aa7ec4",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r115-20261030-e62a/formal-2/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-c43c19051f85440685d8033022a3ccc4.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r115-20261030-e62a/formal-2/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "69d7ac11c80927d41e60d2d1f4e3a5d639848cf6f662299a2e94e74683cfb663",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r116-20261030-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-737b5cbdff174ff59d06f7f89a4bd510.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r116-20261030-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "ba12f17351b736d40906ef0f8789aaec66d000673459c0fb5c2aa91996361f41",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/candidate-local-1/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-f377ad603f1f4f0e9f4759488da1385b.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/candidate-local-1/CPU-RECEIPT.json",
+      "sha256": "36ab8cfc1e019ba1a5f0e95c1b1e6fc0dece0f58ed3f0c55db6f1db7dadbcf68",
+      "checks": 21,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-707b2d6d14ca4744812b89a3534d1a35.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "aecf66bc99284b12e503972b72474827fa97a6d52438adc7d816cf8c12adab4a",
+      "checks": 21,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/formal-cpu-guarded-2/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-7d39bbcbab0e43ff848d80c9fe40baaf.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r117-20261031-e62a/formal-cpu-guarded-2/CPU-RECEIPT.json",
+      "sha256": "f658e77f8f8e95df737b0ef1efe00e81c20f9d0d42e8e509cc23c15c47fb2808",
+      "checks": 21,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r118-20261031-e62a/cpu-draft-check/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-941b7cde941f41e9a982ce48bd41e918.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r118-20261031-e62a/cpu-draft-check/CPU-RECEIPT.json",
+      "sha256": "499db9a86a30225e6ec5fcdd53ba1daf165ee0fa86c2b96b7215a8872415dbdc",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r118-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-3a6d3895795a461bb13ee2f0b79d4abf.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r118-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "96294f6b06fd7395533e441841b034b7264c950c43617d384b7a731dc5359fdc",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r127-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-70cf3c12fdc24317a6f1fc0d11ae7756.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r127-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "cc99e2938eefd8eb58baa88e7db1f60bd5c0bb463502f5ffb912e766a43ff6ca",
+      "checks": 19,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r129-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-b2924e432bc0452cb1f337740348d1b4.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r129-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "135e29a2da2b0e87d1cd8f10d4b12074106febe31888a53b5b6b58871ea345d3",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r133-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-e33998f4caa6421f824512d2c9ab7f2c.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r133-20261101-7c17/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "e492a5cd1f8a59653ed7839bd305121ef9837193a29f99daa89c5615de475ba9",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r134-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-f12fbbac236847d1889eef047c97a308.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r134-20261101-7c17/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "1188136e3bba09c6c4c9ac37e55b5c4b82a81918676ec7e3bc0b90826885d599",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-e9967ca9797e42a189c2c8aabfafd36e.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r93-frozen-80e06f31c33b/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "3914737073695b7d7d121acb065d7671ce28fd4cbdeb3a0fe624a4fe66a211dc",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r96-frozen-35ad0cb11854/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-f20926f6e8d5415da1d22e6f6224b2c6.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r96-frozen-35ad0cb11854/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "97511fe450beb42dded64c549b18a68959888e498859c2442ce52306713cc873",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r98-frozen-481e5903bd56/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-1fc29208f11847e1860498779ddf6a45.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r98-frozen-481e5903bd56/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "a502d40eda72f156d431634fd292c131c05bcc8762990eac2b02f8e4efc1d615",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r99-frozen-cf556e954e6e/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-0253a37f9cd8400d975b43457bb1659d.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r99-frozen-cf556e954e6e/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "73cee8991db106296d2d31007977ef2acdd2747b2d5da81f85173ee7bcbc8b13",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r105-frozen-2f3cb4617de2/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-905f9ce6ec0743209b313fecc94b70e8.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r105-frozen-2f3cb4617de2/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "d9e96177c78b4b96b0acf10deaf9f000bfcccaf48f0d235ad0cad3d81aa7cfac",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r106-frozen-39c153ee220e/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-8c7d310f0b4a486cbd722a6d27d807d6.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r106-frozen-39c153ee220e/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "50dbd5a11588a7ad64ecfc025f95c2800d7c4c2cbf121adcb16f6e191df023e2",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r113-frozen-7dc31c6c7995/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-8dd456dc26f74805b8da1da748f16887.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r113-frozen-7dc31c6c7995/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "e9baf8a96309f35a8483a0b1e42c3da1476d3e098dafb7743afa2d4c14d563ab",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r114r1-20261030-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-ade9b2bb336f49ed8f2b906542a87f5d.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r114r1-20261030-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "419a109ca21f86e8c0d00e3c1e70f510952e7ee9ec3601203c7755396b714892",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r123-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-e54873bcee344c16af49272fb60848a9.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r123-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "12abaf714e29452ee16c9d43b4cba12e121c4e85f0ae6dd9f26b8980a655807a",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r124r1-20261031-a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-07eff8d463c349c49617ce4f42a585a9.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r124r1-20261031-a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "6a627e68ea4876e08c087aeaf3719f9c31c8dcbcbe96a9afa1c6c615dd9c8522",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r124r1-20261031-a/formal-safe-root/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-5ddc57285af146848391658649bbc29f.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r124r1-20261031-a/formal-safe-root/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "534588ecdd60683e4de604c6e29d1aea32bb66cb06bc97a974787922737d966c",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r131-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-f49a91dbec824e5d921e1224904ca72a.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r131-20261101-7c17/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "6140d7d8a233d67142cb6d375e3ba25aed3d2f9413bc24af658ff4bffbb60ba1",
+      "checks": 21,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r132-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-bfdc2f49f280473a82b4480c9916ebb5.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r132-20261101-7c17/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "ea78fc23a6f1c2e8280e70267089e26171a80d4444727be9a37368662c5550c0",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r100-frozen-b8126fdc77fb/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-1ff409f66e564b87a56cdb4f52311582.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r100-frozen-b8126fdc77fb/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "32724f245ac35df90bbfc95f7b1014b3b235f3102d3d4a02926471dc7a40624d",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r112-frozen-89712c91413f/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-38bdacd7c53e4ab88fb97641453d6725.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r112-frozen-89712c91413f/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "f8b6591829eaa196a01326f092bd482cbedf1efa2461baba564bb7fca88bbcea",
+      "checks": 18,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r121-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-34e974bf4c8545a991f42a2e9c8938a7.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r121-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "dc6b42df3ca54810f2c90b1ef1d527318389e68b663ba55bfe0b162d49c4049c",
+      "checks": 19,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r122-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-1cfdfc2f3478470597ce6962c3a4bdf8.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r122-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "8948c728c73b618c27e86ef68727877dfa4f39a775b82da4b7b83f8ec108f43d",
+      "checks": 19,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r124-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-8c2c00df337041ffb07a8252e90c8d8d.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r124-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "1f0a093368b17347525f35b246ff9febbfd3ca2901eb2ed404531076a70dd6ea",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r128-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-be97729059494b2da738b777f879ad83.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r128-20261031-e62a/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "1493949d9c2721df49b407125cf607927bf8b68e25cd5168f6ee1ff7e16262d8",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    },
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-83599b3b38d94076926b6626a2ac02f1.pt": {
+      "receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130r1-20261101-7c17/formal-cpu/CPU-RECEIPT.json",
+      "sha256": "aec9136a6781727f1f89ff5f512b59e66e83c143fa6a89ca32e8d9e3585fd77b",
+      "checks": 20,
+      "all_passed": true,
+      "training_updates": 0,
+      "gpu_initialized": false
+    }
+  },
+  "not_eligible": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030": "required complete small terminal set unavailable"
+  }
+}
