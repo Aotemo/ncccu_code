@@ -119,7 +119,13 @@ def prime_reducer(model,base,job,ctx):
         age_features=torch.zeros(job['physical_batch'],2,dtype=torch.float32,device=ctx.device) if enabled(job) else None
         for _ in range(2):
             base.zero_grad(set_to_none=True)
-            with single._autocast(ctx.device,job['precision']):logits=forward(model,images,age_features,job)
+            with single._autocast(ctx.device,job['precision']):
+                if job.get('mixstyle_policy') is None:
+                    logits=forward(model,images,age_features,job)
+                else:
+                    # Disposable priming input; no trace or real attempt is advanced.
+                    logits=forward(model,images,age_features,job,mixstyle_context={
+                        'attempted_before_increment':0,'rank':ctx.rank,'micro':0})
             (logits.float().sum()*0).backward()
     finally:
         base.load_state_dict(state);base.zero_grad(set_to_none=True)
