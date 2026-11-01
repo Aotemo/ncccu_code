@@ -1,0 +1,33 @@
+{
+  "status": "completed",
+  "observed_at": 1793511551.52712,
+  "compile_count": 4,
+  "files": {
+    "runtime/launch_once.py": "c2b9167d6b912d4aabcf54afed8bf7e0d16a62aaac906838733f15a986ab893e",
+    "runtime/run_training.py": "ade885b8ef4649cb1e0af7516f7ade9236b746868c6c01cde66148a9a662deb2",
+    "runtime/bundle/parallel_evaluate.py": "0bee04f0ddd5a06d06e881709628ca8780f1f476e3417adbaccab3a1e53fff28",
+    "tests/test_once_controls.py": "0d6f098d64e821d52eca1317c3d1537c838f8aa1208867b1879a43fcad25d700"
+  },
+  "consumer_equal_original49c8": true,
+  "consumer_file_count": 48,
+  "cpu_allocation_sha256": "2171235fd9d06311af95898e8dbada0d8f5064e590f2b40f3a13df2c198d15e8",
+  "mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "hidden_devices": true,
+  "real_checkpoint_hash_or_load": false,
+  "real_image_forward": false,
+  "green_cpu_receipt_sha256": "a05543dc2d5cab5b1360ef739ca91b3be500cc917f1de514c1fcc2c193179e39"
+}

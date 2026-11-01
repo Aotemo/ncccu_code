@@ -1,0 +1,72 @@
+{
+  "actualsafe": {
+    "cards": [
+      {
+        "busy_percent": 0,
+        "pci": "0000:09:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:36:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:55:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:77:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:85:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:b5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:d5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:f5:00.0",
+        "vram_used_bytes": 2207744
+      }
+    ],
+    "coordinator_live": false,
+    "device_users": [],
+    "live_owned_ranks": [],
+    "lock_identity": [
+      132,
+      19489378671
+    ],
+    "output_bytes": 15960,
+    "parent_lock_held": true,
+    "safe": true,
+    "scan_denied": 0
+  },
+  "completed_count": null,
+  "ended_at": 1793512362.7040284,
+  "error": "RuntimeError: component not completed: {'status': 'timeout', 'exit_code': 1, 'reason': None}",
+  "hard_deadline_at": 1793514145.771763,
+  "metrics": null,
+  "mode": "fit-census",
+  "owner": {
+    "pgrp": 382025,
+    "pid": 382025,
+    "start_ticks": "353972861",
+    "state": "R"
+  },
+  "soft_deadline_at": 1793513845.771763,
+  "started_at": 1793512345.771763,
+  "status": "unknown"
+}

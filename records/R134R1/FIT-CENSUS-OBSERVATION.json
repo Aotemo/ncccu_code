@@ -1,0 +1,433 @@
+{
+  "actualsafe": {
+    "all_expected_cards_seen": true,
+    "cards": [
+      {
+        "busy_percent": 0,
+        "pci": "0000:09:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:36:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:55:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:77:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:85:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:b5:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:d5:00.0"
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:f5:00.0"
+      }
+    ],
+    "device_scan_denied": 0,
+    "device_users": [],
+    "identity": {
+      "owner": {
+        "active": false,
+        "pid": 382025,
+        "present": true,
+        "readable": true,
+        "start_ticks": "353972861",
+        "state": "Z"
+      },
+      "owner_expected": {
+        "pgrp": 382025,
+        "pid": 382025,
+        "start_ticks": "353972861",
+        "state": "R"
+      },
+      "owner_match": true,
+      "owner_status": "exited",
+      "rank_count": 8,
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "ranks": [
+        {
+          "active": false,
+          "pid": 382028,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382029,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382030,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382031,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382032,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382033,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382034,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        },
+        {
+          "active": false,
+          "pid": 382035,
+          "present": false,
+          "readable": true,
+          "start_ticks": null,
+          "state": null
+        }
+      ],
+      "ranks_expected": [
+        {
+          "pid": 382028,
+          "start_ticks": "353973704"
+        },
+        {
+          "pid": 382029,
+          "start_ticks": "353973706"
+        },
+        {
+          "pid": 382030,
+          "start_ticks": "353973707"
+        },
+        {
+          "pid": 382031,
+          "start_ticks": "353973708"
+        },
+        {
+          "pid": 382032,
+          "start_ticks": "353973710"
+        },
+        {
+          "pid": 382033,
+          "start_ticks": "353973711"
+        },
+        {
+          "pid": 382034,
+          "start_ticks": "353973712"
+        },
+        {
+          "pid": 382035,
+          "start_ticks": "353973714"
+        }
+      ]
+    },
+    "lock": {
+      "holders": [],
+      "present": true,
+      "readable": true
+    },
+    "reason": "terminal_idle",
+    "safe": true
+  },
+  "bounded_error_logs": {
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-0.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-1.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-2.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-3.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-4.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-5.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-6.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/FIT-CENSUS-AGGREGATE.ranks/processes/rank-7.log": "LLVM ERROR: IO failure on output stream: File too large\n",
+    "evidence/controller.log": "{\"event\": \"component_released\", \"phase\": \"fit-census\", \"pid\": 382026, \"start_ticks\": \"353973261\", \"at\": 1793512350.0179937}\n",
+    "evidence/fit-census-component.log": "{\"result\": {\"status\": \"failed\", \"exit_codes\": {\"rank-6\": 1, \"rank-7\": 1, \"rank-0\": 1, \"rank-1\": -15, \"rank-2\": -15, \"rank-3\": 1, \"rank-4\": 1, \"rank-5\": -15}, \"expected_ranks\": 8}, \"world_size\": 8, \"output\": \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/R134R1-FIT-CENSUS-20261101/evidence/FIT-CENSUS-AGGREGATE.json\"}\n"
+  },
+  "context_sha256": "45e47556415024e51ba2a007c2209fd457d7fb846d74ad6cbc5948a12c4a181c",
+  "cpu_allocation_sha256": "2171235fd9d06311af95898e8dbada0d8f5064e590f2b40f3a13df2c198d15e8",
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "git_commit": "a5a356f8c7dddfc00915100fe4d1f580159cb0d2",
+  "identity": {
+    "owner": {
+      "active": false,
+      "pid": 382025,
+      "present": true,
+      "readable": true,
+      "start_ticks": "353972861",
+      "state": "Z"
+    },
+    "owner_expected": {
+      "pgrp": 382025,
+      "pid": 382025,
+      "start_ticks": "353972861",
+      "state": "R"
+    },
+    "owner_match": true,
+    "owner_status": "exited",
+    "rank_count": 8,
+    "rank_matches": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "rank_status": [
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing"
+    ],
+    "ranks": [
+      {
+        "active": false,
+        "pid": 382028,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382029,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382030,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382031,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382032,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382033,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382034,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      },
+      {
+        "active": false,
+        "pid": 382035,
+        "present": false,
+        "readable": true,
+        "start_ticks": null,
+        "state": null
+      }
+    ],
+    "ranks_expected": [
+      {
+        "pid": 382028,
+        "start_ticks": "353973704"
+      },
+      {
+        "pid": 382029,
+        "start_ticks": "353973706"
+      },
+      {
+        "pid": 382030,
+        "start_ticks": "353973707"
+      },
+      {
+        "pid": 382031,
+        "start_ticks": "353973708"
+      },
+      {
+        "pid": 382032,
+        "start_ticks": "353973710"
+      },
+      {
+        "pid": 382033,
+        "start_ticks": "353973711"
+      },
+      {
+        "pid": 382034,
+        "start_ticks": "353973712"
+      },
+      {
+        "pid": 382035,
+        "start_ticks": "353973714"
+      }
+    ]
+  },
+  "model_loads_not_inferred_from_spawn": true,
+  "observed_at": 1793512519.6954226,
+  "phase": "terminal",
+  "result": {
+    "actualsafe": {
+      "cards": [
+        {
+          "busy_percent": 0,
+          "pci": "0000:09:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:36:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:55:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:77:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:85:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:b5:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:d5:00.0",
+          "vram_used_bytes": 2207744
+        },
+        {
+          "busy_percent": 0,
+          "pci": "0000:f5:00.0",
+          "vram_used_bytes": 2207744
+        }
+      ],
+      "coordinator_live": false,
+      "device_users": [],
+      "live_owned_ranks": [],
+      "lock_identity": [
+        132,
+        19489378671
+      ],
+      "output_bytes": 15960,
+      "parent_lock_held": true,
+      "safe": true,
+      "scan_denied": 0
+    },
+    "completed_count": null,
+    "ended_at": 1793512362.7040284,
+    "error": "RuntimeError: component not completed: {'status': 'timeout', 'exit_code': 1, 'reason': None}",
+    "hard_deadline_at": 1793514145.771763,
+    "metrics": null,
+    "mode": "fit-census",
+    "owner": {
+      "pgrp": 382025,
+      "pid": 382025,
+      "start_ticks": "353972861",
+      "state": "R"
+    },
+    "soft_deadline_at": 1793513845.771763,
+    "started_at": 1793512345.771763,
+    "status": "unknown"
+  },
+  "round_id": "R134R1-FIT-CENSUS-20261101",
+  "site_sha256": "82773865b795d08a1698f0f32f09bee930a6534328389b4acaf34be9eaddab8b",
+  "supervised_rank_count": 8
+}
