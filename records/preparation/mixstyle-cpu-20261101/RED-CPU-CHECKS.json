@@ -1,0 +1,51 @@
+{
+  "schema": "mixstyle-local8-cpu-preparation-v1",
+  "stage": "RED",
+  "started_at": 1793492872.755757,
+  "finished_at": 1793492872.8086917,
+  "base_git": "307d7ee362a0553cfc9c7568c9814f8c546e7276",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/mixstyle-cpu-20261101-7c17/source",
+  "tests_run": 2,
+  "failures": 2,
+  "errors": 0,
+  "passed": false,
+  "source_sha256": {
+    "runtime/bundle/retrain/models.py": "b81c2a11f0eb814fb7343f93bdbe7f1852f5b7b6f8b5bee4db8ca0cfa33d1dd4",
+    "runtime/bundle/retrain/age.py": "6ce43997a70804d60b56bb9b4e5d2939a0e9c465b4cba5bd728865ae68c5d06e",
+    "runtime/bundle/retrain/config.py": "0c39bb6cdb7674db72c4ed6c30544af6ad1cc8c0781477396cba43a1c7c71047",
+    "runtime/bundle/retrain/distributed_engine.py": "761770a2445bbf1ff8796949ec408cb6ee631213a6c6ab150187f10f566194e8",
+    "runtime/bundle/retrain/engine.py": "eaffd55b2dbf6757a8c76e33c44c16eb71f92bf660bec21b0423b686b0b1d99a",
+    "runtime/bundle/retrain/inference.py": "47017a65ecd7e229fcf5502b74cbe1b4644e33dcd8ab59acd56df4586f52e321",
+    "runtime/bundle/retrain/experiment91.py": "36bbf0a5893d00f42e11806858bac97baa6da2f73254ff80957f398b66e0a084",
+    "tests/test_mixstyle.py": "7a30acf5d12145b749ff4839ece92bcf85bc3b6975bba6e21d64694d6dee466c"
+  },
+  "compiled": [],
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "torch_threads": 2,
+  "interop_threads": 1,
+  "gpu_initialized": false,
+  "gpu_visibility": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HIP_VISIBLE_DEVICES": "",
+    "ROCR_VISIBLE_DEVICES": ""
+  },
+  "allocation_sha256": "672ddae2788b8a81d6421eee980cfee31db548f56f664934f64f93433818492a",
+  "public_weights_loaded": false,
+  "normal_formal_run": false,
+  "new_GPU_adopted": false,
+  "active_R133_run_git_unchanged": "a6f2e72e887ac57125a720ffbfb9ea76730162f4"
+}

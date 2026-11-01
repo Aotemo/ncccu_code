@@ -686,6 +686,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 timing['measurement_started_at']=ctx.broadcast(time.time() if ctx.primary else None)
             started=time.monotonic();local_indices=[];loss_sum=0.0;waiting=0.0
             primary_inputs=view_inputs=0
+            mixstyle_trace=[] if job.get('mixstyle_policy') is not None else None
             mirror.capture()
             for micro in range(plan['accumulation']):
                 from .age import unpack_batch,forward
@@ -714,7 +715,13 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         proofs=ctx.values(mixup_proof)
                         if ctx.primary:atomic_json(folder/'mixup-initial-ranks.json',proofs)
                 with single._autocast(device,job['precision']):
-                    logits=forward(model,images,age_features,job).reshape(-1)
+                    if job.get('mixstyle_policy') is None:
+                        logits=forward(model,images,age_features,job).reshape(-1)
+                    else:
+                        mixstyle_context={'attempted_before_increment':attempted,
+                            'rank':ctx.rank,'micro':micro,'trace':mixstyle_trace}
+                        logits=forward(model,images,age_features,job,
+                            mixstyle_context=mixstyle_context).reshape(-1)
                     if pairwise:
                         global_logits,global_targets=gather_pairwise_inputs(logits,labels)
                         if job.get('output_regularization') is None:
@@ -877,6 +884,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         'original_positive_mass':sum(manifest['rows'][i]['label'] for i in ids),
                         'mixed_positive_mass':float(labels.sum())}
                     update['mixup']=trace
+                if mixstyle_trace is not None:
+                    update['mixstyle']=mixstyle_trace
                 updates=ctx.values(update)
                 losses=[item['loss'] for item in updates]
                 mixup_traces=[item['mixup'] for item in updates] if job.get('mixup') is not None else None
@@ -886,7 +895,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                     view_inputs=sum(item['view_inputs'] for item in updates),
                     pairwise_global=updates[0]['pairwise'] if pairwise else None,
                     global_loss=sum(losses)/len(losses) if pairwise else None,
-                    rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')+(('positive_inputs',) if pairwise else ())} for item in updates])
+                    rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')
+                        +(('positive_inputs',) if pairwise else ())
+                        +(('mixstyle',) if mixstyle_trace is not None else ())} for item in updates])
                 status('running')
             if overflows>=100:save();raise FloatingPointError('100 consecutive DDP AMP overflows')
             if overflow_guard:

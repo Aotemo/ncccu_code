@@ -460,8 +460,11 @@ def create_model(job, initialize=True):
         def __init__(self, network):
             super().__init__()
             self.network = network
-        def forward(self, images, age_features=None):
-            if hasattr(self, 'attention_pool_weight'):
+        def forward(self, images, age_features=None, *, mixstyle_context=None):
+            if self.training and getattr(self, 'mixstyle_policy', None) is not None:
+                from .mixstyle import training_image_logits
+                logits = training_image_logits(self, images, mixstyle_context)
+            elif hasattr(self, 'attention_pool_weight'):
                 from .attention_pool import image_logits
                 logits = image_logits(self, images)
             elif hasattr(self, 'stage3_residual_weight'):
@@ -477,6 +480,9 @@ def create_model(job, initialize=True):
     if job.get('age') is not None:
         from .age import attach_age
         attach_age(result, job['age'])
+    if job.get('mixstyle_policy') is not None:
+        from .mixstyle import attach_mixstyle
+        attach_mixstyle(result, job)
     if job.get('tri3_downsample_policy') is not None:
         from .tri3_downsample import attach_tri3
         attach_tri3(result, job)

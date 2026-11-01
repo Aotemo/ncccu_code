@@ -327,6 +327,8 @@ def run_training(job, manifest, data_root, run_dir, identity, resume=False,
     most recent committed checkpoint, so half-updated parameters never replace
     a known-good recovery point.
     """
+    if job.get('mixstyle_policy') is not None:
+        raise ValueError('MixStyle requires the audited eight-rank entry with explicit attempt context')
     if job.get('output_regularization') is not None:
         raise ValueError('raw-logit regularization requires the audited DDP pairwise entry point')
     if (job.get('loss') or {}).get('kind') in PAIRWISE_LOSS_KINDS:

@@ -59,6 +59,9 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    if job.get('mixstyle_policy') is not None:
+        from .mixstyle import validate_job as validate_mixstyle_job
+        validate_mixstyle_job(job)
     if job.get('tri3_downsample_policy') is not None:
         from .tri3_downsample import validate_job as validate_tri3_job
         validate_tri3_job(job)
@@ -289,9 +292,9 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy'), 'job')
         job.update(item)
-        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy'):
+        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy'):
             if job.get(key) is None:
                 job.pop(key, None)
         cfg['jobs'].append(job)
@@ -391,7 +394,7 @@ def validate_split(split):
 
 def job_contract(job):
     result = copy.deepcopy(job)
-    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy'):
+    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy'):
         if result.get(key) is None:
             result.pop(key, None)
     for key in ('device', 'workers', 'eval_workers', 'prefetch_factor', 'checkpoint_seconds',

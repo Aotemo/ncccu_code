@@ -1,0 +1,262 @@
+{
+  "schema": "mixstyle-two-scoped-targets-v1",
+  "status": "cpu_targets_completed",
+  "successful_targets": [
+    {
+      "name": "scalar_detached_gradient_and_private_rng",
+      "execution": "GREEN-1",
+      "passed": true
+    },
+    {
+      "name": "native_None_save_inference_replay_eval",
+      "execution": "GREEN-2",
+      "passed": true
+    }
+  ],
+  "executions": {
+    "GREEN-1": {
+      "schema": "mixstyle-local8-cpu-preparation-v1",
+      "stage": "GREEN-1",
+      "started_at": 1793493214.6872928,
+      "finished_at": 1793493221.13539,
+      "base_git": "307d7ee362a0553cfc9c7568c9814f8c546e7276",
+      "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/mixstyle-cpu-20261101-7c17/source",
+      "tests_run": 2,
+      "failures": 0,
+      "errors": 1,
+      "passed": false,
+      "source_sha256": {
+        "runtime/bundle/retrain/mixstyle.py": "48a734117685e939f89d087514565282b2e1b6948151d2ae0957815914e9304a",
+        "runtime/bundle/retrain/models.py": "2884c68c2aa2bc4ccdd597c4a9f030647ee1c802dc9bdb4d6535f499584f4ae0",
+        "runtime/bundle/retrain/age.py": "8b2fe4177f8bb17ab0a97f4bd599f0da507232f17ede760780e7ab8c34aa7652",
+        "runtime/bundle/retrain/config.py": "5125fa3083edca87ef8f9588e4f06a149bdcfcee8e92ae96a73591a252ef7025",
+        "runtime/bundle/retrain/distributed_engine.py": "5e335808fc8e6b9b97ef278eb634dd2869092924c89af20871b8f1235a0f9a5f",
+        "runtime/bundle/retrain/engine.py": "9bcba36f9f9312e557558cb5ff8820bf437257e497199205818c665ffb81ca13",
+        "runtime/bundle/retrain/inference.py": "51d778577f2c69a9f9473bdc375b9eb0ff4a54d389656e9627407f714e5bd20a",
+        "runtime/bundle/retrain/experiment91.py": "6524bec69697a4edbdba7e4696ac936974caed21feffcbe2893d29e058b629bc",
+        "tests/test_mixstyle.py": "7a30acf5d12145b749ff4839ece92bcf85bc3b6975bba6e21d64694d6dee466c"
+      },
+      "compiled": [
+        "runtime/bundle/retrain/mixstyle.py",
+        "runtime/bundle/retrain/models.py",
+        "runtime/bundle/retrain/age.py",
+        "runtime/bundle/retrain/config.py",
+        "runtime/bundle/retrain/distributed_engine.py",
+        "runtime/bundle/retrain/engine.py",
+        "runtime/bundle/retrain/inference.py",
+        "runtime/bundle/retrain/experiment91.py",
+        "tests/test_mixstyle.py"
+      ],
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nice": 19,
+      "torch_threads": 2,
+      "interop_threads": 1,
+      "gpu_initialized": false,
+      "gpu_visibility": {
+        "CUDA_VISIBLE_DEVICES": "",
+        "HIP_VISIBLE_DEVICES": "",
+        "ROCR_VISIBLE_DEVICES": ""
+      },
+      "allocation_sha256": "672ddae2788b8a81d6421eee980cfee31db548f56f664934f64f93433818492a",
+      "public_weights_loaded": false,
+      "normal_formal_run": false,
+      "new_GPU_adopted": false,
+      "active_R133_run_git_unchanged": "a6f2e72e887ac57125a720ffbfb9ea76730162f4"
+    },
+    "GREEN-2": {
+      "schema": "mixstyle-local8-cpu-preparation-v1",
+      "stage": "GREEN-2",
+      "started_at": 1793493506.551125,
+      "finished_at": 1793493513.4545393,
+      "base_git": "307d7ee362a0553cfc9c7568c9814f8c546e7276",
+      "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/mixstyle-cpu-20261101-7c17/source",
+      "tests_run": 1,
+      "failures": 0,
+      "errors": 0,
+      "selected_test": "test_native_None_contract_and_saved_inference_attempt_replay_eval_disabled",
+      "passed": true,
+      "source_sha256": {
+        "runtime/bundle/retrain/mixstyle.py": "48a734117685e939f89d087514565282b2e1b6948151d2ae0957815914e9304a",
+        "runtime/bundle/retrain/models.py": "2884c68c2aa2bc4ccdd597c4a9f030647ee1c802dc9bdb4d6535f499584f4ae0",
+        "runtime/bundle/retrain/age.py": "8b2fe4177f8bb17ab0a97f4bd599f0da507232f17ede760780e7ab8c34aa7652",
+        "runtime/bundle/retrain/config.py": "5125fa3083edca87ef8f9588e4f06a149bdcfcee8e92ae96a73591a252ef7025",
+        "runtime/bundle/retrain/distributed_engine.py": "5e335808fc8e6b9b97ef278eb634dd2869092924c89af20871b8f1235a0f9a5f",
+        "runtime/bundle/retrain/engine.py": "9bcba36f9f9312e557558cb5ff8820bf437257e497199205818c665ffb81ca13",
+        "runtime/bundle/retrain/inference.py": "51d778577f2c69a9f9473bdc375b9eb0ff4a54d389656e9627407f714e5bd20a",
+        "runtime/bundle/retrain/experiment91.py": "6524bec69697a4edbdba7e4696ac936974caed21feffcbe2893d29e058b629bc",
+        "tests/test_mixstyle.py": "aa0ff69ae07928ca5d71735d7b605d647c00a8ae9031338292fd0f4c09049b6c"
+      },
+      "compiled": [
+        "runtime/bundle/retrain/mixstyle.py",
+        "runtime/bundle/retrain/models.py",
+        "runtime/bundle/retrain/age.py",
+        "runtime/bundle/retrain/config.py",
+        "runtime/bundle/retrain/distributed_engine.py",
+        "runtime/bundle/retrain/engine.py",
+        "runtime/bundle/retrain/inference.py",
+        "runtime/bundle/retrain/experiment91.py",
+        "tests/test_mixstyle.py"
+      ],
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nice": 19,
+      "torch_threads": 2,
+      "interop_threads": 1,
+      "gpu_initialized": false,
+      "gpu_visibility": {
+        "CUDA_VISIBLE_DEVICES": "",
+        "HIP_VISIBLE_DEVICES": "",
+        "ROCR_VISIBLE_DEVICES": ""
+      },
+      "allocation_sha256": "672ddae2788b8a81d6421eee980cfee31db548f56f664934f64f93433818492a",
+      "public_weights_loaded": false,
+      "normal_formal_run": false,
+      "new_GPU_adopted": false,
+      "active_R133_run_git_unchanged": "a6f2e72e887ac57125a720ffbfb9ea76730162f4",
+      "resource_estimate": {
+        "kind": "static_materialization_and_expression_counts_not_benchmark",
+        "sites": [
+          {
+            "feature_index": 1,
+            "channels": 96,
+            "side_at_input512": 128,
+            "per_rank_batch": 8,
+            "FP32_full_feature_tensor_bytes": 50331648,
+            "one_BC_statistic_tensor_bytes": 3072,
+            "full_feature_scalar_arithmetic_if_active": 50331648,
+            "separate_spatial_reductions_if_active": [
+              "mean",
+              "variance_correction1"
+            ],
+            "lambda_FP32_and_permutation_int64_device_bytes_if_active": 96
+          },
+          {
+            "feature_index": 3,
+            "channels": 192,
+            "side_at_input512": 64,
+            "per_rank_batch": 8,
+            "FP32_full_feature_tensor_bytes": 25165824,
+            "one_BC_statistic_tensor_bytes": 6144,
+            "full_feature_scalar_arithmetic_if_active": 25165824,
+            "separate_spatial_reductions_if_active": [
+              "mean",
+              "variance_correction1"
+            ],
+            "lambda_FP32_and_permutation_int64_device_bytes_if_active": 96
+          }
+        ],
+        "largest_new_explicit_full_feature_tensor_bytes": 50331648,
+        "both_active_full_feature_scalar_arithmetic_per_rank_forward": 75497472,
+        "counts_exclude_reduction_implementation_backward_workspace_and_simultaneous_lifetimes": true,
+        "GPU_peak_wall_budget_and_100ms_proven": false,
+        "extra_forward_or_benchmark": false
+      }
+    }
+  },
+  "execution_receipts_sha256": {
+    "GREEN-1": "c2c7a284ebcb536e220d29dd1e767cf8815c920d3649480e0843391aea53abcc",
+    "GREEN-2": "97de50c8ea315242a236b2dc7724109606744d267c722db0fdf0c1cd3a815471"
+  },
+  "CPU_guards": {
+    "GREEN-1": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r132-observer-cpu-20261101-0630-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-5_mm0k8p/CPU-RECEIPT.json",
+      "sha256": "63b30fbb6dca9918878af304e751132a89d5e265a713d0df1a19e71ad53ef74d",
+      "exit_code": 1
+    },
+    "GREEN-2": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r132-observer-cpu-20261101-0630-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-6eiovtrp/CPU-RECEIPT.json",
+      "sha256": "c90334b9a139116409f651df44b05e956b940da1098387916858fb5b4fbe8f77",
+      "exit_code": 0
+    }
+  },
+  "eight_production_sources_unchanged_between_runs": true,
+  "test_only_delta": "EMA fixture now supplies its existing required RULE; passed first target not rerun",
+  "single_final_run_of_both_tests_claimed": false,
+  "final_source_sha256": {
+    "runtime/bundle/retrain/mixstyle.py": "48a734117685e939f89d087514565282b2e1b6948151d2ae0957815914e9304a",
+    "runtime/bundle/retrain/models.py": "2884c68c2aa2bc4ccdd597c4a9f030647ee1c802dc9bdb4d6535f499584f4ae0",
+    "runtime/bundle/retrain/age.py": "8b2fe4177f8bb17ab0a97f4bd599f0da507232f17ede760780e7ab8c34aa7652",
+    "runtime/bundle/retrain/config.py": "5125fa3083edca87ef8f9588e4f06a149bdcfcee8e92ae96a73591a252ef7025",
+    "runtime/bundle/retrain/distributed_engine.py": "5e335808fc8e6b9b97ef278eb634dd2869092924c89af20871b8f1235a0f9a5f",
+    "runtime/bundle/retrain/engine.py": "9bcba36f9f9312e557558cb5ff8820bf437257e497199205818c665ffb81ca13",
+    "runtime/bundle/retrain/inference.py": "51d778577f2c69a9f9473bdc375b9eb0ff4a54d389656e9627407f714e5bd20a",
+    "runtime/bundle/retrain/experiment91.py": "6524bec69697a4edbdba7e4696ac936974caed21feffcbe2893d29e058b629bc",
+    "tests/test_mixstyle.py": "aa0ff69ae07928ca5d71735d7b605d647c00a8ae9031338292fd0f4c09049b6c"
+  },
+  "compiled": [
+    "runtime/bundle/retrain/mixstyle.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/age.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/distributed_engine.py",
+    "runtime/bundle/retrain/engine.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tests/test_mixstyle.py"
+  ],
+  "resource_estimate": {
+    "kind": "static_materialization_and_expression_counts_not_benchmark",
+    "sites": [
+      {
+        "feature_index": 1,
+        "channels": 96,
+        "side_at_input512": 128,
+        "per_rank_batch": 8,
+        "FP32_full_feature_tensor_bytes": 50331648,
+        "one_BC_statistic_tensor_bytes": 3072,
+        "full_feature_scalar_arithmetic_if_active": 50331648,
+        "separate_spatial_reductions_if_active": [
+          "mean",
+          "variance_correction1"
+        ],
+        "lambda_FP32_and_permutation_int64_device_bytes_if_active": 96
+      },
+      {
+        "feature_index": 3,
+        "channels": 192,
+        "side_at_input512": 64,
+        "per_rank_batch": 8,
+        "FP32_full_feature_tensor_bytes": 25165824,
+        "one_BC_statistic_tensor_bytes": 6144,
+        "full_feature_scalar_arithmetic_if_active": 25165824,
+        "separate_spatial_reductions_if_active": [
+          "mean",
+          "variance_correction1"
+        ],
+        "lambda_FP32_and_permutation_int64_device_bytes_if_active": 96
+      }
+    ],
+    "largest_new_explicit_full_feature_tensor_bytes": 50331648,
+    "both_active_full_feature_scalar_arithmetic_per_rank_forward": 75497472,
+    "counts_exclude_reduction_implementation_backward_workspace_and_simultaneous_lifetimes": true,
+    "GPU_peak_wall_budget_and_100ms_proven": false,
+    "extra_forward_or_benchmark": false
+  },
+  "public_fresh_or_normal_formal_or_GPU_adopted": false,
+  "active_R133_run_git_unchanged": "a6f2e72e887ac57125a720ffbfb9ea76730162f4"
+}

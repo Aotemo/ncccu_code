@@ -199,6 +199,8 @@ def science_configuration():
                 or (value.get('candidate_profile') != TRI3_DOWNSAMPLE_SMALL_BINDING
                     and (value.get('job', {}).get('tri3_downsample_policy') is not None
                          or value.get('candidate', {}).get('tri3_downsample_policy') is not None))
+                or value.get('job', {}).get('mixstyle_policy') is not None
+                or value.get('candidate', {}).get('mixstyle_policy') is not None
                 or (value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING
                     and (value.get('job', {}).get('tri3_downsample_policy') != TRI3_RULE
                          or value.get('candidate', {}).get('tri3_downsample_policy') != TRI3_RULE
@@ -540,6 +542,8 @@ def validate_job(job):
         'output_regularization': candidate().get('output_regularization'),
         # Only the exact registered R133 candidate carries these three operators.
         'tri3_downsample_policy': candidate().get('tri3_downsample_policy'),
+        # MixStyle is optional CPU preparation, without an adopted profile.
+        'mixstyle_policy': None,
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -642,6 +646,10 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['job'].get('mixstyle_policy') is not None:
+        from .mixstyle import describe_mixstyle
+        result['mixstyle'] = describe_mixstyle(model, {**science_configuration()['job'],
+                                                    'age': resolved_age_spec()})
     if science_configuration()['job'].get('tri3_downsample_policy') is not None:
         from .tri3_downsample import describe_tri3
         result['tri3_downsample'] = describe_tri3(model, {**science_configuration()['job'],
@@ -727,6 +735,8 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if configured.get('mixstyle_policy') is not None or value.get('mixstyle') is not None:
+        raise ValueError('MixStyle has no adopted formal profile')
     if configured.get('tri3_downsample_policy') != candidate().get('tri3_downsample_policy'):
         raise ValueError('Tri3 job has no matching registered candidate identity')
     if configured.get('tri3_downsample_policy') is not None:

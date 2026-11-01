@@ -102,7 +102,10 @@ def residual(model, image_logit, age_features):
         return image_logit.reshape(-1).float() + (age_features * model.age_weight).sum(dim=1)
 
 
-def forward(model, images, age_features, job):
+def forward(model, images, age_features, job, *, mixstyle_context=None):
+    if job.get('mixstyle_policy') is not None:
+        return (model(images, age_features, mixstyle_context=mixstyle_context) if enabled(job)
+                else model(images, mixstyle_context=mixstyle_context))
     return model(images, age_features) if enabled(job) else model(images)
 
 

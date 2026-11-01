@@ -1,0 +1,277 @@
+{
+  "formula_rng": {
+    "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/mixstyle-cpu-20261101-7c17/GREEN-1-TEST-OUTPUT.txt",
+    "source_sha256": "1a6add1292070f11e7f0fcd302234a679864a9dcb24cdc5979fd3460e9f6cc93",
+    "actual": {
+      "traces": [
+        {
+          "attempted_before_increment": 0,
+          "rank": 0,
+          "micro": 0,
+          "site_index": 1,
+          "rng_seed_u64": 14311885875622800179,
+          "gate_draw": 0.3600145209684765,
+          "active": true,
+          "lambdas": [
+            0.9999999997882189,
+            0.9999999998919916,
+            0.9675712409803788,
+            0.9134815713979121,
+            0.004290180138545322,
+            0.15857613488386377,
+            0.9999999999994289,
+            6.103751644217968e-05
+          ],
+          "permutation": [
+            4,
+            3,
+            2,
+            7,
+            0,
+            6,
+            1,
+            5
+          ]
+        },
+        {
+          "attempted_before_increment": 0,
+          "rank": 0,
+          "micro": 0,
+          "site_index": 3,
+          "rng_seed_u64": 9603195455342786395,
+          "gate_draw": 0.43352639149948136,
+          "active": true,
+          "lambdas": [
+            9.397650191041749e-06,
+            8.000180832793278e-16,
+            0.999999999999512,
+            0.6486146766528122,
+            0.999999999954683,
+            0.9996558510736138,
+            0.9999999999999998,
+            0.0007959186266976214
+          ],
+          "permutation": [
+            1,
+            0,
+            6,
+            5,
+            7,
+            3,
+            4,
+            2
+          ]
+        },
+        {
+          "attempted_before_increment": 1,
+          "rank": 0,
+          "micro": 0,
+          "site_index": 1,
+          "rng_seed_u64": 14708340182783436215,
+          "gate_draw": 0.952780406119219,
+          "active": false,
+          "lambdas": null,
+          "permutation": null
+        },
+        {
+          "attempted_before_increment": 1,
+          "rank": 0,
+          "micro": 0,
+          "site_index": 3,
+          "rng_seed_u64": 8042182089340126947,
+          "gate_draw": 0.8453267217227496,
+          "active": false,
+          "lambdas": null,
+          "permutation": null
+        },
+        {
+          "attempted_before_increment": 1,
+          "rank": 1,
+          "micro": 0,
+          "site_index": 1,
+          "rng_seed_u64": 541412519221944862,
+          "gate_draw": 0.2374470164828968,
+          "active": true,
+          "lambdas": [
+            0.00014792923627017702,
+            3.9158611334294826e-05,
+            0.9999853009891163,
+            0.03046540159462881,
+            0.9999991881717161,
+            0.0008911325333813381,
+            1.0293288305520556e-07,
+            0.8073647656115812
+          ],
+          "permutation": [
+            5,
+            7,
+            0,
+            3,
+            1,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "attempted_before_increment": 1,
+          "rank": 1,
+          "micro": 0,
+          "site_index": 3,
+          "rng_seed_u64": 11543345515051964530,
+          "gate_draw": 0.18760915249138177,
+          "active": true,
+          "lambdas": [
+            0.2195116552327291,
+            0.03423152674355243,
+            0.9978341620219543,
+            0.06426259501264692,
+            0.9999999999997774,
+            8.402628585863785e-06,
+            3.984020889561267e-08,
+            0.9994380254720744
+          ],
+          "permutation": [
+            1,
+            6,
+            4,
+            7,
+            3,
+            5,
+            2,
+            0
+          ]
+        },
+        {
+          "attempted_before_increment": 1,
+          "rank": 1,
+          "micro": 1,
+          "site_index": 1,
+          "rng_seed_u64": 9084428302393334282,
+          "gate_draw": 0.8454900098444145,
+          "active": false,
+          "lambdas": null,
+          "permutation": null
+        },
+        {
+          "attempted_before_increment": 1,
+          "rank": 1,
+          "micro": 1,
+          "site_index": 3,
+          "rng_seed_u64": 18160157960043279102,
+          "gate_draw": 0.8524731363518921,
+          "active": false,
+          "lambdas": null,
+          "permutation": null
+        }
+      ],
+      "zero_variance_and_detached_partner_gradient": true,
+      "GPU_initialized": false
+    }
+  },
+  "saved_replay": {
+    "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/mixstyle-cpu-20261101-7c17/GREEN-2-TEST-OUTPUT.txt",
+    "source_sha256": "ca2c5ee09ec5e4d1c621d69c7222d93bce04027cd0698d2af2cac32484f59de4",
+    "actual": {
+      "native_parameter_tensors": 345,
+      "native_buffers": 0,
+      "descriptor": {
+        "policy": {
+          "version": "convnext-small-local8-mixstyle13-v1",
+          "sites": [
+            1,
+            3
+          ],
+          "probability": 0.5,
+          "alpha": 0.1,
+          "epsilon": 1e-06,
+          "variance_correction": 1,
+          "scope": "rank_local8",
+          "salt": "mixstyle13-local8-v1",
+          "rng": "sha256-first8-big-private-python-v1"
+        },
+        "sites": [
+          {
+            "feature_index": 1,
+            "feature_name": "network.features.1",
+            "channels": 96,
+            "blocks": 3
+          },
+          {
+            "feature_index": 3,
+            "feature_name": "network.features.3",
+            "channels": 192,
+            "blocks": 3
+          }
+        ],
+        "training_only": true,
+        "persistent_rng_state": false
+      },
+      "fixture_attempted_updates": 6,
+      "fixture_successful_updates": 4,
+      "actual_replayed_traces": [
+        {
+          "attempted_before_increment": 6,
+          "rank": 0,
+          "micro": 0,
+          "site_index": 1,
+          "rng_seed_u64": 9656376091157984348,
+          "gate_draw": 0.42951265251883886,
+          "active": true,
+          "lambdas": [
+            0.9999842758528636,
+            1.313867521830516e-09,
+            5.553595761277392e-06,
+            9.145314043303467e-08,
+            0.0011166766963829485,
+            0.5197802242862791,
+            4.556992425040399e-06,
+            0.9995696222083589
+          ],
+          "permutation": [
+            4,
+            6,
+            3,
+            7,
+            5,
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "attempted_before_increment": 6,
+          "rank": 0,
+          "micro": 0,
+          "site_index": 3,
+          "rng_seed_u64": 1553637678915237677,
+          "gate_draw": 0.4476543284449993,
+          "active": true,
+          "lambdas": [
+            0.9999542038336909,
+            2.6972086113518446e-06,
+            0.9999951922458267,
+            1.0993151227751652e-11,
+            5.50013322042612e-05,
+            0.9999946935270825,
+            0.035264724454784076,
+            0.0017525904240385504
+          ],
+          "permutation": [
+            4,
+            5,
+            2,
+            0,
+            3,
+            1,
+            7,
+            6
+          ]
+        }
+      ],
+      "None_value_gradient_rng_unchanged": true,
+      "online_EMA_eval_disabled": true,
+      "GPU_initialized": false
+    }
+  }
+}
