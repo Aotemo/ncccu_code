@@ -21,6 +21,30 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R140_conditional_seed27_identity_and_exact_R139_recipe(self):
+        self.assertTrue(hasattr(experiment, 'LOCAL_CONTRAST_SMALL_SEED27_BINDING'),
+                        'conditional local contrast seed27 binding is missing')
+        left=json.loads((ROOT/'configs/R139-SCIENCE.json').read_text())
+        path=ROOT/'configs/R140-SCIENCE.json';right=json.loads(path.read_text())
+        self.assertEqual(right['candidate_profile'],experiment.LOCAL_CONTRAST_SMALL_SEED27_BINDING)
+        self.assertEqual(right['candidate']['experiment_order'],52)
+        self.assertEqual(right['job']['seed'],20261027)
+        self.assertEqual(right['initial_model_tensor_sha256'],
+                         json.loads((ROOT/'configs/R108-SCIENCE.json').read_text())['initial_model_tensor_sha256'])
+        site=copy.deepcopy(self.site)
+        site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds/local-contrast-seed27-fixture'),
+                    **{k:str(ROOT/v) for k,v in right['paths'].items()})
+        site['science']={'binding_version':right['candidate_profile'],'candidate':right['candidate'],
+                        'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+        self.path.write_text(json.dumps(site))
+        self.assertEqual(experiment.candidate_from_configuration(experiment.science_configuration()),right['candidate'])
+        self.assertEqual(experiment.candidate(),right['candidate'])
+        for value in (left,right):
+            for key in ('candidate_profile','comparison_note','initial_model_tensor_sha256'):value.pop(key)
+            for key in ('id','experiment_order'):value['candidate'].pop(key)
+            value['job'].pop('seed')
+        self.assertEqual(left,right)
+
     def test_R138_Lion27_and_R139_local_contrast_fixed_science(self):
         from retrain import age, config
         from retrain.persistence import canonical_digest

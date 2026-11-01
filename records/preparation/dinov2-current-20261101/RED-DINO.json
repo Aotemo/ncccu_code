@@ -1,0 +1,30 @@
+{
+  "phase": "RED-DINO-1",
+  "started_at": 1793547843.1196215,
+  "ended_at": 1793547844.2649198,
+  "targets": [
+    "test_dinov2_current.DINOCurrentTest.test_original_public_code_strict_factory_504_and_unique_empty_Adam",
+    "test_dinov2_current.DINOCurrentTest.test_current_science_eight_rank_configuration_variant_load_and_geometry"
+  ],
+  "tests": 2,
+  "failures": 2,
+  "errors": 0,
+  "successful": false,
+  "GPU_initialized": false,
+  "compiled": [],
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "99850ca2a2020b59e0e51003d6aa15b980206d6d89c4a5cbc7b191b1c637cdb7",
+    "runtime/bundle/retrain/dinov2_model.py": "44ad8641fd8595f50317050a1a981be61ad6f1cfcda46e265f19c1aacf053ab2",
+    "runtime/bundle/retrain/models.py": "88b8561fc4e23ca1863075d4656630ac9900b433fb54ba57a56f16cbfa036b18",
+    "runtime/bundle/retrain/experiment91.py": "a413d2daeb44e0caa3d5b2bb6240c7b1a6b1416282c9600506a3c67e20d5fc1b",
+    "runtime/bundle/retrain/single91.py": "df2ef3f7a2e2852fbb7bffdc5d4eb331c9493c5324121339af15505c63495075",
+    "tools/activation/prepare.py": "20935efafbcb2bb56c475a092f572c938300ef3408bde49f7aaad8dc9a2da7f4",
+    "tools/validation/check_candidate.py": "370016775dae64bcacaa088292e8952e4ac65410f71adf135d54631fcb4157ab",
+    "tests/test_dinov2_current.py": "018ffdf663879117ca6d98a098696ac2e009b3d531eea4cb63b9a3b792f09d91",
+    "tests/test_candidate_binding.py": "15623e45998f8eae35e2067c1b7d8d089fd2ba435a2cfa89d5ae1aebe7809a5c"
+  },
+  "science_sha256": {
+    "R140-SCIENCE.json": "43aa4b68617821999d272a9fb803fa10c10e39751d066ee131f02fed5f6ec928",
+    "R141-SCIENCE.json": "36ec5d7b797350a1969ea3b517de5fdcafb2330297c513c09cf99fea0cdb17b4"
+  }
+}

@@ -150,7 +150,7 @@ def build(args):
         raise ValueError('science profile or configured successful-update schedule differs')
     job = copy.deepcopy(science['job'])
     job.update(age=ex.resolved_age_spec(), experiment91=ex.binding(),
-        initialization={'kind': 'imagenet', 'format': ex.public_source()['format'],
+        initialization={'kind': ex.public_source().get('kind','imagenet'), 'format': ex.public_source()['format'],
             'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.public_source()['sha256']})
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,
         'run_name': site['round_id'] + f"-8c-{job['model']}-s{job['seed']}-b64-p{job['positive_per_batch']}-fp32",

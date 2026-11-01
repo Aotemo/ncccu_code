@@ -292,7 +292,8 @@ def validate_initialization(initialization):
         return {'kind': 'self_supervised', 'weights_sha256': initialization['sha256'],
                 'provenance_sha256': _hash(meta_path), 'license_sha256': _hash(license_path),
                 'model': meta['model'], 'source_url': meta['source_url'], 'training_data': meta['training_data'],
-                'format': initialization['format'], 'source_commit': meta['commit']}
+                'format': initialization['format'], 'source_commit': meta['commit'],
+                'final_norm_eps':1e-6,'internal_norm_eps':1e-6}
     if (initialization['kind'] == 'imagenet'
             and initialization.get('sha256') == IMAGENET_RESNET['sha256']):
         return validate_imagenet_provenance(initialization)

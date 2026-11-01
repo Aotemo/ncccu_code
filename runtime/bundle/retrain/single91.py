@@ -132,7 +132,7 @@ def freeze_training(folder, destination, *, technical_fixture=False):
     value = {'format': 'single-model-9010-official-freeze-v1', 'experiment91': ex.binding(),
         'cpu_fixture_only': technical_fixture, 'experiment_order': ex.candidate()['experiment_order'],
         'round_id': payload['identity'].get('round_id', folder.parent.name),
-        'precision': 'fp32', 'view': 'identity', 'geometry': {'image_size': 512, 'prepared_size': 512},
+        'precision': 'fp32', 'view': 'identity', 'geometry': input_geometry(),
         'candidate_normalization': payload['candidate_normalization'], 'buffer_sha256': tensor_digest(buffers), 'initialization': payload['identity']['initialization'],
         'selection_rule': ['error_twice_ascending', 'AP_descending', 'successful_update_ascending', 'EMA_priority'],
         'training_completion': complete,
@@ -152,13 +152,18 @@ def freeze_training(folder, destination, *, technical_fixture=False):
     return value
 
 
+def input_geometry():
+    job=ex.science_configuration()['job']
+    return {key:job[key] for key in ('image_size','prepared_size')}
+
+
 def validate_freeze(path, *, allow_fixture=False):
     value = json.loads(Path(path).read_text())
     if value.get('cpu_fixture_only') and not allow_fixture:
         raise ValueError('CPU fixture is barred from official evaluation')
     if (value.get('format') != 'single-model-9010-official-freeze-v1' or value.get('experiment91') != ex.binding()
             or value.get('precision') != 'fp32' or value.get('view') != 'identity' or value.get('experiment_order') != ex.candidate()['experiment_order']
-            or value.get('geometry') != {'image_size': 512, 'prepared_size': 512}
+            or value.get('geometry') != input_geometry()
             or value.get('initialization') != value['identity']['initialization']
             or value.get('official_evaluations_allowed') != int(ex.official_allowed_for_selected(
                 ex.science_configuration().get('official_evaluation'), value['selected']))

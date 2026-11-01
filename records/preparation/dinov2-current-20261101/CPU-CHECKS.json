@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "status": "affected_targets_passed",
+  "passed_targets": 3,
+  "compiled_sources": 9,
+  "at": 1793548775.9524872,
+  "GPU_initialized": false,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "64c34430afe7acbd9c7bb2e0355e912435e29b2d29a83970882775bb13a1ddd1",
+    "runtime/bundle/retrain/dinov2_model.py": "fd9d0bffc195b5775dbabbae614a94cf4120dcac7225f939f75c08a57b620c6c",
+    "runtime/bundle/retrain/models.py": "c22bbb55f1b0ddaf8fd058a209ddc8decb4f996987adc3cd514ca584b478a23a",
+    "runtime/bundle/retrain/experiment91.py": "9f9e8c537a50244bfb9c672d88e1456b02754425f5131a3604ad98fca14c5695",
+    "runtime/bundle/retrain/single91.py": "70da64d91ca5822f45af615ad5a5fe0a179455cbb3c695d0744a87003ddc0ee3",
+    "tools/activation/prepare.py": "774b8ae07d92dbe10c02895005be4447afdb55332ba76fbcc5f4b47deeefa1a1",
+    "tools/validation/check_candidate.py": "1ff8462a9cfc6139f2539954fbb70f19609717a74464895830caa965530a998a",
+    "tests/test_dinov2_current.py": "ef09ae62c193885a1d31fbf8e88efcf2b133cd3b3e0ca291e7657940c786533c",
+    "tests/test_candidate_binding.py": "051151b1e74c2740214d9c7c22376898ba0d9b5075a0bfa830175495bc3f83dc"
+  },
+  "science_sha256": {
+    "R140-SCIENCE.json": "43aa4b68617821999d272a9fb803fa10c10e39751d066ee131f02fed5f6ec928",
+    "R141-SCIENCE.json": "36ec5d7b797350a1969ea3b517de5fdcafb2330297c513c09cf99fea0cdb17b4"
+  },
+  "evidence": [
+    {
+      "label": "GREEN-DINO-1",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-fyzmt1yf/CPU-RECEIPT.json",
+      "sha256": "a52fced1631daa7a2b3e5b65fff6893ef9f9de18f61b3a3971f9a3cccd15475d",
+      "exit_code": 2,
+      "output_sha256": "32a32951c1b98e9338f0fb29b0915235a52289f143ae2b3ece5757e55e55c9e9",
+      "target_result": "native_public_target_passed_other_two_fixture_errors"
+    },
+    {
+      "label": "GREEN-DINO-2",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ev6epn_j/CPU-RECEIPT.json",
+      "sha256": "d3b45e977f2f939d6afaaf5e622d5d1f9bb63ec7bb86901ddb19b42a94c67426",
+      "exit_code": 2,
+      "output_sha256": "67e9f9e05947897c20446c5a8329ff2cedb77e98475cf71251f7c28170dde5f2",
+      "target_result": "conditional_R140_passed_DINO_fixture_error"
+    },
+    {
+      "label": "GREEN-DINO-5",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-35uss_x2/CPU-RECEIPT.json",
+      "sha256": "c65ecadc55aa805bda10e0047009c06f60b4d1c861281cf50fa02f43133737d5",
+      "exit_code": 0,
+      "output_sha256": "4b2180e35c3f3c6b753fa2eecd75ce4dd7db8a04df1fe4e5d57c2fe798cfc4fc",
+      "target_result": "remaining_DINO_target_passed"
+    }
+  ],
+  "passed_target_reuse": {
+    "native_target_and_job_AST_unchanged": true,
+    "conditional_identity_function_AST_unchanged": [
+      "science_configuration",
+      "candidate_from_configuration",
+      "candidate",
+      "validate_job",
+      "resolved_age_spec"
+    ],
+    "native_and_conditional_targets_not_repeated": true,
+    "only_later_production_delta": "DINO normalization validator now exactly matches NumPy linspace final endpoint .1"
+  },
+  "unchanged_runtime_source": {
+    "runtime/bundle/retrain/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime/bundle/retrain/attention_pool.py": "cb319c47c8a0ae99cae151ecc4ff696d4c7023c851043bf4724e29c9a45a966d",
+    "runtime/bundle/retrain/bn_calibration.py": "4ae410a796770292a3f2a00d19b0d8f58c76d330834f2849145e81ed6bac83fb",
+    "runtime/bundle/retrain/classification_loss.py": "849b20c66cd77060464ca41e2320b19caab6966bbe9afe039b35380e94fe67b2",
+    "runtime/bundle/retrain/data.py": "428451392b51b8944c263306d2a6626b1165da7f108f5a6f6d3ca6ed7757e07b",
+    "runtime/bundle/retrain/distributed.py": "88348e6df8a6f2f09d3d112740c1c83622b7ed559291d565ef8ac69573299845",
+    "runtime/bundle/retrain/flair_model.py": "4569ed7aeb884c89138a571bd285af214f5d95c800cd07c885a06e46d321da13",
+    "runtime/bundle/retrain/head_warmup.py": "dbef243091da8c5db3fc9e0e464ff3ceb8ec72e0ffd046cafea49514bb7d9c5d",
+    "runtime/bundle/retrain/imagenet_resnet.py": "44cce5e9242851dec80310ef314bacb9d1b02071a4295cd74c567ebb7bd10d26",
+    "runtime/bundle/retrain/inference.py": "d7ffbbeaeea005fd3a181a7ec2e82a87647b3a14a1fa6c0d193c9ea95e1c02b8",
+    "runtime/bundle/retrain/mixstyle.py": "48a734117685e939f89d087514565282b2e1b6948151d2ae0957815914e9304a",
+    "runtime/bundle/retrain/n05_rendezvous.py": "8f109e1794aab9657931f38e029127a7736074d93448d576b51df6dc9bc5a82d",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/preprocessing.py": "7161856ddd3879cec6eaf816b11fe515ed8c226b6aa66ada757e7fd1c152a244",
+    "runtime/bundle/retrain/ssl_stage.py": "1b32a73e7657b228ef1dd793c2a0009d90a395e2054df762e974a2a8ce39aad1",
+    "runtime/bundle/retrain/stage.py": "f79dbbc6785171b80712f773f0cc2cfb579ac6595d7b55b62f864c1a23eb6281",
+    "runtime/bundle/retrain/swin_model.py": "2c6f7a7257199e212211ea8aad481dfb5facfb315fa8c8b55e294b37700642dd",
+    "runtime/bundle/retrain/tri3_downsample.py": "c100147704f316dd926566fe01b31615f495ccff3b2b5f9ec64c2ae2a5eeac9c",
+    "runtime/bundle/retrain/verification.py": "67c19dc4b40c490f873ca4024cb9eb58fe7de4a1c92e7069523cddae0bcfdf49",
+    "runtime/bundle/retrain/vicreg.py": "018907a9643d852ad24f83acbb7f3e53021ab1539b868b08422cfd5665b5cb01",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/distributed_engine.py": "4a0b291ddd9b807419ac0002407303b0aabf58d1f7d762c934284be8e58a2323",
+    "runtime/bundle/retrain/distributed_launcher.py": "a3595212a0481c79221c1d2b35f77a38459e9c9e6099dce9b6d82ceb848f5dc4",
+    "runtime/bundle/retrain/ema.py": "9894ae81e6b5ee43d16e6ac219e7c1bb573dadce7d62a0e6230732897abc95fb",
+    "runtime/bundle/retrain/engine.py": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "runtime/bundle/retrain/execution_policy.py": "5f00084867613fd943039fa54fa20a4e031de7d68a4f5f347939f0175def91b3",
+    "runtime/bundle/retrain/finite.py": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "runtime/bundle/retrain/fresh.py": "d4421d0a57208acc04dbf152be6f66c10e8daacf2492d8f9c04c090e917c0bd8",
+    "runtime/bundle/retrain/gradient_clip.py": "7b5914e1f3fc986c2fc091f50a62e176471bfcb6118d2b15d06c27211b885d8d",
+    "runtime/bundle/retrain/layerwise_lr.py": "c55edbe4bb2709b028ccbc936d7f9c0a06d264325dac33a4b0d8b41e67e56e1e",
+    "runtime/bundle/retrain/low_rank.py": "a7f18eca96af11e995c44153645bbff25a59dba1ff184b10c2d9dfb5660634ef",
+    "runtime/bundle/retrain/mixup.py": "a27c106567fe0bd865308db7404a8675554f3164a894d07d68aedcbbd5ec4d2f",
+    "runtime/bundle/retrain/n03_probe.py": "0aacb3f768b2369bed0874350b0ecf33f651f72822a8c8ed520ed9a34b3017ec",
+    "runtime/bundle/retrain/n03_rendezvous.py": "88f1f98b77ad9833d0b09662243a558df17a2e54274ff778bcc081b56ecdad7f",
+    "runtime/bundle/retrain/n05_metrics.py": "00377a60f40f22324f89a16c8e8933473229736955ff58cf3d2e8d1b8941fee7",
+    "runtime/bundle/retrain/orchestration.py": "c8f3e6151c73b7f3c0c28843c4b6e238274257dfd5825a5b7e68627d8b84b554",
+    "runtime/bundle/retrain/parallel_evaluation.py": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "runtime/bundle/retrain/parallel_inference.py": "928ecaff4e545cbba0116f3acf08393becc1f16f8c31e0a07385da5115a8ecf9",
+    "runtime/bundle/retrain/pipeline.py": "c5967dd9085b84f19b626e127ee4e122341fd593ef2fb80f6dd50cdee8961f7d",
+    "runtime/bundle/retrain/precision.py": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "runtime/bundle/retrain/site_binding.py": "e1e2198ee95e63d1d261dc54a40779925c9fe6f24f075d47e069e7a0a4d6231f",
+    "runtime/bundle/retrain/spatial_stride.py": "22c448cd2d57d958792526ae885a268380721d17d94acb575b88c041c3050191",
+    "runtime/bundle/retrain/stage3_residual.py": "18d5d99db3f5e79e7e01fda59150f0f8ca757b041b3ca0f87013e1096c629666"
+  },
+  "actual_native_CPU": {
+    "whole": "9b4f7a4b24cec705c7c44e81eec1ae13dd4133c65b8581d4624584be50950cfd",
+    "public_state_tensors": 175,
+    "all_parameter_tensors": 178,
+    "trainable_tensors": 177,
+    "empty_Adam_groups": 5,
+    "image_shape": [
+      1,
+      3,
+      504,
+      504
+    ],
+    "finite_logit": -1.2009904384613037
+  },
+  "prior_failures_preserved": [
+    "RED-R140-1",
+    "RED-DINO-1",
+    "GREEN-DINO-1",
+    "GREEN-DINO-2",
+    "GREEN-DINO-3",
+    "GREEN-DINO-4",
+    "DESCRIPTOR-DETAIL",
+    "MIGRATE-PUBLIC"
+  ],
+  "no_real_data_forward": true,
+  "no_GPU_rehearsal": true,
+  "no_new_round_activation": true
+}

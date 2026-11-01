@@ -1,0 +1,446 @@
+{
+  "scope": "technical_CPU_structure_not_formal_not_forward",
+  "observed_at": 1793547587.797185,
+  "GPU_initialized": false,
+  "whole_tensor_sha256": "9b4f7a4b24cec705c7c44e81eec1ae13dd4133c65b8581d4624584be50950cfd",
+  "public_tensor_sha256": "5ba70ff8cbcc944b73eb1d49f71e1ea54b009ad866b34d0cb8b84ed143aa56eb",
+  "public_state_tensors": 175,
+  "backbone_parameter_tensors": 175,
+  "backbone_parameters": 22056576,
+  "buffer_count": 0,
+  "parameter_tensors": 178,
+  "trainable_tensors": 177,
+  "frozen_names": [
+    "backbone.mask_token"
+  ],
+  "frozen_elements": 384,
+  "layer_norms": [
+    {
+      "name": "backbone.blocks.0.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.0.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.1.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.1.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.2.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.2.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.3.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.3.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.4.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.4.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.5.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.5.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.6.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.6.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.7.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.7.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.8.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.8.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.9.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.9.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.10.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.10.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.11.norm1",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.blocks.11.norm2",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    },
+    {
+      "name": "backbone.norm",
+      "eps": 1e-06,
+      "normalized_shape": [
+        384
+      ]
+    }
+  ],
+  "GELUs": [
+    {
+      "name": "backbone.blocks.0.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.1.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.2.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.3.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.4.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.5.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.6.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.7.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.8.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.9.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.10.mlp.act",
+      "approximate": "none"
+    },
+    {
+      "name": "backbone.blocks.11.mlp.act",
+      "approximate": "none"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "Identity",
+      "drop_prob": 0.0,
+      "sample_drop_ratio": 0.0,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.009090909090909092,
+      "sample_drop_ratio": 0.009090909090909092,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.018181818181818184,
+      "sample_drop_ratio": 0.018181818181818184,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.027272727272727275,
+      "sample_drop_ratio": 0.027272727272727275,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.03636363636363637,
+      "sample_drop_ratio": 0.03636363636363637,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.04545454545454546,
+      "sample_drop_ratio": 0.04545454545454546,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.05454545454545455,
+      "sample_drop_ratio": 0.05454545454545455,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.06363636363636364,
+      "sample_drop_ratio": 0.06363636363636364,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.07272727272727274,
+      "sample_drop_ratio": 0.07272727272727274,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.08181818181818183,
+      "sample_drop_ratio": 0.08181818181818183,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.09090909090909093,
+      "sample_drop_ratio": 0.09090909090909093,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "type": "NestedTensorBlock",
+      "drop_path1": "DropPath",
+      "drop_prob": 0.1,
+      "sample_drop_ratio": 0.1,
+      "heads": 6,
+      "qkv_shape": [
+        1152,
+        384
+      ]
+    }
+  ],
+  "model_attributes": {
+    "num_register_tokens": 0,
+    "embed_dim": 384,
+    "patch_size": 14,
+    "patch_embed_patch_size": [
+      14,
+      14
+    ],
+    "pos_embed_shape": [
+      1,
+      1370,
+      384
+    ],
+    "interpolate_antialias": false,
+    "interpolate_offset": 0.1
+  },
+  "groups": [
+    {
+      "role": "backbone",
+      "lr": 0.0001,
+      "weight_decay": 0.0,
+      "parameters": 123,
+      "elements": 70272
+    },
+    {
+      "role": "backbone",
+      "lr": 0.0001,
+      "weight_decay": 0.0001,
+      "parameters": 51,
+      "elements": 21985920
+    },
+    {
+      "role": "head",
+      "lr": 0.001,
+      "weight_decay": 0.0,
+      "parameters": 1,
+      "elements": 1
+    },
+    {
+      "role": "head",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "parameters": 1,
+      "elements": 768
+    },
+    {
+      "role": "age",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "parameters": 1,
+      "elements": 2
+    }
+  ],
+  "optimizer_entries": 0,
+  "cpu_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}

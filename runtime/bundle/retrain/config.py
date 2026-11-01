@@ -293,10 +293,14 @@ def validate_job(job):
                  'backbone_lr': 2e-5, 'head_lr': 1e-3, 'weight_decay': 1e-4,
                  'dropout': .2, 'stochastic_depth': .1, 'head_lr_scope': 'last_linear',
                  'mixup': None, 'attention_pool': None, 'initial_checkpoint': None}
+        current=(job.get('experiment91') or {}).get('version') == 'single-dinov2-vits14-7764ea0-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+        if current:
+            fixed.update(seed=20261029,physical_batch=job['physical_batch'],workers=0,eval_workers=0,
+                         cycles=30,min_cycles=1,patience=4,backbone_lr=1e-4)
         if (any(job.get(k) != v for k, v in fixed.items())
                 or init.get('kind') != 'self_supervised'
                 or not job.get('age', {}).get('enabled')
-                or job['age'].get('contract_sha256') != '1d04d7bac147479c69dc92d15bd4d10d58e7e529e44d392796995d5fa302324e'):
+                or (not current and job['age'].get('contract_sha256') != '1d04d7bac147479c69dc92d15bd4d10d58e7e529e44d392796995d5fa302324e')):
             raise ValueError('N03 model/optimization/age configuration differs from the frozen contract')
 
 
@@ -394,7 +398,9 @@ def load_config(path=None, environ=None, overrides=None):
         if (len(cfg['jobs']) != 1 or cfg['mode'] != 'train' or cfg['resume']
                 or cfg['data']['split']['kind'] != 'holdout'
                 or cfg['data']['split']['include_valid'] or not cfg['data']['verify_images']
-                or cfg['execution']['devices'] != ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3']
+                or cfg['execution']['devices'] != ['cuda:'+str(i) for i in range(8 if
+                    (cfg['jobs'][0].get('experiment91') or {}).get('version') ==
+                    'single-dinov2-vits14-7764ea0-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1' else 4)]
                 or cfg['execution']['per_rank_microbatch'] != 0
                 or cfg['execution']['evaluation_physical_batch'] != 32
                 or cfg['execution']['technical_smoke']):

@@ -1,4 +1,6 @@
 """N03 original DINOv2-S/14, fixed 504px CLS/mean-patch binary readout."""
+import hashlib
+import json
 import os
 from pathlib import Path
 import sys
@@ -8,11 +10,28 @@ from torch import nn
 from torch.nn.attention import SDPBackend, sdpa_kernel
 
 
-def _official_factory():
+def public_code_root(job):
+    """Verify the original public code beside the explicit provenance asset."""
+    path=Path(job['initialization']['provenance'])
+    if (not path.is_absolute() or path.is_symlink()
+            or hashlib.sha256(path.read_bytes()).hexdigest()!=
+               'e76029ce54fcf519d4006d72ee23d8b35af52dde01d8afa3c21a9ed17beab9dc'):
+        raise ValueError('original DINOv2 public code provenance differs')
+    meta=json.loads(path.read_text());vendor=(path.parent/'dinov2-source').resolve(strict=True)
+    for name,digest in meta['source_files'].items():
+        relative=Path(name);source=vendor/relative
+        if (relative.is_absolute() or '..' in relative.parts or source.is_symlink()
+                or not source.resolve().is_relative_to(vendor)
+                or hashlib.sha256(source.read_bytes()).hexdigest()!=digest):
+            raise ValueError('pinned original DINOv2 source differs: '+name)
+    return vendor
+
+
+def _official_factory(job=None):
     if os.environ.get('XFORMERS_DISABLED') != '1':
         raise ValueError('N03 requires XFORMERS_DISABLED=1')
     root = Path(__file__).resolve().parents[2]
-    vendor = (root / 'assets/dinov2-source').resolve(strict=True)
+    vendor = public_code_root(job) if job is not None else (root / 'assets/dinov2-source').resolve(strict=True)
     for name, module in tuple(sys.modules.items()):
         if name == 'dinov2' or name.startswith('dinov2.'):
             location = getattr(module, '__file__', None)
@@ -65,8 +84,9 @@ def create_dinov2_binary(job, *, initialize=True):
             or job.get('precision') != 'fp32' or job.get('stochastic_depth') != .1
             or job.get('dropout') != .2 or not job.get('age', {}).get('enabled')):
         raise ValueError('N03 DINOv2 model protocol differs')
-    factory = _official_factory()
+    factory = _official_factory(job)
     backbone = factory(pretrained=False, drop_path_rate=.1)
+    public=None
     if initialize:
         from .models import validate_initialization
         proof = validate_initialization(job['initialization'])
@@ -80,5 +100,18 @@ def create_dinov2_binary(job, *, initialize=True):
             if (not isinstance(tensor, torch.Tensor) or tensor.dtype != torch.float32
                     or tensor.shape != expected[name].shape or not bool(torch.isfinite(tensor).all())):
                 raise ValueError('DINOv2 public state shape/dtype/finite differs: ' + name)
-        backbone.load_state_dict(state, strict=True)
-    return DINOv2Binary(backbone, job['age'])
+        loaded=backbone.load_state_dict(state, strict=True)
+        from .ema import tensor_digest
+        exact=all(torch.equal(backbone.state_dict()[name],tensor) for name,tensor in state.items())
+        if not exact:raise ValueError('DINOv2 public tensors differ after strict load')
+        public={'public_tensor_count':len(state),'full_head_shape':None,'backbone_only':True,
+            'all_public_tensors_exact':exact,'all_public_tensors_FP32_finite':True,
+            'strict_missing_keys':list(loaded.missing_keys),'strict_unexpected_keys':list(loaded.unexpected_keys),
+            'public_tensor_sha256':tensor_digest(state),'source':proof,
+            'source_files_sha256':'ed5db7b07fdcd8d3ce92b1ce81bc2f509e6e7472756a348d0859351543acfed5'}
+    result=DINOv2Binary(backbone, job['age'])
+    if public is not None:result.public_initialization_receipt=public
+    if job.get('experiment91') is not None:
+        from .experiment91 import describe_model
+        result.candidate_normalization=describe_model(result)
+    return result

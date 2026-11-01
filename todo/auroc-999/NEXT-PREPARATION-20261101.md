@@ -1,5 +1,7 @@
 # 当前运行与结果无关的 CPU 准备
 
+**后续20%准备池已完成R140条件身份及R141公开DINOv2当前排序合同接线。** [三项实际窄验/9源compile与失败原件](../../records/preparation/dinov2-current-20261101/README.md)、[科学与文件范围](R141-PREPARATION.md)分列；代码与两SCIENCE即将同步，当前没有新formal/activation/GPU。R139最新2026-11-01 15:58:14.600817 UTC观测running5075success=attempt/0skip/eval6/bad2、EMA best`.9844971227863999`，仍无完整selector，冻结d190保持。R139完整双门通过才R140固定局部对比度seed27，否则跳过；之后唯一独立问题R141为原公开DINOv2-S14+当前G64P8/pairlog/24k800p4，原N03/官方隔离。旧census已工程失败，不复开隔离草稿。
+
 **最新：R137完整双门false，R138未activation/未训练；唯一R139已真实八卡运行。** R137唯一EMA c8@6400 AUROC`.9854411426493483`、9600/eval12/bad4及actualsafe已完整归档，固定Lion10x关闭/no27。R139沿d190/SCI17661d/SITE02c4，既有两CPU技术包准备后完成独立normalformal18/18及精确Git部署、唯一activation/direct launch0；15:19:16.110554 UTC实核running375success=attempt/0skip/eval0、八rank345/5组/空AdamW/whole50c与原生CPU匹配，首自然update25 finite/G64P8/448pairs及saved input policy相符，[启动小件](../../records/R139/README.md)已取得。当前没有完整selector/官方，不重复旧R137safe或未训练R138。下文“未normalformal/启动”等为历史准备阶段；R139冻结d190不热改。
 
 **最新CPU准备已完成2/2、9源compile及Lion原算法源码复用核对。** [真实小件](../../records/preparation/future-input-20261101/README.md)保留RED两FAIL及GREEN1/2的配置/fixture错误，最终GREEN3两目标各1/1，CPU-CHECKS SHA`a82f8a06aa7b27c58c02e561b67c94729bf77e4873f2cb8309ca5452d5991006`。仅合成数据和既有consumer；未跑真实公开模型、normalformal、新GPU或激活任何分支。接着同步/干净源码打包；R137当前冻结运行不变，完整selected与安全终态决定下一分支，下面“未通过”属准备早期历史。22:20:00轻检仍R137 running3525success=attempt/0skip/eval4、EMA best`.9848427014862292`，owner及八rank同birth active，8PCI瞬时busy全100；不据partial决定科学门。
