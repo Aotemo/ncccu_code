@@ -1,6 +1,8 @@
 # 当前运行与结果无关的 CPU 准备
 
-## R144期间的必要条件准备
+## R146期间的必要条件准备
+
+R144已完整5600/eval7/bad4，唯一EMA c3@2400 AUROC`.9754916067723792`，双门false关闭Native/no27，R145未formal/activation/训练。当前独立R146/order58已真实八卡running50首成功，冻结79713db0/SCIf119629c/SITE7f5d；两CPU/9源compile和102792缓存条目原有证据精确复用、唯一normalformal18/18和Git部署/一次activation/direct launch0，见[当前启动](../../records/R146/README.md)。下方所有“未实现/待同步/未技术打包/R144 running”均为带时间的历史准备阶段，不作现状。当前只在20%池继续准备；R146完整selector和actualsafe之前不启动任何新GPU，仍沿既有两阶段入口，不新平台/heartbeat/资源。
 
 **R146两CPU/9源compile、两份cache各51396行只读复核及实际SCI/保存policy均已通过。** [证据](../../records/preparation/inset-20261101/README.md) SHA64dafc、[固定SCIENCE](../../configs/R146-SCIENCE.json) SHAf119629c已取得；图像cache新增0，原生成/边界/定位AST保持，模型/优化/EMA源码SHA保持。当前正同步及干净技术打包，无新formal/activation/GPU。当前R144 19:05:48.314512 UTC running4775/eval5/bad2、dev暂best`.9754916067723792`，仍无完整selector；R145只有完整双门才能采用，未满足则跳过，接本独立R146固定嵌图对照。不能据partial关闭R144；下文“尚未实现”等为此前准备状态。
 

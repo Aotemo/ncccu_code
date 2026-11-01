@@ -1,0 +1,36 @@
+{
+  "status": "checked_Git_source_and_independent_R146_technical_package_ready",
+  "at": 1793560350.3508513,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "3624b897b2012799dd2bba399bcaeaa1c817493fa069397375266ae237119e6d",
+    "runtime/bundle/retrain/data.py": "61b15bfc3a521f3656d32df1314a63defce394d2ab094d3c9c99633a376afdb3",
+    "runtime/bundle/retrain/preprocessing.py": "7e0b23e1e43fdf775525622097354332e4f2a552fc48179565b812713556f8aa",
+    "runtime/bundle/retrain/experiment91.py": "86b931d1f29af25342b7cd856ee93995623c2ba14f884b9c077bb0281ee92e94",
+    "tools/activation/prepare.py": "bd2d0c1dadb939b8a4c03102fa39eed1c15deea64729582ab2be34809b0c0774",
+    "tools/activation/prepare_gpu_site.py": "5745fad0f5063be92ffcb85ef29e0a04b4ea6e778d795a462eac96cce9eb8c1d",
+    "runtime/run_training.py": "587994548664b567e229a121de362f8776c6dad663ce2b38b05cec9b9c55bf00",
+    "tests/test_photometric_policy.py": "b95b2cf563aa778c7dcbe66394c2a95df9e3715f56efef5346516eda76fa87a2",
+    "tests/test_candidate_binding.py": "b277389c9ac7a81a56a3592ef71416ed81efe925be349d5a780e7a9bb6db0111"
+  },
+  "science_sha256": {
+    "R146-SCIENCE.json": "f119629c317b3cafc4a914b4ea6cb4b9f7b8c35d2530e500e1456b7543600915"
+  },
+  "branches": [
+    {
+      "science": "R146",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r146-20261101-32e3/technical-package/package",
+      "site_sha256": "5a1a8ba62861fa105772c9172fa3182da345f4117868820522029257c5e0ec5a",
+      "seconds": 6.065642833709717,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-INSET-NEXT.py": "b2742b72c995771fb0a6bcde8f49a0873e9e9207555d9cc0f9595e1dbacc4882",
+    "OBSERVE-START-NEXT.py": "ec2bcaefed6edc0959f1d82ecb59bab0ba0ed7e59fec597494b2a234ab86c782",
+    "RUN-INSET-NEXT.sh": "ddf161a590b35ef7f7d3c0801127f5c17ef4e87bbd4200b53ec599cb0ee06a0f"
+  },
+  "new_GPU_started": false
+}

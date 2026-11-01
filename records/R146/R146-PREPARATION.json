@@ -1,0 +1,61 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r146-small22k-seed20261029-scale085-pairlog-inset256-24k-p4-9010-20261101",
+  "git_commit": "79713db0dc5a9fca6082fe8f4df01e83a020ccc6",
+  "tree_sha": "96701104ad685342e55b22ff04ec17803929842b",
+  "science_sha256": "f119629c317b3cafc4a914b4ea6cb4b9f7b8c35d2530e500e1456b7543600915",
+  "candidate": {
+    "id": "r146-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-inset256-9010",
+    "experiment_order": 58,
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "input_preprocessing": {
+      "version": "rgb-global-native-inset256-v1",
+      "global_size": 512,
+      "inset_size": 256,
+      "corner": [
+        0,
+        0
+      ],
+      "global_fit": "centered_bilinear_black",
+      "native": {
+        "version": "rgb-green-bright-native-half-v1",
+        "thumbnail_size": 512,
+        "channel": "G",
+        "blur_radius": 10.0,
+        "margin_fraction": 0.1,
+        "crop_fraction": 0.5,
+        "tie": "first_row_major",
+        "flat": "geometric_center",
+        "position": "original_rgb_after_border_before_preparation"
+      },
+      "position": "prepared_rgb_before_augmentation_and_canvas"
+    }
+  },
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "group_count": 5,
+  "optimizer_policy": null,
+  "optimizer_state_entries": 0,
+  "reused_cpu_checks_sha256": "d9e55486b4892085771bd3bac2d18a4b353c84fdd03f8a0b57a8da8e80c8c361",
+  "package_manifest_sha256": "711ce815de97e91af8dd1dcad869ccbf516d204f8da97ef2034c83a471a43949",
+  "cpu_prep_sha256": "cb90b353c637d636469e6bd49f6966e6ccc9f6ed358d330944fab6e44e6dd2b0",
+  "deployment_sha256": "1294aaf3c55838fba65477de9413583fd0695872d51201686aa788d9d73e176d",
+  "site_sha256": "7f5d9113ff148e8159361ad1d2102fec420249891c75e5eec208f1faf9ca060f",
+  "formal_runs": 1,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

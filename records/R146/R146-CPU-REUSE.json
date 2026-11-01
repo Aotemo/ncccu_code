@@ -1,0 +1,22 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/inset-20261101-32e3/source-git/records/preparation/inset-20261101/CPU-CHECKS.json",
+    "sha256": "64dafcbf7c6130d002bc0ed8aa8508f602bc824914cf7510448a66fd5b69f1ed"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "3624b897b2012799dd2bba399bcaeaa1c817493fa069397375266ae237119e6d",
+    "runtime/bundle/retrain/data.py": "61b15bfc3a521f3656d32df1314a63defce394d2ab094d3c9c99633a376afdb3",
+    "runtime/bundle/retrain/preprocessing.py": "7e0b23e1e43fdf775525622097354332e4f2a552fc48179565b812713556f8aa",
+    "runtime/bundle/retrain/experiment91.py": "86b931d1f29af25342b7cd856ee93995623c2ba14f884b9c077bb0281ee92e94",
+    "tools/activation/prepare.py": "bd2d0c1dadb939b8a4c03102fa39eed1c15deea64729582ab2be34809b0c0774",
+    "tools/activation/prepare_gpu_site.py": "5745fad0f5063be92ffcb85ef29e0a04b4ea6e778d795a462eac96cce9eb8c1d",
+    "runtime/run_training.py": "587994548664b567e229a121de362f8776c6dad663ce2b38b05cec9b9c55bf00",
+    "tests/test_photometric_policy.py": "b95b2cf563aa778c7dcbe66394c2a95df9e3715f56efef5346516eda76fa87a2",
+    "tests/test_candidate_binding.py": "b277389c9ac7a81a56a3592ef71416ed81efe925be349d5a780e7a9bb6db0111"
+  },
+  "science_sha256": "f119629c317b3cafc4a914b4ea6cb4b9f7b8c35d2530e500e1456b7543600915",
+  "targets_reused": 2,
+  "tests_rerun": false,
+  "at": 1793560499.7606947
+}
