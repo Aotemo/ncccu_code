@@ -31,6 +31,90 @@ RAW_GC = {'version': 'raw-convlinear-weight-gc-v1',
           'axes': 'all_non_output_dimensions',
           'position': 'after_ddp_mean_mirror_merge_unscale_before_global_clip',
           'schedule': 'each_real_update'}
+LION_POLICY = {'version':'lion10x-v1','betas':[.9,.99],'learning_rate_scale':.1,
+    'nonzero_weight_decay_scale':10.,'precision':'fp32','state':'exp_avg_only',
+    'update':'decoupled_decay_then_sign_then_momentum'}
+
+
+def lion_job():
+    value=raw_gc_job(None)
+    source=age_spec();contract=copy.deepcopy(source['contract'])
+    contract.update(version='age-linear-lion10x-v1',lr=1e-4,weight_decay=1e-3,
+                    source_contract_sha256=source['contract_sha256'])
+    value.update(optimizer_policy=copy.deepcopy(LION_POLICY),backbone_lr=1e-5,head_lr=1e-4,
+                 weight_decay=1e-3,age={'enabled':True,'contract':contract,'contract_sha256':canonical_digest(contract)})
+    return value
+
+
+def lion_worker(rank, rendezvous, folder):
+    import torch.distributed as dist
+    from torch.nn.parallel import DistributedDataParallel
+    from retrain.classification_loss import classification_loss,gather_pairwise_inputs
+    from retrain.config import job_contract,load_config
+    from retrain.persistence import CheckpointStore,capture_rng,restore_rng
+    torch.set_num_threads(1);torch.set_num_interop_threads(1);torch.manual_seed(43)
+    folder=Path(folder)/('rank-'+str(rank));folder.mkdir()
+    path=folder/'config.json';path.write_text(json.dumps({'jobs':[lion_job()]}))
+    job=load_config(path,environ={})['jobs'][0]
+    model=RawGCToy();model.age_metadata=copy.deepcopy(job['age']);reference=copy.deepcopy(model)
+    optimizer=engine._optimizer(model,job);shadow=ema.EMA(model,ema.RULE);refshadow=ema.EMA(reference,ema.RULE)
+    refmom={n:torch.zeros_like(p) for n,p in reference.named_parameters()}
+    dist.init_process_group('gloo',init_method=rendezvous,rank=rank,world_size=2,timeout=timedelta(seconds=40))
+    try:
+        ddp=DistributedDataParallel(model,broadcast_buffers=False)
+        i=torch.arange(64,dtype=torch.float32)
+        images=torch.stack([torch.sin(i/9+j/3) for j in range(8)],dim=1).reshape(64,2,2,2)
+        ages=torch.stack(((i-31.5)/2,(i.remainder(3)==0).float()),dim=1)
+        labels=torch.cat((torch.zeros(56),torch.ones(8)))
+        for successful in (1,2):
+            optimizer.zero_grad(set_to_none=True);reference.zero_grad(set_to_none=True)
+            interval=slice(rank*32,(rank+1)*32)
+            logits,targets=gather_pairwise_inputs(ddp(images[interval],ages[interval]),labels[interval])
+            classification_loss(logits,targets,job['loss']).backward()
+            z=reference(images,ages);d=z[labels==0][None,:]-z[labels==1][:,None]
+            torch.logaddexp(torch.zeros_like(d),d).mean().backward()
+            norm=math.sqrt(sum(float(v)**2 for p in reference.parameters() for v in p.grad.flatten()))
+            coefficient=min(1.,1./(norm+1e-6))
+            for p in reference.parameters():p.grad.mul_(coefficient)
+            def any_bad(bad):
+                flag=torch.tensor(int(bad));dist.all_reduce(flag,op=dist.ReduceOp.MAX);return bool(flag)
+            with patch.object(dist,'all_reduce',wraps=dist.all_reduce) as calls:
+                finite,_,_=engine._clip_gradients(model.parameters(),None,any_bad)
+            if not finite or calls.call_count!=1:raise AssertionError('Lion changed the original finite collective')
+            engine._apply_lr(optimizer,successful-1,24000,1600)
+            for name,p in reference.named_parameters():
+                actual=dict(model.named_parameters())[name];m=refmom[name]
+                direction=.9*m+.1*p.grad
+                # A true sign disagreement is not repaired with a tolerance or threshold.
+                actual_direction=.9*optimizer.state.get(actual,{}).get('exp_avg',torch.zeros_like(actual))+.1*actual.grad
+                if not torch.equal(torch.sign(direction),torch.sign(actual_direction)):
+                    raise AssertionError('FP32 sign-sensitive gradient differs for '+name)
+                lr=(1e-4 if name=='age_weight' or name.startswith('classifier.') else 1e-5)*successful/1600
+                wd=1e-3 if name=='age_weight' or (p.ndim>1 and not name.endswith('.bias')) else 0.
+                signed=torch.tensor([1. if float(v)>0 else -1. if float(v)<0 else 0. for v in direction.flatten()]).reshape(p.shape)
+                with torch.no_grad():p.mul_(1-lr*wd).add_(signed,alpha=-lr)
+                m.mul_(.99).add_(p.grad,alpha=.01)
+            optimizer.step();shadow.update(model,successful);refshadow.update(reference,successful)
+            for name,p in model.named_parameters():
+                torch.testing.assert_close(p,dict(reference.named_parameters())[name],rtol=0,atol=1e-7)
+                if set(optimizer.state[p])!={'exp_avg'}:raise AssertionError('Lion state is not single moment')
+                torch.testing.assert_close(optimizer.state[p]['exp_avg'],refmom[name],rtol=4e-4,atol=2e-8)
+            for name,v in shadow.model.state_dict().items():torch.testing.assert_close(v,refshadow.model.state_dict()[name],rtol=0,atol=1e-7)
+            if successful==1:
+                identity={'job':job_contract(job)}
+                payload={'format_version':1,'identity':identity,'job':job,'age':job['age'],'model':model.state_dict(),
+                    'optimizer':optimizer.state_dict(),'ema':shadow.state_dict(),'rng':capture_rng(),
+                    'manifest_digest':'synthetic-only','mode':'train','successful_updates':1,'attempted_updates':1}
+                store=CheckpointStore(folder/'checkpoints');store.save(payload);loaded=store.load()
+                engine._validate_payload(loaded,identity,'synthetic-only',job,'train')
+                if loaded['job']['optimizer_policy']!=LION_POLICY:raise AssertionError('saved Lion identity lost')
+                del ddp
+                model=RawGCToy();model.age_metadata=copy.deepcopy(job['age']);model.load_state_dict(loaded['model'],strict=True)
+                optimizer=engine._optimizer(model,loaded['job']);optimizer.load_state_dict(loaded['optimizer'])
+                shadow=ema.EMA(model,ema.RULE,state=loaded['ema'],successful=loaded['successful_updates'])
+                restore_rng(loaded['rng']);ddp=DistributedDataParallel(model,broadcast_buffers=False)
+        (folder/'passed.json').write_text(json.dumps({'rank':rank,'successful_updates':2,'local_positives':int(labels[rank*32:(rank+1)*32].sum())}))
+    finally:dist.destroy_process_group()
 
 
 class RawGCToy(nn.Module):
@@ -146,6 +230,81 @@ def raw_gc_worker(rank, rendezvous, folder):
 
 
 class RawGradientCentralizationTest(unittest.TestCase):
+    def test_lion_updates_and_legacy_none(self):
+        self.assertTrue(hasattr(engine,'Lion'),'the adopted Lion optimizer is missing')
+        from retrain.config import job_contract,load_config
+        from retrain.persistence import capture_rng
+        import numpy as np
+        model=RawGCToy();job=lion_job();model.age_metadata=copy.deepcopy(job['age'])
+        optimizer=engine._optimizer(model,job);self.assertIs(type(optimizer),engine.Lion)
+        names=dict(model.named_parameters());reference={n:p.detach().clone() for n,p in names.items()}
+        moments={n:torch.zeros_like(p) for n,p in names.items()}
+        self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        for successful in (1,2):
+            for j,(name,p) in enumerate(names.items()):
+                p.grad=None if name=='conv.bias' and successful==1 else torch.tensor(
+                    [(-2.,0.,3.,-.25)[(k+j+successful)%4] for k in range(p.numel())]).reshape(p.shape)
+            norm=math.sqrt(sum(float(v)**2 for p in names.values() if p.grad is not None for v in p.grad.flatten()))
+            coefficient=min(1.,1./(norm+1e-6))
+            unclipped={n:p.grad.clone()*coefficient for n,p in names.items() if p.grad is not None}
+            finite,_,_=engine._clip_gradients(model.parameters(),None);self.assertTrue(finite)
+            for name,g in unclipped.items():torch.testing.assert_close(names[name].grad,g,rtol=1e-6,atol=1e-7)
+            for group in optimizer.param_groups:
+                self.assertEqual(tuple(group['betas']),(.9,.99));self.assertEqual(group['optimizer_algorithm'],'lion10x-v1')
+                for p in group['params']:
+                    name=next(n for n,v in names.items() if v is p)
+                    if p.grad is None:continue
+                    q=reference[name];m=moments[name]
+                    directions=[1. if .9*float(a)+.1*float(g)>0 else -1. if .9*float(a)+.1*float(g)<0 else 0.
+                                for a,g in zip(m.flatten(),unclipped[name].flatten())]
+                    q.mul_(1-group['lr']*group['weight_decay']).add_(torch.tensor(directions).reshape(q.shape),alpha=-group['lr'])
+                    m.mul_(.99).add_(unclipped[name],alpha=.01)
+            optimizer.step()
+            for name,p in names.items():
+                torch.testing.assert_close(p,reference[name],rtol=0,atol=1e-7)
+                if p.grad is not None:
+                    self.assertEqual(set(optimizer.state[p]),{'exp_avg'})
+                    torch.testing.assert_close(optimizer.state[p]['exp_avg'],moments[name],rtol=2e-6,atol=1e-8)
+        saved=copy.deepcopy(optimizer.state_dict());restored=engine._optimizer(model,job);restored.load_state_dict(saved)
+        for p in names.values():torch.testing.assert_close(restored.state[p]['exp_avg'],optimizer.state[p]['exp_avg'],rtol=0,atol=0)
+        adam=engine._optimizer(copy.deepcopy(model),raw_gc_job(None));bad=copy.deepcopy(saved)
+        bad['state'][0]['exp_avg_sq']=torch.zeros_like(next(iter(names.values())))
+        with self.assertRaises(ValueError):restored.load_state_dict(bad)
+        self.assertIs(type(adam),torch.optim.AdamW)
+        for cursor,factor in ((0,1/1600),(1599,1.),(1600,1.),(23999,.01)):
+            engine._apply_lr(restored,cursor,24000,1600)
+            for group in restored.param_groups:self.assertAlmostEqual(group['lr'],group['initial_lr']*factor,places=15)
+        legacy=raw_gc_job(None);before=capture_rng();legacy_optimizer=engine._optimizer(RawGCToy(),legacy)
+        old=copy.deepcopy(legacy);old['optimizer_policy']=None
+        self.assertEqual(job_contract(legacy),job_contract(old));self.assertEqual(age_spec()['contract']['version'],'age-linear-v1')
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'config.json';path.write_text(json.dumps({'jobs':[old]}))
+            self.assertNotIn('optimizer_policy',load_config(path,environ={})['jobs'][0])
+        # Optimizer construction itself must not consume global RNG.
+        before=capture_rng();engine._optimizer(model,old);after=capture_rng()
+        self.assertEqual(before['python'],after['python']);self.assertTrue(np.array_equal(before['numpy'][1],after['numpy'][1]))
+        self.assertTrue(torch.equal(before['torch'],after['torch']));self.assertFalse(legacy_optimizer.state)
+
+    def test_lion_gloo_checkpoint_next_update(self):
+        self.assertTrue(hasattr(engine,'Lion'),'the adopted Lion optimizer is missing')
+        with tempfile.TemporaryDirectory(prefix='lion-gloo-') as folder:
+            with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as endpoint:
+                endpoint.bind(('127.0.0.1',0));rendezvous=f'tcp://127.0.0.1:{endpoint.getsockname()[1]}'
+            processes=[];logs=[]
+            try:
+                for rank in range(2):
+                    log=(Path(folder)/f'rank-{rank}.log').open('wb');logs.append(log)
+                    env=dict(os.environ,GLOO_SOCKET_IFNAME='lo',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1')
+                    processes.append(subprocess.Popen([sys.executable,'-B',str(Path(__file__).resolve()),'--lion-worker',str(rank),rendezvous,folder],env=env,stdout=log,stderr=subprocess.STDOUT))
+                for rank,p in enumerate(processes):
+                    code=p.wait(timeout=75);logs[rank].flush();self.assertEqual(code,0,(Path(folder)/f'rank-{rank}.log').read_text())
+                self.assertEqual([json.loads((Path(folder)/f'rank-{r}/passed.json').read_text())['successful_updates'] for r in range(2)],[2,2])
+            finally:
+                for p in processes:
+                    if p.poll() is None:p.terminate()
+                for p in processes:p.wait(timeout=5)
+                for log in logs:log.close()
+
     def test_raw_row_formula_exclusions_globalclip_order_and_None_identity(self):
         from retrain.config import job_contract, load_config
         from retrain.persistence import capture_rng, canonical_digest
@@ -401,5 +560,7 @@ class RolewiseClipTest(unittest.TestCase):
 if __name__ == '__main__':
     if len(sys.argv)>1 and sys.argv[1]=='--raw-gc-worker':
         raw_gc_worker(int(sys.argv[2]),sys.argv[3],sys.argv[4])
+    elif len(sys.argv)>1 and sys.argv[1]=='--lion-worker':
+        lion_worker(int(sys.argv[2]),sys.argv[3],sys.argv[4])
     else:
         unittest.main()

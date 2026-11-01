@@ -289,6 +289,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     validate_explicit_microbatch_normalization(base, plan)
     base=ctx.prepare_model(base)
     optimizer=single._optimizer(base,job)
+    if job.get('optimizer_policy') is not None and type(optimizer) is not single.Lion:
+        raise ValueError('adopted Lion job did not construct Lion')
     from .gradient_clip import build_role_groups
     role_groups=build_role_groups(optimizer,job.get('gradient_clip_policy'))
     from .head_warmup import build_update_groups
@@ -509,6 +511,11 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 value=tensor.detach().cpu().contiguous()
                 digest.update(name.encode()+str(value.dtype).encode()+str(tuple(value.shape)).encode()+value.numpy().tobytes())
             attention_initial={}
+            if job.get('optimizer_policy') is not None:
+                attention_initial['optimizer_identity']={'class':type(optimizer).__name__,
+                    'policy':job['optimizer_policy'],'state_schema':'exp_avg_only_no_step',
+                    'groups':[{k:g[k] for k in ('role','lr','initial_lr','weight_decay','betas','optimizer_algorithm','param_names','param_shapes')}
+                              for g in optimizer.param_groups], 'age':job['age']}
             if candidate_normalization is not None:attention_initial['candidate_normalization']=candidate_normalization
             if parameter_trainability is not None:attention_initial['parameter_trainability']=parameter_trainability
             if job.get('low_rank_policy') is not None:
@@ -798,11 +805,11 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             else:
                 successful+=1;overflows=0
                 bad_parameters=not all_floating_finite(base.parameters())
-                # FP32 Adam moments are scientific state, checked without touching RNG.
+                # FP32 optimizer moments are scientific state, checked without touching RNG.
                 bad_adam=not all_floating_finite(value for state in optimizer.state.values() for value in state.values())
                 bad_parameters,bad_adam=ctx.any_flags([bad_parameters,bad_adam])
                 if bad_parameters:raise FloatingPointError('nonfinite DDP parameters')
-                if bad_adam:raise FloatingPointError('nonfinite Adam state on a DDP rank')
+                if bad_adam:raise FloatingPointError('nonfinite Lion state on a DDP rank' if job.get('optimizer_policy') is not None else 'nonfinite Adam state on a DDP rank')
                 single._apply_lr(optimizer,successful,total,warmup)
                 if ema:ema.update(base,successful)
                 if successful == 1 and job.get('low_rank_policy') is not None:
@@ -877,6 +884,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
             if mode in ('benchmark','stage-probe','fresh-probe'):timing['warmup_seconds' if successful-int(not skipped)<50 else 'measured_seconds']+=elapsed
             if attempted%job['log_every']==0 or skipped:
                 update={'rank':ctx.rank,'loss':loss_sum,'primary_inputs':primary_inputs,'view_inputs':view_inputs}
+                if job.get('optimizer_policy') is not None:
+                    update['optimizer']={'class':type(optimizer).__name__,'policy':job['optimizer_policy'],
+                        'state_schema':'exp_avg_only_no_step','state_entries':len(optimizer.state)}
                 if job.get('gradient_centralization_policy') is not None:
                     update['gradient_centralization']={'policy':job['gradient_centralization_policy'],
                         'target_count':len(optimizer._gradient_centralization_targets)}

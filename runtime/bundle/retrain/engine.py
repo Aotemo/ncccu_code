@@ -140,6 +140,75 @@ def evaluate(model, rows, indices, data_root, job, device, output_csv=None):
         restore_rng(rng)
 
 
+class Lion(torch.optim.Optimizer):
+    """Fixed FP32 Lion; algorithm reference Google Research (Apache-2.0).
+
+    https://github.com/google/automl/blob/master/lion/lion_pytorch.py
+    The existing caller owns global gradient clipping and finite consensus.
+    Named role groups bind this audited recipe's sole moment on restoration.
+    """
+    def __init__(self, params, lr=1e-4, betas=(.9,.99), weight_decay=0.):
+        if tuple(betas) != (.9,.99) or not math.isfinite(lr) or lr < 0 or not math.isfinite(weight_decay) or weight_decay < 0:
+            raise ValueError('fixed Lion hyperparameters differ')
+        super().__init__(params,dict(lr=lr,betas=tuple(betas),weight_decay=weight_decay,optimizer_algorithm='lion10x-v1'))
+        names=[];owned=[]
+        for group in self.param_groups:
+            ps=group['params'];ns=group.get('param_names');shapes=group.get('param_shapes')
+            if (not isinstance(ns,list) or len(ns)!=len(ps) or shapes!=[list(p.shape) for p in ps]
+                    or group.get('role') not in ('backbone','head','age')
+                    or any(p.dtype!=torch.float32 for p in ps)
+                    or tuple(group['betas'])!=(.9,.99) or group['optimizer_algorithm']!='lion10x-v1'
+                    or any(type(group.get(k)) not in (int,float) or not math.isfinite(group[k]) or group[k]<0
+                           for k in ('lr','initial_lr','weight_decay'))):
+                raise ValueError('Lion named FP32 role group differs')
+            names.extend(ns);owned.extend(id(p) for p in ps)
+        if len(names)!=len(set(names)) or len(owned)!=len(set(owned)):
+            raise ValueError('Lion parameter ownership repeats')
+
+    @torch.no_grad()
+    def step(self, closure=None):
+        loss=None
+        if closure is not None:
+            with torch.enable_grad():loss=closure()
+        for group in self.param_groups:
+            beta1,beta2=group['betas']
+            for p in group['params']:
+                if p.grad is None:continue
+                if p.grad.is_sparse or p.grad.dtype!=torch.float32:
+                    raise ValueError('Lion requires dense FP32 gradients')
+                state=self.state[p]
+                if not state:state['exp_avg']=torch.zeros_like(p)
+                p.mul_(1-group['lr']*group['weight_decay'])
+                update=state['exp_avg']*beta1+p.grad*(1-beta1)
+                p.add_(update.sign_(),alpha=-group['lr'])
+                state['exp_avg'].mul_(beta2).add_(p.grad,alpha=1-beta2)
+        return loss
+
+    def load_state_dict(self, saved):
+        if not isinstance(saved,dict) or set(saved)!={'state','param_groups'}:
+            raise ValueError('Lion optimizer state schema differs')
+        groups=saved['param_groups'];states=saved['state']
+        if not isinstance(groups,list) or len(groups)!=len(self.param_groups) or not isinstance(states,dict):
+            raise ValueError('Lion saved group count/state differs')
+        cursor=0;bound={}
+        for current,group in zip(self.param_groups,groups):
+            if set(group)!=set(current) or any(group[k]!=current[k] for k in current if k not in ('params','lr')):
+                raise ValueError('Lion saved algorithm/hyperparameters/named groups differ')
+            ids=group['params'];parameters=current['params']
+            if (ids!=list(range(cursor,cursor+len(parameters)))
+                    or type(group['lr']) not in (int,float) or not math.isfinite(group['lr']) or group['lr']<0):
+                raise ValueError('Lion saved parameter positions/LR differ')
+            bound.update(zip(ids,parameters));cursor+=len(parameters)
+        if not set(states)<=set(bound):raise ValueError('Lion state has an unbound parameter')
+        for position,state in states.items():
+            moment=state.get('exp_avg') if isinstance(state,dict) else None
+            if (not isinstance(state,dict) or set(state)!={'exp_avg'} or not isinstance(moment,torch.Tensor)
+                    or moment.shape!=bound[position].shape or moment.dtype!=torch.float32
+                    or not bool(torch.isfinite(moment).all())):
+                raise ValueError('Lion single-moment state differs')
+        return super().load_state_dict(saved)
+
+
 def _optimizer(model, job):
     from .attention_pool import validate_model as validate_attention_model
     from .stage3_residual import validate_model as validate_stage3_model
@@ -180,14 +249,28 @@ def _optimizer(model, job):
     if enabled(job):
         if len(age_parameters) != 1:
             raise ValueError('age optimizer requires the two explicit residual scalars')
-        groups.append(dict(params=age_parameters, lr=1e-3, initial_lr=1e-3,
-                           weight_decay=1e-4, role='age'))
+        if job.get('optimizer_policy') is not None:
+            from .age import validate_spec, LION_VERSION
+            spec=validate_spec(job['age'])
+            if spec['contract']['version']!=LION_VERSION:
+                raise ValueError('Lion requires the effective age optimization contract')
+            lr=spec['contract']['lr'];wd=spec['contract']['weight_decay']
+        else:lr,wd=1e-3,1e-4
+        groups.append(dict(params=age_parameters, lr=lr, initial_lr=lr,weight_decay=wd, role='age'))
     if not groups:
         raise ValueError('model has no trainable parameters')
     if job.get('layerwise_lr_policy') is not None:
         from .layerwise_lr import build_layerwise_groups
         groups = build_layerwise_groups(model, groups, job['layerwise_lr_policy'])
-    optimizer = torch.optim.AdamW(groups)
+    if job.get('optimizer_policy') is not None:
+        from .config import LION_RULE
+        if job['optimizer_policy']!=LION_RULE:raise ValueError('fixed Lion policy differs')
+        names={id(p):name for name,p in model.named_parameters()}
+        for group in groups:
+            group.update(param_names=[names[id(p)] for p in group['params']],
+                         param_shapes=[list(p.shape) for p in group['params']])
+        optimizer=Lion(groups)
+    else:optimizer = torch.optim.AdamW(groups)
     if job.get('low_rank_policy') is not None:
         from .low_rank import bind_optimizer
         bind_optimizer(model, optimizer)
@@ -343,6 +426,8 @@ def run_training(job, manifest, data_root, run_dir, identity, resume=False,
     most recent committed checkpoint, so half-updated parameters never replace
     a known-good recovery point.
     """
+    if job.get('optimizer_policy') is not None:
+        raise ValueError('Lion requires the audited FP32 eight-rank entry')
     if job.get('gradient_centralization_policy') is not None:
         raise ValueError('raw gradient centralization requires the audited eight-rank entry')
     if job.get('mixstyle_policy') is not None:

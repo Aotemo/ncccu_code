@@ -5,6 +5,7 @@ import numpy as np
 from .persistence import canonical_digest
 
 VERSION = 'age-linear-v1'
+LION_VERSION = 'age-linear-lion10x-v1'
 
 
 def parse_age(raw):
@@ -57,7 +58,17 @@ def validate_spec(spec):
     if not isinstance(spec, dict) or set(spec) != {'enabled','contract','contract_sha256'} or type(spec['enabled']) is not bool:
         raise ValueError('age enabled/contract schema differs')
     c = spec['contract']
-    if (canonical_digest(c) != spec['contract_sha256'] or c.get('version') != VERSION or c.get('field') != 'age'
+    if canonical_digest(c) != spec['contract_sha256']:
+        raise ValueError('age rule/statistics/hash incompatible')
+    if c.get('version') == LION_VERSION:
+        if c.get('lr') != 1e-4 or c.get('weight_decay') != 1e-3:
+            raise ValueError('Lion effective age optimization differs')
+        c = copy.deepcopy(c)
+        source_sha = c.pop('source_contract_sha256',None)
+        c.update(version=VERSION,lr=1e-3,weight_decay=1e-4)
+        if canonical_digest(c) != source_sha:
+            raise ValueError('Lion age source contract differs')
+    if (c.get('version') != VERSION or c.get('field') != 'age'
             or c.get('valid_min_exclusive') != 0 or c.get('valid_max_inclusive') != 120
             or c.get('features') != ['standardized_age','missing_indicator']
             or c.get('parameter_count') != 2 or c.get('bias') is not False

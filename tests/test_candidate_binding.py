@@ -21,6 +21,55 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_lion_candidate_identity(self):
+        from retrain import age
+        from retrain.persistence import canonical_digest
+        policy={'version':'lion10x-v1','betas':[.9,.99],'learning_rate_scale':.1,
+            'nonzero_weight_decay_scale':10.,'precision':'fp32','state':'exp_avg_only',
+            'update':'decoupled_decay_then_sign_then_momentum'}
+        source=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+10*i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        for filename,order in (('R136-SCIENCE.json',48),('R137-SCIENCE.json',49)):
+            path=ROOT/'configs'/filename;declared=json.loads(path.read_text())
+            site={'schema_version':1,'scope':'cpu_technical_prep','round_id':'identity-fixture','git_commit':'0'*40,
+                'work_root':str(ROOT),'round_root':str(ROOT/'rounds/identity-fixture'),
+                'pod':{'namespace':'fixture','name':'fixture','uid':'00000000-0000-0000-0000-000000000001','container':'fixture','python':sys.executable},
+                'gpus':[{'ordinal':i,'pci':f'0000:{i+1:02x}:00.0','vram_total_bytes':64*1024**3} for i in range(8)],
+                **{k:str(ROOT/v) for k,v in declared['paths'].items()},
+                'science':{'binding_version':declared['candidate_profile'],'candidate':declared['candidate'],
+                    'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}}
+            with tempfile.TemporaryDirectory() as folder:
+                p=Path(folder)/'SITE_BINDING.json';p.write_text(json.dumps(site))
+                with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()):
+                    try:actual=experiment.candidate_from_configuration(experiment.science_configuration())
+                    except ValueError as error:self.fail(f'adopted {filename} identity is not connected: {error}')
+                    self.assertEqual((actual['id'],actual['experiment_order']),(declared['candidate']['id'],order))
+                    self.assertEqual(actual.get('optimizer_policy'),policy if order==49 else None)
+                    with patch.object(experiment,'metadata',return_value={'AGE.json':source}):
+                        resolved=experiment.resolved_age_spec()
+                    age.validate_spec(resolved)
+                    if order==49:
+                        c=copy.deepcopy(resolved['contract'])
+                        self.assertEqual((c['version'],c['lr'],c['weight_decay']),('age-linear-lion10x-v1',1e-4,1e-3))
+                        self.assertEqual(c.pop('source_contract_sha256'),source['contract_sha256'])
+                        c.update(version='age-linear-v1',lr=1e-3,weight_decay=1e-4)
+                        self.assertEqual(c,source['contract']);self.assertEqual(canonical_digest(c),source['contract_sha256'])
+                        self.assertNotEqual(resolved['contract_sha256'],source['contract_sha256'])
+                    else:self.assertEqual(resolved,source)
+        current=json.loads((ROOT/'configs/R137-SCIENCE.json').read_text())
+        self.assertEqual(current['candidate_profile'],experiment.LION_SMALL_BINDING)
+        self.assertEqual(current['job']['optimizer_policy'],policy);self.assertEqual(current['candidate']['optimizer_policy'],policy)
+        self.assertEqual(current['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+        original=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())
+        self.assertEqual(current['initial_model_tensor_sha256'],original['initial_model_tensor_sha256'])
+        self.assertEqual((current['job']['backbone_lr'],current['job']['head_lr'],current['job']['weight_decay']),(1e-5,1e-4,1e-3))
+        left,right=copy.deepcopy(original),copy.deepcopy(current)
+        for value in (left,right):
+            for k in ('candidate_profile','comparison_note','official_evaluation'):value.pop(k,None)
+            for k in ('id','experiment_order','optimizer_policy'):value['candidate'].pop(k,None)
+            value['job'].pop('optimizer_policy',None)
+        right['job'].update(backbone_lr=1e-4,head_lr=1e-3,weight_decay=1e-4)
+        self.assertEqual(left,right)
+
     def test_R136_fixed_raw_GC_identity_and_R107_science(self):
         policy={'version':'raw-convlinear-weight-gc-v1','targets':'Conv2d_and_Linear_direct_weight','dtype':'float32',
             'axes':'all_non_output_dimensions','position':'after_ddp_mean_mirror_merge_unscale_before_global_clip','schedule':'each_real_update'}

@@ -98,6 +98,7 @@ def main(args):
     is_mixstyle = job.get('mixstyle_policy') is not None
     is_stem_xy = job.get('stem_xy_policy') is not None
     is_raw_gc = job.get('gradient_centralization_policy') is not None
+    is_lion = job.get('optimizer_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
@@ -250,6 +251,24 @@ def main(args):
             {'name': names[id(parameter)], 'shape': list(parameter.shape), 'numel': parameter.numel()}
             for parameter in group['params']]} for group in optimizer.param_groups]
     members = [parameter for group in optimizer.param_groups for parameter in group['params']]
+    if is_lion:
+        from retrain.engine import Lion
+        from retrain.config import LION_RULE
+        from retrain.age import validate_spec,LION_VERSION
+        source_age=copy.deepcopy(job['age']['contract']);source_sha=source_age.pop('source_contract_sha256')
+        source_age.update(version='age-linear-v1',lr=1e-3,weight_decay=1e-4)
+        check('R137_actual_Lion_named_groups_effective_age_empty_single_moment',
+              type(optimizer) is Lion and job['optimizer_policy']==ex.candidate()['optimizer_policy']==LION_RULE
+              and not optimizer.state and len(members)==345 and len({id(p) for p in members})==345
+              and all(g['optimizer_algorithm']=='lion10x-v1' and tuple(g['betas'])==(.9,.99)
+                      and g['param_names']==[names[id(p)] for p in g['params']]
+                      and g['param_shapes']==[list(p.shape) for p in g['params']] for g in optimizer.param_groups)
+              and validate_spec(job['age'])['contract']['version']==LION_VERSION
+              and source_age==ex.metadata()['AGE.json']['contract']
+              and canonical_digest(source_age)==source_sha==ex.binding()['age_contract_sha256'],
+              {'class':type(optimizer).__name__,'policy':job['optimizer_policy'],
+               'groups':[{k:g[k] for k in ('role','initial_lr','weight_decay','betas','optimizer_algorithm','param_names','param_shapes')} for g in optimizer.param_groups],
+               'age':job['age'],'source_age_contract_sha256':source_sha,'optimizer_state_entries':len(optimizer.state)})
     if is_raw_gc:
         targets=optimizer._gradient_centralization_targets
         check('R136_actual_Conv2d_Linear_rawGC_targets_and_original_Adam',
@@ -268,7 +287,7 @@ def main(args):
         head.add(id(model.attention_pool_weight))
     if is_stage3_residual:
         head.add(id(model.stage3_residual_weight))
-    check('unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
+    check('unique_groups_emptyLion_last_linear_LN_backbone' if is_lion else 'unique_groups_emptyAdam_last_linear_LN_backbone', not optimizer.state
         and len(named) == contract.get('backbone_parameter_tensors', contract.get('backbone_state_tensors', 0) - contract.get('buffer_count', 0)) + (3 if job['age']['enabled'] else 2) + int(is_content_pool) + int(is_stage3_residual) + (144 if is_low_rank else 0)
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
@@ -279,8 +298,9 @@ def main(args):
         and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else
              any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
         and group_lrs_match(groups, job)
-        and all(group['weight_decay'] == (1e-4 if group['role'] == 'age' or any(
-            named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) for group in groups),
+        and all(group['weight_decay'] == ((job['age']['contract']['weight_decay'] if group['role']=='age' else
+            job['weight_decay'] if any(named[row['name']].ndim>1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) if is_lion else
+            (1e-4 if group['role'] == 'age' or any(named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.)) for group in groups),
         {'all_parameter_tensors': len(named), 'trainable_tensors': len(trainable),
          'frozen_tensors': len(frozen), 'parameter_trainability': parameter_trainability,
          'elements_by_role': roles, 'group_count': len(groups)})
