@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "experiment": "R136",
+  "experiment_order": 48,
+  "status": "completed",
+  "round_id": "r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+  "run_git_commit": "f38adab66219bbe2e3a79467b1710015c9ace120",
+  "run_tree_sha": "5c70fc24d696ba23f4a49bc0c7021fb6088f367c",
+  "science_sha256": "098768cc3eeb0e02f9fa742daa72b2fc076d461787538ad1b56caefaeb49817f",
+  "site_binding_sha256": "36015944f7519353f228318f1d40951105ac982523ed134578e9ab7118d6baf9",
+  "completion_observed_at": 1793534867.3978941,
+  "completion_observed_at_beijing": "2026-11-01T20:07:47.397894+08:00",
+  "successful_updates": 6400,
+  "attempted_updates": 6400,
+  "skipped_updates": 0,
+  "evaluated_cycles": 8,
+  "early_stop": {
+    "bad_cycles": 4,
+    "metric": "internal_dev_auroc",
+    "reference_auroc": 0.987366509691255,
+    "stopped": true,
+    "variants": [
+      "online",
+      "ema"
+    ]
+  },
+  "train_component": {
+    "exit_code": 0,
+    "signals": []
+  },
+  "done_status": "completed",
+  "train_status": "completed",
+  "round_status": "completed",
+  "selected": {
+    "cycle": 4,
+    "variant": "ema",
+    "successful_updates": 3200,
+    "error_twice": 20984,
+    "ap": 0.82175064566623,
+    "auroc": 0.987366509691255,
+    "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101/outputs/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+    "prediction_sha256": "6d996daad077ae9c9ec91024c0386816267dc4329061538055f1cd213b53b7b1",
+    "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101/outputs/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+    "precision_sha256": "f7a522a2856436b5ad9ee8bd52491749f376e7c08a859e87b72977196b081a1e",
+    "tensor_sha256": "928e2d106a379637aeabff34ffcef8e4d8776e07ede7f5f6706290cd5f5c885f"
+  },
+  "freeze_run_name": "r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32",
+  "freeze_status": null,
+  "freeze_metadata_sha256": "be0396b9f722e2ce5b0e0cb30aa8ada9abc47420cc8cd82182528ac361b7e873",
+  "selected_checkpoint_reference": {
+    "checkpoint": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101/outputs/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-2ea2027230c74d27b4cbbc0b9141111b.pt",
+    "variant": "ema",
+    "blob_sha256": "568fb1b6aa91bb677e6e08b681f26ac4a21e8906a1eac05bdc73054a7a69f6d6",
+    "tensor_sha256": "928e2d106a379637aeabff34ffcef8e4d8776e07ede7f5f6706290cd5f5c885f"
+  },
+  "strict_gates": {
+    "thresholds": {
+      "R107": 0.9884405731067525,
+      "R120_singlebest": 0.9894773092062407
+    },
+    "passes": {
+      "R107": false,
+      "R120_singlebest": false
+    },
+    "both_pass": false
+  },
+  "decision": "fixed_raw_convlinear_gc_closed_no_seed27",
+  "official": {
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "official_metrics": null,
+    "target_auroc_at_least_0_999": null
+  },
+  "official_read_by_observer": false,
+  "actual_safe": true,
+  "safety_reason": "terminal_idle",
+  "safety": {
+    "safe": true,
+    "reason": "terminal_idle",
+    "identity": {
+      "owner_expected": {
+        "pid": 390921,
+        "start_ticks": "355888853"
+      },
+      "owner": {
+        "pid": 390921,
+        "present": true,
+        "readable": true,
+        "state": "Z",
+        "start_ticks": "355888853",
+        "active": false
+      },
+      "owner_status": "exited",
+      "owner_match": true,
+      "ranks_expected": [
+        {
+          "pid": 390933,
+          "start_ticks": "355892357"
+        },
+        {
+          "pid": 390934,
+          "start_ticks": "355892363"
+        },
+        {
+          "pid": 390935,
+          "start_ticks": "355892366"
+        },
+        {
+          "pid": 390936,
+          "start_ticks": "355892367"
+        },
+        {
+          "pid": 390937,
+          "start_ticks": "355892369"
+        },
+        {
+          "pid": 390938,
+          "start_ticks": "355892370"
+        },
+        {
+          "pid": 390939,
+          "start_ticks": "355892372"
+        },
+        {
+          "pid": 390940,
+          "start_ticks": "355892373"
+        }
+      ],
+      "ranks": [
+        {
+          "pid": 390933,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390934,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390935,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390936,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390937,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390938,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390939,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 390940,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        }
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_count": 8
+    },
+    "lock": {
+      "present": true,
+      "readable": true,
+      "holders": []
+    },
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  },
+  "evidence": {
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/COMPLETION-HB-R136-20261101-2005.json",
+      "sha256": "f55513f7aa2be20d3a3f492ee566904816a23013df152d50b0e7d11d7a0ab18f"
+    },
+    "completion_cpu": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-yuir2ift/CPU-RECEIPT.json",
+      "sha256": "22cda6dfca057d38f0379de557a83a92fc5e6063b5696187e499a1322ba99d3c"
+    },
+    "last_light": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/HB-R136-20261101-2005-SUPPLEMENT.json",
+      "sha256": "5a92a3b4bcf4b2d0bf1e729ce0e3ee48f78d98042a9a00aab9daca00d6d83e7b"
+    }
+  },
+  "blob_hashed_or_loaded_for_observation_or_archive": false,
+  "new_model_forward_for_observation_or_archive": false,
+  "old_assets_or_clocks_or_grants_modified": false,
+  "selected_and_dependencies_retained": true,
+  "no_new_training_candidate_authorized": true,
+  "archive_cpu_context": {
+    "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+    "entry": {
+      "threads": 12,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "identity": {
+      "NCCCU_POD_NAMESPACE": "acfwvv9ejn",
+      "NCCCU_POD_NAME": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+      "NCCCU_POD_UID": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+      "NCCCU_CONTAINER": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+      "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12"
+    },
+    "effective_cpus": 120.0,
+    "nice": 19,
+    "mask": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "gpu_visible": ""
+  },
+  "archived_at": 1793535168.2827706
+}
