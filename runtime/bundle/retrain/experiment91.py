@@ -33,6 +33,7 @@ LAYERWISE_LR_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-e
 POINTWISE_LORA8_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-pointwise-lora8-v1'
 LOGIT_SQUARE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-logitsquare01-v1'
 TRI3_DOWNSAMPLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-tri3downsample-v1'
+MIXSTYLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -48,7 +49,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
                       POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
-                      TRI3_DOWNSAMPLE_SMALL_BINDING)
+                      TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -93,6 +94,8 @@ def science_configuration():
         value = json.loads(raw)
         if value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING:
             from .tri3_downsample import TRI3_RULE
+        if value.get('candidate_profile') == MIXSTYLE_SMALL_BINDING:
+            from .mixstyle import MIXSTYLE_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -110,7 +113,8 @@ def science_configuration():
                                                        LAYERWISE_LR_SMALL_R1_BINDING,
                                                        POINTWISE_LORA8_SMALL_BINDING,
                                                        LOGIT_SQUARE_SMALL_BINDING,
-                                                       TRI3_DOWNSAMPLE_SMALL_BINDING)
+                                                       TRI3_DOWNSAMPLE_SMALL_BINDING,
+                                                       MIXSTYLE_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') != NO_AGE_SMALL_BINDING
@@ -199,8 +203,21 @@ def science_configuration():
                 or (value.get('candidate_profile') != TRI3_DOWNSAMPLE_SMALL_BINDING
                     and (value.get('job', {}).get('tri3_downsample_policy') is not None
                          or value.get('candidate', {}).get('tri3_downsample_policy') is not None))
-                or value.get('job', {}).get('mixstyle_policy') is not None
-                or value.get('candidate', {}).get('mixstyle_policy') is not None
+                or (value.get('candidate_profile') != MIXSTYLE_SMALL_BINDING
+                    and (value.get('job', {}).get('mixstyle_policy') is not None
+                         or value.get('candidate', {}).get('mixstyle_policy') is not None))
+                or (value.get('candidate_profile') == MIXSTYLE_SMALL_BINDING
+                    and (value.get('job', {}).get('mixstyle_policy') != MIXSTYLE_RULE
+                         or value.get('candidate', {}).get('mixstyle_policy') != MIXSTYLE_RULE
+                         or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or 'final_downsample_stride' in value.get('job', {})
+                         or any(value.get('job', {}).get(key) is not None for key in
+                                ('tri3_downsample_policy', 'output_regularization', 'low_rank_policy',
+                                 'layerwise_lr_policy', 'mixup', 'head_warmup_policy',
+                                 'gradient_clip_policy', 'attention_pool', 'stage3_residual',
+                                 'freeze_features_before', 'training_rotation',
+                                 'training_photometric', 'training_views'))
+                         or value.get('public_source', {}).get('format') != 'torchvision-1000-state-dict-v1'))
                 or (value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING
                     and (value.get('job', {}).get('tri3_downsample_policy') != TRI3_RULE
                          or value.get('candidate', {}).get('tri3_downsample_policy') != TRI3_RULE
@@ -252,7 +269,7 @@ def candidate_from_configuration(value):
                                         LAYERWISE_LR_SMALL_BINDING,
                                         LAYERWISE_LR_SMALL_R1_BINDING,
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
-                                        TRI3_DOWNSAMPLE_SMALL_BINDING):
+                                        TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -325,6 +342,10 @@ def candidate_from_configuration(value):
             from .tri3_downsample import TRI3_RULE
             expected.update(id='r133-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-tri3downsample-9010',
                             experiment_order=44, tri3_downsample_policy=TRI3_RULE)
+        if value['candidate_profile'] == MIXSTYLE_SMALL_BINDING:
+            from .mixstyle import MIXSTYLE_RULE
+            expected.update(id='r134-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-mixstyle13-local8-9010',
+                            experiment_order=45, mixstyle_policy=MIXSTYLE_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -542,8 +563,8 @@ def validate_job(job):
         'output_regularization': candidate().get('output_regularization'),
         # Only the exact registered R133 candidate carries these three operators.
         'tri3_downsample_policy': candidate().get('tri3_downsample_policy'),
-        # MixStyle is optional CPU preparation, without an adopted profile.
-        'mixstyle_policy': None,
+        # Only the exact registered candidate carries the fixed MixStyle policy.
+        'mixstyle_policy': candidate().get('mixstyle_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -735,8 +756,20 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
-    if configured.get('mixstyle_policy') is not None or value.get('mixstyle') is not None:
-        raise ValueError('MixStyle has no adopted formal profile')
+    if configured.get('mixstyle_policy') != candidate().get('mixstyle_policy'):
+        raise ValueError('MixStyle job has no matching candidate policy')
+    if configured.get('mixstyle_policy') is not None:
+        from .mixstyle import MIXSTYLE_RULE
+        expected_mixstyle = {'policy': MIXSTYLE_RULE,
+            'sites': [{'feature_index': 1, 'feature_name': 'network.features.1', 'channels': 96, 'blocks': 3},
+                      {'feature_index': 3, 'feature_name': 'network.features.3', 'channels': 192, 'blocks': 3}],
+            'training_only': True, 'persistent_rng_state': False}
+        if (science_configuration()['candidate_profile'] != MIXSTYLE_SMALL_BINDING
+                or configured['mixstyle_policy'] != MIXSTYLE_RULE
+                or value.get('mixstyle') != expected_mixstyle):
+            raise ValueError('actual two-stage rank-local8 MixStyle graph differs')
+    elif value.get('mixstyle') is not None:
+        raise ValueError('unregistered MixStyle graph')
     if configured.get('tri3_downsample_policy') != candidate().get('tri3_downsample_policy'):
         raise ValueError('Tri3 job has no matching registered candidate identity')
     if configured.get('tri3_downsample_policy') is not None:

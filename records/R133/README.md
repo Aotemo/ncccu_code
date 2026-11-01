@@ -1,4 +1,8 @@
-# R133：三处固定 Tri3 已获真实首成功
+# R133：三处固定 Tri3 完整关闭
+
+[完整结果](R133-RESULT.json)与[原completion](COMPLETION-R133.json)记录09:02:41.493365 done/TRAIN/ROUND completed、5600success=attempt/0skip/eval7/bad4、exit0/signals[]。唯一EMA c3@2400内部AUROC `.9857614351028487`、AP `.8072697309724365`、error_twice23650；strict>R107 `.9884405731067525`及>singlebestR120 `.9894773092062407`均false，关闭固定三处Tri3/no27，不扫描或转APS。此为本固定整体策略科学阴性，不外推所有低通方法。
+
+freeze.status为原始null，不写该字段completed；官方政策取ROUND：not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull，observer official_readfalse，未重复官方前向。actualsafe true/terminal_idle：owner359053同startZ非reaped、八rankabsent、锁holders与设备users空、scanDenied0、八expectedPCI seen busy0。completion SHA `832c35863fd9cb68a27d831e0edd30d2af9809f14bc41213c4b47bde1ae3247a`，[CPU guard](TERMINAL-CPU-RECEIPT.json) SHA `54e7fd839a2dd2570f999bad0ea5781df0b6bfa7c90bf8f79cbd98c965da2488`/exit0。归档只读已知小件，没有为文档重观测安全、hash/load权重；blob SHA仅原提交广告，原1503及所有旧资产保护。下文启动证据保持历史，唯一下一轮由[R134合同](../../todo/auroc-999/R134-DECISION.md)承接。
 
 运行Git `a6f2e72e887ac57125a720ffbfb9ea76730162f4`，parent `e87e90eeed926b3129bc7795a6abdb2e165cb530`，tree `4b16c83aca7244e5347cf5e99b5f37d388fcecfb`；SCI SHA `8e57c0ba655a676e9f40061fa71ad14cdc5d46914ac001d1deaf18828f5c1ed2`。order44直接R107/seed29/public fresh，只加features2/4/6固定Tri3，原345全训，无输出正则/LoRA/layerwise或旧checkpoint。R132完整双门false及其他旧产物分别保护，归档commit与runGit分列。
 
