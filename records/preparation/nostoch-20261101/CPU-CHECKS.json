@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "fixed_science_and_existing_factory_passed",
+  "passed_targets": 2,
+  "compiled_sources": 2,
+  "at": 1793561537.1856933,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "b4eb6fccb72a3894f8af07dfad37e4bbba1f60f56fb51e79ab49a9e84d75369e",
+    "tests/test_candidate_binding.py": "007456b84f9016ec8e8b8457dece1de7bb930637c38419bc9cb2e223f0e45280"
+  },
+  "science_sha256": {
+    "R147-SCIENCE.json": "0f56194de0e413f454d82673515b09a6a650b19191a9321d18cf9b2ab1d25b8e",
+    "R148-SCIENCE.json": "ca60e78edbdb62f234ab7c9976b52303d59099324320b35fa93ab10b012b9121"
+  },
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R147_R148_fixed_science_and_saved_job_contract",
+    "test_candidate_binding.CandidateBindingTest.test_R148_existing_factory_zero_stochasticity_and_finite_gradient"
+  ],
+  "evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-92x9kt8r/CPU-RECEIPT.json",
+      "sha256": "eb6d18ade8ed1471094cf825f3978bdadf5e35b4c5531b4795cf0f44deebb1fb",
+      "exit_code": 0,
+      "output_sha256": "e157225dce0016103235424c6af61bb917140f0105708cfd30af05fb345b96dd"
+    }
+  ],
+  "unchanged_runtime_source": {
+    "runtime/bundle/retrain/models.py": "c22bbb55f1b0ddaf8fd058a209ddc8decb4f996987adc3cd514ca584b478a23a",
+    "runtime/bundle/retrain/config.py": "3624b897b2012799dd2bba399bcaeaa1c817493fa069397375266ae237119e6d",
+    "runtime/bundle/retrain/data.py": "61b15bfc3a521f3656d32df1314a63defce394d2ab094d3c9c99633a376afdb3",
+    "runtime/bundle/retrain/preprocessing.py": "7e0b23e1e43fdf775525622097354332e4f2a552fc48179565b812713556f8aa",
+    "runtime/bundle/retrain/ema.py": "9894ae81e6b5ee43d16e6ac219e7c1bb573dadce7d62a0e6230732897abc95fb",
+    "runtime/bundle/retrain/engine.py": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "runtime/bundle/retrain/distributed_engine.py": "4a0b291ddd9b807419ac0002407303b0aabf58d1f7d762c934284be8e58a2323",
+    "runtime/run_training.py": "587994548664b567e229a121de362f8776c6dad663ce2b38b05cec9b9c55bf00",
+    "tools/activation/prepare.py": "bd2d0c1dadb939b8a4c03102fa39eed1c15deea64729582ab2be34809b0c0774",
+    "tools/activation/prepare_gpu_site.py": "5745fad0f5063be92ffcb85ef29e0a04b4ea6e778d795a462eac96cce9eb8c1d",
+    "tools/validation/check_candidate.py": "1ff8462a9cfc6139f2539954fbb70f19609717a74464895830caa965530a998a"
+  },
+  "initial_tensor_identity_reused_not_remeasured": true,
+  "actual_science_direct_comparisons_checked": true,
+  "actual_saved_job_contract_checked": true,
+  "actual_factory_without_public_initialization_checked": true,
+  "actual_GPU_initialized_by_test": false,
+  "official_read": false,
+  "new_formal_executed": false,
+  "new_activation_executed": false
+}

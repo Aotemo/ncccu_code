@@ -1,0 +1,54 @@
+{
+  "stage": "RED",
+  "status": "failed",
+  "tests_run": 2,
+  "failure_count": 2,
+  "error_count": 0,
+  "passed_targets": 0,
+  "compiled_sources": 0,
+  "seconds": 0.3198738098144531,
+  "at": 1793561422.4925437,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R147_R148_fixed_science_and_saved_job_contract",
+    "test_candidate_binding.CandidateBindingTest.test_R148_existing_factory_zero_stochasticity_and_finite_gradient"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "86b931d1f29af25342b7cd856ee93995623c2ba14f884b9c077bb0281ee92e94",
+    "tests/test_candidate_binding.py": "007456b84f9016ec8e8b8457dece1de7bb930637c38419bc9cb2e223f0e45280"
+  },
+  "science_sha256": {
+    "R147-SCIENCE.json": "0f56194de0e413f454d82673515b09a6a650b19191a9321d18cf9b2ab1d25b8e",
+    "R148-SCIENCE.json": "ca60e78edbdb62f234ab7c9976b52303d59099324320b35fa93ab10b012b9121"
+  },
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "CUDA_VISIBLE_DEVICES": "",
+  "official_read": false,
+  "training_checkpoint_loaded": false,
+  "public_weights_loaded_by_factory_target": false,
+  "new_formal_executed": false,
+  "new_GPU_started": false
+}

@@ -21,6 +21,73 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R147_R148_fixed_science_and_saved_job_contract(self):
+        from retrain import age,config
+        self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING'),'conditional inset binding is missing')
+        self.assertTrue(hasattr(experiment,'NO_MODEL_STOCH_SMALL_BINDING'),'fixed zero stochastic regularization binding is missing')
+        for label,base in [('R147','R146'),('R148','R107')]:
+            left=json.loads((ROOT/'configs'/f'{base}-SCIENCE.json').read_text())
+            path=ROOT/'configs'/f'{label}-SCIENCE.json';right=json.loads(path.read_text())
+            self.assertEqual(right['candidate']['experiment_order'],59 if label=='R147' else 60)
+            self.assertEqual(right['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+            self.assertEqual(experiment.candidate_from_configuration(right),right['candidate'])
+            if label=='R147':
+                self.assertEqual(right['candidate_profile'],experiment.GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING)
+                self.assertEqual(right['job']['seed'],20261027)
+                self.assertEqual(right['composite_cache_receipt'],left['composite_cache_receipt'])
+                self.assertEqual(right['initial_model_tensor_sha256'],json.loads((ROOT/'configs/R108-SCIENCE.json').read_text())['initial_model_tensor_sha256'])
+            else:
+                self.assertEqual(right['candidate_profile'],experiment.NO_MODEL_STOCH_SMALL_BINDING)
+                self.assertEqual((right['job']['dropout'],right['job']['stochastic_depth'],right['candidate']['head_dropout']),(0.,0.,0.))
+                self.assertEqual(right['initial_model_tensor_sha256'],left['initial_model_tensor_sha256'])
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/f'{label}-fixture'),**{k:str(ROOT/v) for k,v in right['paths'].items()})
+            site['science']={'binding_version':right['candidate_profile'],'candidate':right['candidate'],'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            binding={'version':right['candidate_profile']};age_spec=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+            with tempfile.TemporaryDirectory() as directory:
+                p=Path(directory)/'SITE.json';p.write_text(json.dumps(site))
+                with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':age_spec}):
+                    self.assertEqual(experiment.science_configuration(),right)
+                    job=copy.deepcopy(right['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization={'kind':'imagenet','format':right['public_source']['format'],'sha256':right['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                    cfg=Path(directory)/'TRAIN.json';cfg.write_text(json.dumps({'mode':'train','data':{'split':right['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
+                    resolved=config.load_config(cfg,environ={})['jobs'][0]
+                    self.assertEqual(experiment.validate_job(resolved),resolved)
+                    saved=config.job_contract(resolved)
+                    self.assertEqual((saved['dropout'],saved['stochastic_depth']),(right['job']['dropout'],right['job']['stochastic_depth']))
+            for value in (left,right):
+                for key in ('candidate_profile','comparison_note','official_evaluation'):value.pop(key,None)
+                for key in ('id','experiment_order'):value['candidate'].pop(key)
+            if label=='R147':right['job']['seed']=left['job']['seed'];right['initial_model_tensor_sha256']=left['initial_model_tensor_sha256']
+            else:
+                right['job']['dropout']=left['job']['dropout'];right['job']['stochastic_depth']=left['job']['stochastic_depth']
+                right['candidate']['stochastic_depth']=left['candidate']['stochastic_depth'];right['candidate'].pop('head_dropout')
+            self.assertEqual(right,left)
+
+    def test_R148_existing_factory_zero_stochasticity_and_finite_gradient(self):
+        self.assertTrue(hasattr(experiment,'NO_MODEL_STOCH_SMALL_BINDING'),'fixed zero stochastic regularization binding is missing')
+        import torch
+        from torchvision.ops import StochasticDepth
+        from retrain import age,models
+        spec=json.loads((ROOT/'configs/R148-SCIENCE.json').read_text())
+        job=copy.deepcopy(spec['job']);job.pop('experiment91',None)
+        job['age']=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        torch.manual_seed(job['seed']);model=models.create_model(job,initialize=False)
+        depth=[m for m in model.modules() if isinstance(m,StochasticDepth)]
+        dropout=[m for m in model.modules() if isinstance(m,torch.nn.Dropout)]
+        self.assertEqual(len(depth),36);self.assertTrue(all(m.p==0 for m in depth))
+        self.assertEqual(len(dropout),1);self.assertEqual(dropout[0].p,0.)
+        self.assertEqual(sum(p.requires_grad for p in model.parameters()),345)
+        images=torch.linspace(-1,1,2*3*32*32).reshape(2,3,32,32)
+        features=torch.tensor([[.25,1.],[-.25,1.]])
+        rng=torch.get_rng_state().clone();model.train()
+        with torch.no_grad():training=model(images,features)
+        self.assertTrue(torch.equal(rng,torch.get_rng_state()));model.eval()
+        with torch.no_grad():evaluation=model(images,features)
+        self.assertTrue(torch.equal(training,evaluation));self.assertTrue(torch.equal(rng,torch.get_rng_state()))
+        model.train();model(images,features).sum().backward()
+        self.assertTrue(all(p.grad is not None and bool(torch.isfinite(p.grad).all()) for p in model.parameters()))
+        self.assertTrue(torch.equal(rng,torch.get_rng_state()));self.assertFalse(torch.cuda.is_initialized())
+
     def test_R146_global_native_inset_identity_and_asset_binding(self):
         from retrain import config,preprocessing
         self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_INSET_SMALL_BINDING'),'global/native inset binding is missing')
