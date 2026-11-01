@@ -1,5 +1,9 @@
 # R133：三处固定 Tri3 低通下采样
 
+**已实际启动：07:58:59.500366北京时间实查running75success=attempt/0skip/eval0。** owner359053/start351835906与8rank359065–72全部argv/start active，真实96核/control112–119+rank24–111及8PCI/显存匹配。ACTUAL_FRESH_INITIAL completed（SHA `8ea6cb2b52325acc004e2b661a4d94f7afcdc7350f13c187b3ca1d9524c7049a`），八rank初态345全训/实际5组/Adam0/50c且三处完整实际Tri3全部匹配formal。首记录成功update25=attempt25、loss/global_loss `.6324090361595154` finite、world8/64P8/448pairs与8rank输入已证；step1/逐rank Adam step未单独观察。observer仅首4021B、无blob/model/forward。[启动小件](../../records/R133/README.md)留完整边界，下文“准备/尚未启动”为历史阶段。
+
+实际runGit `a6f2e72e887ac57125a720ffbfb9ea76730162f4`/tree `4b16c83aca7244e5347cf5e99b5f37d388fcecfb`；本轮normalformal唯一一次18/18，公开whole50c、正式三处descriptor/onlineEMA一致/默认factory strict重建均实证，727源Git blob/mode exact。正式CPU SHA `e492a5cd1f8a59653ed7839bd305121ef9837193a29f99daa89c5615de475ba9`，deployment `c16e06b64f469d1199eda7acd05b04bf8da4c33ae973df6d6958360c644d9387`，SITE `5cbeda9a39ddee58c5c3a3646dde7da4c17e252f821c695d3596d3d37df38b90`。13项absence/旧调用0之后真正一次activation0/live launch0，CPU pin SITE SHA、GPU无预taskset/uncontracted准入与正确-i保持；新9h grant `10d61983ff09400066a4b2554618e0753aa1adbe94cfc0c5795f3e224df3c864`独立，旧clock/token/grant不改。START2 SHA `deb3e48a62dfc6c8204c6051647347619e0bd92a90aaf2db725a9a63100c2e69`，归档commit与runGit分列，不热改冻结包。
+
 根在R132完整结果与actualsafe后依用户持续推进授权采用本轮；fresh授权reference为消息`429ca7f7-cb13-4e51-bb68-32ad1ba5892d`。A `7c17043e-8381-43e9-b185-6e142634ad72`独占Git/Pod/GPU，规划仅一次注册只读审查。当前正在身份接线与正式准备，尚未activation/launch或证明本轮GPU成功；执行后按真实小件接续。
 
 | 字段 | 冻结值 |

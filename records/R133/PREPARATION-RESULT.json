@@ -1,0 +1,222 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101",
+  "git_commit": "a6f2e72e887ac57125a720ffbfb9ea76730162f4",
+  "tree_sha": "4b16c83aca7244e5347cf5e99b5f37d388fcecfb",
+  "science_sha256": "8e57c0ba655a676e9f40061fa71ad14cdc5d46914ac001d1deaf18828f5c1ed2",
+  "candidate": {
+    "id": "r133-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-tri3downsample-9010",
+    "experiment_order": 44,
+    "tri3_downsample_policy": {
+      "version": "convnext-small-tri3-downsample-v1",
+      "targets": [
+        2,
+        4,
+        6
+      ],
+      "convolution": "native2-stride1-pad0",
+      "filter": "reflect1-box2s1-box2s2"
+    },
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "parameter_elements_by_role": {
+    "backbone": 49454688,
+    "head": 769,
+    "age": 2
+  },
+  "trainable_tensors": 345,
+  "named_group_count": 5,
+  "all_parameter_tensors": 345,
+  "frozen_parameter_tensors": 0,
+  "tri3_downsample_policy": {
+    "version": "convnext-small-tri3-downsample-v1",
+    "targets": [
+      2,
+      4,
+      6
+    ],
+    "convolution": "native2-stride1-pad0",
+    "filter": "reflect1-box2s1-box2s2"
+  },
+  "actual_tri3_downsample": {
+    "policy": {
+      "version": "convnext-small-tri3-downsample-v1",
+      "targets": [
+        2,
+        4,
+        6
+      ],
+      "convolution": "native2-stride1-pad0",
+      "filter": "reflect1-box2s1-box2s2"
+    },
+    "targets": [
+      {
+        "feature_index": 2,
+        "normalization_name": "network.features.2.0",
+        "convolution_name": "network.features.2.1",
+        "input_channels": 96,
+        "output_channels": 192,
+        "convolution_kernel": [
+          2,
+          2
+        ],
+        "convolution_stride": [
+          1,
+          1
+        ],
+        "convolution_padding": [
+          0,
+          0
+        ],
+        "tail": [
+          {
+            "kind": "ReflectionPad2d",
+            "padding": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "kind": "AvgPool2d",
+            "kernel_size": 2,
+            "stride": 1,
+            "padding": 0,
+            "ceil_mode": false,
+            "count_include_pad": true,
+            "divisor_override": null
+          },
+          {
+            "kind": "AvgPool2d",
+            "kernel_size": 2,
+            "stride": 2,
+            "padding": 0,
+            "ceil_mode": false,
+            "count_include_pad": true,
+            "divisor_override": null
+          }
+        ]
+      },
+      {
+        "feature_index": 4,
+        "normalization_name": "network.features.4.0",
+        "convolution_name": "network.features.4.1",
+        "input_channels": 192,
+        "output_channels": 384,
+        "convolution_kernel": [
+          2,
+          2
+        ],
+        "convolution_stride": [
+          1,
+          1
+        ],
+        "convolution_padding": [
+          0,
+          0
+        ],
+        "tail": [
+          {
+            "kind": "ReflectionPad2d",
+            "padding": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "kind": "AvgPool2d",
+            "kernel_size": 2,
+            "stride": 1,
+            "padding": 0,
+            "ceil_mode": false,
+            "count_include_pad": true,
+            "divisor_override": null
+          },
+          {
+            "kind": "AvgPool2d",
+            "kernel_size": 2,
+            "stride": 2,
+            "padding": 0,
+            "ceil_mode": false,
+            "count_include_pad": true,
+            "divisor_override": null
+          }
+        ]
+      },
+      {
+        "feature_index": 6,
+        "normalization_name": "network.features.6.0",
+        "convolution_name": "network.features.6.1",
+        "input_channels": 384,
+        "output_channels": 768,
+        "convolution_kernel": [
+          2,
+          2
+        ],
+        "convolution_stride": [
+          1,
+          1
+        ],
+        "convolution_padding": [
+          0,
+          0
+        ],
+        "tail": [
+          {
+            "kind": "ReflectionPad2d",
+            "padding": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "kind": "AvgPool2d",
+            "kernel_size": 2,
+            "stride": 1,
+            "padding": 0,
+            "ceil_mode": false,
+            "count_include_pad": true,
+            "divisor_override": null
+          },
+          {
+            "kind": "AvgPool2d",
+            "kernel_size": 2,
+            "stride": 2,
+            "padding": 0,
+            "ceil_mode": false,
+            "count_include_pad": true,
+            "divisor_override": null
+          }
+        ]
+      }
+    ]
+  },
+  "optimizer_state_entries": 0,
+  "package_manifest_sha256": "4ddc14d9e26c25e1dc0330b3632a7c5c93306e4384b2a5397c406c4701523168",
+  "cpu_prep_sha256": "f7197abd476dd64dde9c97f8e09f26a9f415dee560d5b5cfcb0b72ec3e64c6b8",
+  "deployment_sha256": "c16e06b64f469d1199eda7acd05b04bf8da4c33ae973df6d6958360c644d9387",
+  "site_sha256": "5cbeda9a39ddee58c5c3a3646dde7da4c17e252f821c695d3596d3d37df38b90",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "formal_runs": 1
+}
