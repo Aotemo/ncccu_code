@@ -1,0 +1,40 @@
+{
+  "status": "checked_Git_source_and_fixed_R147_R148_technical_package_ready",
+  "at": 1793561823.368461,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "b4eb6fccb72a3894f8af07dfad37e4bbba1f60f56fb51e79ab49a9e84d75369e",
+    "tests/test_candidate_binding.py": "007456b84f9016ec8e8b8457dece1de7bb930637c38419bc9cb2e223f0e45280"
+  },
+  "science_sha256": {
+    "R147-SCIENCE.json": "0f56194de0e413f454d82673515b09a6a650b19191a9321d18cf9b2ab1d25b8e",
+    "R148-SCIENCE.json": "ca60e78edbdb62f234ab7c9976b52303d59099324320b35fa93ab10b012b9121"
+  },
+  "branches": [
+    {
+      "science": "R147",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r147-20261101-32e3/technical-package/package",
+      "site_sha256": "9e1c55cbd6b2f3b8aa3466dce6780a523f6f9ca9555c7478db4af29cd5501392",
+      "seconds": 5.903386354446411,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    },
+    {
+      "science": "R148",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r148-20261101-32e3/technical-package/package",
+      "site_sha256": "dda3133b524d92a7c7f747592e7d1a47a55607fbcbfd2d82060e298dc206efb6",
+      "seconds": 5.862199544906616,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-STOCH-NEXT.py": "4568c4c294402ffd9970ef08fdffd658b42c4c2bb050ec65c849079f7c01d9b3",
+    "OBSERVE-START-NEXT.py": "ec2bcaefed6edc0959f1d82ecb59bab0ba0ed7e59fec597494b2a234ab86c782",
+    "RUN-STOCH-NEXT.sh": "c8ccde75f4bd80f73324e9507e7e8e816457f523aaee536f9403219525918358"
+  },
+  "new_GPU_started": false
+}

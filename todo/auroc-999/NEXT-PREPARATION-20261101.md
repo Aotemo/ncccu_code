@@ -2,7 +2,7 @@
 
 ## R146期间的必要条件准备
 
-下一固定分支：R147/order59仅是R146完整双门通过后的inset256 seed27，仍复用同一联合cache回执，预期fresh初态91507，不加载R108权重。独立R148/order60直接回R107/seed29/global512/public fe6b fresh；唯一方法是模型随机正则整体置零：head dropout `.2→0`、stochastic depth `.1→0`，原图像增强、参数/初态50c、AdamW/LR/WD/EMA/24k800p4与所有边界保持。这是联合消融，不归因单一正则，不因裁剪分支失败推断欠拟合；R122去光度阴性、R127去旋转仅过第一门等是非等价负先验。固定零一次，不拆分或扫非零rate/LR/seed；完整双门及safe才固定seed27，失败关闭精确联合配方。只改现experiment91绑定、现candidate test及两SCIENCE，模型/factory/训练/保存/评估源码不改；窄CPU核配置roundtrip和实际原factory的p0/随机状态/finite梯度，不新增GPU预演或新资产/平台。CPU两项目标及2源compile已通过，正在同步与技术打包，未formal/activation/GPU。此前考察SwinV2/ConvNeXtV2未采用，不混入本包。
+下一固定分支：R147/order59仅是R146完整双门通过后的inset256 seed27，仍复用同一联合cache回执，预期fresh初态91507，不加载R108权重。独立R148/order60直接回R107/seed29/global512/public fe6b fresh；唯一方法是模型随机正则整体置零：head dropout `.2→0`、stochastic depth `.1→0`，原图像增强、参数/初态50c、AdamW/LR/WD/EMA/24k800p4与所有边界保持。这是联合消融，不归因单一正则，不因裁剪分支失败推断欠拟合；R122去光度阴性、R127去旋转仅过第一门等是非等价负先验。固定零一次，不拆分或扫非零rate/LR/seed；完整双门及safe才固定seed27，失败关闭精确联合配方。只改现experiment91绑定、现candidate test及两SCIENCE，模型/factory/训练/保存/评估源码不改；窄CPU核配置roundtrip和实际原factory的p0/随机状态/finite梯度，不新增GPU预演或新资产/平台。CPU两项目标及2源compile已通过，已同步d546d302并实建两技术包，未formal/grant/clock/activation/GPU。此前考察SwinV2/ConvNeXtV2未采用，不混入本包。
 
 R144已完整5600/eval7/bad4，唯一EMA c3@2400 AUROC`.9754916067723792`，双门false关闭Native/no27，R145未formal/activation/训练。当前独立R146/order58已真实八卡running50首成功，冻结79713db0/SCIf119629c/SITE7f5d；两CPU/9源compile和102792缓存条目原有证据精确复用、唯一normalformal18/18和Git部署/一次activation/direct launch0，见[当前启动](../../records/R146/README.md)。下方所有“未实现/待同步/未技术打包/R144 running”均为带时间的历史准备阶段，不作现状。当前只在20%池继续准备；R146完整selector和actualsafe之前不启动任何新GPU，仍沿既有两阶段入口，不新平台/heartbeat/资源。
 
