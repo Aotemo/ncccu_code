@@ -51,6 +51,8 @@ class DINOCurrentTest(unittest.TestCase):
         self.assertTrue(proof['all_public_tensors_exact']);self.assertTrue(proof['all_public_tensors_FP32_finite'])
         self.assertEqual(proof['public_tensor_count'],len(source));self.assertTrue(proof['backbone_only'])
         self.assertEqual(proof['public_tensor_sha256'],tensor_digest(source))
+        self.assertEqual(proof['initialization']['kind'],'self_supervised')
+        self.assertEqual(proof['initialization']['weights_sha256'],job['initialization']['sha256'])
         self.assertEqual(model.classifier[-1].in_features,768)
         generator=torch.Generator(device='cpu').manual_seed(20261027)
         torch.testing.assert_close(model.classifier[-1].weight,torch.randn((1,768),generator=generator)*.01,rtol=0,atol=0)

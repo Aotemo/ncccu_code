@@ -1,5 +1,7 @@
 # 当前 DINOv2 接线与条件 seed27：CPU 准备
 
+正式入口接线复核又发现producer把公开来源证明命名为`source`，既有normalformal读取`initialization`。启动前仅将producer改为既有字段并给native目标补相应断言；GREEN6仅重此受影响native目标并compile9，PASS/guard0，新whole/504输出不变。保存variant目标/helper与initializeFalse分支AST实核不变，继续复用GREEN5；R140身份接线未改。最新CPU-CHECKS保留上版SHA和新guard，旧3eef技术包不部署，后续使用新同步源码及新技术包，不修改R139冻结d190。下方e3ffd6为字段修复前已归档证据，当前source pin以上版关系明确的新小件为准。
+
 三项必要目标分别通过，9个受影响Python源在最终GREEN5编译通过，GPU始终未初始化。[CPU-CHECKS](CPU-CHECKS.json) SHA `e3ffd6f9be337bda44860c5ec9d775b0ddb639e6392c81f5c178a83650a2ebe0`记录最终源码/两SCIENCE、原guard/OUTPUT SHA及精确复用边界；不是同一次3/3全跑。[最终guard](CPU-GUARD-FINAL.json) SHA `c65ecadc55aa805bda10e0047009c06f60b4d1c861281cf50fa02f43133737d5`，exit0。
 
 原始RED为R140身份1FAIL、DINO两目标2FAIL/0ERROR。GREEN1原始batch有两个fixture ERROR，但公开骨干目标PASS：原175公开tensor strict/exact、生产新whole `9b4f7a4b24cec705c7c44e81eec1ae13dd4133c65b8581d4624584be50950cfd`、178总/177训/唯一mask_token冻结/5组空Adam、真实504合成前向finite logit `-1.2009904384613037`。GREEN2仅重剩余两项，R140身份PASS，DINO fixture round_root仍ERROR；GREEN3修fixture后发现新descriptor对NumPy linspace末值的精确浮点表示错误；只将校验端点改为官方实际`.1`，模型计算未动。GREEN4到达保存后因fixture漏`format_version=1`ERROR；补此字段后GREEN5只重剩余一项，1/1、3.907秒、0error。GREEN1/2/3/4原件保持，未冒称其batch通过。

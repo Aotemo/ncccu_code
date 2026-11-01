@@ -1,0 +1,39 @@
+{
+  "phase": "GREEN-DINO-6",
+  "started_at": 1793549373.452232,
+  "ended_at": 1793549380.301994,
+  "targets": [
+    "test_dinov2_current.DINOCurrentTest.test_original_public_code_strict_factory_504_and_unique_empty_Adam"
+  ],
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "GPU_initialized": false,
+  "compiled": [
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/dinov2_model.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/single91.py",
+    "tools/activation/prepare.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_dinov2_current.py",
+    "tests/test_candidate_binding.py"
+  ],
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "64c34430afe7acbd9c7bb2e0355e912435e29b2d29a83970882775bb13a1ddd1",
+    "runtime/bundle/retrain/dinov2_model.py": "533644c3f30ee397d0900cdf002929906cad1241535c1ff68fa51e7a7c6a68a8",
+    "runtime/bundle/retrain/models.py": "c22bbb55f1b0ddaf8fd058a209ddc8decb4f996987adc3cd514ca584b478a23a",
+    "runtime/bundle/retrain/experiment91.py": "9f9e8c537a50244bfb9c672d88e1456b02754425f5131a3604ad98fca14c5695",
+    "runtime/bundle/retrain/single91.py": "70da64d91ca5822f45af615ad5a5fe0a179455cbb3c695d0744a87003ddc0ee3",
+    "tools/activation/prepare.py": "774b8ae07d92dbe10c02895005be4447afdb55332ba76fbcc5f4b47deeefa1a1",
+    "tools/validation/check_candidate.py": "1ff8462a9cfc6139f2539954fbb70f19609717a74464895830caa965530a998a",
+    "tests/test_dinov2_current.py": "a6cecc5984af1d633fc3e329445cf2f7045df293644a8ec0a3791286715db2cd",
+    "tests/test_candidate_binding.py": "051151b1e74c2740214d9c7c22376898ba0d9b5075a0bfa830175495bc3f83dc"
+  },
+  "science_sha256": {
+    "R140-SCIENCE.json": "43aa4b68617821999d272a9fb803fa10c10e39751d066ee131f02fed5f6ec928",
+    "R141-SCIENCE.json": "36ec5d7b797350a1969ea3b517de5fdcafb2330297c513c09cf99fea0cdb17b4"
+  }
+}

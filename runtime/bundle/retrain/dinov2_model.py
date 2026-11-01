@@ -107,7 +107,7 @@ def create_dinov2_binary(job, *, initialize=True):
         public={'public_tensor_count':len(state),'full_head_shape':None,'backbone_only':True,
             'all_public_tensors_exact':exact,'all_public_tensors_FP32_finite':True,
             'strict_missing_keys':list(loaded.missing_keys),'strict_unexpected_keys':list(loaded.unexpected_keys),
-            'public_tensor_sha256':tensor_digest(state),'source':proof,
+            'public_tensor_sha256':tensor_digest(state),'initialization':proof,
             'source_files_sha256':'ed5db7b07fdcd8d3ce92b1ce81bc2f509e6e7472756a348d0859351543acfed5'}
     result=DINOv2Binary(backbone, job['age'])
     if public is not None:result.public_initialization_receipt=public
