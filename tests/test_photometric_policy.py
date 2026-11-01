@@ -92,6 +92,56 @@ def geometry_render(image, image_size, seed, scale_range):
 
 
 class PhotometricPolicyTest(unittest.TestCase):
+    def test_global_native_inset_pixels_rng_and_real_consumers(self):
+        from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
+        self.assertTrue(hasattr(config,'GLOBAL_NATIVE_INSET_RULE'),'fixed global/native inset policy is missing')
+        import hashlib,os
+        import numpy as np
+        import torch
+        from PIL import Image
+        policy=config.GLOBAL_NATIVE_INSET_RULE
+        global_image=self.image.copy();native=preprocessing.prepare_image(self.image,512,config.NATIVE_BRIGHT_CENTER_RULE)
+        expected_image=Image.new('RGB',(512,512));ratio=512/max(global_image.size)
+        size=(round(global_image.width*ratio),round(global_image.height*ratio))
+        expected_image.paste(global_image.resize(size,Image.Resampling.BILINEAR),(round((512-size[0])/2),round((512-size[1])/2)))
+        expected_image.paste(native.resize((256,256),Image.Resampling.BILINEAR),(0,0))
+        self.assertTrue(np.array_equal(np.asarray(preprocessing.global_native_inset(global_image,native,policy)),np.asarray(expected_image)))
+        source=self.root/'train/synthetic.png';self.image.save(source);digest=hashlib.sha256(source.read_bytes()).hexdigest()
+        rows=[dict(self.row,name=f'inset-{i}.png',sha256=digest,label=i%2) for i in range(4)]
+        global_root=self.root/'global-cache';native_root=self.root/'native-cache'
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE_READONLY='0'):
+            preprocessing.PreparedImageCache(self.root,global_root,512).read(rows[0]['relative_path'],digest)
+            preprocessing.PreparedImageCache(self.root,native_root,512,config.NATIVE_BRIGHT_CENTER_RULE).read(rows[0]['relative_path'],digest)
+        class Model(torch.nn.Module):
+            def __init__(self):super().__init__();self.scale=torch.nn.Parameter(torch.tensor(1.));self.inputs=[]
+            def forward(self,x):self.inputs.append(x.detach().clone());return x.mean((1,2,3))*self.scale
+        class Context:
+            rank=0;world_size=1;primary=True
+            def values(self,value):return [value]
+            def broadcast(self,value):return value
+        job=dict(model='synthetic',image_size=IMAGE_SIZE,prepared_size=512,precision='fp32',normalization='imagenet',physical_batch=2,workers=0,eval_workers=0,input_preprocessing=policy,age=None,seed=SEED)
+        model=Model();before=(random.getstate(),np.random.get_state(),torch.get_rng_state())
+        with patch.dict(os.environ,TRAIN_IMAGE_CACHE=str(native_root),TRAIN_GLOBAL_IMAGE_CACHE=str(global_root),TRAIN_IMAGE_CACHE_READONLY='1'):
+            self.assertEqual(engine.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'))['count'],4)
+            self.assertEqual(pe.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'),Context(),variant='online')['count'],4)
+            runtime=dict(image_size=IMAGE_SIZE,prepared_size=512,normalization='imagenet',precision='fp32',threshold=.5)
+            (self.root/'test.csv').write_text('synthetic only\n')
+            with patch.object(inference,'_read_unlabeled_rows',return_value=rows),patch.object(inference,'_load_model',return_value=(model,job,{},{},torch.device('cpu'))),patch.object(inference,'_runtime',return_value=runtime):
+                self.assertEqual(inference.run_prediction('/synthetic',self.root,self.root/'inset.csv',device='cpu',expected_count=4,batch_size=2)['count'],4)
+            expected=finish(expected_image,IMAGE_SIZE,1.,.5,.5)
+            for inputs in model.inputs:self.assertTrue(torch.equal(inputs,expected.unsqueeze(0).expand(len(inputs),-1,-1,-1)))
+            dataset=data.ImageDataset(self.root,rows,IMAGE_SIZE,True,prepared_size=512,training_scale=SCALE,input_preprocessing=policy)
+            traces=[]
+            def factory(seed):rng=TracedRandom(seed);traces.append(rng);return rng
+            with patch.object(data.random,'Random',side_effect=factory):actual=dataset[(0,SEED)][0]
+            self.assertTrue(torch.equal(actual,legacy_render(expected_image,IMAGE_SIZE,SEED,SCALE)));self.assertEqual(traces[0].random_calls,8)
+            (self.root/'valid').mkdir();self.image.save(self.root/'valid/inset.png')
+            official=data.ImageDataset(self.root,[dict(rows[0],relative_path='valid/inset.png')],IMAGE_SIZE,False,prepared_size=512,input_preprocessing=policy)
+            with patch.object(official.prepared_cache,'read',side_effect=AssertionError('official uses sealed raw only inside final gate')):
+                self.assertTrue(torch.equal(official[0][0],expected))
+        self.assertEqual(before[0],random.getstate());self.assertTrue(np.array_equal(before[1][1],np.random.get_state()[1]));self.assertTrue(torch.equal(before[2],torch.get_rng_state()))
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_native_bright_pixels_and_separate_readonly_cache(self):
         from retrain import config,preprocessing
         self.assertTrue(hasattr(config,'NATIVE_BRIGHT_CENTER_RULE'),'native bright-center rule is missing')

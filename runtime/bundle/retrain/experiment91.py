@@ -46,6 +46,7 @@ DINOV2_PAIRLOG_SEED27_BINDING = 'single-dinov2-vits14-7764ea0-fixed-9010-24k-ear
 BRIGHT_CENTER_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-brightcenter-half-v1'
 NATIVE_BRIGHT_CENTER_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-native-brightcenter-half-v1'
 NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-native-brightcenter-half-v1'
+GLOBAL_NATIVE_INSET_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-inset256-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -64,7 +65,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                       LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
-                      DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING)
+                      DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -123,6 +124,8 @@ def science_configuration():
             from .config import BRIGHT_CENTER_RULE
         if value.get('candidate_profile') in (NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING):
             from .config import NATIVE_BRIGHT_CENTER_RULE
+        if value.get('candidate_profile')==GLOBAL_NATIVE_INSET_SMALL_BINDING:
+            from .config import GLOBAL_NATIVE_INSET_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -144,10 +147,10 @@ def science_configuration():
                                                        MIXSTYLE_SMALL_BINDING,
                                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
-                                                       DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING)
+                                                       DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
-                or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING)
+                or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING)
                     and (value.get('job',{}).get('input_preprocessing') is not None
                          or value.get('candidate',{}).get('input_preprocessing') is not None))
                 or (value.get('candidate_profile') in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING)
@@ -160,6 +163,10 @@ def science_configuration():
                     and (value.get('job',{}).get('input_preprocessing')!=NATIVE_BRIGHT_CENTER_RULE
                          or value.get('candidate',{}).get('input_preprocessing')!=NATIVE_BRIGHT_CENTER_RULE
                          or not isinstance(value.get('prepared_cache_receipt'),dict)))
+                or (value.get('candidate_profile')==GLOBAL_NATIVE_INSET_SMALL_BINDING
+                    and (value.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE
+                         or value.get('candidate',{}).get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE
+                         or not isinstance(value.get('composite_cache_receipt'),dict)))
                 or (value.get('candidate_profile') not in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('optimizer_policy') is not None
                          or value.get('candidate',{}).get('optimizer_policy') is not None))
@@ -354,7 +361,7 @@ def candidate_from_configuration(value):
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
                                         MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
-                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING):
+                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -471,6 +478,10 @@ def candidate_from_configuration(value):
             from .config import NATIVE_BRIGHT_CENTER_RULE
             expected.update(id='r145-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-native-brightcenter-half-9010',
                             experiment_order=57,input_preprocessing=NATIVE_BRIGHT_CENTER_RULE)
+        if value['candidate_profile']==GLOBAL_NATIVE_INSET_SMALL_BINDING:
+            from .config import GLOBAL_NATIVE_INSET_RULE
+            expected.update(id='r146-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-inset256-9010',
+                            experiment_order=58,input_preprocessing=GLOBAL_NATIVE_INSET_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],

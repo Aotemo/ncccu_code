@@ -44,6 +44,39 @@ def bright_center_crop(image, policy):
     return image.crop(bright_center_box(image,policy))
 
 
+def global_native_inset(global_image, native_image, policy):
+    from .config import GLOBAL_NATIVE_INSET_RULE
+    if policy!=GLOBAL_NATIVE_INSET_RULE or global_image.mode!='RGB' or native_image.mode!='RGB':
+        raise ValueError('fixed global/native inset policy differs')
+    size=policy['global_size'];ratio=size/max(global_image.size)
+    target=(max(1,round(global_image.width*ratio)),max(1,round(global_image.height*ratio)))
+    image=Image.new('RGB',(size,size))
+    image.paste(global_image.resize(target,Image.Resampling.BILINEAR),(round((size-target[0])/2),round((size-target[1])/2)))
+    image.paste(native_image.resize((policy['inset_size'],policy['inset_size']),Image.Resampling.BILINEAR),tuple(policy['corner']))
+    return image
+
+
+def verify_composite_cache_asset(science, site):
+    from .config import GLOBAL_NATIVE_INSET_RULE
+    if science.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_INSET_RULE:return None
+    root=Path(site['work_root']).resolve(strict=True);ref=science.get('composite_cache_receipt',{});relative=Path(ref.get('path',''))
+    if relative.is_absolute() or '..' in relative.parts or not relative.parts:raise ValueError('explicit relative paired-cache receipt required')
+    path=root/relative
+    if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest()!=ref.get('sha256'):raise ValueError('paired-cache receipt SHA differs')
+    value=json.loads(path.read_text())
+    expected={'format':'global-native-inset-cache-pair-v1','passed':True,'pod_uid':site['pod']['uid'],
+        'data_root':site['data_root'],'metadata_root':site['metadata_root'],'native_cache_root':site['prepared_cache'],
+        'manifest_sha256':hashlib.sha256((Path(site['metadata_root'])/'manifest.json').read_bytes()).hexdigest(),
+        'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count_each':51396,
+        'input_preprocessing':GLOBAL_NATIVE_INSET_RULE,'pillow':PILLOW_VERSION,'official_read':False}
+    if not isinstance(value,dict) or any(value.get(k)!=v for k,v in expected.items()):raise ValueError('paired-cache identity or complete coverage differs')
+    global_root=Path(value.get('global_cache_root',''))
+    if not global_root.is_absolute() or not global_root.resolve().is_relative_to(root) or str(global_root)==site['prepared_cache']:raise ValueError('explicit separate global cache required')
+    index=value.get('index',{});index_path=Path(index.get('path',''))
+    if not index_path.is_absolute() or not index_path.resolve().is_relative_to(root) or index_path.is_symlink() or hashlib.sha256(index_path.read_bytes()).hexdigest()!=index.get('sha256'):raise ValueError('paired-cache coverage index differs')
+    return value
+
+
 def verify_native_cache_asset(science, site):
     """Bind a completed derived fit/dev cache without rewriting migration proof."""
     from .config import NATIVE_BRIGHT_CENTER_RULE

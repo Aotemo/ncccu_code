@@ -128,8 +128,12 @@ def main():
                        'official_manifest': 'official_manifest'}
     if public_asset:
         mapping.pop('public_weight'); mapping.pop('public_provenance')
-    from retrain.preprocessing import verify_native_cache_asset
+    from retrain.preprocessing import verify_native_cache_asset,verify_composite_cache_asset
+    composite=verify_composite_cache_asset(science,site)
     if verify_native_cache_asset(science,site) is not None:
+        mapping.pop('prepared_cache')
+    if composite is not None:
+        require(composite['global_cache_root']==relocation['paths']['prepared_cache_root'],'global paired-cache root differs')
         mapping.pop('prepared_cache')
     for key, field in mapping.items():
         require(site[key] == relocation['paths'][field], 'relocation target differs: ' + key)

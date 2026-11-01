@@ -1,0 +1,26 @@
+{
+  "phase": "RED-INSET-1",
+  "started_at": 1793559492.5740273,
+  "ended_at": 1793559493.8580425,
+  "tests": 2,
+  "failures": 2,
+  "errors": 0,
+  "successful": false,
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_global_native_inset_pixels_rng_and_real_consumers",
+    "test_candidate_binding.CandidateBindingTest.test_R146_global_native_inset_identity_and_asset_binding"
+  ],
+  "compiled": [],
+  "GPU_initialized": false,
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "23099434573b23a6113eb419b267db2fd13fe4dcb680651be0435fee1afec852",
+    "runtime/bundle/retrain/data.py": "c191add5458e41f2bbaccf4d13b1f100e60a37901688516f1170f02ab356ba9a",
+    "runtime/bundle/retrain/preprocessing.py": "40ac0b6d4dbc26a0eef12cf3d3287963ff2ad3cfa53c54aea4ae48256a84a02b",
+    "runtime/bundle/retrain/experiment91.py": "4392ff74ff54a4a0f8bb02d6553d40078875bb3e6316c840dd830f936b778b57",
+    "tools/activation/prepare.py": "856035c47de9c18e5f5d0015af2e03810a812b5d35438bfdbc4c54d3c1ffee73",
+    "tools/activation/prepare_gpu_site.py": "a0578ec219a2e8453f8de65262532932710990dcccfa4f82c75e426a0394c7dd",
+    "runtime/run_training.py": "ade885b8ef4649cb1e0af7516f7ade9236b746868c6c01cde66148a9a662deb2",
+    "tests/test_photometric_policy.py": "b95b2cf563aa778c7dcbe66394c2a95df9e3715f56efef5346516eda76fa87a2",
+    "tests/test_candidate_binding.py": "b277389c9ac7a81a56a3592ef71416ed81efe925be349d5a780e7a9bb6db0111"
+  }
+}

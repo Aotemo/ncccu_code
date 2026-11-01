@@ -111,8 +111,12 @@ def build(args):
         'official_manifest': 'official_manifest'}
     if public_asset:
         mapping.pop('public_weight'); mapping.pop('public_provenance')
-    from retrain.preprocessing import verify_native_cache_asset
+    from retrain.preprocessing import verify_native_cache_asset,verify_composite_cache_asset
+    composite=verify_composite_cache_asset(science,site)
     if verify_native_cache_asset(science,site) is not None:
+        mapping.pop('prepared_cache')
+    if composite is not None:
+        if composite['global_cache_root']!=migrated['paths']['prepared_cache_root']:raise ValueError('global paired-cache root differs from original migration')
         mapping.pop('prepared_cache')
     if any(site[key] != migrated['paths'][field] for key, field in mapping.items()):
         raise ValueError('site asset paths differ from the exact migration binding')
@@ -189,6 +193,8 @@ def build(args):
         'public_weight': {'remote_path': site['public_weight'], 'sha256': ex.public_source()['sha256']},
         'public_provenance': {'remote_path': site['public_provenance'], 'sha256': ex.public_source()['provenance_sha256']},
         'official_manifest_content_read': False}
+    if composite is not None:
+        assets['global_prepared512_cache']={'remote_root':composite['global_cache_root'],'prepared_size':512,'read_only':True,'pillow':'12.3.0'}
     write(package / 'ASSETS.json', assets)
     return package, cfg, resolved, topology, execution, source_digest
 

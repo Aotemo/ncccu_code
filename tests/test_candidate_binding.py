@@ -21,6 +21,27 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R146_global_native_inset_identity_and_asset_binding(self):
+        from retrain import config,preprocessing
+        self.assertTrue(hasattr(experiment,'GLOBAL_NATIVE_INSET_SMALL_BINDING'),'global/native inset binding is missing')
+        self.assertTrue(hasattr(preprocessing,'verify_composite_cache_asset'),'paired cache verifier is missing')
+        spec=copy.deepcopy(json.loads((ROOT/'configs/R144-SCIENCE.json').read_text()))
+        spec['candidate_profile']=experiment.GLOBAL_NATIVE_INSET_SMALL_BINDING
+        spec['candidate'].update(id='r146-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-inset256-9010',experiment_order=58,input_preprocessing=config.GLOBAL_NATIVE_INSET_RULE)
+        spec['job']['input_preprocessing']=config.GLOBAL_NATIVE_INSET_RULE
+        spec.pop('prepared_cache_receipt');spec['composite_cache_receipt']={'path':'fixture/HANDOFF.json','sha256':'a'*64}
+        self.assertEqual(experiment.candidate_from_configuration(spec),spec['candidate'])
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'metadata').mkdir();(root/'metadata/manifest.json').write_text('{}\n');index=root/'INDEX.jsonl';index.write_text('{"fixture":true}\n')
+            site={'work_root':str(root),'data_root':str(root/'data'),'metadata_root':str(root/'metadata'),'prepared_cache':str(root/'native'),'pod':{'uid':'fixture'}}
+            handoff={'format':'global-native-inset-cache-pair-v1','passed':True,'pod_uid':'fixture','data_root':site['data_root'],'metadata_root':site['metadata_root'],'native_cache_root':site['prepared_cache'],'global_cache_root':str(root/'global'),
+                'manifest_sha256':hashlib.sha256((root/'metadata/manifest.json').read_bytes()).hexdigest(),'fit_count':46256,'dev_count':5140,'row_count':51396,'verified_readonly_count_each':51396,'input_preprocessing':config.GLOBAL_NATIVE_INSET_RULE,'pillow':'12.3.0','official_read':False,
+                'index':{'path':str(index),'sha256':hashlib.sha256(index.read_bytes()).hexdigest()}}
+            path=root/'fixture/HANDOFF.json';path.parent.mkdir();path.write_text(json.dumps(handoff));spec['composite_cache_receipt']['sha256']=hashlib.sha256(path.read_bytes()).hexdigest()
+            self.assertEqual(preprocessing.verify_composite_cache_asset(spec,site)['global_cache_root'],str(root/'global'))
+            handoff['verified_readonly_count_each']=51395;path.write_text(json.dumps(handoff));spec['composite_cache_receipt']['sha256']=hashlib.sha256(path.read_bytes()).hexdigest()
+            with self.assertRaises(ValueError):preprocessing.verify_composite_cache_asset(spec,site)
+
     def test_R145_native_seed27_identity_and_unchanged_cache_contract(self):
         from retrain import age,config
         self.assertTrue(hasattr(experiment,'NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING'),'conditional native seed27 binding is missing')

@@ -1,0 +1,36 @@
+{
+  "phase": "GREEN-INSET-1",
+  "started_at": 1793559604.9156795,
+  "ended_at": 1793559606.7759378,
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_global_native_inset_pixels_rng_and_real_consumers",
+    "test_candidate_binding.CandidateBindingTest.test_R146_global_native_inset_identity_and_asset_binding"
+  ],
+  "compiled": [
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/data.py",
+    "runtime/bundle/retrain/preprocessing.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tools/activation/prepare.py",
+    "tools/activation/prepare_gpu_site.py",
+    "runtime/run_training.py",
+    "tests/test_photometric_policy.py",
+    "tests/test_candidate_binding.py"
+  ],
+  "GPU_initialized": false,
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "3624b897b2012799dd2bba399bcaeaa1c817493fa069397375266ae237119e6d",
+    "runtime/bundle/retrain/data.py": "61b15bfc3a521f3656d32df1314a63defce394d2ab094d3c9c99633a376afdb3",
+    "runtime/bundle/retrain/preprocessing.py": "7e0b23e1e43fdf775525622097354332e4f2a552fc48179565b812713556f8aa",
+    "runtime/bundle/retrain/experiment91.py": "86b931d1f29af25342b7cd856ee93995623c2ba14f884b9c077bb0281ee92e94",
+    "tools/activation/prepare.py": "bd2d0c1dadb939b8a4c03102fa39eed1c15deea64729582ab2be34809b0c0774",
+    "tools/activation/prepare_gpu_site.py": "5745fad0f5063be92ffcb85ef29e0a04b4ea6e778d795a462eac96cce9eb8c1d",
+    "runtime/run_training.py": "587994548664b567e229a121de362f8776c6dad663ce2b38b05cec9b9c55bf00",
+    "tests/test_photometric_policy.py": "b95b2cf563aa778c7dcbe66394c2a95df9e3715f56efef5346516eda76fa87a2",
+    "tests/test_candidate_binding.py": "b277389c9ac7a81a56a3592ef71416ed81efe925be349d5a780e7a9bb6db0111"
+  }
+}

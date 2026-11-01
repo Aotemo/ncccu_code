@@ -2,6 +2,12 @@
 
 ## R144期间的必要条件准备
 
+**R146两CPU/9源compile、两份cache各51396行只读复核及实际SCI/保存policy均已通过。** [证据](../../records/preparation/inset-20261101/README.md) SHA64dafc、[固定SCIENCE](../../configs/R146-SCIENCE.json) SHAf119629c已取得；图像cache新增0，原生成/边界/定位AST保持，模型/优化/EMA源码SHA保持。当前正同步及干净技术打包，无新formal/activation/GPU。当前R144 19:05:48.314512 UTC running4775/eval5/bad2、dev暂best`.9754916067723792`，仍无完整selector；R145只有完整双门才能采用，未满足则跳过，接本独立R146固定嵌图对照。不能据partial关闭R144；下文“尚未实现”等为此前准备状态。
+
+R146/order58预定独立输入对照：直接R107/public fresh Small/seed29/单模型/原3RGB，保留global prepared RGB居中等比放入512黑画布，把同一既定Native亮区规则的原生ROI缩为256方图覆盖画布左上角(0,0)，随后原8draw/augmentation/512canvas保持。固定256/top_left一次，不按dev错误扫位置/大小/倍率；改变输入的信息组合，不做模型或分数融合，不叠DINO/局部对比度/新stem。两个输入只读复用现global cache与Native cache，不重建图像cache；使用现PreparedImageCache逐行检查fit/dev两端完整覆盖及manifest/source/政策身份，当前不读官方。仅当新联合输入资产完整、必要窄CPU/保存policy/真实consumer及Git/技术包通过且前轮safe，才GPU。R145条件资格不满足则跳过，不能用partial宣称关闭R144；本固定对照不由R144逐样本预测选择。两类对照失败不扫定位、inset大小/位置或seed。
+
+精确必要范围：现`config.py`/`data.py`/`preprocessing.py`/`experiment91.py`，`tools/activation/{prepare,prepare_gpu_site}.py`只绑定同一新联合缓存回执，`runtime/run_training.py`只给既有consumer注入第二只读cache env；既有`test_photometric_policy.py`/`test_candidate_binding.py`两项目标和固定SCIENCE。原models/loss/optimizer/EMA/启动/保存/评估链不改，无新训练或缓存平台。CPU准备仍00202581本人0–22/nice19/隐藏GPU，活跃R144冻结11d不动。这里仅预定，尚未实现、验证或构建新资产回执。
+
 唯一GPU已为R144冻结11d9b4f；R143完整5600/eval7/bad4、唯一EMA c3@2400 AUROC`.9782357665525575`，双门false，关闭prepared裁剪配方/no27，原safe不重查。R144八rank345/5组空AdamW/whole50c与formal匹配，首自然25 finite，当前无完整selector。仅先准备R145/order57条件原生裁剪seed27：实际文件范围`experiment91.py`、既有`test_candidate_binding.py`及`configs/R145-SCIENCE.json`；只改job.seed及自然head初态预期91507（来自匹配R108的public fresh控制身份，未来新formal仍须实核），原Native定位/cache f057/age/G64P8/FP32/pairlog/AdamW/LR/EMA/24k800p4和官方隔离保持。不加载R108训练权重。仅R144完整selected同时strict>R107与R120且actualsafe后，才有R145 GPU资格；partial/AP不能替代，失败不补扫seed或定位参数。新的配置身份用一项窄CPU检查和2源compile，不重已有Native像素/cache/模型算法。
 
 接续时序改为复用现有两个入口而非新建流程：后续代码/配置/CPU证据/Git/技术包照常提前备齐；当活跃轮**训练完整停止、进入既有freeze收尾**后，可在互斥20%池调用现有PREPARE入口一次完成下一固定分支的CPU formal/部署，与旧owner的freeze收尾重叠。此时不做activation或新GPU，最终唯一selector和actualsafe仍是GPU启动前提；CPU源/结果不因之后绑定重写。随后只执行原preflight/activation/direct launch，既有formal不重复。这样减少完整安全退出之后串行CPU验收造成的等待，不改9h grant、6h训练/8h整轮、GPU唯一串行owner或任何科学合同；若分支资格最终不满足，保留未使用的纯准备成本，不启动它。

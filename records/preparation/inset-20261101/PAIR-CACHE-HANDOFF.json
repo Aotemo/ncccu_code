@@ -1,0 +1,48 @@
+{
+  "format": "global-native-inset-cache-pair-v1",
+  "passed": true,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+  "metadata_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1",
+  "native_cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-native-bright-half-v1-pillow12.3.0",
+  "global_cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "fit_count": 46256,
+  "dev_count": 5140,
+  "row_count": 51396,
+  "verified_readonly_count_each": 51396,
+  "input_preprocessing": {
+    "version": "rgb-global-native-inset256-v1",
+    "global_size": 512,
+    "inset_size": 256,
+    "corner": [
+      0,
+      0
+    ],
+    "global_fit": "centered_bilinear_black",
+    "native": {
+      "version": "rgb-green-bright-native-half-v1",
+      "thumbnail_size": 512,
+      "channel": "G",
+      "blur_radius": 10.0,
+      "margin_fraction": 0.1,
+      "crop_fraction": 0.5,
+      "tie": "first_row_major",
+      "flat": "geometric_center",
+      "position": "original_rgb_after_border_before_preparation"
+    },
+    "position": "prepared_rgb_before_augmentation_and_canvas"
+  },
+  "pillow": "12.3.0",
+  "official_read": false,
+  "index": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/inset-20261101-32e3/PAIR-CACHE-INDEX.jsonl",
+    "sha256": "bbe4fddabafd68acd37752eb3b49741b6d99796ee18c52e830df9ac1951972ac"
+  },
+  "seconds": 118.4046802520752,
+  "cache_images_written": 0,
+  "cache_generation_AST_unchanged": true,
+  "started_at": 1793559695.9540691,
+  "ended_at": 1793559814.3587532,
+  "GPU_started": false
+}

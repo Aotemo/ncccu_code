@@ -369,6 +369,8 @@ def main():
   env.update(PYTHONDONTWRITEBYTECODE='1',XFORMERS_DISABLED='1',TRAIN_IMAGE_CACHE_READONLY='1',
              OUTPUT_ROOT=str(ROOT/'outputs'),TRAIN_IMAGE_CACHE=str(Path(assets['prepared512_cache']['remote_root'])/'train/sealed'),
              TRAIN_VERIFICATION_CACHE=str(ROOT/'verification-unused-readonly'))
+  if assets.get('global_prepared512_cache'):
+   env['TRAIN_GLOBAL_IMAGE_CACHE']=str(Path(assets['global_prepared512_cache']['remote_root'])/'train/sealed')
   train_started=time.time()
   policy=read(ROOT/'CLOCK_POLICY.json')
   deadline=min(train_started+policy['train_hard_seconds'],clock['deadline_at']-policy['freeze_hard_seconds']-policy['official_hard_seconds']-policy['cleanup_seconds'])
