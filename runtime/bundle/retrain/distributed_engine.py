@@ -17,7 +17,7 @@ from .distributed import RankBatchSampler,ReferenceBatchNorm
 from . import engine as single
 from .persistence import (CheckpointStore,RunLock,atomic_json,canonical_digest,
                           capture_rng,restore_rng,load_file,sha256_file,CheckpointError)
-from .config import job_contract
+from .config import job_contract,GLOBAL_NATIVE_SIX_RULE
 from .finite import all_floating_finite
 
 
@@ -114,7 +114,8 @@ def prime_reducer(model,base,job,ctx):
     training=base.training
     try:
         base.train()
-        images=torch.zeros(job['physical_batch'],3,job['image_size'],job['image_size'],device=ctx.device)
+        channels=6 if job.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE else 3
+        images=torch.zeros(job['physical_batch'],channels,job['image_size'],job['image_size'],device=ctx.device)
         from .age import enabled,forward
         age_features=torch.zeros(job['physical_batch'],2,dtype=torch.float32,device=ctx.device) if enabled(job) else None
         for _ in range(2):

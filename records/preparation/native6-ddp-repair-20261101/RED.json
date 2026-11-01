@@ -1,0 +1,14 @@
+{
+  "tag": "RED-ACTUAL",
+  "passed": false,
+  "tests": 1,
+  "failures": 0,
+  "errors": 1,
+  "seconds": 6.829264163970947,
+  "target": "test_candidate_binding.CandidateBindingTest.test_R150_reducer_priming_consumes_six_channels_and_restores_state",
+  "source_files": {
+    "runtime/bundle/retrain/distributed_engine.py": "4a0b291ddd9b807419ac0002407303b0aabf58d1f7d762c934284be8e58a2323",
+    "tests/test_candidate_binding.py": "19fbec66eff843cfd50317bb1b358a7cd03c4d386f115a82da3e63b14d3386d9"
+  },
+  "GPU_initialized": false
+}

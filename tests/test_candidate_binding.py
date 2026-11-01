@@ -21,6 +21,32 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R150_reducer_priming_consumes_six_channels_and_restores_state(self):
+        import random
+        from types import SimpleNamespace
+        import numpy as np
+        import torch
+        from retrain import config,models
+        from retrain.distributed_engine import prime_reducer
+        for channels,policy in ((3,None),(6,config.GLOBAL_NATIVE_SIX_RULE)):
+            with self.subTest(channels=channels):
+                job=copy.deepcopy(json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())['job'])
+                job.update(age=None,physical_batch=1,image_size=32)
+                if policy is not None:job['input_preprocessing']=policy
+                model=models.create_model(job,initialize=False);model.eval()
+                before={name:value.detach().clone() for name,value in model.state_dict().items()}
+                rng=torch.get_rng_state().clone();python_rng=random.getstate();numpy_rng=np.random.get_state()
+                seen=[]
+                handle=model.register_forward_pre_hook(lambda _,args:seen.append(tuple(args[0].shape)))
+                try:prime_reducer(model,model,job,SimpleNamespace(world_size=8,rank=0,device=torch.device('cpu')))
+                finally:handle.remove()
+                self.assertEqual(seen,[(1,channels,32,32)]*2)
+                self.assertFalse(model.training)
+                self.assertTrue(all(torch.equal(value,before[name]) for name,value in model.state_dict().items()))
+                self.assertTrue(all(value.grad is None for value in model.parameters()))
+                self.assertTrue(torch.equal(rng,torch.get_rng_state()));self.assertEqual(python_rng,random.getstate())
+                current=np.random.get_state();self.assertEqual(numpy_rng[0],current[0]);np.testing.assert_array_equal(numpy_rng[1],current[1]);self.assertEqual(numpy_rng[2:],current[2:])
+
     def test_R149_R150_fixed_science_saved_job_and_derived_asset(self):
         from retrain import age,config,preprocessing
         self.assertTrue(hasattr(experiment,'NO_MODEL_STOCH_SMALL_SEED27_BINDING'),'conditional no-model-stochasticity binding is missing')

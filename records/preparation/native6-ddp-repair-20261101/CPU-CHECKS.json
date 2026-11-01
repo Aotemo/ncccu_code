@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "four_affected_targets_passed_with_unchanged_scope_reuse",
+  "passed_targets": 4,
+  "compiled_sources": 9,
+  "at": 1793568961.816469,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "runtime/bundle/retrain/data.py": "78d702bbe6fc83a3ae12b0d77773b1939565ec1d5fd6cfed5b3aa505bb146114",
+    "runtime/bundle/retrain/preprocessing.py": "d058e8912768be2f97b2c4bfedeb79b53315a1b43b48bb67d84fe1488bcdefc1",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/experiment91.py": "1d61b6ca632a25e996a216bfc2319c4a38d3ae0ccc3fc77b9723807031824e9c",
+    "tools/validation/check_candidate.py": "1ba265a608eb838db197009f33953d293120ed1933da37204b2474b5ce5f5b7d",
+    "tests/test_photometric_policy.py": "5137e4c32ff0d23c9bcf2e73de14281e98104a80ba1657106e5894e53d92af19",
+    "tests/test_candidate_binding.py": "19fbec66eff843cfd50317bb1b358a7cd03c4d386f115a82da3e63b14d3386d9",
+    "runtime/bundle/retrain/distributed_engine.py": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca"
+  },
+  "science_sha256": {
+    "R149-SCIENCE.json": "9ceb28ca0e1a5fb46228622fa8efaff1ddf6d33d37658109592d07ddcbe0259d",
+    "R150-SCIENCE.json": "4ef1433632b1728cfc4b23a610def0f9c648418d0d415ce85d5289f5bbc1dfdb"
+  },
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_global_native6_shared_seed_pixels_cache_and_real_consumers",
+    "test_candidate_binding.CandidateBindingTest.test_R150_existing_factory_rgb_preservation_rng_gradient_and_strict_reload",
+    "test_candidate_binding.CandidateBindingTest.test_R149_R150_fixed_science_saved_job_and_derived_asset",
+    "test_candidate_binding.CandidateBindingTest.test_R150_reducer_priming_consumes_six_channels_and_restores_state"
+  ],
+  "evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-l0k261el/CPU-RECEIPT.json",
+      "sha256": "a0878eb90399124c7b0eb2b686d100b2f50173c0dbe3a0c4c1de669ef57f9c56",
+      "exit_code": 1,
+      "output_sha256": "212ff34e97f3f10be242b3dbbfb01a4ec5d78970c031200c8063135cdab2b8f9",
+      "scope": "first_two_targets_passed_identity_error_preserved"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-yuxc389q/CPU-RECEIPT.json",
+      "sha256": "be840abc9f22bb8b40b4e34ce9ca1208e66b0af0c43a8104be478698a8d388f6",
+      "exit_code": 0,
+      "output_sha256": "25795793f95d61cfc3ce0d0ff039385fa31f79b2f3505f09f342b022f1774844",
+      "scope": "identity_target_passed_and_eight_sources_compiled"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-q3b9_rld/CPU-RECEIPT.json",
+      "sha256": "a4c7259b2bd59abb1cc85ac940a53c8d01f9565751bdfd753b877eedc6bb7901",
+      "exit_code": 0,
+      "output_sha256": "b4868358956a06dc5bb529eba8ef019f1678adbb825ab37d977d396d64e981f6",
+      "scope": "actual_public_fresh_initial_CPU_only"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native-bright-input-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-c2iax62o/CPU-RECEIPT.json",
+      "sha256": "4dc3183485530bd47e773be130108aea5820c23777313900e1ebfb5b2a7fcc4b",
+      "exit_code": 0,
+      "output_sha256": "4aa4ef5601c83fbb3cc07cdf3b150b1bcb15117472fb2aea0127db5a077c5691",
+      "scope": "actual_prime_reducer_3_and_6_channel_forward_backward_state_rng_restore"
+    }
+  ],
+  "previous_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/native6-20261101-32e3/source-git/records/preparation/native6-20261101/CPU-CHECKS.json",
+    "sha256": "b094fab900a6c51546c4724a61ac673899eeca1643019b0fa30ef276d60201d9"
+  },
+  "old_three_target_module_AST_unchanged": true,
+  "compiled_now": 2,
+  "compiled_reused_unchanged": 7,
+  "original_red_reproduced_GPU_channel_error": true,
+  "new_GPU_started": false,
+  "official_read": false,
+  "R150_scientific_configuration_unchanged": true,
+  "R150R1_new_round_clock_grant_activation_required": true
+}

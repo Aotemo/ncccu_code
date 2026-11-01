@@ -1,0 +1,278 @@
+{
+  "status": "engineering_failed_before_valid_initial_or_successful_update",
+  "git_commit": "e6d29ac22e7647465c042da4db45b5b16dfe8c6f",
+  "science_sha256": "4ef1433632b1728cfc4b23a610def0f9c648418d0d415ce85d5289f5bbc1dfdb",
+  "observed_at": 1793568514.1376355,
+  "ended_at_original": 1793568180.8186297,
+  "successful_updates_original": null,
+  "selected": null,
+  "official_evaluation": null,
+  "actual_safe": true,
+  "safety": {
+    "safe": true,
+    "reason": "terminal_idle",
+    "identity": {
+      "owner_expected": {
+        "pid": 457787,
+        "start_ticks": "359549198"
+      },
+      "owner": {
+        "pid": 457787,
+        "present": true,
+        "readable": true,
+        "state": "Z",
+        "start_ticks": "359549198",
+        "active": false
+      },
+      "owner_status": "exited",
+      "owner_match": true,
+      "ranks_expected": [
+        {
+          "pid": 457799,
+          "start_ticks": "359552938"
+        },
+        {
+          "pid": 457800,
+          "start_ticks": "359552940"
+        },
+        {
+          "pid": 457801,
+          "start_ticks": "359552942"
+        },
+        {
+          "pid": 457802,
+          "start_ticks": "359552943"
+        },
+        {
+          "pid": 457803,
+          "start_ticks": "359552945"
+        },
+        {
+          "pid": 457804,
+          "start_ticks": "359552946"
+        },
+        {
+          "pid": 457805,
+          "start_ticks": "359552948"
+        },
+        {
+          "pid": 457806,
+          "start_ticks": "359552950"
+        }
+      ],
+      "ranks": [
+        {
+          "pid": 457799,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457800,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457801,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457802,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457803,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457804,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457805,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 457806,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        }
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_count": 8
+    },
+    "lock": {
+      "present": true,
+      "readable": true,
+      "holders": []
+    },
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  },
+  "rank_failures": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-0-failure-1793568175209962812.json",
+      "sha256": "c3768e539ad7e4f7ac9f672d8dbd6da914a94eeac0b77b63b909a29bcd2afc9d",
+      "rank": 0,
+      "at": 1793568175.209986,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-1-failure-1793568175210119115.json",
+      "sha256": "23ceec70cfe5d6989e60fd098914ae4093b5748d61d5cc9e01c86e94eebeebab",
+      "rank": 1,
+      "at": 1793568175.2101421,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-2-failure-1793568175208042936.json",
+      "sha256": "00c8eb47dfc9ed57204671cd9e45693dace9ae52331b87cd5cfd55f84add49ab",
+      "rank": 2,
+      "at": 1793568175.208065,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-3-failure-1793568175209163897.json",
+      "sha256": "d0aa4f66267b3df1849a84096c3b39440702fe98b4a332feac716c35df3d8b34",
+      "rank": 3,
+      "at": 1793568175.209182,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-4-failure-1793568175206097751.json",
+      "sha256": "5add613eb0195086c05c2d03231ef768dd33d8bc7e969db7707f536ae28794d7",
+      "rank": 4,
+      "at": 1793568175.2061148,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-5-failure-1793568175210408990.json",
+      "sha256": "1e93f0b2e000eaa164d240dd00353f512b14fcae19314b0e52fb931146d71a49",
+      "rank": 5,
+      "at": 1793568175.2104335,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-6-failure-1793568175206806544.json",
+      "sha256": "adba9de91691280b82bf8300ad5aab7ca43742b22079e50ce5b1a5f7c10dd786",
+      "rank": 6,
+      "at": 1793568175.206826,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101/outputs/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/rank-7-failure-1793568175207378974.json",
+      "sha256": "84933eeec8730831568094200266876946ee2e54ecd80909ae84405f0045d3e1",
+      "rank": 7,
+      "at": 1793568175.2073972,
+      "classification": "engineering_unclassified",
+      "error": "Given groups=1, weight of size [96, 6, 4, 4], expected input[8, 3, 512, 512] to have 6 channels, but got 3 channels instead",
+      "error_type": "RuntimeError"
+    }
+  ],
+  "root_cause": "prime_reducer generated fixed RGB3 disposable tensor for native6 model",
+  "original_observation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r150-20261101-32e3/PROGRESS-FAILURE-1.json",
+    "sha256": "269b5b4805a06e368fb1d2c8c73ed280efbfffc30cb7160eaa337a3f9f2f338c"
+  },
+  "new_live_scan": false,
+  "original_clock_token_grant_artifacts_preserved": true,
+  "idle_limit_300_seconds_met": false,
+  "idle_cause": "GPU startup engineering failure; observation and repair were delayed; no fake success or clock reset",
+  "next_action": "fresh R150R1 using unchanged R150 SCIENCE and minimal reducer input-channel repair"
+}
