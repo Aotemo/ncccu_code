@@ -1,0 +1,223 @@
+{
+  "scope": "R138_conditional_Lion27_R139_fixed_RGB_local_contrast_CPU_preparation",
+  "status": "two_affected_targets_passed_not_formally_activated",
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "99850ca2a2020b59e0e51003d6aa15b980206d6d89c4a5cbc7b191b1c637cdb7",
+    "runtime/bundle/retrain/data.py": "428451392b51b8944c263306d2a6626b1165da7f108f5a6f6d3ca6ed7757e07b",
+    "runtime/bundle/retrain/engine.py": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "runtime/bundle/retrain/distributed_engine.py": "4a0b291ddd9b807419ac0002407303b0aabf58d1f7d762c934284be8e58a2323",
+    "runtime/bundle/retrain/parallel_evaluation.py": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "runtime/bundle/retrain/inference.py": "d7ffbbeaeea005fd3a181a7ec2e82a87647b3a14a1fa6c0d193c9ea95e1c02b8",
+    "runtime/bundle/retrain/experiment91.py": "a413d2daeb44e0caa3d5b2bb6240c7b1a6b1416282c9600506a3c67e20d5fc1b",
+    "tests/test_photometric_policy.py": "1489f87234f4eb11b2ef926125e5425e900e512458f5ae087ab40fa5e4d30d98",
+    "tests/test_candidate_binding.py": "84d45640c812dff1b01469fb4639f6b920b6abdbe038e12fb75bdbca73348aff"
+  },
+  "science_sha256": {
+    "R138-SCIENCE.json": "cd5099601e603ea3f89866037dcd4906b7123b81a560dc16c2bc5ef302dfd03d",
+    "R139-SCIENCE.json": "17661d8bb45ecc9177654630b479d8d9fedb2dcef70a1c3f2352b21241a9307c"
+  },
+  "compiled_sources": 9,
+  "passed_targets": 2,
+  "evidence": [
+    {
+      "phase": "PIXEL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-hmk8o8nk/CPU-RECEIPT.json",
+      "sha256": "5940501fc6480931144a1d35c36e88fa57163d94c019ece278f56f7525477bd9",
+      "exit_code": 1,
+      "output_sha256": "98f3d166d6ef5aafee343f825d12eacc0471e855161414588f32dbccb747ab13",
+      "wall_seconds": 5.442505836486816,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "IDENTITY-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-u2o2in9i/CPU-RECEIPT.json",
+      "sha256": "e1ac466933a73b933481f209d59d34584903a6645bdfc97c435c606e5632894a",
+      "exit_code": 1,
+      "output_sha256": "043d49ad656f8f7cd1b1694faa5f8adc9dea909ea9247db2b0038d837582d879",
+      "wall_seconds": 0.4299015998840332,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "PIXEL-GREEN-1",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6pe6s_5d/CPU-RECEIPT.json",
+      "sha256": "1fb618cace16651eab31dcadd0f8b253c6f1a1fe6b7feff89b1bcb28fbb2a412",
+      "exit_code": 1,
+      "output_sha256": "aba50fadfdd3b3c0cb6688d19b9efdc83e844fe63ca7b40092a37b6adff40731",
+      "wall_seconds": 5.6512861251831055,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "IDENTITY-GREEN-1",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-19m_i0ve/CPU-RECEIPT.json",
+      "sha256": "e36b9c79250b62720958b087bf7c91f7bd62bb28e6f71659bd20da213321b863",
+      "exit_code": 1,
+      "output_sha256": "c3adfeba5d06a10a2669140999a752c285aed40d649cd5c0f4cefc517ed35bfa",
+      "wall_seconds": 4.3994364738464355,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "PIXEL-GREEN-2",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-l49f20_k/CPU-RECEIPT.json",
+      "sha256": "0728abdb192c81bd64cd18f1458c15c0b1f83747b03e1ff73c21e33e8d45e79d",
+      "exit_code": 1,
+      "output_sha256": "544e69fcd09945db342e9ce12fc50f714db3f12f22425a2fa69c03f0fcb47d4d",
+      "wall_seconds": 5.445403814315796,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "IDENTITY-GREEN-2",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-bp2yyrbm/CPU-RECEIPT.json",
+      "sha256": "7a05d9fb0b2a9573d1a16b1d5cfcbef6934165cdbaeadcf6fe86f9102b6594b3",
+      "exit_code": 1,
+      "output_sha256": "c8d429613c56a26bb96f8ceed2ee57cf4212987f2e13016f85cce8b63925fd06",
+      "wall_seconds": 4.593930244445801,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "PIXEL-GREEN-3",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-sp_7skhf/CPU-RECEIPT.json",
+      "sha256": "c0c0c0185dcfb376f4eb7b2469ea572cd7489cfeeb7a9783019fbe60d39d6a6c",
+      "exit_code": 0,
+      "output_sha256": "35c42df640f2bb1672c1c03682d1bee63dc0b71effbac400eb44abeb12b97ed1",
+      "wall_seconds": 5.650981426239014,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "phase": "IDENTITY-GREEN-3",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ut25kigf/CPU-RECEIPT.json",
+      "sha256": "beb74230c66d9843b4bf83480c3af12379cb434ef327704878d8b0eb2df09a2f",
+      "exit_code": 0,
+      "output_sha256": "2f76697811344bd8b7317509d868350b5b32cbea7fcdf7c4b7b8b6dd5f701d97",
+      "wall_seconds": 4.607748746871948,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "unchanged_Lion_function_source_sha256": {
+    "Lion": "0ba01e27b900f6c004838edf4ecf96d860fa4349bb25211ecb57a12ee127088c",
+    "_optimizer": "9497abd67d6f248e67843018e7ef0932672f60bef1c095f41da755086d0f580b",
+    "_clip_gradients": "b9bf133179e832c86cbe374fa98591524e53e7a725fafc1fe9d65111442406e6",
+    "_apply_lr": "c366fad54e2d84329856db9635df65d6e002cdbdfc3f115edff22cb7b098ed7b",
+    "_lr_factor": "50d1018437ceb634f3cd0b8460a18b6e1a8cd3d5557ef1ff62a5b475ab7f4ad7"
+  },
+  "unchanged_Lion_dependencies": {
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/classification_loss.py": "849b20c66cd77060464ca41e2320b19caab6966bbe9afe039b35380e94fe67b2",
+    "runtime/bundle/retrain/ema.py": "9894ae81e6b5ee43d16e6ac219e7c1bb573dadce7d62a0e6230732897abc95fb",
+    "runtime/bundle/retrain/gradient_clip.py": "7b5914e1f3fc986c2fc091f50a62e176471bfcb6118d2b15d06c27211b885d8d"
+  },
+  "reused_Lion_algorithm_evidence": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-7c17/CPU-CHECKS.json",
+  "known_prior_failures": [
+    "GREEN1: missing synthetic evaluator variant; R138 source receipt date accidentally changed",
+    "GREEN2: wrong synthetic prediction entry name; legacy fixture lacked initialization"
+  ],
+  "full_suite_rerun": false,
+  "real_public_model_constructed": false,
+  "real_images_read": false,
+  "GPU_execution": false,
+  "formal_or_activation_or_launch": false,
+  "active_R137_frozen_run_modified": false
+}

@@ -113,7 +113,8 @@ def evaluate(model, rows, indices, data_root, job, device, output_csv=None):
     try:
         dataset = ImageDataset(data_root, rows, int(job['image_size']), training=False,
                                normalization=job.get('normalization', 'imagenet'),
-                               prepared_size=int(job.get('prepared_size', 0)),age=job.get('age'))
+                               prepared_size=int(job.get('prepared_size', 0)),age=job.get('age'),
+                               input_preprocessing=job.get('input_preprocessing'))
         loader = DataLoader(Subset(dataset, list(indices)),
                             batch_size=int(job.get('physical_batch', 32)), shuffle=False,
                             **_loader_options(int(job.get('eval_workers', 0)), job))
@@ -694,7 +695,8 @@ def _run_locked(job, manifest, data_root, run_dir, identity, resume, mode, model
                                    training_scale=job.get('training_scale'),
                                    training_views=job.get('training_views'),
                                    training_photometric=job.get('training_photometric'),
-                                   training_rotation=job.get('training_rotation'))
+                                   training_rotation=job.get('training_rotation'),
+                                   input_preprocessing=job.get('input_preprocessing'))
             log('training_dataset_policy', training_photometric=dataset.training_photometric,
                 training_rotation=dataset.training_rotation)
             # At most 100 consecutive skips are tolerated. The sampler is lazy;

@@ -683,7 +683,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                 normalization=job.get('normalization','unit'),prepared_size=job.get('prepared_size',0),age=job.get('age'),
                 training_scale=job.get('training_scale'),training_views=job.get('training_views'),
                 training_photometric=job.get('training_photometric'),
-                training_rotation=job.get('training_rotation'))
+                training_rotation=job.get('training_rotation'),input_preprocessing=job.get('input_preprocessing'))
             sampler=RankBatchSampler(manifest['rows'],manifest['fit_indices'],plan['reference_physical_batch'],
                 job['effective_batch'],job['positive_per_batch'],job['seed'],sampler_start(stage_spec,attempted) if stage_spec else attempted,
                 (target-successful+1)*101,rank=ctx.rank,world_size=ctx.world_size,per_rank_microbatch=plan.get('explicit_per_rank_microbatch'))
@@ -917,6 +917,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                     global_loss=sum(losses)/len(losses) if pairwise else None,
                     rank_inputs=[{key:item[key] for key in ('rank','primary_inputs','view_inputs')
                         +(('positive_inputs',) if pairwise else ())
+                        +(('optimizer',) if job.get('optimizer_policy') is not None else ())
                         +(('gradient_centralization',) if job.get('gradient_centralization_policy') is not None else ())
                         +(('mixstyle',) if mixstyle_trace is not None else ())} for item in updates])
                 status('running')

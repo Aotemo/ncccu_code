@@ -260,7 +260,8 @@ def run_prediction(source, data_root, output, *, device='cpu', checkpoint='best'
     model, job, metadata, origin, selected_device = _load_model(source, device, checkpoint, model_factory, variant)
     runtime = _runtime(job, metadata, threshold, precision)
     dataset = ImageDataset(data_root, rows, runtime['image_size'], False, runtime['normalization'],
-                           prepared_size=runtime['prepared_size'],age=job.get('age'))
+                           prepared_size=runtime['prepared_size'],age=job.get('age'),
+                           input_preprocessing=job.get('input_preprocessing'))
     with _csv_output(output, ['Image_name', 'Probability', 'Pred_Label']) as (writer, _):
         for start in range(0, len(rows), batch_size):
             stop = min(start + batch_size, len(rows))
@@ -453,7 +454,8 @@ def measure_latency(source, data_root, output, *, device='cpu', checkpoint='best
     model_load_seconds = time.perf_counter() - model_started
     runtime = _runtime(job, metadata, precision=precision)
     dataset = ImageDataset(data_root, rows, runtime['image_size'], False, runtime['normalization'],
-                           prepared_size=runtime['prepared_size'],age=job.get('age'))
+                           prepared_size=runtime['prepared_size'],age=job.get('age'),
+                           input_preprocessing=job.get('input_preprocessing'))
     from .age import enabled
     def predict_one(index):
         item=dataset[index]

@@ -116,7 +116,8 @@ def evaluate(model, rows, indices, data_root, job, device, ctx, output_csv=None,
         rng = capture_rng()
         modes = [(module, module.training) for module in model.modules()]
         dataset = ImageDataset(data_root, rows, int(job['image_size']), training=False,
-            normalization=job.get('normalization', 'imagenet'), prepared_size=int(job.get('prepared_size', 0)), age=job.get('age'))
+            normalization=job.get('normalization', 'imagenet'), prepared_size=int(job.get('prepared_size', 0)), age=job.get('age'),
+            input_preprocessing=job.get('input_preprocessing'))
         loader = DataLoader(dataset, batch_sampler=[batch for _, batch in assignments],
             **engine._loader_options(int(job.get('eval_workers', 0)), job))
         model.eval()

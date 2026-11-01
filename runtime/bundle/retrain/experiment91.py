@@ -38,6 +38,8 @@ MIXSTYLE_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-early
 STEM_XY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stem-rgbxy-v1'
 RAW_GC_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-rawgc-convlinear-v1'
 LION_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-lion10x-v1'
+LION_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-lion10x-v1'
+LOCAL_CONTRAST_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-localcontrast10-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -54,7 +56,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
                       POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                       TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                      MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING)
+                      MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
+                      LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -105,8 +108,10 @@ def science_configuration():
             from .models import STEM_XY_RULE
         if value.get('candidate_profile') == RAW_GC_SMALL_BINDING:
             from .config import GRADIENT_CENTRALIZATION_RULE
-        if value.get('candidate_profile') == LION_SMALL_BINDING:
+        if value.get('candidate_profile') in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING):
             from .config import LION_RULE
+        if value.get('candidate_profile') == LOCAL_CONTRAST_SMALL_BINDING:
+            from .config import LOCAL_CONTRAST_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -126,13 +131,20 @@ def science_configuration():
                                                        LOGIT_SQUARE_SMALL_BINDING,
                                                        TRI3_DOWNSAMPLE_SMALL_BINDING,
                                                        MIXSTYLE_SMALL_BINDING,
-                                                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING)
+                                                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
+                                                       LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
-                or (value.get('candidate_profile') != LION_SMALL_BINDING
+                or (value.get('candidate_profile') != LOCAL_CONTRAST_SMALL_BINDING
+                    and (value.get('job',{}).get('input_preprocessing') is not None
+                         or value.get('candidate',{}).get('input_preprocessing') is not None))
+                or (value.get('candidate_profile') == LOCAL_CONTRAST_SMALL_BINDING
+                    and (value.get('job',{}).get('input_preprocessing') != LOCAL_CONTRAST_RULE
+                         or value.get('candidate',{}).get('input_preprocessing') != LOCAL_CONTRAST_RULE))
+                or (value.get('candidate_profile') not in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('optimizer_policy') is not None
                          or value.get('candidate',{}).get('optimizer_policy') is not None))
-                or (value.get('candidate_profile') == LION_SMALL_BINDING
+                or (value.get('candidate_profile') in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('optimizer_policy') != LION_RULE
                          or value.get('candidate',{}).get('optimizer_policy') != LION_RULE
                          or value.get('job',{}).get('loss') != PAIR_LOGISTIC_LOSS
@@ -142,7 +154,7 @@ def science_configuration():
                              ('gradient_centralization_policy','gradient_clip_policy','head_warmup_policy','layerwise_lr_policy',
                               'low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization',
                               'attention_pool','stage3_residual','freeze_features_before','training_views','training_rotation',
-                              'training_photometric','head_seed','bn_statistics'))
+                              'training_photometric','head_seed','bn_statistics','input_preprocessing'))
                          or 'final_downsample_stride' in value.get('job',{})))
                 or (value.get('candidate_profile') != RAW_GC_SMALL_BINDING
                     and (value.get('job',{}).get('gradient_centralization_policy') is not None
@@ -322,7 +334,8 @@ def candidate_from_configuration(value):
                                         LAYERWISE_LR_SMALL_R1_BINDING,
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING):
+                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
+                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -415,6 +428,14 @@ def candidate_from_configuration(value):
             from .config import LION_RULE
             expected.update(id='r137-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-lion10x-9010',
                             experiment_order=49,optimizer_policy=LION_RULE)
+        if value['candidate_profile'] == LION_SMALL_SEED27_BINDING:
+            from .config import LION_RULE
+            expected.update(id='r138-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-lion10x-9010',
+                            experiment_order=50,optimizer_policy=LION_RULE)
+        if value['candidate_profile'] == LOCAL_CONTRAST_SMALL_BINDING:
+            from .config import LOCAL_CONTRAST_RULE
+            expected.update(id='r139-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-localcontrast10-9010',
+                            experiment_order=51,input_preprocessing=LOCAL_CONTRAST_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -570,7 +591,7 @@ def resolved_age_spec():
     """Keep the frozen fit-only age contract while resolving this round's readout."""
     result = copy.deepcopy(metadata()['AGE.json'])
     result['enabled'] = science_configuration().get('age_enabled', True)
-    if science_configuration()['candidate_profile']==LION_SMALL_BINDING:
+    if science_configuration()['candidate_profile'] in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING):
         from .age import validate_spec,LION_VERSION
         validate_spec(result)
         c=result['contract']
@@ -644,6 +665,7 @@ def validate_job(job):
         'stem_xy_policy': candidate().get('stem_xy_policy'),
         'gradient_centralization_policy': candidate().get('gradient_centralization_policy'),
         'optimizer_policy': candidate().get('optimizer_policy'),
+        'input_preprocessing': candidate().get('input_preprocessing'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}

@@ -21,6 +21,63 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R138_Lion27_and_R139_local_contrast_fixed_science(self):
+        from retrain import age, config
+        from retrain.persistence import canonical_digest
+        self.assertTrue(hasattr(experiment, 'LOCAL_CONTRAST_SMALL_BINDING'), 'local contrast science binding is missing')
+        self.assertTrue(hasattr(experiment, 'LION_SMALL_SEED27_BINDING'), 'conditional Lion seed27 binding is missing')
+        original_age = age.make_spec({'rows': [{'name': str(i), 'sha256': str(i) * 64, 'age': str(30 + 10 * i)}
+                                              for i in range(4)], 'fit_indices': [0, 1, 2, 3]})
+        for filename, baseline, order in (('R138-SCIENCE.json', 'R137-SCIENCE.json', 50),
+                                          ('R139-SCIENCE.json', 'R107-SCIENCE.json', 51)):
+            path = ROOT / 'configs' / filename
+            declared = json.loads(path.read_text())
+            site = {'schema_version': 1, 'scope': 'cpu_technical_prep', 'round_id': 'identity-fixture', 'git_commit': '0' * 40,
+                'work_root': str(ROOT), 'round_root': str(ROOT / 'rounds/identity-fixture'),
+                'pod': {'namespace': 'fixture', 'name': 'fixture', 'uid': '00000000-0000-0000-0000-000000000001',
+                        'container': 'fixture', 'python': sys.executable},
+                'gpus': [{'ordinal': i, 'pci': f'0000:{i+1:02x}:00.0', 'vram_total_bytes': 64 * 1024 ** 3} for i in range(8)],
+                **{key: str(ROOT / value) for key, value in declared['paths'].items()},
+                'science': {'binding_version': declared['candidate_profile'], 'candidate': declared['candidate'],
+                    'configuration': {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}}}
+            with tempfile.TemporaryDirectory() as folder:
+                p = Path(folder) / 'SITE_BINDING.json'; p.write_text(json.dumps(site))
+                with patch.dict(os.environ, NCCCU_SITE_BINDING=str(p), NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()), \
+                        patch.object(experiment, 'metadata', return_value={'AGE.json': original_age}):
+                    actual = experiment.candidate_from_configuration(experiment.science_configuration())
+                    self.assertEqual(actual, declared['candidate']); self.assertEqual(actual['experiment_order'], order)
+                    resolved_age = experiment.resolved_age_spec(); age.validate_spec(resolved_age)
+                    binding = {'version': declared['candidate_profile']}
+                    job = copy.deepcopy(declared['job'])
+                    job.update(age=resolved_age, experiment91=binding, physical_batch=8,
+                        initialization={'kind': 'imagenet', 'sha256': declared['public_source']['sha256'],
+                            'format': declared['public_source']['format'], 'path': site['public_weight'],
+                            'provenance': site['public_provenance']})
+                    with patch.object(experiment, 'binding', return_value=binding):
+                        self.assertEqual(experiment.validate_job(json.loads(json.dumps(job))), job)
+                    self.assertEqual(config.job_contract(job), json.loads(json.dumps(config.job_contract(job))))
+            left, right = json.loads((ROOT / 'configs' / baseline).read_text()), copy.deepcopy(declared)
+            for value in (left, right):
+                for key in ('candidate_profile', 'comparison_note', 'official_evaluation'): value.pop(key, None)
+                for key in ('id', 'experiment_order'): value['candidate'].pop(key)
+            if order == 50:
+                self.assertEqual(declared['job']['seed'], 20261027)
+                seed27 = json.loads((ROOT / 'configs/R108-SCIENCE.json').read_text())
+                self.assertEqual(right['initial_model_tensor_sha256'], seed27['initial_model_tensor_sha256'])
+                right['initial_model_tensor_sha256'] = left['initial_model_tensor_sha256']
+                right['job']['seed'] = left['job']['seed']
+                self.assertEqual(resolved_age['contract']['version'], 'age-linear-lion10x-v1')
+            else:
+                self.assertEqual(declared['job']['input_preprocessing'], config.LOCAL_CONTRAST_RULE)
+                self.assertEqual(right['candidate'].pop('input_preprocessing'), config.LOCAL_CONTRAST_RULE)
+                right['job'].pop('input_preprocessing')
+                self.assertNotIn('optimizer_policy', declared['job'])
+                self.assertEqual(resolved_age, original_age)
+            self.assertEqual(left, right)
+        legacy = copy.deepcopy(job); legacy.pop('input_preprocessing')
+        explicit_none = copy.deepcopy(legacy); explicit_none['input_preprocessing'] = None
+        self.assertEqual(config.job_contract(legacy), config.job_contract(explicit_none))
+
     def test_lion_candidate_identity(self):
         from retrain import age
         from retrain.persistence import canonical_digest

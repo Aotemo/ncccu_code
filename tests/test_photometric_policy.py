@@ -92,6 +92,72 @@ def geometry_render(image, image_size, seed, scale_range):
 
 
 class PhotometricPolicyTest(unittest.TestCase):
+    def test_local_contrast_pixels_legacy_rng_and_real_evaluation_consumers(self):
+        from retrain import config, engine, inference, parallel_evaluation as pe
+        self.assertTrue(hasattr(config, 'LOCAL_CONTRAST_RULE'), 'fixed local contrast policy is missing')
+        import numpy as np
+        import torch
+        from PIL import Image, ImageFilter
+        policy = config.LOCAL_CONTRAST_RULE
+        image = self.image.copy()
+        blur = image.filter(ImageFilter.GaussianBlur(radius=10.0))
+        expected_image = Image.new('RGB', image.size)
+        expected_image.putdata([tuple(max(0, min(255, 4 * a - 4 * b + 128)) for a, b in zip(pixel, mean))
+                               for pixel, mean in zip(np.asarray(image).reshape(-1, 3).tolist(),
+                                                      np.asarray(blur).reshape(-1, 3).tolist())])
+        actual, traces = self.render(input_preprocessing=policy)
+        legacy, original_traces = self.render()
+        explicit_none, _ = self.render(input_preprocessing=None)
+        self.assertTrue(torch.equal(actual[0], legacy_render(expected_image, IMAGE_SIZE, SEED, SCALE)))
+        self.assertFalse(torch.equal(actual[0], legacy[0]))
+        self.assertTrue(torch.equal(explicit_none[0], legacy[0]))
+        self.assertEqual(traces[0][1].random_calls, 8)
+        self.assertEqual(traces[0][1].getstate(), original_traces[0][1].getstate())
+        expected = finish(expected_image, IMAGE_SIZE, 1., .5, .5)
+        before = (random.getstate(), np.random.get_state(), torch.get_rng_state())
+        with patch.object(data.random, 'Random', side_effect=AssertionError('eval consumed augmentation RNG')):
+            evaluation = self.make(training=False, input_preprocessing=policy)
+            with patch.object(evaluation, '_read_image', return_value=image.copy()):
+                sample = evaluation[0]
+        self.assertTrue(torch.equal(sample[0], expected))
+        self.assertEqual(sample[1:], (1., 0))
+        self.assertEqual(before[0], random.getstate())
+        self.assertTrue(np.array_equal(before[1][1], np.random.get_state()[1]))
+        self.assertTrue(torch.equal(before[2], torch.get_rng_state()))
+
+        class Model(torch.nn.Module):
+            def __init__(self):
+                super().__init__(); self.scale = torch.nn.Parameter(torch.tensor(1.)); self.inputs = []
+            def forward(self, inputs):
+                self.inputs.append(inputs.detach().clone())
+                return inputs.mean((1, 2, 3)) * self.scale
+        class Context:
+            rank = 0; world_size = 1; primary = True
+            def values(self, value): return [value]
+            def broadcast(self, value): return value
+        rows = [dict(self.row, name=f'synthetic-{i}.png', label=i % 2) for i in range(4)]
+        job = dict(model='synthetic', image_size=IMAGE_SIZE, prepared_size=0, precision='fp32',
+                   normalization='imagenet', physical_batch=2, workers=0, eval_workers=0,
+                   input_preprocessing=policy, age=None, seed=SEED)
+        model = Model()
+        with patch.object(data, 'configured_cache', return_value=None), \
+                patch.object(data.ImageDataset, '_read_image', side_effect=lambda row: image.copy()):
+            serial = engine.evaluate(model, rows, list(range(4)), self.root, job, torch.device('cpu'))
+            parallel = pe.evaluate(model, rows, list(range(4)), self.root, job, torch.device('cpu'), Context(), variant='online')
+            self.assertEqual(serial['count'], 4); self.assertEqual(parallel['count'], 4)
+            runtime = dict(image_size=IMAGE_SIZE, prepared_size=0, normalization='imagenet', precision='fp32', threshold=.5)
+            (self.root / 'test.csv').write_text('synthetic fixture only\n')
+            with patch.object(inference, '_read_unlabeled_rows', return_value=rows), \
+                    patch.object(inference, '_load_model', return_value=(model, job, {}, {}, torch.device('cpu'))), \
+                    patch.object(inference, '_runtime', return_value=runtime):
+                report = inference.run_prediction('/synthetic', self.root, self.root / 'predictions.csv',
+                                                device='cpu', expected_count=4, batch_size=2)
+            self.assertEqual(report['count'], 4)
+        self.assertEqual(len(model.inputs), 6)
+        for inputs in model.inputs:
+            self.assertTrue(torch.equal(inputs, expected.unsqueeze(0).expand(len(inputs), -1, -1, -1)))
+        self.assertFalse(torch.cuda.is_initialized())
+
     def setUp(self):
         from PIL import Image
         self.directory = tempfile.TemporaryDirectory()

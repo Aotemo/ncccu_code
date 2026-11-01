@@ -379,7 +379,7 @@ class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
     def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
                  training_scale=None, training_views=None, include_labels=True, training_photometric=None,
-                 training_rotation=None):
+                 training_rotation=None, input_preprocessing=None):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
@@ -388,6 +388,11 @@ class ImageDataset:
             raise ValueError("training_photometric must be None or 'identity-v1'")
         if training_rotation not in (None, 'identity-v1'):
             raise ValueError("training_rotation must be None or 'identity-v1'")
+        if input_preprocessing is not None:
+            from .config import LOCAL_CONTRAST_RULE
+            if input_preprocessing != LOCAL_CONTRAST_RULE:
+                raise ValueError('fixed RGB local contrast policy differs')
+        self.input_preprocessing = input_preprocessing
         self.root, self.rows = Path(data_root), rows
         self.image_size, self.training = image_size, bool(training)
         self.normalization = normalization
@@ -458,6 +463,13 @@ class ImageDataset:
         import numpy as np
         import torch
 
+        if self.input_preprocessing is not None:
+            from PIL import ImageFilter
+            policy = self.input_preprocessing
+            pixels = np.asarray(image).astype(np.int16)
+            local_mean = np.asarray(image.filter(ImageFilter.GaussianBlur(policy['radius']))).astype(np.int16)
+            corrected = policy['image_gain'] * pixels + policy['blur_gain'] * local_mean + policy['offset']
+            image = Image.fromarray(np.clip(corrected, *policy['clip']).astype(np.uint8))
         scale, dx, dy = 1.0, .5, .5
         if self.training:
             rng = random.Random(int(augmentation_seed))
