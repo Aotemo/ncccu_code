@@ -1,4 +1,10 @@
-# R139 固定局部对比度：真实八卡首成功
+# R139 固定局部对比度：完整结束，未达目标
+
+实际6400success=attempt/0skip/eval8/bad4，正常early_stopping；唯一EMA c4@3200，内部dev raw AUROC **0.9844971227863999**、AP **0.8115500912154501**、error_twice25750，tensor `a5239bd83b66cde5a3818bada3e0281ee04b1e4630b64a597e8791b776ee05b1`。strict>R107与strict>R120均false，关闭精确sigma10/4/−4/128配方/no seed27；R140只技术准备，未activation、未训练。官方按`.996`门未达正常跳过，metrics=null，没有官方前向。
+
+2026-11-01 16:12:24.951145 UTC唯一完整终态观测确认done/TRAIN/ROUND completed、exit0/signals[]/errornull，actualsafe=true/terminal_idle。owner同birth Z非reaped，八rank absent，同inode锁holders[]、设备users[]、denied0、8expected PCI seen/busy0；freeze.status原值null保留。[完整结果](R139-RESULT.json)、[终态原件](R139-COMPLETION.json)及[CPU观测树](R139-CPU-COMPLETION.json)均只复制既有小件，未重复旧safe、hash/load大权重或补前向。原selected/冻结d190/clock/grant/所有成本与依赖保护；后续已独立fresh接R141。
+
+以下为当时启动实证；“尚无完整selector”等由上方终态覆盖。
 
 2026-11-01 15:19:16.110554 UTC观测running375success=attempt/0skip/eval0。真实native初态345全训/5组/八rank空AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`全部匹配formal。首自然日志update25/attempt25，finite loss`.7421902418136597`，WORLD8/G64/P8/448pairs。saved input policy与SCIENCE一致；未额外GPU预演、step1探针或官方前向。
 

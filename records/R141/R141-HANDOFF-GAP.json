@@ -1,0 +1,23 @@
+{
+  "previous_completion_event_at": 1793549368.297297,
+  "previous_safe_observed_at": 1793549544.9511452,
+  "new_dispatch_at": 1793549843.469836,
+  "completion_event_to_dispatch_seconds": 475.1725389957428,
+  "event_to_dispatch_within_300_seconds": false,
+  "safe_observation_to_dispatch_seconds": 298.51869082450867,
+  "safe_observation_to_dispatch_within_300_seconds": true,
+  "first_recorded_update_at": 1793549933.6860785,
+  "completion_event_to_first_recorded_update_seconds": 565.3887815475464,
+  "delay_causes": [
+    "Late public initialization receipt field compatibility fix",
+    "Required affected CPU revalidation, Git push/readback and exact new-source transfer",
+    "New technical packages, unique normalformal and activation, real eight-rank startup"
+  ],
+  "semantics": "Event/metadata intervals, not a continuous device-utilization measurement. The requested <=300s handoff was exceeded and is not claimed achieved.",
+  "continuous_DCU_idle_within_300_seconds_proven": false,
+  "checks_skipped": false,
+  "previous_completion_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r139-20261101-32e3/PROGRESS-1612.json",
+    "sha256": "146fff93d321deb90aebab8d054a8c55cdba79297f102d3065e09d217eaea0c6"
+  }
+}

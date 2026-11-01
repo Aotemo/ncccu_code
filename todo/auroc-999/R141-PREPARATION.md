@@ -10,6 +10,8 @@
 
 **Spec:** 本页科学值及`AGENTS.md`。采用用户2026-11-01持续推进授权；当前R139优先自然结束，任何新GPU等待其完整终态与actualsafe。
 
+**已实际启动唯一R141，真实八rank初态与首自然成功完成。** R139完整双门false，R140未activation/未训练。R141用同步0c704d5、修复后250c CPU证据与新技术包，normalformal唯一18/18、精确部署、唯一activation/direct launch0；16:19:04.145001 UTC实查running50success=attempt/0skip/eval0，原生178总/177训/5组空AdamW/whole9b4、WORLD8/G64P8/首log25finite及实际资源匹配。见[启动实证](../../records/R141/README.md)。原3eef技术包未部署，字段修复/CPU重验/传输与formal导致本次接续超300秒如实保留；当前冻结0c不热改。下方“未formal/启动”为历史阶段，完整selector/双门/official仍未知。
+
 **实际CPU准备已完成。** [三项窄验及9源compile](../../records/preparation/dinov2-current-20261101/README.md)保留各批真实失败和精确复用。生产公开fresh whole9b4、175公开/178总/177训/5组空Adam及504合成finite、八rank配置与真实online/EMA保存严格重建均已证；未GPU预演或新轮activation，normalformal与实际八rank仍待采用分支后原入口完成。
 
 ## 固定科学范围
@@ -37,8 +39,8 @@
 
 - [x] 条件身份及两个DINO边界的必要正向目标，Pod内实际RED；原始输出保留。
 - [x] 最小接线后只复跑受影响目标，9源compile；原pairlog/Gloo/AdamW/clip/EMA算法按精确源码身份复用。
-- [ ] 同步GitHub并回读commit/树，CPU期间干净打包与技术准备；真实参数/新whole与一次normalformal由现入口实证。
-- [ ] 前轮唯一完整终态及actualsafe后立即独立fresh一次activation/direct launch；真实八rank初态与首自然成功证明GPU可跑。
+- [x] 同步GitHub并回读commit/树，干净技术包及一次normalformal完成；参数/whole与正式运行身份实证。
+- [x] R139完整终态及actualsafe后独立fresh一次activation/direct launch，真实八rank初态与首自然成功已证；本次接续超300秒未隐去。
 
 ## 核查重点
 

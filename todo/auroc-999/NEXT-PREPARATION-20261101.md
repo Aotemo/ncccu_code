@@ -1,5 +1,7 @@
 # 当前运行与结果无关的 CPU 准备
 
+**最新：R139完整双门false关闭局部对比度，R140未activation/未训练；R141已真实八卡运行。** 实际runGit0c704d5/SCI36ec/SITE054b，3项窄验/9源compile最终250c证据精确复用，唯一normalformal18/18/精确部署/activation/direct launch0。16:19:04.145001 UTC running50success=attempt/0skip/eval0，native178总/177训/5组空Adam/whole9b4及首自然log25 finite/WORLD8/G64P8和实际8PCI/互斥CPU匹配，见[实证](../../records/R141/README.md)与[本轮计划](R141-PREPARATION.md)。当前无完整selector/official/双门结论；R139旧safe不再查。完成事件到dispatch475.173秒真实超300，旧3eef技术包没有部署，当前0c冻结包不热改。下文旧running/待启动均属历史阶段。
+
 **后续20%准备池已完成R140条件身份及R141公开DINOv2当前排序合同接线。** [三项实际窄验/9源compile与失败原件](../../records/preparation/dinov2-current-20261101/README.md)、[科学与文件范围](R141-PREPARATION.md)分列；代码与两SCIENCE即将同步，当前没有新formal/activation/GPU。R139最新2026-11-01 15:58:14.600817 UTC观测running5075success=attempt/0skip/eval6/bad2、EMA best`.9844971227863999`，仍无完整selector，冻结d190保持。R139完整双门通过才R140固定局部对比度seed27，否则跳过；之后唯一独立问题R141为原公开DINOv2-S14+当前G64P8/pairlog/24k800p4，原N03/官方隔离。旧census已工程失败，不复开隔离草稿。
 
 **最新：R137完整双门false，R138未activation/未训练；唯一R139已真实八卡运行。** R137唯一EMA c8@6400 AUROC`.9854411426493483`、9600/eval12/bad4及actualsafe已完整归档，固定Lion10x关闭/no27。R139沿d190/SCI17661d/SITE02c4，既有两CPU技术包准备后完成独立normalformal18/18及精确Git部署、唯一activation/direct launch0；15:19:16.110554 UTC实核running375success=attempt/0skip/eval0、八rank345/5组/空AdamW/whole50c与原生CPU匹配，首自然update25 finite/G64P8/448pairs及saved input policy相符，[启动小件](../../records/R139/README.md)已取得。当前没有完整selector/官方，不重复旧R137safe或未训练R138。下文“未normalformal/启动”等为历史准备阶段；R139冻结d190不热改。
