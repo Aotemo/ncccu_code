@@ -1,0 +1,340 @@
+{
+  "schema": "r134-engineering-failure-v1",
+  "run_git": "15f78f725c6b5aad23da308bb7076801a831e646",
+  "status": "failed_before_actual_fresh_initial",
+  "scientific_conclusion": null,
+  "scientific_gate_gt_R107": null,
+  "promotion_gate_gt_R120_singlebest": null,
+  "selected": null,
+  "train_result": null,
+  "round_result": null,
+  "freeze": null,
+  "official": null,
+  "official_read": false,
+  "observed_progress": {
+    "status": "failed",
+    "successful_updates": null,
+    "attempted_updates": null,
+    "evaluated_cycle": null,
+    "meaning": "cursor fields absent; no initial-ranks or recorded update observed"
+  },
+  "causal_error": "ValueError: exact MixStyle policy and explicit attempt context required",
+  "causal_call_chain": [
+    "distributed_engine.py:324 prime_reducer",
+    "distributed_engine.py:122 existing dummy forward without context",
+    "age.py:107",
+    "models.py:466",
+    "mixstyle.py:129",
+    "mixstyle.py:53"
+  ],
+  "rank_error_proofs": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-0.log",
+      "tail_sha256": "3c5de6c67199a32bd2c37cf32ecfaaefc07d989b9b1de7ae45cf7083f1c0de1e",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-1.log",
+      "tail_sha256": "4bfd8793b7c5d33d63f7f5cd066c02494ae7332fa00fa28574f30a90408387aa",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-2.log",
+      "tail_sha256": "54f458fb1591c3c1cc1a5278e838db9bcf704271d18e35abc0f17402c28266d0",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-3.log",
+      "tail_sha256": "969cd9e653242d3417b1a37e0038513ef09b0451d701c4c7e883cfd9bace9c67",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-4.log",
+      "tail_sha256": "c6682e416523d9a3053a4d4eb7b04ba82bb0228481a7120a64a3ccb6e90fa169",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-5.log",
+      "tail_sha256": "714c7de7f3b1e66f5fd961bd914983cc0fd8587455cacd61d5c38c1df7fd00cc",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-6.log",
+      "tail_sha256": "6339af6ea35a91978515f78b2360dfbfeac2cc238bcce9e74c35122af4ec6a35",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/rank-control/rank-7.log",
+      "tail_sha256": "c76f7768b569cfc5319387b9ffd1a2d5a8db6e41f4d8465ddc8c4166ba484ad0",
+      "causal_trace": [
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 324, in _run",
+        "    prime_reducer(model,base,job,ctx)",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/distributed_engine.py\", line 122, in prime_reducer",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/age.py\", line 107, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/models.py\", line 466, in forward",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 129, in training_image_logits",
+        "  File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle/retrain/mixstyle.py\", line 53, in apply",
+        "ValueError: exact MixStyle policy and explicit attempt context required"
+      ]
+    }
+  ],
+  "done": {
+    "status": "failed",
+    "phase": null,
+    "error": "RuntimeError(\"component not completed: {'status': 'timeout', 'exit_code': 1, 'reason': None}\")",
+    "live_owned_ranks": []
+  },
+  "safety": {
+    "safe": true,
+    "reason": "terminal_idle",
+    "identity": {
+      "owner_expected": {
+        "pid": 366816,
+        "start_ticks": "352346560"
+      },
+      "owner": {
+        "pid": 366816,
+        "present": true,
+        "readable": true,
+        "state": "Z",
+        "start_ticks": "352346560",
+        "active": false
+      },
+      "owner_status": "exited",
+      "owner_match": true,
+      "ranks_expected": [
+        {
+          "pid": 366828,
+          "start_ticks": "352350277"
+        },
+        {
+          "pid": 366829,
+          "start_ticks": "352350279"
+        },
+        {
+          "pid": 366830,
+          "start_ticks": "352350280"
+        },
+        {
+          "pid": 366831,
+          "start_ticks": "352350282"
+        },
+        {
+          "pid": 366832,
+          "start_ticks": "352350284"
+        },
+        {
+          "pid": 366833,
+          "start_ticks": "352350285"
+        },
+        {
+          "pid": 366834,
+          "start_ticks": "352350286"
+        },
+        {
+          "pid": 366835,
+          "start_ticks": "352350288"
+        }
+      ],
+      "ranks": [
+        {
+          "pid": 366828,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366829,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366830,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366831,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366832,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366833,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366834,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 366835,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        }
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_count": 8
+    },
+    "lock": {
+      "present": true,
+      "readable": true,
+      "holders": []
+    },
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  },
+  "observed_at": 1793496238.1901767,
+  "completion_sha256": "dad39c1bc71de8bfca90ab2473b62872f9e0eb08386dca8cdb350b1ae5549bf0",
+  "terminal_cpu_sha256": "bc623050dcb9988b7ebdb76758a413798f2132ccf3546b667d083a5f7c89fb4a",
+  "bounded_diagnostic_sha256": "7c28afdb014cc1c6c2b254471c4d49c2d27dfdb21c413c04e068a7858cc8678c",
+  "repeat_activation_or_launch": false,
+  "checkpoint_blob_read": false,
+  "all_original_artifacts_and_cost_preserved": true
+}

@@ -1,5 +1,7 @@
 # R134：早两 stage 的固定 rank-local8 MixStyle
 
+**本轮已在真实初态门前技术失败，尚无科学结论。** 09:22:53.495411 status failed、owner366816同startZ、八rankabsent，无initial-ranks/ACTUAL_FRESH_INITIAL或记录update。09:23:58.1901767唯一completion为done failed、selected null、TRAIN/ROUND/freeze/official均缺件，status未提供成功/尝试/eval游标，保留null而非补写0；官方未进入，不套threshold_not_met。实际八rank短trace证明原`prime_reducer`的两次既有dummy forward未传MixStyle context：`distributed_engine.py:324 → :122 → age.py:107 → models.py:466 → mixstyle.py:129/:53`，报`ValueError: exact MixStyle policy and explicit attempt context required`。这不是数学或AUROC失败，不关闭MixStyle科学假设。actualsafe true/terminal_idle：owner同startZ非reaped、8rankabsent、锁holders/设备users空/denied0、8expectedPCI seen busy0。只读诊断SHA `7c28afdb014cc1c6c2b254471c4d49c2d27dfdb21c413c04e068a7858cc8678c`，原完整噪声日志留prep；精简失败/安全小件归档另列。原one-shot已消费，保留全部成本/clock/token/grant/markers，不重launch/activation、不热改本轮；最小修复与独立后续合同由根另定。以下准备/待启动为历史阶段。
+
 R133完整结果与actualsafe已核后，根依用户持续串行推进授权采纳本轮；fresh授权reference为消息`f9c93d14-e188-4bdb-84f0-da2824d274e3`。A `7c17043e-8381-43e9-b185-6e142634ad72`为唯一文件/Git/Pod/GPU owner，规划仅一次只读注册审查。当前处于身份接线与正式准备，尚未证明GPU启动或训练成功。
 
 | 字段 | 冻结值 |
@@ -17,6 +19,8 @@ R133完整结果与actualsafe已核后，根依用户持续串行推进授权采
 唯一policy版本`convnext-small-local8-mixstyle13-v1`，sites `[1,3]`、probability `.5`、alpha `.1`、epsilon `1e-6`、variance_correction `1`、scope `rank_local8`、salt `mixstyle13-local8-v1`、rng `sha256-first8-big-private-python-v1`。仅训练forward在完整features1/3后执行；FP32分别mean和HW−1方差、sqrt(var+eps)，mu/sigma detach，原未融合表达式混合统计。每site/rank/attempt/micro独立：UTF8冒号join(seed,salt,attempted_before_increment,rank,micro,site)的SHA前8byte大端值建立private Random；先gate random<=.5，激活才依序8次Beta(.1,.1)后shuffle(range8)，允许selfpair。无label/image/age混合、无全局配对或持久RNG，原SD/dropout全局RNG保持。None/eval/EMA/dev/official走原native路径。
 
 ## 最小执行与实证边界
+
+实际runGit `15f78f725c6b5aad23da308bb7076801a831e646`/parent `a6e65dedee3a460164ff70b33b5f1e4748c25c9f`/tree `58d8d135893407ef0acb19e122f3b976a81f0d45`已nonforce push/readback。唯一normalformal实际18/18，745源Git blob/mode exact，公开whole50c、345全训/实际5组/空Adam、正式两site描述/onlineEMA一致与默认factory strict重建均通过。正式CPU SHA `1188136e3bba09c6c4c9ac37e55b5c4b82a81918676ec7e3bc0b90826885d599`、deployment `e7d86f27e6eaaf83b6f851d84e0b9b023b11f434978013c872066dd88a9c3dc2`、SITE `c1aa829f7112fdcd619cee9b42b6e1811fa4656187e73686169717f1428ee869`。13项absence/原调用0后唯一activation0与live launch0，正确-i/CPU pin SITE SHA/GPU无预taskset保持。09:22:17.676596第一观测仅owner366816/start352346560及8rank366828–35 argv/start/mask active，当时实际初态/首成功尚未产出，START-PENDING保留，不冒训练成功。后续只读原链自然小件，归档commit与runGit分列；以下待执行措辞为相应历史阶段。
 
 唯一新身份检查已实际RED 1FAIL/0ERROR后GREEN 1/1、0FAIL/0ERROR（1.719秒），GPU未初始化；SCI SHA `94116a481cc3f35aadd7a82410b1e850d17a6c9315d970f49055af88755a5711`，GREEN SHA `e87210d6ed6f1376dacc60d89dcc216af03ce673c533f459d0ac36fadc5e1d25`，guard SHA `55af0dce549da516eefbe43349d36267c2eb5dfaa4a33fb815cc5cf88d29b669`/exit0。规划唯一注册只读审查无Critical/Important；唯一Minor为旧CPU-only注释，已作纯注释修正，不为此重跑identity，最终源码由正常formal编译/部署SHA承接。当前normalformal/真实GPU证据仍待执行，不能用该1/1替代。
 
