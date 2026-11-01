@@ -1,0 +1,15 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nostoch-20261101-32e3/source-git/records/preparation/nostoch-20261101/CPU-CHECKS.json",
+    "sha256": "7d8ad2a1aa4e9288c7f5f94faf1f06f0631a9960786a821a48e40c906aff86aa"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "b4eb6fccb72a3894f8af07dfad37e4bbba1f60f56fb51e79ab49a9e84d75369e",
+    "tests/test_candidate_binding.py": "007456b84f9016ec8e8b8457dece1de7bb930637c38419bc9cb2e223f0e45280"
+  },
+  "science_sha256": "ca60e78edbdb62f234ab7c9976b52303d59099324320b35fa93ab10b012b9121",
+  "targets_reused": 2,
+  "tests_rerun": false,
+  "at": 1793563862.3446949
+}

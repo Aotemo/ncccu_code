@@ -1,0 +1,34 @@
+{
+  "previous_completion_event_at": 1793563852.849424,
+  "previous_safe_observed_at": 1793563975.895444,
+  "new_dispatch_at": 1793564022.8799195,
+  "completion_event_to_dispatch_seconds": 170.03049564361572,
+  "event_to_dispatch_within_300_seconds": true,
+  "safe_observation_to_dispatch_seconds": 46.98447561264038,
+  "safe_observation_to_dispatch_within_300_seconds": true,
+  "first_recorded_update_at": 1793564147.923368,
+  "completion_event_to_first_recorded_update_seconds": 295.0739440917969,
+  "rank_device_proof_times": [
+    1793564080.825225,
+    1793564081.0032187,
+    1793564081.1360185,
+    1793564080.9707925,
+    1793564080.8259904,
+    1793564080.9709918,
+    1793564080.9609392,
+    1793564081.3110297
+  ],
+  "latest_rank_device_proof_after_completion_seconds": 228.46160578727722,
+  "delay_causes": [
+    "Prior final checkpoint freeze and safe resource release",
+    "Unique normalformal64.945s overlapped prior freeze, exact deployment9.683s, unique activation",
+    "Real eight-rank startup and the natural log25 interval"
+  ],
+  "semantics": "Event/metadata intervals and their actual booleans are reported separately. They are not a continuous DCU-utilization measurement; continuous idle<=300s is not claimed proved.",
+  "continuous_DCU_idle_within_300_seconds_proven": false,
+  "checks_skipped": false,
+  "previous_completion_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r146-20261101-32e3/PROGRESS-cont-028.json",
+    "sha256": "2f3ebf16e9a9a71c72982ee1a7f466d964078e0dbd0796ee9deb312f62329bde"
+  }
+}

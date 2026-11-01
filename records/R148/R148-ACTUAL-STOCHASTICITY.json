@@ -1,0 +1,15 @@
+{
+  "status": "actual_eight_rank_zero_model_stochasticity_proved",
+  "policy": {
+    "dropout": 0.0,
+    "stochastic_depth": 0.0
+  },
+  "actual_rank_count": 8,
+  "actual_SD_modules_each": 36,
+  "source": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r148-small22k-seed20261029-scale085-pairlog-nostoch-24k-p4-9010-20261101/outputs/r148-small22k-seed20261029-scale085-pairlog-nostoch-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-ranks.json",
+    "sha256": "5d927b2c90c3de776743bf73270916203196363570e641741c937e340278a90c"
+  },
+  "additional_model_or_forward": false,
+  "checkpoint_loaded": false
+}

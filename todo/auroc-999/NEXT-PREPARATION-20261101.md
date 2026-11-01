@@ -1,6 +1,8 @@
 # 当前运行与结果无关的 CPU 准备
 
-## R146期间的必要条件准备
+## R148期间的必要条件准备
+
+R146已完整安全结束，唯一EMA c4@3200 AUROC`.9838457009166867`/6400success/eval8/bad4，双门false，inset256/no27关闭，R147未formal/activation/训练。R148/order60已沿原入口正常18/18 formal、精确Git部署和一次activation/direct launch0，真实八rank/whole50c/5组空Adam/首自然25finite及实际dropout0/36SDp0均证实，[当前](../../records/R148/README.md)。其GPU冻结d546d302不改；下方R146 running与“未formal”等为历史准备，不作现状。继续以完整内部selector和actualsafe决定固定分支，官方隔离与raw .999目标保持。
 
 下一固定分支：R147/order59仅是R146完整双门通过后的inset256 seed27，仍复用同一联合cache回执，预期fresh初态91507，不加载R108权重。独立R148/order60直接回R107/seed29/global512/public fe6b fresh；唯一方法是模型随机正则整体置零：head dropout `.2→0`、stochastic depth `.1→0`，原图像增强、参数/初态50c、AdamW/LR/WD/EMA/24k800p4与所有边界保持。这是联合消融，不归因单一正则，不因裁剪分支失败推断欠拟合；R122去光度阴性、R127去旋转仅过第一门等是非等价负先验。固定零一次，不拆分或扫非零rate/LR/seed；完整双门及safe才固定seed27，失败关闭精确联合配方。只改现experiment91绑定、现candidate test及两SCIENCE，模型/factory/训练/保存/评估源码不改；窄CPU核配置roundtrip和实际原factory的p0/随机状态/finite梯度，不新增GPU预演或新资产/平台。CPU两项目标及2源compile已通过，已同步d546d302并实建两技术包，未formal/grant/clock/activation/GPU。此前考察SwinV2/ConvNeXtV2未采用，不混入本包。
 
