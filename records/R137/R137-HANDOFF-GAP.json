@@ -1,0 +1,17 @@
+{
+  "prior_terminal_observed_at": 1793534867.3978941,
+  "new_dispatch_at": 1793540994.1659455,
+  "terminal_observation_to_dispatch_seconds": 6126.7680513858795,
+  "gap_within_300_seconds": false,
+  "first_recorded_update_at": 1793541127.171993,
+  "session_started_at_UTC": "2026-11-01T13:27:48.293Z",
+  "continuation_user_message_at_UTC": "2026-11-01T13:34:58.669Z",
+  "gap_semantics": "Historical terminal observation to new dispatch, not a continuous device-utilization measurement.",
+  "handoff_delays": [
+    "Inherited R136 terminal with uncommitted R137 work and no current owner",
+    "Git author setup and authorized push/readback",
+    "SSH handshake/command and source transport waits",
+    "One required R137 formal CPU admission and exact deployment"
+  ],
+  "no_checks_skipped_to_hide_gap": true
+}

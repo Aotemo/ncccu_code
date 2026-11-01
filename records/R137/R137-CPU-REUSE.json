@@ -1,0 +1,21 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-7c17/CPU-CHECKS.json",
+    "sha256": "5aefbc05963ddf50f31cdaf2dbb48422faa6e126b006490ba4d3053355089ce6"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "b17ff5cdfffd43e90d40f4e0a2c951f9c8bfa2005e5afb050df0e3954807f75d",
+    "runtime/bundle/retrain/engine.py": "4a79328ca55c00b693ec4b34fa4a6ecd956444583c05cdb4e4f82b7224b41791",
+    "runtime/bundle/retrain/distributed_engine.py": "52cdaf98baabe5ce6ed956a4ae3373e1581916658168333c44c54ff0674a1783",
+    "runtime/bundle/retrain/experiment91.py": "2ff7293e35c5dca05ab4d330e70dd10327e9fdd39ca5c0fca55d69e69e5d89b9",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "tools/validation/check_candidate.py": "370016775dae64bcacaa088292e8952e4ac65410f71adf135d54631fcb4157ab",
+    "tests/test_gradient_clip_policy.py": "77067bc84543ef7d5fc17bcd053bd9ce0eee44c093ae2f0e8b523e43ca5f2955",
+    "tests/test_candidate_binding.py": "e8cd8e627976ed9b8fc3597aded9e2fb7c2bc882229764cd5d7de3ece66c33e5"
+  },
+  "science_sha256": "a972186db69f98373f77356af728b0b5fa04483a350821fa68a6082a6df183f3",
+  "targets_reused": 3,
+  "tests_rerun": false,
+  "at": 1793540779.9802513
+}

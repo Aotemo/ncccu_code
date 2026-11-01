@@ -1,0 +1,51 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101",
+  "git_commit": "7b48f495ecb85664037a03015b78216b7d7a31e9",
+  "tree_sha": "7e1314d833b668172884532166d6fc870d7c4df5",
+  "science_sha256": "a972186db69f98373f77356af728b0b5fa04483a350821fa68a6082a6df183f3",
+  "candidate": {
+    "id": "r137-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-lion10x-9010",
+    "experiment_order": 49,
+    "optimizer_policy": {
+      "version": "lion10x-v1",
+      "betas": [
+        0.9,
+        0.99
+      ],
+      "learning_rate_scale": 0.1,
+      "nonzero_weight_decay_scale": 10.0,
+      "precision": "fp32",
+      "state": "exp_avg_only",
+      "update": "decoupled_decay_then_sign_then_momentum"
+    },
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "checks": 19,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "group_count": 5,
+  "optimizer_class": "Lion",
+  "optimizer_state_entries": 0,
+  "reused_cpu_checks_sha256": "488ae6189754a5e1fef7a938bc02e261ba76ac00d4c55b6f5903ee8e14f71ea1",
+  "package_manifest_sha256": "a5ae7e07c600da9a8aabf27437e83afd393722e9907ff17d77b7bd7eef7bd1c5",
+  "cpu_prep_sha256": "09812ee06d7134d733d8f3684172f87c4d613d83d9f38e5469c31d529252a514",
+  "deployment_sha256": "b0b334b9e111d7153f51ef7046f69a48153f9883fc6b48b9b402611afa116c6d",
+  "site_sha256": "260b0814b4ad10a912530c5d1a3c40fb25530fe6ab22955ffe8b0f5c717c18d6",
+  "formal_runs": 1,
+  "formal_clock_created": false,
+  "GPU_started": false
+}
