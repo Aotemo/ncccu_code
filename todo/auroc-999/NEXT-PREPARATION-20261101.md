@@ -1,5 +1,7 @@
 # 当前运行与结果无关的 CPU 准备
 
+**最新接续：R134R1完整6400/eval8/bad4，固定MixStyle策略关闭。** 选中EMA c4@3200 AUROC `.989123301757635`，严格胜R107、未胜R120，门1true/门2false/no seed27；actualsafe已由唯一completion证实，不重查旧safe。当前没有下一训练候选或新GPU实验；根仅采纳该原selector选中模型的一次独立full-fit census，正式加载/46256前向尚未执行。工程准备实际两目标RED 2FAIL/0ERROR（owner/driver缺失），与训练结果分列。用户授权冗余产物清理在此已结束CPU边界串行插入，保护selected及完整诊断依赖，不修改原49c8冻结包；清理单独同步后继续原诊断合同。下文running/待完整结果为历史阶段。
+
 **R134R1已真实首成功，当前唯一活跃科学方案仍固定MixStyle。** 09:47:12.813539 running50success=attempt/0skip/eval0，真实八rank初态345全训/实际5组/Adam0/50c与两site结构匹配；自然首记录update25 finite/WORLD8/64P8/448pairs、实际16site context/key/采样全部校核通过，priming不冒训练attempt0。runGit49c8ad7、两新增目标2/2、独立normalformal一次18/18、753源exact及唯一activation/launch0，见[R1合同](R134R1-DECISION.md)与[启动证据](../../records/R134R1/README.md)。R134技术失败、null游标和全部成本分列历史，不拼曲线；当前没有完整selector/双门/official，固定seed27资格仍等待完整结果，不新增CPU/GPU候选队列或改本轮。下文准备/待启动是历史阶段。
 
 **根已授权独立R134R1/order46修复同一MixStyle技术边界。** 只在原prime_reducer的两次dummy forward给非空policy临时context0/rank/micro0，无trace/保存/真实游标推进，原state/global RNG恢复、梯度清理和None调用保持。两项新增目标为真实两rank Gloo priming回归与旧45/新46科学整件一致的身份接线；不重已过数学/保存或旧套件，不加GPU预演。新SCI只改R134身份/note，不换方法/seed/参数，原技术失败和所有缺项原义保留。完整步骤与停止合同见[R134R1决定](R134R1-DECISION.md)；独立新正式验收/实际八rank初态和自然log25证明待运行，当前不冒GPU成功。

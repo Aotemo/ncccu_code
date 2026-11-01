@@ -1,4 +1,10 @@
-# R134R1：固定 MixStyle 技术修复后真实首成功
+# R134R1：完整结果与固定 MixStyle 分支关闭
+
+10:42:21.498595 的[唯一 completion](COMPLETION-R134R1.json)记录 done/TRAIN/ROUND completed，6400成功=尝试、0跳步、8轮评估、连续4轮无提升正常早停，exit0/signals[]。[精简结果](R134R1-RESULT.json)选中唯一 EMA c4@3200，内部 dev AUROC **.989123301757635**、AP .8334499172214856、error_twice18066。严格胜 R107 .9884405731067525，未胜 R120 singlebest .9894773092062407：门1true/门2false，关闭固定 p.5/alpha.1/sites1,3/local8/RNG 策略，不做 seed27 或参数补考，不外推所有 MixStyle。
+
+freeze.status 原值 null 保留；ROUND 明确 official not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull，official_readfalse。选中 tensor SHA `1442a625f8596cf8357a9c1d58f4c7b40d998d1dbe9dfc6eb880a193edf10462`仅转引原小件，本次归档未 hash/load 大 checkpoint。actualsafe=true/terminal_idle：owner同start为Z、未称reaped，八rank absent、锁holders与deviceusers空、scanDenied0、八个expectedPCI seen/busy0。[终态 CPU guard](TERMINAL-CPU-RECEIPT.json) exit0，SHA `2ccac811104477c2505b4a5de033cab99d57ca89bb01bd2135d392fdb75ead1f`；completion SHA `04569ab0990598c335a76f1229a5310731d6f377995b32fcdd34587d09deb3d5`。归档复用这些原件，没有重查旧safe或模型。
+
+后续仅获独立 full-fit census 诊断授权，尚未正式执行；选中模型本体及 strict 加载必要 sidecar/index、freeze、选中 dev 预测/precision、原job/manifest/age/ASSETS/SITE和49c8完整冻结源码继续保护。用户另明确授权受控清理；其他非选中大件须在本完整结果实际同步、实核无当前引用后才可删除。以下启动状态为历史阶段。
 
 运行Git `49c8ad727073604135fc95f4984796e6b00a7808`，parent `771f51abbd8d1d10de4aff7e40b4ed8e13f3bb62`，tree `0154ffce16096ac20b9b3508d25f89e4f5a14d09`；SCI SHA `875f83957bb2e6b11ce4d6e9ae4bbd7b32df8422e565c3ae9da3d160f464c205`，order46独立fresh授权ref `848b1a9c-07ce-4b90-b347-4da79865ff27`。科学整件等于R134，仅新身份/note；只修原reducer两次dummy forward临时context，不带trace、不推进真实游标，原R134技术失败/缺项/成本和一次入口保留。
 

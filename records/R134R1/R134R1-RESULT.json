@@ -1,0 +1,234 @@
+{
+  "schema": "r134r1-final-result-v1",
+  "run_git": "49c8ad727073604135fc95f4984796e6b00a7808",
+  "status": "completed",
+  "stop_reason": "early_stopping",
+  "successful_updates": 6400,
+  "attempted_updates": 6400,
+  "skipped_updates": 0,
+  "evaluated_cycle": 8,
+  "early_stop": {
+    "bad_cycles": 4,
+    "metric": "internal_dev_auroc",
+    "reference_auroc": 0.989123301757635,
+    "stopped": true,
+    "variants": [
+      "online",
+      "ema"
+    ]
+  },
+  "selected": {
+    "auroc": 0.989123301757635,
+    "ap": 0.8334499172214856,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "error_twice": 18066
+  },
+  "scientific_gate_gt_R107": true,
+  "promotion_gate_gt_R120_singlebest": false,
+  "fixed_mixstyle_strategy": "closed_no_seed27",
+  "freeze_status_as_observed": null,
+  "selected_tensor_sha256": "1442a625f8596cf8357a9c1d58f4c7b40d998d1dbe9dfc6eb880a193edf10462",
+  "official": {
+    "status": "completed",
+    "phase": "complete",
+    "successful_updates": 6400,
+    "cycles": 8,
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "selected_internal_dev_auroc": 0.989123301757635,
+    "official_metrics": null,
+    "target_auroc_at_least_0_999": null,
+    "error": null
+  },
+  "safety": {
+    "safe": true,
+    "reason": "terminal_idle",
+    "identity": {
+      "owner_expected": {
+        "pid": 373730,
+        "start_ticks": "352487166"
+      },
+      "owner": {
+        "pid": 373730,
+        "present": true,
+        "readable": true,
+        "state": "Z",
+        "start_ticks": "352487166",
+        "active": false
+      },
+      "owner_status": "exited",
+      "owner_match": true,
+      "ranks_expected": [
+        {
+          "pid": 373742,
+          "start_ticks": "352491485"
+        },
+        {
+          "pid": 373743,
+          "start_ticks": "352491486"
+        },
+        {
+          "pid": 373744,
+          "start_ticks": "352491487"
+        },
+        {
+          "pid": 373745,
+          "start_ticks": "352491489"
+        },
+        {
+          "pid": 373746,
+          "start_ticks": "352491490"
+        },
+        {
+          "pid": 373747,
+          "start_ticks": "352491492"
+        },
+        {
+          "pid": 373748,
+          "start_ticks": "352491493"
+        },
+        {
+          "pid": 373749,
+          "start_ticks": "352491495"
+        }
+      ],
+      "ranks": [
+        {
+          "pid": 373742,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373743,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373744,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373745,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373746,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373747,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373748,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 373749,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        }
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_count": 8
+    },
+    "lock": {
+      "present": true,
+      "readable": true,
+      "holders": []
+    },
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  },
+  "observed_at": 1793500941.498595,
+  "completion_sha256": "04569ab0990598c335a76f1229a5310731d6f377995b32fcdd34587d09deb3d5",
+  "cpu_receipt_sha256": "2ccac811104477c2505b4a5de033cab99d57ca89bb01bd2135d392fdb75ead1f",
+  "checkpoint_blob_rehashed_or_loaded_by_this_archive": false,
+  "attempt_skip_source": "last fresh status HB-af4391eb: successful=attempted=6400/eval8; original retained"
+}
