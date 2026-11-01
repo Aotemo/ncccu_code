@@ -1,5 +1,7 @@
 # 当前运行与结果无关的 CPU 准备
 
+当前唯一R150R1/c8a24cd正常运行；后续R151条件六通道seed27、独立R152全局768的固定合同见[当前准备](R151-R152-PREPARATION.md)。三目标覆盖/7源compile、两份public-fresh初态、51396行768 cache及历史满额预算情景已实际证明；Gitb58f4a9实际push/readback及两技术包已完成，[原始CPU/技术证据](../../records/preparation/global768-20261101/README.md)分列。新formal/grant/clock/activation/GPU均未创建。只有当前完整结果和safe后新GPU，原运行/source/clock不改；下方R148及更早阶段均属历史。
+
 ## R148期间的必要条件准备
 
 R149/R150必要CPU已完成，[原始证据](../../records/preparation/native6-20261101/README.md)：原2项PASS后仅修复身份测试的可选None索引，身份单项重跑PASS、8源compile；六runtime与未变测试作用域已在Pod确认，原partial exit1保留。R150真实public fresh whole已测ea92356b，共享RGB/其他345仍50c，新增4608零/5组空Adam，最终SCI4ef14336；派生cache回执f246绑定原98b5完整覆盖/相同index及不变cache核心，本次新写图像0。已同步e6d29ac2并实建两技术包，无新formal/grant/clock/GPU。20:53:10.193333 UTC R148 running4800success=attempt/0skip/eval5/bad1、dev暂best`.9860612577378924`，仍无完整selector；下方“未实现/未验证”等为历史准备阶段。
