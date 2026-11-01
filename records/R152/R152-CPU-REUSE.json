@@ -1,0 +1,26 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/global768-20261101-32e3/source-git/records/preparation/global768-20261101/CPU-CHECKS.json",
+    "sha256": "ef6ee3f4e91ee6f5ba79777f465a6e8db9dc0f2e2a4d331abadf2d3b56a52893"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "47632b830bc1bcd806178c33197f60e46df4344a006f92f5ce1de2212c4b9570",
+    "runtime/bundle/retrain/preprocessing.py": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456",
+    "runtime/bundle/retrain/data.py": "b3a5b585490483fda65a9eee24f18d97c21699434667aacb1c275bc7a030a15f",
+    "tools/activation/prepare.py": "88d62afdcb3395065394d95490483a3159107297ae85db2d0c97513592db1693",
+    "tools/validation/check_candidate.py": "d40a0ea0557a60385bf1d34e074783d1ffcf56ed9abc97a356d3f0dfa95aecef",
+    "tests/test_candidate_binding.py": "ac8ab78cc5754ec310fb49d380bc8171cc5c0c71d5fa40f1d26ccbfe432bb9ee",
+    "tests/test_photometric_policy.py": "f8387fa4e2dcbfe09d038306282b0ca9b8a78f234ed6ab1544f6b4907f6bbb87",
+    "runtime/bundle/retrain/models.py": "cfb067175008d607ca9b17882e4ebd7c35c470c061d0359679b2e3ec9fae0402",
+    "runtime/bundle/retrain/config.py": "d28c35aaf09a9ff3ce116492c584702d11af46178a9e029dcb727a8623e90070",
+    "runtime/bundle/retrain/engine.py": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/inference.py": "d7ffbbeaeea005fd3a181a7ec2e82a87647b3a14a1fa6c0d193c9ea95e1c02b8",
+    "configs/R107-SCIENCE.json": "32cff474d82ed423af9c47cb83ecf12af376255317601e811d2b3fe5af8b0982"
+  },
+  "science_sha256": "013208252c6992566ef4ed8821113ef1840830e1ae2b8599ca371e1ecd32fbd9",
+  "targets_reused": 3,
+  "tests_rerun": false,
+  "at": 1793574139.5381954
+}

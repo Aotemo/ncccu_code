@@ -1,0 +1,10 @@
+{
+  "status": "saved_and_admitted_geometry_768_and_actual_eight_rank_success_proved",
+  "job_image_size": 768,
+  "job_prepared_size": 768,
+  "asset_prepared_size": 768,
+  "source_files_SHA_verified_by_actual_deployment": true,
+  "GPU_tensor_shape_hook_added": false,
+  "additional_model_or_forward": false,
+  "checkpoint_loaded": false
+}

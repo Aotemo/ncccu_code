@@ -1,4 +1,6 @@
-# R150R1 fresh 工程重试已获八卡首成功
+# R150R1 fresh 工程重试完整安全结束
+
+23:04:41.887195 UTC[完整原始观测](R150R1-COMPLETION.json)确认正常early_stopping：8800success=attempt/0skip/eval11/bad4；唯一EMA c7@5600内部AUROC`.9859781743570972`、AP`.8099265137055353`、error_twice23290，tensor`ab44ff07e64e6a33924a51c5f5c19824e15f9049934f3dce19789c6406593b0b`。[结果](R150R1-RESULT.json)两门false，关闭精确六通道方法/no27，R151仅技术准备未formal/grant/activation/GPU。官方threshold_not_met未跑，指标null；freeze.status原始null保持。owner Z身份匹配、8rank退出、锁/设备users空、denied0、8PCI busy0，actualsafe true，不重查。原clock/token/grant及所有依赖保护；下方为启动历史，当前唯一训练已由独立R152承接。
 
 21:44:51.589315 UTC[实际首成功](R150R1-START.json)：running50success=attempt/0skip/eval0；八rank345全训/5组空AdamW/whole`ea92356b21fb0cbc94f28344866859f827e4cd745c57b88bb35d1bb8a9b654e1`与正常formal一致，自然log25 finite loss`.6516661047935486`、WORLD8/G64P8/448pairs。[八rank真实六通道结构](R150R1-ACTUAL-NATIVE6.json)均为stem`[96,6,4,4]`；owner458671/start359674682与八rank458691–458698的birth/argv/mask/8PCI匹配。无新模型、额外forward或checkpoint加载来观察。
 
