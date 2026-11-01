@@ -42,6 +42,8 @@ LION_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-early
 LOCAL_CONTRAST_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-localcontrast10-v1'
 LOCAL_CONTRAST_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-localcontrast10-v1'
 DINOV2_PAIRLOG_BINDING = 'single-dinov2-vits14-7764ea0-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+DINOV2_PAIRLOG_SEED27_BINDING = 'single-dinov2-vits14-7764ea0-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+BRIGHT_CENTER_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-brightcenter-half-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -60,7 +62,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                       LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
-                      DINOV2_PAIRLOG_BINDING)
+                      DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -115,6 +117,8 @@ def science_configuration():
             from .config import LION_RULE
         if value.get('candidate_profile') in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING):
             from .config import LOCAL_CONTRAST_RULE
+        if value.get('candidate_profile')==BRIGHT_CENTER_SMALL_BINDING:
+            from .config import BRIGHT_CENTER_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
                 or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
@@ -136,15 +140,18 @@ def science_configuration():
                                                        MIXSTYLE_SMALL_BINDING,
                                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
-                                                       DINOV2_PAIRLOG_BINDING)
+                                                       DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
-                or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING)
+                or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING)
                     and (value.get('job',{}).get('input_preprocessing') is not None
                          or value.get('candidate',{}).get('input_preprocessing') is not None))
                 or (value.get('candidate_profile') in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('input_preprocessing') != LOCAL_CONTRAST_RULE
                          or value.get('candidate',{}).get('input_preprocessing') != LOCAL_CONTRAST_RULE))
+                or (value.get('candidate_profile')==BRIGHT_CENTER_SMALL_BINDING
+                    and (value.get('job',{}).get('input_preprocessing')!=BRIGHT_CENTER_RULE
+                         or value.get('candidate',{}).get('input_preprocessing')!=BRIGHT_CENTER_RULE))
                 or (value.get('candidate_profile') not in (LION_SMALL_BINDING, LION_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('optimizer_policy') is not None
                          or value.get('candidate',{}).get('optimizer_policy') is not None))
@@ -339,7 +346,7 @@ def candidate_from_configuration(value):
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
                                         MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
-                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING):
+                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -444,6 +451,10 @@ def candidate_from_configuration(value):
             from .config import LOCAL_CONTRAST_RULE
             expected.update(id='r140-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-localcontrast10-9010',
                             experiment_order=52,input_preprocessing=LOCAL_CONTRAST_RULE)
+        if value['candidate_profile']==BRIGHT_CENTER_SMALL_BINDING:
+            from .config import BRIGHT_CENTER_RULE
+            expected.update(id='r143-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-brightcenter-half-9010',
+                            experiment_order=55,input_preprocessing=BRIGHT_CENTER_RULE)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -460,13 +471,15 @@ def candidate_from_configuration(value):
             'batch_norm_modules': 0, 'batch_norm_buffers': 0, 'static_index_buffers': 24,
             'attention_pool': None, 'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
-    elif value['candidate_profile'] == DINOV2_PAIRLOG_BINDING:
+    elif value['candidate_profile'] in (DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING):
         expected={'id':'r141-dinov2-vits14-lvd142m-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':53,'model':'dinov2_vits14','public_revision':'7764ea0f912e53c92e82eb78a2a1631e92725fc8',
             'readout':'native_LN_CLS_concat_meanpatch_dropout_linear_plus_age','features':768,
             'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
             'attention_pool':None,'stochastic_depth':.1,'head_initialization':'normal_std0.01_zero_bias',
             'head_seed':20261027,'head_lr_scope':'last_linear'}
+        if value['candidate_profile']==DINOV2_PAIRLOG_SEED27_BINDING:
+            expected.update(id='r142-dinov2-vits14-lvd142m-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=54)
         if (source.get('kind')!='self_supervised' or source.get('training_data')!='LVD-142M'
                 or source.get('format')!='dinov2-official-backbone-state-dict-v1'
                 or source.get('sha256')!='b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9'
@@ -514,7 +527,7 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile']==DINOV2_PAIRLOG_BINDING:
+    if science['candidate_profile'] in (DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING):
         if (receipt.get('schema_version')!=1 or receipt.get('passed') is not True
                 or receipt.get('execution',{}).get('NCCCU_POD_UID')!=site['pod']['uid']
                 or receipt.get('model')!='dinov2_vits14' or receipt.get('revision')!=source['revision']

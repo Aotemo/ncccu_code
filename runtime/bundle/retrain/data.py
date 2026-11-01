@@ -389,8 +389,8 @@ class ImageDataset:
         if training_rotation not in (None, 'identity-v1'):
             raise ValueError("training_rotation must be None or 'identity-v1'")
         if input_preprocessing is not None:
-            from .config import LOCAL_CONTRAST_RULE
-            if input_preprocessing != LOCAL_CONTRAST_RULE:
+            from .config import LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE
+            if input_preprocessing not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE):
                 raise ValueError('fixed RGB local contrast policy differs')
         self.input_preprocessing = input_preprocessing
         self.root, self.rows = Path(data_root), rows
@@ -463,7 +463,10 @@ class ImageDataset:
         import numpy as np
         import torch
 
-        if self.input_preprocessing is not None:
+        if self.input_preprocessing is not None and self.input_preprocessing['version']=='rgb-green-bright-center-half-v1':
+            from .preprocessing import bright_center_crop
+            image=bright_center_crop(image,self.input_preprocessing)
+        elif self.input_preprocessing is not None:
             from PIL import ImageFilter
             policy = self.input_preprocessing
             pixels = np.asarray(image).astype(np.int16)

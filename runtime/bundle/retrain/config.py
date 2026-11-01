@@ -17,6 +17,9 @@ LION_RULE = {'version':'lion10x-v1','betas':[.9,.99],'learning_rate_scale':.1,
 LOCAL_CONTRAST_RULE = {'version':'rgb-local-contrast-pillow10-v1','radius':10.,
     'image_gain':4,'blur_gain':-4,'offset':128,'clip':[0,255],'arithmetic':'int16',
     'backend':'Pillow.GaussianBlur','position':'prepared_rgb_before_augmentation_and_canvas'}
+BRIGHT_CENTER_RULE = {'version':'rgb-green-bright-center-half-v1','thumbnail_size':512,'channel':'G',
+    'blur_radius':10.,'margin_fraction':.1,'crop_fraction':.5,'tie':'first_row_major',
+    'flat':'geometric_center','position':'prepared_rgb_before_augmentation_and_canvas'}
 GRADIENT_CENTRALIZATION_RULE = {'version': 'raw-convlinear-weight-gc-v1',
     'targets': 'Conv2d_and_Linear_direct_weight', 'dtype': 'float32',
     'axes': 'all_non_output_dimensions',
@@ -71,7 +74,7 @@ def validate_job(job):
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
     if job.get('input_preprocessing') is not None:
-        if (job['input_preprocessing'] != LOCAL_CONTRAST_RULE or job.get('model') != 'convnext_small'
+        if (job['input_preprocessing'] not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE) or job.get('model') != 'convnext_small'
                 or job.get('image_size') != 512 or job.get('prepared_size') != 512
                 or job.get('normalization') != 'imagenet' or job.get('precision') != 'fp32'
                 or any(job.get(key) is not None for key in ('optimizer_policy','gradient_centralization_policy',
@@ -293,9 +296,11 @@ def validate_job(job):
                  'backbone_lr': 2e-5, 'head_lr': 1e-3, 'weight_decay': 1e-4,
                  'dropout': .2, 'stochastic_depth': .1, 'head_lr_scope': 'last_linear',
                  'mixup': None, 'attention_pool': None, 'initial_checkpoint': None}
-        current=(job.get('experiment91') or {}).get('version') == 'single-dinov2-vits14-7764ea0-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+        from .experiment91 import DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING
+        version=(job.get('experiment91') or {}).get('version')
+        current=version in (DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING)
         if current:
-            fixed.update(seed=20261029,physical_batch=job['physical_batch'],workers=0,eval_workers=0,
+            fixed.update(seed=20261029 if version==DINOV2_PAIRLOG_BINDING else 20261027,physical_batch=job['physical_batch'],workers=0,eval_workers=0,
                          cycles=30,min_cycles=1,patience=4,backbone_lr=1e-4)
         if (any(job.get(k) != v for k, v in fixed.items())
                 or init.get('kind') != 'self_supervised'
@@ -395,12 +400,13 @@ def load_config(path=None, environ=None, overrides=None):
         validate_split(split)
     validate_split(cfg['data']['split'])
     if any(job['model'] == 'dinov2_vits14' for job in cfg['jobs']):
+        from .experiment91 import DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING
         if (len(cfg['jobs']) != 1 or cfg['mode'] != 'train' or cfg['resume']
                 or cfg['data']['split']['kind'] != 'holdout'
                 or cfg['data']['split']['include_valid'] or not cfg['data']['verify_images']
                 or cfg['execution']['devices'] != ['cuda:'+str(i) for i in range(8 if
-                    (cfg['jobs'][0].get('experiment91') or {}).get('version') ==
-                    'single-dinov2-vits14-7764ea0-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1' else 4)]
+                    (cfg['jobs'][0].get('experiment91') or {}).get('version') in
+                    (DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING) else 4)]
                 or cfg['execution']['per_rank_microbatch'] != 0
                 or cfg['execution']['evaluation_physical_batch'] != 32
                 or cfg['execution']['technical_smoke']):

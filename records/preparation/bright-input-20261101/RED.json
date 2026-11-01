@@ -1,0 +1,27 @@
+{
+  "phase": "RED-BRIGHT-1",
+  "started_at": 1793551195.636458,
+  "ended_at": 1793551196.8957224,
+  "tests": 2,
+  "failures": 2,
+  "errors": 0,
+  "successful": false,
+  "targets": [
+    "test_photometric_policy.PhotometricPolicyTest.test_bright_center_half_crop_pixels_None_rng_and_consumers",
+    "test_candidate_binding.CandidateBindingTest.test_R142_conditional_DINO27_and_R143_fixed_bright_crop_science"
+  ],
+  "GPU_initialized": false,
+  "compiled": [],
+  "source_sha256": {
+    "runtime/bundle/retrain/config.py": "64c34430afe7acbd9c7bb2e0355e912435e29b2d29a83970882775bb13a1ddd1",
+    "runtime/bundle/retrain/data.py": "428451392b51b8944c263306d2a6626b1165da7f108f5a6f6d3ca6ed7757e07b",
+    "runtime/bundle/retrain/preprocessing.py": "7161856ddd3879cec6eaf816b11fe515ed8c226b6aa66ada757e7fd1c152a244",
+    "runtime/bundle/retrain/experiment91.py": "9f9e8c537a50244bfb9c672d88e1456b02754425f5131a3604ad98fca14c5695",
+    "tests/test_photometric_policy.py": "722968b2788a6d99fff8ca85622459d362a61993e842ac5c409435430038a6dc",
+    "tests/test_candidate_binding.py": "413c832168b8912f91fc0f4ddd38447b27b91d7ad53180323043ed7ccfe8f944"
+  },
+  "science_sha256": {
+    "R142-SCIENCE.json": "8b0efc6a373975896d1d41cb904b6e107329c658ed57c8d5971d83b0b0ddc080",
+    "R143-SCIENCE.json": "c3d4a75656e486003c49081b779c5500fb71f7d581e09535f280c0f18b8f125e"
+  }
+}

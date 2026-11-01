@@ -19,6 +19,31 @@ from .verification import (VerificationCache, _atomic_json, configured_cache,
 PREPARATION_VERSION = 'rgb-conservative-border-prepared-v2'
 
 
+def bright_center_box(image, policy):
+    """Fixed bright-region heuristic, expressed in the input RGB pixel space."""
+    from PIL import ImageFilter
+    from .config import BRIGHT_CENTER_RULE
+    if policy != BRIGHT_CENTER_RULE or image.mode!='RGB':
+        raise ValueError('fixed RGB bright-center crop policy differs')
+    width,height=image.size
+    ratio=min(1.,policy['thumbnail_size']/max(width,height))
+    thumbnail=image.resize((max(1,round(width*ratio)),max(1,round(height*ratio))),Image.Resampling.BILINEAR) if ratio<1 else image
+    green=np.asarray(thumbnail.getchannel(policy['channel']).filter(ImageFilter.GaussianBlur(policy['blur_radius'])))
+    tw,th=thumbnail.size;mx=int(tw*policy['margin_fraction']);my=int(th*policy['margin_fraction'])
+    scores=green[my:th-my,mx:tw-mx]
+    if scores.max()==scores.min():cx,cy=width/2,height/2
+    else:
+        y,x=np.unravel_index(int(scores.argmax()),scores.shape)
+        cx=(x+mx+.5)*width/tw;cy=(y+my+.5)*height/th
+    side=max(1,round(min(width,height)*policy['crop_fraction']))
+    left=max(0,min(width-side,round(cx-side/2)));top=max(0,min(height-side,round(cy-side/2)))
+    return left,top,left+side,top+side
+
+
+def bright_center_crop(image, policy):
+    return image.crop(bright_center_box(image,policy))
+
+
 def prepare_image(image, prepared_size):
     from .data import _crop_black_border
     if isinstance(prepared_size, bool) or not isinstance(prepared_size, int) or prepared_size < 1:

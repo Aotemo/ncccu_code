@@ -21,6 +21,47 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R142_conditional_DINO27_and_R143_fixed_bright_crop_science(self):
+        from retrain import age,config
+        self.assertTrue(hasattr(experiment,'DINOV2_PAIRLOG_SEED27_BINDING'),'conditional DINO seed27 binding is missing')
+        self.assertTrue(hasattr(experiment,'BRIGHT_CENTER_SMALL_BINDING'),'fixed bright-center binding is missing')
+        original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+10*i)} for i in range(4)],'fit_indices':[0,1,2,3]})
+        for filename,baseline,order in (('R142-SCIENCE.json','R141-SCIENCE.json',54),('R143-SCIENCE.json','R107-SCIENCE.json',55)):
+            path=ROOT/'configs'/filename;declared=json.loads(path.read_text())
+            site={'schema_version':1,'scope':'cpu_technical_prep','round_id':'next-identity-fixture','git_commit':'0'*40,
+                'work_root':str(ROOT),'round_root':str(ROOT/'rounds/next-identity-fixture'),
+                'pod':{'namespace':'fixture','name':'fixture','uid':'00000000-0000-0000-0000-000000000001','container':'fixture','python':sys.executable},
+                'gpus':[{'ordinal':i,'pci':f'0000:{i+1:02x}:00.0','vram_total_bytes':64*1024**3} for i in range(8)],
+                **{k:str(ROOT/v) for k,v in declared['paths'].items()},
+                'science':{'binding_version':declared['candidate_profile'],'candidate':declared['candidate'],
+                    'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}}
+            with tempfile.TemporaryDirectory() as directory:
+                p=Path(directory)/'SITE.json';p.write_text(json.dumps(site));binding={'version':declared['candidate_profile']}
+                with patch.dict(os.environ,NCCCU_SITE_BINDING=str(p),NCCCU_SITE_BINDING_SHA256=hashlib.sha256(p.read_bytes()).hexdigest()), \
+                        patch.object(experiment,'metadata',return_value={'AGE.json':original_age}),patch.object(experiment,'binding',return_value=binding):
+                    self.assertEqual(experiment.candidate_from_configuration(experiment.science_configuration()),declared['candidate'])
+                    job=copy.deepcopy(declared['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                        initialization={'kind':declared['public_source'].get('kind','imagenet'),
+                            'sha256':declared['public_source']['sha256'],'format':declared['public_source']['format'],
+                            'path':site['public_weight'],'provenance':site['public_provenance']})
+                    cfg=Path(directory)/'TRAIN.json';cfg.write_text(json.dumps({'mode':'train','data':{'split':declared['data_split']},
+                        'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
+                    resolved=config.load_config(cfg,environ={})['jobs'][0]
+                    self.assertEqual(experiment.validate_job(resolved),resolved)
+                    self.assertEqual(config.job_contract(resolved).get('input_preprocessing'),declared['job'].get('input_preprocessing'))
+            left=json.loads((ROOT/'configs'/baseline).read_text());right=copy.deepcopy(declared)
+            for value in (left,right):
+                for key in ('candidate_profile','comparison_note','official_evaluation'):value.pop(key,None)
+                for key in ('id','experiment_order'):value['candidate'].pop(key)
+            if order==54:
+                self.assertEqual(right['job']['seed'],20261027);right['job']['seed']=left['job']['seed']
+                self.assertEqual(declared['job']['head_seed'],20261027)
+                self.assertEqual(declared['initial_model_tensor_sha256'],left['initial_model_tensor_sha256'])
+            else:
+                self.assertEqual(right['candidate'].pop('input_preprocessing'),config.BRIGHT_CENTER_RULE)
+                self.assertEqual(right['job'].pop('input_preprocessing'),config.BRIGHT_CENTER_RULE)
+            self.assertEqual(left,right)
+
     def test_R140_conditional_seed27_identity_and_exact_R139_recipe(self):
         self.assertTrue(hasattr(experiment, 'LOCAL_CONTRAST_SMALL_SEED27_BINDING'),
                         'conditional local contrast seed27 binding is missing')

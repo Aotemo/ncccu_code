@@ -92,6 +92,58 @@ def geometry_render(image, image_size, seed, scale_range):
 
 
 class PhotometricPolicyTest(unittest.TestCase):
+    def test_bright_center_half_crop_pixels_None_rng_and_consumers(self):
+        from retrain import config,preprocessing,engine,inference,parallel_evaluation as pe
+        self.assertTrue(hasattr(config,'BRIGHT_CENTER_RULE'),'fixed prepared bright-center rule is missing')
+        import numpy as np
+        import torch
+        from PIL import Image,ImageDraw
+        policy=config.BRIGHT_CENTER_RULE
+        flat=Image.new('RGB',(160,96),(20,30,40))
+        self.assertEqual(preprocessing.bright_center_box(flat,policy),(56,24,104,72))
+        marker=flat.copy();ImageDraw.Draw(marker).ellipse((110,32,130,52),fill=(5,240,7))
+        box=preprocessing.bright_center_box(marker,policy)
+        self.assertEqual((box[2]-box[0],box[3]-box[1]),(48,48))
+        self.assertLessEqual(abs((box[0]+box[2])/2-120),3)
+        self.assertLessEqual(abs((box[1]+box[3])/2-42),3)
+        self.assertTrue(np.array_equal(np.asarray(preprocessing.bright_center_crop(marker,policy)),np.asarray(marker.crop(box))))
+        for w,h in ((1,1),(2,1),(17,95),(95,17)):
+            bounds=preprocessing.bright_center_box(Image.new('RGB',(w,h)),policy)
+            self.assertTrue(0<=bounds[0]<bounds[2]<=w and 0<=bounds[1]<bounds[3]<=h)
+        cropped=preprocessing.bright_center_crop(self.image,policy)
+        actual,traces=self.render(input_preprocessing=policy);legacy,old=self.render()
+        explicit_none,_=self.render(input_preprocessing=None)
+        self.assertTrue(torch.equal(actual[0],legacy_render(cropped,IMAGE_SIZE,SEED,SCALE)))
+        self.assertTrue(torch.equal(explicit_none[0],legacy[0]))
+        self.assertEqual(traces[0][1].random_calls,8)
+        self.assertEqual(traces[0][1].getstate(),old[0][1].getstate())
+        expected=finish(cropped,IMAGE_SIZE,1.,.5,.5)
+        before=(random.getstate(),np.random.get_state(),torch.get_rng_state())
+        class Model(torch.nn.Module):
+            def __init__(self):super().__init__();self.scale=torch.nn.Parameter(torch.tensor(1.));self.inputs=[]
+            def forward(self,x):self.inputs.append(x.detach().clone());return x.mean((1,2,3))*self.scale
+        class Context:
+            rank=0;world_size=1;primary=True
+            def values(self,value):return [value]
+            def broadcast(self,value):return value
+        rows=[dict(self.row,name=f'synthetic-{i}.png',label=i%2) for i in range(4)]
+        job=dict(model='synthetic',image_size=IMAGE_SIZE,prepared_size=0,precision='fp32',normalization='imagenet',
+                 physical_batch=2,workers=0,eval_workers=0,input_preprocessing=policy,age=None,seed=SEED)
+        model=Model()
+        with patch.object(data,'configured_cache',return_value=None),patch.object(data.ImageDataset,'_read_image',side_effect=lambda row:self.image.copy()):
+            self.assertEqual(engine.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'))['count'],4)
+            self.assertEqual(pe.evaluate(model,rows,list(range(4)),self.root,job,torch.device('cpu'),Context(),variant='online')['count'],4)
+            runtime=dict(image_size=IMAGE_SIZE,prepared_size=0,normalization='imagenet',precision='fp32',threshold=.5)
+            (self.root/'test.csv').write_text('synthetic fixture only\n')
+            with patch.object(inference,'_read_unlabeled_rows',return_value=rows), \
+                    patch.object(inference,'_load_model',return_value=(model,job,{},{},torch.device('cpu'))), \
+                    patch.object(inference,'_runtime',return_value=runtime):
+                self.assertEqual(inference.run_prediction('/synthetic',self.root,self.root/'bright.csv',device='cpu',expected_count=4,batch_size=2)['count'],4)
+        self.assertEqual(len(model.inputs),6)
+        for inputs in model.inputs:self.assertTrue(torch.equal(inputs,expected.unsqueeze(0).expand(len(inputs),-1,-1,-1)))
+        self.assertEqual(before[0],random.getstate());self.assertTrue(np.array_equal(before[1][1],np.random.get_state()[1]))
+        self.assertTrue(torch.equal(before[2],torch.get_rng_state()));self.assertFalse(torch.cuda.is_initialized())
+
     def test_local_contrast_pixels_legacy_rng_and_real_evaluation_consumers(self):
         from retrain import config, engine, inference, parallel_evaluation as pe
         self.assertTrue(hasattr(config, 'LOCAL_CONTRAST_RULE'), 'fixed local contrast policy is missing')

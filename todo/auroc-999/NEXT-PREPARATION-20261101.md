@@ -1,5 +1,19 @@
 # 当前运行与结果无关的 CPU 准备
 
+## R141期间固定接续：条件DINO seed27与亮区输入对照
+
+**两项必要CPU边界已实际通过，正同步并打包。** RED2FAIL/0error后GREEN1 2/2、1.845秒、6源compile及原cache/增强AST/训练源码SHA复用见[小件](../../records/preparation/bright-input-20261101/README.md)，当前没有新normalformal/activation/GPU。R141 16:43:03.357916 UTC实查running5900success=attempt/0skip/eval7/bad0，EMA best`.9279101158230493`，8PCI同次snapshot busy44%–98%，非平均利用率。活跃0c保持，完整selector与双门仍未知。
+
+当前唯一GPU仍为R141冻结0c；下面只做20%准备池工作。R142/order54仅在R141完整selected同时strict>R107`.9884405731067525`和>R120`.9894773092062407`且actualsafe后采用；只job.seed→20261027，固定DINO head_seed仍27，公开source与整state自然仍9b4，须新formal实核，不填R108的CNN初态。比较匹配R108，不挑最好seed。
+
+R143/order55为原R107/public fresh Small/seed29的**prepared512亮区裁剪对照**。唯一input policy固定`rgb-green-bright-center-half-v1`：prepared RGB上产生长边不超过512的bilinear检测图，green通道Pillow GaussianBlur(radius10)，在内侧各10%留白后取最大响应的首个row-major位置，平坦响应用几何中心；像素中心坐标按实际缩放比例映回输入，裁边长round(.5*min(W,H))的原RGB正方形，边界平移保持框内，不滤色/补色；随后原8draw增强与512画布保持。使用旧prepared512/cache，不新增原图读取或cache。固定9:1/age/单模型/G64P8/pairlog/AdamW/LR/EMA/24k800p4和6h8h9h均保持，原始whole50c。完整selected严格双门才有固定seed27资格，未胜关闭该精确prepared裁剪合同，不扫描中心/半径/通道/面积。
+
+预先保留R144/order56为**相同定位和半短边规则作用于原始RGB，再准备512的原生细节对照**，直接原R107/fresh，不叠加DINO/局部对比度/双编码。它与R143比较同规则的输入信息，R143阴性不把原生像素价值判负；R144不依赖R143选点或错误来改规则。尚未实现/冻结SCIENCE或构建新cache；只允许复用现`PreparedImageCache`的版本化命名空间做必要新输入资产，不重开R119固定中心双输入/旧吞吐探针、FIT/census或另建训练/缓存平台。后续须先完成代码窄验、fit/dev新缓存真实覆盖/空间/时耗与只读身份，官方仅在完整selected≥.996后按同一固定规则准备一次，当前不读官方。若新资产不能在下一接续前完整准备，先执行已准备的R143对照；不让文档或重复验收占GPU。
+
+本次只改既有`config.py`/`data.py`/`preprocessing.py`/`experiment91.py`，R142/R143两SCIENCE及一件必要测试；沿既有消费者input_preprocessing传播，不改模型、loss、optimizer、EMA或selector。两项CPU边界为：固定裁剪像素/坐标/边界和平坦case及None旧像素/8draw/RNG；两分支SCI/保存job身份与真实serial/parallel/predict消费。先实际RED，再只跑受影响目标和compile，Git同步/精确技术包在R141期间完成，旧0c不热改。
+
+机制先验来自[原始研究](https://pmc.ncbi.nlm.nih.gov/articles/PMC4478982/)对亮度定位及白病灶、照明等混淆的实际讨论；本文固定简化亮区启发式，不导入其分割器或医学参数，也未验证定位临床准确性。另一个[2019原论文](https://pmc.ncbi.nlm.nih.gov/articles/PMC6637616/)访问遇reCAPTCHA，仅检索摘要提示green/亮度路线，未冒全文实读。具体sigma10/半短边/10%是本次预定工程合同，非该论文证明的本任务最优值；未来不据dev逐样本修位置。raw .999仍未达。
+
 **最新：R139完整双门false关闭局部对比度，R140未activation/未训练；R141已真实八卡运行。** 实际runGit0c704d5/SCI36ec/SITE054b，3项窄验/9源compile最终250c证据精确复用，唯一normalformal18/18/精确部署/activation/direct launch0。16:19:04.145001 UTC running50success=attempt/0skip/eval0，native178总/177训/5组空Adam/whole9b4及首自然log25 finite/WORLD8/G64P8和实际8PCI/互斥CPU匹配，见[实证](../../records/R141/README.md)与[本轮计划](R141-PREPARATION.md)。当前无完整selector/official/双门结论；R139旧safe不再查。完成事件到dispatch475.173秒真实超300，旧3eef技术包没有部署，当前0c冻结包不热改。下文旧running/待启动均属历史阶段。
 
 **后续20%准备池已完成R140条件身份及R141公开DINOv2当前排序合同接线。** [三项实际窄验/9源compile与失败原件](../../records/preparation/dinov2-current-20261101/README.md)、[科学与文件范围](R141-PREPARATION.md)分列；代码与两SCIENCE即将同步，当前没有新formal/activation/GPU。R139最新2026-11-01 15:58:14.600817 UTC观测running5075success=attempt/0skip/eval6/bad2、EMA best`.9844971227863999`，仍无完整selector，冻结d190保持。R139完整双门通过才R140固定局部对比度seed27，否则跳过；之后唯一独立问题R141为原公开DINOv2-S14+当前G64P8/pairlog/24k800p4，原N03/官方隔离。旧census已工程失败，不复开隔离草稿。
