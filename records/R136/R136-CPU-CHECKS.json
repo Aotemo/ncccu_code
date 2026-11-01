@@ -1,0 +1,90 @@
+{
+  "status": "required_narrow_evidence_ready",
+  "source_base": "da2fe73f4e2653f9725a0d535ea4d91e46107721",
+  "checks": [
+    {
+      "label": "algorithm_RED",
+      "CPU_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-ik3tinhj/CPU-RECEIPT.json",
+      "CPU_sha256": "0d5bbbfccce9bb3c800ab7b4565bbdc5fa257230d5554b54a38d6a45f7e9e497",
+      "exit_code": 1,
+      "passed": false,
+      "output_sha256": "21464e92c31335c8564c678bd17279105649b1b06a5cba62f5318fd1b339aa22"
+    },
+    {
+      "label": "identity_RED",
+      "CPU_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-5tmbvolt/CPU-RECEIPT.json",
+      "CPU_sha256": "5f0b9a365580e6535b0d3c202d847aa241ee93fe0d82e83f17ced3706a4f52a9",
+      "exit_code": 1,
+      "passed": false,
+      "output_sha256": "ec95e1f95f11c7b2a9246c12621412c250043c961c8db7731c6e7c4ad2911f05"
+    },
+    {
+      "label": "algorithm_GREEN1_first_PASS_second_FAIL",
+      "CPU_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-wnhb049t/CPU-RECEIPT.json",
+      "CPU_sha256": "14f6de635cb552a4cec64493167d588691e69e495b843955cbc1ccbe3e467152",
+      "exit_code": 1,
+      "passed": false,
+      "output_sha256": "e19782184efd991f6254e756fea795fdf9d2fa7cf0a9a92fb1b1b1271fba4c8b"
+    },
+    {
+      "label": "algorithm_DIAG1_norm_bias",
+      "CPU_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-u63pyozk/CPU-RECEIPT.json",
+      "CPU_sha256": "c5c0f9f4f6296e56bd790d7b7defa2300107fda4bfa45565d7addf5371efaf10",
+      "exit_code": 1,
+      "passed": false,
+      "output_sha256": "c7199431b10eda0a33eeb62a877d057cd7a9f501b409cbcc7e9064619a2c7d0e"
+    },
+    {
+      "label": "algorithm_GREEN2_second_only",
+      "CPU_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-x6_6rsnx/CPU-RECEIPT.json",
+      "CPU_sha256": "61bbe7e825b26185bf257466f04346aa9b80862287fa1af847c7df7b86baba97",
+      "exit_code": 0,
+      "passed": true,
+      "output_sha256": "256e53c4b11b61be4f89f16419471d1c79f50852dcfd790057c796494fb58036"
+    },
+    {
+      "label": "identity_GREEN1",
+      "CPU_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-i7nlq26d/CPU-RECEIPT.json",
+      "CPU_sha256": "03a710a5e02a00b21a003cbc681526875364dff91bc65eb843c49870d5db3e79",
+      "exit_code": 0,
+      "passed": true,
+      "output_sha256": "19ceb121a845e4def64b00b9cc1e68b6c2d4588116e9cb112c5955a2a7e5987f"
+    }
+  ],
+  "algorithm_first_target": "GREEN1 PASS; not rerun after only second-target diagnostic/unused-by-first forward gate",
+  "algorithm_second_target": "GREEN2 1/1 PASS after fixed synthetic gain; no production or tolerance change",
+  "identity_target": "GREEN1 1/1 PASS",
+  "no_single_final_3_test_run_claimed": true,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "af7b63234e4b53251a76c33584f3cb1f950fa8b0b0f839163732436e390bbfd4",
+    "runtime/bundle/retrain/engine.py": "5daf8950a96a6ff7dad5eddad8c6f7deab3fc16b87d26bf305aacc1300d1eb47",
+    "runtime/bundle/retrain/distributed_engine.py": "5f5cd13fa77a465b69d591013999001041578f1c2d96776686aaa3cf144acc64",
+    "runtime/bundle/retrain/experiment91.py": "3ccffb20e7d2ceb2ce2457a2aad24676e6a7d18e8a464e67f865772460a8893b",
+    "tools/validation/check_candidate.py": "cd02fa56c62e70ca8e04d48200381d3212811447995f52e50e4efb0c85c5721c",
+    "tests/test_gradient_clip_policy.py": "6935c30107ad2d0e1733093554a9b0dafb6468ba9498cea815e2b03e78ad8fe2",
+    "tests/test_candidate_binding.py": "b564e5fa2ac3240e49bf13a592fad8a2dc4b3336afad0e4d35dd37bcc7a7e915"
+  },
+  "compile_count": 7,
+  "science_sha256": "098768cc3eeb0e02f9fa742daa72b2fc076d461787538ad1b56caefaeb49817f",
+  "expected_initial_whole_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "public_model_constructed_by_these_narrow_tests": false,
+  "GPU_started": false,
+  "torch_imported_by_compile": false,
+  "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+  "mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "nice": 19,
+  "observed_at": 1793530894.9286017
+}

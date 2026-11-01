@@ -1,0 +1,1577 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+  "git_commit": "f38adab66219bbe2e3a79467b1710015c9ace120",
+  "tree_sha": "5c70fc24d696ba23f4a49bc0c7021fb6088f367c",
+  "science_sha256": "098768cc3eeb0e02f9fa742daa72b2fc076d461787538ad1b56caefaeb49817f",
+  "candidate": {
+    "id": "r136-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-rawgc-convlinear-9010",
+    "experiment_order": 48,
+    "gradient_centralization_policy": {
+      "version": "raw-convlinear-weight-gc-v1",
+      "targets": "Conv2d_and_Linear_direct_weight",
+      "dtype": "float32",
+      "axes": "all_non_output_dimensions",
+      "position": "after_ddp_mean_mirror_merge_unscale_before_global_clip",
+      "schedule": "each_real_update"
+    },
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "checks": 19,
+  "formal_runs": 1,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "parameter_elements_by_role": {
+    "backbone": 49454688,
+    "head": 769,
+    "age": 2
+  },
+  "optimizer_state_entries": 0,
+  "actual_gradient_centralization": {
+    "policy": {
+      "version": "raw-convlinear-weight-gc-v1",
+      "targets": "Conv2d_and_Linear_direct_weight",
+      "dtype": "float32",
+      "axes": "all_non_output_dimensions",
+      "position": "after_ddp_mean_mirror_merge_unscale_before_global_clip",
+      "schedule": "each_real_update"
+    },
+    "targets": [
+      {
+        "name": "network.features.0.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          96,
+          3,
+          4,
+          4
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.1.0.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          96,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.1.0.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          96
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.1.0.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          96,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.1.1.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          96,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.1.1.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          96
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.1.1.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          96,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.1.2.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          96,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.1.2.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          96
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.1.2.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          96,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.2.1.weight",
+        "module": "Conv2d",
+        "shape": [
+          192,
+          96,
+          2,
+          2
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.3.0.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          192,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.3.0.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          768,
+          192
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.3.0.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          192,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.3.1.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          192,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.3.1.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          768,
+          192
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.3.1.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          192,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.3.2.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          192,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.3.2.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          768,
+          192
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.3.2.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          192,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.4.1.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          192,
+          2,
+          2
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.0.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.0.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.0.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.1.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.1.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.1.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.2.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.2.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.2.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.3.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.3.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.3.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.4.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.4.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.4.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.5.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.5.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.5.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.6.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.6.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.6.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.7.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.7.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.7.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.8.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.8.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.8.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.9.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.9.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.9.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.10.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.10.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.10.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.11.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.11.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.11.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.12.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.12.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.12.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.13.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.13.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.13.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.14.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.14.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.14.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.15.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.15.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.15.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.16.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.16.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.16.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.17.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.17.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.17.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.18.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.18.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.18.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.19.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.19.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.19.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.20.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.20.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.20.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.21.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.21.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.21.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.22.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.22.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.22.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.23.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.23.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.23.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.24.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.24.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.24.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.25.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.25.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.25.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.26.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          384,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.5.26.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          1536,
+          384
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.5.26.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          384,
+          1536
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.6.1.weight",
+        "module": "Conv2d",
+        "shape": [
+          768,
+          384,
+          2,
+          2
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.7.0.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          768,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.7.0.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          3072,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.7.0.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          768,
+          3072
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.7.1.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          768,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.7.1.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          3072,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.7.1.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          768,
+          3072
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.7.2.block.0.weight",
+        "module": "Conv2d",
+        "shape": [
+          768,
+          1,
+          7,
+          7
+        ],
+        "axes": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "network.features.7.2.block.3.weight",
+        "module": "Linear",
+        "shape": [
+          3072,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.features.7.2.block.5.weight",
+        "module": "Linear",
+        "shape": [
+          768,
+          3072
+        ],
+        "axes": [
+          1
+        ]
+      },
+      {
+        "name": "network.classifier.3.weight",
+        "module": "Linear",
+        "shape": [
+          1,
+          768
+        ],
+        "axes": [
+          1
+        ]
+      }
+    ]
+  },
+  "named_group_count": 5,
+  "site_sha256": "36015944f7519353f228318f1d40951105ac982523ed134578e9ab7118d6baf9",
+  "deployment_sha256": "dd85dc32f8eaef41f205fd6a0946efc145c0c388f03301b792a632b5696950d0",
+  "source_files": 804,
+  "package_manifest_sha256": "8aca08368d6cbfe6f68dd97db58690acfe157bf6c1f87d29d226efd706c01938",
+  "cpu_prep_sha256": "5a85df395a82bdd497eb8e877e14463655e64e9c95fcf60d27b903618cec6a27",
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+  "cpu_stage_receipts": [
+    {
+      "phase": "TECHNICAL-PACKAGE",
+      "exit_code": 0,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nice": 19,
+      "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+      "observed_at": 1793531257.9615571,
+      "wall_seconds": 11.772061109542847,
+      "peak_task_tree_runnable_threads": 1,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/TECHNICAL-PACKAGE.log",
+      "log_sha256": "2735b7aaa64351f84c8b51c3b416698c8857395f7882dc0e20981bb6a65b90ac"
+    },
+    {
+      "phase": "FORMAL-SITE",
+      "exit_code": 0,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nice": 19,
+      "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+      "observed_at": 1793531258.5970926,
+      "wall_seconds": 0.6270520687103271,
+      "peak_task_tree_runnable_threads": 1,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/FORMAL-SITE.log",
+      "log_sha256": "a7b9af9ebb204b873443935a0b72185615456b22e8caeb6ce959dcc3eaccf19a"
+    },
+    {
+      "phase": "FORMAL-CPU-PACKAGE",
+      "exit_code": 0,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nice": 19,
+      "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+      "observed_at": 1793531348.6113122,
+      "wall_seconds": 90.00737857818604,
+      "peak_task_tree_runnable_threads": 12,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/FORMAL-CPU-PACKAGE.log",
+      "log_sha256": "0539c492a93126c32bf1f359901b3a91fc634881154e50553af663d72fa24d46"
+    },
+    {
+      "phase": "DEPLOYMENT",
+      "exit_code": 0,
+      "mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "nice": 19,
+      "allocation_sha256": "9c1b00249e32a6fbc31b6c6bcb00f9978b11d52491692fde46d8eb17743695cf",
+      "observed_at": 1793531356.233652,
+      "wall_seconds": 7.613522052764893,
+      "peak_task_tree_runnable_threads": 1,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/DEPLOYMENT.log",
+      "log_sha256": "bb3b84afb21679beb537d18cc65dcc5bbf8f18ab1593e1a96169613a8755844a"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{"absence_count": 13, "activation_calls_before_start": 0, "live_launcher_calls_before_start": 0, "site_sha256_pinned_under_CPU_guard": "36015944f7519353f228318f1d40951105ac982523ed134578e9ab7118d6baf9", "CPU_mask": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+  "observed_at": 1793531472.0,
+  "preflight_sha256": "35150717ca2898e21a02c400b1b15414d850c4d93a4a46c58ef83015c0bb0781",
+  "activation_audit_sha256": "b6fdab7c53bfeb62c3b0b02f9edadcef99c35b6abc20a2ed415a1410461b5c0c",
+  "GPU_started": false
+}
+{
+  "cpu_receipt": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r136-20261101-7c17/tasks/7c17043e-8381-43e9-b185-6e142634ad72-xv7dg3mt/CPU-RECEIPT.json",
+  "cpu_receipt_sha256": "8c13a79c344958525f16d69a4cd8d55338bf12ea41288b29539788dbf4b3102e",
+  "exit_code": 0
+}
+LIVE_LAUNCH_EXIT=0
