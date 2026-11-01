@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Explicitly bound public-fresh fixed9:1 owner; native process/resource workflow."""
-import argparse, contextlib, fcntl, glob, json, os, re, signal, socket, stat, subprocess, sys, time, traceback, uuid
+import argparse, contextlib, fcntl, glob, json, os, re, select, signal, socket, stat, subprocess, sys, time, traceback, uuid
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent;CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
 sys.path.insert(0,str(ROOT/'bundle'))
@@ -53,27 +53,64 @@ def cards():
   if d.name not in pcis:continue
   out.append({'pci':d.name,'busy_percent':int((d/'gpu_busy_percent').read_text()),'vram_used_bytes':int((d/'mem_info_vram_used').read_text())})
  return sorted(out,key=lambda x:x['pci'])
-def own_ranks(rank_control):
+def own_ranks(rank_control,coordinator=None,owned=None):
  out=[]
  for f in Path(rank_control).glob('rank-*-launch.json'):
   r=read(f);a=ident(r['pid'])
   if a and a['state'] not in ('Z','X') and str(a['start_ticks'])==str(r['start_ticks']) and a['argv']==r['argv']:
    out.append(a)
+ if coordinator is not None:
+  parent=ident(coordinator['pid'])
+  if parent and parent['start_ticks']==coordinator['start_ticks'] and parent['state'] not in ('Z','X'):
+   for p in Path('/proc').glob('[0-9]*'):
+    try:
+     fields=(p/'stat').read_text().rsplit(')',1)[1].split()
+     if int(fields[1])!=coordinator['pid']:continue
+     child=ident(int(p.name));again=ident(coordinator['pid'])
+     if child and child['start_ticks']==fields[19] and again and again['start_ticks']==coordinator['start_ticks']:
+      out.append(child)
+    except (FileNotFoundError,ProcessLookupError):continue
+ if owned is not None:
+  for row in out:
+   if row['pid'] not in owned:
+    try:
+     handle=os.pidfd_open(row['pid']);again=ident(row['pid'])
+     if again and again['start_ticks']==row['start_ticks'] and again['argv']==row['argv']:
+      owned[row['pid']]={'fd':handle,'identity':row,'rank':True}
+     else:os.close(handle)
+    except ProcessLookupError:continue
+  out=[]
+  for row in owned.values():
+   if row['rank'] and not select.select([row['fd']],[],[],0)[0]:
+    current=ident(row['identity']['pid'])
+    if current and current['start_ticks']==row['identity']['start_ticks'] and current['state'] not in ('Z','X'):out.append(current)
+  owner={'pid':os.getpid(),'start_ticks':ident(os.getpid())['start_ticks']}
+  for f in Path(rank_control).glob('rank-*-launch.json'):
+   record=read(f);tracked=owned.get(record['pid'])
+   if (tracked and str(record['start_ticks'])==tracked['identity']['start_ticks']
+       and record.get('supervised_by')!=owner):
+    record['supervised_by']=owner;atomic(f,record)
  return out
-def run_component(phase,argv,deadline,rank_control,env):
+def run_component(phase,argv,deadline,rank_control,env,*,soft_deadline_at=None,owned=None):
  token=uuid.uuid4().hex;gate=CONTROL/(phase+'-component-gate.json');launch=CONTROL/(phase+'-component-launch.json');terminal=CONTROL/(phase+'-component-terminal.json')
  gate_argv=[sys.executable,'-B','-u',str(ROOT/'component_gate.py'),'--gate',str(gate),'--token',token,'--',*argv]
  log=EVIDENCE/(phase+'-component.log');started=time.time()
  with log.open('x') as out:proc=subprocess.Popen(gate_argv,stdin=subprocess.DEVNULL,stdout=out,stderr=subprocess.STDOUT,cwd=ROOT,env=env,start_new_session=True)
  cur=ident(proc.pid)
  if not cur or cur['argv']!=gate_argv or cur['pgrp']!=proc.pid:raise RuntimeError('launch identity failed')
+ census=phase=='fit-census'
+ if census:
+  owned={} if owned is None else owned
+  owned[proc.pid]={'fd':os.pidfd_open(proc.pid),'identity':cur,'rank':False}
+ ranks=lambda:own_ranks(rank_control,cur,owned) if census else own_ranks(rank_control)
  atomic(launch,{'at':started,'phase':phase,'token':token,'gate_identity':cur,'command':argv,'deadline_at':deadline,'rank_control':str(rank_control),'log':str(log)},exclusive=True)
  atomic(gate,{'at':time.time(),'token':token,'pid':proc.pid,'start_ticks':cur['start_ticks']},exclusive=True)
  print(json.dumps({'event':'component_released','phase':phase,'pid':proc.pid,'start_ticks':cur['start_ticks'],'at':time.time()}),flush=True)
  reason=None;signals=[];term=None;last_monitor=0;cpu_known={}
- soft=deadline-150
- while proc.poll() is None and time.time()<deadline:
+ soft=soft_deadline_at if census else deadline-150
+ while (proc.poll() is None or (census and ranks())) and time.time()<deadline:
   now=time.time()
+  if census:ranks()
   if now-last_monitor>=15:
    stage='runtime_safety_snapshot'
    try:
@@ -93,19 +130,40 @@ def run_component(phase,argv,deadline,rank_control,env):
     reason=reason or 'resource_guard:%s:%r:%s'%(stage,exc,traceback.format_exc(limit=4).replace('\n',' | '))
    last_monitor=now
   if STOP and reason is None:reason='signal_'+STOP
+  if census and proc.poll() is not None and ranks() and reason is None:reason='coordinator_exited_with_live_ranks'
   if reason is None and now>=soft:reason='soft_deadline'
   if reason and term is None:
    a=ident(proc.pid)
-   if a and a['start_ticks']==cur['start_ticks']:
+   if census and a and a['start_ticks']==cur['start_ticks'] and a['state'] not in ('Z','X'):
+    signal.pidfd_send_signal(owned[proc.pid]['fd'],signal.SIGSTOP)
+    until=min(time.time()+.5,deadline-1)
+    while time.time()<until:
+     stopped=ident(proc.pid)
+     if not stopped or stopped['state'] in ('T','t','Z','X'):break
+     time.sleep(.01)
+    ranks()  # Snapshot direct children while their confirmed parent cannot spawn.
+    for item in owned.values():
+     if item['rank']:
+      try:signal.pidfd_send_signal(item['fd'],signal.SIGTERM)
+      except ProcessLookupError:pass
+    try:signal.pidfd_send_signal(owned[proc.pid]['fd'],signal.SIGKILL)
+    except ProcessLookupError:pass
+   if a and a['start_ticks']==cur['start_ticks'] and (not census or (a['pgrp']==cur['pid'] and a['argv'] in (cur['argv'],argv))):
     try:os.killpg(a['pgrp'],signal.SIGTERM);signals.append({'pid':a['pid'],'sig':'TERM'})
     except ProcessLookupError:pass
    term=now
-  if term and now>=min(term+30,deadline):
-   for r in own_ranks(rank_control):
+   if census:
+    for r in ranks():
+     if r['pgrp']==r['pid'] and same(r):
+      try:os.killpg(r['pgrp'],signal.SIGTERM);signals.append({'pid':r['pid'],'sig':'TERM'})
+      except ProcessLookupError:pass
+  if term and now>=min(term+30,deadline-1 if census else deadline):
+   for r in ranks():
+    if census and (r['pgrp']!=r['pid'] or not same(r)):continue
     try:os.killpg(r['pgrp'],signal.SIGKILL);signals.append({'pid':r['pid'],'sig':'KILL'})
     except ProcessLookupError:pass
    a=ident(proc.pid)
-   if a and a['start_ticks']==cur['start_ticks']:
+   if a and a['start_ticks']==cur['start_ticks'] and (not census or (a['pgrp']==cur['pid'] and a['argv'] in (cur['argv'],argv))):
     try:os.killpg(a['pgrp'],signal.SIGKILL);signals.append({'pid':a['pid'],'sig':'KILL'})
     except ProcessLookupError:pass
   left=deadline-time.time()
@@ -114,26 +172,148 @@ def run_component(phase,argv,deadline,rank_control,env):
  code=proc.poll()
  if code is None:
   for r in own_ranks(rank_control):
+   if census and (r['pgrp']!=r['pid'] or not same(r)):continue
    try:os.killpg(r['pgrp'],signal.SIGKILL)
    except ProcessLookupError:pass
   a=ident(proc.pid)
-  if a and a['start_ticks']==cur['start_ticks']:
+  if a and a['start_ticks']==cur['start_ticks'] and (not census or (a['pgrp']==cur['pid'] and a['argv'] in (cur['argv'],argv))):
    try:os.killpg(a['pgrp'],signal.SIGKILL)
    except ProcessLookupError:pass
   code=proc.poll();reason=reason or 'hard_deadline'
- remaining=own_ranks(rank_control);end=time.time()
+ if census:
+  for item in owned.values():
+   try:signal.pidfd_send_signal(item['fd'],signal.SIGKILL)
+   except ProcessLookupError:pass
+  while ranks() and time.time()<deadline-.1:time.sleep(.02)
+ remaining=ranks();end=time.time()
  status='completed' if code==0 and reason is None and not remaining else ('resource_unknown' if remaining or code is None else 'timeout')
  result={'phase':phase,'status':status,'start_at':started,'end_at':end,'component_wall_seconds':end-started,'exit_code':code,'reason':reason,'signals':signals,'live_owned_ranks':remaining,'deadline_at':deadline,'hard_deadline_met':end<=deadline,'launch_sha256':sha(launch),'log_sha256':sha(log)}
  atomic(terminal,result,exclusive=True)
  if status!='completed':raise RuntimeError('component not completed: %r'%{k:result[k] for k in ('status','exit_code','reason')})
  return result
 
+def run_fit_census(args):
+ """Reuse the parent lock, resource checks and component supervision for one census."""
+ global STOP
+ from launch_once import load_fit_context
+ # Count import/admission time from this owner's birth, rather than resetting at forward.
+ birth=int((Path('/proc/self/stat').read_text().rsplit(')',1)[1].split())[19])/os.sysconf('SC_CLK_TCK')
+ started=time.time()-(time.clock_gettime(time.CLOCK_BOOTTIME)-birth)
+ soft=started+1500;hard=started+1800
+ rank_control=EVIDENCE/'FIT-CENSUS-AGGREGATE.ranks/processes';fd=None;acquired=False
+ owned={};published=False
+ terminal={'mode':'fit-census','status':'unknown','metrics':None,'completed_count':None,
+           'owner':{key:val for key,val in ident(os.getpid()).items() if key!='argv'},
+           'started_at':started,'soft_deadline_at':soft,'hard_deadline_at':hard}
+ def hard_stop(*_):
+  # No file reads, logging, Python exception/finally or stale numeric PID signals here.
+  for item in tuple(owned.values()):
+   try:signal.pidfd_send_signal(item['fd'],signal.SIGKILL)
+   except ProcessLookupError:pass
+  pending=[item['fd'] for item in owned.values()]
+  while pending and time.time()<hard:
+   ready=select.select(pending,[],[],min(.02,max(0,hard-time.time())))[0]
+   pending=[p for p in pending if p not in ready]
+  os._exit(0 if published and not pending else 124)
+ previous=signal.signal(signal.SIGALRM,hard_stop)
+ signal.setitimer(signal.ITIMER_REAL,max(.001,hard-time.time()-2))
+ atomic(EVIDENCE/'FIT-CENSUS-RESULT.json',terminal,exclusive=True)
+ try:
+  value=load_fit_context(args.fit_context,args.fit_context_sha256)
+  if args.token!=value['token']:raise ValueError('diagnostic token differs')
+  site=load_site();bind_cpu_role(site,'control')
+  grant=read(site['cpu_execution']['allocation_receipt']['path'])
+  if grant['valid_until']<hard:raise ValueError('new diagnostic grant does not cover the hard deadline')
+  admission=read(CONTROL/'pod-admission.json')
+  verify_live(site,pod_uid=admission['pod_uid'],ready=admission['ready'],observed_at=admission['observed_at'])
+  lock=instance_lock(site);fd=os.open(lock,os.O_RDONLY|os.O_NOFOLLOW);state=os.fstat(fd)
+  if (not stat.S_ISREG(state.st_mode) or [state.st_dev,state.st_ino]!=value['instance_lock_identity']):
+   raise ValueError('global instance lock inode differs')
+  fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);acquired=True
+  import run_round as guard
+  active=[]
+  for process in matching():
+   try:
+    env=dict(x.split(b'=',1) for x in (Path('/proc')/str(process['pid'])/'environ').read_bytes().split(b'\0') if b'=' in x)
+    if all(env.get(k)==b'' for k in (b'CUDA_VISIBLE_DEVICES',b'HIP_VISIBLE_DEVICES',b'ROCR_VISIBLE_DEVICES')) and os.getpriority(os.PRIO_PROCESS,process['pid'])>=19:continue
+   except FileNotFoundError:continue
+   active.append(process)
+  if active or guard.device_users_before_start():raise RuntimeError('diagnostic devices/processes occupied')
+  snapshot=cards()
+  if len(snapshot)!=len(site['gpus']) or any(x['busy_percent'] or x['vram_used_bytes']>64*1024**2 for x in snapshot):raise RuntimeError('diagnostic cards not idle')
+  guard.budget(hard,minimum_free=20*1024**3);guard.runtime_safety_snapshot()
+  atomic(CONTROL/'owner.json',{'owner':terminal['owner'],'mode':'fit-census'},exclusive=True)
+  atomic(CONTROL/'controller-start.json',{'owner':terminal['owner'],'mode':'fit-census'},exclusive=True)
+  atomic(CONTROL/'diagnostic-clock.json',{'started_at':started,'soft_deadline_at':soft,'hard_deadline_at':hard},exclusive=True)
+  env=os.environ.copy();env.update(TRAIN_IMAGE_CACHE=value['cache'],TRAIN_IMAGE_CACHE_READONLY='1',PYTHONDONTWRITEBYTECODE='1')
+  output=EVIDENCE/'FIT-CENSUS-AGGREGATE.json'
+  if STOP or time.time()>=soft:raise TimeoutError('diagnostic stopped before dispatch')
+  command=[sys.executable,'-B','-u',str(ROOT/'bundle/parallel_evaluate.py'),'--mode','fit-census',
+           '--fit-context',str(args.fit_context),'--fit-context-sha256',args.fit_context_sha256,
+           '--output',str(output),'--deadline-at',repr(soft)]
+  terminal['component']=run_component('fit-census',command,hard,rank_control,env,soft_deadline_at=soft,owned=owned)
+  report=read(output)
+  if report['status']!='awaiting_parent_safety':raise ValueError('census aggregate incomplete')
+  terminal.update(completed_count=report['metrics']['count'],selected=report['selected'],candidate_metrics=report['metrics'])
+ except BaseException as exc:
+  terminal['error']=type(exc).__name__+': '+str(exc)
+ finally:
+  # Parent retains its flock over every cleanup path, including coordinator failure.
+  coordinator=None
+  launch=CONTROL/'fit-census-component-launch.json'
+  if launch.exists():
+   released=read(launch);expected=released['gate_identity'];current=ident(expected['pid'])
+   if current and current['start_ticks']==expected['start_ticks'] and current['pgrp']==expected['pid']:
+    if current['state'] not in ('Z','X') and current['argv'] in (expected['argv'],released['command']):
+     try:
+      signal.pidfd_send_signal(owned[current['pid']]['fd'],signal.SIGSTOP)
+      own_ranks(rank_control,expected,owned)
+      signal.pidfd_send_signal(owned[current['pid']]['fd'],signal.SIGKILL)
+     except ProcessLookupError:pass
+    coordinator=expected
+  for sig in (signal.SIGTERM,signal.SIGKILL):
+   own_ranks(rank_control,owned=owned)
+   for item in owned.values():
+    try:signal.pidfd_send_signal(item['fd'],sig)
+    except ProcessLookupError:pass
+   end=min(time.time()+1,hard-.1)
+   while own_ranks(rank_control) and time.time()<end:time.sleep(.02)
+  try:
+   if not acquired:raise RuntimeError('global lock was not acquired')
+   users=guard.device_users_before_start();snapshot=cards();remaining=own_ranks(rank_control,owned=owned)
+   size=sum(p.stat().st_size for root in (EVIDENCE,CONTROL) for p in root.rglob('*') if p.is_file())
+   current=ident(coordinator['pid']) if coordinator else None
+   coordinator_live=bool(current and current['start_ticks']==coordinator['start_ticks'] and current['state'] not in ('Z','X'))
+   registered=len(list(rank_control.glob('rank-*-launch.json')))==len(site['gpus'])
+   safe=registered and not users and not remaining and not coordinator_live and len(snapshot)==len(site['gpus']) and not any(x['busy_percent'] for x in snapshot)
+   terminal['actualsafe']={'safe':safe,'live_owned_ranks':remaining,'device_users':users,'scan_denied':0,'cards':snapshot,
+                          'coordinator_live':coordinator_live,'parent_lock_held':True,'lock_identity':[state.st_dev,state.st_ino],'output_bytes':size}
+   if safe and 'candidate_metrics' in terminal and time.time()<hard and size<=16*1024**2 and not STOP:
+    metrics=terminal['candidate_metrics'];terminal.update(status='completed',metrics=metrics,
+      descriptive_fit_minus_dev=metrics['auroc']-terminal['selected']['dev_auroc'])
+  except BaseException as exc:terminal['safety_error']=repr(exc)
+  terminal.pop('candidate_metrics',None);terminal['ended_at']=time.time()
+  aggregate=EVIDENCE/'FIT-CENSUS-AGGREGATE.json'
+  if aggregate.exists() and terminal['status']!='completed':atomic(aggregate,{'status':'unknown','metrics':None})
+  encoded=json.dumps(terminal)
+  if len(encoded.encode())>64*1024:terminal={'mode':'fit-census','status':'unknown','metrics':None,'error':'aggregate_limit'}
+  atomic(EVIDENCE/'FIT-CENSUS-RESULT.json',terminal)
+  published=terminal['status']=='completed'
+  if acquired:fcntl.flock(fd,fcntl.LOCK_UN)
+  if fd is not None:os.close(fd)
+  signal.setitimer(signal.ITIMER_REAL,0);signal.signal(signal.SIGALRM,previous)
+  for item in owned.values():os.close(item['fd'])
+ return 0 if terminal['status']=='completed' else 2
+
 def main():
  global STOP
- p=argparse.ArgumentParser();p.add_argument('--token',required=True);args=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--token',required=True)
+ p.add_argument('--mode',choices=('train','fit-census'),default='train')
+ p.add_argument('--fit-context',type=Path);p.add_argument('--fit-context-sha256');args=p.parse_args()
  def on_signal(sig,_):
   global STOP;STOP=signal.Signals(sig).name
  for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,on_signal)
+ if args.mode=='fit-census':return run_fit_census(args)
  clock=read(CONTROL/'round-clock.json');cfg=read(ROOT/'TRAIN_CONFIG.json')
  site=load_site();world=len(site['gpus']);bind_cpu_role(site,'control')
  if site.get('scope')!='formal_exp_v3':raise ValueError('training owner requires a formal deployment')
@@ -286,4 +466,4 @@ def main():
    fcntl.flock(fd,fcntl.LOCK_UN)
   os.close(fd)
 
-if __name__=='__main__':main()
+if __name__=='__main__':sys.exit(main())
