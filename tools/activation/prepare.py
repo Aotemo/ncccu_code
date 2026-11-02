@@ -159,6 +159,8 @@ def build(args):
     job.update(age=ex.resolved_age_spec(), experiment91=ex.binding(),
         initialization={'kind': ex.public_source().get('kind','imagenet'), 'format': ex.public_source()['format'],
             'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.public_source()['sha256']})
+    if job['initialization']['format']=='torchvision-convnext-small-dinov3-backbone-state-dict-v1':
+        job['initialization']['expected_backbone_state_keys']=342
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,
         'run_name': site['round_id'] + f"-8c-{job['model']}-s{job['seed']}-b64-p{job['positive_per_batch']}-fp32",
         'output_root': str(Path(site['round_root']) / 'outputs'),

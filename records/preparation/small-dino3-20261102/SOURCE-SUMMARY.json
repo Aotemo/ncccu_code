@@ -1,0 +1,74 @@
+{
+  "status": "complete342_public_backbone_strict_exact_and_non_tensor_checked",
+  "repo": "timm/convnext_small.dinov3_lvd1689m",
+  "revision": "c497e64d5d483b3ad42eac93e2ef9d1799f9547c",
+  "original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/original/pytorch_model.bin",
+    "sha256": "587d3fd7f07b9a2dc5a27276b45444826898c94dd2bdaeebf7d901c89dc96ce5"
+  },
+  "converted": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/converted/convnext-small-tv-c497e64d.pt",
+    "sha256": "33fdc1b52cbfefa8f1f8fa35de081e60526e6baa2ab99a167e8a1105fc8c071e"
+  },
+  "provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/converted/provenance.json",
+    "sha256": "bdf428cd42138e329cbbbafda538f11746f2a7060dc845222fd0377ff97dcd9e"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 342,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": null
+  },
+  "source_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small-dino3-20261102-32e3/SOURCE.json",
+    "sha256": "2936b107309bec8c233a567cd21a1c2868b805eccfe6b58847efa3ef57497999"
+  },
+  "strict_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small-dino3-20261102-32e3/STRICT-RETRY1.json",
+    "sha256": "330f637c13604675e967558be861223b836abe39c3c98af64f7b62882dd09fc4"
+  },
+  "handoff": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small-dino3-20261102-32e3/PUBLIC-ASSET.json",
+    "sha256": "8a6911e9caf118fe350cfa7eeb87aa91428df2cf161b7659403b235de0e157f1"
+  },
+  "license": {
+    "identifier": "dinov3-license",
+    "declaration": "fixed-revision model card and registry",
+    "full_text_url": "https://raw.githubusercontent.com/facebookresearch/dinov3/main/LICENSE.md",
+    "redistribution_confirmed": true
+  },
+  "license_file": {
+    "url": "https://raw.githubusercontent.com/facebookresearch/dinov3/main/LICENSE.md",
+    "started_at": "2026-11-02T12:04:37.350485+00:00",
+    "completed_at": "2026-11-02T12:04:37.358576+00:00",
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/original/LICENSE-dinov3.md",
+    "bytes": 7503,
+    "sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "resolved_host": null,
+    "transport": "authorized_raw_byte_relay_verified_on_pod",
+    "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small-dino3-20261102-32e3/transport/LICENSE-dinov3.md",
+    "expected_lfs_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "expected_lfs_bytes": null,
+    "identity": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/original/LICENSE-dinov3.md",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/original/LICENSE-dinov3.md",
+      "bytes": 7503,
+      "device": 132,
+      "inode": 12164451922,
+      "mtime_ns": 1793621077000000000,
+      "ctime_ns": 1793621077000000000
+    }
+  },
+  "source_norms": 41,
+  "target_norms": 41,
+  "convolutions": 40,
+  "forward_calls": 0,
+  "datasets_read": false,
+  "GPU_initialized": false,
+  "failed_conversion_preserved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/smalldino3-c497e64d/converted-failed-1"
+}

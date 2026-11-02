@@ -42,6 +42,37 @@ DINO_RESNET = {
 }
 
 SMALL_22K_ONLY_FORMAT = 'torchvision-small22k-only-full-head-state-dict-v1'
+SMALL_DINO3_FORMAT = 'torchvision-convnext-small-dinov3-backbone-state-dict-v1'
+
+
+def validate_small_dino3_provenance(initialization):
+    from .experiment91 import public_source
+    source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
+    if (initialization.get('kind')!='self_supervised' or initialization.get('format')!=SMALL_DINO3_FORMAT
+            or initialization.get('expected_backbone_state_keys')!=342
+            or source.get('kind')!='self_supervised' or source.get('model')!='convnext_small'
+            or source.get('format')!=SMALL_DINO3_FORMAT
+            or source.get('revision')!='c497e64d5d483b3ad42eac93e2ef9d1799f9547c'
+            or source.get('original_sha256')!='587d3fd7f07b9a2dc5a27276b45444826898c94dd2bdaeebf7d901c89dc96ce5'
+            or initialization.get('sha256')!=source.get('sha256')
+            or not path.is_absolute() or not meta_path.is_absolute() or path.is_symlink() or meta_path.is_symlink()
+            or _hash(path)!=source['sha256'] or _hash(meta_path)!=source['provenance_sha256']):
+        raise ValueError('fixed Small DINOv3 public backbone identity differs')
+    meta=json.loads(meta_path.read_text())
+    fields=('kind','model','format','repo','tag','revision','training_data','original_sha256','sha256',
+            'final_norm_eps','internal_norm_eps','license_file','license_sha256')
+    license_path=meta_path.parent/meta['license_file']
+    if (any(meta.get(k)!=source[k]for k in fields) or meta.get('passed')is not True
+            or meta.get('backbone_only')is not True or meta.get('num_classes')!=0
+            or meta.get('structure')!=source['structure'] or meta.get('redistribution_confirmed')is not True
+            or meta.get('license_sha256')!='25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'
+            or license_path.is_symlink() or _hash(license_path)!=meta['license_sha256']):
+        raise ValueError('fixed Small DINOv3 provenance/license differs')
+    return {'kind':'self_supervised','model':'convnext_small','format':SMALL_DINO3_FORMAT,
+            'weights_sha256':source['sha256'],'provenance_sha256':source['provenance_sha256'],
+            'source_url':meta['source_url'],'training_data':source['training_data'],'source_commit':source['revision'],
+            'original_sha256':source['original_sha256'],'final_norm_eps':1e-6,'internal_norm_eps':1e-6,
+            'license_sha256':meta['license_sha256'],'backbone_only':True}
 
 
 def validate_small22k_only_provenance(initialization):
@@ -268,6 +299,8 @@ def validate_initialization(initialization):
                 'native_library':DEIT3_LIBRARY}
     if initialization['kind'] == 'random':
         return {'kind': 'random'}
+    if initialization.get('format') == SMALL_DINO3_FORMAT:
+        return validate_small_dino3_provenance(initialization)
     if (initialization.get('kind') == 'imagenet'
             and initialization.get('format') == DINO_RESNET['format']):
         return validate_dino_resnet_provenance(initialization)
@@ -630,7 +663,14 @@ def create_model(job, initialize=True):
             raise ValueError('Published final LayerNorm epsilon differs from the scientific job contract')
         state = torch.load(init['path'], map_location='cpu', weights_only=True)
         small22k_only = init.get('format') == SMALL_22K_ONLY_FORMAT
-        if small22k_only:
+        small_dino3 = init.get('format') == SMALL_DINO3_FORMAT
+        if small_dino3:
+            # Keep the native discarded head's RNG consumption and object;
+            # the public source contains exactly the complete 342 backbone tensors.
+            original_public_head = model.classifier[-1]
+            model.classifier[-1] = nn.Identity()
+            loaded = model.load_state_dict(state, strict=True)
+        elif small22k_only:
             # The native factory already constructed its 1000 head.  A temporary
             # public K head must not advance the binary head/age RNG stream.
             with torch.random.fork_rng(devices=[]):
@@ -643,16 +683,20 @@ def create_model(job, initialize=True):
             from .ema import tensor_digest
             from .experiment91 import public_source
             actual = model.state_dict()
+            head_matches = (isinstance(model.classifier[-1],nn.Identity) and len(state)==342 if small_dino3
+                            else model.classifier[-1].out_features == (proof['num_classes'] if small22k_only else 1000))
             if (proof['provenance_sha256'] != public_source()['provenance_sha256'] or loaded.missing_keys or loaded.unexpected_keys
-                    or actual.keys() != state.keys()
-                    or model.classifier[-1].out_features != (proof['num_classes'] if small22k_only else 1000)
+                    or actual.keys() != state.keys() or not head_matches
                     or any(not torch.equal(actual[n], t) or t.dtype != torch.float32
                            or not bool(torch.isfinite(t).all()) for n, t in state.items())):
                 raise ValueError('ConvNeXt complete public1000 strict/exact/FP32/finite proof differs')
             public_receipt = {'initialization': proof, 'strict_missing_keys': loaded.missing_keys,
                 'strict_unexpected_keys': loaded.unexpected_keys, 'public_tensor_count': len(state),
-                'public_tensor_sha256': tensor_digest(state), 'full_head_shape': list(model.classifier[-1].weight.shape),
+                'public_tensor_sha256': tensor_digest(state),
+                'full_head_shape': None if small_dino3 else list(model.classifier[-1].weight.shape),
                 'all_public_tensors_exact': True, 'all_public_tensors_FP32_finite': True}
+            if small_dino3:public_receipt['backbone_only']=True
+        if small_dino3:model.classifier[-1]=original_public_head
     # Keep native names so optimizer grouping and raw checkpoint state_dicts remain simple.
     last = model.classifier[-1]
     model.classifier[-1] = nn.Linear(last.in_features, 1)

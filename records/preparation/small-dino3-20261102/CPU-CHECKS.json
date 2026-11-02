@@ -1,0 +1,132 @@
+{
+  "status": "affected_source_candidate_storage_targets_passed",
+  "new_targets": 3,
+  "previously_run_current_preparation_model_targets": 2,
+  "compiled_sources": 12,
+  "targets": [
+    "test_pretraining_sources.SmallMappingTest.test_dino3_complete_headless_mapping_and_original_source_defaults",
+    "test_candidate_binding.CandidateBindingTest.test_R153_to_R176_science_consumes_geometry_model_loss_and_fresh_identity",
+    "test_round_storage_policy.RoundStoragePolicyTest.test_new_round_limit_and_old_default_keep_free_floor"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "62393664fe32571c973474e9e1acbe45c93cdd3d557aa8e3d3e8a58e5fe68ea0",
+    "runtime/bundle/retrain/config.py": "bad2622851a40ce84dc23f10500d8bac5b894bccfd8d097e4bf4389c874df18b",
+    "runtime/bundle/retrain/fresh.py": "5e440c87ae1c65a5b575988376f9a8557f98ec4cc89b8f2979bf17a2572b2334",
+    "runtime/bundle/retrain/experiment91.py": "46a4d2b15ee81192bc4a3903077430bc809d682b929fdedfdc836dee3672d014",
+    "tools/pretraining/small_source.py": "ff65ef8cc85e3c9a88b8abd7e477ed9c29394906bf8ec90b108a59b474a17d33",
+    "tools/pretraining/small_strict.py": "b6784e9e92ff6c97dc37cd788a90e14c15a006165f6385c2f9bccee2f64b71ad",
+    "tools/activation/prepare.py": "0319c4afafd72fa16ee7608d8f809885d9c804c4da3a86a7039a8cdb7b34bb03",
+    "tools/validation/check_candidate.py": "05709dbe77ed524ebc184af19b8ff67f9cc420f6ea90b94892bf24dd6934b55b",
+    "tests/test_pretraining_sources.py": "ae47a924a9548e0bc391cbf1f0de4c9b9226071111a8a276d416e510232110d5",
+    "tests/test_dino3_small.py": "e63099ebf3d746815703fe833fce49e6a9c359eaf7c6225f1a4c68dcfb85762c",
+    "tests/test_candidate_binding.py": "2fe752a8cc5347a1ffb3fcd645e8173cf8ee1d034f2644d4a0444e3c3c04d5db",
+    "tests/test_round_storage_policy.py": "4d5f645535b821600aa3bc39ed1f8c826a0fb6bd2f58d781552d41c1d28be0c3"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "5b305abbbaab362b7014941668d51a26a696f806012d8c2d82246ad9c7d81ff4"
+  },
+  "science_sha256": {
+    "R175-SCIENCE.json": "dae9c9870e4afe814d6483089d59c034916a29ded9dffe0cee4381843eb6dc4d",
+    "R176-SCIENCE.json": "9af9a4f33ce090beab9f93ec9952b14f3a4ba63bc46e290fbf868cdb7820891c"
+  },
+  "unchanged_implementation_files": {
+    "classification_loss": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "engine": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "inference": "7505057ccb38ff933f7b726ecd7ea3f6b0de767f4fdfdd99e8904393c91f178a"
+  },
+  "GPU_initialized": false,
+  "forward_calls_in_this_task": 0,
+  "CPU_P8_model_fixture": "two prior targets, real512/P8 and cold graph; synthetic public tensors/formal metadata stubs; real public source and bindings independently checked",
+  "official_read": false,
+  "passed_targets": 5,
+  "evidence": [
+    {
+      "label": "source-red",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-4kb8fg86/CPU-RECEIPT.json",
+      "sha256": "85e86981cf8f7c1aa512543bbf2eaedd089c1ac43c01953b2a5a4019018c25c8",
+      "exit_code": 1,
+      "output_sha256": "9e5c2314d42f6c709bb2f073c7c109e38d6b2bc5446cb8b1540488449ab758bf"
+    },
+    {
+      "label": "source-green",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-e5uttd84/CPU-RECEIPT.json",
+      "sha256": "99a99cd5c6940c9bda12aaec96a9ee2de67ad8b27335739a75c79e40b6350dda",
+      "exit_code": 0,
+      "output_sha256": "c1ef0d63cb5526784189dd9e9fa3e6eb68c5de756c9cd1eb59cbc5f5625a77ee"
+    },
+    {
+      "label": "source-report-failed",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-37ziyf8c/CPU-RECEIPT.json",
+      "sha256": "bd38e1038d3fd59bb3bd20395182e340112bf5aa4cde7a789569ee11a6ea24fb",
+      "exit_code": 1,
+      "output_sha256": "8a6d03e3b2a6b7e63759611cb9f0f2f7da0fe9fa55e8739749d9f691eb8e81e3"
+    },
+    {
+      "label": "source-strict-final",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-il7db4_3/CPU-RECEIPT.json",
+      "sha256": "98340eae1d6c0f68c95a754db13e3509a6809c256202cf5a7d945f72a2744bad",
+      "exit_code": 0,
+      "output_sha256": "24b6f2d75649c66425ae11363c217740fc532aa38c221aa20190272de79eed3c"
+    },
+    {
+      "label": "model-red",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-es1z8rlu/CPU-RECEIPT.json",
+      "sha256": "327afb52558e234f32e7eccbef4ddcd1d635246b974223d2153bd9eae5f3a343",
+      "exit_code": 1,
+      "output_sha256": "74ddca4b4dd00a7bf536f85de0eb0efe22bb4816bf5ad38f9b7c5c4dc537bbcc"
+    },
+    {
+      "label": "fixture-site-failed",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-jgzh9nxq/CPU-RECEIPT.json",
+      "sha256": "392baeeb30f860bd2c373d3d2f5c92388e1b0fb35b0253cd897399f43400da5b",
+      "exit_code": 1,
+      "output_sha256": "dd73c867ab4368ab0c1eda56096c648fd2e65602424a356bf8276cbc0c929cdd"
+    },
+    {
+      "label": "fixture-description-failed",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ayz_kscg/CPU-RECEIPT.json",
+      "sha256": "7b79a8ebd41be2fce61f185b165aa0b2e3c06c30476a31801e638eeeadec0a61",
+      "exit_code": 1,
+      "output_sha256": "de16ead8f1a08f721f73c8d9bacee7e5a48a03f911cdf146a5db9d8c2f858dbf"
+    },
+    {
+      "label": "fixture-receipt-failed",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-0utce7kp/CPU-RECEIPT.json",
+      "sha256": "b58eabc2c28fa4e8e8d80fa10c0b9d9455de909a0a78f43ed873d3f8c06017dd",
+      "exit_code": 1,
+      "output_sha256": "57638efa0f12aed62997babf3754bb6340b4dc76df8a006ecb01efa6b47d8fa7"
+    },
+    {
+      "label": "model-P8-config-cold",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-dmivzsq6/CPU-RECEIPT.json",
+      "sha256": "1882ef0a16366c36868892f5b6e44d4196933c626d94a5792ba1bf4eee974cbc",
+      "exit_code": 0,
+      "output_sha256": "5070319ecc33ab174c8de89dba6855f57a53bcf054b62f4127a1cb96b2298d3b"
+    },
+    {
+      "label": "two-public-fresh",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-idwt5krn/CPU-RECEIPT.json",
+      "sha256": "6d88a945a5ae8ec46a212e9ec0bc6f72f3a196617c4f1f572dd1cfd159535780",
+      "exit_code": 0,
+      "output_sha256": "3856cb091f51ccb74df4bcb85c2d1c1a06e5b78778f7d962ee0d8371d7c0ba74"
+    },
+    {
+      "label": "final-source-candidate-storage",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-qc8e6qc_/CPU-RECEIPT.json",
+      "sha256": "680ee36bacd3e3223a824b7592575ee02310529d9c31a86bf2ce1802fa5ba377",
+      "exit_code": 0,
+      "output_sha256": "58955eb68049e40f0ea6232c1236c3e464e2b99109ee16188c50e43651a1eab5"
+    }
+  ],
+  "unchanged_model_WORLD_files": {
+    "classification_loss": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "engine": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "inference": "7505057ccb38ff933f7b726ecd7ea3f6b0de767f4fdfdd99e8904393c91f178a"
+  }
+}

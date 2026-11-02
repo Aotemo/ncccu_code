@@ -106,6 +106,42 @@ class PretrainingSourcesTest(unittest.TestCase):
 
 
 class SmallMappingTest(unittest.TestCase):
+    def test_dino3_complete_headless_mapping_and_original_source_defaults(self):
+        import torch
+        import timm
+        import torchvision
+        import small_source
+        import small_strict
+        self.assertIn('smalldino3', small_source.SOURCE_PROFILES)
+        profile = small_source.SOURCE_PROFILES['smalldino3']
+        self.assertEqual(profile['revision'], 'c497e64d5d483b3ad42eac93e2ef9d1799f9547c')
+        self.assertEqual(profile['num_classes'], 0)
+        self.assertEqual(small_source.download.__defaults__, (None, 'small224'))
+        self.assertEqual(small_source.REVISION, 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b')
+        source = timm.create_model('convnext_small.dinov3_lvd1689m', pretrained=False)
+        target = torchvision.models.convnext_small(weights=None)
+        target.classifier[-1] = torch.nn.Identity()
+        state = source.state_dict()
+        converted = {}
+        for key, value in state.items():
+            name, gamma = target_key(key, (3, 3, 27, 3))
+            converted[name] = value.reshape(-1, 1, 1).contiguous() if gamma else value
+        rows = small_strict.small_mapping(state, converted, target.state_dict(), public_head=False)
+        self.assertEqual(len(rows), 342)
+        self.assertTrue(all(row['role'] == 'backbone' for row in rows))
+        self.assertEqual(sum(row['gamma_reshape'] for row in rows), 36)
+        self.assertIn('classifier.0.weight', converted)
+        self.assertFalse(any(key.startswith('classifier.2.') for key in converted))
+        loaded = target.load_state_dict(converted, strict=True)
+        self.assertFalse(loaded.missing_keys or loaded.unexpected_keys)
+        with self.assertRaises(ValueError):
+            small_strict.small_mapping(state, converted, target.state_dict())
+        incomplete = dict(converted)
+        del incomplete['classifier.0.weight']
+        with self.assertRaises(ValueError):
+            small_strict.small_mapping(state, incomplete, target.state_dict(), public_head=False)
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_small_extra_blocks_map_without_changing_tiny_depth(self):
         depths = (3, 3, 27, 3)
         self.assertEqual(target_key('stages.2.blocks.26.mlp.fc1.weight', depths),

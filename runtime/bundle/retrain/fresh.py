@@ -64,6 +64,11 @@ def validate_fresh(spec, identity, job, topology, steps, *, mode):
               'warmup_updates':job['warmup_cycles']*steps,
               'stop_after_updates':topology.get('stop_after_updates',job['cycles']*steps)}
     initialization=identity.get('initialization',{})
+    expected_kind=({'dinov2_vits14':'self_supervised','flair_resnet50':'retinal_vision_language'}
+                   .get(job.get('model'),'imagenet'))
+    if (job.get('model')=='convnext_small'
+            and job.get('initialization',{}).get('format')=='torchvision-convnext-small-dinov3-backbone-state-dict-v1'):
+        expected_kind='self_supervised'
     if (spec.get('format')!='glaucoma-fresh-init-v1' or spec.get('purpose') not in ('probe','train')
             or (mode=='fresh-probe')!=(spec.get('purpose')=='probe') or mode not in ('fresh-probe','train')
             or not spec.get('plan_version') or len(spec.get('plan_sha256',''))!=64
@@ -72,7 +77,7 @@ def validate_fresh(spec, identity, job, topology, steps, *, mode):
             or identity.get('source_digest')!=spec.get('source_digest')
             or job_contract(job)!=identity.get('job') or job_contract(job)!=spec.get('job')
             or identity.get('distributed')!=topology or initialization!=spec.get('initialization')
-            or initialization.get('kind')!=({'dinov2_vits14':'self_supervised','flair_resnet50':'retinal_vision_language'}.get(job.get('model'),'imagenet'))
+            or initialization.get('kind')!=expected_kind
             or initialization.get('weights_sha256')!=job.get('initialization',{}).get('sha256')
             or spec.get('amp_initial_scale')!=expected_scale or schedule!=expected
             or not 0<schedule.get('stop_after_updates',0)<=expected['total_updates']

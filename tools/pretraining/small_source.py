@@ -22,6 +22,15 @@ SOURCE_PROFILES = {
     'small384': {'repo': 'timm/convnext_small.fb_in22k_ft_in1k_384',
                  'revision': '14a837353b6ffeced1c635dc5c8c799356e316f4',
                  'tag': 'fb_in22k_ft_in1k_384'},
+    'smalldino3': {'repo': 'timm/convnext_small.dinov3_lvd1689m',
+                  'revision': 'c497e64d5d483b3ad42eac93e2ef9d1799f9547c',
+                  'tag': 'dinov3_lvd1689m', 'num_classes': 0,
+                  'kind': 'self_supervised',
+                  'format': 'torchvision-convnext-small-dinov3-backbone-state-dict-v1',
+                  'training_data': 'LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B',
+                  'license_file': 'LICENSE-dinov3.md',
+                  'license_url': 'https://raw.githubusercontent.com/facebookresearch/dinov3/main/LICENSE.md',
+                  'license_sha256': '25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'},
 }
 
 
@@ -64,6 +73,8 @@ def fetch(url, target, expected_sha=None, expected_bytes=None, transport_file=No
 def download(assets, transport_dir=None, source_profile='small224'):
     context = cpu_context()
     profile = SOURCE_PROFILES[source_profile]
+    num_classes = profile.get('num_classes', 1000)
+    headless = num_classes == 0
     repo, revision = profile['repo'], profile['revision']
     base = f'https://huggingface.co/{repo}/resolve/{revision}'
     assets = Path(assets)
@@ -80,7 +91,13 @@ def download(assets, transport_dir=None, source_profile='small224'):
     require(api.get('id') == repo and api.get('sha') == revision
             and api.get('private') is False and api.get('gated') is False,
             'fixed-revision public registry identity differs')
-    require(api.get('cardData', {}).get('license') == 'apache-2.0', 'registry license differs')
+    card = api.get('cardData', {})
+    if headless:
+        require(card.get('license') == 'other' and card.get('license_name') == 'dinov3-license'
+                and card.get('license_link') == 'https://ai.meta.com/resources/models-and-libraries/dinov3-license',
+                'fixed DINOv3 registry license declaration differs')
+    else:
+        require(card.get('license') == 'apache-2.0', 'registry license differs')
     siblings = [s for s in api['siblings'] if s['rfilename'] == 'pytorch_model.bin']
     require(len(siblings) == 1, 'one bin entry required at fixed revision')
     blob = siblings[0]
@@ -95,8 +112,8 @@ def download(assets, transport_dir=None, source_profile='small224'):
     config = json.loads((original / 'config.json').read_text())
     cfg = config['pretrained_cfg']
     require((config.get('architecture'), config.get('num_classes'), config.get('num_features'))
-            == (MODEL, 1000, 768), 'public architecture config differs')
-    require(cfg.get('tag') == profile['tag'] and cfg.get('num_classes') == 1000
+            == (MODEL, num_classes, 768), 'public architecture config differs')
+    require(cfg.get('tag') == profile['tag'] and cfg.get('num_classes') == num_classes
             and cfg.get('first_conv') == 'stem.0' and cfg.get('classifier') == 'head.fc'
             and cfg.get('mean') == [.485, .456, .406] and cfg.get('std') == [.229, .224, .225]
             and cfg.get('interpolation') == 'bicubic',
@@ -105,29 +122,44 @@ def download(assets, transport_dir=None, source_profile='small224'):
         require(cfg.get('input_size') == [3, 224, 224] and cfg.get('test_input_size') == [3, 288, 288]
                 and cfg.get('crop_pct') == .875 and cfg.get('test_crop_pct') == 1.
                 and cfg.get('crop_mode') == 'center', 'original public224 preprocessing differs')
-    else:
+    elif source_profile == 'small384':
         require(cfg.get('input_size') == [3, 384, 384] and cfg.get('crop_pct') == 1.
                 and cfg.get('crop_mode') == 'squash', 'fixed public384 preprocessing differs')
+    else:
+        require(headless and cfg.get('input_size') == [3, 224, 224] and cfg.get('crop_pct') == 1.
+                and cfg.get('crop_mode') == 'center' and cfg.get('license') == 'dinov3',
+                'fixed DINOv3 source preprocessing/license differs')
     readme = (original / 'README.md').read_text()
-    require('license: apache-2.0' in readme
-            and 'Pretrained on ImageNet-22k and fine-tuned on ImageNet-1k by paper authors.' in readme,
-            'fixed-revision model card license/recipe differs')
-    records['LICENSE-apache-2.0.txt'] = fetch(LICENSE_URL, original / 'LICENSE-apache-2.0.txt',
-                                            transport_file=transport('LICENSE-apache-2.0.txt'))
-    license_text = (original / 'LICENSE-apache-2.0.txt').read_text()
-    require('Apache License' in license_text and 'Version 2.0, January 2004' in license_text
-            and 'END OF TERMS AND CONDITIONS' in license_text, 'official license text incomplete')
+    if headless:
+        require('license_name: dinov3-license' in readme
+                and 'Pretrained on LVD-1689M with self-supervised DINOv3 method, distilled from DINOv3 ViT-7B.' in readme,
+                'fixed DINOv3 card license/recipe differs')
+    else:
+        require('license: apache-2.0' in readme
+                and 'Pretrained on ImageNet-22k and fine-tuned on ImageNet-1k by paper authors.' in readme,
+                'fixed-revision model card license/recipe differs')
+    license_name = profile.get('license_file', 'LICENSE-apache-2.0.txt')
+    license_url = profile.get('license_url', LICENSE_URL)
+    records[license_name] = fetch(license_url, original / license_name,
+                                  expected_sha=profile.get('license_sha256'), transport_file=transport(license_name))
+    license_text = (original / license_name).read_text()
+    if headless:
+        require('DINOv3 License' in license_text, 'DINOv3 license text incomplete')
+    else:
+        require('Apache License' in license_text and 'Version 2.0, January 2004' in license_text
+                and 'END OF TERMS AND CONDITIONS' in license_text, 'official license text incomplete')
     records['pytorch_model.bin'] = fetch(base + '/pytorch_model.bin', original / 'pytorch_model.bin',
                                         expected_sha, expected_size, transport('pytorch_model.bin'))
     receipt = {'schema_version': 1, 'passed': True, 'scope': 'small22k_fixed_revision_download',
                'execution': context, 'model': MODEL, 'repo': repo, 'revision': revision,
-               'training_data': TRAINING_DATA, 'files': records,
+               'training_data': profile.get('training_data', TRAINING_DATA), 'files': records,
                'public_pretrained_config': cfg,
                'candidate': {'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
                              'stochastic_depth': .1, 'dropout': .2, 'image_size': 512,
                              'source_card_preprocessing_is_not_candidate_preprocessing': True},
-               'license': {'identifier': 'apache-2.0', 'declaration': 'fixed-revision model card and registry',
-                           'full_text_url': LICENSE_URL, 'redistribution_confirmed': True},
+               'license': {'identifier': 'dinov3-license' if headless else 'apache-2.0',
+                           'declaration': 'fixed-revision model card and registry',
+                           'full_text_url': license_url, 'redistribution_confirmed': True},
                'validation_source_sha256': {'small_source.py': sha256(__file__),
                                             'source_chain.py': sha256(Path(__file__).with_name('source_chain.py'))},
                'downloaded_weight_formats': ['pytorch_model.bin'], 'forward_calls': 0,

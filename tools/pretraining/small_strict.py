@@ -1,4 +1,4 @@
-"""Small22K full1000 CPU conversion/strict acceptance; never run a forward."""
+"""Complete public Small CPU conversion/strict acceptance; never run a forward."""
 import argparse
 import inspect
 import json
@@ -13,8 +13,9 @@ from small_source import MODEL, REPO, REVISION, BASE, SOURCE_PROFILES, TRAINING_
 DEPTHS = (3, 3, 27, 3)
 
 
-def small_mapping(source, converted, expected):
-    require(len(source) == len(converted) == len(expected) == 344, 'Small full1000 tensor count differs')
+def small_mapping(source, converted, expected, *, public_head=True):
+    count = 344 if public_head else 342
+    require(len(source) == len(converted) == len(expected) == count, 'Small complete public tensor count differs')
     names, rows = set(), []
     for key, value in sorted(source.items()):
         name, gamma = target_key(key, DEPTHS)
@@ -34,6 +35,8 @@ def small_mapping(source, converted, expected):
 def accept(args, completed):
     context = cpu_context()
     profile = SOURCE_PROFILES[getattr(args, 'source_profile', 'small224')]
+    num_classes = profile.get('num_classes', 1000)
+    headless = num_classes == 0
     repo, revision = profile['repo'], profile['revision']
     base = f'https://huggingface.co/{repo}/resolve/{revision}'
     source_model_name = repo.split('/', 1)[1]
@@ -50,7 +53,7 @@ def accept(args, completed):
     assets = {name: verify_current_content(record['path'], record['sha256'])
               for name, record in chain['files'].items()}
     cfg = json.loads(Path(assets['config.json']['path']).read_text())
-    require(cfg['architecture'] == MODEL and cfg['num_classes'] == 1000 and cfg['num_features'] == 768,
+    require(cfg['architecture'] == MODEL and cfg['num_classes'] == num_classes and cfg['num_features'] == 768,
             'actual Small config differs')
     import torch
     import torchvision
@@ -67,13 +70,15 @@ def accept(args, completed):
     source_model = timm.create_model(source_model_name, pretrained=False,
                                     pretrained_cfg=cfg['pretrained_cfg'], drop_path_rate=.1)
     target = convnext_small(weights=None, stochastic_depth_prob=.1)
+    if headless:
+        target.classifier[-1] = torch.nn.Identity()
     source_loaded = source_model.load_state_dict(source, strict=True)
     converted = {}
     for key, value in source.items():
         name, gamma = target_key(key, DEPTHS)
         require(name not in converted, 'Small mapping collision')
         converted[name] = value.reshape(-1, 1, 1).contiguous() if gamma else value
-    rows = small_mapping(source, converted, target.state_dict())
+    rows = small_mapping(source, converted, target.state_dict(), public_head=not headless)
     converted_root = Path(args.assets) / 'converted'
     require(converted_root.is_absolute() and '/exp-v3/' in str(converted_root), 'exp-v3 converted root required')
     converted_root.mkdir(parents=True, exist_ok=True)
@@ -82,7 +87,7 @@ def accept(args, completed):
         torch.save(converted, stream)
     converted_sha = sha256(converted_path)
     reloaded = torch.load(converted_path, map_location='cpu', weights_only=True)
-    small_mapping(source, reloaded, target.state_dict())
+    small_mapping(source, reloaded, target.state_dict(), public_head=not headless)
     target_loaded = target.load_state_dict(reloaded, strict=True)
     require(not source_loaded.missing_keys and not source_loaded.unexpected_keys
             and not target_loaded.missing_keys and not target_loaded.unexpected_keys,
@@ -106,11 +111,22 @@ def accept(args, completed):
     target_drop = [float(module.p) for module in target.modules() if isinstance(module, StochasticDepth)]
     require(len(source_drop) == len(target_drop) == 36 and abs(target_drop[-1] - .1) < 1e-8
             and all(abs(a - b) < 1e-8 for a, b in zip(source_drop, target_drop)), 'Small SD config differs')
-    require(source_model.num_features == target.classifier[-1].in_features == 768
-            and source_model.num_classes == target.classifier[-1].out_features == 1000
+    require(source_model.num_features == target.classifier[0].normalized_shape[0] == 768
+            and source_model.num_classes == num_classes
+            and (isinstance(source_model.get_classifier(), torch.nn.Identity)
+                 and isinstance(target.classifier[-1], torch.nn.Identity) if headless else
+                 target.classifier[-1].in_features == 768 and target.classifier[-1].out_features == 1000)
             and source_model.head.global_pool.pool_type == 'avg'
             and isinstance(target.avgpool, torch.nn.AdaptiveAvgPool2d) and target.avgpool.output_size == 1,
             'Small pool/features/head differs')
+    if headless:
+        require(isinstance(source_model.norm_pre, torch.nn.Identity)
+                and isinstance(source_model.head.pre_logits, torch.nn.Identity),
+                'DINOv3 extra pre-norm or MLP head differs')
+        require(chain['training_data'] == profile['training_data']
+                and chain['license']['identifier'] == 'dinov3-license'
+                and assets[profile['license_file']]['sha256'] == profile['license_sha256'],
+                'DINOv3 source data/license bytes differ')
     require(not any(isinstance(m, torch.nn.modules.batchnorm._BatchNorm)
                     for model in (source_model, target) for m in model.modules())
             and not list(source_model.named_buffers()) and not list(target.named_buffers()),
@@ -129,25 +145,33 @@ def accept(args, completed):
     public_parameters = sum(p.numel() for p in target.parameters())
     backbone_parameters = sum(p.numel() for n, p in target.named_parameters() if not n.startswith('classifier.2.'))
     backbone_tensors = sum(not key.startswith('classifier.2.') for key in reloaded)
-    structure = {'features': target.classifier[-1].in_features, 'public_state_tensors': len(reloaded),
+    structure = {'features': target.classifier[0].normalized_shape[0], 'public_state_tensors': len(reloaded),
                  'backbone_state_tensors': backbone_tensors, 'backbone_parameters': backbone_parameters,
                  'layer_norms': len(target_norms), 'gelu_modules': len(target_activations),
-                 'stochastic_depth_modules': len(target_drop), 'full_head_shape': list(target.classifier[-1].weight.shape)}
-    require(public_parameters == 50223688 and backbone_parameters == 49454688 and backbone_tensors == 342,
+                 'stochastic_depth_modules': len(target_drop),
+                 'full_head_shape': None if headless else list(target.classifier[-1].weight.shape)}
+    require(public_parameters == (49454688 if headless else 50223688)
+            and backbone_parameters == 49454688 and backbone_tensors == 342,
             'Small parameter counts differ')
     mapping_path = Path(args.output).with_name('MAPPING.json')
     write_new_json(mapping_path, {'schema_version': 1, 'passed': True, 'repo': repo,
                                  'revision': revision, 'mapping': rows})
-    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL, 'format': 'torchvision-1000-state-dict-v1', 'repo': repo,
-                  'revision': revision, 'source_url': base + '/pytorch_model.bin', 'training_data': TRAINING_DATA,
+    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL,
+                  'format': profile.get('format', 'torchvision-1000-state-dict-v1'), 'repo': repo,
+                  'revision': revision, 'source_url': base + '/pytorch_model.bin',
+                  'training_data': profile.get('training_data', TRAINING_DATA),
                   'original_sha256': assets['pytorch_model.bin']['sha256'], 'sha256': converted_sha,
                   'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
-                  'license_file': '../original/LICENSE-apache-2.0.txt', 'redistribution_confirmed': True,
+                  'license_file': '../original/' + profile.get('license_file', 'LICENSE-apache-2.0.txt'),
+                  'redistribution_confirmed': True,
                   'license_basis': chain['license'],
                   'source_file_hashes': {k: v['sha256'] for k, v in assets.items()},
                   'source_chain': {'path': args.source_receipt, 'sha256': args.source_receipt_sha},
                   'mapping': {'path': str(mapping_path), 'sha256': sha256(mapping_path)},
                   'structure': structure}
+    if headless:
+        provenance.update(kind='self_supervised', backbone_only=True, num_classes=0,
+                          tag=profile['tag'], license_sha256=profile['license_sha256'])
     provenance_path = converted_root / 'provenance.json'
     write_new_json(provenance_path, provenance)
     implementation_pins = {}
@@ -160,7 +184,8 @@ def accept(args, completed):
         require(file_identity(identity['path']) == {k: identity[k] for k in file_identity(identity['path'])},
                 'asset metadata changed during acceptance')
     require(not torch.cuda.is_initialized(), 'GPU initialized during Small acceptance')
-    return {'schema_version': 1, 'passed': True, 'scope': 'small22k_full1000_cpu_strict', 'execution': context,
+    return {'schema_version': 1, 'passed': True,
+            'scope': 'small_dinov3_backbone_cpu_strict' if headless else 'small22k_full1000_cpu_strict', 'execution': context,
             'model': MODEL, 'repo': repo, 'revision': revision, 'structure': structure,
             'public_parameters': public_parameters, 'assets': assets,
             'original': {'path': source_path, 'sha256': assets['pytorch_model.bin']['sha256']},

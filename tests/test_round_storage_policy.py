@@ -15,6 +15,7 @@ SPEC.loader.exec_module(guard)
 R116 = 'r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030'
 R117 = 'r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031'
 R174 = 'r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102'
+R175 = 'r175-baseclip-seed20261027-scale085-pairlog-storage16-24k-p4-9010-20261102'
 GIB = 1024 ** 3
 
 
@@ -22,7 +23,7 @@ class RoundStoragePolicyTest(unittest.TestCase):
     def test_new_round_limit_and_old_default_keep_free_floor(self):
         with tempfile.TemporaryDirectory() as directory:
             policy = ROOT / 'configs/ROUND-STORAGE-POLICY.json'
-            for name in (R116, R117, R174):
+            for name in (R116, R117, R174, R175):
                 with self.subTest(round_id=name):
                     root = Path(directory) / name
                     root.mkdir()
@@ -38,7 +39,8 @@ class RoundStoragePolicyTest(unittest.TestCase):
                         with self.assertRaises(RuntimeError):
                             guard.budget(guard.time.time() + 10)
             for name in ('older-round', 'r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102',
-                         'r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102'):
+                         'r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102',
+                         'r176-small-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102'):
                 old = Path(directory) / name
                 old.mkdir()
                 (old / 'STORAGE_POLICY.json').write_bytes(policy.read_bytes())
