@@ -1,5 +1,9 @@
 # R191：固定原生 DINOv3 Base CLS
 
+已完整结束并安全收口：[最终结果](R191-RESULT.json)为10400 success=attempt、0skip、13次内部评估、连续4次无提升早停，唯一EMA c9@7200内部AUROC `.9666919930498946`、AP `.6996772333504798`、error_twice55324。严格胜R107/R120两门均false，R192不eligible；官方5849未达`.996`门而未运行，raw `.999`未达。freeze.status原值null保持，不把它改写为completed。
+
+[唯一安全终态](R191-COMPLETION.json)于23:26:18.970 UTC确认：owner同birth为Z、八rank缺席、锁holders与设备users均空、denied0、八PCI busy0；[CPU回执](R191-CPU-COMPLETION.json)q7yl2v32 exit0。selected tensor `496543053f17a429ab31ee98516c9a39d23ad971955e78f926592c37ecd6dec0`、blob `d80c09709dca3b79ba4f6a850f24399ca1bb4d22e24e258ff576c93f3834f098`，CSV/precision身份保存在最终结果。归档不重新forward、加载权重或重复查旧safe。其后按原固定分支接续[R193](../R193/README.md)；下文是运行历史。
+
 22:51实观5700 success=attempt/0skip/eval7/bad0，八rank活跃，暂best EMA c7@5600内部AUROC `.9662970459643753`，尚无完整selected。22:50:42.506的[既有监控单次快照](R191-DEVICE-POINT.json)中，八个绑定PCI均busy100%、全部可读，非连续利用率证明；CPU guard tjvpi8rc/`747fdad3a75e40e8c60f256cb529df1db1fae8d3a0e5c925814e0fcfb3b40dd7` exit0，0 GPU API/forward/模型构建。观察准备现用53ab/root0–11/保留peer12–23，与训练24–119互斥；入口`work/r137-20261101-a/r191-renewed-pod-context.env`仍绑定原ready-preparefix/start-3。原a77/GPU allocation/clock保持，下文为启动历史。
 
 [真实八rank初态与首自然25](R191-START.json)已证：165全训张量/85,641,987元素、5组空原生AdamW，whole `c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325`；首25成功=尝试、loss `.6996408700942993`有限、WORLD8/G64P8/448对/各rank P8。22:14最新675成功/零跳步/eval0，八rank活跃，尚无完整selector或官方结果，raw .999未达。

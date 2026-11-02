@@ -1,5 +1,7 @@
 # R191 后续固定分支实施计划
 
+R191已完整10400成功/0skip/c13/bad4，唯一EMA c9@7200内部AUROC `.9666919930498946`，两严格门false且actualsafe，[最终结果](../../records/R191/R191-RESULT.json)已取得；R192不eligible，不再normal/activation/GPU。独立R193已一次窗口核验、activation与direct launch，真实八rank345全训/5空Adam/whole50c及自然首25有限通过，23:35最新700成功/0skip/eval0，当前唯一GPU。冻结2a094f4/SCI0985f576与原24k余弦合同不变，后续693d48c的8k衰减不混入。R191整轮结束至R193首25为251.980秒、自最后训练日志296.998秒，均≤300；连续利用率未测。见[实际接续](../../records/R193/README.md)。当前入口r193-pod-context.env/start-4，准备53ab/root0–11、保留12–23与训练24–119互斥；32e3唯一Git/GPU，peer closed不恢复。下文为准备历史。
+
 23:21后备R193正常CPU18/18及精确Git部署在R191训练期间完成，guardh7wwo1zj SHA `bcf963c638ff84d54017f3454ed07a93e9eed41050478d821153bed25742c1e9` exit0。固定2a094f4/tree63193779、SCI0985f576、whole50c6/345全训/5空Adam；formal SITE `b8f94d4162457fa3f9495f02b6d829a20d3e5616b6b8630d47b780bd7add7058`、manifest97ceeba8、CPU-prep977f6dd8、deployment6b008e34、复用165458bd。默认12GiB/free16GiB不变，尚无新clock/activation/GPU。当前R1919925成功/0skip/eval12/bad3、a77冻结保持；完整结果决定R192资格，actualsafe后核窗口并唯一接续，不重复normal或等文档。53ab互斥池、23:14peer closed及唯一32e3 owner已核。
 
 使用 writing-plans / executing-plans，由唯一owner32e3原位完成；用户已授权最小修改和同步，无例行审批或新Agent。目标是在R191训练期间完成下一串行fresh所需准备，不改现役a77冻结。
@@ -15,6 +17,6 @@
 - [x] Pod内由R191/R120原SCI生成两独立草案，候选test实际RED确认尚未登记；原JSON/源码不热改活跃包。
 - [x] 最小登记后两个必要目标：两候选/config/job_contract身份与R193真实5空Adam组、backbone/head/age参数归属及LR；原apply_lr在0/799/1599/1600/23999消费，核每组原公式，旧R120配置仍1e-4。精确新round存储函数目标复用原fixture。仅编译实际改动源码。
 - [x] 两actual public fresh核初态及5空组，原不变模型P8/EMA/cold/loss/WORLD按SHA复用；写真实whole/SHA/CPU回执后同步Git并远端回读，实际技术打包。
-- [ ] 可行收尾前完成唯一后备正常CPU/精确部署；完整R191决定R192资格，actualsafe后沿现入口一次窗口/activation/direct launch，真实八rank初态/首自然更新证明GPU链可跑。不因文档或重复验收等待。
+- [x] 可行收尾前完成唯一后备正常CPU/精确部署；完整R191决定R192资格，actualsafe后沿现入口一次窗口/activation/direct launch，真实八rank初态/首自然更新证明GPU链可跑。不因文档或重复验收等待。
 
 准备使用已实核20%互斥池，训练80%不热改；当前5de准备root0–11/保留peer12–23，训练24–119。官方5849隔离，完整内部selected≥`.996`才最终一次；raw `.999`未达。
