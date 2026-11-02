@@ -8,4 +8,8 @@ R172继续冻结Git1859670；本次仅准备条件同MIL seed27的R173，以及�
 
 [存储情景](STORAGE-HEADROOM.json)只读既有stat审计/小JSON及相同保存源码：事后round11,951,892,576字节，加一个现有最大完整blob1,401,945,034，原子写后prune的情景为13,353,837,610字节，超过旧12GiB但落在新16GiB内。last-good原资源回执free43,095,425,024/size11,951,887,320；这些不是故障瞬时峰值重建或严格全程容量上界。当前R172与旧R170没有改policy/清理现场，磁盘预算和DCU VRAM分开。
 
-原件在exp-v3`technical-prep/base-storage-retry-20261102-32e3`。准备dca3根0–22/23核、peer23/1核与训练24–119/96核互斥，nice19/隐藏GPU。下一步同步Git、构建两技术包并在R172训练期间完成后备R174正常CPU/精确部署；尚未新normalformal/grant/clock/activation/GPU。完整R172选点才决定R173资格，否则独立R174；raw .999未达。
+源码实际Git`6ec73abd252535ae99f01bcfcda600a31d148c6c`/tree`073fc381735a2d701b49362b7c0f4c27a51390b3`已push/实际回读。[两技术包](NEXT-READY.json)已构建，实际源/SCI/冻结存储policy匹配，[CPU整树](CPU-TECHNICAL-READY.json)exit0；没有normalformal、正式clock、activation或GPU。既有peer只读窄核四源及两SCI实际SHA一致、科学delta0及唯一新round例外无阻断，未复跑模型/测试；dca3 CPU23 hash-only guard原件`a4e26231-4059-407f-b171-98e65362ec47-mr8bp0xd/CPU-RECEIPT.json`，SHA`38b8fb7495a23e1fd5b97766c3cc6ff9ee1aefa5fe6de7612c4272163d1243c4`、exit0。
+
+正常CPU阶段会创建有9小时有效期的GPU CPU绑定，而正式clock总预算8.75小时；因此后备R174正常formal/精确部署安排在R172收尾期间，技术包和模型证据先准备完，避免无谓消耗绑定窗口。启动前在同一现有CPU入口核新绑定余量覆盖完整clock及60秒preflight；不足不activation/不重置旧clock，只为未启动阶段新绑定并保留原件。当前R172不改动，不因这次准备追加GPU预演。
+
+原件在exp-v3`technical-prep/base-storage-retry-20261102-32e3`。准备dca3根0–22/23核、peer23/1核与训练24–119/96核互斥，nice19/隐藏GPU。完整R172选点才决定R173资格，否则独立R174；raw .999未达。

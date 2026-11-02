@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**10:28实观R172 running1550 success=attempt/0skip/eval1/bad0，八rank活跃，暂best c1@800 AUROC `.970266986638025`。** 原1859670冻结；后续Git6ec73ab/tree073fc38已push/实际回读，[两技术包及冻结存储策略](../records/preparation/base-storage-retry-20261102/README.md)实核通过，guard0，未新normalformal/clock/GPU。后备R174正常CPU/精确部署安排在当前收尾阶段，使9小时绑定可覆盖8.75小时clock；现有入口启动前核授权余量，不让过早准备消耗运行窗口。完整R172双门/actualsafe后才R173，否则独立R174；当前准备23+peer1与训练96互斥，raw `.999`未达。下文为此前状态。
+
 **10:18实观R172 running875 success=attempt/0skip/eval1/bad0，online/EMA暂best c1@800 AUROC `.970266986638025`，八rank活跃。** 当前1859670冻结不改。后续[R173条件MIL seed27/R174原R170科学delta0的独立fresh存储技术复验](auroc-999/R173-R174-PREPARATION.md)已两public fresh/实际两目标+3编译通过、模型2与loss/WORLD6按相同源码复用，[真实证据](../records/preparation/base-storage-retry-20261102/README.md)保留原RED；仅新增R174新round16GiB例外，旧/当前policy不热改、free16GiB与VRAM85%保持。现Git同步/技术包准备，无新normalformal/GPU；完整R172决定唯一后续，raw `.999`未达。下文为此前状态。
 
 **当前唯一GPU为R172/order84，10:06实观75 success=attempt/0skip/eval0，真实八rank/345全训/5空Adam/自然首25有限已证。** [实际启动](../records/R172/README.md)冻结Git1859670/tree216951f、SCIc7cc4bc4，正常formal18/18在前轮训练期间完成，一次activation/direct launch0。R170在6144/eval7/bad3被存储保护中断、整轮failed、selectednull/两门null/官方阶段未到，[失败原件与存储审计](../records/R170/README.md)保留，不作科学阴性；actualsafe后R171因完整结果缺失不eligible，独立R172串行接续。最后interrupted事件至新dispatch101.017秒/设备166.113秒/首25记录245.130秒均≤300，连续利用率未测。唯一Git/GPU owner32e3，dca3准备23+peer1与训练96互斥，当前r172-pod-context.env绑定start-4。接下来仅为未启动后续核存储临时峰值与固定独立fresh技术修复，旧R170/当前R172不热改或重启；raw `.999`未达。下文为此前状态。

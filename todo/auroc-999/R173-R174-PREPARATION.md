@@ -12,6 +12,7 @@ R173/order85仅在完整R172内部唯一selected严格超过R107 `.9884405731067
 
 - [x] 存储现有目标先观察新round尚无例外的真实RED一FAIL/0ERROR，再最小policy GREEN，原函数13GiB可用/17GiB拒绝/free15GiB拒绝及旧round默认12GiB均通过。
 - [x] 两public fresh、两SCI和配置身份、3实际受改编译及原件存储峰值情景完成；新执行2目标通过、模型2与loss/WORLD6按源码复用，[CPU证据](../../records/preparation/base-storage-retry-20261102/README.md)区分。准备池nice19/隐藏GPU、根0–22与训练24–119互斥。
-- [ ] 先Git push/回读及技术包，再在当前训练期间完成独立后备R174正常CPU/精确部署；完整R172决定唯一分支，actualsafe后一次串行接续。
+- [x] Git6ec73ab/tree073fc38已push/实际回读，两技术包/源与冻结存储策略检查通过，guard0；尚无normalformal/clock/activation/GPU。
+- [ ] 在R172收尾期间完成后备R174正常CPU/精确部署，使9小时GPU CPU绑定可覆盖8.75小时正式clock；临近下一评估且bad3时安排，若改善而绑定余量不足，不activation，只为未启动阶段另建绑定，旧原件保持。完整R172决定唯一分支，actualsafe后一次串行接续。
 
 R174正常完成后才按完整内部AUROC判断固定CLIP组合；阴性不扫normalization/LR/分辨率/seed，官方仅完整selected≥.996才一次。raw .999未达，临床定位或机制仍未证明。
