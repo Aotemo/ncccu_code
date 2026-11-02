@@ -1,5 +1,7 @@
 # R188/R189 原生 CLS 读出准备
 
+两[technical包](TECHNICAL-PACKAGES.json)已按0f3b19e6fe6f52c14e8aaed48980d51966ec7317/tree458e9c7fd0ec657f6cd53ecf765db763dda9e4b3实际远端及干净Git source完成，SITE97ec04a2/28bc219c，4目标5编译的实际源SHA全匹配、guard0/无affinity或线程违规。没有normalformal/clock/GPU。归档guard o7h1gvsy exit0，SHAc3bcb504c0646f2face98741567252b1f097e810e30ee08814ce1986962495ae，原件仍在exp-v3当次5de tasks；不会将登记当真实八卡成功。
+
 [实际CPU汇总](CPU-CHECKS.json)：4个必要目标、5个唯一受影响源码编译均通过。原平均池化对CLS独立oracle的首项先真实数值RED（差0.50113356），最小实现后两个模型目标25.617秒通过；因描述函数新增policy，再跑共享RoPE/真实EMA/freeze冷图回归6.131秒通过；两新候选身份目标3.592秒通过。没有重复旧P8或扩旧全套。
 
 原生timm1.0.27实际`forward_head(features)`与独立`features[:,0]` exact；新工厂与同seed原生参考的全部张量、头与RNG一致。只在原avg构造/完整public strict后设global_pool='token'，保留原final LN/fc_norm Identity、全部5个prefix及1024patch参与注意力，不重建参数/采样。默认None/省略的state/RNG/描述一致；真实load_config接受非None并省略None，job_contract保留新policy，真实CheckpointStore→inference冷图恢复token/readout/固定RoPE且输出exact。P8仅一次network forward、165有限梯度/5空Adam、真实noBN EMA首更新及age一次已测；没有额外GPU预演或DCU吞吐/峰值证明。
