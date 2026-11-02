@@ -1,0 +1,130 @@
+{
+  "R171": {
+    "model_tensor_sha256": "2d6f2eefb533ff0976071648b10c39ca91a6983c8155241201840ceb74d2512f",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 87567491,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/quadrant-mil-20261102-32e3/fresh/R171-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "0772c8498bbe3269419f1ff1b6cd14db6dd02d897a172c4eae37492e5db88467"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true
+  },
+  "R172": {
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/quadrant-mil-20261102-32e3/fresh/R172-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "8557cd3fc49f65b44f3413accb2d3c93f8106de5894243eea90dc866a674c02e"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true
+  }
+}

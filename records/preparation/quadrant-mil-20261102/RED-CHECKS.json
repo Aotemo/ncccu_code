@@ -1,0 +1,46 @@
+{
+  "status": "failed",
+  "stage": "red",
+  "at": 1793610626.9890103,
+  "tests_run": 2,
+  "failures": 2,
+  "errors": 0,
+  "seconds": 1.127255916595459,
+  "targets": [
+    "test_quadrant_mil.QuadrantMILTest.test_independent_scalar_gradients_and_actual_first_tie",
+    "test_quadrant_mil.QuadrantMILTest.test_native_factory_none_age_P8_EMA_and_checkpoint_cold_graph"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "9bff741eb994a8ea6ed2a7f4468837b4468a4409df9c9194cfeb0d457a2ebf09",
+    "runtime/bundle/retrain/models.py": "61829d03b0faf6234eb2bbbb8de459b216ffa4ddedb02bfc3259c65f4a3d3d37",
+    "runtime/bundle/retrain/inference.py": "3210bbeff465e9b6580469bf92c51313c2c4df3dd5d425a7f844959856ff6759",
+    "tests/test_quadrant_mil.py": "03f209ac472a780eab106655c4cd1c2ef9b4754356b2e273c9066c3ed80173e4"
+  },
+  "actual_GPU_initialized": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "CPU_fixture": {}
+}

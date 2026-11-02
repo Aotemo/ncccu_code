@@ -138,6 +138,9 @@ def _load_model(source, device='cpu', checkpoint='best', model_factory=None, var
     if job.get('cosine_head_policy') is not None:
         from .models import describe_cosine_head
         origin['cosine_head'] = describe_cosine_head(model, job)
+    if job.get('quadrant_mil_policy') is not None:
+        from .models import describe_quadrant_mil
+        origin['quadrant_mil'] = describe_quadrant_mil(model, job)
     if job.get('mixstyle_policy') is not None:
         from .mixstyle import describe_mixstyle
         origin['mixstyle'] = describe_mixstyle(model, job)

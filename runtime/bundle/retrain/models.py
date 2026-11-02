@@ -561,6 +561,32 @@ def describe_cosine_head(model, job):
             'in_features':768, 'out_features':1}
 
 
+def _quadrant_mil_logits(network, images):
+    import torch
+    from .config import QUADRANT_MIL_RULE
+    rule=QUADRANT_MIL_RULE;size=rule['global_size'];local=rule['local_size']
+    if images.ndim!=4 or tuple(images.shape[1:])!=(3,size,size) or not images.is_floating_point():
+        raise ValueError('fixed global/local readout requires floating RGB512 image tensors')
+    full=network(images).flatten()
+    windows=torch.stack([images[:,:,y:y+local,x:x+local]for x,y in rule['corners']],dim=1)
+    scores=network(windows.flatten(0,1)).reshape(images.shape[0],len(rule['corners']))
+    return rule['global_weight']*full+rule['local_weight']*scores.max(dim=1).values
+
+
+def describe_quadrant_mil(model, job):
+    import copy
+    from torch import nn
+    from .config import QUADRANT_MIL_RULE
+    if (job.get('model')!='convnext_small' or job.get('quadrant_mil_policy')!=QUADRANT_MIL_RULE
+            or getattr(model,'quadrant_mil_policy',None)!=QUADRANT_MIL_RULE
+            or len(model.network.features)!=8 or model.network.features[0][0].in_channels!=3
+            or type(model.network.classifier[-1])is not nn.Linear
+            or (model.network.classifier[-1].in_features,model.network.classifier[-1].out_features)!=(768,1)):
+        raise ValueError('saved fixed shared Small global/corner graph differs')
+    return {'policy':copy.deepcopy(QUADRANT_MIL_RULE),'network_calls':2,
+            'shared_network':True,'parameters_added':0}
+
+
 def create_model(job, initialize=True):
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job
@@ -652,6 +678,8 @@ def create_model(job, initialize=True):
             if self.training and getattr(self, 'mixstyle_policy', None) is not None:
                 from .mixstyle import training_image_logits
                 logits = training_image_logits(self, images, mixstyle_context)
+            elif getattr(self,'quadrant_mil_policy',None) is not None:
+                logits = _quadrant_mil_logits(self.network,images)
             elif hasattr(self, 'attention_pool_weight'):
                 from .attention_pool import image_logits
                 logits = image_logits(self, images)
@@ -668,6 +696,13 @@ def create_model(job, initialize=True):
     if job.get('age') is not None:
         from .age import attach_age
         attach_age(result, job['age'])
+    if job.get('quadrant_mil_policy') is not None:
+        from copy import deepcopy
+        from .config import QUADRANT_MIL_RULE
+        if name!='convnext_small' or job['quadrant_mil_policy']!=QUADRANT_MIL_RULE:
+            raise ValueError('fixed global/corner readout requires native Small and its exact policy')
+        result.quadrant_mil_policy=deepcopy(QUADRANT_MIL_RULE)
+        describe_quadrant_mil(result,job)
     if job.get('stem_xy_policy') is not None:
         stem=model.features[0][0]
         if (job['model']!='convnext_small' or job['stem_xy_policy']!=STEM_XY_RULE

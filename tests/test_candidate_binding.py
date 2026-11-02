@@ -21,7 +21,7 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
-    def test_R153_to_R170_science_consumes_geometry_model_loss_and_fresh_identity(self):
+    def test_R153_to_R172_science_consumes_geometry_model_loss_and_fresh_identity(self):
         from retrain import age,config,single91
         original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
         for label,order,size,seed,model in [('R153',65,768,20261027,'convnext_small'),('R154',66,512,20261029,'swin_v2_small'),
@@ -32,7 +32,8 @@ class CandidateBindingTest(unittest.TestCase):
                                          ('R163',75,512,20261027,'convnext_small'),('R164',76,512,20261029,'deit3_small'),
                                          ('R165',77,512,20261027,'deit3_small'),('R166',78,512,20261029,'deit3_small'),
                                          ('R167',79,512,20261027,'deit3_small'),('R168',80,512,20261029,'convnext_small'),
-                                         ('R169',81,512,20261027,'convnext_small'),('R170',82,512,20261029,'convnext_base')]:
+                                         ('R169',81,512,20261027,'convnext_small'),('R170',82,512,20261029,'convnext_base'),
+                                         ('R171',83,512,20261027,'convnext_base'),('R172',84,512,20261029,'convnext_small')]:
             path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
             self.assertEqual((science['candidate']['experiment_order'],science['job']['seed'],science['job']['model']),(order,seed,model))
             site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),**{k:str(ROOT/v) for k,v in science['paths'].items()})
@@ -55,12 +56,17 @@ class CandidateBindingTest(unittest.TestCase):
                     with self.assertRaises(ValueError):experiment.validate_job(missing)
                     wrong=copy.deepcopy(resolved);wrong['adamw_beta2_policy']['betas'][1]=.99
                     with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                if label=='R172':
+                    missing=copy.deepcopy(resolved);missing.pop('quadrant_mil_policy')
+                    with self.assertRaises(ValueError):experiment.validate_job(missing)
+                    wrong=copy.deepcopy(resolved);wrong['quadrant_mil_policy']['local_size']=256
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
                 self.assertEqual(single91.input_geometry(),{'image_size':size,'prepared_size':size})
                 saved=config.job_contract(resolved)
                 self.assertEqual((saved['model'],saved['seed'],saved['image_size'],saved['prepared_size']),(model,seed,size,size))
                 self.assertEqual(saved['loss'],science['job']['loss'])
-            if label in ('R153','R155','R157','R159','R161','R163','R165','R167','R169'):
-                baseline=json.loads((ROOT/'configs'/({'R153':'R152','R155':'R154','R157':'R156','R159':'R158','R161':'R160','R163':'R162','R165':'R164','R167':'R166','R169':'R168'}[label]+'-SCIENCE.json')).read_text())
+            if label in ('R153','R155','R157','R159','R161','R163','R165','R167','R169','R171'):
+                baseline=json.loads((ROOT/'configs'/({'R153':'R152','R155':'R154','R157':'R156','R159':'R158','R161':'R160','R163':'R162','R165':'R164','R167':'R166','R169':'R168','R171':'R170'}[label]+'-SCIENCE.json')).read_text())
                 science['job']['seed']=baseline['job']['seed']
                 for value in (science,baseline):
                     for key in ('candidate_profile','comparison_note','initial_model_tensor_sha256'):value.pop(key)
@@ -81,6 +87,13 @@ class CandidateBindingTest(unittest.TestCase):
                 self.assertEqual(science['public_source']['original_sha256'],'ee2f8ca014aa7f8362081f4c4098757e76812f5b7a35a3b018bb7a13971bb241')
                 self.assertEqual(science['job']['normalization'],'imagenet')
                 self.assertNotEqual(science['public_source']['sha256'],baseline['public_source']['sha256'])
+            if label=='R172':
+                baseline=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())
+                self.assertEqual(science['job']['quadrant_mil_policy'],config.QUADRANT_MIL_RULE)
+                self.assertEqual(science['candidate']['quadrant_mil_policy'],config.QUADRANT_MIL_RULE)
+                self.assertEqual({k:v for k,v in science['job'].items()if k!='quadrant_mil_policy'},baseline['job'])
+                for key in ('public_source','paths','structure','data_split','schedule','early_stopping','initial_model_tensor_sha256'):
+                    self.assertEqual(science[key],baseline[key])
             if label=='R166':
                 baseline=json.loads((ROOT/'configs/R164-SCIENCE.json').read_text())
                 self.assertEqual(science['job']['deit_pool_policy'],config.DEIT3_MEANPATCH_RULE)
