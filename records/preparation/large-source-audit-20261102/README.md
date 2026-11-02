@@ -1,0 +1,5 @@
+# ConvNeXt Large：固定公开来源资料核查
+
+[原件身份](SOURCE-AUDIT.json)固定`timm/convnext_large.fb_in22k_ft_in1k` revision `dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854`。单次registry返回public/non-gated及Apache2声明，随后仅读该commit的config/model card，字节SHA已在719a/root12/nice19/隐藏GPU的Pod核验。配置为Large/public1000/1536特征，来源train224/test288、ImageNet输入参数；[发布者说明](https://huggingface.co/timm/convnext_large.fb_in22k_ft_in1k/blob/dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854/README.md)为自然ImageNet22K→1K。LFS登记791192465字节、SHA `fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277`，**尚未下载或strict加载权重**；未核完整许可字节，未构造模型/forward/读数据或GPU，显存与吞吐unknown，不是已采用或已可运行候选。
+
+[registry](REGISTRY-CPU.json)及[config/card](CONFIG-CPU.json)两个guard均exit0、预算/affinity/任务树与OUTPUT SHA已核；归档guard `ec275ee8b95e2abb748c1218849bcaa2cfe21448434c9d1dec295a678ed0798c` exit0。原件在exp-v3/technical-prep/large-source-audit-20261102-32e3；只导回必要元数据和小回执，不复制模型卡全文或大权重入Git。[只读范围](../../../todo/auroc-999/LARGE-SOURCE-AUDIT-20261102.md)保留；当前R176仍e9a7f1d，R177/R178仍按313d5ab既定合同，未追加order/SCIENCE/clock/grant/GPU或改队列。
