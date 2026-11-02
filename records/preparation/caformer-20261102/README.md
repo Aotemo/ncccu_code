@@ -1,5 +1,7 @@
 # CAFormer-S36 固定公开来源
 
+18:57 实际推送并connector回读的Git f9ea149d/tree86a38dd7已生成[两技术包](TECHNICAL-PACKAGES.json)：R185 SITE1fa83305、guardlbl463oj/a0ddddb4 exit0；R186 SITEff12b881、guardqdphavwz/cc356802 exit0。精确复用3目标/9编译及原始回执，无测试重跑；归档guardh61_i_st/c39a39ba exit0，无newformal/clock/GPU。现役R182及R184/ab43准备不改。
+
 18:49 后续二元适配已取得[3个受影响目标和9个源码编译的真实CPU证据](MODEL-CPU-CHECKS.json)。原native factory/保留MLP对象/RNG/手工及原生前向/单drop和age目标在原69n0jyve任务通过；同任务P8停在优化器头命名定位，整任务exit1原件保留。仅为CAFormer给既有_optimizer增加fc2定位后，单独复测P8目标通过：396全训/5空Adam、公开fc1走backbone而末层走head、全梯度有限、EMA图及真实CheckpointStore→inference冷图一致；未重跑已通过的首目标。原其他模型_optimizer路径AST与ab43基线相同，ViT三个实际构造/描述函数正文相同，复用原P8证据，不称engine整文件未变。
 
 [R185实际public fresh](R185-PUBLIC-FRESH-INITIAL.json) whole8c62435a/SCI039715e4，165全训与1个静态RoPE；[R186](R186-PUBLIC-FRESH-INITIAL.json) wholed2369b38/SCI37befe80，396全训/37,250,153元素/无buffer，均5空Adam、0图像forward/0GPU。R186完整395公开加载后只换最终fc2，保留公开MLP；构造drop_rate0，仅内层head_drop=.2，外层drop0，age一次。CPU saved storage11,627,686,508 B不是DCU峰值或上界；默认12GiB及满24k历史时间情景只是规划参考，不靠早停或新GPU预演兜底。
