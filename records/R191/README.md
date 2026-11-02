@@ -1,0 +1,13 @@
+# R191：固定原生 DINOv3 Base CLS
+
+[真实八rank初态与首自然25](R191-START.json)已证：165全训张量/85,641,987元素、5组空原生AdamW，whole `c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325`；首25成功=尝试、loss `.6996408700942993`有限、WORLD8/G64P8/448对/各rank P8。22:14最新675成功/零跳步/eval0，八rank活跃，尚无完整selector或官方结果，raw .999未达。
+
+[实际初态门元数据](R191-INITIAL-GATE.json)明确variant `vit_base_patch16_dinov3.lvd1689m`、features768、global_pool=`token`与固定CLS策略；live FP32 RoPE1、checkpoint persistent-buffer0/空摘要。12层/12头，1CLS+4register+1024patch参与自注意力，native final LN后仅取CLS，Dropout.2/Linear768→1/外层age各一次。与原Small-CLS保持512/ImageNet/logistic/G64P8/default AdamW/LR/EMA/age/9:1/24k-800-p4，仅换Base架构与匹配公开自然图像初始化；公开来源256不是比赛输入。未证明临床机制或AUROC收益。
+
+运行冻结Git `a77d39563cbfaeef221aaa307051de441ff8e7d6`/tree `4c5ee8056397419a7bfc73986f893837501a754e`，SCI `f41f43a2f80fd93c1ffed36dc2a86bf1f22dc47a02610402850fbe25f310ef73`、SITE `de26a8812b7507e17e459157f4032ba23f2cad400fbad6054b98bb6827963b2d`。[正常CPU19/19与精确Git部署](R191-PREPARATION.json)在R189训练期间完成；原8必要目标/14源码编译按实际SHA复用，仅修原prepare对Base漏写162字段的已留失败，不重跑模型P8。一次窗口、activation、direct launch均exit0，未独立GPU预演。仅本精确round16GiB例外，默认/旧例外/free16GiB不变；容量情景不是DCU峰值或16GiB必成功证明。
+
+公开初始化固定repo `timm/vit_base_patch16_dinov3.lvd1689m`，revision `c6a5fb7d12bbd3cf3b0079253141c3332aaed7da`，完整bin SHA `ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1`，原生162张量strict/exact/FP32来源证据见[准备归档](../preparation/vit-base-20261102/README.md)。未用本任务旧checkpoint/teacher或医学预训练。
+
+R189完整双门false、R190不eligible、actualsafe后独立fresh接续。[实际事件间隔](R191-HANDOFF-GAP.json)：R189整轮结束至新dispatch88.641秒、最晚设备150.289秒、首25记录206.155秒；自最后训练日志分别126.377/188.025/243.891秒，均≤300。连续DCU利用率未测，未改旧clock/token/grant或跳过必要校验。
+
+32e3唯一Git/GPU owner；未恢复/派生Agent。5de准备root0–11/保留peer12–23与训练24–119互斥。当前入口 `work/r137-20261101-a/r191-pod-context.env` 绑定ready-preparefix/start-3；活跃冻结不热改。归档guard16mtuls7/`a96227ebe6acd19e4f11db1ad1f194b7a2a076e2310822612a606094645a7999` exit0。

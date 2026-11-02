@@ -1,0 +1,429 @@
+{
+  "CUDA_initialized": false,
+  "at": 1793657388.8254557,
+  "batch_norm_modules": 0,
+  "buffer_count": 1,
+  "buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6",
+  "candidate": {
+    "attention_pool": null,
+    "batch_norm_buffers": 0,
+    "batch_norm_modules": 0,
+    "experiment_order": 104,
+    "features": 768,
+    "final_norm_eps": 1e-05,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "id": "r191-vitb16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-9010",
+    "internal_norm_eps": 1e-05,
+    "model": "vit_dino3_base",
+    "provenance_sha256": "36847019b4a3e679749471376944fa45e59c75768fdcf39e9c40458194f52f0e",
+    "public_revision": "c6a5fb7d12bbd3cf3b0079253141c3332aaed7da",
+    "readout": "native_final_LN_CLS_dropout_linear_plus_age",
+    "stochastic_depth": 0.1,
+    "vit_dino3_pool_policy": {
+      "pool": "token",
+      "position": "after_native_final_LN_before_original_dropout_linear",
+      "prefix_tokens_retained_in_attention": 5,
+      "token_index": 0,
+      "version": "vit-dinov3-final-ln-cls-v1"
+    },
+    "weight_sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1"
+  },
+  "candidate_normalization": {
+    "batch_norm_modules": 0,
+    "buffer_count": 1,
+    "buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6",
+    "candidate": {
+      "attention_pool": null,
+      "batch_norm_buffers": 0,
+      "batch_norm_modules": 0,
+      "experiment_order": 104,
+      "features": 768,
+      "final_norm_eps": 1e-05,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "id": "r191-vitb16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-9010",
+      "internal_norm_eps": 1e-05,
+      "model": "vit_dino3_base",
+      "provenance_sha256": "36847019b4a3e679749471376944fa45e59c75768fdcf39e9c40458194f52f0e",
+      "public_revision": "c6a5fb7d12bbd3cf3b0079253141c3332aaed7da",
+      "readout": "native_final_LN_CLS_dropout_linear_plus_age",
+      "stochastic_depth": 0.1,
+      "vit_dino3_pool_policy": {
+        "pool": "token",
+        "position": "after_native_final_LN_before_original_dropout_linear",
+        "prefix_tokens_retained_in_attention": 5,
+        "token_index": 0,
+        "version": "vit-dinov3-final-ln-cls-v1"
+      },
+      "weight_sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1"
+    },
+    "dropout": 0.2,
+    "head_in_features": 768,
+    "head_out_features": 1,
+    "layer_norms": [
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.0.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.0.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.6.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.6.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.7.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.7.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.8.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.8.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.9.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.9.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.10.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.10.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.11.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.11.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.norm",
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "stochastic_depth": [
+      {
+        "mode": "row",
+        "name": "network.blocks.0.drop_path1",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.0.drop_path2",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.drop_path1",
+        "p": 0.00909090880304575
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.drop_path2",
+        "p": 0.00909090880304575
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.drop_path1",
+        "p": 0.0181818176060915
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.drop_path2",
+        "p": 0.0181818176060915
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.drop_path1",
+        "p": 0.027272727340459824
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.drop_path2",
+        "p": 0.027272727340459824
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.drop_path1",
+        "p": 0.036363635212183
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.drop_path2",
+        "p": 0.036363635212183
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.drop_path1",
+        "p": 0.045454543083906174
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.drop_path2",
+        "p": 0.045454543083906174
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.6.drop_path1",
+        "p": 0.054545458406209946
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.6.drop_path2",
+        "p": 0.054545458406209946
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.7.drop_path1",
+        "p": 0.06363636255264282
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.7.drop_path2",
+        "p": 0.06363636255264282
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.8.drop_path1",
+        "p": 0.0727272778749466
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.8.drop_path2",
+        "p": 0.0727272778749466
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.9.drop_path1",
+        "p": 0.08181818574666977
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.9.drop_path2",
+        "p": 0.08181818574666977
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.10.drop_path1",
+        "p": 0.09090909361839294
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.10.drop_path2",
+        "p": 0.09090909361839294
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.11.drop_path1",
+        "p": 0.10000000149011612
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.11.drop_path2",
+        "p": 0.10000000149011612
+      }
+    ],
+    "vit_dino3": {
+      "blocks": 12,
+      "features": 768,
+      "global_pool": "token",
+      "head_dropout": 0.2,
+      "head_shape": [
+        1,
+        768
+      ],
+      "image_size": [
+        512,
+        512
+      ],
+      "native_library": {
+        "source_sha256": {
+          "layers/attention.py": "608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947",
+          "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa",
+          "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914",
+          "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d"
+        },
+        "version": "1.0.27"
+      },
+      "nonpersistent_buffers_sha256": "192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3",
+      "norm_eps": 1e-05,
+      "num_prefix_tokens": 5,
+      "patch_size": [
+        16,
+        16
+      ],
+      "reg_token_shape": [
+        1,
+        4,
+        768
+      ],
+      "variant": "vit_base_patch16_dinov3.lvd1689m",
+      "vit_dino3_pool_policy": {
+        "pool": "token",
+        "position": "after_native_final_LN_before_original_dropout_linear",
+        "prefix_tokens_retained_in_attention": 5,
+        "token_index": 0,
+        "version": "vit-dinov3-final-ln-cls-v1"
+      }
+    }
+  },
+  "initial_files_sha256": {
+    "outputs/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102-8c-vit_dino3_base-s20261029-b64-p8-fp32/vit-dino3-base/initial-checkpoint/index.json": "6f6ca146a57d2d5db400a52f70d306bfb7c9d09c290c5664fe836b0823767b9c",
+    "outputs/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102-8c-vit_dino3_base-s20261029-b64-p8-fp32/vit-dino3-base/initial-ranks.json": "e6c45c8d3e2340563991eaa6dd5a1cd1ee1c732cee1d6f97f5006e3f5d72b263",
+    "outputs/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102-8c-vit_dino3_base-s20261029-b64-p8-fp32/vit-dino3-base/parameter-groups.json": "ef27718a3b8988f44d780a167139c8d2c9959056200a86cec5c1b8450923d384"
+  },
+  "model_tensor_sha256": "c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325",
+  "native_initial_blob": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102/outputs/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102-8c-vit_dino3_base-s20261029-b64-p8-fp32/vit-dino3-base/initial-checkpoint/checkpoint-637946b72ab24404a0bacda904df1c5f.pt",
+  "native_initial_blob_sha256": "c9de15d5176ccc5bda243329cdcc52665226d37b26e1793740c89f846e45a1ae",
+  "new_model_created_by_gate": false,
+  "optimizer_state_entries": 0,
+  "parameter_elements_by_role": {
+    "age": 2,
+    "backbone": 85641216,
+    "head": 769
+  },
+  "parameter_tensors": 165,
+  "persistent_buffer_count": 0,
+  "persistent_buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "public_weights_reloaded_by_gate": false,
+  "rank_count": 8,
+  "source_digest": "85d05226c6032365841753952cf8b925f837295565e10794df9383863de0faee",
+  "status": "completed"
+}

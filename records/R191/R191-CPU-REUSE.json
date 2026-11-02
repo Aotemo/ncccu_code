@@ -1,0 +1,30 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-base-20261102-32e3/source-git-preparefix/records/preparation/vit-base-20261102/PREPARE-FIX-CHECKS.json",
+    "sha256": "5126b790b818505ff52f88ad541e993756e3e9afbd0b51b4c682b2e43c0b4ee7"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "runtime/bundle/retrain/config.py": "a7c6bb8ff504ef1fc04a28426607dac8ace81972f5f03a9d5062960d4372f4aa",
+    "runtime/bundle/retrain/experiment91.py": "558ce1958b83732f4e7bf337df5a7879345f2d858a1dab25f118c7e3af8e6c61",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tools/validation/check_candidate.py": "cc64ec639b48f2615e8ed693e51c1c2721d89338e138699051f140a93caf47c6",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tests/test_candidate_binding.py": "57155d8e135ee887560b5ff2882cd47d6480fe96fd2adda92e9ac1ae90431709",
+    "tests/test_round_storage_policy.py": "c70f40080dbe3ebc5c0ad497b35afb6c434f233314525543f14e446d8ff05e0f",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e"
+  },
+  "science_sha256": "f41f43a2f80fd93c1ffed36dc2a86bf1f22dc47a02610402850fbe25f310ef73",
+  "targets_reused": 8,
+  "unchanged_implementation_files": 3,
+  "tests_rerun": false,
+  "at": 1793657010.8103673
+}
