@@ -1,5 +1,7 @@
 # R186：原生 CAFormer-S36 单模型
 
+21:08精简结果同步且R184R1真实首成功后，R186的9件冗余权重已按[实际清单清理](../storage/closed-r186-20261102/README.md)，逻辑约5.075GB。三KEEP/当前训练和依赖未变；保留结果、预测及身份元数据，原权重路径现已释放。
+
 21:02已[完整收尾](R186-RESULT.json)：7200次成功=尝试、零跳步、9次评估、连续4轮未提升早停；唯一EMA c5@4000内部AUROC `.983750576466211`/AP `.7917883837429389`/error_twice26990。严格R107/R120两门均false，R187不eligible；官方因阈值未达未运行，raw .999未达。原freeze.status为null照录，不将其改成completed。[真实安全终态](R186-COMPLETION.json)owner同birth为Z、八rank已退出、锁holders与设备users空、八PCI busy0、denied0；只核一次safe，不重查或重启。终态guard ygmrexwf/exit0，小件归档cxyasyvg/exit0未加载checkpoint或做新forward。独立[R184R1](../R184R1/README.md)已串行真实首成功，下文为R186启动历史。
 
 [真实首成功](R186-START.json)已证八rank、396全训/5空Adam、whole d2369b38与CPU一致；自然首25次成功=尝试、loss `.6897131204605103`有限、WORLD8/G64P8/448对，实际八PCI与96核训练mask一致。19:25观测175 success=attempt/0skip/eval0，无完整selector/官方结果，raw .999未达。
