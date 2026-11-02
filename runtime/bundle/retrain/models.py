@@ -637,6 +637,10 @@ def _create_vit_dino3_binary(job, initialize=True):
     from torch import nn
     from .ema import tensor_digest
     library=_vit_dino3_library()
+    policy=job.get('vit_dino3_pool_policy')
+    if policy is not None:
+        from .config import VIT_DINO3_CLS_RULE
+        if policy!=VIT_DINO3_CLS_RULE:raise ValueError('native DINOv3 CLS pool identity differs')
     network=timm.create_model(VIT_DINO3_VARIANT,pretrained=False,img_size=512,num_classes=0,
         global_pool='avg',drop_path_rate=job.get('stochastic_depth',.1),drop_rate=0.,device='cpu',dtype=torch.float32)
     public=None
@@ -651,6 +655,7 @@ def _create_vit_dino3_binary(job, initialize=True):
         public={'initialization':proof,'strict_missing_keys':[],'strict_unexpected_keys':[],
             'public_tensor_count':162,'public_tensor_sha256':tensor_digest(state),'full_head_shape':None,
             'all_public_tensors_exact':True,'all_public_tensors_FP32_finite':True,'backbone_only':True}
+    if policy is not None:network.global_pool='token'
     class ViTBinary(nn.Module):
         def __init__(self):
             super().__init__();self.network=network;self.native_library=library
@@ -662,6 +667,7 @@ def _create_vit_dino3_binary(job, initialize=True):
                 return residual(self,logits,age_features)
             return logits
     result=ViTBinary()
+    if policy is not None:result.vit_dino3_pool_policy=dict(policy)
     if job.get('age')is not None:
         from .age import attach_age
         attach_age(result,job['age'])
@@ -674,15 +680,20 @@ def describe_vit_dino3(model):
     import torch
     from .ema import tensor_digest
     network=model.network;buffers=dict(network.named_buffers());head=model.classifier[-1]
+    policy=getattr(model,'vit_dino3_pool_policy',None)
+    if policy is not None:
+        from .config import VIT_DINO3_CLS_RULE
+        if policy!=VIT_DINO3_CLS_RULE:raise ValueError('native DINOv3 CLS pool descriptor differs')
     value={'native_library':model.native_library,'image_size':list(network.patch_embed.img_size),
         'patch_size':list(network.patch_embed.patch_size),'features':network.num_features,
         'num_prefix_tokens':network.num_prefix_tokens,'reg_token_shape':list(network.reg_token.shape),
         'global_pool':network.global_pool,'norm_eps':network.norm.eps,
         'nonpersistent_buffers_sha256':tensor_digest(buffers),'head_shape':list(head.weight.shape),
         'head_dropout':model.classifier[0].p,'blocks':len(network.blocks)}
+    if policy is not None:value['vit_dino3_pool_policy']=dict(policy)
     if (value['native_library']!=VIT_DINO3_LIBRARY or value['image_size']!=[512,512]
             or value['patch_size']!=[16,16] or value['features']!=384 or value['num_prefix_tokens']!=5
-            or value['reg_token_shape']!=[1,4,384] or value['global_pool']!='avg'
+            or value['reg_token_shape']!=[1,4,384] or value['global_pool']!=('token' if policy is not None else 'avg')
             or value['norm_eps']!=1e-5 or value['head_shape']!=[1,384] or value['head_dropout']!=.2
             or value['blocks']!=12 or network.pos_embed is not None or not isinstance(network.head,torch.nn.Identity)
             or not isinstance(network.fc_norm,torch.nn.Identity) or set(buffers)!={'rope.periods'}

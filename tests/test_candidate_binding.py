@@ -21,6 +21,35 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R188_R189_fixed_native_CLS_policy_and_mean_seed27(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
+        baseline=json.loads((ROOT/'configs/R184R1-SCIENCE.json').read_text())
+        for label,order,seed in(('R188',101,20261027),('R189',102,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping','data_split','official_evaluation','initial_buffer_sha256'):
+                self.assertEqual(science[key],baseline[key])
+            self.assertEqual(science['candidate']['experiment_order'],order)
+            comparison=copy.deepcopy(science['job']);comparison.pop('vit_dino3_pool_policy',None);comparison['seed']=baseline['job']['seed']
+            self.assertEqual(comparison,baseline['job'])
+            expected=config.VIT_DINO3_CLS_RULE if label=='R189'else None
+            self.assertEqual(science['job'].get('vit_dino3_pool_policy'),expected)
+            self.assertEqual(science['candidate'].get('vit_dino3_pool_policy'),expected)
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':'self_supervised','format':science['public_source']['format'],
+                        'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance'],'expected_backbone_state_keys':162})
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual((experiment.candidate()['experiment_order'],job['seed']),(order,seed))
+                wrong=copy.deepcopy(job);wrong['vit_dino3_pool_policy']=None if expected else copy.deepcopy(config.VIT_DINO3_CLS_RULE)
+                with self.assertRaises(ValueError):experiment.validate_job(wrong)
+
     def test_R187_R184R1_native_fixed_recipe_and_independent_identity(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
