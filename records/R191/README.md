@@ -1,5 +1,7 @@
 # R191：固定原生 DINOv3 Base CLS
 
+[结果已同步95b522b并在R193真实首成功后清理8个冗余权重](../storage/closed-r191-20261102/README.md)，逻辑10,281,294,086B。结果、预测、precision、sidecar与来源身份保留，三KEEP及当前依赖未变。
+
 已完整结束并安全收口：[最终结果](R191-RESULT.json)为10400 success=attempt、0skip、13次内部评估、连续4次无提升早停，唯一EMA c9@7200内部AUROC `.9666919930498946`、AP `.6996772333504798`、error_twice55324。严格胜R107/R120两门均false，R192不eligible；官方5849未达`.996`门而未运行，raw `.999`未达。freeze.status原值null保持，不把它改写为completed。
 
 [唯一安全终态](R191-COMPLETION.json)于23:26:18.970 UTC确认：owner同birth为Z、八rank缺席、锁holders与设备users均空、denied0、八PCI busy0；[CPU回执](R191-CPU-COMPLETION.json)q7yl2v32 exit0。selected tensor `496543053f17a429ab31ee98516c9a39d23ad971955e78f926592c37ecd6dec0`、blob `d80c09709dca3b79ba4f6a850f24399ca1bb4d22e24e258ff576c93f3834f098`，CSV/precision身份保存在最终结果。归档不重新forward、加载权重或重复查旧safe。其后按原固定分支接续[R193](../R193/README.md)；下文是运行历史。
