@@ -1,5 +1,7 @@
 # R195 之后固定曝光增强假设施工计划
 
+23:57两[实际technical包](../../records/preparation/gamma-20261102/TECHNICAL-PACKAGES.json)已固定436ae5b/tree3613123a，R196 SITE737d93b7/guard6429n469与R197 SITEd26295ea/guardm026ckp2均0；归档s8jndylw/f25e2958…30c5 exit0。无normalformal/新GPU allocation/clock/GPU；只在既定R195之后接续，不混入当前R193/2a或先行693。下文23:55“尚未Git冻结/technical包”为当时状态。
+
 23:55已完成[5必要目标/5源码编译与两actual public fresh](../../records/preparation/gamma-20261102/README.md)，最终guard gagx9qd0/dbc776c0…f88f exit0。R196 whole9150/SCI93058a7b、R197原whole50c6/SCI6000c2a8、均345全训/5空Adam，尚未Git冻结/technical包/normal/clock/GPU。首两次None身份fixture错误已如实保留并纠正测试，旧格式保持；最后3RED因gamma未实现，随后3GREEN/两候选GREEN。当前R193仍原2a、3200成功/0skip/eval3，暂EMA `.9819986008277032`，8rank活跃；不因本组准备延后R194/R195接续。
 
 使用 brainstorming / writing-plans / TDD / executing-plans，32e3本人在既有20%池完成；用户已明确最小修改无需审批，不派生/恢复Agent。当前R193/2a与既定R194/R195/693d48c不变，本文只为更后续准备。
@@ -14,7 +16,7 @@ R196/order109仅在完整有效R195唯一内部selected严格胜R107 `.988440573
 
 - [x] 先写受影响真实ImageDataset的独立像素oracle/三档完整LUT、sample-key确定性、原八次几何流、全局RNG、None/identity/eval保持与512/P8有限张量目标，Pod内真实RED后最小实现。oracle单独构建原canvas，独立逐像素计算，不读取实现输出当期望。
 - [x] 配置load/job_contract保存新字符串、旧省略与显式None的各自身份格式保持、非法取值及与短衰减/半LR等叠加拒绝；两候选job/SCI/来源/seed/原训练合同及旧R194/R195兼容身份目标，真实RED→GREEN。仅编译受影响源码，原模型/optimizer/loss/EMA/WORLD/保存/推理按未变SHA复用；不重跑全套或GPU预演。
-- [ ] 两public fresh核实际初态/5空组与最终SCI，写窄验/实际依赖/小回执，源码配置实际Git同步/远端回读后技术打包。仅技术包不等于normalformal/activation/GPU或收益。
+- [x] 两public fresh核实际初态/5空组与最终SCI，写窄验/实际依赖/小回执，源码配置实际Git同步/远端回读后技术打包。仅技术包不等于normalformal/activation/GPU或收益。
 - [ ] 本组仅在R195之后依完整结果选择唯一分支，正常CPU/精确部署在可行收尾前完成，actualsafe后沿既有入口一次接续，真实八rank初态和自然首更新证明GPU可跑。不得因本准备阻塞当前R193→R194/R195。
 
 当前准备53ab/root0–11、保留peer12–23，与训练24–119互斥；全部解析/测试/哈希/Python在逐次核UID/Ready的既有Pod内，nice19、隐藏GPU。训练24k上限/800评估/p4/EMA1600/固定9:1/唯一内部AUROC selector和官方5849隔离保持；完整内部selected≥.996才官方一次，raw .999未达。
