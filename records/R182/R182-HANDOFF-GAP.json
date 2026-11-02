@@ -1,0 +1,27 @@
+{
+  "previous_training_completion_event_at": 1793640145.0727258,
+  "previous_whole_round_ended_at": 1793640210.3024619,
+  "previous_safe_observed_at": 1793640239.3593395,
+  "new_dispatch_at": 1793640302.877948,
+  "completion_event_to_dispatch_seconds": 157.80522227287292,
+  "completion_event_to_latest_device_seconds": 217.77798080444336,
+  "completion_event_to_first_recorded_update_seconds": 299.32179856300354,
+  "event_to_dispatch_within_300_seconds": true,
+  "event_to_device_within_300_seconds": true,
+  "event_to_first_recorded_update_within_300_seconds": true,
+  "round_end_to_dispatch_seconds": 92.5754861831665,
+  "round_end_to_latest_device_seconds": 152.54824471473694,
+  "round_end_to_first_recorded_update_seconds": 234.09206247329712,
+  "continuous_DCU_idle_within_300_seconds_proven": false,
+  "semantics": "separate actual event intervals, not a continuous DCU-utilization measurement",
+  "checks_skipped": false,
+  "old_clock_token_grant_reset": false,
+  "previous_observation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r180-20261102-32e3-ready/PROGRESS-cont-15.json",
+    "sha256": "c62f3590e114cbaa74893d211aab306a81f4f1431349c3bf23d74e8a4ee4d39c"
+  },
+  "all_three_event_intervals_within_300_seconds": true,
+  "source_code_CPU_and_deployment_completed_during_previous_training": true,
+  "scientific_checks_skipped": false,
+  "timing_note": "Owner normal finalization, once-only CPU activation, dispatch, device setup and first log25 have distinct measured timestamps; these intervals do not establish continuous DCU idle time."
+}

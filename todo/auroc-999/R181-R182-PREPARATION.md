@@ -1,5 +1,7 @@
 # R181/R182：Large 固定复核与同骨干的自然图像 DINOv3 初始化
 
+实际接续：R180完整6400/c8/bad4、唯一EMA c4@3200 `.9880889738720829`、两门false/官方未跑且safe，R181不eligible且未normalformal/clock/GPU。R182按下述固定合同以Git2a128733正常CPU18/18及精确部署、一次activation/direct launch0接续；17:27:54实证真实八rank/345初态/5空Adam与自然首25有限、50 success/0skip，见[实际启动](../../records/R182/README.md)。本准备已完成；下文未formal/GPU为此前时点，当前仅R182在训。
+
 唯一活跃R180/order92使用冻结28e19c1/SCI9ea7429c，真实八rank/345全训/5空Adam/自然首25有限已证；16:55实观4800 success=attempt/0skip/eval5/bad1，暂最佳EMA c4@3200 .9880889738720829，未完整，raw .999未达。当前32e3唯一Git/GPU；5de56a8f准备root0–11/12核、peer12–23保留，与训练24–119/96核互斥，16:49既有peer已idle，未唤醒；不新建或恢复Agent/资源，不热改R180。
 
 R181/order93：只有完整工程有效R180唯一selected严格大于R107 .9884405731067525及R120 .9894773092062407，且actualsafe后，才运行完全相同Large/dc2/512/原logistic/G64P8/优化EMA配方的seed20261027。否则不normalformal/clock/GPU。
@@ -11,7 +13,7 @@ R182/order94：独立fresh、原R180 Large/seed29/job/512/ImageNet输入/原logi
 - [x] 单次公共registry固定0f8b496d/bin LFS be34ed20，94段整件785050722B核对完成；完整许可、两factory strict/完整342有限FP32及非张量语义、转换194e4ac3/provenance0a6674dd均实核通过，无来源前向数值对照。
 - [x] 精确源码范围：现`tools/pretraining/small_source.py`和`small_strict.py`增加独立largedino3 profile，仅读取profile的model/features/widths/文件名等差异，沿用原342映射/许可/非张量语义；旧Small API/CLI默认不变。`runtime/bundle/retrain/models.py`复用既有DINOv3公开backbone加载/临时Identity与恢复原头路径，新增精确Large format及来源pin；`config.py`/`fresh.py`只扩该精确Large初始化kind/format允许范围，`tools/activation/prepare.py`沿原位置注入342身份。`experiment91.py`/`tools/validation/check_candidate.py`仅加两固定身份/seed/source/互斥及保存选点绑定，现Large forward/optimizer/WORLD/EMA/保存/推理/启动/监控不改，不另建平台。
 - [x] 现`tests/test_pretraining_sources.py`/`tests/test_candidate_binding.py`加受影响Large342与两新身份的窄目标；现Large测试扩public-headless初始化/RNG/真实冷加载的必要范围，复用来源无关的大模型图/P8已通过证据。不重复130秒旧全历史fixture。两SCI在真实fresh后固定SHA。现`ROUND-STORAGE-POLICY.json`仅给两精确新round32GiB，旧default/free16GiB不变，沿原存储函数窄验。
-- [ ] 所有不依赖最终结果的来源/代码/CPU/配置/Git及technical包在R180训练期间完成；收尾前适时完成唯一正常CPU及精确部署，避免过早9小时软件绑定失去8.75小时clock余量。完整终态/safe后一次activation/direct launch，以真实八rank/自然首更新证明GPU可运行，无独立GPU预演。20%仅准备，80%训练，两池互斥；不改活跃clock/token/grant。
+- [x] 所有不依赖最终结果的来源/代码/CPU/配置/Git及technical包在R180训练期间完成；收尾前适时完成唯一正常CPU及精确部署，避免过早9小时软件绑定失去8.75小时clock余量。完整终态/safe后一次activation/direct launch，以真实八rank/自然首更新证明GPU可运行，无独立GPU预演。20%仅准备，80%训练，两池互斥；不改活跃clock/token/grant。
 
 16:44已通过5受影响目标/12项编译、两public fresh及真实来源handoff；[真实证据](../../records/preparation/large-dino3-20261102/README.md)保留RED/fixture错误与精确复用范围。R181 whole24988a65/SCIc94d274c，R182 whole864775ca/SCIc7f2e7f3。实际Git2a128733已push及回读、两technical包均ready，后备正常CPU/精确部署待收尾前完成，无新formal/clock/GPU，R180原冻结继续。
 

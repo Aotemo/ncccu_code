@@ -1,5 +1,7 @@
 # R180：原生 ConvNeXt Large 与匹配公开初始化
 
+17:23:59完整终态及actualsafe已核：6400 success=attempt/0skip/eval8/bad4，正常早停；唯一EMA c4@3200内部AUROC `.9880889738720829`、AP `.8240243312217729`、error_twice19784，两门false，关闭固定Large/dc2组合，R181不eligible且仅technical包、无normalformal/clock/GPU。官方正常threshold_not_met、未评估，freeze.status原值null保留。所选tensor480473fc…03833、blob372c103b…9ac12、freeze c12271df…88d19。owner同start为Z、8rank absent、锁和设备使用者空/denied0/8PCI busy0；[完整结果](R180-RESULT.json)及[唯一完整安全观测](R180-COMPLETION.json)不重查、不加载blob或新forward。独立[R182](../R182/README.md)已串行接续。下文启动及running数值均为历史时点。
+
 [真实八rank及首自然成功](R180-START.json)已证：345全训/5空Adam初态与正常CPU匹配，whole `3360682ea3aed68301752371888352f31e7a12ab541f8d438e7df4bcd71450e0`；首25次成功更新loss `.7808462381362915`有限、WORLD8/G64P8/448对，各rank8输入，实际PCI及训练96核mask一致。15:59观测1425 success=attempt/0skip/eval1，16:01轻观测1525/eval1/bad0，暂最佳online/EMA c1@800内部AUROC `.9774085450655094`。这不是完整结果，raw .999未达。
 
 冻结Git `28e19c1690d29b7d4ff2a8a63a1086c88cd0fe98`/tree `7886d68948807ac08906278f74fafe74b1c35b83`，SCI `9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442`，SITE `6058fb0afc912881c814f000b114f575442230a340fea0026f5c32d5795aafbb`。[正常CPU18/18与精确部署](R180-PREPARATION.json)、一次activation/正式launch均exit0，无独立GPU预演。[公开完整344 strict、两fresh、5个受影响目标及11个唯一源码编译覆盖](../preparation/large22k-20261102/README.md)与原传输/冷加载/交接字段修正证据分列。原17deee5与r180原准备目录仅未启动阶段，未formal/clock/GPU；最终采用ready目录。
