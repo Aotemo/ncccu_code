@@ -1,0 +1,48 @@
+{
+  "status": "checked_Git_source_and_fixed_R161_R162_technical_package_ready",
+  "at": 1793595752.0535028,
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "982171a79d28c4f6f58bcb4dd828e1ca4ee95d841fa62ed4561dd82529b9668d",
+    "runtime/bundle/retrain/config.py": "4a5c172c5619d1c7087c7f752f0319861f01d4db558ceb822c2479a49187a113",
+    "runtime/bundle/retrain/inference.py": "d21906e72569fd725216d51d93ac74e4066f4c92119f9b0b52d6cc31ccd4e291",
+    "runtime/bundle/retrain/experiment91.py": "68d15f1b52c659bfdf891775f9bf28dd247c6e221ec9e7b2de488264b2890526",
+    "tools/validation/check_candidate.py": "56c882c6d5ef7503ad374d7a2e7557115c4accd00f5ac100a16cc76d88c9185a",
+    "tests/test_candidate_binding.py": "8a6066bb7946e0d30c0e830c9a336e3b06a8e077a2b648f2d729f7f83cdf398e",
+    "tests/test_cosine_head.py": "f0dfa1687b1a8c832f992dd575ca492d8394e61dd6a144d0d79f919884d7aba0",
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "science_sha256": {
+    "R161-SCIENCE.json": "5753a97b2ac66db3c66e74422269152e47b094370fe5ed76d10dd66640400e93",
+    "R162-SCIENCE.json": "5ddf40f0d29a3a2907a18db0ca7111fd926d16ee581ffde77fe515fa68a699d3"
+  },
+  "branches": [
+    {
+      "science": "R161",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r161-20261102-32e3/technical-package/package",
+      "site_sha256": "148e0a8102284d2f82c3a787c7a31cf1b2a13dc356e91a5f03b75f65defab66d",
+      "seconds": 5.944705963134766,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    },
+    {
+      "science": "R162",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r162-20261102-32e3/technical-package/package",
+      "site_sha256": "b0b6e47cdd6b513ffc762596d9d5f93d513051cd4c4459c89dcec67562ac6c97",
+      "seconds": 5.831301689147949,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-COSINE-NEXT.py": "3e242ac76c23196d38c2c7c7c3b6f78cb1db78dee07df17b8eeb104fa66569c9",
+    "OBSERVE-SWINV2-START.py": "4ec215b829009932ec227f1ceec76a3c01d0063401f1b2b998931d2802eb1b13",
+    "RUN-COSINE-NEXT.sh": "0422f5d73550cd98bc01609ad243566e856a2c29260e3ae82d28105697f7d403"
+  },
+  "new_GPU_started": false
+}
