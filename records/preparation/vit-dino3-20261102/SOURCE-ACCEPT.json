@@ -1,0 +1,9 @@
+{
+  "status": "native_public_DINOv3_strict_no_conversion_no_forward",
+  "weight_sha256": "b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2",
+  "provenance_sha256": "6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8",
+  "handoff_sha256": "c899c713c477bfc4049c7c31ce3cd9f34041962700a5ac568ffc13b1eda47fb2",
+  "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+  "public_tensor_count": 162,
+  "asset_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/vit-small-dino3-3bf4720a"
+}

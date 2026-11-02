@@ -9,6 +9,13 @@ DEIT3_FORMAT = 'timm-deit3-native384-state-dict-v1'
 DEIT3_LIBRARY = {'version':'1.0.27','source_sha256':{
     'deit.py':'7fa9a4f90fc3fafb09dfa5faa7e5196347eac599f0402190d7c89cbdc346d621',
     'vision_transformer.py':'f0f453b75952698059a1e82fa283a7a9cf2cf2217c33fc2c9cb1efc06947f552'}}
+VIT_DINO3_VARIANT = 'vit_small_patch16_dinov3.lvd1689m'
+VIT_DINO3_FORMAT = 'timm-vits16-dinov3-native-state-dict-v1'
+VIT_DINO3_LIBRARY = {'version':'1.0.27','source_sha256':{
+    'models/eva.py':'23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d',
+    'layers/pos_embed_sincos.py':'8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914',
+    'layers/attention.py':'608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947',
+    'layers/patch_embed.py':'7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa'}}
 
 STEM_XY_RULE = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y'],
                 'canvas_size':512,'coordinates':'2*k/(size-1)-1',
@@ -470,6 +477,15 @@ def feature_freeze_proof(model, job, optimizer):
         'all_parameter_elements': sum(p.numel() for p in named.values()),
         'frozen_parameter_elements': sum(named[name].numel() for name in frozen),
         'trainable_parameter_elements': sum(named[name].numel() for name in trainable)}
+
+
+def _vit_dino3_library():
+    import timm
+    root=Path(timm.__file__).resolve().parent
+    actual={'version':timm.__version__,'source_sha256':{
+        relative:_hash(root/relative)for relative in VIT_DINO3_LIBRARY['source_sha256']}}
+    if actual!=VIT_DINO3_LIBRARY:raise ValueError('installed native DINOv3 ViT library differs')
+    return actual
 
 
 def _deit3_library():

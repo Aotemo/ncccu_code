@@ -1,0 +1,13 @@
+{
+  "status": "native_public384_strict_no_conversion_no_forward",
+  "weight_sha256": "88140b2a114ec4db0e3588af052162b87fcdd1bb92d5e85dd93f7d2adc1fb526",
+  "provenance_sha256": "23453a056803792afc1d351d35d38c8eae644a701b43a5f43b0c41fa12a2731e",
+  "handoff_sha256": "c1bc29343eb378d2540dea7641ec1f010a5bc191084b6f0fb942d2a9a3c223ef",
+  "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "public_tensor_count": 176,
+  "asset_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-dino3-source-audit-20261102-32e3/default-deit3-compat",
+  "original_three_argument_API_preserved": true,
+  "provenance_semantics_exact_with_original": true,
+  "original_asset_files_modified": false,
+  "forward_calls": 0
+}

@@ -1,0 +1,68 @@
+{
+  "scope": "fixed_native_ViTS_source_and_original_DeiT3_default_only",
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "eb033a804619b5a570c0ab2ba9bb9cd9cb1284403140d87f88c691f880eb0228",
+    "tools/pretraining/deit3_source.py": "b68b93f1c70078661bde40196b036968324f6f254cf43f19f695221429d04c46"
+  },
+  "actual_strict_source_checks_passed": 2,
+  "unit_tests_added_or_run": 0,
+  "training_factory_or_fresh_identity_ready": false,
+  "training_or_official_forward_calls": 0,
+  "evidence": [
+    {
+      "label": "factory_report_attribute_error",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-wrxbx5m3/CPU-RECEIPT.json",
+      "sha256": "b08f5b3a110729fad1b5e29942e1d833e7d70094d95dc6505f24fd913484cd79",
+      "exit_code": 1,
+      "output_sha256": "a09ff4b3ae093ec00e58e498cd224a0cbab12aa8e2769bc37366a75d9afe3d96"
+    },
+    {
+      "label": "factory_report_corrected",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-jjg_0_rz/CPU-RECEIPT.json",
+      "sha256": "ab044715329314c440ac4dab645becb6ee3152786f1b31dbd2b8f24cbcd8a211",
+      "exit_code": 0,
+      "output_sha256": "c155260c304bb391e63e147293b370617b531164f0f7c84ad1fc6587050eca28"
+    },
+    {
+      "label": "whole_source_bytes",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-t2892xm4/CPU-RECEIPT.json",
+      "sha256": "38d1f414fb7bbaf695b137142421ac9e38fac882e9e80b910593ac13eca87066",
+      "exit_code": 0,
+      "output_sha256": "ba3feae5693ad6027633dfe53092f8ab9e73cdffdbbf4e2cc9ad388e53979593"
+    },
+    {
+      "label": "new_profile_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-haf244yu/CPU-RECEIPT.json",
+      "sha256": "76f40b6088147ba4d89c945fe2cd7a73a556b561500e1ba360ee9a5dcbb02862",
+      "exit_code": 1,
+      "output_sha256": "078846cc6b184b8f6065eaa40553aa4909ea17f5f86cef30ca4dd3aa349a38b1"
+    },
+    {
+      "label": "new_profile_source_strict",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-_rbxe5r7/CPU-RECEIPT.json",
+      "sha256": "9a52d2f7c04d0d9d1e41b97b086665e31373a6c0496148638a6820b99e661d85",
+      "exit_code": 0,
+      "output_sha256": "9b0116b7e6a557a7f636cc046df31a5c6f48a63f5f5c86dcac4d1977f3ce0969"
+    },
+    {
+      "label": "original_default_API_strict",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6__73aww/CPU-RECEIPT.json",
+      "sha256": "d7dc5d10170af838941e714f15f7c202267548a041401c554c6d32a08bf64770",
+      "exit_code": 0,
+      "output_sha256": "36216b5d4abd1d52c12c1f607cdc0597079ad541a6591526aaea96f372b897d3"
+    }
+  ],
+  "red_source_base_commit": "2a128733259ef3b7dd640f458db96283a0fdb64d",
+  "source_originals": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/vit-small-dino3-3bf4720a/PROVENANCE.json": "6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/vit-small-dino3-3bf4720a/PUBLIC-HANDOFF.json": "c899c713c477bfc4049c7c31ce3cd9f34041962700a5ac568ffc13b1eda47fb2"
+  },
+  "files": {
+    "SOURCE-ACCEPT.json": "9b0116b7e6a557a7f636cc046df31a5c6f48a63f5f5c86dcac4d1977f3ce0969",
+    "DEFAULT-COMPAT.json": "36216b5d4abd1d52c12c1f607cdc0597079ad541a6591526aaea96f372b897d3",
+    "PUBLIC-HANDOFF.json": "c899c713c477bfc4049c7c31ce3cd9f34041962700a5ac568ffc13b1eda47fb2",
+    "LIBRARY-FACTORY-AUDIT.json": "c155260c304bb391e63e147293b370617b531164f0f7c84ad1fc6587050eca28",
+    "SOURCE-BYTE-AUDIT.json": "ba3feae5693ad6027633dfe53092f8ab9e73cdffdbbf4e2cc9ad388e53979593",
+    "PROVENANCE.json": "6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8"
+  }
+}
