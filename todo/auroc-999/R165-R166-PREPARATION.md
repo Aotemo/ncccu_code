@@ -16,3 +16,5 @@
 本文是固定准备范围，不是新GPU启动或已通过证据。均不触及官方5849、原始标签或既有selected数据。
 
 4目标/5compile及两public fresh已真实通过，[精简证据](../../records/preparation/deit3-meanpatch-20261102/README.md)。待实际Git同步/回读与现有技术包，不新normalformal/grant/clock；原R164继续。正文未勾最后一项，避免将CPU通过写成后续GPU已启动。
+
+首次同步后的窄复核发现运行job直接expected漏pool字段；已先复现RED，再仅补一字段，原配置目标含缺失/错误policy负例重新通过、5源编译通过，模型3目标按未改SHA复用。新[CPU-CHECKS-REVIEW](../../records/preparation/deit3-meanpatch-20261102/CPU-CHECKS-REVIEW.json)为后续实际消费身份，原CPU-CHECKS/guard保持。CPU准备已动态续建dca3/根0–22共23核+peer23共1核，实际effective120、至13:17:09 UTC；新probe exit0/23threads/隐藏GPU，旧aa0f及R164 GPU绑定不改。

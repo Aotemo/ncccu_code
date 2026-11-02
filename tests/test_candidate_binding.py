@@ -43,6 +43,11 @@ class CandidateBindingTest(unittest.TestCase):
                 cfg=self.path.parent/(label+'-TRAIN.json');cfg.write_text(json.dumps({'mode':'train','data':{'split':science['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
                 resolved=config.load_config(cfg,environ={})['jobs'][0]
                 self.assertEqual(experiment.validate_job(resolved),resolved)
+                if label=='R166':
+                    missing=copy.deepcopy(resolved);missing.pop('deit_pool_policy')
+                    with self.assertRaises(ValueError):experiment.validate_job(missing)
+                    wrong=copy.deepcopy(resolved);wrong['deit_pool_policy']['exclude_prefix_tokens']=0
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
                 self.assertEqual(single91.input_geometry(),{'image_size':size,'prepared_size':size})
                 saved=config.job_contract(resolved)
                 self.assertEqual((saved['model'],saved['seed'],saved['image_size'],saved['prepared_size']),(model,seed,size,size))

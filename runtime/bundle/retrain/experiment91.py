@@ -939,6 +939,7 @@ def validate_job(job):
         'optimizer_policy': candidate().get('optimizer_policy'),
         'input_preprocessing': candidate().get('input_preprocessing'),
         'cosine_head_policy': candidate().get('cosine_head_policy'),
+        'deit_pool_policy': candidate().get('deit_pool_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
