@@ -21,6 +21,84 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R192_R193_fixed_source_and_single_backbone_LR_delta(self):
+        from retrain import age, config
+        synthetic_age = age.make_spec({'rows': [{'name': str(i), 'sha256': str(i)*64,
+            'age': str(30+i)} for i in range(4)], 'fit_indices': [0,1,2,3]})
+        for label, prior, order, seed in (('R192','R191',105,20261027), ('R193','R120',106,20261029)):
+            path = ROOT/'configs'/(label+'-SCIENCE.json')
+            science = json.loads(path.read_text())
+            baseline = json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertEqual(science['candidate']['experiment_order'], order)
+            self.assertEqual(science['job']['seed'], seed)
+            for key in ('public_source','public_asset_receipt','structure','paths','schedule',
+                        'early_stopping','data_split','official_evaluation'):
+                self.assertEqual(science[key], baseline[key])
+            changed = {k for k in baseline['job'] if baseline['job'][k] != science['job'][k]}
+            self.assertEqual(changed, {'seed'} if label=='R192' else {'backbone_lr'})
+            if label=='R193':
+                self.assertEqual((science['job']['backbone_lr'],science['job']['head_lr'],
+                    science['job']['weight_decay']), (5e-5,1e-3,1e-4))
+                self.assertEqual(science['job']['loss'], experiment.PAIR_SIGMOID_LOSS)
+            site = copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v) for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site)); binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding), \
+                    patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                job=copy.deepcopy(science['job'])
+                initialization={'kind':'self_supervised' if label=='R192' else 'imagenet',
+                    'format':science['public_source']['format'],'sha256':science['public_source']['sha256'],
+                    'path':site['public_weight'],'provenance':site['public_provenance']}
+                if label=='R192': initialization['expected_backbone_state_keys']=162
+                job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization=initialization)
+                config.validate_job(job); self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual(experiment.candidate(),science['candidate'])
+                self.assertEqual(config.job_contract(job)['backbone_lr'],job['backbone_lr'])
+                wrong=copy.deepcopy(job); wrong['backbone_lr']*=2
+                with self.assertRaises(ValueError): experiment.validate_job(wrong)
+                wrong=copy.deepcopy(job); wrong['seed']=20261029 if seed==20261027 else 20261027
+                with self.assertRaises(ValueError): experiment.validate_job(wrong)
+
+    def test_R193_original_optimizer_consumes_half_backbone_LR_only(self):
+        import math
+        import torch
+        from retrain import age
+        from retrain.engine import _optimizer, _apply_lr
+        class Model(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.features=torch.nn.Sequential(torch.nn.Linear(3,4),torch.nn.LayerNorm(4))
+                self.classifier=torch.nn.Linear(4,1)
+                self.age_weight=torch.nn.Parameter(torch.zeros(2))
+        job=copy.deepcopy(json.loads((ROOT/'configs/R193-SCIENCE.json').read_text())['job'])
+        job['age']=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        model=Model(); optimizer=_optimizer(model,job)
+        self.assertIs(type(optimizer),torch.optim.AdamW)
+        self.assertEqual(len(optimizer.param_groups),5); self.assertFalse(optimizer.state)
+        self.assertEqual({id(p) for g in optimizer.param_groups for p in g['params']},
+                         {id(p) for p in model.parameters()})
+        for group in optimizer.param_groups:
+            role=group['role']; rate=5e-5 if role=='backbone' else 1e-3
+            self.assertEqual(group['initial_lr'],rate)
+            self.assertEqual(group['betas'],(.9,.999))
+            expected={id(model.age_weight)} if role=='age' else (
+                {id(p) for p in model.classifier.parameters()} if role=='head'
+                else {id(p) for p in model.features.parameters()})
+            self.assertTrue({id(p) for p in group['params']} <= expected)
+            if role=='age': self.assertEqual(group['weight_decay'],1e-4)
+        for step in (0,799,1599,1600,23999):
+            factor=(step+1)/1600 if step<1600 else .01+.99*(1+math.cos(math.pi*(step-1600)/22399))/2
+            _apply_lr(optimizer,step,24000,1600)
+            for group in optimizer.param_groups:
+                expected=(5e-5 if group['role']=='backbone' else 1e-3)*factor
+                self.assertAlmostEqual(group['lr'],expected,places=15)
+        self.assertEqual(json.loads((ROOT/'configs/R120-SCIENCE.json').read_text())['job']['backbone_lr'],1e-4)
+
     def test_R190_R191_fixed_CLS_source_capacity_and_saved_job_identity(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})

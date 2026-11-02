@@ -1,0 +1,16 @@
+{
+  "passed_targets": 2,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R190_R191_fixed_CLS_source_capacity_and_saved_job_identity",
+    "test_round_storage_policy.RoundStoragePolicyTest.test_new_round_limit_and_old_default_keep_free_floor"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "9734a2ac7cc0ae11bc390683cc4f97ce48fdb5c63e5b610f6aeba9bb755224d3",
+    "tests/test_candidate_binding.py": "bba6458267c7a1a88d7f972f5c3094d49fb09b4d6ebfd811db54c143bff0f70f",
+    "tests/test_round_storage_policy.py": "cb59982cfbe949595b1f37063789b52c4be17dfd3ea3d9956e1ca37702ad0bb6"
+  },
+  "storage_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+  "GPU_initialized": false,
+  "image_forward_calls": 0,
+  "datasets_read": false
+}

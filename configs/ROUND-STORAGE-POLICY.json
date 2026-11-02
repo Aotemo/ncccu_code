@@ -10,6 +10,7 @@
     "r181-large22k-seed20261027-scale085-pairlog-storage32-24k-p4-9010-20261102": 34359738368,
     "r182-large-dinov3-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102": 34359738368,
     "r183-large-dinov3-seed20261027-scale085-pairlog-storage32-24k-p4-9010-20261102": 34359738368,
-    "r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102": 17179869184
+    "r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102": 17179869184,
+    "r192-vitb-dinov3-seed20261027-scale085-pairlog-cls-storage16-24k-p4-9010-20261102": 17179869184
   }
 }

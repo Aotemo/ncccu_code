@@ -1,0 +1,18 @@
+{
+  "tag": "RED",
+  "passed": false,
+  "targets_run": 2,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R192_R193_fixed_source_and_single_backbone_LR_delta",
+    "test_candidate_binding.CandidateBindingTest.test_R193_original_optimizer_consumes_half_backbone_LR_only"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "558ce1958b83732f4e7bf337df5a7879345f2d858a1dab25f118c7e3af8e6c61",
+    "runtime/bundle/retrain/config.py": "a7c6bb8ff504ef1fc04a28426607dac8ace81972f5f03a9d5062960d4372f4aa",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "tests/test_candidate_binding.py": "bba6458267c7a1a88d7f972f5c3094d49fb09b4d6ebfd811db54c143bff0f70f"
+  },
+  "GPU_initialized": false,
+  "image_forward_calls": 0,
+  "datasets_read": false
+}
