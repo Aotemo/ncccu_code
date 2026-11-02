@@ -578,6 +578,13 @@ def main(args):
         for record in initials: record['low_rank_optimizer'] = low_rank_initial
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',
         initial_gate.verify_records(initials, groups, groups, expected, expected_world=8) == model_digest)
+    if is_vit_dino3:
+        from retrain.single91 import immutable_buffers, immutable_buffer_contract
+        buffers = immutable_buffers(loaded['model'])
+        count, buffer_sha = immutable_buffer_contract(loaded['candidate_normalization'])
+        check('native_ViT_checkpoint_persistent_buffer_contract',
+              len(buffers) == count == 0 and tensor_digest(buffers) == buffer_sha
+              and ex.describe_model(reloaded) == loaded['candidate_normalization'])
     rejected('initial_gate_missing_rank_rejected', lambda: initial_gate.verify_records(initials[:-1], groups, groups, expected, expected_world=8))
     wrong_initial = copy.deepcopy(initials); wrong_initial[0]['model_sha256'] = '0' * 64
     rejected('initial_gate_wrong_tensor_rejected', lambda: initial_gate.verify_records(wrong_initial, groups, groups, expected, expected_world=8))

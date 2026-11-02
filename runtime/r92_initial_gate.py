@@ -172,9 +172,10 @@ def maybe_release(root, atomic, sha):
     if expected.get('low_rank_optimizer') is not None:
         require(payload.get('low_rank_optimizer') == expected['low_rank_optimizer'],
                 'native pointwise initial Adam coverage differs')
-    from retrain.single91 import immutable_buffers
+    from retrain.single91 import immutable_buffers, immutable_buffer_contract
     buffers = immutable_buffers(state)
-    require(len(buffers) == expected['buffer_count'] and tensor_digest(buffers) == expected['buffer_sha256'],
+    persistent_count, persistent_sha = immutable_buffer_contract(expected['candidate_normalization'])
+    require(len(buffers) == persistent_count and tensor_digest(buffers) == persistent_sha,
             'native immutable model buffers differ')
     validate_state(payload['ema'], state, 0, ema_rule())
     require(payload['ema']['rule'] == fresh['ema'] == ema_rule() and tensor_digest(payload['ema']['model']) == full_digest, 'initial EMA differs')
@@ -188,6 +189,8 @@ def maybe_release(root, atomic, sha):
         'initial_files_sha256': {str(p.relative_to(root)): sha(p) for p in paths},
         'native_initial_blob': str(store.directory / record['file']), 'native_initial_blob_sha256': record['sha256'],
         'public_weights_reloaded_by_gate': False, 'new_model_created_by_gate': False, 'CUDA_initialized': False}
+    if expected['candidate']['model'] == 'vit_dino3_small':
+        receipt.update(persistent_buffer_count=persistent_count, persistent_buffer_sha256=persistent_sha)
     if ssl is not None:
         receipt['ssl_derived'] = ssl
         receipt['ssl_receipt_sha256'] = sha(folder / 'ssl-stage/SSL-RESULT.json')

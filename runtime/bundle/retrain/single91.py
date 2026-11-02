@@ -28,6 +28,14 @@ def immutable_buffer_count():
     return candidate.get('static_buffer_count', candidate.get('static_index_buffers', candidate['batch_norm_buffers']))
 
 
+def immutable_buffer_contract(normalization):
+    ex.validate_normalization(normalization)
+    # Native RoPE is reconstructed and checked in the live model description;
+    # its nonpersistent buffer is deliberately absent from checkpoint state.
+    digest = tensor_digest({}) if ex.candidate()['model'] == 'vit_dino3_small' else normalization['buffer_sha256']
+    return immutable_buffer_count(), digest
+
+
 def write_exclusive(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -128,8 +136,8 @@ def freeze_training(folder, destination, *, technical_fixture=False):
     if canonical_digest(sources) != payload['identity']['source_digest']:
         raise ValueError('evaluation bundle differs from trained source')
     buffers = immutable_buffers(state)
-    if (len(buffers) != immutable_buffer_count()
-            or tensor_digest(buffers) != payload['candidate_normalization']['buffer_sha256']):
+    buffer_count, buffer_sha = immutable_buffer_contract(payload['candidate_normalization'])
+    if len(buffers) != buffer_count or tensor_digest(buffers) != buffer_sha:
         raise ValueError('freeze immutable model buffers differ')
     ex.validate_normalization(payload['candidate_normalization'])
     value = {'format': 'single-model-9010-official-freeze-v1', 'experiment91': ex.binding(),
@@ -186,7 +194,7 @@ def validate_freeze(path, *, allow_fixture=False):
             raise ValueError('R115 frozen SSL derived asset/receipt differs')
     ex.validate_runtime(value['identity'], value['job'], fresh=value.get('fresh'))
     ex.validate_normalization(value.get('candidate_normalization', {}))
-    if value.get('buffer_sha256') != value['candidate_normalization']['buffer_sha256']:
+    if value.get('buffer_sha256') != immutable_buffer_contract(value['candidate_normalization'])[1]:
         raise ValueError('Tiny frozen empty-buffer identity differs')
     if (value['source_digest'] != value['identity']['source_digest']
             or canonical_digest(value['source_files']) != value['source_digest']

@@ -102,7 +102,12 @@ class EMA:
        or any(not torch.equal(value,target_indices[name]) for name,value in source_indices.items())):
     raise ValueError('Swin static EMA indices changed')
    fixed.update(source_indices)
-  elif self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):raise ValueError('Tiny noBN EMA live buffers differ')
+  elif self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):
+   from .experiment91 import candidate
+   if (candidate()['model']!='vit_dino3_small' or set(dict(online.named_buffers()))!={'network.rope.periods'}
+       or set(dict(self.model.named_buffers()))!={'network.rope.periods'}):raise ValueError('Tiny noBN EMA live buffers differ')
+   from .models import describe_vit_dino3
+   describe_vit_dino3(online);describe_vit_dino3(self.model)
   if self.rule.get('frozen_bn_buffers')=='copy':
    from .imagenet_resnet import ImageNetResnetBinary
    if isinstance(online,ImageNetResnetBinary):

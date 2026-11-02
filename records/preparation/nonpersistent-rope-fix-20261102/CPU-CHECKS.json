@@ -1,0 +1,51 @@
+{
+  "status": "affected_native_ROPE_EMA_freeze_cold_CPU_regression_passed",
+  "at": 1793647876.1096435,
+  "passed_targets": 1,
+  "compiled_sources": 5,
+  "source_files": {
+    "runtime/bundle/retrain/ema.py": "13bc21359337ba8a3bb311f6af05713b67420236f7cefe89507ba3947fc8a042",
+    "runtime/bundle/retrain/single91.py": "7ed32875a8dd4744c7da2b6d625a06ce65175a5caf2ed4192f30d8d23149234e",
+    "runtime/r92_initial_gate.py": "7a92f1e20e285762c12923aba60add052b3c2b5e573e517cc362b55e0d3ba787",
+    "tools/validation/check_candidate.py": "238e7158093bea1e060ee9ab8f02e353df7393ffce1fa378159a16b17d4d140f",
+    "tests/test_nonpersistent_buffers.py": "0e50bcdb53b43f284e13ba14796c5e0af55fa41f2933f3a214776e94278fb9ea"
+  },
+  "evidence": [
+    {
+      "label": "CPU-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-oxzg63ql/CPU-RECEIPT.json",
+      "sha256": "117581bd5bbb4cbf847d8c0e154c12f866bf4fb94410d330d020b99ab04cb5dd",
+      "exit_code": 1,
+      "output_sha256": "39134960a82c4fb4169576370f27bfa71e8de09facef1127b6f3f077786ce9cf"
+    },
+    {
+      "label": "CPU-FIXTURE-FAILURE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-p3jajam5/CPU-RECEIPT.json",
+      "sha256": "93aa4897ec8775a0a35e71233f2e91ab1f3cc5639bb106d5ffa4311924e23984",
+      "exit_code": 1,
+      "output_sha256": "732d26df0372246e33af30667ad9f85ef3b901c53316ede6c37fe786d45a2db1"
+    },
+    {
+      "label": "CPU-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-i7npgffp/CPU-RECEIPT.json",
+      "sha256": "73a3105b579ee9c409ebdcaa1eaf026d76220500d197e965ca4a0c8687d5f03b",
+      "exit_code": 0,
+      "output_sha256": "3fff6480336ca4ce0571ea9df9a02e39a3b0d8345a12ef3f87e41e41f40cbfbf"
+    }
+  ],
+  "scope": {
+    "actual_native_ViT_graph": true,
+    "actual_custom_noBN_EMA_warmcopy_and_blend_and_next_update_state_roundtrip": true,
+    "actual_checkpoint_store_and_freeze_and_validation_and_cold_inference_factory": true,
+    "altered_live_ROPE_rejected": true,
+    "external_source_data_admission_and_checkpoint_selection_mocked": true,
+    "CPU_initial_barrier_GPU_equivalence_claimed": false,
+    "image_forwards": 0,
+    "public_weights_loaded": false,
+    "GPU_initialized": false,
+    "P8_repeated": false
+  },
+  "immutable_native_buffer_count": 1,
+  "checkpoint_persistent_buffer_count": 0,
+  "old_frozen_deployments_changed": false
+}
