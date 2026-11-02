@@ -15,6 +15,7 @@ R177/order89仅在完整工程有效R176的唯一selected严格超过R107 `.9884
 - [x] 两项必要loss测试实际RED1fail/1error后GREEN2/2：独立标量softplus/BCE值及解析逐logit/共享bias/age梯度，覆盖8×56、平移后BCE变化、极值有限、旧分支值/梯度；真实两rank WORLD/DDP含一个rank零正例，逐global-logit及共享参数梯度与独立reference一致，无额外world因子。首次传输尚未完成的缺目标exit2另保留，不当RED。
 - [x] 最小实现范围：`runtime/bundle/retrain/classification_loss.py`新增精确独立loss版本与目标；`experiment91.py`两候选/seed/互斥/保存选点绑定；`tools/validation/check_candidate.py`仅消费新loss合同；`tests/test_pairwise_bce_mix_loss.py`两目标及现`test_candidate_binding.py`扩两配置；`configs/R177-SCIENCE.json`、`configs/R178-SCIENCE.json`。config/engine/distributed/model/optimizer/EMA/persistence/inference/launch/monitor实现不改，现有tuple调用点直接复用。
 - [x] 3实际目标/5源compile、真实两public fresh及身份固定；R177初态实测5f2abba3，R178实测50c与R107一致。[CPU证据](../../records/preparation/pair-bce-mix-20261102/README.md)区分真实无mock元数据/公开字节与Gloo小fixture；旧模型/WORLD八实现按相同SHA复用证据。
-- [ ] Git push及远端commit实际回读、两技术包在R176训练期间完成。收尾前完成唯一正常CPU/精确部署，actualsafe后按完整结果串行一次activation/direct launch，真实八rank/自然首成功接管GPU可运行证明；不加GPU预演。临近收尾缩短只读观测间隔，文档归档不阻塞接续。
+- [x] Git313d5ab/tree1dd0d3cb已push/实际回读，两technical包在R176训练期间完成，源/SCI及原任务回执与输出SHA一致，guard0；未normalformal/clock/GPU。
+- [ ] 收尾前完成唯一正常CPU/精确部署，actualsafe后按完整结果串行一次activation/direct launch，真实八rank/自然首成功接管GPU可运行证明；不加GPU预演。临近收尾缩短只读观测间隔，文档归档不阻塞接续。
 
 完整R178严格超过两个锚点才有后续固定seed27复核资格；官方仍完整selected≥.996才一次，官方不参与准备/选点/调参。raw .999未达。

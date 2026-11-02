@@ -1,0 +1,11 @@
+{
+  "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+  "round_id": "r177-small-dinov3-seed20261027-scale085-pairlog-24k-p4-9010-20261102",
+  "git_commit": "313d5abeb57240159091b682c3948aec0244b310",
+  "tree_sha": "1dd0d3cb97e76a4224bfeb12bd35c9e255cc9bd8",
+  "science_sha256": "bf9a153d5ee0897a840cfd14af59f3b5c4b2c67c802ff8887f092a0db9a17d9a",
+  "site_sha256": "ef6ec21d4d9acd7ea71a7d414480224f75679fa14971389a7fe6a7c0a37c87ee",
+  "CPU_checks_sha256": "e3460a72bb0b0e3ff5a4a899fe081919bdf74aa568f5f2c8a02a6795348e2d1f",
+  "formal_clock_created": false,
+  "GPU_started": false
+}
