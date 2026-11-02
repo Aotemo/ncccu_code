@@ -1,5 +1,7 @@
 # R180：原生 ConvNeXt Large 与匹配公开初始化
 
+17:36 已按用户保留三模型/删除其他冗余权重的要求完成 [8 个已结束 checkpoint 清理](../storage/closed-r180-20261102/README.md)，释放逻辑 23,554,298,113 B；原指标、SHA、路径和侧车作为历史证据保留，对应权重不再可加载。R182、KEEP 三模型及实际依赖未动。
+
 17:23:59完整终态及actualsafe已核：6400 success=attempt/0skip/eval8/bad4，正常早停；唯一EMA c4@3200内部AUROC `.9880889738720829`、AP `.8240243312217729`、error_twice19784，两门false，关闭固定Large/dc2组合，R181不eligible且仅technical包、无normalformal/clock/GPU。官方正常threshold_not_met、未评估，freeze.status原值null保留。所选tensor480473fc…03833、blob372c103b…9ac12、freeze c12271df…88d19。owner同start为Z、8rank absent、锁和设备使用者空/denied0/8PCI busy0；[完整结果](R180-RESULT.json)及[唯一完整安全观测](R180-COMPLETION.json)不重查、不加载blob或新forward。独立[R182](../R182/README.md)已串行接续。下文启动及running数值均为历史时点。
 
 [真实八rank及首自然成功](R180-START.json)已证：345全训/5空Adam初态与正常CPU匹配，whole `3360682ea3aed68301752371888352f31e7a12ab541f8d438e7df4bcd71450e0`；首25次成功更新loss `.7808462381362915`有限、WORLD8/G64P8/448对，各rank8输入，实际PCI及训练96核mask一致。15:59观测1425 success=attempt/0skip/eval1，16:01轻观测1525/eval1/bad0，暂最佳online/EMA c1@800内部AUROC `.9774085450655094`。这不是完整结果，raw .999未达。
