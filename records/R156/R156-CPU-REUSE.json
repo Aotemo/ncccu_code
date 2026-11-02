@@ -1,0 +1,19 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/source-git/records/preparation/hard-positive-20261102/CPU-CHECKS.json",
+    "sha256": "cfb553354f9fe66841c25f5d1ed646ca4b440daa7f537b3c2ddcd6fb8bc628ef"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "a956d955af48a022d11713e047214ee598f54f9fe70d9fce667a3ec0afa603c0",
+    "runtime/bundle/retrain/experiment91.py": "8a6285ee78e49468d5dc848fabfaf14a60fabade5aa07e623a494001dfc7b06a",
+    "tools/validation/check_candidate.py": "39634ba3fc6bcbccfbf9b2afb1b3135bf0381f08096466560959d5c5cd37a74b",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c",
+    "tests/test_candidate_binding.py": "39caf815db80cf73f9136a1f7693088f7956ee12f9598458951621ad0978837c",
+    "tests/test_pairwise_sigmoid_loss.py": "92109efd50cebf897b08cf75aed10a8fc1e24a98b77cbb0eae6ee15767c3a850"
+  },
+  "science_sha256": "ec65ee71c6a55c5009b9d79302462ae0fba48acc5030eee0b15b8b60a39fbfb9",
+  "targets_reused": 6,
+  "tests_rerun": false,
+  "at": 1793586754.3731587
+}
