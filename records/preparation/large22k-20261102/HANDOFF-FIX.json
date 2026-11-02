@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "stage": "GREEN",
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "target": "test_candidate_binding.CandidateBindingTest.test_R180_measured_structure_matches_public_handoff",
+  "source_files": {
+    "tests/test_candidate_binding.py": "bc5594ef11021e7a98fd1afac0f312d026afbfdf90ae9ca56d3fdbfea639a3a8"
+  },
+  "science_sha256": {
+    "R180-SCIENCE.json": "9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442"
+  },
+  "compiled_sources": 1,
+  "delta": "remove only redundant SCI structure.stage_widths; native/source stage-width checks remain unchanged",
+  "actual_public_handoff_checked": true,
+  "original_public_fresh_reused_for_identical_initializer_job_and_all_other_fields": true,
+  "new_model_forward": false,
+  "GPU_started": false
+}

@@ -1,0 +1,151 @@
+{
+  "status": "affected_candidate_storage_targets_and_compiles_passed",
+  "new_targets": 2,
+  "previously_run_source_model_targets": 2,
+  "compiled_sources": 11,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R153_to_R180_science_consumes_geometry_model_loss_and_fresh_identity",
+    "test_round_storage_policy.RoundStoragePolicyTest.test_large_exact_round_32GiB_keeps_free_floor_and_small_default"
+  ],
+  "source_files": {
+    "tools/pretraining/base_source.py": "c5f53fc1a7a7f4965d49857fc51dc5fcb0e2f261c54670cfe7c5dd9a2d10808d",
+    "tools/pretraining/base_strict.py": "95a35ebb294203a1c69b4b1f56d2f862548ae93908bb4c095d1362bc4c8a187e",
+    "tools/validation/check_candidate.py": "7426f5bb880b17d5297a2da88525e9e220d5498d28463bbc2551be966b185d99",
+    "runtime/bundle/retrain/models.py": "fd9897514db6bd3e102aba9f3614254d7a9360fb0c960f83c7f698923c4bb74a",
+    "runtime/bundle/retrain/config.py": "5dabee550f6846fdcdcd24a4a4a5e8a2ae40c576e60ff1e791659fba3756132e",
+    "runtime/bundle/retrain/inference.py": "558444d07d3e27c689406c8fab88690a4a1c10220ba2e51303981d8091b7e8c0",
+    "runtime/bundle/retrain/experiment91.py": "e4e97416a918fcdc8cf7ef4ee80221ebe2a4794cf63cbec628a1b21cfab74828",
+    "tests/test_pretraining_sources.py": "6a9cdf35d8fc1a0957af5f73f8cc9e8e79847a453b7aa4b8b05a0ce71b8306c3",
+    "tests/test_convnext_large.py": "aa7e4e2e15637202f61de9268c803d9c23a0c0fd42a9c4fb3f909f01b7f3d4e0",
+    "tests/test_candidate_binding.py": "bc5594ef11021e7a98fd1afac0f312d026afbfdf90ae9ca56d3fdbfea639a3a8",
+    "tests/test_round_storage_policy.py": "726676af21db31e3763aa12040d9d99dc1a9ad4f2b55d3af8036305515be24fd"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "673c2446bde8f75a84785930cfa58fb2169f79b7774ac6b50473fcddc8104ec4"
+  },
+  "science_sha256": {
+    "R179-SCIENCE.json": "7d8ed30c0c596de828c47d5340e5873121c4e2eb1bb59460d4a4be8330315186",
+    "R180-SCIENCE.json": "9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442"
+  },
+  "unchanged_model_WORLD_files": {
+    "fresh": "5e440c87ae1c65a5b575988376f9a8557f98ec4cc89b8f2979bf17a2572b2334",
+    "engine": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d"
+  },
+  "GPU_initialized": false,
+  "image_forward_calls_in_this_task": 0,
+  "official_read": false,
+  "passed_targets": 5,
+  "evidence": [
+    {
+      "label": "source_model_red",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-e5npqhh4/CPU-RECEIPT.json",
+      "sha256": "c2593e1111db9298376a5fe82d6d4b7d72269c8f1eef27fa8078e114f9e9dfcc",
+      "exit_code": 1,
+      "output_sha256": "c4af734bd77d53e5ec247da69bf9f641658a86b5eee81831879e4d7082a1a03e"
+    },
+    {
+      "label": "source_pass_model_cold_error",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6aaam6f4/CPU-RECEIPT.json",
+      "sha256": "35b976d83c3e54eb7b12218967f78e023a7c157992b400d745f92b7139ed52ad",
+      "exit_code": 1,
+      "output_sha256": "69eb998761180489c600671504783d7996af83822cf936c9bb7df8948e302be2"
+    },
+    {
+      "label": "model_cold_fix_pass",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g7v59nkm/CPU-RECEIPT.json",
+      "sha256": "5f880da36fb09ea9eea57177bbf5ded6c83e6b0ed78acc3c404c51e8cc318730",
+      "exit_code": 0,
+      "output_sha256": "688b4bd5a67a720f19d52b9f323ef1ffece4540bc60f92c8d821f0ea195b661f"
+    },
+    {
+      "label": "direct_transport_probe_reported_timeout",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ygpo0su1/CPU-RECEIPT.json",
+      "sha256": "d1a9f60420c4745415ea7be32d8fbd1f341c042fee39d48d41002033a53d19e9",
+      "exit_code": 0,
+      "output_sha256": "2621d08f65a8d4c7bebf7e1141bef9d6aa06e593be1afb06b38c34f77a2899f3"
+    },
+    {
+      "label": "actual_public_source_two_fresh_final_checks",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-qs0wcx78/CPU-RECEIPT.json",
+      "sha256": "70041d2c6eb2667c9586d9257b07061adacdf219d9682fb272631a9d17d30c5e",
+      "exit_code": 0,
+      "output_sha256": "c9fd6347628a4d37bdf178819d77af13653879380d37ba10d67445190af4865e"
+    },
+    {
+      "label": "actual_handoff_redundant_field_fix",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-iujq0mk5/CPU-RECEIPT.json",
+      "sha256": "8560c3ceb40329742ca0adb76448b1c4345be731d3496a22be1b1b2c30379d7c",
+      "exit_code": 0,
+      "output_sha256": "234638ec1b3893a36391d6933ade7eefdcf70eaeabe656a8d207f95336412df6"
+    }
+  ],
+  "source_target": "test_pretraining_sources.SmallMappingTest.test_large_full_mapping_and_existing_base_defaults",
+  "model_target": "test_convnext_large.ConvnextLargeTest.test_native_factory_rng_P8_age_optimizer_ema_and_cold_load",
+  "source_model_evidence_reused": true,
+  "model_evidence": {
+    "native_random_initializer_fixture": true,
+    "actual_public_source_and_fresh_checked_separately": true,
+    "native_factory_and_head_age_rng_exact": true,
+    "P8_network_shapes": [
+      [
+        8,
+        3,
+        512,
+        512
+      ]
+    ],
+    "finite_gradient_tensors": 345,
+    "P8_saved_unique_storage_bytes": 15313271040,
+    "storage_stat_is_not_DCU_peak_or_upper_bound": true,
+    "optimizer_steps": 0,
+    "cold_graph_exact": true,
+    "age_residual_calls": 1,
+    "GPU_initialized": false
+  },
+  "failure_note": "Original RED two failures; first combined GREEN source passed but real CheckpointStore cold load found missing Large inference whitelist. Only affected model target reran after one whitelist addition and passed. Raw full downloads and direct-Pod proxy failures retained; segmented reconstruction must equal the same immutable whole LFS hash. No failed scientific result or passing target was rewritten.",
+  "scope": "four affected targets: source mapping/defaults, native Large P8/cold graph, candidate bindings, exact Large storage function. Actual pretrained full source strict and two public fresh checks are additional separate evidence; no GPU preview or official input.",
+  "additional_handoff_fix_target": {
+    "status": "passed",
+    "stage": "GREEN",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "target": "test_candidate_binding.CandidateBindingTest.test_R180_measured_structure_matches_public_handoff",
+    "source_files": {
+      "tests/test_candidate_binding.py": "bc5594ef11021e7a98fd1afac0f312d026afbfdf90ae9ca56d3fdbfea639a3a8"
+    },
+    "science_sha256": {
+      "R180-SCIENCE.json": "9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442"
+    },
+    "compiled_sources": 1,
+    "delta": "remove only redundant SCI structure.stage_widths; native/source stage-width checks remain unchanged",
+    "actual_public_handoff_checked": true,
+    "original_public_fresh_reused_for_identical_initializer_job_and_all_other_fields": true,
+    "new_model_forward": false,
+    "GPU_started": false
+  },
+  "original_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/PREPARATION-EXPORT/CPU-CHECKS.json",
+    "sha256": "280dd3b81f5487c4091dfc43db27542deef4bead051ba9a16734fc5aca0dabf7",
+    "remote_commit": "17deee51ec7040c7f614f2a2f74b534c2626093a"
+  },
+  "science_rebind": {
+    "original_R180_science_sha256": "34e6c689adac2cbae10551df4e5d9cefd2e90569266d54571dd9c5492c144b26",
+    "final_R180_science_sha256": "9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442",
+    "only_science_delta": "delete redundant structure.stage_widths; whole remaining parsed science exact",
+    "initializer_job_public_paths_and_identities_unchanged": true,
+    "original_public_fresh_report_unchanged": true,
+    "formal_fresh_for_final_science": "pending existing normal CPU admission; no prior package or GPU launch"
+  },
+  "superseded_unstarted_stage": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r180-20261102-32e3",
+    "metadata_only": true,
+    "formal_clock_created": false,
+    "GPU_allocation_created": false,
+    "GPU_started": false
+  }
+}

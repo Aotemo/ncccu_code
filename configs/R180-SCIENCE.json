@@ -49,12 +49,6 @@
     "full_head_shape": [
       1000,
       1536
-    ],
-    "stage_widths": [
-      192,
-      384,
-      768,
-      1536
     ]
   },
   "paths": {

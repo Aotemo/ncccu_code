@@ -21,6 +21,22 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R180_measured_structure_matches_public_handoff(self):
+        science=json.loads((ROOT/'configs/R180-SCIENCE.json').read_text())
+        public=json.loads((ROOT/'records/preparation/large22k-20261102/PUBLIC-SOURCE-SUMMARY.json').read_text())
+        self.assertEqual(science['structure'],public['structure'])
+        site=copy.deepcopy(self.site)
+        site.update(**{k:str(Path(site['work_root'])/v)for k,v in science['paths'].items()})
+        receipt={'schema_version':1,'passed':True,'execution':{'uid':site['pod']['uid']},
+            'model':public['model'],'revision':public['revision'],'original':public['original'],
+            'converted':{'path':site['public_weight'],'sha256':public['converted']['sha256']},
+            'provenance':{'path':site['public_provenance'],'sha256':public['provenance']['sha256']},
+            'structure':public['structure']}
+        path=Path(site['work_root'])/science['public_asset_receipt']['path']
+        path.parent.mkdir(parents=True);path.write_text(json.dumps(receipt))
+        science['public_asset_receipt']['sha256']=hashlib.sha256(path.read_bytes()).hexdigest()
+        self.assertEqual(experiment.verify_public_asset(science,site),receipt)
+
     def test_R153_to_R180_science_consumes_geometry_model_loss_and_fresh_identity(self):
         from retrain import age,config,single91
         original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
@@ -87,7 +103,7 @@ class CandidateBindingTest(unittest.TestCase):
                 self.assertEqual(science['public_source']['revision'],'dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854')
                 self.assertEqual(science['public_source']['original_sha256'],'fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277')
                 self.assertEqual(science['candidate']['features'],1536)
-                self.assertEqual(science['structure']['stage_widths'],[192,384,768,1536])
+                self.assertEqual(science['structure']['features'],1536)
                 self.assertEqual(science['structure']['full_head_shape'],[1000,1536])
             if label=='R178':
                 baseline=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())

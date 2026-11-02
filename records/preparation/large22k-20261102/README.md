@@ -9,3 +9,5 @@
 仅新R180精确round存储上限32GiB，原默认12GiB、旧例外、free16GiB及原clock/resource不变；函数fixture实核29GiB通过/33GiB拒绝/free15GiB拒绝，并核R178默认12GiB。没有实际写入33GiB或峰值必成功保证。[旧轮35件清理](../../storage/closed-r170-r172-r174-r176-20261102/README.md)已核保护文件不变。HTTP2/HTTP1整件传输与Pod直连代理失败、一次SSH分段中断如实保留；95段最终重组整件LFS精确一致才进入原来源链。
 
 CPU与来源原件位于exp-v3/technical-prep/large22k-20261102-32e3；本目录只保存精简真实回执。GPU可运行须由之后冻结部署的真实八rank/首自然成功更新证明。本准备不证明吞吐、临床机制或AUROC收益；raw .999未达，完整selected≥.996才官方5849一次。
+
+正式包前发现R180 SCI冗余stage_widths不在原公开handoff.structure内，会被原逐字段交接检查拒绝。仅删SCI该字段、修正对应断言并补实际来源交接目标，0.059秒PASS/CPU整树0；原生/source的stage-width检查不改。最终SCI为`9ea7429c…0ba442`，其余解析字段与原34e6c689完全一致，whole3360682e不变。旧strict/fresh及4目标回执保留原样；原fresh报告不是新SCI字节的直接证据，确切不变范围与实际handoff复核见CPU-CHECKS-HANDOFF-FIX，之后正常CPU须以最终SCI再构造fresh。增加1窄目标/1编译，不重复原大模型前向；累计5目标、11个唯一受影响源码编译覆盖。17deee5只同步过，未formal/clock/GPU，未热改任何运行。

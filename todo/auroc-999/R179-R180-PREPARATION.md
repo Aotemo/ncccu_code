@@ -16,6 +16,8 @@ R179/order91仅在完整工程有效R178唯一selected严格超过R107 `.9884405
 
 15:15实际来源344/full1000两factory strict、许可/LFS及两public fresh、4个受影响目标/11编译通过，[原件汇总](../../records/preparation/large22k-20261102/README.md)保留失败及CPU整树证据。R179 whole91507a65、SCI7d8ed30c；R180 whole3360682e、SCI34e6c689、converted b27d6640。当前Git同步/冻结部署待完成，未新formal/clock/GPU；完整selected≥.996才官方5849一次，不用官方调参。raw .999未达。
 
+15:22打包前发现R180冗余structure.stage_widths与原source handoff精确结构不同；只删除该SCI字段，对应断言修正并补真实handoff目标0.059秒PASS/1编译/整树guard0。最终SCI9ea7429c，其余解析字段、initializer/job/whole3360682e及原生宽度校验不变；原fresh报告保持原件，版本化重绑定证据为CPU-CHECKS-HANDOFF-FIX。累计5目标/11个唯一源码编译覆盖，17deee5未formal/clock/grant/GPU，另以最终Git准备未启动阶段，不重置旧轮。R178完整阴性且safe，R179不eligible、无需无用正式包，仅R180正常CPU和接续优先。
+
 15:00已按[逐文件清单](../../records/storage/closed-r170-r172-r174-r176-20261102/README.md)清理35个旧checkpoint，删除前allocated36,507,485,184 B，文件系统可用约57.8GB，保护文件前后一致、无训练信号/锁。R170的临时模型保护在失败完整归档且独立R174完整安全后释放；它仍为工程失败/selected null/双门null，不改原指标或补称科学阴性，所有失败与侧车/index元数据保留。实际R178及KEEP3/锚点/公开资产/数据缓存均未动。
 
 来源及模型目标已原RED2fail；首次GREEN中source目标通过，但真实冷加载发现inference白名单缺Large。只增加一项并复测受影响模型目标PASS，实际512/P8全345有限梯度、5空Adam/EMA/age一次/CheckpointStore冷图exact；CPU saved storage15,313,271,040 B不当DCU峰值上界。完整权重原件的HTTP2/HTTP1及直连代理失败保留，固定同一LFS分段传输进行中；没有完整SHA和公开strict/fresh证据之前不宣称来源或候选通过。
