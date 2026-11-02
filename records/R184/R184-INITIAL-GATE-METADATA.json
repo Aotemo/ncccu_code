@@ -1,0 +1,13 @@
+{
+  "status": "actual_eight_rank_metadata_match_before_failed_persistent_buffer_gate",
+  "round_id": "r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+  "initial_ranks_sha256": "7616795a09ae78f481f372f5cb7512c20caf10726fc8c3747e51f88864d4898f",
+  "all_eight_model_tensor_sha256": "e347757c93f10e7eb80de9322980ac52a421b8a864c35bdeaddc736433c26227",
+  "all_eight_original_normalization_match_CPU": true,
+  "native_buffer_count": 1,
+  "native_buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6",
+  "all_eight_optimizer_state_entries": 0,
+  "barrier_released": false,
+  "successful_update": false,
+  "new_checkpoint_or_model_or_forward": false
+}
