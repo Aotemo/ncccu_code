@@ -11,6 +11,8 @@ DEIT3_LIBRARY = {'version':'1.0.27','source_sha256':{
     'vision_transformer.py':'f0f453b75952698059a1e82fa283a7a9cf2cf2217c33fc2c9cb1efc06947f552'}}
 VIT_DINO3_VARIANT = 'vit_small_patch16_dinov3.lvd1689m'
 VIT_DINO3_FORMAT = 'timm-vits16-dinov3-native-state-dict-v1'
+VIT_DINO3_BASE_VARIANT = 'vit_base_patch16_dinov3.lvd1689m'
+VIT_DINO3_BASE_FORMAT = 'timm-vitb16-dinov3-native-state-dict-v1'
 VIT_DINO3_LIBRARY = {'version':'1.0.27','source_sha256':{
     'models/eva.py':'23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d',
     'layers/pos_embed_sincos.py':'8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914',
@@ -346,14 +348,18 @@ def validate_initialization(initialization):
             'source_url':meta['source_url'],'training_data':meta['training_data'],'source_commit':meta['revision'],
             'original_sha256':weight_sha,'final_norm_eps':1e-6,'internal_norm_eps':1e-6,
             'license_sha256':meta['license_sha256'],'native_library':meta['native_library']}
-    if initialization.get('format') == VIT_DINO3_FORMAT:
+    if initialization.get('format') in (VIT_DINO3_FORMAT,VIT_DINO3_BASE_FORMAT):
         from .experiment91 import public_source
+        base=initialization['format']==VIT_DINO3_BASE_FORMAT
+        model_name='vit_dino3_base' if base else 'vit_dino3_small'
+        variant=VIT_DINO3_BASE_VARIANT if base else VIT_DINO3_VARIANT
+        revision='c6a5fb7d12bbd3cf3b0079253141c3332aaed7da' if base else '3bf4720a82ec2066db88137180ff1f83a675cef0'
         source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
-        weight_sha='b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2'
-        provenance_sha='6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8'
+        weight_sha='ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1' if base else 'b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2'
+        provenance_sha='36847019b4a3e679749471376944fa45e59c75768fdcf39e9c40458194f52f0e' if base else '6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8'
         if (initialization['kind']!='self_supervised' or initialization.get('expected_backbone_state_keys')!=162
-                or source.get('kind')!='self_supervised' or source.get('model')!='vit_small_patch16_dinov3'
-                or source.get('format')!=VIT_DINO3_FORMAT or source.get('revision')!='3bf4720a82ec2066db88137180ff1f83a675cef0'
+                or source.get('kind')!='self_supervised' or source.get('model')!=variant.split('.')[0]
+                or source.get('format')!=initialization['format'] or source.get('revision')!=revision
                 or source.get('sha256')!=weight_sha or source.get('original_sha256')!=weight_sha
                 or source.get('provenance_sha256')!=provenance_sha or initialization.get('sha256')!=weight_sha
                 or not path.is_absolute() or not meta_path.is_absolute() or path.is_symlink() or meta_path.is_symlink()
@@ -363,7 +369,7 @@ def validate_initialization(initialization):
         if (meta['native_library']!=_vit_dino3_library() or license_path.is_symlink()
                 or _hash(license_path)!='25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'):
             raise ValueError('native DINOv3 ViT library/full license differs')
-        return {'kind':'self_supervised','model':'vit_dino3_small','format':VIT_DINO3_FORMAT,
+        return {'kind':'self_supervised','model':model_name,'format':initialization['format'],
             'weights_sha256':weight_sha,'provenance_sha256':provenance_sha,
             'source_url':meta['source_url'],'training_data':meta['training_data'],'source_commit':meta['revision'],
             'original_sha256':weight_sha,'final_norm_eps':1e-5,'internal_norm_eps':1e-5,
@@ -637,11 +643,14 @@ def _create_vit_dino3_binary(job, initialize=True):
     from torch import nn
     from .ema import tensor_digest
     library=_vit_dino3_library()
+    base=job['model']=='vit_dino3_base'
+    variant=VIT_DINO3_BASE_VARIANT if base else VIT_DINO3_VARIANT
+    features=768 if base else 384
     policy=job.get('vit_dino3_pool_policy')
     if policy is not None:
         from .config import VIT_DINO3_CLS_RULE
         if policy!=VIT_DINO3_CLS_RULE:raise ValueError('native DINOv3 CLS pool identity differs')
-    network=timm.create_model(VIT_DINO3_VARIANT,pretrained=False,img_size=512,num_classes=0,
+    network=timm.create_model(variant,pretrained=False,img_size=512,num_classes=0,
         global_pool='avg',drop_path_rate=job.get('stochastic_depth',.1),drop_rate=0.,device='cpu',dtype=torch.float32)
     public=None
     if initialize and job['initialization']['kind']!='random':
@@ -659,7 +668,7 @@ def _create_vit_dino3_binary(job, initialize=True):
     class ViTBinary(nn.Module):
         def __init__(self):
             super().__init__();self.network=network;self.native_library=library
-            self.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(384,1))
+            self.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(features,1))
         def forward(self,images,age_features=None):
             logits=self.classifier(self.network(images)).flatten()
             if hasattr(self,'age_weight'):
@@ -667,6 +676,7 @@ def _create_vit_dino3_binary(job, initialize=True):
                 return residual(self,logits,age_features)
             return logits
     result=ViTBinary()
+    if base:result.vit_dino3_variant=variant
     if policy is not None:result.vit_dino3_pool_policy=dict(policy)
     if job.get('age')is not None:
         from .age import attach_age
@@ -680,6 +690,9 @@ def describe_vit_dino3(model):
     import torch
     from .ema import tensor_digest
     network=model.network;buffers=dict(network.named_buffers());head=model.classifier[-1]
+    variant=getattr(model,'vit_dino3_variant',VIT_DINO3_VARIANT)
+    if variant not in (VIT_DINO3_VARIANT,VIT_DINO3_BASE_VARIANT):raise ValueError('native DINOv3 variant differs')
+    base=variant==VIT_DINO3_BASE_VARIANT;features=768 if base else 384
     policy=getattr(model,'vit_dino3_pool_policy',None)
     if policy is not None:
         from .config import VIT_DINO3_CLS_RULE
@@ -691,10 +704,11 @@ def describe_vit_dino3(model):
         'nonpersistent_buffers_sha256':tensor_digest(buffers),'head_shape':list(head.weight.shape),
         'head_dropout':model.classifier[0].p,'blocks':len(network.blocks)}
     if policy is not None:value['vit_dino3_pool_policy']=dict(policy)
+    if base:value['variant']=variant
     if (value['native_library']!=VIT_DINO3_LIBRARY or value['image_size']!=[512,512]
-            or value['patch_size']!=[16,16] or value['features']!=384 or value['num_prefix_tokens']!=5
-            or value['reg_token_shape']!=[1,4,384] or value['global_pool']!=('token' if policy is not None else 'avg')
-            or value['norm_eps']!=1e-5 or value['head_shape']!=[1,384] or value['head_dropout']!=.2
+            or value['patch_size']!=[16,16] or value['features']!=features or value['num_prefix_tokens']!=5
+            or value['reg_token_shape']!=[1,4,features] or value['global_pool']!=('token' if policy is not None else 'avg')
+            or value['norm_eps']!=1e-5 or value['head_shape']!=[1,features] or value['head_dropout']!=.2
             or value['blocks']!=12 or network.pos_embed is not None or not isinstance(network.head,torch.nn.Identity)
             or not isinstance(network.fc_norm,torch.nn.Identity) or set(buffers)!={'rope.periods'}
             or buffers['rope.periods'].shape!=(16,) or buffers['rope.periods'].dtype!=torch.float32
@@ -870,7 +884,7 @@ def create_model(job, initialize=True):
         return create_swin_binary(job, initialize=initialize)
     if job['model'] == 'deit3_small':
         return _create_deit3_binary(job, initialize=initialize)
-    if job['model'] == 'vit_dino3_small':
+    if job['model'] in ('vit_dino3_small','vit_dino3_base'):
         return _create_vit_dino3_binary(job, initialize=initialize)
     if job['model'] == 'caformer_s36':
         return _create_caformer_binary(job, initialize=initialize)

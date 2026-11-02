@@ -1,0 +1,17 @@
+{
+  "passed_targets": 3,
+  "targets": [
+    "test_deit3_model.ViTDINO3BaseCLSTest.test_base_native_CLS_oracle_RNG_age_and_config",
+    "test_deit3_model.ViTDINO3BaseCLSTest.test_base_CLS_P8_EMA_and_cold_graph",
+    "test_deit3_model.ViTDINO3CLSTest.test_native_CLS_oracle_default_None_RNG_age_and_config"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "runtime/bundle/retrain/config.py": "a7c6bb8ff504ef1fc04a28426607dac8ace81972f5f03a9d5062960d4372f4aa",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707"
+  },
+  "GPU_initialized": false,
+  "image_source": "synthetic_CPU_only"
+}

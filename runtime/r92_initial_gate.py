@@ -24,7 +24,7 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
     from retrain.experiment91 import candidate, validate_normalization, structure_contract
     require(expected['candidate'] == candidate()
             and expected['batch_norm_modules'] == candidate()['batch_norm_modules']
-            and expected['buffer_count'] == (structure_contract()['buffer_count'] if candidate()['model'] == 'vit_dino3_small'
+            and expected['buffer_count'] == (structure_contract()['buffer_count'] if candidate()['model'] in ('vit_dino3_small','vit_dino3_base')
                 else candidate().get('static_buffer_count', candidate().get('static_index_buffers', candidate()['batch_norm_buffers']))),
             'CPU expected candidate/noBN identity differs')
     require(type(expected_world) is int and expected_world == 8
@@ -189,7 +189,7 @@ def maybe_release(root, atomic, sha):
         'initial_files_sha256': {str(p.relative_to(root)): sha(p) for p in paths},
         'native_initial_blob': str(store.directory / record['file']), 'native_initial_blob_sha256': record['sha256'],
         'public_weights_reloaded_by_gate': False, 'new_model_created_by_gate': False, 'CUDA_initialized': False}
-    if expected['candidate']['model'] == 'vit_dino3_small':
+    if expected['candidate']['model'] in ('vit_dino3_small','vit_dino3_base'):
         receipt.update(persistent_buffer_count=persistent_count, persistent_buffer_sha256=persistent_sha)
     if ssl is not None:
         receipt['ssl_derived'] = ssl

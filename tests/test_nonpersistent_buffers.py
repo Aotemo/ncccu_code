@@ -8,10 +8,11 @@ sys.path.insert(0,str(ROOT/'runtime/bundle'))
 
 
 class NonpersistentBufferTest(unittest.TestCase):
+    science_file='R184-SCIENCE.json'
     def test_native_rope_real_EMA_copy_blend_freeze_and_cold_reload(self):
         from retrain import age,ema,experiment91 as ex,models,single91
         from retrain.persistence import CheckpointStore,canonical_digest,sha256_file
-        science=json.loads((ROOT/'configs/R184-SCIENCE.json').read_text())
+        science=json.loads((ROOT/'configs'/self.science_file).read_text())
         job=copy.deepcopy(science['job']);job.update(initialization={'kind':'random'},
             age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]}))
         warm=science['schedule']['warmup_updates']
@@ -63,6 +64,10 @@ class NonpersistentBufferTest(unittest.TestCase):
                     self.assertEqual(ex.describe_model(cold),normalization)
                     single91.validate_frozen_checkpoint(frozen,store.load('last'),origin)
             self.assertFalse(torch.cuda.is_initialized())
+
+
+class ViTBaseNonpersistentBufferTest(NonpersistentBufferTest):
+    science_file='R191-SCIENCE.json'
 
 
 if __name__=='__main__':

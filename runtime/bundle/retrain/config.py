@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'caformer_s36')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 ADAMW_BETA2_RULE = {'version':'adamw-beta2-095-v1','betas':[.9,.95],'eps':1e-8,
     'amsgrad':False,'scope':'all_existing_groups','algorithm':'torch.optim.AdamW'}
@@ -95,8 +95,10 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    if job.get('model')=='vit_dino3_base' and job.get('vit_dino3_pool_policy')!=VIT_DINO3_CLS_RULE:
+        raise ValueError('fixed native DINOv3 Base requires the CLS policy')
     if job.get('vit_dino3_pool_policy') is not None:
-        if (job['vit_dino3_pool_policy']!=VIT_DINO3_CLS_RULE or job.get('model')!='vit_dino3_small'
+        if (job['vit_dino3_pool_policy']!=VIT_DINO3_CLS_RULE or job.get('model')not in ('vit_dino3_small','vit_dino3_base')
                 or job.get('precision')!='fp32' or job.get('normalization')!='imagenet'
                 or (job.get('image_size'),job.get('prepared_size'))!=(512,512)
                 or (job.get('effective_batch'),job.get('positive_per_batch'))!=(64,8)
@@ -324,8 +326,9 @@ def validate_job(job):
                 and job.get('model') != 'resnet50_imagenet'):
             raise ValueError('DINO backbone format requires the registered R50 factory')
     elif init['kind'] == 'self_supervised':
-        if init.get('format')=='timm-vits16-dinov3-native-state-dict-v1':
-            if (job['model']!='vit_dino3_small' or job['normalization']!='imagenet'
+        if init.get('format')in ('timm-vits16-dinov3-native-state-dict-v1','timm-vitb16-dinov3-native-state-dict-v1'):
+            expected_model='vit_dino3_base' if init['format']=='timm-vitb16-dinov3-native-state-dict-v1' else 'vit_dino3_small'
+            if (job['model']!=expected_model or job['normalization']!='imagenet'
                     or job['image_size']!=512 or job['final_norm_eps']!=1e-5
                     or init.get('expected_backbone_state_keys')!=162
                     or not re.fullmatch('[0-9a-f]{64}',init.get('sha256',''))

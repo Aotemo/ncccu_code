@@ -1,0 +1,161 @@
+{
+  "scope": "R190_R191_same_family_Base_CLS_minimal_affected_CPU_evidence",
+  "at": 1793655878.7502544,
+  "passed_targets": 7,
+  "compiled_sources": 13,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/ema.py",
+    "runtime/bundle/retrain/fresh.py",
+    "runtime/bundle/retrain/single91.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/r92_initial_gate.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_deit3_model.py",
+    "tests/test_nonpersistent_buffers.py",
+    "tests/test_candidate_binding.py",
+    "tests/test_round_storage_policy.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "runtime/bundle/retrain/config.py": "a7c6bb8ff504ef1fc04a28426607dac8ace81972f5f03a9d5062960d4372f4aa",
+    "runtime/bundle/retrain/experiment91.py": "558ce1958b83732f4e7bf337df5a7879345f2d858a1dab25f118c7e3af8e6c61",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tools/validation/check_candidate.py": "cc64ec639b48f2615e8ed693e51c1c2721d89338e138699051f140a93caf47c6",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tests/test_candidate_binding.py": "57155d8e135ee887560b5ff2882cd47d6480fe96fd2adda92e9ac1ae90431709",
+    "tests/test_round_storage_policy.py": "c70f40080dbe3ebc5c0ad497b35afb6c434f233314525543f14e446d8ff05e0f",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "2e531942db871953ceb667a4a28839fc17d1c0da52292be51a6dca1a3eefcbd4"
+  },
+  "science_sha256": {
+    "R190-SCIENCE.json": "7fcf341895b74851988bd3a85704ebc87a0a11ee0bee2272353dd737377a089f",
+    "R191-SCIENCE.json": "f41f43a2f80fd93c1ffed36dc2a86bf1f22dc47a02610402850fbe25f310ef73"
+  },
+  "public_fresh": {
+    "R190": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-base-20261102-32e3/fresh/R190-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "1c8bd04d15b875dccb13d1cf10e6b770eb2821ac2d8fd68b38d6abad5c033e9f",
+      "model_tensor_sha256": "8c62435ac0c27cbbe3fa2dfd113386fb768582d3b877ee0e0eab13a374ba3427",
+      "parameter_tensors": 165
+    },
+    "R191": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-base-20261102-32e3/fresh/R191-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "bbb5e8d31a9264b8b07309640650114ee43d2634fc841d8f531f5b877c35c1fd",
+      "model_tensor_sha256": "c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325",
+      "parameter_tensors": 165
+    }
+  },
+  "evidence": [
+    {
+      "label": "transport_order_old_test_snapshot",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-77axtw6o/CPU-RECEIPT.json",
+      "sha256": "7d2554199fe6b5c300ce932f5e40dfd58df53fec91eacc4270e18f7125a17c3e",
+      "exit_code": 1,
+      "output_sha256": "c7f3b6399633675ab4bdcf4e5bf36e03fce087642bb69a0d06db5280dabea73e"
+    },
+    {
+      "label": "actual_native_width_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-w82b_1oh/CPU-RECEIPT.json",
+      "sha256": "dcb06f0021106b4a7893469c07f4ab9b6cc5eacde061f96b95f9c4900a4206ee",
+      "exit_code": 1,
+      "output_sha256": "342c00f13bdb8c470659f3fbe2ac7379f1d9e5c95f19290567fa5668da81ce8d"
+    },
+    {
+      "label": "three_model_targets_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6sbt5vtu/CPU-RECEIPT.json",
+      "sha256": "781736f166df952591b27d74d5cd55f7d3c69ac472273ee895958daf254e2e92",
+      "exit_code": 0,
+      "output_sha256": "344212637834004675cf1a8bda52e2717bfe42b7a38f50cb6cec47e350659c01"
+    },
+    {
+      "label": "private_two_science_drafts",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ypyxe2wf/CPU-RECEIPT.json",
+      "sha256": "b07d966e164752b11c8ca07482729272747495d92c4fa83862a2e8d2c3191f23",
+      "exit_code": 0,
+      "output_sha256": "f003beb38dd679986ba1b70c56b4eaaa72a6a3ef7b7e4c6add808988bd53e1dc"
+    },
+    {
+      "label": "two_actual_public_fresh_and_noBN_EMA",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-r2hy4d78/CPU-RECEIPT.json",
+      "sha256": "f44caa6592b0f68e0b27693b8784913909d387cf37ef878f09e9bdc6813f4f8a",
+      "exit_code": 0,
+      "output_sha256": "fa44f3885ea18d2a6009124300b855eaaeca7505ca4faf2d3bb044a1a7d2738f"
+    },
+    {
+      "label": "two_nonpersistent_and_one_identity_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-zomn7j_h/CPU-RECEIPT.json",
+      "sha256": "44041ccea72a8b62dfe006978c6b78149fd52b956405d535acbd30d60cea9dce",
+      "exit_code": 0,
+      "output_sha256": "733b6710bf560243b2e6dc281a1e8efc468c2dea7de1f535e70c50d03bc9b1dd"
+    },
+    {
+      "label": "new_storage_function_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6nbxv49e/CPU-RECEIPT.json",
+      "sha256": "caf3a89c7cb8529b82d14393effc854fe89d9c3e86e5e8d7cef691f139788ec5",
+      "exit_code": 0,
+      "output_sha256": "774d1086a37de6d8b9e2865f12621648cb23ee1c9a1e8f5919ee23e907dcf70c"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d"
+  },
+  "previously_unchanged_now_affected": [
+    "fresh",
+    "ema"
+  ],
+  "native_model_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-base-20261102-32e3/MODEL-CHECKS.json",
+    "sha256": "402836eba11c32360dfadc5e56f767c9c455aaade3a8520bef8ebb80d78f61e3"
+  },
+  "remaining_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-base-20261102-32e3/REMAINING-CHECKS.json",
+    "sha256": "347ebb6912b731f944fc8b3313de76cc6a3424687f55e023433da20aa3f22d31"
+  },
+  "capacity_scenario": {
+    "scenario": "8_existing_full_model_EMA_Adam_blobs_plus_initial_plus_one_atomic_new_blob",
+    "actual_parameter_elements": 85641987,
+    "float32_bytes": 4,
+    "full_blob_tensor_copies": 4,
+    "initial_blob_tensor_copies": 2,
+    "tensor_payload_bytes_per_full_blob": 1370271792,
+    "existing_8_full_plus_initial_tensor_bytes": 11647310232,
+    "plus_one_atomic_new_blob_tensor_bytes": 13017582024,
+    "old_default_bytes": 12884901888,
+    "new_exact_round_bytes": 17179869184,
+    "free_floor_bytes_unchanged": 17179869184,
+    "includes_metadata_or_all_failure_concurrency_peaks": false,
+    "actual_16GiB_GPU_success_proven": false
+  },
+  "budget_scenarios": {
+    "scenario": "observed_ViTS_dispatch_inclusive_rate_projected_to_full24k_with_width_squared_operation_ratio",
+    "reference_elapsed_seconds": 1811.055598974228,
+    "reference_successes": 7200,
+    "projected_successes": 24000,
+    "width_squared_operation_ratio": 4,
+    "projected_train_seconds": 24147.40798632304,
+    "train_soft_seconds": 27750,
+    "clock_total_seconds": 31500,
+    "early_stop_assumed": false,
+    "GPU_kernel_runtime_ratio_or_latency_bound_proven": false,
+    "CPU_storage_is_DCU_peak_bound": false
+  },
+  "source_public_strict_reused_by_exact_source_and_asset_SHA": true,
+  "runtime_GPU_or_AUROC_success_proven": false,
+  "new_formal_clock_created": false,
+  "GPU_started": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

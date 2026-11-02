@@ -21,6 +21,46 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R190_R191_fixed_CLS_source_capacity_and_saved_job_identity(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
+        baseline=json.loads((ROOT/'configs/R189-SCIENCE.json').read_text())
+        for label,order,seed,model,features in(('R190',103,20261027,'vit_dino3_small',384),('R191',104,20261029,'vit_dino3_base',768)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            self.assertEqual(science['candidate']['experiment_order'],order)
+            self.assertEqual((science['job']['model'],science['job']['seed'],science['candidate']['features']),(model,seed,features))
+            self.assertEqual(science['candidate']['vit_dino3_pool_policy'],config.VIT_DINO3_CLS_RULE)
+            for key in('schedule','early_stopping','data_split','official_evaluation','initial_buffer_sha256'):
+                self.assertEqual(science[key],baseline[key])
+            self.assertEqual({k:v for k,v in science['job'].items()if k not in('name','model','seed')},
+                {k:v for k,v in baseline['job'].items()if k not in('name','model','seed')})
+            if label=='R190':
+                for key in('public_source','public_asset_receipt','structure','paths'):self.assertEqual(science[key],baseline[key])
+            else:
+                self.assertEqual(science['public_source']['revision'],'c6a5fb7d12bbd3cf3b0079253141c3332aaed7da')
+                self.assertEqual(science['public_source']['sha256'],'ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1')
+                self.assertEqual(science['public_source']['format'],'timm-vitb16-dinov3-native-state-dict-v1')
+                expected=copy.deepcopy(baseline['structure']);expected.update(features=768,backbone_parameters=85641216)
+                self.assertEqual(science['structure'],expected)
+                self.assertEqual({k:v for k,v in science['paths'].items()if k not in('public_weight','public_provenance')},
+                    {k:v for k,v in baseline['paths'].items()if k not in('public_weight','public_provenance')})
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':'self_supervised','format':science['public_source']['format'],
+                        'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance'],'expected_backbone_state_keys':162})
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual((experiment.candidate()['experiment_order'],job['seed']),(order,seed))
+                wrong=copy.deepcopy(job);wrong.pop('vit_dino3_pool_policy')
+                with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                wrong=copy.deepcopy(science);wrong['public_source']['revision']='0'*40
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
     def test_R188_R189_fixed_native_CLS_policy_and_mean_seed27(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})

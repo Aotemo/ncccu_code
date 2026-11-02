@@ -32,7 +32,7 @@ def immutable_buffer_contract(normalization):
     ex.validate_normalization(normalization)
     # Native RoPE is reconstructed and checked in the live model description;
     # its nonpersistent buffer is deliberately absent from checkpoint state.
-    digest = tensor_digest({}) if ex.candidate()['model'] == 'vit_dino3_small' else normalization['buffer_sha256']
+    digest = tensor_digest({}) if ex.candidate()['model'] in ('vit_dino3_small','vit_dino3_base') else normalization['buffer_sha256']
     return immutable_buffer_count(), digest
 
 

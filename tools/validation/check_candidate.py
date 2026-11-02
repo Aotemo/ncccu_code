@@ -86,7 +86,7 @@ def main(args):
     is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,*ex.VIT_DINO3_BINDINGS)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
     is_deit = job['model'] == 'deit3_small'
-    is_vit_dino3 = job['model'] == 'vit_dino3_small'
+    is_vit_dino3 = job['model'] in ('vit_dino3_small','vit_dino3_base')
     is_caformer = job['model'] == 'caformer_s36'
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
