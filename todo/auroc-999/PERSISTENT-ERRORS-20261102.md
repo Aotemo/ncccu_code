@@ -31,6 +31,6 @@
 - [x] 一次分析固定14个完整模型的现成selected预测，全部身份/指标匹配，封存图像抽样名单。
 - [x] 实际查看32张难图与对照及原图/512详细对照；对16张既定难图复核原裁剪函数，精确分解固定20/其余147的配对修复/新增。聚合结论归入[records](../../records/analysis/20261102-persistent-errors/README.md)。
 - [x] 将单条可证伪优化交唯一owner并获接纳：fit批内`0.5×原8正例均值+0.5×最难2正例均值`，全部448pairs保留，不用dev名单，不新增模型forward。
-- [ ] owner完成R152/R154既定接续后，登记该新独立fresh合同及必要最小实现/CPU证据；本会话不越界改runtime/config/GPU，没有新训练结果不声称优化有效。
+- [x] owner完成R152/R154接续后已登记[R155/R156](R155-R156-PREPARATION.md)，完成最小新loss及6目标/6compile的[CPU证据](../../records/preparation/hard-positive-20261102/README.md)。分析会话未越界改runtime/config/GPU；实际Git/技术包由owner继续，尚无新训练收益。
 
-当前状态：14轮现成预测与32图分析完成，真实回执及聚合结论交32e3唯一Git写入者。发现稳定难例，但无单一图像根因；训练优化只获接纳为下一独立假设，尚未实施或获得新收益。逐例资料只在exp-v3，不改旧selected/clock/grant，不改变官方隔离和现有GPU接续。
+当前状态：14轮现成预测与32图分析已由32e3实际同步Git6629b9e并远端回读。稳定难例没有单一图像根因；下一独立fresh损失已完成最小实现和CPU验证，未训练或获得新收益。逐例资料只在exp-v3，不改旧selected/clock/grant，不改变官方隔离和现有GPU接续。

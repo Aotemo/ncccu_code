@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
+from .classification_loss import PAIR_HARD_POSITIVE_LOSS
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
@@ -55,6 +56,8 @@ GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9
 GLOBAL_768_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-global768-v1'
 GLOBAL_768_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-global768-v1'
 SWIN_V2_SMALL_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+SWIN_V2_SMALL_SEED27_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+HARD_POSITIVE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-positive-top2-mix05-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -77,7 +80,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                       NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                       GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
-                      GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING)
+                      GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
+                      SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -165,7 +169,8 @@ def science_configuration():
                                                        GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                                        NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                                                        GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
-                                                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING)
+                                                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
+                                                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING)
@@ -264,6 +269,17 @@ def science_configuration():
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
+                or (value.get('candidate_profile') == HARD_POSITIVE_SMALL_BINDING
+                    and (value.get('job', {}).get('loss') != PAIR_HARD_POSITIVE_LOSS
+                         or (value['job'].get('image_size'),value['job'].get('prepared_size')) != (512,512)
+                         or (value['job'].get('effective_batch'),value['job'].get('positive_per_batch')) != (64,8)
+                         or value['job'].get('seed') != 20261029
+                         or any(value['job'].get(key) is not None for key in
+                                ('input_preprocessing','optimizer_policy','gradient_centralization_policy',
+                                 'mixstyle_policy','tri3_downsample_policy','low_rank_policy','layerwise_lr_policy',
+                                 'output_regularization','head_warmup_policy','gradient_clip_policy','attention_pool',
+                                 'stage3_residual','training_views','training_rotation','training_photometric',
+                                 'freeze_features_before','final_downsample_stride'))))
                 or (value.get('candidate_profile') == PHOTO_IDENTITY_SMALL_BINDING
                     and (value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
                          or value.get('job', {}).get('training_photometric') != 'identity-v1'))
@@ -393,7 +409,7 @@ def candidate_from_configuration(value):
                                         GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                         NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                                         GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
-                                        GLOBAL_768_SMALL_SEED27_BINDING):
+                                        GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -538,6 +554,9 @@ def candidate_from_configuration(value):
         if value['candidate_profile']==GLOBAL_768_SMALL_SEED27_BINDING:
             expected.update(id='r153-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-global768-9010',
                             experiment_order=65)
+        if value['candidate_profile']==HARD_POSITIVE_SMALL_BINDING:
+            expected.update(id='r156-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-positive-top2-mix05-9010',
+                            experiment_order=68)
     elif value['candidate_profile'] == BASE_BINDING:
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
@@ -546,7 +565,7 @@ def candidate_from_configuration(value):
             'batch_norm_buffers': 0, 'attention_pool': None,
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
-    elif value['candidate_profile'] in (SWIN_BINDING,SWIN_V2_SMALL_BINDING):
+    elif value['candidate_profile'] in (SWIN_BINDING,SWIN_V2_SMALL_BINDING,SWIN_V2_SMALL_SEED27_BINDING):
         expected = {'id': 'r117-swin-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 27, 'model': 'swin_base', 'public_revision': source['revision'],
             'readout': 'native_final_LN_gap_dropout_linear_plus_age', 'features': 1024,
@@ -554,9 +573,12 @@ def candidate_from_configuration(value):
             'batch_norm_modules': 0, 'batch_norm_buffers': 0, 'static_index_buffers': 24,
             'attention_pool': None, 'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
-        if value['candidate_profile']==SWIN_V2_SMALL_BINDING:
+        if value['candidate_profile'] in (SWIN_V2_SMALL_BINDING,SWIN_V2_SMALL_SEED27_BINDING):
             expected.update(id='r154-swin-v2-small-imagenet1k-24k-p4-seed20261029-scale085-pairlog-9010',
                             experiment_order=66,model='swin_v2_small',features=768,static_buffer_count=48)
+            if value['candidate_profile']==SWIN_V2_SMALL_SEED27_BINDING:
+                expected.update(id='r155-swin-v2-small-imagenet1k-24k-p4-seed20261027-scale085-pairlog-9010',
+                                experiment_order=67)
             if (source.get('model')!='swinv2_small_window8_256'
                     or source.get('revision')!='db3a0c7e5d97487e7e874c943838569b84fe8e54'
                     or source.get('training_data')!='ImageNet-1K'

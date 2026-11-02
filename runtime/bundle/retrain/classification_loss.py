@@ -8,9 +8,18 @@ OUTPUT_REGULARIZATION_RULE = {
 }
 
 
-PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid')
+PAIR_HARD_POSITIVE_LOSS = {
+    'version': 'binary-pairwise-logistic-positive-top2-mix05-v1',
+    'kind': 'binary_pairwise_logistic_hard_positive', 'temperature': 1.0,
+    'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
+    'top_positive_count': 2, 'hard_positive_weight': .5,
+    'tie_break': 'WORLD_positive_order_stable',
+}
+PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid',
+                       PAIR_HARD_POSITIVE_LOSS['kind'])
 _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
-                          'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1'}
+                          'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1',
+                          PAIR_HARD_POSITIVE_LOSS['kind']: PAIR_HARD_POSITIVE_LOSS['version']}
 
 
 def validate_loss(specification):
@@ -19,6 +28,10 @@ def validate_loss(specification):
     if isinstance(specification, dict) and specification.get('kind') in PAIRWISE_LOSS_KINDS:
         fields = {'version', 'kind', 'temperature', 'reduction', 'dtype', 'scope'}
         kind = specification['kind']
+        if kind == PAIR_HARD_POSITIVE_LOSS['kind']:
+            if specification != PAIR_HARD_POSITIVE_LOSS or type(specification.get('top_positive_count')) is not int:
+                raise ValueError('hard-positive loss requires the fixed top2/mix05/stable-WORLD contract')
+            fields = set(PAIR_HARD_POSITIVE_LOSS)
         if (set(specification) != fields
                 or specification['version'] != _PAIRWISE_LOSS_VERSIONS[kind]
                 or specification['reduction'] != 'mean' or specification['dtype'] != 'float32'
@@ -85,6 +98,14 @@ def classification_loss(logits, targets, specification=None):
         scaled = differences / specification['temperature']
         if specification['kind'] == 'binary_pairwise_logistic':
             return F.softplus(scaled).mean()
+        if specification['kind'] == PAIR_HARD_POSITIVE_LOSS['kind']:
+            if (positives.numel(), negatives.numel()) != (8, 56):
+                raise ValueError('fixed hard-positive loss requires complete WORLD G64P8 inputs')
+            per_positive = F.softplus(scaled).mean(dim=1)
+            # WORLD gather preserves positive order; stable sort fixes tie subgradients.
+            hardest = torch.sort(per_positive, descending=True, stable=True).values[:specification['top_positive_count']]
+            weight = specification['hard_positive_weight']
+            return (1. - weight) * per_positive.mean() + weight * hardest.mean()
         return 2. * torch.sigmoid(scaled).mean()
     bce = F.binary_cross_entropy_with_logits(logits.float(), targets.float(), reduction='none')
     gamma = float(specification['gamma'])

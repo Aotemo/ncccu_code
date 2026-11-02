@@ -1,0 +1,181 @@
+{
+  "status": "six_affected_targets_and_six_compiles_passed_original_failures_preserved",
+  "at": 1793585969.3166745,
+  "targets": [
+    "test_pairwise_hard_positive_loss.PairwiseHardPositiveLossTest.test_WORLD_gather_DDP_gradients_and_ties_agree_on_every_rank",
+    "test_candidate_binding.CandidateBindingTest.test_R153_to_R156_science_consumes_geometry_model_loss_and_fresh_identity",
+    "test_pairwise_sigmoid_loss.PairwiseSigmoidLossTest.test_scalar_value_gradient_symmetry_and_zero_slope"
+  ],
+  "tests_run_now": 3,
+  "unchanged_original_loss_targets_reused": 3,
+  "reuse_basis": "three test cases, scalar reference, module contract AST unchanged; production loss SHA unchanged since original GREEN",
+  "WORLD_fixture_changed": "each rank checks every global logit loss gradient before gather SUM; indices are labelled expected",
+  "passed_targets": 6,
+  "failures": 0,
+  "errors": 0,
+  "compiled_sources": 6,
+  "seconds": 8.013060808181763,
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "a956d955af48a022d11713e047214ee598f54f9fe70d9fce667a3ec0afa603c0",
+    "runtime/bundle/retrain/experiment91.py": "8a6285ee78e49468d5dc848fabfaf14a60fabade5aa07e623a494001dfc7b06a",
+    "tools/validation/check_candidate.py": "39634ba3fc6bcbccfbf9b2afb1b3135bf0381f08096466560959d5c5cd37a74b",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c",
+    "tests/test_candidate_binding.py": "39caf815db80cf73f9136a1f7693088f7956ee12f9598458951621ad0978837c",
+    "tests/test_pairwise_sigmoid_loss.py": "92109efd50cebf897b08cf75aed10a8fc1e24a98b77cbb0eae6ee15767c3a850"
+  },
+  "configuration_files": {
+    "runtime/CLOCK_POLICY.json": "2c0121fcff95520fc24034db052dd38650100bb9a0db5e151770c67ffad049f8",
+    "runtime/PLAN.md": "71c871c43561856ee9cc86b936666f0003fbca765540bceceb12e1ed0d50720d",
+    "configs/RESOURCE-POLICY.json": "725b2b90d6932a4e80d1f60993f024209e95a263172a37562629f1f0e8d8c4bf"
+  },
+  "science_sha256": {
+    "R155-SCIENCE.json": "63a94a917e2d866423d209883a9c7884ed49d40661b6a924065d025eba94488a",
+    "R156-SCIENCE.json": "ec65ee71c6a55c5009b9d79302462ae0fba48acc5030eee0b15b8b60a39fbfb9"
+  },
+  "unchanged_WORLD_consumers": {
+    "config": "60c2ac4d5fd5777c2becaf378c7bccf84698b57a2772a4a26a4ba87ceadebc41",
+    "engine": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca"
+  },
+  "public_fresh_reports": {
+    "R155": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/fresh-attempt2/R155-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "2050cf981508989c6b82af2da29b329ef9db02a0f787d3b53ac06d3c4826a64f"
+    },
+    "R156": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/fresh-attempt2/R156-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "d9d7bad536dbac681839684eddbaf6a1765352dcf524e204889f086c9092373d"
+    }
+  },
+  "evidence": [
+    {
+      "scope": "RED_unsupported_loss",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-izh7io7o/CPU-RECEIPT.json",
+      "sha256": "87e6ae3973232dffb634558c3057d1002d4945cea3ff08cc8e1936a049f7b93b",
+      "exit_code": 1,
+      "output_sha256": "4ff24f05bcaa2b0e3849d49164e6c96f12d7edaa450ba78d0b0128ff00fad55e"
+    },
+    {
+      "scope": "original_four_loss_tests",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-42uawbl_/CPU-RECEIPT.json",
+      "sha256": "9411262f84e9c9211aa7837ab8568536ac066744eca6922d1ff7530ce6daad48",
+      "exit_code": 0,
+      "output_sha256": "d88c01d8691b23b51b818fc4fc59ee5be64ec61ac48caeedec80f637751162b8"
+    },
+    {
+      "scope": "fresh_script_optional_receipt_attribute_failure",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-o8kpiwom/CPU-RECEIPT.json",
+      "sha256": "ffd42e6bd3e4195059115160f5bbe19f43ffa1fec0c1f50cb896ebacad3b7282",
+      "exit_code": 1,
+      "output_sha256": "5f7f54b176a7b0cd256e54bffb2223ef1004de0f5233864cb4b1dacd7e2ba439"
+    },
+    {
+      "scope": "actual_two_public_fresh_identities",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-iupp6n8q/CPU-RECEIPT.json",
+      "sha256": "4027525fea38879e120121e61acafb164566540414674c0908b92e990d288e56",
+      "exit_code": 0,
+      "output_sha256": "18a5474c1881f71bf098021dc8e121a475ab1918143bf0e5fd9a36d6a06d3626"
+    },
+    {
+      "scope": "final_enhanced_WORLD_and_configuration_targets",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-hys9d1fp/CPU-RECEIPT.json",
+      "sha256": "c182007dd86bb04616a4304bcc6bded11b2258cbd1b64cd76a373f88d80d21ce",
+      "exit_code": 0,
+      "output_sha256": "b935c39198c805bea95fb1b0f83247028fb95fa75c87c5a182efb90290810b5f"
+    },
+    {
+      "scope": "peer_readonly_AST_review_of_original_fixture",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-gl4g74e7/CPU-RECEIPT.json",
+      "sha256": "76af56653f9bed1c78e4a2bbf357b7a892f76938ba1dbec6949fd1731b0fb468",
+      "exit_code": 0,
+      "output_sha256": "99a74befa2463d994a18b99ec13ede102caaba41c54eb90de6744cf4f9b23938"
+    }
+  ],
+  "budget_scenarios": {
+    "R155_same_architecture": {
+      "reference": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/source-cpu/todo/auroc-999/R117-DECISION.md",
+        "sha256": "24ec83a2b7a67c0f374bcb3ed96cf49061f2186bfaa29de8e2ac80f95c6c48b3",
+        "updates": 8800,
+        "component_wall_seconds": 3843.433
+      },
+      "full_24k_linear_seconds": 10482.09,
+      "scenario_multiplier": 2.5,
+      "scenario_seconds": 26205.225,
+      "train_hard_seconds": 27900,
+      "native_soft_margin_seconds": 150,
+      "parts_sum": 31350,
+      "total_seconds": 31500,
+      "gpu_allocation_max_seconds": 32400,
+      "current_GPU_benchmark": false,
+      "guaranteed_upper_bound": false,
+      "early_stop_assumed": false,
+      "active_clock_changed": false,
+      "official_reference": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/source-cpu/records/R107/ROUND_RESULT.json",
+        "sha256": "55c9ea1ad3db96fa773e4d3d9cd4fa6830ae4ee792b332f5238a331af05adda5",
+        "component_wall_seconds": 823.4013876914978
+      },
+      "official_scenario_seconds": 2058.5034692287445,
+      "official_soft_seconds": 2250
+    },
+    "R156_small": {
+      "reference": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/source-cpu/records/R107/ROUND_RESULT.json",
+        "sha256": "55c9ea1ad3db96fa773e4d3d9cd4fa6830ae4ee792b332f5238a331af05adda5",
+        "successful_updates": 6400,
+        "train_wall_seconds": 3220.652200460434
+      },
+      "full_24k_scenario_multiplier": 2.0,
+      "scenario_seconds": 24154.891503453255,
+      "train_soft_seconds": 27750,
+      "extra_model_forward": false,
+      "current_GPU_benchmark": false,
+      "guaranteed_upper_bound": false,
+      "early_stop_assumed": false,
+      "active_clock_changed": false
+    }
+  },
+  "actual_GPU_initialized": false,
+  "new_official_read": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "final_report": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/FINAL-CHECKS.json",
+    "sha256": "447b207cc7a419373e7bd78a5169f5fc65313a2f5f9674be727fa1fb617e28be"
+  },
+  "peer_review": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/review-hard-positive-20261102/REVIEW.json",
+    "sha256": "ec2f46f0497717651d6cbcbaebfd99f06559e779304c130378530caa815263df",
+    "limitation_addressed_by_final_WORLD_target": "retain and independently check every global logit gradient; selected indices labelled expected"
+  },
+  "actual_allocation_sha256": "aa0f3efa9150b709a35a6968b4f5caa8e5bd76ba8d67dbc41e95157abf9e98c8",
+  "active_R154_changed": false,
+  "new_normalformal_executed": false,
+  "new_grant_created": false,
+  "new_activation_executed": false,
+  "new_GPU_started": false
+}

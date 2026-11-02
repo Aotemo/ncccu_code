@@ -65,7 +65,7 @@ L = 0.5 × mean(全部8个 l_p) + 0.5 × mean(最大的2个 l_p)
 
 这是可证伪的训练假设，**尚未证明模型对难例优化不足是根因**。困难样本可能含标注不确定性，增加权重也可能放大噪声或伤害其余147正例；保留一半原均值并不能保证避免这些问题。R100的BCE focal阴性也不能被忽略，本次差别仅在保留配对排序目标与原全部配对。
 
-唯一执行owner32e3已接纳为R154既定队列之后的一条独立fresh准备；本分析会话未改runtime/config/GPU，尚无该假设的新SCIENCE、实现验收、训练或收益。按[本次任务](../../../todo/auroc-999/PERSISTENT-ERRORS-20261102.md)继续交接，不把登记写成优化有效。
+唯一执行owner32e3已接纳为R154既定队列之后的独立fresh R156，并完成[新SCIENCE、最小实现及6目标/6compile的CPU证据](../../preparation/hard-positive-20261102/README.md)，包括真实WORLD逐logit和参数梯度；本分析会话未改runtime/config/GPU。尚未正式训练，没有收益证据，不把实现验收写成优化有效。
 
 ## 执行证据
 
