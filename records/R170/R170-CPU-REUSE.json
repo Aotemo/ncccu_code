@@ -1,0 +1,27 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/baseclip-20261102-32e3/source-git/records/preparation/baseclip-20261102/CPU-CHECKS.json",
+    "sha256": "2e0779851c85dfdce874f1bc3cbd7537feb7fa36c712a0f9ccf1b3a716b3a7da"
+  },
+  "source_files": {
+    "tools/pretraining/base_source.py": "d839ceefc6713c8dfc6af355acb4e17771154a2eadce724add06b5ed240272e0",
+    "tools/pretraining/base_strict.py": "67fb2c07992710c96631d482643d96225def82daa57d06d2d97e292610ca395f",
+    "runtime/bundle/retrain/models.py": "61829d03b0faf6234eb2bbbb8de459b216ffa4ddedb02bfc3259c65f4a3d3d37",
+    "runtime/bundle/retrain/experiment91.py": "5f4aa68e4c0519ad872db593eb82d5d2d6343e3a2e490c09b6223d2a46caacce",
+    "tests/test_candidate_binding.py": "9b25ccfa32de073ccf663350907c666e4eab73391b8a2222e9aeb54257ec8fe7",
+    "runtime/bundle/retrain/config.py": "9bff741eb994a8ea6ed2a7f4468837b4468a4409df9c9194cfeb0d457a2ebf09",
+    "runtime/bundle/retrain/engine.py": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "runtime/bundle/retrain/inference.py": "3210bbeff465e9b6580469bf92c51313c2c4df3dd5d425a7f844959856ff6759",
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "tools/validation/check_candidate.py": "d48a4b6a309ec4757cf11e5243e80f65effa87b3e922a72d70fc58aa82d6f9a0",
+    "tests/test_adamw_policy.py": "49261944e6e377c4db2f094939891ad92862b3dc0c89d9c66b3b3a0786d307f3",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "science_sha256": "5a91dada7391b7e1aea7e085dd0624cb0fdc90138c9c70ee96b61c620981a01b",
+  "targets_reused": 1,
+  "loss_WORLD_targets_reused": 6,
+  "tests_rerun": false,
+  "at": 1793608532.4526925
+}

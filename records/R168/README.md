@@ -1,5 +1,9 @@
 # R168：固定原生 AdamW beta2=.95
 
+已完整收口：[结果](R168-RESULT.json)、[原始终态](R168-COMPLETION.json)和[CPU回执](R168-CPU-COMPLETION.json)记录6400 success=attempt/0skip/eval8/bad4，唯一EMA c4@3200 AUROC `.9871738525763675`、AP `.8265179309135852`、error_twice21304。严格低于R107/R120，两门false，关闭本固定beta2=.95配方，不扫beta/LR/seed；R169无资格且未normalformal/activation/GPU。
+
+官方按`.996`政策未跑，freeze.status原null保留；owner同start的Z、8rank缺席、锁/设备使用者空、8PCI busy0且actualsafe。结果SHA `f9b8c8bfc5e4825c01b099e7be081461505b479b598ee38068f83fd0970793b7`，原终态SHA `50f9ef5106b797d29d6d48df51001a67dadf19719c02d107d335ff585d04aa15`；未加载权重、新forward或重复旧safe。原2683冻结、clock/token/grant/selected依赖均保持，独立R170已按预定分支接续。下文为启动阶段记录。
+
 [真实八rank首成功](R168-START.json)记录25 success=attempt/0skip/eval0，345全训/5空Adam/whole50c与正常formal匹配，原WORLD8/G64P8/448pairs、首自然25 loss `.6512339115142822`有限。八rank进程/start/argv、8PCI、控制112–119与rank24–111共96核均匹配。首成功guard `e1064bee92ceb963f999406099714270f863ffeb4d8166a292bdce0465d2fe80`；不是CPU或独立GPU预演替代实际训练。
 
 运行Git `2683a8abb4fa72be7c612a14d17aeb1153510924` / tree `c23226b64e00a9fca02040774c986feafb3f601b`，SCI `d71e02eb026b8f4d689878ba653cc6d502bcedd858c5e04cb727f573e9ca2266`、SITE7ab53ce9；[唯一正常formal](R168-PREPARATION.json)19/19、94.032秒，精确部署18.185秒，一次activation/direct launch0。五组betas(.9,.95)/eps1e-8/amsgradFalse为正常CPU实测，GPU首成功未额外逐rank记录矩状态或betas；原构造源码与保存job经过实际部署核验。
