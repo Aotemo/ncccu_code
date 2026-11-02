@@ -10,4 +10,8 @@ R170运行冻结58bc761保持不变。本次只准备其后的R171条件同CLIP 
 
 CPU P8保存tensor storage去重16,694,105,280字节不是DCU峰值或吞吐证明。输入像素面积比2.265625也不是性能上界：按既有R168 first25→6400完成元数据粗估24k为25,851秒，×1.25情景为32,314秒，超过原train hard27,900秒；原时钟/准入不扩限，完整24k可能受deadline截断。checkpoint形状不变，磁盘存储预算与VRAM分开核对。临床ROI、根因或AUROC收益尚未证明，完整内部AUROC为主，官方隔离及raw .999目标保持。
 
-原件在exp-v3独立`technical-prep/quadrant-mil-20261102-32e3`，准备dca3根0–22/23核、peer23/1核与活跃训练24–119/96核互斥。本次尚未新normalformal、grant、clock、activation或GPU；Git同步、技术包和正常CPU验收另按真实完成状态更新。
+源码实际Git为`1859670356f1068ce57726b6e072485959154d4b`/tree`216951f23b3bb81e2c3a26357dc90a750c210d55`，已push/回读并精确部署。[两技术包](NEXT-READY.json)与[CPU整树](CPU-TECHNICAL-READY.json)exit0；独立后备R172在R170训练期间完成[正常formal18/18与部署](R172-PREPARATION.json)，一次28.855秒，[guard](R172-CPU-PREPARE.json)exit0，345全训/5空组/whole50c匹配。[受影响CPU证据精确复用](R172-CPU-REUSE.json)，没有重复跑已通过目标。尚无新grant、clock、activation或GPU；完整R170双门与actualsafe后才选唯一分支，R171尚未normalformal。
+
+既有peer仅CPU23静态窄核六源码实际SHA一致，未发现阻断；没有独立复跑测试/模型/数据。其guard原件为dca3任务`a4e26231-4059-407f-b171-98e65362ec47-_5ch4zzd/CPU-RECEIPT.json`，SHA`43837689936a1b4ec4bf1f051d6fa2f89f090c03be7d582e5350121ce001f264`、exit0。初始化RNG保持的证据不代表训练RNG轨迹相同：额外一次network调用会消费原Dropout/StochasticDepth随机数，并改变实际计算和随机正则化过程。
+
+原件在exp-v3独立`technical-prep/quadrant-mil-20261102-32e3`，准备dca3根0–22/23核、peer23/1核与活跃训练24–119/96核互斥。R170冻结58bc761不因这次源码/准备更新而改动。

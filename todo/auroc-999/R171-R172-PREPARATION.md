@@ -12,6 +12,6 @@ R172只改一个图像级读出。对同一最终增强/归一化后的512张量
 
 - [x] 在独立technical-prep先用实际helper/模型路径观察必要RED，再最小实现。独立值与x/w/b梯度oracle覆盖非同分及同分但零空间特征不同的窗口，确认实际tie梯度而非仅参考index。
 - [x] 实际public fresh/None兼容/RNG/原参数对象与345张量、5空组、P8有限反传、EMA图及真实CheckpointStore→inference冷图验证；原loss/WORLD按相关源码完全相同复用。3目标/6编译、原CORE资源超限与修正后guard0原件见[实际CPU证据](../../records/preparation/quadrant-mil-20261102/README.md)。
-- [ ] 模型/局部计算预算、源码Git同步回读、技术包及后备正常CPU在R170训练期间准备；完整R170决定唯一分支，actualsafe后一次串行GPU接续。
+- [x] 模型/局部计算预算、源码Git1859670/tree216951f同步回读、两技术包及独立后备R172正常CPU18/18/精确部署在R170训练期间完成；尚无新grant/clock/GPU，完整R170决定唯一分支，actualsafe后一次串行GPU接续。
 
 窗口288、顺序、同分规则和.5均一次固定，不用dev样本名单/逐例分数/官方设值。完整内部AUROC是主判；完整selected≥.996才官方一次，raw .999未达。

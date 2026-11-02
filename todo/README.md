@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**09:49实观R170 running4950 success=attempt/0skip/eval6/bad2，EMA暂best c4@3200 AUROC `.9855170013883353`，八rank活跃。** 原58bc761冻结保持；后续Git1859670/tree216951f已push/回读，[两技术包及独立后备R172正常formal18/18/精确部署](../records/preparation/quadrant-mil-20261102/README.md)均在本轮训练期间完成，345全训/5空Adam/whole50c匹配，尚无新grant/clock/activation/GPU。完整R170双门通过才R171条件同源seed27，否则直接已就绪R172；actualsafe后串行一次接续、不重跑正常CPU。准备dca3/训练96核互斥、唯一Git/GPU owner32e3保持；raw `.999`未达。下文为此前状态。
+
 **09:41实观R170 running4200 success=attempt/0skip/eval5/bad1，EMA暂best c4@3200 AUROC `.9855170013883353`，8rank活跃。** 冻结58bc761保持；后续[R171条件同CLIP seed27/R172固定共享全图与重叠局部](auroc-999/R171-R172-PREPARATION.md)已3目标/6编译、两public fresh与[CPU整树证据](../records/preparation/quadrant-mil-20261102/README.md)通过，原CORE资源超限/登录节点满盘运输失败如实保留，准备池修正后guard0。当前正Git同步及后备技术包准备，未新normalformal/GPU；完整R170决定唯一分支且actualsafe后串行一次接续，raw `.999`未达。下文为此前状态。
 
 **当前唯一GPU为R170/order82，已实证八rank/345全训/5空Adam/首自然25有限；09:06观测700 success=attempt/0skip/eval0。** [实际启动](../records/R170/README.md)冻结58bc761/tree90a0c8、SCI5a91dada，前轮训练期间18/18正常formal/精确部署已完成，再一次activation/direct launch0。R168完整6400/c8/bad4、唯一EMA c4@3200 AUROC `.9871738525763675`、双门false/官方未跑/actualsafe，[收口](../records/R168/README.md)不重查；R169无资格且未formal/GPU。本次训练完成至dispatch134.865秒、设备198.222秒、首25记录268.499秒均≤300，连续利用率未测。唯一Git/GPU32e3与dca3准备23+peer1/训练96互斥保持，当前r170-pod-context.env绑定start-2。后续[R171条件同源seed27/R172固定重叠局部视野](auroc-999/R171-R172-PREPARATION.md)仅规划/CPU准备，原R170不变；raw `.999`未达，下文为此前状态。
