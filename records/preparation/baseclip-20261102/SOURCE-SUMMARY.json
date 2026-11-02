@@ -1,0 +1,122 @@
+{
+  "model": "convnext_base",
+  "repo": "timm/convnext_base.clip_laion2b_augreg_ft_in12k_in1k_384",
+  "revision": "768f3849e9b97ac2f93191ad5fdc458dfafa25f3",
+  "original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/baseclip-768f3849/original/pytorch_model.bin",
+    "sha256": "ee2f8ca014aa7f8362081f4c4098757e76812f5b7a35a3b018bb7a13971bb241"
+  },
+  "converted": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/baseclip-768f3849/converted/convnext-base-tv-768f3849.pt",
+    "sha256": "db51031a496537411de823fc282e4885aa03cdfd3e8d0419b872b9dc2a68b948"
+  },
+  "provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/baseclip-768f3849/converted/provenance.json",
+    "sha256": "591d88cd55063ddb549274f8ea0009b13bab0dcad0686fdc629145ff4c1eaaff"
+  },
+  "structure": {
+    "features": 1024,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 87566464,
+    "public_parameters": 88591464,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      1024
+    ]
+  },
+  "handoff": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/baseclip-20261102-32e3/BASECLIP-HANDOFF.json",
+    "sha256": "fe3e22d2cbeed3ae12693380543a72076c9baea1a4372cdcea5c25a430201ec9"
+  },
+  "strict": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/baseclip-20261102-32e3/BASECLIP-STRICT.json",
+    "sha256": "060399dc68185062688664992de0f26d8f2e1f20047233be2d635df189018016"
+  },
+  "source_library_pins": {
+    "timm_convnext": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/models/convnext.py",
+      "sha256": "a2ef5eb22cc1039dadcddcbf7b243034e98a553630349483302ed21d09fdb50f"
+    },
+    "torchvision_convnext": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/torchvision/models/convnext.py",
+      "sha256": "5c00c412bc79e5c650f887dfe0d21aa8028903a3bbeae1a95c3b0fdfbdaf55c2"
+    },
+    "timm_GELU": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/activations.py",
+      "sha256": "effc50cc017066d60f3e8bc9f4a65b2765ad374a1b4da7bf023c1db99e8f1cd9"
+    },
+    "torch_GELU": {
+      "path": "/usr/local/python3.12/lib/python3.12/site-packages/torch/nn/modules/activation.py",
+      "sha256": "f335544f19b07e279dd729ba4fbc1de0226797fdf9fa2e790670546499df0efa"
+    }
+  },
+  "source_forward_calls": 0,
+  "source_pretrained_cfg": {
+    "tag": "clip_laion2b_augreg_ft_in12k_in1k_384",
+    "custom_load": false,
+    "input_size": [
+      3,
+      384,
+      384
+    ],
+    "fixed_input_size": false,
+    "interpolation": "bicubic",
+    "crop_pct": 1.0,
+    "crop_mode": "squash",
+    "mean": [
+      0.48145466,
+      0.4578275,
+      0.40821073
+    ],
+    "std": [
+      0.26862954,
+      0.26130258,
+      0.27577711
+    ],
+    "num_classes": 1000,
+    "pool_size": [
+      12,
+      12
+    ],
+    "first_conv": "stem.0",
+    "classifier": "head.fc"
+  },
+  "candidate_overrides": {
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "stochastic_depth": 0.1,
+    "dropout": 0.2,
+    "image_size": 512,
+    "normalization": "imagenet",
+    "source_card_preprocessing_is_not_candidate_preprocessing": true
+  },
+  "license": {
+    "identifier": "apache-2.0",
+    "declaration": "fixed-revision model card and registry",
+    "full_text_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+    "redistribution_confirmed": true
+  },
+  "original_registry_pin": {
+    "repo": "timm/convnext_base.clip_laion2b_augreg_ft_in12k_in1k_384",
+    "revision": "768f3849e9b97ac2f93191ad5fdc458dfafa25f3",
+    "public": true,
+    "gated": false,
+    "license": "apache-2.0",
+    "weight": {
+      "sha256": "ee2f8ca014aa7f8362081f4c4098757e76812f5b7a35a3b018bb7a13971bb241",
+      "bytes": 354495341
+    },
+    "metadata": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/baseclip-20261102-32e3/transport/model-api.json",
+      "sha256": "0ff8092fe95e10465ebf9d17961d6e0c344a925af3ae9a59ecda95f5f819beb2"
+    },
+    "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "scope": "registry_only_no_model_or_data_read"
+  },
+  "full344_mapping_strict_exact_FP32_finite": true,
+  "source_non_tensor_checks_passed": true
+}

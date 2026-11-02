@@ -70,6 +70,8 @@ DEIT3_SMALL_SEED27_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlyst
 DEIT3_MEANPATCH_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-meanpatch-v1'
 DEIT3_MEANPATCH_SEED27_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-meanpatch-v1'
 ADAMW_BETA2_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-adamw-beta2-095-v1'
+ADAMW_BETA2_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-adamw-beta2-095-v1'
+BASE_CLIP_BINDING = 'single-convnext-base-clip-768f3849-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -98,7 +100,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
                       COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,
-                      DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING)
+                      DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING,
+                      ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -193,7 +196,8 @@ def science_configuration():
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
                                                        COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,
-                                                       DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING)
+                                                       DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING,
+                                                       ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING)
@@ -202,10 +206,10 @@ def science_configuration():
                 or (value.get('candidate_profile') in (DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING)
                     and (value.get('job',{}).get('deit_pool_policy')!=DEIT3_MEANPATCH_RULE
                          or value.get('candidate',{}).get('deit_pool_policy')!=DEIT3_MEANPATCH_RULE))
-                or (value.get('candidate_profile')!=ADAMW_BETA2_SMALL_BINDING
+                or (value.get('candidate_profile') not in (ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('adamw_beta2_policy')is not None
                          or value.get('candidate',{}).get('adamw_beta2_policy')is not None))
-                or (value.get('candidate_profile')==ADAMW_BETA2_SMALL_BINDING
+                or (value.get('candidate_profile') in (ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('adamw_beta2_policy')!=ADAMW_BETA2_RULE
                          or value.get('candidate',{}).get('adamw_beta2_policy')!=ADAMW_BETA2_RULE
                          or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS))
@@ -472,7 +476,7 @@ def candidate_from_configuration(value):
                                         HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
-                                        ADAMW_BETA2_SMALL_BINDING):
+                                        ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -644,12 +648,14 @@ def candidate_from_configuration(value):
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile']==SMALL_384_SEED27_BINDING else 20261029)):
                 raise ValueError('fixed Small public384 source or original512 recipe differs')
-        if value['candidate_profile']==ADAMW_BETA2_SMALL_BINDING:
+        if value['candidate_profile'] in (ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING):
             from .config import ADAMW_BETA2_RULE
             expected.update(id='r168-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-adamw-beta2-095-9010',
                 experiment_order=80,adamw_beta2_policy=ADAMW_BETA2_RULE)
+            if value['candidate_profile']==ADAMW_BETA2_SMALL_SEED27_BINDING:
+                expected.update(id='r169-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-adamw-beta2-095-9010',experiment_order=81)
             if ((value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'),
-                    value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(20261029,512,512,64,8)
+                    value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(20261027 if value['candidate_profile']==ADAMW_BETA2_SMALL_SEED27_BINDING else 20261029,512,512,64,8)
                     or any(value['job'].get(k)is not None for k in ('deit_pool_policy','cosine_head_policy','input_preprocessing',
                         'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
                         'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
@@ -681,7 +687,7 @@ def candidate_from_configuration(value):
                     'stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
                     'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
             raise ValueError('fixed native DeiT3 source/512/original pairlog recipe differs')
-    elif value['candidate_profile'] == BASE_BINDING:
+    elif value['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING):
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
             'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 1024,
@@ -689,6 +695,21 @@ def candidate_from_configuration(value):
             'batch_norm_buffers': 0, 'attention_pool': None,
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
+        if value['candidate_profile']==BASE_CLIP_BINDING:
+            expected.update(id='r170-convnext-base-clip-laion2b-in12k-in1k-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=82)
+            if (source.get('revision')!='768f3849e9b97ac2f93191ad5fdc458dfafa25f3'
+                    or source.get('original_sha256')!='ee2f8ca014aa7f8362081f4c4098757e76812f5b7a35a3b018bb7a13971bb241'
+                    or source.get('training_data')!='LAION-2B CLIP pretraining -> ImageNet-12K -> ImageNet-1K fine-tuning'
+                    or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                    or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                        value['job'].get('image_size'),value['job'].get('prepared_size'),
+                        value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=('convnext_base',20261029,'imagenet',512,512,64,8)
+                    or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
+                        'input_preprocessing','optimizer_policy','gradient_centralization_policy','gradient_clip_policy',
+                        'head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy',
+                        'tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
+                        'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
+                raise ValueError('fixed CLIP Base public initialization/original input recipe differs')
     elif value['candidate_profile'] in (SWIN_BINDING,SWIN_V2_SMALL_BINDING,SWIN_V2_SMALL_SEED27_BINDING):
         expected = {'id': 'r117-swin-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 27, 'model': 'swin_base', 'public_revision': source['revision'],
@@ -1154,14 +1175,14 @@ def describe_model(model):
             'shape': list(weight.shape), 'dtype': str(weight.dtype),
             'feature_index': 5, 'channels': convolution.out_channels}
     if ('final_downsample_stride' in science_configuration()['job']
-            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
+            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING)):
         convolution = network.features[6][1]
         if not isinstance(convolution, nn.Conv2d):
             raise ValueError('actual final ConvNeXt downsample must remain Conv2d')
         result['final_downsample'] = {'name': 'network.features.6.1', 'stride': list(convolution.stride),
             'kernel_size': list(convolution.kernel_size), 'padding': list(convolution.padding),
             'dilation': list(convolution.dilation)}
-    if science_configuration()['candidate_profile'] == BASE_BINDING:
+    if science_configuration()['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING):
         result['stage_widths'] = [network.features[0][0].out_channels,
             network.features[2][1].out_channels, network.features[4][1].out_channels,
             network.features[6][1].out_channels]
@@ -1352,12 +1373,12 @@ def validate_normalization(value):
     elif value.get('stage3_residual') is not None:
         raise ValueError('unregistered stage3 residual parameter')
     if ('final_downsample_stride' in configured
-            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING)):
+            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING)):
         stride = configured.get('final_downsample_stride', 2)
         if value.get('final_downsample') != {'name': 'network.features.6.1', 'stride': [stride, stride],
                 'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}:
             raise ValueError('actual final ConvNeXt downsample geometry differs from pinned job')
-    if (science_configuration()['candidate_profile'] == BASE_BINDING
+    if (science_configuration()['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING)
             and value.get('stage_widths') != [128, 256, 512, 1024]):
         raise ValueError('actual Base stage widths differ')
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0

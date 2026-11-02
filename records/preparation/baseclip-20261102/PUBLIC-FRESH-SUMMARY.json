@@ -1,0 +1,165 @@
+{
+  "R169": {
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "synthetic_forward_backward": null,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/baseclip-20261102-32e3/fresh/R169-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "5a4e57980c851791ed83a9adfaca3a2187fbae00e254a2d307036e8080186d68"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true
+  },
+  "R170": {
+    "model_tensor_sha256": "5d2ebdcfb799ed587d48dd680a4ce8540d9b29159c9944e4f452b18f6c6a56b2",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 87567491,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "image_forward_calls": 1,
+    "synthetic_forward_backward": {
+      "scope": "CPU_synthetic_single_rank_shape_only_not_WORLD_or_DCU_memory_throughput",
+      "shape": [
+        8,
+        3,
+        512,
+        512
+      ],
+      "finite_gradient_tensors": 345,
+      "loss": 0.8309018015861511,
+      "optimizer_steps": 0,
+      "initial_tensors_unchanged": true,
+      "real_data_read": false
+    },
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/baseclip-20261102-32e3/fresh/R170-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "f59f9c951449366d3c77583ed76991cdc481b20c409451a78fd28c14f66f93c6"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true
+  }
+}

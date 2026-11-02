@@ -7,7 +7,7 @@ from pathlib import Path
 from source_chain import (configure_torch_threads, cpu_context, file_identity, read_pinned_receipt,
                           require, sha256, verify_current_content, write_new_json)
 from strict_load import check_tensor, gelu_semantics, normalization, target_key, tensor_digest
-from base_source import MODEL, REPO, TRAINING_DATA
+from base_source import MODEL, REPO, TRAINING_DATA, SOURCE_PROFILES
 
 
 DEPTHS = (3, 3, 27, 3)
@@ -33,13 +33,18 @@ def base_mapping(source, converted, expected):
 
 def accept(args, completed):
     context = cpu_context()
+    profile = SOURCE_PROFILES[getattr(args, 'source_profile', 'base224')]
+    repo, training_data = profile['repo'], profile['training_data']
+    source_model_name = repo.split('/', 1)[1]
     chain = read_pinned_receipt(args.source_receipt, args.source_receipt_sha)
-    require(chain.get('passed') is True and chain.get('repo') == REPO and chain.get('model') == MODEL,
+    require(chain.get('passed') is True and chain.get('repo') == repo and chain.get('model') == MODEL
+            and chain.get('training_data') == training_data,
             'Base source receipt identity differs')
     revision = chain.get('revision')
     require(isinstance(revision, str) and len(revision) == 40
             and all(character in '0123456789abcdef' for character in revision),
             'Base source receipt lacks one immutable commit')
+    require(profile.get('revision', revision) == revision, 'fixed Base profile revision differs')
     require(all(chain['execution'][key] == context[key]
                 for key in ('namespace', 'pod', 'uid', 'container', 'python')),
             'Base source execution identity differs')
@@ -64,7 +69,7 @@ def accept(args, completed):
     source = torch.load(source_path, map_location='cpu', weights_only=True)
     require(isinstance(source, dict), 'bin is not a plain state dict')
     # Both factories receive explicit SD .1. No pretrained/network factory load.
-    source_model = timm.create_model('convnext_base.fb_in22k_ft_in1k', pretrained=False,
+    source_model = timm.create_model(source_model_name, pretrained=False,
                                     pretrained_cfg=cfg['pretrained_cfg'], drop_path_rate=.1)
     target = convnext_base(weights=None, stochastic_depth_prob=.1)
     source_loaded = source_model.load_state_dict(source, strict=True)
@@ -111,6 +116,10 @@ def accept(args, completed):
             and source_model.head.global_pool.pool_type == 'avg'
             and isinstance(target.avgpool, torch.nn.AdaptiveAvgPool2d) and target.avgpool.output_size == 1,
             'Base pool/features/head differs')
+    if getattr(args, 'source_profile', 'base224') == 'baseclip384':
+        require(isinstance(source_model.norm_pre, torch.nn.Identity)
+                and isinstance(source_model.head.pre_logits, torch.nn.Identity),
+                'CLIP Base final norm/head placement differs from native TorchVision')
     widths = [target.features[0][0].out_channels, target.features[2][1].out_channels,
               target.features[4][1].out_channels, target.features[6][1].out_channels]
     require(widths == [128, 256, 512, 1024], 'Base stage widths differ from 128/256/512/1024')
@@ -139,11 +148,11 @@ def accept(args, completed):
                  'stochastic_depth_modules': len(target_drop), 'full_head_shape': list(target.classifier[-1].weight.shape)}
     require(backbone_tensors == 342 and len(reloaded) == 344, 'Base converted backbone/state count differs')
     mapping_path = Path(args.output).with_name('MAPPING.json')
-    write_new_json(mapping_path, {'schema_version': 1, 'passed': True, 'repo': REPO,
+    write_new_json(mapping_path, {'schema_version': 1, 'passed': True, 'repo': repo,
                                  'revision': revision, 'mapping': rows})
-    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL, 'format': 'torchvision-1000-state-dict-v1', 'repo': REPO,
-                  'revision': revision, 'source_url': f'https://huggingface.co/{REPO}/resolve/{revision}/pytorch_model.bin',
-                  'training_data': TRAINING_DATA,
+    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL, 'format': 'torchvision-1000-state-dict-v1', 'repo': repo,
+                  'revision': revision, 'source_url': f'https://huggingface.co/{repo}/resolve/{revision}/pytorch_model.bin',
+                  'training_data': training_data,
                   'original_sha256': assets['pytorch_model.bin']['sha256'], 'sha256': converted_sha,
                   'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
                   'license_file': '../original/LICENSE-apache-2.0.txt', 'redistribution_confirmed': True,
@@ -164,8 +173,10 @@ def accept(args, completed):
         require(file_identity(identity['path']) == {k: identity[k] for k in file_identity(identity['path'])},
                 'asset metadata changed during acceptance')
     require(not torch.cuda.is_initialized(), 'GPU initialized during Base acceptance')
-    return {'schema_version': 1, 'passed': True, 'scope': 'base22k_full1000_cpu_strict', 'execution': context,
-            'model': MODEL, 'repo': REPO, 'revision': revision, 'structure': structure,
+    return {'schema_version': 1, 'passed': True,
+            'scope': 'base22k_full1000_cpu_strict' if getattr(args, 'source_profile', 'base224') == 'base224' else 'baseclip_full1000_cpu_strict',
+            'execution': context,
+            'model': MODEL, 'repo': repo, 'revision': revision, 'structure': structure,
             'public_parameters': public_parameters, 'assets': assets,
             'original': {'path': source_path, 'sha256': assets['pytorch_model.bin']['sha256']},
             'converted': {'path': str(converted_path), 'sha256': converted_sha},
@@ -173,7 +184,7 @@ def accept(args, completed):
             'source_chain': {'path': args.source_receipt, 'sha256': args.source_receipt_sha},
             'mapping': {'path': str(mapping_path), 'sha256': sha256(mapping_path)},
             'strict_load': completed['strict'], 'source_implementation_pins': implementation_pins,
-            'source_factory': {'name': 'timm.create_model', 'model': 'convnext_base.fb_in22k_ft_in1k',
+            'source_factory': {'name': 'timm.create_model', 'model': source_model_name,
                                'pretrained': False, 'drop_path_rate': .1, 'timm_version': timm.__version__,
                                'layer_norms': source_norms, 'GELU': source_activations,
                                'stochastic_depth': source_drop, 'BN': 0, 'buffers': 0},
@@ -196,6 +207,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('source-receipt', 'source-receipt-sha', 'assets', 'output', 'handoff'):
         parser.add_argument('--' + name, required=True)
+    parser.add_argument('--source-profile', choices=tuple(SOURCE_PROFILES), default='base224')
     args = parser.parse_args()
     completed = {}
     try:

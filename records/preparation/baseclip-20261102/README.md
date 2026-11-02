@@ -1,0 +1,15 @@
+# 固定 CLIP Base 公开初始化准备
+
+受影响配置目标1个、5份源码编译通过；两public fresh均345全训/5空原生AdamW组。R169保持原Small seed27/beta2=.95，R170回原R116 Base/seed29/beta2=.999。原6个loss/WORLD目标与2个原生optimizer目标按完全一致源码复用，不称新独立复跑。models.py整文件有改动，但顶层AST除validate_initialization外相同，模型构造/forward不改；data/config/engine/inference/gather/EMA均未改。
+
+实际Pod public/non-gated/Apache2 registry固定 `timm/convnext_base.clip_laion2b_augreg_ft_in12k_in1k_384` revision `768f3849e9b97ac2f93191ad5fdc458dfafa25f3`；原354495341字节 SHA `ee2f8ca014aa7f8362081f4c4098757e76812f5b7a35a3b018bb7a13971bb241`，转换SHA `db51031a496537411de823fc282e4885aa03cdfd3e8d0419b872b9dc2a68b948`，provenance `591d88cd55063ddb549274f8ea0009b13bab0dcad0686fdc629145ff4c1eaaff`。完整344张量逐一映射、两factory strict/exact/FP32/finite、41LN/36GELU-SD/40Conv、原生最终norm/head位置及无BN/buffer通过；strict阶段forward_calls=0，不能称source→target前向数值一致已实测。
+
+R170另有一次CPU合成P8×3×512前向/原pairlog反传，345梯度有限、0 optimizer step、初始张量不变，未读真实图像/训练checkpoint或官方，仅复用fit年龄元数据。该fixture只覆盖单rank输入形状，不替代WORLD8、DCU峰值/吞吐或真实训练；自然八rank与首成功仍由最终GPU运行证明。
+
+来源发布者记录CLIP均值/标准差、384及squash；候选明确保留原R116比赛ImageNet均值/标准差和512。检验的是新初始化在原输入合同下的表现，不称发布者完整预处理配方复现，也不把可能收益纯归因于分辨率、CLIP或临床机制。原API/CLI默认base224及旧导出常量保留，显式baseclip384才进入新来源；未引入新模型类、训练、保存、评估或监控链。
+
+传输初次单连接239秒仅获5029080字节后超时，登录节点直连失败，两个限量range探测也超时；这些未被接受为模型来源。16个固定revision字节段实际206完成后仅作传输拼接，完整SHA及字节数在Pod通过原fetch验证。一次小件传输因taskset参数拼写失败，修正后实际传输完成；未因此跳过CPU检查、改动活跃R168或产生新GPU。
+
+本轮管线guard `29f89f104f5576d15af8520026cfbbfb915e249b7c131746887a38265a98e910` exit0，实际原件/phase日志与汇总归入本目录JSON。当前等待实际Git同步/回读和技术包；后备R170正常CPU提前至R168训练期间，未grant/clock/activation/GPU。唯一Git/GPU owner32e3、dca3根0–22/23核及peer23/1核与训练24–119/96核互斥。完整R168决定唯一分支，R169无资格不formal；raw .999未达。
+
+五个实际源码SHA的独立只读静态窄核未见阻断；其guard `d083d94872cbf89e8ed34aefe86ff4eec84d156d095249f3af22b2be44b6af30`，无模型/forward/项目测试。只称旧入口及默认行为兼容，新receipt增加profile/normalization字段，并非旧回执字节相同。发布者网页不是固定原件字节校验；本次固定原件证明来自上述Pod下载/LFS SHA与strict链。

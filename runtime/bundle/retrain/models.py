@@ -335,7 +335,9 @@ def validate_initialization(initialization):
     if meta['sha256'] != initialization['sha256'] or meta.get('redistribution_confirmed') is not True:
         raise ValueError('Weight hash/provenance and redistribution confirmation are required')
     convnext22 = meta['training_data'] == 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
-    if convnext22:
+    baseclip = (meta['model'] == 'convnext_base' and meta['training_data'] ==
+                'LAION-2B CLIP pretraining -> ImageNet-12K -> ImageNet-1K fine-tuning')
+    if convnext22 or baseclip:
         # The existing Tiny source remains its exact historical whitelist.
         expected = {'model': 'convnext_tiny', 'format': 'torchvision-1000-state-dict-v1',
             'revision': 'bc48a87f119bae1b06418f5340bfa97ef75d4609',
@@ -353,6 +355,8 @@ def validate_initialization(initialization):
             if expected['model'] != meta['model']:
                 raise ValueError('public backbone provenance requires its pinned scientific source')
             provenance_sha = source['provenance_sha256']
+            if baseclip:
+                expected['training_data'] = source['training_data']
         if (any(meta.get(key) != value for key, value in expected.items())
                 or _hash(meta_path) != provenance_sha
                 or initialization.get('kind') != 'imagenet'
@@ -373,6 +377,8 @@ def validate_initialization(initialization):
     license_path = (meta_path.parent / meta['license_file']).resolve()
     if not license_path.is_file() or not license_path.read_text().strip():
         raise ValueError('Provide the applicable full weight license as license_file')
+    if baseclip and _hash(license_path) != meta['source_file_hashes']['LICENSE-apache-2.0.txt']:
+        raise ValueError('Pinned CLIP Base license bytes differ')
     if meta['model'] == 'swinv2_small_window8_256' and _hash(license_path) != source['license_sha256']:
         raise ValueError('Pinned Swin V2 license bytes differ')
     return {'kind': 'imagenet', 'weights_sha256': initialization['sha256'],
