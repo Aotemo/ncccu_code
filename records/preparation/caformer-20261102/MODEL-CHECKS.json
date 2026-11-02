@@ -1,0 +1,22 @@
+{
+  "passed_targets": 1,
+  "targets": [
+    "test_caformer_model.CAFormerTest.test_P8_finite_gradients_optimizer_EMA_and_real_cold_graph"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "43bb6acc9603cad97309ad3705caf80480da968321b8502286993c2835ff8f0f",
+    "runtime/bundle/retrain/config.py": "acf81237c0a93524af59f424cfa18e441ba81115f4071804a10255f137f6e56b",
+    "runtime/bundle/retrain/inference.py": "1bb16cf00d1537726665c6ee113cb6ee4cc67f66a23adc5ff5b046993d3cbc82",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "tests/test_caformer_model.py": "81c9a9cd9bb76dae35f02a94d859a82ffce5b06293065380b5c77560fa53108d"
+  },
+  "GPU_initialized": false,
+  "real_images_or_official_read": false,
+  "previous_target_reused": {
+    "target": "test_caformer_model.CAFormerTest.test_native_factory_MLP_identity_rng_one_dropout_and_age",
+    "target_status": "ok",
+    "guard_sha256": "b24758f740b957af7606b88414d5ef1991de223918e4868a39dc327c41d923ec",
+    "original_task_exit_code": 1,
+    "engine_head_locator_not_called_by_this_target": true
+  }
+}

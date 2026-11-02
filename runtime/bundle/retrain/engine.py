@@ -215,12 +215,14 @@ def _optimizer(model, job):
     from .stage3_residual import validate_model as validate_stage3_model
     validate_attention_model(model, job)
     validate_stage3_model(model, job)
-    # Both supported architectures name their classification head 'classifier'.
     # Bias and normalization vectors receive no decay, including LayerNorm.
     head_ids=None
     if job.get('head_lr_scope','classifier_legacy')=='last_linear':
-        linear=[module for name,module in model.named_modules()
-                if 'classifier' in name.split('.') and isinstance(module,nn.Linear)]
+        if job.get('model') == 'caformer_s36':
+            linear = [model.network.head.fc.fc2]
+        else:
+            linear=[module for name,module in model.named_modules()
+                    if 'classifier' in name.split('.') and isinstance(module,nn.Linear)]
         if not linear:raise ValueError('last_linear scope requires a classifier Linear')
         head_ids={id(p) for p in linear[-1].parameters(recurse=False)}
     buckets = {}

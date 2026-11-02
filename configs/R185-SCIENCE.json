@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "8c62435ac0c27cbbe3fa2dfd113386fb768582d3b877ee0e0eab13a374ba3427",
+  "candidate": {
+    "id": "r185-vits16-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-9010",
+    "experiment_order": 97,
+    "model": "vit_dino3_small",
+    "public_revision": "3bf4720a82ec2066db88137180ff1f83a675cef0",
+    "readout": "native_final_LN_meanpatch_exclude5_dropout_linear_plus_age",
+    "features": 384,
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "weight_sha256": "b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2",
+    "provenance_sha256": "6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8"
+  },
+  "public_source": {
+    "model": "vit_small_patch16_dinov3",
+    "format": "timm-vits16-dinov3-native-state-dict-v1",
+    "revision": "3bf4720a82ec2066db88137180ff1f83a675cef0",
+    "source_url": "https://huggingface.co/timm/vit_small_patch16_dinov3.lvd1689m/resolve/3bf4720a82ec2066db88137180ff1f83a675cef0/pytorch_model.bin",
+    "training_data": "LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B",
+    "sha256": "b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2",
+    "original_sha256": "b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2",
+    "native_library": {
+      "version": "1.0.27",
+      "source_sha256": {
+        "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+        "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914",
+        "layers/attention.py": "608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947",
+        "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa"
+      }
+    },
+    "license_file": "original/LICENSE.md",
+    "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "redistribution_confirmed": true,
+    "public_tensor_count": 162,
+    "public_tensor_sha256": "133b3b68836b45af999f6f99ced36a6fa36f7b1493f64acffb6e3b3cf3d5b635",
+    "full_head_shape": null,
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "converted": false,
+    "kind": "self_supervised",
+    "repo": "timm/vit_small_patch16_dinov3.lvd1689m",
+    "nonpersistent_buffers_sha256": "192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3",
+    "provenance_sha256": "6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8"
+  },
+  "public_asset_receipt": {
+    "path": "assets/public/vit-small-dino3-3bf4720a/PUBLIC-HANDOFF.json",
+    "sha256": "c899c713c477bfc4049c7c31ce3cd9f34041962700a5ac568ffc13b1eda47fb2"
+  },
+  "structure": {
+    "features": 384,
+    "public_state_tensors": 162,
+    "backbone_state_tensors": 162,
+    "backbone_parameter_tensors": 162,
+    "backbone_parameters": 21586944,
+    "layer_norms": 25,
+    "gelu_modules": 12,
+    "stochastic_depth_modules": 22,
+    "full_head_shape": null,
+    "buffer_count": 1
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/vit-small-dino3-3bf4720a/original/pytorch_model.bin",
+    "public_provenance": "assets/public/vit-small-dino3-3bf4720a/PROVENANCE.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "vit-dino3-small",
+    "model": "vit_dino3_small",
+    "seed": 20261027,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-05,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Conditional same native DINOv3 ViT-S recipe seed27, only after complete R184 strict two-anchor win and safe terminal.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  },
+  "initial_buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6"
+}

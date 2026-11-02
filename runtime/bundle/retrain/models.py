@@ -322,6 +322,30 @@ def validate_initialization(initialization):
                 'native_library':DEIT3_LIBRARY}
     if initialization['kind'] == 'random':
         return {'kind': 'random'}
+    if initialization.get('format') == CAFORMER_FORMAT:
+        from .experiment91 import public_source
+        source = public_source(); path = Path(initialization['path']); meta_path = Path(initialization['provenance'])
+        weight_sha = '424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592'
+        provenance_sha = '1c870b754b55a0c5af6ef48c03814c9e042a72c808b1e18604cc6f6e0e687264'
+        if (initialization['kind'] != 'imagenet' or source.get('model') != CAFORMER_VARIANT
+                or source.get('format') != CAFORMER_FORMAT or source.get('revision') != '695903aebe60ba2a96868cedd9129ea256a1f96e'
+                or source.get('sha256') != weight_sha or source.get('original_sha256') != weight_sha
+                or source.get('provenance_sha256') != provenance_sha or initialization.get('sha256') != weight_sha
+                or not path.is_absolute() or not meta_path.is_absolute() or path.is_symlink() or meta_path.is_symlink()
+                or _hash(path) != weight_sha or _hash(meta_path) != provenance_sha):
+            raise ValueError('fixed native CAFormer public source differs')
+        meta = json.loads(meta_path.read_text()); license_path = meta_path.parent / meta['license_file']
+        if (any(meta.get(k) != source[k] for k in ('model','format','revision','source_url','training_data','sha256',
+                    'original_sha256','native_library','source_features','classifier_hidden_features','structure'))
+                or meta['native_library'] != _caformer_library() or meta['public_tensor_count'] != 395
+                or meta['full_head_shape'] != [1000,2048] or meta.get('redistribution_confirmed') is not True
+                or license_path.is_symlink() or _hash(license_path) != 'c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4'):
+            raise ValueError('native CAFormer provenance/library/license differs')
+        return {'kind':'imagenet','model':CAFORMER_VARIANT,'format':CAFORMER_FORMAT,
+            'weights_sha256':weight_sha,'provenance_sha256':provenance_sha,
+            'source_url':meta['source_url'],'training_data':meta['training_data'],'source_commit':meta['revision'],
+            'original_sha256':weight_sha,'final_norm_eps':1e-6,'internal_norm_eps':1e-6,
+            'license_sha256':meta['license_sha256'],'native_library':meta['native_library']}
     if initialization.get('format') == VIT_DINO3_FORMAT:
         from .experiment91 import public_source
         source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
@@ -527,6 +551,74 @@ def _caformer_library():
     if actual != CAFORMER_LIBRARY:
         raise ValueError('installed native CAFormer library differs')
     return actual
+
+
+def _create_caformer_binary(job, initialize=True):
+    import torch, timm
+    from torch import nn
+    from .ema import tensor_digest
+    library = _caformer_library()
+    network = timm.create_model(CAFORMER_FACTORY, pretrained=False, drop_rate=0.,
+        drop_path_rate=job.get('stochastic_depth', .1), device='cpu', dtype=torch.float32)
+    public = None
+    if initialize and job['initialization']['kind'] != 'random':
+        proof = validate_initialization(job['initialization'])
+        state = torch.load(job['initialization']['path'], map_location='cpu', weights_only=True)
+        loaded = network.load_state_dict(state, strict=True); actual = network.state_dict()
+        if (len(state) != 395 or set(actual) != set(state) or loaded.missing_keys or loaded.unexpected_keys
+                or network.head.fc.fc2.weight.shape != (1000,2048)
+                or any(t.dtype != torch.float32 or not bool(torch.isfinite(t).all()) or not torch.equal(actual[n],t)
+                       for n,t in state.items())):
+            raise ValueError('native CAFormer full395 strict/exact/FP32 differs')
+        public = {'initialization':proof,'strict_missing_keys':[],'strict_unexpected_keys':[],
+            'public_tensor_count':395,'public_tensor_sha256':tensor_digest(state),'full_head_shape':[1000,2048],
+            'all_public_tensors_exact':True,'all_public_tensors_FP32_finite':True}
+    # Preserve the public fc1/activation/LN objects; reset_classifier rebuilds them.
+    network.head.fc.fc2 = nn.Linear(2048, 1)
+    network.head.fc.head_drop.p = job.get('dropout', .2)
+    network.num_classes = 1
+    class CAFormerBinary(nn.Module):
+        def __init__(self):
+            super().__init__(); self.network = network; self.native_library = library
+        def forward(self, images, age_features=None):
+            logits = self.network(images).flatten()
+            if hasattr(self, 'age_weight'):
+                from .age import residual
+                return residual(self, logits, age_features)
+            return logits
+    result = CAFormerBinary()
+    if job.get('age') is not None:
+        from .age import attach_age
+        attach_age(result, job['age'])
+    if public is not None:
+        result.public_initialization_receipt = public
+    describe_caformer(result)
+    return result
+
+
+def describe_caformer(model):
+    import torch
+    network = model.network; head = network.head.fc
+    norms = [{'name':n,'type':type(m).__name__,'eps':float(m.eps),'shape':list(m.normalized_shape)}
+             for n,m in network.named_modules() if 'LayerNorm' in type(m).__name__]
+    depths = [len(stage.blocks) for stage in network.stages]
+    widths = [stage.blocks[0].norm1.normalized_shape[0] for stage in network.stages]
+    value = {'native_library':model.native_library,'stage_depths':depths,'stage_widths':widths,
+        'pooled_features':network.num_features,'head_features':head.fc2.in_features,
+        'head_shape':list(head.fc2.weight.shape),'public_MLP_shape':list(head.fc1.weight.shape),
+        'head_drop':network.head.drop.p,'binary_drop':head.head_drop.p,'native_class':type(network).__name__,
+        'normalization_catalog':norms,'buffer_count':len(dict(network.named_buffers()))}
+    if (value['native_library'] != CAFORMER_LIBRARY or value['native_class'] != 'MetaFormer'
+            or depths != [3,12,18,3] or widths != [64,128,320,512]
+            or network.num_features != 512 or network.num_classes != 1
+            or value['head_shape'] != [1,2048] or value['public_MLP_shape'] != [2048,512]
+            or value['head_drop'] != 0. or value['binary_drop'] != .2 or head.norm.normalized_shape != (2048,)
+            or type(head.act).__name__ != 'SquaredReLU' or network.head.global_pool.pool_type != 'avg'
+            or len(norms) != 78 or any(n['eps'] != 1e-6 for n in norms)
+            or value['buffer_count'] != 0 or any(isinstance(m,torch.nn.modules.batchnorm._BatchNorm) for m in network.modules())
+            or [n for n,m in network.named_modules() if isinstance(m,torch.nn.Dropout) and m.p] != ['head.fc.head_drop']):
+        raise ValueError('native CAFormer public MLP/binary/dropout/normalization graph differs')
+    return value
 
 
 def _deit3_library():
@@ -769,6 +861,8 @@ def create_model(job, initialize=True):
         return _create_deit3_binary(job, initialize=initialize)
     if job['model'] == 'vit_dino3_small':
         return _create_vit_dino3_binary(job, initialize=initialize)
+    if job['model'] == 'caformer_s36':
+        return _create_caformer_binary(job, initialize=initialize)
     from torchvision import models
     name = job['model']
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}

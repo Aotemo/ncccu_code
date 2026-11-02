@@ -83,10 +83,11 @@ def main(args):
     model = create_cpu_fresh_model(job)
     is_r50 = job['model'] == 'resnet50_imagenet'
     is_dinov2 = job['model'] == 'dinov2_vits14'
-    is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,ex.VIT_DINO3_BINDING)
+    is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,*ex.VIT_DINO3_BINDINGS)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
     is_deit = job['model'] == 'deit3_small'
     is_vit_dino3 = job['model'] == 'vit_dino3_small'
+    is_caformer = job['model'] == 'caformer_s36'
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
@@ -277,7 +278,7 @@ def main(args):
     else:
         wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
         rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
-        final_norm = model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit or is_vit_dino3 else model.network.classifier[0]
+        final_norm = model.network.head.norm if is_caformer else model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit or is_vit_dino3 else model.network.classifier[0]
         final_norm.eps = 1e-12
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         final_norm.eps = ex.candidate()['final_norm_eps']
@@ -332,7 +333,8 @@ def main(args):
     expected_roles = ('backbone', 'head', 'age') if job['age']['enabled'] else ('backbone', 'head')
     roles = {role: sum(row['numel'] for group in groups if group['role'] == role for row in group['parameters'])
              for role in expected_roles}
-    head = {id(parameter) for parameter in (model.classifier if is_r50 or is_dinov2 or is_vit_dino3 else model.network.classifier)[-1].parameters()}
+    classifier_head = model.network.head.fc.fc2 if is_caformer else (model.classifier if is_r50 or is_dinov2 or is_vit_dino3 else model.network.classifier)[-1]
+    head = {id(parameter) for parameter in classifier_head.parameters()}
     if is_content_pool:
         head.add(id(model.attention_pool_weight))
     if is_stage3_residual:
@@ -346,7 +348,7 @@ def main(args):
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else
-             any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit or is_vit_dino3 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
+             any(row['name'] == ('network.head.norm.weight' if is_caformer else 'backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit or is_vit_dino3 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == ((job['age']['contract']['weight_decay'] if group['role']=='age' else
             job['weight_decay'] if any(named[row['name']].ndim>1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) if is_lion else
@@ -499,7 +501,7 @@ def main(args):
     checkpoint = store.save(initial); loaded = store.load('last', map_location='cpu')
     ex.validate_checkpoint(loaded); validate_state(loaded['ema'], loaded['model'], 0, ex.ema_rule())
     with torch.no_grad():
-        (model.classifier if is_r50 or is_dinov2 or is_vit_dino3 else model.network.classifier)[-1].bias.add_(1.)
+        classifier_head.bias.add_(1.)
     result = model.load_state_dict(loaded['model'], strict=True)
     from retrain.inference import _load_model
     reloaded, reload_job, _, reload_origin, _ = _load_model(
@@ -512,6 +514,8 @@ def main(args):
           and (not is_deit or (reload_origin.get('deit3') == structure['deit3']
                               and ex.describe_model(reloaded) == structure))
           and (not is_vit_dino3 or (reload_origin.get('vit_dino3') == structure['vit_dino3']
+                                  and ex.describe_model(reloaded) == structure))
+          and (not is_caformer or (reload_origin.get('caformer') == structure['caformer']
                                   and ex.describe_model(reloaded) == structure))
           and (not is_tri3 or (reload_origin.get('tri3_downsample') == structure['tri3_downsample']
                               and ex.describe_model(reloaded) == structure))

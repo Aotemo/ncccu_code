@@ -1,0 +1,143 @@
+{
+  "scope": "R185_R186_affected_CPU_evidence",
+  "at": 1793645364.6007695,
+  "passed_targets": 3,
+  "target_coverage": {
+    "native_oracle": {
+      "actual_target_passed": true,
+      "original_task_exit": 1,
+      "not_rerun": true
+    },
+    "P8_gradient_groups_EMA_checkpoint_cold": {
+      "actual_target_passed": true,
+      "retry_task_exit": 0
+    },
+    "fixed_candidate_binding": {
+      "actual_target_passed": true,
+      "task_exit": 0
+    }
+  },
+  "compiled_sources": 9,
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "43bb6acc9603cad97309ad3705caf80480da968321b8502286993c2835ff8f0f",
+    "runtime/bundle/retrain/config.py": "acf81237c0a93524af59f424cfa18e441ba81115f4071804a10255f137f6e56b",
+    "runtime/bundle/retrain/inference.py": "1bb16cf00d1537726665c6ee113cb6ee4cc67f66a23adc5ff5b046993d3cbc82",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "runtime/bundle/retrain/experiment91.py": "ee52be7adf6dcdc70e62a2c4c97b2bf2df15e9d6688026b30e58a88b11c7d549",
+    "tools/pretraining/deit3_source.py": "2b48fdeb4c78f5ee989c3a09b66db79e348544fe16ab678c0f8913c1c645efc7",
+    "tools/validation/check_candidate.py": "e7cdbb43088e573c61572f548ef90f392d142c43d111f550a95421ef2bc2f4a5",
+    "tests/test_caformer_model.py": "81c9a9cd9bb76dae35f02a94d859a82ffce5b06293065380b5c77560fa53108d",
+    "tests/test_candidate_binding.py": "894206490de51e1f14c8afd0c2d57e1bc9d24835eff8c22eca89bbd9cd7a8d74"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "c9779e0572d378ce91cce047421e53e4212291ac8d42cb4cf2211f44c7116435"
+  },
+  "science_sha256": {
+    "R185-SCIENCE.json": "039715e4b14db5d708fcd280df2c192c58438ccfafd99a62a2552bcb502b4c71",
+    "R186-SCIENCE.json": "37befe80a2e553a58a8aed2dc204d8e7687716e3f2d620b325f1bebe52e8f93f"
+  },
+  "public_fresh": {
+    "R185": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/caformer-source-audit-20261102-32e3/fresh/R185-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "70fcf831d561295ecfd5ae207e662c5d5c20549cfa0ffbd58f983e137afbf471",
+      "model_tensor_sha256": "8c62435ac0c27cbbe3fa2dfd113386fb768582d3b877ee0e0eab13a374ba3427",
+      "parameter_tensors": 165
+    },
+    "R186": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/caformer-source-audit-20261102-32e3/fresh/R186-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "6f20d9a6d64a10e6a2dc3d0dba0931be7e761020e059145997952f5c4e8a7b7a",
+      "model_tensor_sha256": "d2369b382ddf8c758fda70ec82e6869f7ead8372c96752420df71297da994fe3",
+      "parameter_tensors": 396
+    }
+  },
+  "evidence": [
+    {
+      "label": "missing_native_binary_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-im1l7rvq/CPU-RECEIPT.json",
+      "sha256": "da34528f498eba6cea7dfe1c432f81e6d1856d54ff348f50ac8cf38103bb7051",
+      "exit_code": 1,
+      "output_sha256": "668b30bd4ac997e670a50a04163b6ba36671177f65078375ec6f212e36fd06c0"
+    },
+    {
+      "label": "native_oracle_passed_optimizer_locator_failed",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-69n0jyve/CPU-RECEIPT.json",
+      "sha256": "b24758f740b957af7606b88414d5ef1991de223918e4868a39dc327c41d923ec",
+      "exit_code": 1,
+      "output_sha256": "d4f9d52787039e6af188d499f29360abc31431e3506629f8bf83777015031b4d"
+    },
+    {
+      "label": "only_failed_P8_target_retried",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-epc7ac16/CPU-RECEIPT.json",
+      "sha256": "c25da3c0343beefe02e723e06092f3f4980a81ab72c716a65c025744f0541dd4",
+      "exit_code": 0,
+      "output_sha256": "19d95474a72133c963546e9e07e3e67b722941487fbf27be6329ff57087dabea"
+    },
+    {
+      "label": "new_binding_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-y3pr3g34/CPU-RECEIPT.json",
+      "sha256": "50906ccbb0863965ec6899996ad4f5fcf92222591f55ecf6a4df108fdf7129af",
+      "exit_code": 1,
+      "output_sha256": "5660f276db98090e17f9f52a5f2f831aa97b41bb6e943c127660040277e75c0f"
+    },
+    {
+      "label": "binding_target_passed",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-dak09e07/CPU-RECEIPT.json",
+      "sha256": "61755a61af0932b8734c2a81daa3012a084859eef74deec1e58f5aa5b12d25ff",
+      "exit_code": 0,
+      "output_sha256": "b90169ea31ef7d7a7b916d6ec636ed1b61450f3eb6f398e40b4e2922786aa267"
+    },
+    {
+      "label": "draft_science_only",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-iz9rpl79/CPU-RECEIPT.json",
+      "sha256": "c39f1ee8b9a0a26d09e28975a1a7abc76cf30ee877b78732998f2c61a774041c",
+      "exit_code": 0,
+      "output_sha256": "e03c0fb116182150ad77486966cee1d0104c5a2a34367be5a70f0ab9b55c9946"
+    },
+    {
+      "label": "two_actual_registered_public_fresh",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-p2af1yul/CPU-RECEIPT.json",
+      "sha256": "f2384234ef7c534b83617e01759c55a6df14f7724410d977d431e8891bc68a9e",
+      "exit_code": 0,
+      "output_sha256": "4b7947ae1a6047e14ae09e1f879403a59efa3d88bb14cd83d5d0c8f2ad14744c"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "fresh": "844bf285c8b80ece4ea8f05039bc8bd1144af7298cb1db736da7102da7854f40"
+  },
+  "VIT_graph_evidence_reused": {
+    "baseline_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-dino3-source-audit-20261102-32e3/source-git",
+    "exact_function_body_sha256": {
+      "_create_vit_dino3_binary": "19b55816b6071c6d5a36ce8558dd0ec6c4d8d2e316b6a9f0a213db663aadb78c",
+      "describe_vit_dino3": "2d0c1b107917af52d6b3f027945359f2d0ebfad57132d4aa889c23f97c9ff08f",
+      "_vit_dino3_library": "a7e913005af57b06e28afc4de9902eba12ae830d11aa983d805237f2fcb80fe4"
+    },
+    "original_two_target_guard_sha256": "d0a202e5780fbabe21ba316e77a54bdabf853d58ebb5f7d3ab88613d9ca0e740",
+    "native_P8_oracle_not_rerun": true
+  },
+  "optimizer_non_CAFormer_AST_identical_to_baseline": true,
+  "source_checks_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/caformer-source-audit-20261102-32e3/SOURCE-EXPORT/SOURCE-CHECKS.json",
+    "sha256": "b7488a2375fce7b9d573f349c60378c7d6f60d1565f59d6ae8110bf6c7a693a6"
+  },
+  "budget_scenarios": {
+    "historical_Small512_full24k_times2_seconds": 24154.891503453255,
+    "train_soft_seconds": 27750,
+    "early_stop_assumed": false,
+    "GPU_latency_measured": false,
+    "active_clock_changed": false,
+    "native_P8_512_CPU_saved_storage_bytes": 11627686508,
+    "CPU_storage_is_GPU_peak_or_upper_bound": false,
+    "R186_parameters": 37250153,
+    "five_full_Adam_EMA_blobs_plus_initial_tensor_payload_bytes": 3278013464,
+    "round_storage_limit_bytes": 12884901888,
+    "serialization_or_concurrent_save_peak_upper_bound": false
+  },
+  "GPU_started": false,
+  "new_formal_clock_created": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

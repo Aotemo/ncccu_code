@@ -1,5 +1,9 @@
 # R185/R186 准备计划：条件 ViT-S 复核与原生 CAFormer-S36
 
+18:49 当前前三项已实际完成：现来源入口两真实路径通过、两个模型目标分别取得通过证据、两候选身份共1目标通过，9个源码编译覆盖；[原件](../../records/preparation/caformer-20261102/MODEL-CPU-CHECKS.json)保留所有RED/优化器定位失败。只复测P8，首目标/原ViT图证据按相同函数正文复用。R185 SCI039715e4/whole8c62435a，R186 SCI37befe80/wholed2369b38，均实际public fresh/5空Adam/0image forward；初态占位未进Git。待同步冻结/技术包，尚无新normalformal/clock/GPU。
+
+18:32必要范围收口：原factory/MLP对象/RNG/独立手工与原native前向/单drop/age目标已实际通过；同任务P8目标在现_optimizer的classifier命名筛选处失败，尚未forward。只在engine.py既有_optimizer的last_linear定位中给caformer_s36增加network.head.fc.fc2分支，原其他模型筛选、5组/LR/WD/AdamW构造正文保持；不改优化算法/训练链。仅复测失败P8目标，已通过且未受影响的第一个目标按原69n0jyve任务ok证据复用，整任务原exit1保留。下文“engine不改”由本项精确例外覆盖。
+
 执行沿既有 executing-plans，由32e3唯一Git/GPU owner实施；用户已授权最小必要修改，无审批或新增Agent。当前R182冻结2a128733；R183/R184技术源码ab43f542及两技术包保持。此计划不会改变两轮既定顺序；当前只是更后续准备，无新formal/clock/GPU。
 
 目标仍为单模型 raw AUROC .999。R185/order97仅在完整工程有效R184的唯一所选内部AUROC严格过R107/R120且actualsafe后，复核同ViT-S/3bf来源固定seed20261027；否则不normalformal/clock/GPU。R186/order98为固定独立CAFormer-S36/seed20261029，直接原R107的512/ImageNet输入、scale .85、G64/P8、448对原pairlog、AdamW/LR/WD/EMA/age、固定9:1及24k-800-p4。完整内部AUROC主判；官方5849隔离且所选≥.996才一次。没有临床机制或收益结论。
