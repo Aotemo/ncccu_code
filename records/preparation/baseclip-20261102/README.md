@@ -13,3 +13,7 @@ R170另有一次CPU合成P8×3×512前向/原pairlog反传，345梯度有限、0
 本轮管线guard `29f89f104f5576d15af8520026cfbbfb915e249b7c131746887a38265a98e910` exit0，实际原件/phase日志与汇总归入本目录JSON。当前等待实际Git同步/回读和技术包；后备R170正常CPU提前至R168训练期间，未grant/clock/activation/GPU。唯一Git/GPU owner32e3、dca3根0–22/23核及peer23/1核与训练24–119/96核互斥。完整R168决定唯一分支，R169无资格不formal；raw .999未达。
 
 五个实际源码SHA的独立只读静态窄核未见阻断；其guard `d083d94872cbf89e8ed34aefe86ff4eec84d156d095249f3af22b2be44b6af30`，无模型/forward/项目测试。只称旧入口及默认行为兼容，新receipt增加profile/normalization字段，并非旧回执字节相同。发布者网页不是固定原件字节校验；本次固定原件证明来自上述Pod下载/LFS SHA与strict链。
+
+08:34源码Git `58bc7616af41df1e9b84f7e412319bee6de7cc7f` / tree `90a0c8e1da9380c3e1fcbe9ec01ffdd515f98940`已push/实际回读并完成[两技术包](NEXT-READY.json)，[原始guard](CPU-TECHNICAL-READY.json) SHA `110efabb78696156ff017f74814325f2f4a7328f776b8731ceaca32a4c9b852c`。未重跑已有目标，源码/SCI/预算身份与CPU证据一致。
+
+R168仍在训练期间，独立后备[R170正常formal](R170-PREPARATION.json)已唯一一次18/18通过，35.186秒；精确部署1.021秒，initial `5d2ebdcfb799ed587d48dd680a4ce8540d9b29159c9944e4f452b18f6c6a56b2`、345全训/5空Adam匹配，SITE `ddf4cf3b722798eeccf858eb50840882df112ea96b7172f69fe471315d569be6`。[实际CPU guard](R170-CPU-PREPARE.json) `12c8c40f2af4f06f1ef3f2d9dea85b193b0f48079ef4f8ccbc5eb7b6ffaa1556` exit0。没有新grant/clock/activation/GPU；R169只有technical包，仍须资格才formal。上文“等待Git/技术包”为此前准备阶段，原JSON不改。

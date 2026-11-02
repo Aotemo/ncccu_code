@@ -13,6 +13,6 @@ R170明确保留R116的比赛ImageNet均值/标准差与512预处理；来源卡
 完整内部AUROC是主判，AP/难组不救；R170若阴性关闭该固定来源配方，不扫分辨率/归一化/LR/seed。若正向，再另定固定seed27；官方仍完整selected≥.996才一次，不用官方调参。
 
 - [x] 来源真实下载/完整strict与两public fresh，实际初始化及5空Adam组身份；1受影响配置目标/5编译通过，R170 CPU合成P8反传345梯度有限。原件见`records/preparation/baseclip-20261102/`。
-- [ ] 实际受影响配置/初始化路径窄验；源码同步GitHub回读、精确部署。
-- [ ] R170独立后备的正常CPU验收在R168训练期间完成，无grant/clock/activation/GPU；R169仍等待完整结果资格。该CPU提前准备不授权选支或并发GPU，若完整结果选择R169则R170保持CPU-only。
+- [x] 实际受影响配置/初始化路径窄验；源码Git58bc761同步GitHub回读、精确技术包与R170部署。
+- [x] R170独立后备的正常CPU验收在R168训练期间完成18/18，无grant/clock/activation/GPU；R169仍等待完整结果资格。该CPU提前准备不授权选支或并发GPU，若完整结果选择R169则R170保持CPU-only。
 - [ ] 完整R168选点决定唯一后续，确认actualsafe后一次activation/direct launch，真实八rank和首自然成功验证。
