@@ -1,5 +1,7 @@
 # R187 条件 CAFormer 复核 / R184R1 独立 ViT 技术复验
 
+19:42两technical包已按实际远端cd7246a2/tree887ad5a9完成，[逐包SITE/CPU/源码回执](../../records/preparation/vit-rope-retry-20261102/TECHNICAL-PACKAGES.json)guard0。仅扩现有准备辅助脚本的两文件名/证据路径/2目标7编译/12GiB期望，并保留R185/R186已执行文本；未newnormalformal/clock/GPU。R186最新1450成功/0skip/eval1、八rank活跃，正常CPU/精确部署仍安排在可行收尾前，完整结果决定唯一分支。
+
 19:38实际完成两身份窄验（RED→GREEN）、两public fresh及真实noBN EMA首warm-copy、共2目标/7唯一源码编译，[原件](../../records/preparation/vit-rope-retry-20261102/README.md)guard0。R187 whole c7e20ebb/SCIad04d51c；R184R1 whole e347757c与原R184相同/SCI5ec946d1。新SCI占位未进Git，原P8不重跑；Git同步/两technical包尚待完成，无新normalformal/clock/GPU。R182 8件冗余权重已[清理](../../records/storage/closed-r182-20261102/README.md)，保护stat/SHA未变。当前R1861000成功/0skip/eval1，暂best .9680502257098511，不据中途结果开条件分支。
 
 当前R186/order98保持f9ea149d冻结，下一轮准备由32e3唯一Git/GPU owner在现5de 20%准备池进行；不唤醒/派生Agent，不新增资源或GPU预演。R182完整阴性、R183不eligible；R184初态工程失败、R185不eligible，旧两轮身份与成本不复用。
