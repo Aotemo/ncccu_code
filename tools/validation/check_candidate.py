@@ -152,7 +152,7 @@ def main(args):
               and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
               and job.get('training_views') is None and job.get('native_local_view') is None)
-    if ex.science_configuration()['candidate_profile'] == ex.HARD_POSITIVE_SMALL_BINDING:
+    if ex.science_configuration()['candidate_profile'] in (ex.HARD_POSITIVE_SMALL_BINDING,ex.HARD_POSITIVE_SMALL_SEED27_BINDING):
         from retrain.classification_loss import PAIRWISE_LOSS_KINDS
         check('fixed_hard_positive_top2_mix05_stable_WORLD_and_official_bound',
               job['loss'] == ex.PAIR_HARD_POSITIVE_LOSS

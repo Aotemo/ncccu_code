@@ -1,0 +1,59 @@
+{
+  "model": "convnext_small",
+  "repo": "timm/convnext_small.fb_in22k_ft_in1k_384",
+  "revision": "14a837353b6ffeced1c635dc5c8c799356e316f4",
+  "original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/small384-14a83735/original/pytorch_model.bin",
+    "sha256": "24f8525364a67ec20ae1ab21f45a525638950a8dc057534506b7aaee63b7e2a6"
+  },
+  "converted": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/small384-14a83735/converted/convnext-small-tv-14a83735.pt",
+    "sha256": "218df88c96a379af7db5732c2adc684047ec487159ff0ebd7ee43acf59aaf3d8"
+  },
+  "provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/small384-14a83735/converted/provenance.json",
+    "sha256": "ec9c4e396a2a7a132841f703a17a6af7ee4f64665c09ba30b81c005a0e7a0800"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "public_handoff": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small384-20261102-32e3/PUBLIC-HANDOFF.json",
+    "sha256": "52ef8fa708987329882ffdef98d2521cd79c204d169a049629f6982e8ccd4704"
+  },
+  "strict_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small384-20261102-32e3/STRICT-RECEIPT.json",
+    "sha256": "3b11c4d627a39248694e0f767b6eb753817a10df6c95d8794b2fcd10e0c66843"
+  },
+  "source_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small384-20261102-32e3/SOURCE-RECEIPT.json",
+    "sha256": "e3e5ed5015be8d9ba9e064dd238c1a3ce9c53cbf211d6d1a9d5e4717a382ebf3"
+  },
+  "actual_strict": {
+    "source_missing": [],
+    "source_unexpected": [],
+    "target_missing": [],
+    "target_unexpected": [],
+    "public_state_tensors": 344,
+    "all_FP32_finite_exact": true
+  },
+  "license": {
+    "identifier": "apache-2.0",
+    "declaration": "fixed-revision model card and registry",
+    "full_text_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+    "redistribution_confirmed": true
+  },
+  "license_file_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "candidate_input_preserved512": true,
+  "new_official_read": false
+}

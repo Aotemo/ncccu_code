@@ -17,6 +17,12 @@ MODEL = 'convnext_small'
 TRAINING_DATA = 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
 BASE = f'https://huggingface.co/{REPO}/resolve/{REVISION}'
 LICENSE_URL = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+SOURCE_PROFILES = {
+    'small224': {'repo': REPO, 'revision': REVISION, 'tag': 'fb_in22k_ft_in1k'},
+    'small384': {'repo': 'timm/convnext_small.fb_in22k_ft_in1k_384',
+                 'revision': '14a837353b6ffeced1c635dc5c8c799356e316f4',
+                 'tag': 'fb_in22k_ft_in1k_384'},
+}
 
 
 def fetch(url, target, expected_sha=None, expected_bytes=None, transport_file=None):
@@ -55,8 +61,11 @@ def fetch(url, target, expected_sha=None, expected_bytes=None, transport_file=No
             'identity': file_identity(target)}
 
 
-def download(assets, transport_dir=None):
+def download(assets, transport_dir=None, source_profile='small224'):
     context = cpu_context()
+    profile = SOURCE_PROFILES[source_profile]
+    repo, revision = profile['repo'], profile['revision']
+    base = f'https://huggingface.co/{repo}/resolve/{revision}'
     assets = Path(assets)
     require(assets.is_absolute() and '/exp-v3/' in str(assets), 'explicit exp-v3 asset root required')
     original = assets / 'original'
@@ -65,10 +74,10 @@ def download(assets, transport_dir=None):
         require(Path(transport_dir).is_absolute() and '/exp-v3/' in str(transport_dir),
                 'explicit exp-v3 transport root required')
     transport = lambda name: str(Path(transport_dir) / name) if transport_dir else None
-    api_url = f'https://huggingface.co/api/models/{REPO}/revision/{REVISION}?blobs=true'
+    api_url = f'https://huggingface.co/api/models/{repo}/revision/{revision}?blobs=true'
     api_record = fetch(api_url, original / 'model-api.json', transport_file=transport('model-api.json'))
     api = json.loads((original / 'model-api.json').read_text())
-    require(api.get('id') == REPO and api.get('sha') == REVISION
+    require(api.get('id') == repo and api.get('sha') == revision
             and api.get('private') is False and api.get('gated') is False,
             'fixed-revision public registry identity differs')
     require(api.get('cardData', {}).get('license') == 'apache-2.0', 'registry license differs')
@@ -82,18 +91,23 @@ def download(assets, transport_dir=None):
             'fixed-revision API must provide bin LFS SHA and size')
     records = {'model-api.json': api_record}
     for name in ('config.json', 'README.md'):
-        records[name] = fetch(BASE + '/' + name, original / name, transport_file=transport(name))
+        records[name] = fetch(base + '/' + name, original / name, transport_file=transport(name))
     config = json.loads((original / 'config.json').read_text())
     cfg = config['pretrained_cfg']
     require((config.get('architecture'), config.get('num_classes'), config.get('num_features'))
             == (MODEL, 1000, 768), 'public architecture config differs')
-    require(cfg.get('tag') == 'fb_in22k_ft_in1k' and cfg.get('num_classes') == 1000
+    require(cfg.get('tag') == profile['tag'] and cfg.get('num_classes') == 1000
             and cfg.get('first_conv') == 'stem.0' and cfg.get('classifier') == 'head.fc'
             and cfg.get('mean') == [.485, .456, .406] and cfg.get('std') == [.229, .224, .225]
-            and cfg.get('input_size') == [3, 224, 224] and cfg.get('test_input_size') == [3, 288, 288]
-            and cfg.get('interpolation') == 'bicubic' and cfg.get('crop_pct') == .875
-            and cfg.get('test_crop_pct') == 1. and cfg.get('crop_mode') == 'center',
+            and cfg.get('interpolation') == 'bicubic',
             'public non-tensor configuration differs')
+    if source_profile == 'small224':
+        require(cfg.get('input_size') == [3, 224, 224] and cfg.get('test_input_size') == [3, 288, 288]
+                and cfg.get('crop_pct') == .875 and cfg.get('test_crop_pct') == 1.
+                and cfg.get('crop_mode') == 'center', 'original public224 preprocessing differs')
+    else:
+        require(cfg.get('input_size') == [3, 384, 384] and cfg.get('crop_pct') == 1.
+                and cfg.get('crop_mode') == 'squash', 'fixed public384 preprocessing differs')
     readme = (original / 'README.md').read_text()
     require('license: apache-2.0' in readme
             and 'Pretrained on ImageNet-22k and fine-tuned on ImageNet-1k by paper authors.' in readme,
@@ -103,10 +117,10 @@ def download(assets, transport_dir=None):
     license_text = (original / 'LICENSE-apache-2.0.txt').read_text()
     require('Apache License' in license_text and 'Version 2.0, January 2004' in license_text
             and 'END OF TERMS AND CONDITIONS' in license_text, 'official license text incomplete')
-    records['pytorch_model.bin'] = fetch(BASE + '/pytorch_model.bin', original / 'pytorch_model.bin',
+    records['pytorch_model.bin'] = fetch(base + '/pytorch_model.bin', original / 'pytorch_model.bin',
                                         expected_sha, expected_size, transport('pytorch_model.bin'))
     receipt = {'schema_version': 1, 'passed': True, 'scope': 'small22k_fixed_revision_download',
-               'execution': context, 'model': MODEL, 'repo': REPO, 'revision': REVISION,
+               'execution': context, 'model': MODEL, 'repo': repo, 'revision': revision,
                'training_data': TRAINING_DATA, 'files': records,
                'public_pretrained_config': cfg,
                'candidate': {'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
@@ -129,9 +143,10 @@ def main():
     parser.add_argument('--assets', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--transport-dir', help='Explicit authorized raw byte relay; all parsing and hashes stay on Pod')
+    parser.add_argument('--source-profile', choices=tuple(SOURCE_PROFILES), default='small224')
     args = parser.parse_args()
     try:
-        result = download(args.assets, args.transport_dir)
+        result = download(args.assets, args.transport_dir, args.source_profile)
     except Exception as error:
         write_new_json(args.output, {'schema_version': 1, 'passed': False, 'execution': cpu_context(),
                                     'error_type': type(error).__name__, 'error': str(error)})

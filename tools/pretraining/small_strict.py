@@ -7,7 +7,7 @@ from pathlib import Path
 from source_chain import (configure_torch_threads, cpu_context, file_identity, read_pinned_receipt,
                           require, sha256, verify_current_content, write_new_json)
 from strict_load import check_tensor, gelu_semantics, normalization, target_key, tensor_digest
-from small_source import MODEL, REPO, REVISION, BASE, TRAINING_DATA
+from small_source import MODEL, REPO, REVISION, BASE, SOURCE_PROFILES, TRAINING_DATA
 
 
 DEPTHS = (3, 3, 27, 3)
@@ -33,8 +33,12 @@ def small_mapping(source, converted, expected):
 
 def accept(args, completed):
     context = cpu_context()
+    profile = SOURCE_PROFILES[getattr(args, 'source_profile', 'small224')]
+    repo, revision = profile['repo'], profile['revision']
+    base = f'https://huggingface.co/{repo}/resolve/{revision}'
+    source_model_name = repo.split('/', 1)[1]
     chain = read_pinned_receipt(args.source_receipt, args.source_receipt_sha)
-    require(chain.get('passed') is True and chain.get('repo') == REPO and chain.get('revision') == REVISION,
+    require(chain.get('passed') is True and chain.get('repo') == repo and chain.get('revision') == revision,
             'Small source receipt identity differs')
     require(all(chain['execution'][key] == context[key]
                 for key in ('namespace', 'pod', 'uid', 'container', 'python')),
@@ -60,7 +64,7 @@ def accept(args, completed):
     source = torch.load(source_path, map_location='cpu', weights_only=True)
     require(isinstance(source, dict), 'bin is not a plain state dict')
     # Both factories receive explicit SD .1. No pretrained/network factory load.
-    source_model = timm.create_model('convnext_small.fb_in22k_ft_in1k', pretrained=False,
+    source_model = timm.create_model(source_model_name, pretrained=False,
                                     pretrained_cfg=cfg['pretrained_cfg'], drop_path_rate=.1)
     target = convnext_small(weights=None, stochastic_depth_prob=.1)
     source_loaded = source_model.load_state_dict(source, strict=True)
@@ -73,7 +77,7 @@ def accept(args, completed):
     converted_root = Path(args.assets) / 'converted'
     require(converted_root.is_absolute() and '/exp-v3/' in str(converted_root), 'exp-v3 converted root required')
     converted_root.mkdir(parents=True, exist_ok=True)
-    converted_path = converted_root / 'convnext-small-tv-fe6b358a.pt'
+    converted_path = converted_root / ('convnext-small-tv-' + revision[:8] + '.pt')
     with converted_path.open('xb') as stream:
         torch.save(converted, stream)
     converted_sha = sha256(converted_path)
@@ -132,10 +136,10 @@ def accept(args, completed):
     require(public_parameters == 50223688 and backbone_parameters == 49454688 and backbone_tensors == 342,
             'Small parameter counts differ')
     mapping_path = Path(args.output).with_name('MAPPING.json')
-    write_new_json(mapping_path, {'schema_version': 1, 'passed': True, 'repo': REPO,
-                                 'revision': REVISION, 'mapping': rows})
-    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL, 'format': 'torchvision-1000-state-dict-v1', 'repo': REPO,
-                  'revision': REVISION, 'source_url': BASE + '/pytorch_model.bin', 'training_data': TRAINING_DATA,
+    write_new_json(mapping_path, {'schema_version': 1, 'passed': True, 'repo': repo,
+                                 'revision': revision, 'mapping': rows})
+    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL, 'format': 'torchvision-1000-state-dict-v1', 'repo': repo,
+                  'revision': revision, 'source_url': base + '/pytorch_model.bin', 'training_data': TRAINING_DATA,
                   'original_sha256': assets['pytorch_model.bin']['sha256'], 'sha256': converted_sha,
                   'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
                   'license_file': '../original/LICENSE-apache-2.0.txt', 'redistribution_confirmed': True,
@@ -157,7 +161,7 @@ def accept(args, completed):
                 'asset metadata changed during acceptance')
     require(not torch.cuda.is_initialized(), 'GPU initialized during Small acceptance')
     return {'schema_version': 1, 'passed': True, 'scope': 'small22k_full1000_cpu_strict', 'execution': context,
-            'model': MODEL, 'repo': REPO, 'revision': REVISION, 'structure': structure,
+            'model': MODEL, 'repo': repo, 'revision': revision, 'structure': structure,
             'public_parameters': public_parameters, 'assets': assets,
             'original': {'path': source_path, 'sha256': assets['pytorch_model.bin']['sha256']},
             'converted': {'path': str(converted_path), 'sha256': converted_sha},
@@ -165,7 +169,7 @@ def accept(args, completed):
             'source_chain': {'path': args.source_receipt, 'sha256': args.source_receipt_sha},
             'mapping': {'path': str(mapping_path), 'sha256': sha256(mapping_path)},
             'strict_load': completed['strict'], 'source_implementation_pins': implementation_pins,
-            'source_factory': {'name': 'timm.create_model', 'model': 'convnext_small.fb_in22k_ft_in1k',
+            'source_factory': {'name': 'timm.create_model', 'model': source_model_name,
                                'pretrained': False, 'drop_path_rate': .1, 'timm_version': timm.__version__,
                                'layer_norms': source_norms, 'GELU': source_activations,
                                'stochastic_depth': source_drop, 'BN': 0, 'buffers': 0},
@@ -188,6 +192,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('source-receipt', 'source-receipt-sha', 'assets', 'output', 'handoff'):
         parser.add_argument('--' + name, required=True)
+    parser.add_argument('--source-profile', choices=tuple(SOURCE_PROFILES), default='small224')
     args = parser.parse_args()
     completed = {}
     try:

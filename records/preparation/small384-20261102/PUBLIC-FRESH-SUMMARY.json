@@ -1,0 +1,45 @@
+{
+  "R157": {
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "synthetic512_cold_reload": null,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small384-20261102-32e3/fresh/R157-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "495936365227d096777d0cec6d7c94bafeb7bd7f7d7100e3329aeae314c63891"
+    }
+  },
+  "R158": {
+    "model_tensor_sha256": "440ad1fff41c1166d0598a91b6e85b0cb04b4bc949bef195b40113476ccf7a96",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "synthetic512_cold_reload": {
+      "status": "actual512_synthetic_forward_and_strict_saved_cold_reload_exact",
+      "shape": [
+        1
+      ],
+      "saved_loss": {
+        "version": "binary-pairwise-logistic-v1",
+        "kind": "binary_pairwise_logistic",
+        "temperature": 1.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch"
+      },
+      "fixture_removed": true,
+      "real_image_forward": false
+    },
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small384-20261102-32e3/fresh/R158-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "7f02c46d6cc3f3e803a361641de0e38f05785f6756f53e8fd21297fad7b71cc3"
+    }
+  }
+}
