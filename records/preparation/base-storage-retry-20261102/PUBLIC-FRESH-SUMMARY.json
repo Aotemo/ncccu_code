@@ -1,0 +1,130 @@
+{
+  "R173": {
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/base-storage-retry-20261102-32e3/fresh/R173-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "c4f1422100a41d4f62ba8f8b2fdd37ca25c94424da7460eca93fe65629f7b711"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true
+  },
+  "R174": {
+    "model_tensor_sha256": "5d2ebdcfb799ed587d48dd680a4ce8540d9b29159c9944e4f452b18f6c6a56b2",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 87567491,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/base-storage-retry-20261102-32e3/fresh/R174-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "c60b62491509c59dd93bea03eb62f4415c3a1543a6cb8cf4203c89ecf3ff4a94"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true
+  }
+}

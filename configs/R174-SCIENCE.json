@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-base-clip-768f3849-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-storage16-r174-v1",
+  "initial_model_tensor_sha256": "5d2ebdcfb799ed587d48dd680a4ce8540d9b29159c9944e4f452b18f6c6a56b2",
+  "candidate": {
+    "id": "r174-convnext-base-clip-laion2b-in12k-in1k-24k-p4-seed20261029-scale085-pairlog-storage16-9010",
+    "experiment_order": 86,
+    "model": "convnext_base",
+    "public_revision": "768f3849e9b97ac2f93191ad5fdc458dfafa25f3",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 1024,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "db51031a496537411de823fc282e4885aa03cdfd3e8d0419b872b9dc2a68b948",
+    "provenance_sha256": "591d88cd55063ddb549274f8ea0009b13bab0dcad0686fdc629145ff4c1eaaff",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_base",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "768f3849e9b97ac2f93191ad5fdc458dfafa25f3",
+    "source_url": "https://huggingface.co/timm/convnext_base.clip_laion2b_augreg_ft_in12k_in1k_384/resolve/768f3849e9b97ac2f93191ad5fdc458dfafa25f3/pytorch_model.bin",
+    "training_data": "LAION-2B CLIP pretraining -> ImageNet-12K -> ImageNet-1K fine-tuning",
+    "original_sha256": "ee2f8ca014aa7f8362081f4c4098757e76812f5b7a35a3b018bb7a13971bb241",
+    "sha256": "db51031a496537411de823fc282e4885aa03cdfd3e8d0419b872b9dc2a68b948",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "591d88cd55063ddb549274f8ea0009b13bab0dcad0686fdc629145ff4c1eaaff"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/baseclip-20261102-32e3/BASECLIP-HANDOFF.json",
+    "sha256": "fe3e22d2cbeed3ae12693380543a72076c9baea1a4372cdcea5c25a430201ec9"
+  },
+  "structure": {
+    "features": 1024,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 87566464,
+    "public_parameters": 88591464,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      1024
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/baseclip-768f3849/converted/convnext-base-tv-768f3849.pt",
+    "public_provenance": "assets/public/baseclip-768f3849/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-base",
+    "model": "convnext_base",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent public fresh engineering repetition of interrupted R170; scientific delta zero, not a scientific-negative rescue or old checkpoint/clock resume. Same Base/CLIP768f3849/seed29/competition ImageNet normalization512/original logistic/G64P8/default AdamW/LR/EMA/age/24k-800-p4. Only new round storage16GiB uses the existing centralized per-round exception mechanism, as same-size R116; default12GiB, old R170/current R172 frozen policy, free16GiB floor and VRAM85% stay unchanged. Atomic temporary checkpoint headroom is a bounded scenario, not reconstruction of the failed instant. Complete internal AUROC primary; no normalization/LR/resolution/seed scan after negative; official only complete selected >=.996 once.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "storage_reference": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r170-20261102-32e3/FAILED-EXPORT/R170-STORAGE-AUDIT.json",
+    "sha256": "a81ec16b01e2266d6212f78886f478057b0cd5865ca5b3db5c611484b04d639c"
+  },
+  "post_failure_round_bytes": 11951892576,
+  "largest_existing_full_checkpoint_bytes": 1401945034,
+  "one_new_full_blob_before_prune_scenario_bytes": 13353837610,
+  "old_default_limit_bytes": 12884901888,
+  "new_R174_only_limit_bytes": 17179869184,
+  "scenario_exceeds_old_limit": true,
+  "scenario_fits_new_limit": true,
+  "failed_instant_peak_reconstructed": false,
+  "current_GPU_benchmark": false,
+  "guaranteed_upper_bound": false,
+  "last_successful_resource_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102/control/live-resources.json",
+    "sha256": "605736c05f3bc33b1bc0cb511375e93215bd969a598f6810768018f8242d8785",
+    "fields": {
+      "at": 1793613700.512053,
+      "free_bytes": 43095425024,
+      "new_round_bytes": 11951887320,
+      "new_round_bytes_exact": true
+    }
+  },
+  "free_floor_bytes_unchanged": 17179869184,
+  "VRAM_percent_unchanged": 85,
+  "old_round_limits_unchanged": true,
+  "checkpoint_shapes_and_transaction_order_unchanged": true,
+  "disk_budget_is_separate_from_VRAM": true,
+  "R173_model_compute_contract": {
+    "reference": "existing R168 Small512 first25 to training-complete6400, observed metadata only; beta095 timing is a rough reference",
+    "reference_first25_at": 1793606674.7616422,
+    "reference_training_complete_at": 1793609705.6163135,
+    "reference_interval_seconds": 3030.854671239853,
+    "input_pixel_area_ratio": 2.265625,
+    "nominal_24k_pixel_scaled_seconds": 25851.40748998698,
+    "stress_1_25_seconds": 32314.259362483725,
+    "train_hard_seconds": 27900,
+    "total_seconds": 31500,
+    "limits_unchanged": true,
+    "full_24k_deadline_cutoff_possible": true,
+    "current_GPU_benchmark": false,
+    "guaranteed_upper_bound": false,
+    "CPU_saved_tensor_storage_bytes": 16694105280,
+    "CPU_synthetic_P8_is_not_DCU_peak_memory_or_throughput_proof": true,
+    "checkpoint_shapes_unchanged": true,
+    "disk_budget_is_separate_from_VRAM": true
+  },
+  "R174_model_graph_and_shapes_same_as_R170_and_R116": true
+}
