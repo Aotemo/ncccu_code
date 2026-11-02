@@ -1,0 +1,26 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-cls-20261102-32e3/source-git/records/preparation/vit-cls-20261102/CPU-CHECKS.json",
+    "sha256": "c255f5a3e2c0c4f56d2f2fb5ae05f83d07296b46f42d679030d2b8fac40acca9"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "632fe1d7ab8e655165efae4799483dae184621ba5a1ca87013a70f8407775c7e",
+    "runtime/bundle/retrain/config.py": "d94b4b48f08e1d4e3f80a298a0412567f97284e1cb5df27272bf57ddb85894ec",
+    "runtime/bundle/retrain/experiment91.py": "6c2ba9b32a969d36c26f647e78b5b8d6cde4f88bca8942a05e6f29f748d9211e",
+    "tests/test_deit3_model.py": "2625751137a60949f2d06a6c98b8267854dba0feb46e921397278abbd6a98817",
+    "tests/test_candidate_binding.py": "9e86324b7d270e8dde44217ac7f8fa9295584b8da3ad80b9aad440a5376ec577",
+    "runtime/bundle/retrain/inference.py": "1bb16cf00d1537726665c6ee113cb6ee4cc67f66a23adc5ff5b046993d3cbc82",
+    "runtime/bundle/retrain/ema.py": "13bc21359337ba8a3bb311f6af05713b67420236f7cefe89507ba3947fc8a042",
+    "runtime/bundle/retrain/single91.py": "7ed32875a8dd4744c7da2b6d625a06ce65175a5caf2ed4192f30d8d23149234e",
+    "runtime/r92_initial_gate.py": "7a92f1e20e285762c12923aba60add052b3c2b5e573e517cc362b55e0d3ba787",
+    "tools/validation/check_candidate.py": "238e7158093bea1e060ee9ab8f02e353df7393ffce1fa378159a16b17d4d140f",
+    "tests/test_nonpersistent_buffers.py": "0e50bcdb53b43f284e13ba14796c5e0af55fa41f2933f3a214776e94278fb9ea",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd"
+  },
+  "science_sha256": "11cf4bc7bc85822a6aa79a8670a4f09f232f4698f46db29ab391652b79747eb6",
+  "targets_reused": 4,
+  "unchanged_implementation_files": 5,
+  "tests_rerun": false,
+  "at": 1793655059.0428517
+}

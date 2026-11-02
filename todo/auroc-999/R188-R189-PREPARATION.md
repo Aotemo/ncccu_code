@@ -1,5 +1,7 @@
 # R184R1 之后：条件均值复核与固定原生 CLS 读出
 
+21:37 [R189已实际八rank首成功](../../records/R189/README.md)，0f3冻结、165/e347/5空Adam、原生pool token/精确CLS策略与formal一致，首自然25 loss .719034有限；21:39最新500成功/0skip/eval0。R184R1完整7200/c9/bad4，唯一EMA c5内部AUROC `.9791930315921545`，双门false/官方未跑/actualsafe，故R188不eligible且未normalformal/clock/GPU。整轮结束至新dispatch94.058秒/设备151.353秒/首25记录192.199秒均≤300。后续仅R190/R191准备，不热改本轮或重启旧轮；下文为历史。
+
 21:32 R1实际6850成功/0skip/eval8/bad3、八rank继续运行；后备R189在20%准备池正常CPU19/19与精确Git部署已通过，guard _enxd0va SHA `8ea8c130d84e85b459cd1a62390dd4e59ae4d0c75e1d78966c21d4787856c398` exit0。冻结0f3b19e/tree458e9c7f、SCI11cf4bc7、wholee347/165/5空Adam，actual formal SITE `23409f6207ff5335385c466860bdae71ae9a960ef3269e93862f672300590b47`；manifest34cd1cbf、CPU-prep6f8382c1、deploymentaf02aaf3。未新clock/activation/GPU；完整R1决定R188资格，actualsafe后核全clock余量并一次串行接续。更后的Base源码仍仅准备，未混入0f3冻结。
 
 21:16当前唯一GPU已为R184R1/cd7246a，最新2925成功/0skip/eval3/bad0，暂EMA内部AUROC `.9750773939753712`，尚无完整selected。R186已完整阴性/safe，R187不eligible；R188/R189仍原0f3两technical包、未normalformal/clock/GPU，完整R184R1双门与safe决定既定分支。下一单一ViT-B公开来源只作[独立可行性准备](VIT-BASE-SOURCE-AUDIT-20261102.md)，不改本队列或现冻结。下文为原准备历史。
