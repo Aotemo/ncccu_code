@@ -1,0 +1,26 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small-dino3-20261102-32e3/source-git/records/preparation/small-dino3-20261102/CPU-CHECKS.json",
+    "sha256": "2add579acff030d3b9ed8cb410c674a6c67c561399863282e6517b76f20d54b5"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "62393664fe32571c973474e9e1acbe45c93cdd3d557aa8e3d3e8a58e5fe68ea0",
+    "runtime/bundle/retrain/config.py": "bad2622851a40ce84dc23f10500d8bac5b894bccfd8d097e4bf4389c874df18b",
+    "runtime/bundle/retrain/fresh.py": "5e440c87ae1c65a5b575988376f9a8557f98ec4cc89b8f2979bf17a2572b2334",
+    "runtime/bundle/retrain/experiment91.py": "46a4d2b15ee81192bc4a3903077430bc809d682b929fdedfdc836dee3672d014",
+    "tools/pretraining/small_source.py": "ff65ef8cc85e3c9a88b8abd7e477ed9c29394906bf8ec90b108a59b474a17d33",
+    "tools/pretraining/small_strict.py": "b6784e9e92ff6c97dc37cd788a90e14c15a006165f6385c2f9bccee2f64b71ad",
+    "tools/activation/prepare.py": "0319c4afafd72fa16ee7608d8f809885d9c804c4da3a86a7039a8cdb7b34bb03",
+    "tools/validation/check_candidate.py": "05709dbe77ed524ebc184af19b8ff67f9cc420f6ea90b94892bf24dd6934b55b",
+    "tests/test_pretraining_sources.py": "ae47a924a9548e0bc391cbf1f0de4c9b9226071111a8a276d416e510232110d5",
+    "tests/test_dino3_small.py": "e63099ebf3d746815703fe833fce49e6a9c359eaf7c6225f1a4c68dcfb85762c",
+    "tests/test_candidate_binding.py": "2fe752a8cc5347a1ffb3fcd645e8173cf8ee1d034f2644d4a0444e3c3c04d5db",
+    "tests/test_round_storage_policy.py": "4d5f645535b821600aa3bc39ed1f8c826a0fb6bd2f58d781552d41c1d28be0c3"
+  },
+  "science_sha256": "9af9a4f33ce090beab9f93ec9952b14f3a4ba63bc46e290fbf868cdb7820891c",
+  "targets_reused": 5,
+  "unchanged_implementation_files": 6,
+  "tests_rerun": false,
+  "at": 1793624166.1102383
+}

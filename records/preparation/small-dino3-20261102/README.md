@@ -8,4 +8,4 @@
 
 原件在`/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small-dino3-20261102-32e3/`。11个原CPU任务的SHA/exit/OUTPUT SHA及无越界/任务树退出已逐件核入CPU-CHECKS：包括来源/模型预期RED、首次严格转换的Identity.in_features旧报告假设、错误适配器漏passed，以及三次合成fixture的正式站点/回执假设错误。均保留原失败回执；转换原件另存`converted-failed-1`，修正后完整strict通过，不把这些工程失败当科学阴性或覆盖为firsttry成功。
 
-准备719a/root0–11共12核、保留但未恢复的closed peer12–23共12核，与训练24–119共96核互斥，nice19/隐藏GPU。两SCI已用实际fresh SHA定稿；现进行Git同步与技术包，尚无新normalformal/clock/activation/GPU。后备正常CPU在R174收尾窗口完成，完整结果/actualsafe后沿现有入口串行接续；raw .999未达，未证明临床机制或AUROC收益。
+准备719a/root0–11共12核、peer保留12–23共12核，与训练24–119共96核互斥，nice19/隐藏GPU。Git e9a7f1d/tree1399aa09已push/实际回读，两technical包完成；R176正常formal18/18及精确部署在R174训练期间完成，R175因完整R174双门false而不formal/activation/GPU。[R176实际八rank初态与首25有限](../../R176/README.md)已证，运行冻结e9a7f1d不改；raw .999未达，未证明临床机制或AUROC收益。
