@@ -16,6 +16,15 @@ VIT_DINO3_LIBRARY = {'version':'1.0.27','source_sha256':{
     'layers/pos_embed_sincos.py':'8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914',
     'layers/attention.py':'608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947',
     'layers/patch_embed.py':'7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa'}}
+CAFORMER_VARIANT = 'caformer_s36'
+CAFORMER_FACTORY = 'caformer_s36.sail_in1k_384'
+CAFORMER_FORMAT = 'timm-caformer-s36-native384-full1000-state-dict-v1'
+CAFORMER_LIBRARY = {'version':'1.0.27','source_sha256':{
+    'models/metaformer.py':'e3d95b0fae94b90ea11bd610c6c3df0e19e5aa78c10fd7b4d4bfb595e0c43610',
+    'layers/norm.py':'afe3abf01a4379065c1c11bf6b6f947a1a743aff7f5e51849b353697b0db557d',
+    'layers/mlp.py':'c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5',
+    'layers/drop.py':'2047ce241398537d6e502716f1f3bb7a285b006554f2e27e9a68618d68376ac2',
+    'layers/adaptive_avgmax_pool.py':'c82fd5bc5e44c0b2adf1165261cb2f318aa76db3d0a831304e3dd9e5538efe97'}}
 
 STEM_XY_RULE = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y'],
                 'canvas_size':512,'coordinates':'2*k/(size-1)-1',
@@ -507,6 +516,16 @@ def _vit_dino3_library():
     actual={'version':timm.__version__,'source_sha256':{
         relative:_hash(root/relative)for relative in VIT_DINO3_LIBRARY['source_sha256']}}
     if actual!=VIT_DINO3_LIBRARY:raise ValueError('installed native DINOv3 ViT library differs')
+    return actual
+
+
+def _caformer_library():
+    import timm
+    root = Path(timm.__file__).resolve().parent
+    actual = {'version':timm.__version__, 'source_sha256':{
+        name:_hash(root / name) for name in CAFORMER_LIBRARY['source_sha256']}}
+    if actual != CAFORMER_LIBRARY:
+        raise ValueError('installed native CAFormer library differs')
     return actual
 
 

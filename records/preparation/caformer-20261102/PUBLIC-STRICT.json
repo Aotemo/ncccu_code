@@ -1,0 +1,47 @@
+{
+  "status": "public_full1000_strict_exact_FP32_finite_source_only",
+  "at": 1793643384.233909,
+  "repo": "timm/caformer_s36.sail_in1k_384",
+  "revision": "695903aebe60ba2a96868cedd9129ea256a1f96e",
+  "original_bytes": 157357817,
+  "original_sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+  "source_tensor_sha256": "061e1227c3f3e20ce9461103bf8ea4fc2bd3bf9b2612eacec47206c8ee89814b",
+  "public_tensor_count": 395,
+  "native_parameter_elements": 39297102,
+  "all_public_tensors_exact": true,
+  "all_public_tensors_FP32_finite": true,
+  "strict_missing_keys": [],
+  "strict_unexpected_keys": [],
+  "library": {
+    "timm": "1.0.27",
+    "file": "/usr/local/python3.12/lib/python3.12/site-packages/timm/models/metaformer.py",
+    "sha256": "e3d95b0fae94b90ea11bd610c6c3df0e19e5aa78c10fd7b4d4bfb595e0c43610"
+  },
+  "native_full_head_shape": [
+    1000,
+    2048
+  ],
+  "native_classifier_prefix": {
+    "pooled_features": 512,
+    "fc1_features": 2048,
+    "norms": [
+      512,
+      2048
+    ],
+    "retained_hidden_MLP_would_be_part_of_architecture": true
+  },
+  "source_factory_dropout": {
+    "head.drop": 0.0,
+    "head.fc.head_drop": 0.0
+  },
+  "upstream_reference": {
+    "commit": "64c534ab8f65105fd21713b38e3393a449ca742d",
+    "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "README_sha256": "3793bb05121493cf76faf23d1d45d48938d4ac196908fac748ab60b3edb18a2a"
+  },
+  "candidate_registered": false,
+  "binary_replacement_or_fresh_hash_measured": false,
+  "GPU_initialized": false,
+  "forward_calls": 0,
+  "datasets_or_training_checkpoint_read": false
+}

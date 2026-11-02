@@ -1,0 +1,65 @@
+{
+  "scope": "native_CAFormer_public_source_only",
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "18384bac2f83a14831d03a098e8a29ac4b876b31efe9122b59e5a6b546909ce9",
+    "tools/pretraining/deit3_source.py": "2b48fdeb4c78f5ee989c3a09b66db79e348544fe16ab678c0f8913c1c645efc7"
+  },
+  "actual_production_source_checks_passed": 2,
+  "unit_tests_added_or_run_in_source_phase": 0,
+  "full1000_tensors": 395,
+  "binary_factory_or_candidate_ready": false,
+  "public_forward_calls": 0,
+  "GPU_initialized": false,
+  "evidence": [
+    {
+      "label": "audit_helper_syntax_failure",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ffvso_4p/CPU-RECEIPT.json",
+      "sha256": "20b598cec7672f9603d96acfac797e6014c5c47556b279087336929ac7b95ef8",
+      "exit_code": 1,
+      "output_sha256": "388eb4e7e8935a233f2255ad88c2ffed1039d23090461d7870853d7bdc683c27"
+    },
+    {
+      "label": "native_random_factory",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-js0__odg/CPU-RECEIPT.json",
+      "sha256": "7bb2a9c71bd66e060a952d93860d9b53bcddfc9c0be5a38f35f8aa06d13a28c4",
+      "exit_code": 0,
+      "output_sha256": "ec5bda1b9ee5cc525d765200dd26c61b1281c2ae03c90e3ebf7c317dbee1ed43"
+    },
+    {
+      "label": "original_full1000_strict",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-z_eersqv/CPU-RECEIPT.json",
+      "sha256": "9237eecb22c319937c61db5e5ed30132b594c6b43b773f2a2bb6b5088d4f9810",
+      "exit_code": 0,
+      "output_sha256": "46f04f3bd7a11d6e71ee2760699d130e423b490fd2dee12ec3398ce0bd5bf970"
+    },
+    {
+      "label": "five_native_library_pins",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-h5lhirbc/CPU-RECEIPT.json",
+      "sha256": "4db9273489ef000347451fbc82c629e61706cedf66f072160117eb6dcd145294",
+      "exit_code": 0,
+      "output_sha256": "f31f9805ea21abcfedb5d1af0e3c009449e75542f4378e5a7c21946f06913ba3"
+    },
+    {
+      "label": "actual_new_production_source_profile",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-eofran8t/CPU-RECEIPT.json",
+      "sha256": "ca947ab6864e53e599623f9d248a85ea11bc3dbe57a081c77f9e212ef80856d5",
+      "exit_code": 0,
+      "output_sha256": "82cbd20e1e95523e8de9054f10b944638530975006bf8b2fb159920a8bba9cff"
+    },
+    {
+      "label": "original_three_argument_default_compatibility",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-hxd8vh9i/CPU-RECEIPT.json",
+      "sha256": "3ea1dc06db1c22d49e4c5cdd38d5db91989195e1630a3a5d19c89b2ba664db79",
+      "exit_code": 0,
+      "output_sha256": "bd93a4792f8eda632359b7522431d9bda5dee20d70d1294ad3b5e1e52589ed0a"
+    }
+  ],
+  "files": {
+    "PUBLIC-STRICT.json": "46f04f3bd7a11d6e71ee2760699d130e423b490fd2dee12ec3398ce0bd5bf970",
+    "SOURCE-ACCEPT.json": "82cbd20e1e95523e8de9054f10b944638530975006bf8b2fb159920a8bba9cff",
+    "DEFAULT-COMPAT.json": "bd93a4792f8eda632359b7522431d9bda5dee20d70d1294ad3b5e1e52589ed0a",
+    "PROVENANCE.json": "1c870b754b55a0c5af6ef48c03814c9e042a72c808b1e18604cc6f6e0e687264",
+    "LIBRARY-PIN.json": "f31f9805ea21abcfedb5d1af0e3c009449e75542f4378e5a7c21946f06913ba3",
+    "PUBLIC-HANDOFF.json": "97e59fd51664a00f38093311b81aed900c3489796e247d3ac770b023ae724a6d"
+  }
+}

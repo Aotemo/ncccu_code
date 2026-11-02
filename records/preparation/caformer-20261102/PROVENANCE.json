@@ -1,0 +1,674 @@
+{
+  "model": "caformer_s36",
+  "format": "timm-caformer-s36-native384-full1000-state-dict-v1",
+  "revision": "695903aebe60ba2a96868cedd9129ea256a1f96e",
+  "source_url": "https://huggingface.co/timm/caformer_s36.sail_in1k_384/resolve/695903aebe60ba2a96868cedd9129ea256a1f96e/pytorch_model.bin",
+  "training_data": "ImageNet-1K supervised training by MetaFormer authors",
+  "sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+  "original_sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+  "native_library": {
+    "version": "1.0.27",
+    "source_sha256": {
+      "models/metaformer.py": "e3d95b0fae94b90ea11bd610c6c3df0e19e5aa78c10fd7b4d4bfb595e0c43610",
+      "layers/norm.py": "afe3abf01a4379065c1c11bf6b6f947a1a743aff7f5e51849b353697b0db557d",
+      "layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+      "layers/drop.py": "2047ce241398537d6e502716f1f3bb7a285b006554f2e27e9a68618d68376ac2",
+      "layers/adaptive_avgmax_pool.py": "c82fd5bc5e44c0b2adf1165261cb2f318aa76db3d0a831304e3dd9e5538efe97"
+    }
+  },
+  "license_file": "original/LICENSE-apache-2.0.txt",
+  "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+  "redistribution_confirmed": true,
+  "public_tensor_count": 395,
+  "public_tensor_sha256": "061e1227c3f3e20ce9461103bf8ea4fc2bd3bf9b2612eacec47206c8ee89814b",
+  "full_head_shape": [
+    1000,
+    2048
+  ],
+  "final_norm_eps": 1e-06,
+  "internal_norm_eps": 1e-06,
+  "converted": false,
+  "kind": "imagenet",
+  "repo": "timm/caformer_s36.sail_in1k_384",
+  "source_features": 512,
+  "classifier_hidden_features": 2048,
+  "structure": {
+    "stage_depths": [
+      3,
+      12,
+      18,
+      3
+    ],
+    "layer_norms": 78,
+    "layer_norm_catalog": [
+      {
+        "name": "stem.norm",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.0.blocks.0.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.0.blocks.0.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.0.blocks.1.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.0.blocks.1.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.0.blocks.2.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.0.blocks.2.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.1.downsample.norm",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          64
+        ]
+      },
+      {
+        "name": "stages.1.blocks.0.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.0.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.1.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.1.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.2.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.2.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.3.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.3.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.4.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.4.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.5.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.5.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.6.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.6.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.7.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.7.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.8.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.8.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.9.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.9.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.10.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.10.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.11.norm1",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.1.blocks.11.norm2",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.2.downsample.norm",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          128
+        ]
+      },
+      {
+        "name": "stages.2.blocks.0.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.0.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.1.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.1.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.2.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.2.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.3.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.3.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.4.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.4.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.5.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.5.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.6.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.6.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.7.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.7.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.8.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.8.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.9.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.9.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.10.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.10.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.11.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.11.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.12.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.12.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.13.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.13.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.14.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.14.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.15.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.15.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.16.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.16.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.17.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.2.blocks.17.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.3.downsample.norm",
+        "type": "LayerNorm2dNoBias",
+        "eps": 1e-06,
+        "shape": [
+          320
+        ]
+      },
+      {
+        "name": "stages.3.blocks.0.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "stages.3.blocks.0.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "stages.3.blocks.1.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "stages.3.blocks.1.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "stages.3.blocks.2.norm1",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "stages.3.blocks.2.norm2",
+        "type": "LayerNormNoBias",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "head.norm",
+        "type": "LayerNorm2d",
+        "eps": 1e-06,
+        "shape": [
+          512
+        ]
+      },
+      {
+        "name": "head.fc.norm",
+        "type": "LayerNorm",
+        "eps": 1e-06,
+        "shape": [
+          2048
+        ]
+      }
+    ],
+    "backbone_parameter_tensors": 393,
+    "backbone_parameters": 37248102,
+    "stochastic_depth_modules": 70,
+    "buffer_count": 0
+  }
+}

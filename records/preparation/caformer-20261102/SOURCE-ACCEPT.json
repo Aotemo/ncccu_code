@@ -1,0 +1,9 @@
+{
+  "status": "native_public384_strict_no_conversion_no_forward",
+  "weight_sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+  "provenance_sha256": "1c870b754b55a0c5af6ef48c03814c9e042a72c808b1e18604cc6f6e0e687264",
+  "handoff_sha256": "97e59fd51664a00f38093311b81aed900c3489796e247d3ac770b023ae724a6d",
+  "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+  "public_tensor_count": 395,
+  "asset_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/caformer-s36-695903ae"
+}

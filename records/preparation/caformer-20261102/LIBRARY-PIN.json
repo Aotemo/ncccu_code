@@ -1,0 +1,10 @@
+{
+  "version": "1.0.27",
+  "source_sha256": {
+    "models/metaformer.py": "e3d95b0fae94b90ea11bd610c6c3df0e19e5aa78c10fd7b4d4bfb595e0c43610",
+    "layers/norm.py": "afe3abf01a4379065c1c11bf6b6f947a1a743aff7f5e51849b353697b0db557d",
+    "layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+    "layers/drop.py": "2047ce241398537d6e502716f1f3bb7a285b006554f2e27e9a68618d68376ac2",
+    "layers/adaptive_avgmax_pool.py": "c82fd5bc5e44c0b2adf1165261cb2f318aa76db3d0a831304e3dd9e5538efe97"
+  }
+}
