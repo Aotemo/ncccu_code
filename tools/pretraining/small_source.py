@@ -32,6 +32,15 @@ SOURCE_PROFILES = {
                   'license_url': 'https://raw.githubusercontent.com/facebookresearch/dinov3/main/LICENSE.md',
                   'license_sha256': '25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'},
 }
+SOURCE_PROFILES['largedino3'] = {
+    **SOURCE_PROFILES['smalldino3'],
+    'repo': 'timm/convnext_large.dinov3_lvd1689m',
+    'revision': '0f8b496db5dea10c7533e85304400f0eddad55ac',
+    'model': 'convnext_large', 'features': 1536, 'widths': [192,384,768,1536],
+    'backbone_parameters': 196230336,
+    'format': 'torchvision-convnext-large-dinov3-backbone-state-dict-v1',
+    'registry_url': 'https://huggingface.co/api/models/timm/convnext_large.dinov3_lvd1689m?blobs=true',
+}
 
 
 def fetch(url, target, expected_sha=None, expected_bytes=None, transport_file=None):
@@ -73,6 +82,7 @@ def fetch(url, target, expected_sha=None, expected_bytes=None, transport_file=No
 def download(assets, transport_dir=None, source_profile='small224'):
     context = cpu_context()
     profile = SOURCE_PROFILES[source_profile]
+    model, features = profile.get('model', MODEL), profile.get('features', 768)
     num_classes = profile.get('num_classes', 1000)
     headless = num_classes == 0
     repo, revision = profile['repo'], profile['revision']
@@ -85,7 +95,7 @@ def download(assets, transport_dir=None, source_profile='small224'):
         require(Path(transport_dir).is_absolute() and '/exp-v3/' in str(transport_dir),
                 'explicit exp-v3 transport root required')
     transport = lambda name: str(Path(transport_dir) / name) if transport_dir else None
-    api_url = f'https://huggingface.co/api/models/{repo}/revision/{revision}?blobs=true'
+    api_url = profile.get('registry_url', f'https://huggingface.co/api/models/{repo}/revision/{revision}?blobs=true')
     api_record = fetch(api_url, original / 'model-api.json', transport_file=transport('model-api.json'))
     api = json.loads((original / 'model-api.json').read_text())
     require(api.get('id') == repo and api.get('sha') == revision
@@ -112,7 +122,7 @@ def download(assets, transport_dir=None, source_profile='small224'):
     config = json.loads((original / 'config.json').read_text())
     cfg = config['pretrained_cfg']
     require((config.get('architecture'), config.get('num_classes'), config.get('num_features'))
-            == (MODEL, num_classes, 768), 'public architecture config differs')
+            == (model, num_classes, features), 'public architecture config differs')
     require(cfg.get('tag') == profile['tag'] and cfg.get('num_classes') == num_classes
             and cfg.get('first_conv') == 'stem.0' and cfg.get('classifier') == 'head.fc'
             and cfg.get('mean') == [.485, .456, .406] and cfg.get('std') == [.229, .224, .225]
@@ -150,8 +160,9 @@ def download(assets, transport_dir=None, source_profile='small224'):
                 and 'END OF TERMS AND CONDITIONS' in license_text, 'official license text incomplete')
     records['pytorch_model.bin'] = fetch(base + '/pytorch_model.bin', original / 'pytorch_model.bin',
                                         expected_sha, expected_size, transport('pytorch_model.bin'))
-    receipt = {'schema_version': 1, 'passed': True, 'scope': 'small22k_fixed_revision_download',
-               'execution': context, 'model': MODEL, 'repo': repo, 'revision': revision,
+    receipt = {'schema_version': 1, 'passed': True,
+               'scope': 'large_dinov3_fixed_revision_download' if source_profile=='largedino3' else 'small22k_fixed_revision_download',
+               'execution': context, 'model': model, 'repo': repo, 'revision': revision,
                'training_data': profile.get('training_data', TRAINING_DATA), 'files': records,
                'public_pretrained_config': cfg,
                'candidate': {'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,

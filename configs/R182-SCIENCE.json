@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-large-dinov3-0f8b496d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "864775ca1be0d6be0c6b42ae6b06b2ded0b45a825762a85a4617afc8eee54b33",
+  "candidate": {
+    "id": "r182-convnext-large-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 94,
+    "model": "convnext_large",
+    "public_revision": "0f8b496db5dea10c7533e85304400f0eddad55ac",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 1536,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "194e4ac3ac1d7f47d70c8c3312feb49ea78325f125b1b8ad30a2a784bfa3bb87",
+    "provenance_sha256": "0a6674dd91bf81eec261905c34e772c0e493d1e06c8663aca4a90194ac69a5f7",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_large",
+    "format": "torchvision-convnext-large-dinov3-backbone-state-dict-v1",
+    "revision": "0f8b496db5dea10c7533e85304400f0eddad55ac",
+    "source_url": "https://huggingface.co/timm/convnext_large.dinov3_lvd1689m/resolve/0f8b496db5dea10c7533e85304400f0eddad55ac/pytorch_model.bin",
+    "training_data": "LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B",
+    "original_sha256": "be34ed200bcb3a0790b0507434fe7449ce9525bc1ce8172ae78c52466b352217",
+    "sha256": "194e4ac3ac1d7f47d70c8c3312feb49ea78325f125b1b8ad30a2a784bfa3bb87",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-dinov3.md",
+    "kind": "self_supervised",
+    "repo": "timm/convnext_large.dinov3_lvd1689m",
+    "tag": "dinov3_lvd1689m",
+    "structure": {
+      "features": 1536,
+      "public_state_tensors": 342,
+      "backbone_state_tensors": 342,
+      "backbone_parameters": 196230336,
+      "layer_norms": 41,
+      "gelu_modules": 36,
+      "stochastic_depth_modules": 36,
+      "full_head_shape": null
+    },
+    "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "provenance_sha256": "0a6674dd91bf81eec261905c34e772c0e493d1e06c8663aca4a90194ac69a5f7",
+    "strict_receipt_sha256": "a914da6a35d9c8473d23eebd14f1531ee8e1d39609059e0eea02b85ecbcc0aac"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/large-dino3-20261102-32e3/PUBLIC-ASSET.json",
+    "sha256": "78d104f17a04d48ebc62e758c2fc270be7b8849289381ca088d940f2d07987b6"
+  },
+  "structure": {
+    "features": 1536,
+    "public_state_tensors": 342,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 196230336,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": null
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/large-dino3-0f8b496d/converted/convnext-large-tv-0f8b496d.pt",
+    "public_provenance": "assets/public/large-dino3-0f8b496d/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-large",
+    "model": "convnext_large",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent public fresh Large DINOv3/LVD-1689M natural-image initialization at fixed0f8b496d, retaining exactly R180 Large/seed29/original512/ImageNet input/plain pairlog/G64P8/448pairs/sampling augmentation/default AdamW/LR/EMA/age/24k-800-p4. Complete342 public backbone with no public class head; native discarded1000-head RNG consumption is retained before original binary Linear1536-to-1/Dropout.2/age. Same native one-network graph, no teacher/extra forward, medical pretraining, old trained checkpoint or policy stacking. Source224/crop1 is provenance, candidate remains original512. Negative Small DINOv3 R176 is prior evidence against assuming benefit; same-architecture source comparison with R180 and bounded Small/Large description are not a pure pretraining-objective causal decomposition. Complete overall internal AUROC primary versus R107/R120, AP/local groups cannot rescue failure; one fixed combination then close, no source/LR/input/seed scan. Exact new round32GiB, old free16GiB and clock/resources unchanged. Official isolated until complete selected>=.996 once. Actual fresh identity must replace draft before adoption.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

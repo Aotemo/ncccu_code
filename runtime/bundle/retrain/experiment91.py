@@ -66,6 +66,9 @@ SMALL_DINO3_SEED27_BINDING = 'single-convnext-small-dinov3-c497e64d-fixed-9010-2
 PAIR_BCE_MIX_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-bce-mix05-v1'
 PAIR_BCE_MIX_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-bce-mix05-v1'
 LARGE_BINDING = 'single-convnext-large-dc2e53fa-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+LARGE_SEED27_BINDING = 'single-convnext-large-dc2e53fa-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+LARGE_DINO3_BINDING = 'single-convnext-large-dinov3-0f8b496d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+LARGE_VARIANT_BINDINGS = (LARGE_BINDING,LARGE_SEED27_BINDING,LARGE_DINO3_BINDING)
 AUC_MARGIN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-batch-aucmargin1-v1'
 AUC_MARGIN_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-batch-aucmargin1-v1'
 COSINE_HEAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cosine16-v1'
@@ -114,7 +117,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                       BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                       BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
-                      PAIR_BCE_MIX_SMALL_SEED27_BINDING,LARGE_BINDING)
+                      PAIR_BCE_MIX_SMALL_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -213,7 +216,7 @@ def science_configuration():
                                                        ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                                                        BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                                                        BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
-                                                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,LARGE_BINDING)
+                                                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
@@ -761,7 +764,7 @@ def candidate_from_configuration(value):
                     'stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
                     'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
             raise ValueError('fixed native DeiT3 source/512/original pairlog recipe differs')
-    elif value['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,LARGE_BINDING):
+    elif value['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS):
         expected = {'id': 'r116-convnext-base-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order': 26, 'model': 'convnext_base', 'public_revision': source['revision'],
             'readout': 'native_avgpool_final_LN_dropout_linear_plus_age', 'features': 1024,
@@ -769,17 +772,25 @@ def candidate_from_configuration(value):
             'batch_norm_buffers': 0, 'attention_pool': None,
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
-        if value['candidate_profile']==LARGE_BINDING:
+        if value['candidate_profile'] in LARGE_VARIANT_BINDINGS:
+            dino3 = value['candidate_profile']==LARGE_DINO3_BINDING
+            seed27 = value['candidate_profile']==LARGE_SEED27_BINDING
             expected.update(id='r180-convnext-large-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
                             experiment_order=92,model='convnext_large',features=1536)
+            if seed27:
+                expected.update(id='r181-convnext-large-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=93)
+            if dino3:
+                expected.update(id='r182-convnext-large-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=94)
             if (source.get('model')!='convnext_large'
-                    or source.get('revision')!='dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854'
-                    or source.get('original_sha256')!='fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277'
-                    or source.get('training_data')!='ImageNet-22K pretraining -> ImageNet-1K fine-tuning'
+                    or source.get('revision')!=('0f8b496db5dea10c7533e85304400f0eddad55ac' if dino3 else 'dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854')
+                    or source.get('original_sha256')!=('be34ed200bcb3a0790b0507434fe7449ce9525bc1ce8172ae78c52466b352217' if dino3 else 'fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277')
+                    or source.get('training_data')!=('LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B' if dino3 else 'ImageNet-22K pretraining -> ImageNet-1K fine-tuning')
+                    or (dino3 and (source.get('kind')!='self_supervised'
+                        or source.get('format')!='torchvision-convnext-large-dinov3-backbone-state-dict-v1'))
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                         value['job'].get('image_size'),value['job'].get('prepared_size'),
-                        value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=('convnext_large',20261029,'imagenet',512,512,64,8)
+                        value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=('convnext_large',20261027 if seed27 else 20261029,'imagenet',512,512,64,8)
                     or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
                         'quadrant_mil_policy','input_preprocessing','optimizer_policy','gradient_centralization_policy',
                         'gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy',
@@ -932,7 +943,7 @@ def verify_public_asset(science, site):
                 or receipt.get('num_classes') != source['num_classes']
                 or receipt.get('strict_load', {}).get('sha256') != source['strict_receipt_sha256']):
             raise ValueError('Small 22K-only complete public source identity differs')
-    if science['candidate_profile'] in (SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING):
+    if science['candidate_profile'] in (SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,LARGE_DINO3_BINDING):
         if (receipt.get('repo')!=source['repo']
                 or receipt.get('strict_load',{}).get('sha256')!=source['strict_receipt_sha256']):
             raise ValueError('Small DINOv3 complete public backbone handoff differs')
@@ -1099,7 +1110,7 @@ def validate_job(job):
             or job.get('experiment91') != binding() or job.get('age') != resolved_age_spec()
             or init.get('kind') != public_source().get('kind','imagenet') or init.get('sha256') != public_source()['sha256']
             or init.get('format') != public_source()['format']
-            or (init.get('format')=='torchvision-convnext-small-dinov3-backbone-state-dict-v1'
+            or (init.get('format') in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1','torchvision-convnext-large-dinov3-backbone-state-dict-v1')
                 and init.get('expected_backbone_state_keys')!=342)
             or Path(init.get('path', '')).resolve() != Path(site['public_weight']).resolve()
             or Path(init.get('provenance', '')).resolve() != Path(site['public_provenance']).resolve()):
@@ -1282,14 +1293,14 @@ def describe_model(model):
             'shape': list(weight.shape), 'dtype': str(weight.dtype),
             'feature_index': 5, 'channels': convolution.out_channels}
     if ('final_downsample_stride' in science_configuration()['job']
-            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,LARGE_BINDING)):
+            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)):
         convolution = network.features[6][1]
         if not isinstance(convolution, nn.Conv2d):
             raise ValueError('actual final ConvNeXt downsample must remain Conv2d')
         result['final_downsample'] = {'name': 'network.features.6.1', 'stride': list(convolution.stride),
             'kernel_size': list(convolution.kernel_size), 'padding': list(convolution.padding),
             'dilation': list(convolution.dilation)}
-    if science_configuration()['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,LARGE_BINDING):
+    if science_configuration()['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS):
         result['stage_widths'] = [network.features[0][0].out_channels,
             network.features[2][1].out_channels, network.features[4][1].out_channels,
             network.features[6][1].out_channels]
@@ -1489,13 +1500,13 @@ def validate_normalization(value):
     elif value.get('stage3_residual') is not None:
         raise ValueError('unregistered stage3 residual parameter')
     if ('final_downsample_stride' in configured
-            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,LARGE_BINDING)):
+            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)):
         stride = configured.get('final_downsample_stride', 2)
         if value.get('final_downsample') != {'name': 'network.features.6.1', 'stride': [stride, stride],
                 'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}:
             raise ValueError('actual final ConvNeXt downsample geometry differs from pinned job')
-    if (science_configuration()['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,LARGE_BINDING)
-            and value.get('stage_widths') != ([192,384,768,1536] if science_configuration()['candidate_profile']==LARGE_BINDING else [128,256,512,1024])):
+    if (science_configuration()['candidate_profile'] in (BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)
+            and value.get('stage_widths') != ([192,384,768,1536] if science_configuration()['candidate_profile'] in LARGE_VARIANT_BINDINGS else [128,256,512,1024])):
         raise ValueError('actual native ConvNeXt stage widths differ')
     if (value.get('candidate') != candidate() or value.get('batch_norm_modules') != 0
             or value.get('buffer_count') != 0 or value.get('buffer_sha256') != hashlib.sha256(b'').hexdigest()

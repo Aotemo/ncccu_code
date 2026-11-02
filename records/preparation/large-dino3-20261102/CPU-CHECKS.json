@@ -1,0 +1,184 @@
+{
+  "status": "affected_final_targets_and_compiles_passed",
+  "new_targets": 1,
+  "compiled_sources": 12,
+  "previous_passed_kind_and_storage_reused": {
+    "path": "tasks/32e3b079-81b0-4f66-9604-b32491599f44-uwp7usls/CPU-RECEIPT.json",
+    "sha256": "17839a4e3432de4ff3cfaf058e178c0cc276baccd764f181c2b839d4134bde14",
+    "guard_exit_code": 1,
+    "scope": "kind and storage targets passed; candidate fixture failed and is the only target rerun"
+  },
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R181_R182_Large_fixed_science_and_public_kind"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "e6dd21210c6badd6fa60fd318d1c120e434d3d906a879e6410e9b5b4ab8dd142",
+    "runtime/bundle/retrain/config.py": "ec8975db01311177057b770d29ed5b9caab73e13a3faa21d9defcacee90878e6",
+    "runtime/bundle/retrain/fresh.py": "647ddaa1e7658e505d1013c6401b408cd6bf084622871ee21d640ecde3ff40c9",
+    "runtime/bundle/retrain/experiment91.py": "0f7609022bb2c7670d3551792754c1ed827aaec2ddfa4b3e9bcdcc0a4b837c7b",
+    "tools/pretraining/small_source.py": "fddf4740189869e8d2552837ce9cfe3318ee5b6b16e747d28b79dc9a6725aea8",
+    "tools/pretraining/small_strict.py": "51740ddf22e1e058d219f8c833ec257902e5f2123f3ba903c3aeb102eb3292d2",
+    "tools/validation/check_candidate.py": "6ad37d9858a658191bcb0aebc32722312025b8322e2ca921c9d300beb62ddd58",
+    "tools/activation/prepare.py": "617b50836df618b0cab65d379e1911886f4b7a41a3dedaad812dd7bcbff50bcb",
+    "tests/test_pretraining_sources.py": "d885a191de741b9297aaca43a6915e56217db7f61d324e053957d52b7a65a810",
+    "tests/test_convnext_large.py": "7d1043b269797cd0fdebddb45c3eedc0d10ed420956525f63b6308d534423706",
+    "tests/test_candidate_binding.py": "a5c3dfa1fdab0127c8fbc28a8b452cf7232c9fa77b9688cf074940e3b1b9e656",
+    "tests/test_round_storage_policy.py": "108d5004a4429ca7439af30947d3db7d5b607ef62547a5f58a3f33a9df61519c"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "bd23ba915081887c1e975c8b66814fafc8687fb084d07b5709b11e8c4cdff599"
+  },
+  "science_sha256": {
+    "R181-SCIENCE.json": "c94d274c83e862bbdf64bf9ef00dd7ea2679f7b694bf7de770570cd6b3ebf9e8",
+    "R182-SCIENCE.json": "c7f2e7f33467e125ed69475672e5150f4b5b3aabde4450b9213c468ecab6fc65"
+  },
+  "unchanged_implementation_files": {
+    "engine": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "inference": "558444d07d3e27c689406c8fab88690a4a1c10220ba2e51303981d8091b7e8c0"
+  },
+  "GPU_initialized": false,
+  "forward_calls_in_this_task": 0,
+  "datasets_read": false,
+  "passed_targets": 5,
+  "evidence": [
+    {
+      "label": "registry",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-us6vg98g/CPU-RECEIPT.json",
+      "sha256": "18038f320ff9abc30ad1bd67558225b434327c3dbf3226463f9fa1790c8f422f",
+      "exit_code": 0,
+      "output_sha256": "651bf115f2b030c10a8f394b8a7e6a01a4401efc46670d3bbc2c4cd0c10cb03a"
+    },
+    {
+      "label": "source_red",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-bvwm9frc/CPU-RECEIPT.json",
+      "sha256": "d6db8046fcd9bb5269d7ec958d19d01da594b09f3ac3ca5174055d9dffc834a8",
+      "exit_code": 1,
+      "output_sha256": "a552c13588792149517c03ebea2e24dca455bc0bbd67499a1c4f135d7cacb101"
+    },
+    {
+      "label": "source_green",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g7twnxs3/CPU-RECEIPT.json",
+      "sha256": "42615dceedace59f96a3e234db253127a64537c24f216782bbe669e5404f2388",
+      "exit_code": 0,
+      "output_sha256": "7c6e962d8781afa081feb412d1b907830233f6465cf3d7badf81fc8faf181846"
+    },
+    {
+      "label": "kind_red",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-7stj6tri/CPU-RECEIPT.json",
+      "sha256": "fb2f05762348624c153622019e804794d1cb961ff81cd8db13ba534c34b88157",
+      "exit_code": 1,
+      "output_sha256": "56d62695a1a4dbbb420d1ac9955d05d9b8286e73fd4ce5f9c107cd3dee3651c4"
+    },
+    {
+      "label": "kind_fixture_normalization_error",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-vr4ch5c0/CPU-RECEIPT.json",
+      "sha256": "b3cd1dafceacfcfd7bb90ac1771af89e0e3ba455f444ba40fdb35a68c735c56c",
+      "exit_code": 1,
+      "output_sha256": "d3670362cfb7eee5174d09f258a4ff708197b43b12449ee7ffeb0a873fe92893"
+    },
+    {
+      "label": "actual_public_source",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-i4xkckod/CPU-RECEIPT.json",
+      "sha256": "67ff83a0b04e04dcc3e5e446f23bc6d33bd78a21d781e807ba72d8d4c5e5b967",
+      "exit_code": 0,
+      "output_sha256": "93a5f82617e43fb78b44f6f0f73e0604009b1640e63778afc89e39387451408b"
+    },
+    {
+      "label": "kind_green2",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-0mrmfl4v/CPU-RECEIPT.json",
+      "sha256": "bb77bb9b097e6d6f3d748690e57fa060aa60911ccf395d1810fca5fab2de116a",
+      "exit_code": 0,
+      "output_sha256": "7baeae4a24405d44ec2ed88f7283a4b964e473e5801426644d8c24e431f577e9"
+    },
+    {
+      "label": "science_drafts",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-kfgnp49y/CPU-RECEIPT.json",
+      "sha256": "f5c97867f9d0a99cb50e5ecf4791b9c62d58266d18c2e682c700585188333e5f",
+      "exit_code": 0,
+      "output_sha256": "673c0b2194f4c68c5fa81b902b2fc8e5720d73d2b7edce694908aa3445bdd71d"
+    },
+    {
+      "label": "two_public_fresh",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-bb1wksj7/CPU-RECEIPT.json",
+      "sha256": "f92a425f408d42ecca62155e1bb0cd4588472e027fdcafc10be061bac3ebbad3",
+      "exit_code": 0,
+      "output_sha256": "62198992b3bd8baefd6a7acba8b919665b4519ee17a518f9439a5290fd7fa26e"
+    },
+    {
+      "label": "kind_storage_pass_candidate_fixture_path_error",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-uwp7usls/CPU-RECEIPT.json",
+      "sha256": "17839a4e3432de4ff3cfaf058e178c0cc276baccd764f181c2b839d4134bde14",
+      "exit_code": 1,
+      "output_sha256": "63ca88d8660670d6ce8ea5148756f4a2460b1f74483b929d1205e893089c7668"
+    },
+    {
+      "label": "production_initializer_cold",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-eql_omue/CPU-RECEIPT.json",
+      "sha256": "050217cc40fa85296bff15f110551b5b89d438643d95d8a224c228bf71d213de",
+      "exit_code": 0,
+      "output_sha256": "3aa63c7abf50b3d0a243d8b931be6d7a43169f421e12f3cd74b0b88435614eea"
+    },
+    {
+      "label": "final_targets_compiles",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-local-lease-20261102-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-_6901aex/CPU-RECEIPT.json",
+      "sha256": "a909edf16ba5b5e035958cb11de227eeef51dd97d89dbdd08b26178245bf6dea",
+      "exit_code": 0,
+      "output_sha256": "2c0a39a349d2a524b253b28206dd0375b3979405a044a2cd6710363e39e336e8"
+    }
+  ],
+  "production": {
+    "passed_targets": 1,
+    "failures": 0,
+    "errors": 0,
+    "target": "test_convnext_large.ConvnextLargeTest.test_large_dinov3_actual_initializer_head_rng_and_cold_graph",
+    "evidence": {
+      "actual_public_headless_initializer": true,
+      "native_discarded1000_head_RNG_preserved": true,
+      "binary_head_rng_exact": true,
+      "cold_graph_exact": true,
+      "age_residual_calls": 1,
+      "parameter_tensors": 345,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "synthetic_input_shape": [
+        2,
+        3,
+        64,
+        64
+      ],
+      "no_real_images": true,
+      "GPU_initialized": false,
+      "unrelated_native512_P8_graph_evidence": "R180 preparation; constructor prefix and forward suffix checked unchanged separately"
+    },
+    "source_sha256": {
+      "runtime/bundle/retrain/models.py": "e6dd21210c6badd6fa60fd318d1c120e434d3d906a879e6410e9b5b4ab8dd142",
+      "runtime/bundle/retrain/config.py": "ec8975db01311177057b770d29ed5b9caab73e13a3faa21d9defcacee90878e6",
+      "runtime/bundle/retrain/fresh.py": "647ddaa1e7658e505d1013c6401b408cd6bf084622871ee21d640ecde3ff40c9",
+      "tests/test_convnext_large.py": "7d1043b269797cd0fdebddb45c3eedc0d10ed420956525f63b6308d534423706"
+    },
+    "native_factory_prefix_and_forward_suffix_exact_unchanged": true,
+    "native_forward_suffix_sha256": "b5e903b102296827ffac652b6b8e85349a23c98e961095f6bf902ef0caa6f53f",
+    "full_source_file_changed_for_initializer": true,
+    "native512_P8_not_rerun": true,
+    "GPU_initialized": false
+  },
+  "source_mapping_target": "test_pretraining_sources.SmallMappingTest.test_large_dinov3_complete_backbone_and_small_defaults",
+  "failure_note": "Original source/profile and format RED retained. First kind GREEN fixture incorrectly retained random normalization; fixture corrected to the actual ImageNet contract and only that target rerun. The independent source acceptance ran after the failed fixture due shell grouping; its own guard0 and original strict evidence are distinct. Later kind/storage passed while candidate fixture work_root mismatched its paths; fixture corrected and only candidate rerun. No source/model/official outcome was relabelled.",
+  "reused_native512_P8": {
+    "original_model_source": "fd9897514db6bd3e102aba9f3614254d7a9360fb0c960f83c7f698923c4bb74a",
+    "constructor_prefix_and_forward_suffix_exact": true,
+    "suffix_sha256": "b5e903b102296827ffac652b6b8e85349a23c98e961095f6bf902ef0caa6f53f",
+    "full_source_file_changed_only_for_initializer": true,
+    "new_source_actual_initializer_head_rng_and_cold_target_passed": true,
+    "new_synthetic_shape": [
+      2,
+      3,
+      64,
+      64
+    ]
+  }
+}

@@ -307,13 +307,15 @@ def validate_job(job):
                 and job.get('model') != 'resnet50_imagenet'):
             raise ValueError('DINO backbone format requires the registered R50 factory')
     elif init['kind'] == 'self_supervised':
-        if init.get('format') == 'torchvision-convnext-small-dinov3-backbone-state-dict-v1':
-            if (job['model']!='convnext_small' or job['normalization']!='imagenet'
+        if init.get('format') in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1',
+                                  'torchvision-convnext-large-dinov3-backbone-state-dict-v1'):
+            expected_model = 'convnext_large' if init['format']=='torchvision-convnext-large-dinov3-backbone-state-dict-v1' else 'convnext_small'
+            if (job['model']!=expected_model or job['normalization']!='imagenet'
                     or init.get('expected_backbone_state_keys')!=342
                     or not re.fullmatch('[0-9a-f]{64}',init.get('sha256',''))
                     or not all(isinstance(init.get(k),str) and Path(init[k]).is_absolute()
                                and '://' not in init[k] for k in ('path','provenance'))):
-                raise ValueError('Small DINOv3 requires its fixed local headless public format')
+                raise ValueError('ConvNeXt DINOv3 requires its fixed local headless public format')
         elif (job['model'] != 'dinov2_vits14' or job['normalization'] != 'imagenet'
                 or init.get('format') != 'dinov2-official-backbone-state-dict-v1'
                 or init.get('sha256') != 'b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9'

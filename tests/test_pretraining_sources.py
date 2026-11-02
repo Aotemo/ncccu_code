@@ -106,6 +106,31 @@ class PretrainingSourcesTest(unittest.TestCase):
 
 
 class SmallMappingTest(unittest.TestCase):
+    def test_large_dinov3_complete_backbone_and_small_defaults(self):
+        import inspect,torch,timm,torchvision
+        import small_source,small_strict
+        self.assertIn('largedino3',small_source.SOURCE_PROFILES)
+        profile=small_source.SOURCE_PROFILES['largedino3']
+        self.assertEqual((profile['model'],profile['features'],profile['num_classes']),('convnext_large',1536,0))
+        self.assertEqual(profile['revision'],'0f8b496db5dea10c7533e85304400f0eddad55ac')
+        self.assertEqual(profile['format'],'torchvision-convnext-large-dinov3-backbone-state-dict-v1')
+        self.assertEqual(inspect.signature(small_source.download).parameters['source_profile'].default,'small224')
+        self.assertEqual(small_source.SOURCE_PROFILES['small224']['revision'],'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b')
+        self.assertEqual(small_source.SOURCE_PROFILES['smalldino3']['revision'],'c497e64d5d483b3ad42eac93e2ef9d1799f9547c')
+        source=timm.create_model('convnext_large.dinov3_lvd1689m',pretrained=False,drop_path_rate=.1)
+        target=torchvision.models.convnext_large(weights=None,stochastic_depth_prob=.1)
+        target.classifier[-1]=torch.nn.Identity();state=source.state_dict();converted={}
+        for key,value in state.items():
+            name,gamma=target_key(key,(3,3,27,3))
+            converted[name]=value.reshape(-1,1,1).contiguous()if gamma else value
+        rows=small_strict.small_mapping(state,converted,target.state_dict(),public_head=False)
+        result=target.load_state_dict(converted,strict=True)
+        self.assertEqual((len(rows),sum(r['gamma_reshape']for r in rows)),(342,36))
+        self.assertFalse(result.missing_keys);self.assertFalse(result.unexpected_keys)
+        self.assertEqual(sum(p.numel()for p in target.parameters()),196230336)
+        self.assertFalse(dict(target.named_buffers()))
+        self.assertTrue(all(torch.equal(target.state_dict()[n],v)for n,v in converted.items()))
+
     def test_large_full_mapping_and_existing_base_defaults(self):
         import torch,timm,torchvision
         import base_source,base_strict

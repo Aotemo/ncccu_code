@@ -17,6 +17,8 @@ R117 = 'r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031'
 R174 = 'r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102'
 R175 = 'r175-baseclip-seed20261027-scale085-pairlog-storage16-24k-p4-9010-20261102'
 R180 = 'r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102'
+R181 = 'r181-large22k-seed20261027-scale085-pairlog-storage32-24k-p4-9010-20261102'
+R182 = 'r182-large-dinov3-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102'
 GIB = 1024 ** 3
 
 
@@ -24,7 +26,7 @@ class RoundStoragePolicyTest(unittest.TestCase):
     def test_large_exact_round_32GiB_keeps_free_floor_and_small_default(self):
         with tempfile.TemporaryDirectory() as directory:
             policy = ROOT / 'configs/ROUND-STORAGE-POLICY.json'
-            for name, limit in ((R180, 32), ('r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102', 12)):
+            for name, limit in ((R180, 32), (R181,32), (R182,32), ('r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102', 12)):
                 root = Path(directory) / name
                 root.mkdir()
                 (root / 'STORAGE_POLICY.json').write_bytes(policy.read_bytes())

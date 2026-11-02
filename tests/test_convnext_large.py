@@ -8,9 +8,67 @@ import torch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'runtime/bundle'))
 CPU_EVIDENCE={}
+DINO3_FIXTURE=None
 
 
 class ConvnextLargeTest(unittest.TestCase):
+    def test_large_dinov3_actual_initializer_head_rng_and_cold_graph(self):
+        if DINO3_FIXTURE is None:self.skipTest('requires guarded Pod accepted public source/fresh fixture')
+        import torchvision
+        from retrain import age,models
+        from retrain.engine import _optimizer
+        from retrain.inference import _load_model
+        from retrain.persistence import CheckpointStore
+        job=copy.deepcopy(DINO3_FIXTURE['job']);job.pop('experiment91',None)
+        with patch('retrain.experiment91.public_source',return_value=DINO3_FIXTURE['public_source']):
+            torch.manual_seed(job['seed']);model=models.create_model(job,initialize=True)
+        actual_rng=torch.random.get_rng_state().clone()
+        torch.manual_seed(job['seed']);oracle=torchvision.models.convnext_large(weights=None,stochastic_depth_prob=.1)
+        expected_head=torch.nn.Linear(1536,1)
+        self.assertTrue(torch.equal(actual_rng,torch.random.get_rng_state()))
+        for name,value in expected_head.state_dict().items():
+            self.assertTrue(torch.equal(model.network.classifier[-1].state_dict()[name],value))
+        del oracle,expected_head
+        optimizer=_optimizer(model,job)
+        self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        self.assertEqual(len(dict(model.named_parameters())),345)
+        self.assertFalse(dict(model.named_buffers()))
+        self.assertEqual({id(p)for g in optimizer.param_groups for p in g['params']},{id(p)for p in model.parameters()})
+        self.assertTrue(torch.equal(model.age_weight,torch.zeros(2)))
+        with torch.no_grad():model.age_weight.copy_(torch.tensor([.2,-.1]))
+        model.eval();images=torch.randn(2,3,64,64);ages=torch.tensor([[.5,1.],[-.25,1.]])
+        with patch('retrain.age.residual',wraps=age.residual)as residual:
+            with torch.inference_mode():before=model(images,ages)
+            self.assertEqual(residual.call_count,1)
+        with tempfile.TemporaryDirectory(dir=ROOT.parent)as directory:
+            payload={'format_version':1,'mode':'train','job':job,'model':model.state_dict(),'age':job['age'],
+                'identity':{},'manifest_digest':'synthetic-only','successful_updates':0}
+            checkpoint=CheckpointStore(Path(directory)/'checkpoints').save(payload)
+            cold,saved,_,_,_=_load_model(checkpoint,device='cpu',variant='online')
+            self.assertEqual(saved['initialization']['format'],models.LARGE_DINO3_FORMAT)
+            with torch.inference_mode():after=cold(images,ages)
+            torch.testing.assert_close(before,after,rtol=0,atol=0)
+        self.assertFalse(torch.cuda.is_initialized())
+        CPU_EVIDENCE.update(actual_public_headless_initializer=True,native_discarded1000_head_RNG_preserved=True,
+            binary_head_rng_exact=True,cold_graph_exact=True,age_residual_calls=1,parameter_tensors=345,
+            optimizer_groups=5,optimizer_state_entries=0,synthetic_input_shape=[2,3,64,64],
+            no_real_images=True,GPU_initialized=False,
+            unrelated_native512_P8_graph_evidence='R180 preparation; constructor prefix and forward suffix checked unchanged separately')
+
+    def test_large_dinov3_format_local_kind_and_small_compatibility(self):
+        from retrain import config,models
+        self.assertEqual(models.LARGE_DINO3_FORMAT,'torchvision-convnext-large-dinov3-backbone-state-dict-v1')
+        for name,format_name in(('convnext_small',models.SMALL_DINO3_FORMAT),('convnext_large',models.LARGE_DINO3_FORMAT)):
+            job=config.default_job('format-fixture',name,'random')
+            job['normalization']='imagenet'
+            job['initialization']={'kind':'self_supervised','format':format_name,'sha256':'a'*64,
+                'path':str(ROOT/'not-loaded-weight.pt'),'provenance':str(ROOT/'not-loaded-provenance.json'),
+                'expected_backbone_state_keys':342}
+            config.validate_job(job)
+            self.assertEqual(config.job_contract(job)['initialization']['format'],format_name)
+            wrong=copy.deepcopy(job);wrong['initialization']['expected_backbone_state_keys']=344
+            with self.assertRaises(ValueError):config.validate_job(wrong)
+
     def test_native_factory_rng_P8_age_optimizer_ema_and_cold_load(self):
         import torchvision
         from retrain import age,config,ema,models

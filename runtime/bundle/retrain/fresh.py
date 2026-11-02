@@ -66,8 +66,9 @@ def validate_fresh(spec, identity, job, topology, steps, *, mode):
     initialization=identity.get('initialization',{})
     expected_kind=({'dinov2_vits14':'self_supervised','flair_resnet50':'retinal_vision_language'}
                    .get(job.get('model'),'imagenet'))
-    if (job.get('model')=='convnext_small'
-            and job.get('initialization',{}).get('format')=='torchvision-convnext-small-dinov3-backbone-state-dict-v1'):
+    if (job.get('model'),job.get('initialization',{}).get('format')) in (
+            ('convnext_small','torchvision-convnext-small-dinov3-backbone-state-dict-v1'),
+            ('convnext_large','torchvision-convnext-large-dinov3-backbone-state-dict-v1')):
         expected_kind='self_supervised'
     if (spec.get('format')!='glaucoma-fresh-init-v1' or spec.get('purpose') not in ('probe','train')
             or (mode=='fresh-probe')!=(spec.get('purpose')=='probe') or mode not in ('fresh-probe','train')

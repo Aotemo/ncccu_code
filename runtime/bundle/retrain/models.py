@@ -43,21 +43,28 @@ DINO_RESNET = {
 
 SMALL_22K_ONLY_FORMAT = 'torchvision-small22k-only-full-head-state-dict-v1'
 SMALL_DINO3_FORMAT = 'torchvision-convnext-small-dinov3-backbone-state-dict-v1'
+LARGE_DINO3_FORMAT = 'torchvision-convnext-large-dinov3-backbone-state-dict-v1'
+DINO3_FORMATS = (SMALL_DINO3_FORMAT, LARGE_DINO3_FORMAT)
 
 
 def validate_small_dino3_provenance(initialization):
     from .experiment91 import public_source
     source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
-    if (initialization.get('kind')!='self_supervised' or initialization.get('format')!=SMALL_DINO3_FORMAT
+    large = initialization.get('format') == LARGE_DINO3_FORMAT
+    model_name = 'convnext_large' if large else 'convnext_small'
+    format_name = LARGE_DINO3_FORMAT if large else SMALL_DINO3_FORMAT
+    revision = '0f8b496db5dea10c7533e85304400f0eddad55ac' if large else 'c497e64d5d483b3ad42eac93e2ef9d1799f9547c'
+    original_sha = ('be34ed200bcb3a0790b0507434fe7449ce9525bc1ce8172ae78c52466b352217' if large else
+                    '587d3fd7f07b9a2dc5a27276b45444826898c94dd2bdaeebf7d901c89dc96ce5')
+    if (initialization.get('kind')!='self_supervised' or initialization.get('format')!=format_name
             or initialization.get('expected_backbone_state_keys')!=342
-            or source.get('kind')!='self_supervised' or source.get('model')!='convnext_small'
-            or source.get('format')!=SMALL_DINO3_FORMAT
-            or source.get('revision')!='c497e64d5d483b3ad42eac93e2ef9d1799f9547c'
-            or source.get('original_sha256')!='587d3fd7f07b9a2dc5a27276b45444826898c94dd2bdaeebf7d901c89dc96ce5'
+            or source.get('kind')!='self_supervised' or source.get('model')!=model_name
+            or source.get('format')!=format_name
+            or source.get('revision')!=revision or source.get('original_sha256')!=original_sha
             or initialization.get('sha256')!=source.get('sha256')
             or not path.is_absolute() or not meta_path.is_absolute() or path.is_symlink() or meta_path.is_symlink()
             or _hash(path)!=source['sha256'] or _hash(meta_path)!=source['provenance_sha256']):
-        raise ValueError('fixed Small DINOv3 public backbone identity differs')
+        raise ValueError('fixed native ConvNeXt DINOv3 public backbone identity differs')
     meta=json.loads(meta_path.read_text())
     fields=('kind','model','format','repo','tag','revision','training_data','original_sha256','sha256',
             'final_norm_eps','internal_norm_eps','license_file','license_sha256')
@@ -68,7 +75,7 @@ def validate_small_dino3_provenance(initialization):
             or meta.get('license_sha256')!='25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'
             or license_path.is_symlink() or _hash(license_path)!=meta['license_sha256']):
         raise ValueError('fixed Small DINOv3 provenance/license differs')
-    return {'kind':'self_supervised','model':'convnext_small','format':SMALL_DINO3_FORMAT,
+    return {'kind':'self_supervised','model':model_name,'format':format_name,
             'weights_sha256':source['sha256'],'provenance_sha256':source['provenance_sha256'],
             'source_url':meta['source_url'],'training_data':source['training_data'],'source_commit':source['revision'],
             'original_sha256':source['original_sha256'],'final_norm_eps':1e-6,'internal_norm_eps':1e-6,
@@ -299,7 +306,7 @@ def validate_initialization(initialization):
                 'native_library':DEIT3_LIBRARY}
     if initialization['kind'] == 'random':
         return {'kind': 'random'}
-    if initialization.get('format') == SMALL_DINO3_FORMAT:
+    if initialization.get('format') in DINO3_FORMATS:
         return validate_small_dino3_provenance(initialization)
     if (initialization.get('kind') == 'imagenet'
             and initialization.get('format') == DINO_RESNET['format']):
@@ -664,7 +671,7 @@ def create_model(job, initialize=True):
             raise ValueError('Published final LayerNorm epsilon differs from the scientific job contract')
         state = torch.load(init['path'], map_location='cpu', weights_only=True)
         small22k_only = init.get('format') == SMALL_22K_ONLY_FORMAT
-        small_dino3 = init.get('format') == SMALL_DINO3_FORMAT
+        small_dino3 = init.get('format') in DINO3_FORMATS
         if small_dino3:
             # Keep the native discarded head's RNG consumption and object;
             # the public source contains exactly the complete 342 backbone tensors.

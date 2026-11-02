@@ -21,6 +21,38 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R181_R182_Large_fixed_science_and_public_kind(self):
+        from retrain import age,config
+        original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
+        baseline=json.loads((ROOT/'configs/R180-SCIENCE.json').read_text())
+        for label,order,seed in(('R181',93,20261027),('R182',94,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed'],science['job']['model']),(order,seed,'convnext_large'))
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':original_age}):
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':science['public_source'].get('kind','imagenet'),'format':science['public_source']['format'],
+                    'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                if label=='R182':job['initialization']['expected_backbone_state_keys']=342
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual(config.job_contract(job)['initialization']['format'],science['public_source']['format'])
+            compare_job=copy.deepcopy(science['job']);compare_job['seed']=baseline['job']['seed']
+            self.assertEqual(compare_job,baseline['job'])
+            for key in('data_split','schedule','early_stopping','official_evaluation'):
+                self.assertEqual(science[key],baseline[key])
+            if label=='R181':
+                for key in('public_source','public_asset_receipt','structure','paths'):
+                    self.assertEqual(science[key],baseline[key])
+            else:
+                self.assertEqual(science['public_source']['kind'],'self_supervised')
+                self.assertEqual(science['public_source']['revision'],'0f8b496db5dea10c7533e85304400f0eddad55ac')
+                self.assertEqual(science['public_source']['original_sha256'],'be34ed200bcb3a0790b0507434fe7449ce9525bc1ce8172ae78c52466b352217')
+                self.assertEqual((science['structure']['features'],science['structure']['public_state_tensors'],science['structure']['full_head_shape']),(1536,342,None))
+
     def test_R180_measured_structure_matches_public_handoff(self):
         science=json.loads((ROOT/'configs/R180-SCIENCE.json').read_text())
         public=json.loads((ROOT/'records/preparation/large22k-20261102/PUBLIC-SOURCE-SUMMARY.json').read_text())

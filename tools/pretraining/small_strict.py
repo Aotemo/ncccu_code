@@ -35,13 +35,15 @@ def small_mapping(source, converted, expected, *, public_head=True):
 def accept(args, completed):
     context = cpu_context()
     profile = SOURCE_PROFILES[getattr(args, 'source_profile', 'small224')]
+    model_name, features = profile.get('model', MODEL), profile.get('features', 768)
     num_classes = profile.get('num_classes', 1000)
     headless = num_classes == 0
     repo, revision = profile['repo'], profile['revision']
     base = f'https://huggingface.co/{repo}/resolve/{revision}'
     source_model_name = repo.split('/', 1)[1]
     chain = read_pinned_receipt(args.source_receipt, args.source_receipt_sha)
-    require(chain.get('passed') is True and chain.get('repo') == repo and chain.get('revision') == revision,
+    require(chain.get('passed') is True and chain.get('repo') == repo and chain.get('revision') == revision
+            and chain.get('model') == model_name,
             'Small source receipt identity differs')
     require(all(chain['execution'][key] == context[key]
                 for key in ('namespace', 'pod', 'uid', 'container', 'python')),
@@ -53,12 +55,12 @@ def accept(args, completed):
     assets = {name: verify_current_content(record['path'], record['sha256'])
               for name, record in chain['files'].items()}
     cfg = json.loads(Path(assets['config.json']['path']).read_text())
-    require(cfg['architecture'] == MODEL and cfg['num_classes'] == num_classes and cfg['num_features'] == 768,
+    require(cfg['architecture'] == model_name and cfg['num_classes'] == num_classes and cfg['num_features'] == features,
             'actual Small config differs')
     import torch
     import torchvision
     import timm
-    from torchvision.models import convnext_small
+    from torchvision import models as torchvision_models
     from torchvision.ops import StochasticDepth
     configure_torch_threads(context)
     gpu_before = torch.cuda.is_initialized()
@@ -69,7 +71,7 @@ def accept(args, completed):
     # Both factories receive explicit SD .1. No pretrained/network factory load.
     source_model = timm.create_model(source_model_name, pretrained=False,
                                     pretrained_cfg=cfg['pretrained_cfg'], drop_path_rate=.1)
-    target = convnext_small(weights=None, stochastic_depth_prob=.1)
+    target = getattr(torchvision_models, model_name)(weights=None, stochastic_depth_prob=.1)
     if headless:
         target.classifier[-1] = torch.nn.Identity()
     source_loaded = source_model.load_state_dict(source, strict=True)
@@ -82,7 +84,7 @@ def accept(args, completed):
     converted_root = Path(args.assets) / 'converted'
     require(converted_root.is_absolute() and '/exp-v3/' in str(converted_root), 'exp-v3 converted root required')
     converted_root.mkdir(parents=True, exist_ok=True)
-    converted_path = converted_root / ('convnext-small-tv-' + revision[:8] + '.pt')
+    converted_path = converted_root / (model_name.replace('_','-') + '-tv-' + revision[:8] + '.pt')
     with converted_path.open('xb') as stream:
         torch.save(converted, stream)
     converted_sha = sha256(converted_path)
@@ -111,11 +113,11 @@ def accept(args, completed):
     target_drop = [float(module.p) for module in target.modules() if isinstance(module, StochasticDepth)]
     require(len(source_drop) == len(target_drop) == 36 and abs(target_drop[-1] - .1) < 1e-8
             and all(abs(a - b) < 1e-8 for a, b in zip(source_drop, target_drop)), 'Small SD config differs')
-    require(source_model.num_features == target.classifier[0].normalized_shape[0] == 768
+    require(source_model.num_features == target.classifier[0].normalized_shape[0] == features
             and source_model.num_classes == num_classes
             and (isinstance(source_model.get_classifier(), torch.nn.Identity)
                  and isinstance(target.classifier[-1], torch.nn.Identity) if headless else
-                 target.classifier[-1].in_features == 768 and target.classifier[-1].out_features == 1000)
+                 target.classifier[-1].in_features == features and target.classifier[-1].out_features == 1000)
             and source_model.head.global_pool.pool_type == 'avg'
             and isinstance(target.avgpool, torch.nn.AdaptiveAvgPool2d) and target.avgpool.output_size == 1,
             'Small pool/features/head differs')
@@ -127,6 +129,9 @@ def accept(args, completed):
                 and chain['license']['identifier'] == 'dinov3-license'
                 and assets[profile['license_file']]['sha256'] == profile['license_sha256'],
                 'DINOv3 source data/license bytes differ')
+    widths=[target.features[0][0].out_channels,target.features[2][1].out_channels,
+            target.features[4][1].out_channels,target.features[6][1].out_channels]
+    require(widths == profile.get('widths',[96,192,384,768]), 'native ConvNeXt stage widths differ')
     require(not any(isinstance(m, torch.nn.modules.batchnorm._BatchNorm)
                     for model in (source_model, target) for m in model.modules())
             and not list(source_model.named_buffers()) and not list(target.named_buffers()),
@@ -150,13 +155,14 @@ def accept(args, completed):
                  'layer_norms': len(target_norms), 'gelu_modules': len(target_activations),
                  'stochastic_depth_modules': len(target_drop),
                  'full_head_shape': None if headless else list(target.classifier[-1].weight.shape)}
-    require(public_parameters == (49454688 if headless else 50223688)
-            and backbone_parameters == 49454688 and backbone_tensors == 342,
+    expected_backbone = profile.get('backbone_parameters',49454688)
+    require(public_parameters == expected_backbone + (0 if headless else (features+1)*num_classes)
+            and backbone_parameters == expected_backbone and backbone_tensors == 342,
             'Small parameter counts differ')
     mapping_path = Path(args.output).with_name('MAPPING.json')
     write_new_json(mapping_path, {'schema_version': 1, 'passed': True, 'repo': repo,
                                  'revision': revision, 'mapping': rows})
-    provenance = {'schema_version': 1, 'passed': True, 'model': MODEL,
+    provenance = {'schema_version': 1, 'passed': True, 'model': model_name,
                   'format': profile.get('format', 'torchvision-1000-state-dict-v1'), 'repo': repo,
                   'revision': revision, 'source_url': base + '/pytorch_model.bin',
                   'training_data': profile.get('training_data', TRAINING_DATA),
@@ -185,8 +191,9 @@ def accept(args, completed):
                 'asset metadata changed during acceptance')
     require(not torch.cuda.is_initialized(), 'GPU initialized during Small acceptance')
     return {'schema_version': 1, 'passed': True,
-            'scope': 'small_dinov3_backbone_cpu_strict' if headless else 'small22k_full1000_cpu_strict', 'execution': context,
-            'model': MODEL, 'repo': repo, 'revision': revision, 'structure': structure,
+            'scope': ('large_dinov3_backbone_cpu_strict' if model_name=='convnext_large' else
+                      'small_dinov3_backbone_cpu_strict' if headless else 'small22k_full1000_cpu_strict'), 'execution': context,
+            'model': model_name, 'repo': repo, 'revision': revision, 'structure': structure,
             'public_parameters': public_parameters, 'assets': assets,
             'original': {'path': source_path, 'sha256': assets['pytorch_model.bin']['sha256']},
             'converted': {'path': str(converted_path), 'sha256': converted_sha},
@@ -198,7 +205,7 @@ def accept(args, completed):
                                'pretrained': False, 'drop_path_rate': .1, 'timm_version': timm.__version__,
                                'layer_norms': source_norms, 'GELU': source_activations,
                                'stochastic_depth': source_drop, 'BN': 0, 'buffers': 0},
-            'target_factory': {'name': 'torchvision.models.convnext_small', 'weights': None,
+            'target_factory': {'name': 'torchvision.models.' + model_name, 'weights': None,
                                'stochastic_depth_prob': .1, 'torchvision_version': torchvision.__version__,
                                'layer_norms': target_norms, 'GELU': target_activations,
                                'stochastic_depth': target_drop, 'BN': 0, 'buffers': 0},

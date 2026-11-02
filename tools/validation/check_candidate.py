@@ -83,7 +83,7 @@ def main(args):
     model = create_cpu_fresh_model(job)
     is_r50 = job['model'] == 'resnet50_imagenet'
     is_dinov2 = job['model'] == 'dinov2_vits14'
-    is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING)
+    is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
     is_deit = job['model'] == 'deit3_small'
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
