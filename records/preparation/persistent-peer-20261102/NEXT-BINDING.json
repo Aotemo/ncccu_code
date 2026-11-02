@@ -1,0 +1,49 @@
+{
+  "status": "unlaunched_next_wrapper_binding_only_updated",
+  "at": 1793583485.649703,
+  "allocation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/CPU-ALLOCATION.json",
+    "sha256": "aa0f3efa9150b709a35a6968b4f5caa8e5bd76ba8d67dbc41e95157abf9e98c8"
+  },
+  "wrapper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/RUN-SWINV2-NEXT-PEER.sh",
+    "sha256": "41eb34d4ee433e5b9f0fe20ff9bf1f91bf81a7462b1e5358f69c90dd382398d7",
+    "bash_syntax_passed": true
+  },
+  "original_wrapper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/swinv2-20261101-32e3/RUN-SWINV2-NEXT.sh",
+    "sha256": "b56d2da5d2be12ea8dda59015e857824502c7fa8769197a102415d4f01ed2119"
+  },
+  "only_changes": "new validation allocation root and SHA; same A0-22, peer23, train24-119",
+  "runtime_Git": "04172db46eccc884f5d4e242c1235d066c8657af",
+  "active_R152_binding_changed": false,
+  "prior_allocation_changed": false,
+  "normalformal_or_GPU_executed": false,
+  "A_tasks_still_serial": true,
+  "peer_may_run_concurrently_only_on_CPU23": true,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ]
+}
