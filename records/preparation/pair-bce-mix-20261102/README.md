@@ -8,4 +8,4 @@ R178直接R107原公开fe6b/Small/seed29/512/G64P8及原优化/EMA/age合同，�
 
 六份原CPU任务的SHA、exit、OUTPUT SHA、任务树退出及预算/affinity均已核；首次在传输未完成时调用目标，文件缺失exit2且未执行测试，保留原件。随后实际RED为loss未实现，1fail/1error；最小实现后GREEN2/2，候选1/1再完成。未覆盖失败或宣称firsttry。原件位于`exp-v3/technical-prep/pair-bce-mix-20261102-32e3/`，归档guard `c99ff08418a29603b39878c40dad6c04ba4f9c277978eb166cc7bd96fc6af63b` exit0。
 
-准备719a/root0–11/12核、peer保留12–23/12核，与当前R176训练24–119/96核互斥，nice19/隐藏GPU。Git `313d5abeb57240159091b682c3948aec0244b310`/tree `1dd0d3cb97e76a4224bfeb12bd35c9e255cc9bd8`已push/实际远端回读；[R177技术包](R177-TECHNICAL.json)、[R178技术包](R178-TECHNICAL.json)实际源文件/SCI/原CPU任务与输出SHA均匹配，guard0。尚无R177/R178正常formal/activation/GPU；收尾前正常CPU/精确部署后再按完整R176/actualsafe决定唯一接续，raw .999未达。当前R176运行仍冻结e9a7f1d。
+准备719a/root0–11/12核、peer保留12–23/12核，与训练24–119/96核互斥，nice19/隐藏GPU。Git `313d5abeb57240159091b682c3948aec0244b310`/tree `1dd0d3cb97e76a4224bfeb12bd35c9e255cc9bd8`已push/实际远端回读；[R177技术包](R177-TECHNICAL.json)、[R178技术包](R178-TECHNICAL.json)实际源文件/SCI/原CPU任务与输出SHA均匹配，guard0。R178正常formal19/19及精确部署在R176训练期间完成，完整R176阴性/actualsafe后[一次激活及真实八rank/自然首25有限](../../R178/README.md)已证；R177因无资格未normalformal/activation/GPU。当前唯一R178冻结313d5ab，raw .999未达。

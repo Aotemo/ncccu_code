@@ -1,0 +1,19 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pair-bce-mix-20261102-32e3/source-git/records/preparation/pair-bce-mix-20261102/CPU-CHECKS.json",
+    "sha256": "e3460a72bb0b0e3ff5a4a899fe081919bdf74aa568f5f2c8a02a6795348e2d1f"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "runtime/bundle/retrain/experiment91.py": "52e65c83477539a2f142c2ee8dee9d04023e8fd9814f1f821d4931498896eacd",
+    "tools/validation/check_candidate.py": "3fe84944f3f7f435c4fa89a8fb146bf3c95a65c84515e7890079493de4ea6cde",
+    "tests/test_pairwise_bce_mix_loss.py": "ed24505b6e0f723c3d64cefaa8c2819212a1cb99ba415b0496658b7c440a8a43",
+    "tests/test_candidate_binding.py": "b7a5a1d1efe368493ad6cb43c72281809d49e4aa2041c5d14e0e1d24764d597d"
+  },
+  "science_sha256": "1ab259410210ad148942755f577a42448c79709d3ef0f3798951e715665d85ba",
+  "targets_reused": 3,
+  "unchanged_implementation_files": 8,
+  "tests_rerun": false,
+  "at": 1793628560.3638172
+}

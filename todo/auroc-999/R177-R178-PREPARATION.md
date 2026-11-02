@@ -1,6 +1,6 @@
 # R177/R178：固定来源复核与排序/逐图联合目标
 
-当前唯一GPU为R176/order88，e9a7f1d冻结；已实际八rank fresh/345全训/5空Adam/自然首25有限。32e3唯一Git/GPU，719a准备root0–11/12核、peer保留12–23/12核，与训练24–119/96核互斥。使用已读brainstorming/writing-plans/executing-plans流程在本任务文件记录设计并直接实施；用户已明确必要最小修改无需审批，不增加设计批准等待或派生Agent。
+R176已完整8800/c11/bad4、所选`.9834218552639342`、两门false/官方未跑/actualsafe；R177无资格且未normalformal/activation/GPU。[当前唯一GPU为R178/order90](../../records/R178/README.md)，冻结313d5ab，已实际八rank fresh/345全训/5空Adam/自然首25有限。32e3唯一Git/GPU，719a准备root0–11/12核、peer保留12–23/12核，与训练24–119/96核互斥。使用已读brainstorming/writing-plans/executing-plans流程在本任务文件记录设计并直接实施；用户已明确必要最小修改无需审批，不增加设计批准等待或派生Agent。
 
 R177/order89仅在完整工程有效R176的唯一selected严格超过R107 `.9884405731067525` 和R120 `.9894773092062407`、且actualsafe后，复核同Small DINOv3公开c497e64d/原输入512/原logistic/G64P8/LR/EMA/age的固定seed20261027；否则不normalformal/activation/GPU。
 
@@ -16,6 +16,6 @@ R177/order89仅在完整工程有效R176的唯一selected严格超过R107 `.9884
 - [x] 最小实现范围：`runtime/bundle/retrain/classification_loss.py`新增精确独立loss版本与目标；`experiment91.py`两候选/seed/互斥/保存选点绑定；`tools/validation/check_candidate.py`仅消费新loss合同；`tests/test_pairwise_bce_mix_loss.py`两目标及现`test_candidate_binding.py`扩两配置；`configs/R177-SCIENCE.json`、`configs/R178-SCIENCE.json`。config/engine/distributed/model/optimizer/EMA/persistence/inference/launch/monitor实现不改，现有tuple调用点直接复用。
 - [x] 3实际目标/5源compile、真实两public fresh及身份固定；R177初态实测5f2abba3，R178实测50c与R107一致。[CPU证据](../../records/preparation/pair-bce-mix-20261102/README.md)区分真实无mock元数据/公开字节与Gloo小fixture；旧模型/WORLD八实现按相同SHA复用证据。
 - [x] Git313d5ab/tree1dd0d3cb已push/实际回读，两technical包在R176训练期间完成，源/SCI及原任务回执与输出SHA一致，guard0；未normalformal/clock/GPU。
-- [ ] 收尾前完成唯一正常CPU/精确部署，actualsafe后按完整结果串行一次activation/direct launch，真实八rank/自然首成功接管GPU可运行证明；不加GPU预演。临近收尾缩短只读观测间隔，文档归档不阻塞接续。
+- [x] R178唯一正常CPU19/19及精确部署已在R176的8100/bad3阶段完成，窗口核验31978.658≥31560秒；R176完整阴性/actualsafe后一次activation/direct launch0，真实八rank/自然首25有限已证，无GPU预演。训练完成至dispatch144.757秒/设备211.711秒/首25记录282.176秒，三项均≤300，连续利用率未测；归档在启动后完成。R177未normalformal/clock/GPU。
 
 完整R178严格超过两个锚点才有后续固定seed27复核资格；官方仍完整selected≥.996才一次，官方不参与准备/选点/调参。raw .999未达。

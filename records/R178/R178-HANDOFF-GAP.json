@@ -1,0 +1,23 @@
+{
+  "previous_training_completion_event_at": 1793628891.290086,
+  "previous_whole_round_ended_at": 1793628955.1794422,
+  "previous_safe_observed_at": 1793628966.4524157,
+  "new_dispatch_at": 1793629036.047106,
+  "completion_event_to_dispatch_seconds": 144.75701999664307,
+  "completion_event_to_latest_device_seconds": 211.71083736419678,
+  "completion_event_to_first_recorded_update_seconds": 282.17591094970703,
+  "event_to_dispatch_within_300_seconds": true,
+  "event_to_device_within_300_seconds": true,
+  "event_to_first_recorded_update_within_300_seconds": true,
+  "round_end_to_dispatch_seconds": 80.86766386032104,
+  "round_end_to_latest_device_seconds": 147.82148122787476,
+  "round_end_to_first_recorded_update_seconds": 218.286554813385,
+  "continuous_DCU_idle_within_300_seconds_proven": false,
+  "semantics": "separate actual event intervals, not a continuous DCU-utilization measurement",
+  "checks_skipped": false,
+  "old_clock_token_grant_reset": false,
+  "previous_observation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r176-20261102-32e3/PROGRESS-cont-46.json",
+    "sha256": "89ff948c24c31b650d24479e6e9d7c32992e7828caf57e9c129a2d6af19e29bd"
+  }
+}

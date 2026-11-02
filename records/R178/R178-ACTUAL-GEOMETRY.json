@@ -1,0 +1,25 @@
+{
+  "status": "saved_and_admitted_geometry_512_and_actual_eight_rank_success_proved",
+  "job_image_size": 512,
+  "job_prepared_size": 512,
+  "asset_prepared_size": 512,
+  "source_files_SHA_verified_by_actual_deployment": true,
+  "saved_loss": {
+    "version": "binary-pairwise-logistic-bce-mix05-v1",
+    "kind": "binary_pairwise_logistic_bce",
+    "temperature": 1.0,
+    "reduction": "mean",
+    "dtype": "float32",
+    "scope": "global_batch",
+    "pointwise_weight": 0.5
+  },
+  "GPU_tensor_shape_hook_added": false,
+  "additional_model_or_forward": false,
+  "checkpoint_loaded": false,
+  "actual_frozen_round_storage_limit_bytes": 12884901888,
+  "storage_policy_sha256": "5b305abbbaab362b7014941668d51a26a696f806012d8c2d82246ad9c7d81ff4",
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r178-20261102-32e3/DEPLOYMENT.json",
+    "sha256": "bc968642da8118cf60f449ced17ca009364304e59f9ed734339d955c5ecfdb19"
+  }
+}
