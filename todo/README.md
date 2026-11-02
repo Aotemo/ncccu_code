@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**21:32唯一GPU R184R1/order100最新6850success=attempt/0skip/eval8/bad3，八rank活跃，暂EMA AUROC `.9791930315921545`，无完整selected。** 原cd7246a冻结保持；后备[R189原生CLS](auroc-999/R188-R189-PREPARATION.md)已在训练期间正常CPU19/19与精确部署通过，固定0f3b19e/tree458e9c7f、SCI11cf4bc7、whole e347/165全训/5空Adam、actual SITE23409f62，guard _enxd0va/exit0；未新clock/activation/GPU。完整R1严格双门才R188，否则直接R189；actualsafe后一次接续，不重跑normal。Base仅后续CPU准备且尚未部署，不混入当前cd或R189原0f3。32e3唯一Git/GPU，5de准备0–11/保留12–23与训练24–119互斥；raw .999未达。下文为历史时点。
+
 **21:16唯一GPU R184R1/order100最新2925success=attempt/0skip/eval3/bad0，八rank活跃，暂EMA AUROC `.9750773939753712`/AP `.7229534078388531`，无完整selected。** 原cd7246a冻结与[R188/R189](auroc-999/R188-R189-PREPARATION.md)既定条件/0f3技术包保持；后备normalformal仍待可行收尾前。20%池已完成[单一ViT-B自然公开来源核查](../records/preparation/vit-base-source-20261102/README.md)：完整bin SHA/162张量strict与原生512结构、旧profile/API兼容通过，0图像forward/0GPU，只扩现source profile，尚无Base训练factory/新round。当前R1实际八rank首成功已同步95d219e，R1869权重清理已同步b74b9ea；三KEEP与当前依赖未变。32e3唯一Git/GPU、5de准备0–11/保留12–23与训练24–119互斥；raw .999未达。下文为历史时点。
 
 **21:08当前唯一GPU R184R1/order100最新975success=attempt/0skip/eval1/bad0，八rank活跃；首轮内部dev暂AUROC `.9560452792384264`/AP `.6033651204981255`，尚无完整selected。** cd7246a冻结不改，原非持久RoPE初态和真实首成功已证，[实际交接](../records/R184R1/README.md)已同步95d219e；后续R188/R189仅0f3技术包，正常formal仍安排在可行收尾前。R186精简结果已同步且新轮实际运行后，[9件冗余权重](../records/storage/closed-r186-20261102/README.md)已实际unlink，逻辑5,074,781,127B；三KEEP及当前依赖stat/小SHA未变，原预测和身份仍留，旧safe不重查。32e3唯一Git/GPU、peer closed未恢复/派生，5de准备0–11/保留12–23与训练24–119互斥，当前r184r1-pod-context.env；raw .999未达。下文为历史时点。
