@@ -21,6 +21,35 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R187_R184R1_native_fixed_recipe_and_independent_identity(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in(('R187','R186',99,20261027),('R184R1','R184',100,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertNotEqual(science['candidate_profile'],baseline['candidate_profile'])
+            self.assertNotEqual(science['candidate']['id'],baseline['candidate']['id'])
+            self.assertEqual(science['candidate']['experiment_order'],order)
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping','data_split','official_evaluation'):
+                self.assertEqual(science[key],baseline[key])
+            comparison=copy.deepcopy(science['job']);comparison['seed']=baseline['job']['seed']
+            self.assertEqual(comparison,baseline['job'])
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':science['public_source']['kind'],'format':science['public_source']['format'],
+                        'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
+                if label=='R184R1':job['initialization']['expected_backbone_state_keys']=162
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual((job['seed'],experiment.candidate()['experiment_order']),(seed,order))
+                wrong=copy.deepcopy(job);wrong['seed']=20261029 if seed==20261027 else 20261027
+                with self.assertRaises(ValueError):experiment.validate_job(wrong)
+
     def test_R185_R186_native_source_role_and_original_recipe(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})

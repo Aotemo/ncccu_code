@@ -1,0 +1,145 @@
+{
+  "scope": "R187_R184R1_affected_CPU_evidence",
+  "at": 1793648270.0238485,
+  "passed_targets": 2,
+  "compiled_sources": 7,
+  "target_coverage": {
+    "native_buffer_EMA_freeze_cold": {
+      "passed": true,
+      "not_rerun": true,
+      "source_and_affected_function_identity_preserved": true
+    },
+    "two_new_candidate_identities": {
+      "passed": true
+    }
+  },
+  "source_files": {
+    "runtime/bundle/retrain/ema.py": "13bc21359337ba8a3bb311f6af05713b67420236f7cefe89507ba3947fc8a042",
+    "runtime/bundle/retrain/single91.py": "7ed32875a8dd4744c7da2b6d625a06ce65175a5caf2ed4192f30d8d23149234e",
+    "runtime/r92_initial_gate.py": "7a92f1e20e285762c12923aba60add052b3c2b5e573e517cc362b55e0d3ba787",
+    "tools/validation/check_candidate.py": "238e7158093bea1e060ee9ab8f02e353df7393ffce1fa378159a16b17d4d140f",
+    "tests/test_nonpersistent_buffers.py": "0e50bcdb53b43f284e13ba14796c5e0af55fa41f2933f3a214776e94278fb9ea",
+    "runtime/bundle/retrain/experiment91.py": "d228b274d1d62f37fc4ec898b4b5f445306ddfa12f8cecd8aeb708c9837ea367",
+    "tests/test_candidate_binding.py": "211dc800b52aae145a5f551f6a9fdc06e3ceb9693870d540b9ac751962d29229",
+    "runtime/bundle/retrain/models.py": "43bb6acc9603cad97309ad3705caf80480da968321b8502286993c2835ff8f0f",
+    "runtime/bundle/retrain/config.py": "acf81237c0a93524af59f424cfa18e441ba81115f4071804a10255f137f6e56b",
+    "runtime/bundle/retrain/inference.py": "1bb16cf00d1537726665c6ee113cb6ee4cc67f66a23adc5ff5b046993d3cbc82",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "tools/pretraining/deit3_source.py": "2b48fdeb4c78f5ee989c3a09b66db79e348544fe16ab678c0f8913c1c645efc7",
+    "tests/test_caformer_model.py": "81c9a9cd9bb76dae35f02a94d859a82ffce5b06293065380b5c77560fa53108d",
+    "tests/test_deit3_model.py": "08607270415503319286375c181133a4b089659ac595064ef17e7ccc049edda9"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "c9779e0572d378ce91cce047421e53e4212291ac8d42cb4cf2211f44c7116435"
+  },
+  "science_sha256": {
+    "R187-SCIENCE.json": "ad04d51c18610476324d8aae138ab0c6199ac676d11bcced3215f7005336c3e1",
+    "R184R1-SCIENCE.json": "5ec946d1571e9ce27dbd9a33b011bef431d45eee4da4ddd6cfed0bb49ac25c42"
+  },
+  "public_fresh": {
+    "R187": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-rope-retry-20261102-32e3/fresh/R187-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "9d98e8bf7b18199b59e713c969541200500c62db002c0f70eeefef77c8a08aff",
+      "model_tensor_sha256": "c7e20ebbc6cfb7622469a9db487a80ab4c091aae75a0935c24101a368985401c",
+      "parameter_tensors": 396
+    },
+    "R184R1": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-rope-retry-20261102-32e3/fresh/R184R1-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "dbc219a2e5881da0bab8485d9f9fa9907b7be695ad6bf38b7749dbb154393cb7",
+      "model_tensor_sha256": "e347757c93f10e7eb80de9322980ac52a421b8a864c35bdeaddc736433c26227",
+      "parameter_tensors": 165
+    }
+  },
+  "evidence": [
+    {
+      "label": "CPU-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-oxzg63ql/CPU-RECEIPT.json",
+      "sha256": "117581bd5bbb4cbf847d8c0e154c12f866bf4fb94410d330d020b99ab04cb5dd",
+      "exit_code": 1,
+      "output_sha256": "39134960a82c4fb4169576370f27bfa71e8de09facef1127b6f3f077786ce9cf"
+    },
+    {
+      "label": "CPU-FIXTURE-FAILURE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-p3jajam5/CPU-RECEIPT.json",
+      "sha256": "93aa4897ec8775a0a35e71233f2e91ab1f3cc5639bb106d5ffa4311924e23984",
+      "exit_code": 1,
+      "output_sha256": "732d26df0372246e33af30667ad9f85ef3b901c53316ede6c37fe786d45a2db1"
+    },
+    {
+      "label": "CPU-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-i7npgffp/CPU-RECEIPT.json",
+      "sha256": "73a3105b579ee9c409ebdcaa1eaf026d76220500d197e965ca4a0c8687d5f03b",
+      "exit_code": 0,
+      "output_sha256": "3fff6480336ca4ce0571ea9df9a02e39a3b0d8345a12ef3f87e41e41f40cbfbf"
+    },
+    {
+      "label": "candidate_identity_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-53jm6vf7/CPU-RECEIPT.json",
+      "sha256": "2161eeb39a155bd1b14ed014cffaeec6ea6da23fccc988f8e68ee73ad862b737",
+      "exit_code": 1,
+      "output_sha256": "c5936c438ebe32b2f22b1aff47ee48e3a3fe7ba2efc377a3afe8d449749f092c"
+    },
+    {
+      "label": "candidate_identity_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-kcoroi74/CPU-RECEIPT.json",
+      "sha256": "a7c8e70433c2b6bf108b5c8a14b26a3e2d741ef80dd3adeedc136fe975165231",
+      "exit_code": 0,
+      "output_sha256": "f736bf6bd98c9c136414d9307aad2ad40259753039aaab65657cd44504d93f06"
+    },
+    {
+      "label": "CPU_only_drafts",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-qiy9r31i/CPU-RECEIPT.json",
+      "sha256": "61953b9b53503aebb13908f3e5dab7e37626e06753b36f8e838d82de05e52771",
+      "exit_code": 0,
+      "output_sha256": "f64709fd7b6e22d571b1d7a05646e8328055980279dbbaa8e47c10dd860c41c6"
+    },
+    {
+      "label": "two_public_fresh_and_actual_noBN_EMA_warmcopy",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-w3j679xh/CPU-RECEIPT.json",
+      "sha256": "d5ad6e32cef9c7fe0243574c8160c63bba60f7dc8777e327c9374e6b01e63c45",
+      "exit_code": 0,
+      "output_sha256": "b44c4b12ce698335f0223f2615e84d8f44b30370e4ca9eeab59407c725699993"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "fresh": "844bf285c8b80ece4ea8f05039bc8bd1144af7298cb1db736da7102da7854f40"
+  },
+  "reused_model_evidence": {
+    "CAFormer": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-rope-retry-20261102-32e3/source-cpu/records/preparation/caformer-20261102/MODEL-CPU-CHECKS.json",
+      "sha256": "29395ab183df354ba562e620ce1947ac91cd5cd307b9eaa8e8c67b0f7d776a78",
+      "six_source_files_exact": true
+    },
+    "ViT": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-rope-retry-20261102-32e3/source-cpu/records/preparation/vit-dino3-20261102/MODEL-CPU-CHECKS.json",
+      "sha256": "909e2a35b4c43d51b9b773634cf52fd7c7cf740a188cb41c11b53cb6fe13cb72",
+      "factory_file_and_original_test_file_exact": true
+    },
+    "buffer_update_regression": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-rope-retry-20261102-32e3/source-cpu/records/preparation/nonpersistent-rope-fix-20261102/CPU-CHECKS.json",
+      "sha256": "51df98e3026fb06727867dedef63614926acd44f7b47c7c129c2dcb18a17413a",
+      "actual_describe_model_and_validate_normalization_AST_equal": true
+    },
+    "P8_or_native_oracle_repeated": false
+  },
+  "budget_scenarios": {
+    "historical_Small512_full24k_times2_seconds": 24154.891503453255,
+    "train_soft_seconds": 27750,
+    "early_stop_assumed": false,
+    "GPU_latency_measured": false,
+    "active_clock_changed": false,
+    "native_P8_512_CPU_saved_storage_bytes": 11627686508,
+    "CPU_storage_is_GPU_peak_or_upper_bound": false,
+    "R186_parameters": 37250153,
+    "five_full_Adam_EMA_blobs_plus_initial_tensor_payload_bytes": 3278013464,
+    "round_storage_limit_bytes": 12884901888,
+    "serialization_or_concurrent_save_peak_upper_bound": false
+  },
+  "GPU_started": false,
+  "new_formal_clock_created": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

@@ -1,0 +1,811 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "c7e20ebbc6cfb7622469a9db487a80ab4c091aae75a0935c24101a368985401c",
+  "candidate": {
+    "id": "r187-caformer-s36-imagenet1k-24k-p4-seed20261027-scale085-pairlog-9010",
+    "experiment_order": 99,
+    "model": "caformer_s36",
+    "public_revision": "695903aebe60ba2a96868cedd9129ea256a1f96e",
+    "readout": "native_avg_LN_public_MLP2048_dropout_linear_plus_age",
+    "features": 2048,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "weight_sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+    "provenance_sha256": "1c870b754b55a0c5af6ef48c03814c9e042a72c808b1e18604cc6f6e0e687264"
+  },
+  "public_source": {
+    "model": "caformer_s36",
+    "format": "timm-caformer-s36-native384-full1000-state-dict-v1",
+    "revision": "695903aebe60ba2a96868cedd9129ea256a1f96e",
+    "source_url": "https://huggingface.co/timm/caformer_s36.sail_in1k_384/resolve/695903aebe60ba2a96868cedd9129ea256a1f96e/pytorch_model.bin",
+    "training_data": "ImageNet-1K supervised training by MetaFormer authors",
+    "sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+    "original_sha256": "424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592",
+    "native_library": {
+      "version": "1.0.27",
+      "source_sha256": {
+        "models/metaformer.py": "e3d95b0fae94b90ea11bd610c6c3df0e19e5aa78c10fd7b4d4bfb595e0c43610",
+        "layers/norm.py": "afe3abf01a4379065c1c11bf6b6f947a1a743aff7f5e51849b353697b0db557d",
+        "layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+        "layers/drop.py": "2047ce241398537d6e502716f1f3bb7a285b006554f2e27e9a68618d68376ac2",
+        "layers/adaptive_avgmax_pool.py": "c82fd5bc5e44c0b2adf1165261cb2f318aa76db3d0a831304e3dd9e5538efe97"
+      }
+    },
+    "license_file": "original/LICENSE-apache-2.0.txt",
+    "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "redistribution_confirmed": true,
+    "public_tensor_count": 395,
+    "public_tensor_sha256": "061e1227c3f3e20ce9461103bf8ea4fc2bd3bf9b2612eacec47206c8ee89814b",
+    "full_head_shape": [
+      1000,
+      2048
+    ],
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "converted": false,
+    "kind": "imagenet",
+    "repo": "timm/caformer_s36.sail_in1k_384",
+    "source_features": 512,
+    "classifier_hidden_features": 2048,
+    "structure": {
+      "stage_depths": [
+        3,
+        12,
+        18,
+        3
+      ],
+      "layer_norms": 78,
+      "layer_norm_catalog": [
+        {
+          "name": "stem.norm",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.0.blocks.0.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.0.blocks.0.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.0.blocks.1.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.0.blocks.1.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.0.blocks.2.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.0.blocks.2.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.1.downsample.norm",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            64
+          ]
+        },
+        {
+          "name": "stages.1.blocks.0.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.0.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.1.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.1.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.2.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.2.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.3.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.3.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.4.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.4.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.5.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.5.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.6.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.6.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.7.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.7.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.8.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.8.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.9.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.9.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.10.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.10.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.11.norm1",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.1.blocks.11.norm2",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.2.downsample.norm",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            128
+          ]
+        },
+        {
+          "name": "stages.2.blocks.0.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.0.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.1.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.1.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.2.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.2.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.3.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.3.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.4.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.4.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.5.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.5.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.6.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.6.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.7.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.7.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.8.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.8.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.9.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.9.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.10.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.10.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.11.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.11.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.12.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.12.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.13.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.13.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.14.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.14.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.15.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.15.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.16.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.16.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.17.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.2.blocks.17.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.3.downsample.norm",
+          "type": "LayerNorm2dNoBias",
+          "eps": 1e-06,
+          "shape": [
+            320
+          ]
+        },
+        {
+          "name": "stages.3.blocks.0.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "stages.3.blocks.0.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "stages.3.blocks.1.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "stages.3.blocks.1.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "stages.3.blocks.2.norm1",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "stages.3.blocks.2.norm2",
+          "type": "LayerNormNoBias",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "head.norm",
+          "type": "LayerNorm2d",
+          "eps": 1e-06,
+          "shape": [
+            512
+          ]
+        },
+        {
+          "name": "head.fc.norm",
+          "type": "LayerNorm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        }
+      ],
+      "backbone_parameter_tensors": 393,
+      "backbone_parameters": 37248102,
+      "stochastic_depth_modules": 70,
+      "buffer_count": 0
+    },
+    "provenance_sha256": "1c870b754b55a0c5af6ef48c03814c9e042a72c808b1e18604cc6f6e0e687264"
+  },
+  "public_asset_receipt": {
+    "path": "assets/public/caformer-s36-695903ae/PUBLIC-HANDOFF.json",
+    "sha256": "97e59fd51664a00f38093311b81aed900c3489796e247d3ac770b023ae724a6d"
+  },
+  "structure": {
+    "features": 2048,
+    "public_state_tensors": 395,
+    "backbone_state_tensors": 393,
+    "backbone_parameter_tensors": 393,
+    "backbone_parameters": 37248102,
+    "layer_norms": 78,
+    "gelu_modules": 0,
+    "stochastic_depth_modules": 70,
+    "full_head_shape": [
+      1000,
+      2048
+    ],
+    "buffer_count": 0
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/caformer-s36-695903ae/original/pytorch_model.bin",
+    "public_provenance": "assets/public/caformer-s36-695903ae/PROVENANCE.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "caformer-s36",
+    "model": "caformer_s36",
+    "seed": 20261027,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Conditional same CAFormer source/recipe fixed seed27 only after complete R186 strict R107/R120 gates and safe.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

@@ -71,8 +71,11 @@ LARGE_DINO3_BINDING = 'single-convnext-large-dinov3-0f8b496d-fixed-9010-24k-earl
 LARGE_DINO3_SEED27_BINDING = 'single-convnext-large-dinov3-0f8b496d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 VIT_DINO3_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 VIT_DINO3_SEED27_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
-VIT_DINO3_BINDINGS = (VIT_DINO3_BINDING,VIT_DINO3_SEED27_BINDING)
+VIT_DINO3_R1_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-r184r1-v1'
+VIT_DINO3_BINDINGS = (VIT_DINO3_BINDING,VIT_DINO3_SEED27_BINDING,VIT_DINO3_R1_BINDING)
 CAFORMER_BINDING = 'single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+CAFORMER_SEED27_BINDING = 'single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+CAFORMER_BINDINGS = (CAFORMER_BINDING,CAFORMER_SEED27_BINDING)
 LARGE_VARIANT_BINDINGS = (LARGE_BINDING,LARGE_SEED27_BINDING,LARGE_DINO3_BINDING,LARGE_DINO3_SEED27_BINDING)
 AUC_MARGIN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-batch-aucmargin1-v1'
 AUC_MARGIN_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-batch-aucmargin1-v1'
@@ -122,7 +125,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                       BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                       BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
-                      PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,CAFORMER_BINDING,*LARGE_VARIANT_BINDINGS)
+                      PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*LARGE_VARIANT_BINDINGS)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -221,7 +224,7 @@ def science_configuration():
                                                        ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                                                        BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                                                        BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
-                                                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,CAFORMER_BINDING,*LARGE_VARIANT_BINDINGS)
+                                                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*LARGE_VARIANT_BINDINGS)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
@@ -744,13 +747,15 @@ def candidate_from_configuration(value):
                         'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed original Small AdamW beta2 recipe differs')
-    elif value['candidate_profile']==CAFORMER_BINDING:
+    elif value['candidate_profile'] in CAFORMER_BINDINGS:
         from .models import CAFORMER_FORMAT,CAFORMER_LIBRARY
+        seed27=value['candidate_profile']==CAFORMER_SEED27_BINDING
         expected={'id':'r186-caformer-s36-imagenet1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':98,'model':'caformer_s36','public_revision':'695903aebe60ba2a96868cedd9129ea256a1f96e',
             'readout':'native_avg_LN_public_MLP2048_dropout_linear_plus_age','features':2048,
             'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
             'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if seed27:expected.update(id='r187-caformer-s36-imagenet1k-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=99)
         if (source.get('kind')!='imagenet' or source.get('model')!='caformer_s36'
                 or source.get('format')!=CAFORMER_FORMAT or source.get('native_library')!=CAFORMER_LIBRARY
                 or source.get('revision')!='695903aebe60ba2a96868cedd9129ea256a1f96e'
@@ -761,7 +766,7 @@ def candidate_from_configuration(value):
                 or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                 or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
-                    value['job'].get('positive_per_batch'),value['job'].get('final_norm_eps'))!=('caformer_s36',20261029,'imagenet',512,512,64,8,1e-6)
+                    value['job'].get('positive_per_batch'),value['job'].get('final_norm_eps'))!=('caformer_s36',20261027 if seed27 else 20261029,'imagenet',512,512,64,8,1e-6)
                 or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
                     'quadrant_mil_policy','input_preprocessing','optimizer_policy','gradient_centralization_policy',
                     'gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy',
@@ -777,6 +782,8 @@ def candidate_from_configuration(value):
             'final_norm_eps':1e-5,'internal_norm_eps':1e-5,'batch_norm_modules':0,'batch_norm_buffers':0,
             'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
         if seed27:expected.update(id='r185-vits16-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=97)
+        if value['candidate_profile']==VIT_DINO3_R1_BINDING:
+            expected.update(id='r184r1-vits16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=100)
         if (source.get('kind')!='self_supervised' or source.get('model')!='vit_small_patch16_dinov3'
                 or source.get('format')!=VIT_DINO3_FORMAT or source.get('native_library')!=VIT_DINO3_LIBRARY
                 or source.get('revision')!='3bf4720a82ec2066db88137180ff1f83a675cef0'
@@ -949,12 +956,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,CAFORMER_BINDING):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=(395 if science['candidate_profile']==CAFORMER_BINDING else 162 if science['candidate_profile'] in VIT_DINO3_BINDINGS else 176) or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in VIT_DINO3_BINDINGS else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt

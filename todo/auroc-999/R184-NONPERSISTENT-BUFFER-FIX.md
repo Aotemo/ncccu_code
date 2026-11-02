@@ -1,5 +1,7 @@
 # R184 非持久 RoPE 缓冲区：工程失败与最小修复
 
+19:38修复2444a3e已push并实际远端回读；已授权[独立R184R1/order100](R187-R184R1-PREPARATION.md)完成实际public fresh、同初态whole e347757c与两身份/编译准备，尚无normalformal/clock/GPU。原R184/R185身份不复用，当前R186冻结f9ea149d保持。
+
 19:31实际最小实现已完成，[1个必要回归目标/5源编译](../../records/preparation/nonpersistent-rope-fix-20261102/README.md)通过，保留EMA真实RED及fixture缺EMA字段失败。实际copy/blend/state往返、篡改RoPE拒绝、CheckpointStore→freeze→validate→冷图执行；外部admission/指标选择是fixture，未冒充实际八rank。CPU代码及回执现待提交同步；独立新fresh身份登记/正式准备尚未完成，原R184/R186冻结不改。
 
 R184/order96 在八rank初态门、首成功更新之前工程失败：`native immutable model buffers differ`。19:20:13 UTC 一次终态观测确认 done=failed、selected=null、0成功/0尝试、owner同birth已Z、八rank消失、锁与设备使用者空、8PCI busy0，actualsafe。旧clock/token/grant、部署4dc51803与失败原件不改，不重启；R185条件seed27不eligible，不将本轮作科学阴性。独立R186沿既定串行队列接续。
