@@ -162,7 +162,7 @@ def build(args):
     if job['initialization']['format'] in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1',
                                           'torchvision-convnext-large-dinov3-backbone-state-dict-v1'):
         job['initialization']['expected_backbone_state_keys']=342
-    if job['initialization']['format']=='timm-vits16-dinov3-native-state-dict-v1':
+    if job['initialization']['format']in ('timm-vits16-dinov3-native-state-dict-v1','timm-vitb16-dinov3-native-state-dict-v1'):
         job['initialization']['expected_backbone_state_keys']=162
     cfg = {'schema_version': 1, 'mode': 'train', 'resume': False,
         'run_name': site['round_id'] + f"-8c-{job['model']}-s{job['seed']}-b64-p{job['positive_per_batch']}-fp32",

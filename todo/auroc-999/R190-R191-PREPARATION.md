@@ -1,5 +1,7 @@
 # R189 之后的条件复核与固定 ViT-B CLS
 
+R190已按37eeae6实际技术打包通过，SITE267e0af5、guard0m_e92pe/d1205862…103c exit0，未formal/clock/GPU。R191首次技术包nxk8yk6x/9686e73f…6c35 exit1：prepare.py未给Base格式写入expected_backbone_state_keys162，验证器正确拒绝。只补原162注入分支后，真实原prepare/load_config 1evksm6d/8d1b34fe…ec4e通过；[精确复用+修复证据](../../records/preparation/vit-base-20261102/PREPARE-FIX-CHECKS.json)共8目标/14编译，原模型P8等不重跑，sxb7gt7n/25488300…baba归档0。下一R191使用新未启动阶段并实际Git回读/技术包，原失败目录与R190/现役R189不改，尚无新formal/clock/GPU。
+
 21:47全部必要CPU证据已完成：[7目标/13唯一源码编译](../../records/preparation/vit-base-20261102/README.md)、两actual public fresh/原noBN首warm-copy、精确source/SCI/guard SHA核对均通过；最终u5lfpyk_/6ef579b9…56f exit0。R190 whole8c62435a/SCI7fcf3418，R191 wholec3495f5a/SCIf41f43a2；正式配置已从Pod导回，无占位。R191仅新round16GiB例外，默认/旧例外/freefloor不改；完整24k按既有实际ViTS速率及4倍运算量场景24147秒<27750 soft，但非GPU耗时上界。当前Git同步/远端回读/技术包待完成，无新formal/clock/GPU；现役R1892450成功/0skip/eval3、EMA暂AUROC .97001894，原0f3冻结保持。下文为准备历史。
 
 当前唯一GPU R184R1/cd7246a及既定R188/R189/0f3顺序和冻结不变。公开ViT-B来源已[实际完整验收](../../records/preparation/vit-base-source-20261102/README.md)，仅用当前20%准备池预备一个后续单模型；不派生或恢复Agent、不新建资源/GPU预演。

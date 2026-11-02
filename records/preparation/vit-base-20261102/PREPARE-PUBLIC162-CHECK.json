@@ -1,0 +1,23 @@
+{
+  "status": "real_prepare_public162_Base_injection_and_load_config_passed",
+  "seconds": 6.053197860717773,
+  "source_sha256": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+  "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-base-20261102-32e3/prepare-public162-cpu/package",
+  "train_config_sha256": "30e1c3a4caaffff39bc8171ce7e6e9724edb9c5e263964ac14a2d7156bf7b56b",
+  "site_sha256": "f8af658e42bd749368df3f8559b4541a21e0204afaaa6a4b80d11da57d45d4a1",
+  "model": "vit_dino3_base",
+  "expected_backbone_state_keys": 162,
+  "pool_policy": {
+    "version": "vit-dinov3-final-ln-cls-v1",
+    "pool": "token",
+    "token_index": 0,
+    "prefix_tokens_retained_in_attention": 5,
+    "position": "after_native_final_LN_before_original_dropout_linear"
+  },
+  "compiled_sources_added": 1,
+  "source_baseline_commit": "37eeae64dd020394ac79644368a46b68cbf1b369",
+  "CPU_only_uncommitted_prepare_fix_fixture": true,
+  "Git_deployment_proven": false,
+  "model_or_forward_or_GPU_work": false,
+  "new_formal_clock_created": false
+}
