@@ -1,5 +1,7 @@
 # R191 后续固定分支实施计划
 
+23:21后备R193正常CPU18/18及精确Git部署在R191训练期间完成，guardh7wwo1zj SHA `bcf963c638ff84d54017f3454ed07a93e9eed41050478d821153bed25742c1e9` exit0。固定2a094f4/tree63193779、SCI0985f576、whole50c6/345全训/5空Adam；formal SITE `b8f94d4162457fa3f9495f02b6d829a20d3e5616b6b8630d47b780bd7add7058`、manifest97ceeba8、CPU-prep977f6dd8、deployment6b008e34、复用165458bd。默认12GiB/free16GiB不变，尚无新clock/activation/GPU。当前R1919925成功/0skip/eval12/bad3、a77冻结保持；完整结果决定R192资格，actualsafe后核窗口并唯一接续，不重复normal或等文档。53ab互斥池、23:14peer closed及唯一32e3 owner已核。
+
 使用 writing-plans / executing-plans，由唯一owner32e3原位完成；用户已授权最小修改和同步，无例行审批或新Agent。目标是在R191训练期间完成下一串行fresh所需准备，不改现役a77冻结。
 
 22:24两[actual technical包](../../records/preparation/pair-sigmoid-lr-20261102/TECHNICAL-PACKAGES.json)已按实际GitHub回读2a094f4/tree63193779部署，R192 SITE7b9463c7/guardgnxqy8dk与R193 SITE259a9fb7/guardtiaspw_0均0；未formal/新clock/GPU。新准备分配53ab856b保留原12/12互斥mask，有效至11-03 04:23:08 UTC，probe igii8mdf与最终dr73iti_均0；原5de/当前R191 GPU binding不改。当前入口r191-renewed-pod-context.env/start-3，R1911900成功/0skip/eval2、暂best`.8573253653561568`，八rank活跃。完整结果决定唯一分支，正常CPU/精确部署在可行收尾前完成。
