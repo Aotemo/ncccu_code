@@ -1,0 +1,168 @@
+{
+  "status": "four_affected_targets_five_compiles_six_SHA_reused_loss_WORLD_targets_RED_preserved",
+  "at": 1793603180.9660504,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R153_to_R166_science_consumes_geometry_model_loss_and_fresh_identity"
+  ],
+  "tests_run_now": 1,
+  "core_targets_reused": 3,
+  "passed_targets": 4,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 5.690844535827637,
+  "compiled_sources": 5,
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "8af71ab33de031390d11a179b8e93f0e5e889480946275d90dfd037305830729",
+    "runtime/bundle/retrain/config.py": "621dd723273455c75c7ab3b0d7a56067377e84c4ed7c265786a287c9382642c1",
+    "runtime/bundle/retrain/experiment91.py": "2022828d3c03c0a047d0aa7471625121ab1be89c1185fcb585b00563a1cbab4a",
+    "tests/test_deit3_model.py": "12c4efd43784aead64224887568659ce09fefbadef1817d92159f563b57c286b",
+    "tests/test_candidate_binding.py": "24860c428b9b1eb1246092a298be4f9e7d2969814ea2445b3cedc85d65704781",
+    "runtime/bundle/retrain/inference.py": "3210bbeff465e9b6580469bf92c51313c2c4df3dd5d425a7f844959856ff6759",
+    "tools/validation/check_candidate.py": "d539775a9d959f69bc69328a665b1af52a6c7c67ce5516fb639c725a09d75d81",
+    "tools/pretraining/deit3_source.py": "4f642c04b0de84e25e1f8d06ef09188c1a10b59fa55bbc622008e20f4b15e179",
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "configuration_files": {
+    "runtime/CLOCK_POLICY.json": "2c0121fcff95520fc24034db052dd38650100bb9a0db5e151770c67ffad049f8",
+    "runtime/PLAN.md": "71c871c43561856ee9cc86b936666f0003fbca765540bceceb12e1ed0d50720d",
+    "configs/RESOURCE-POLICY.json": "725b2b90d6932a4e80d1f60993f024209e95a263172a37562629f1f0e8d8c4bf"
+  },
+  "unchanged_model_WORLD_files": {
+    "engine": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf"
+  },
+  "unchanged_legacy_factory_functions": {
+    "_cosine_linear": "19354fb1a9d42932aebc51118c103bd20f9e26d3e65d4c11e6098f512993a7ae",
+    "create_model": "4816cf2d65b5d0ce0901c105ac6401418c332cae7a36836626e8225f2c3debed",
+    "_deit3_library": "60c80e4e0adcd8f5f07bbe5a406511e86402ce083a5760fb79f02e58096b24c1"
+  },
+  "loss_WORLD_targets_reused_by_unchanged_math_test_engine_SHA": 6,
+  "loss_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/source-cpu/records/preparation/deit3-20261102/CPU-CHECKS.json",
+    "sha256": "aff6b8c67951cc60023f7e5a40af14ed049f435a4098825d28540a856dad2502"
+  },
+  "science_sha256": {
+    "R165-SCIENCE.json": "6b804df19ef4994bac10e3deaf01cda37a751f131febb66f7d71d4394aa0d1ad",
+    "R166-SCIENCE.json": "36676a44901113aef7ac6f36b6bf690c07aecd9fe3d7501ed6737a67ec4b47a1"
+  },
+  "public_fresh_reports": {
+    "R165": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/fresh/R165-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "4be52a81a3d7b8451dd794b999840dac473e2f9a2b8a6d0c325a6c6ef0981615"
+    },
+    "R166": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/fresh/R166-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "6d23c67e4e4f728781b03fd504f0783a570227cd82dca27bb9f28f23c5b0105c"
+    }
+  },
+  "core_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/CORE-CHECKS.json",
+    "sha256": "a83da8215f085f097ee77e2e0e869ecd070f198fcb98400abb887cdeffd87d9f"
+  },
+  "evidence": [
+    {
+      "scope": "RED_missing_meanpatch_policy",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g2wjpwdi/CPU-RECEIPT.json",
+      "sha256": "769ed15040f61ef66b95016e97e1cca2771f564564074845e7beadce653e4b83",
+      "exit_code": 1,
+      "output_sha256": "33607314c30d09db9e3f6b9cd9d9dceef0008c7e6363921035e3af497abb38a2"
+    },
+    {
+      "scope": "three_native_meanpatch_and_default_targets",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-lkilpfqs/CPU-RECEIPT.json",
+      "sha256": "1e6988b8329e4c2b233636552d01b1904ecd5aa2d74db197a2682e4ae85b47de",
+      "exit_code": 0,
+      "output_sha256": "d31c6a7fb6a1461be17e4e067a884d7db37ed02a971e76e3478eb236ff7a74df"
+    },
+    {
+      "scope": "two_public_freshs",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-xefycvw0/CPU-RECEIPT.json",
+      "sha256": "2cd687e16fa035624f9394855cbed2f4f86bcb42d7996722edfaf92c2c844404",
+      "exit_code": 0,
+      "output_sha256": "93448384ddbfb6d57d143246f98258dab5633aaad4e296c445c9cf35669fdf74"
+    },
+    {
+      "scope": "final_configuration_and_five_compiles",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-2shwwdg9/CPU-RECEIPT.json",
+      "sha256": "84c1fe0698022096fb6de3c0e29e91f07da0394a9d7b9333418f1d587c37cdeb",
+      "exit_code": 0,
+      "output_sha256": "e4120e779c818380930ef0b1d1f5ee2042d817b64c6c01b56dec28383c9da639"
+    }
+  ],
+  "budget_scenarios": {
+    "original": {
+      "historical_Small512_reference": {
+        "R107_Small512_historical_reference": {
+          "R157_and_R158_same_Small512_graph": {
+            "reference": {
+              "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/source-cpu/records/R107/ROUND_RESULT.json",
+              "sha256": "55c9ea1ad3db96fa773e4d3d9cd4fa6830ae4ee792b332f5238a331af05adda5",
+              "successful_updates": 6400,
+              "train_wall_seconds": 3220.652200460434
+            },
+            "full_24k_scenario_multiplier": 2.0,
+            "scenario_seconds": 24154.891503453255,
+            "train_soft_seconds": 27750,
+            "extra_model_forward": false,
+            "current_GPU_benchmark": false,
+            "guaranteed_upper_bound": false,
+            "early_stop_assumed": false,
+            "active_clock_changed": false
+          },
+          "current_GPU_benchmark": false,
+          "early_stop_assumed": false,
+          "active_clock_changed": false
+        },
+        "R162_fixed_vector_normalization_overhead_GPU_benchmarked": false,
+        "note": "Historical Small512 scenario only; new cosine head is not an identical forward graph or a measured time upper bound."
+      },
+      "native_P8_512_CPU_saved_storage_bytes": 2848580704,
+      "GPU_peak_or_latency_measured": false,
+      "memory_budget_bytes": 12884901888,
+      "runtime_free_minimum_bytes": 21474836480,
+      "device_floor_bytes": 17179869184,
+      "early_stop_assumed": false,
+      "note": "CPU saved storage and historical Small time scenario are not a measured DeiT3 GPU peak/throughput or guaranteed upper bound; existing admission budgets unchanged."
+    },
+    "extra_backbone_or_forward": false,
+    "new_GPU_peak_or_throughput_measured": false,
+    "note": "Only native final readout changes; prior CPU storage and historical time scenarios remain references, not a new GPU upper bound. Existing budgets and clock retained."
+  },
+  "actual_GPU_initialized": false,
+  "official_read": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "final_report": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/FINAL-CHECKS.json",
+    "sha256": "8361b86812dafef2fc3b220a3c95e3908ce637a226809eba834c690b9f4e5bc8"
+  },
+  "active_R164_changed": false,
+  "new_normalformal_executed": false,
+  "new_GPU_started": false
+}

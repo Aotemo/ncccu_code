@@ -1,0 +1,45 @@
+{
+  "R165": {
+    "model_tensor_sha256": "8108ef45b018a9b0049084d90b13d1cfe7ec3a357c72e38059b79e0af1c79caa",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 177,
+    "parameter_elements": 21992835,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/fresh/R165-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "4be52a81a3d7b8451dd794b999840dac473e2f9a2b8a6d0c325a6c6ef0981615"
+    },
+    "public_tensors": 176,
+    "original_public_exact": true,
+    "native_pool": "token",
+    "pool_policy": null,
+    "image_forward_calls": 0
+  },
+  "R166": {
+    "model_tensor_sha256": "64556b75f7fb9b0f1946089b5a0115de38348f049aba6252b49f3cd8bf5c9a93",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 177,
+    "parameter_elements": 21992835,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/fresh/R166-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "6d23c67e4e4f728781b03fd504f0783a570227cd82dca27bb9f28f23c5b0105c"
+    },
+    "public_tensors": 176,
+    "original_public_exact": true,
+    "native_pool": "avg",
+    "pool_policy": {
+      "version": "deit3-final-ln-meanpatch-v1",
+      "pool": "avg",
+      "exclude_prefix_tokens": 1,
+      "position": "after_native_final_LN_before_original_dropout_linear"
+    },
+    "image_forward_calls": 0
+  }
+}

@@ -465,11 +465,17 @@ def _create_deit3_binary(job, initialize=True):
             'all_public_tensors_exact':True,'all_public_tensors_FP32_finite':True,
             'scope':'public384_before_position_resampling_and_binary_head'}
     network.set_input_size(img_size=512)
+    pool_policy=job.get('deit_pool_policy')
+    if pool_policy is not None:
+        from .config import DEIT3_MEANPATCH_RULE
+        if pool_policy!=DEIT3_MEANPATCH_RULE:raise ValueError('native DeiT3 meanpatch policy differs')
+        network.global_pool='avg';network.pool_include_prefix=False
     network.head=nn.Identity();network.num_classes=1
     network.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(384,1))
     class DeiTBinary(nn.Module):
         def __init__(self):
             super().__init__();self.network=network;self.native_library=library
+            if pool_policy is not None:self.deit_pool_policy=dict(pool_policy)
         def forward(self, images, age_features=None):
             logits=self.network(images).flatten()
             if hasattr(self,'age_weight'):
@@ -491,6 +497,10 @@ def _create_deit3_binary(job, initialize=True):
 def describe_deit3(model):
     import torch
     nn=torch.nn;network=model.network;head=network.classifier[-1]
+    policy=getattr(model,'deit_pool_policy',None)
+    if policy is not None:
+        from .config import DEIT3_MEANPATCH_RULE
+        if policy!=DEIT3_MEANPATCH_RULE:raise ValueError('native DeiT3 saved pool policy differs')
     value={'native_library':model.native_library,'source_size':384,'image_size':list(network.patch_embed.img_size),
         'patch_size':list(network.patch_embed.patch_size),'grid_size':list(network.patch_embed.grid_size),
         'patch_weight_shape':list(network.patch_embed.proj.weight.shape),'pos_embed_shape':list(network.pos_embed.shape),
@@ -503,12 +513,14 @@ def describe_deit3(model):
     if (value['native_library']!=DEIT3_LIBRARY or value['image_size']!=[512,512] or value['patch_size']!=[16,16]
             or value['grid_size']!=[32,32] or value['patch_weight_shape']!=[384,3,16,16]
             or value['pos_embed_shape']!=[1,1024,384] or value['cls_token_shape']!=[1,1,384]
-            or value['no_embed_class']is not True or value['num_prefix_tokens']!=1 or value['global_pool']!='token'
+            or value['no_embed_class']is not True or value['num_prefix_tokens']!=1 or value['global_pool']!=('avg'if policy is not None else'token')
             or value['head_drop']!=0. or value['head_shape']!=[1,384] or value['head_dropout']!=.2
             or len(value['blocks'])!=12 or any(b['heads']!=6 or b['qkv_shape']!=[1152,384]
                 or b['fused_attn']is not True or b['scale1']!=[384] or b['scale2']!=[384]for b in value['blocks'])
-            or not isinstance(network.head,nn.Identity) or not isinstance(head,nn.Linear)):
+            or not isinstance(network.head,nn.Identity) or not isinstance(head,nn.Linear)
+            or (policy is not None and (network.pool_include_prefix is not False or not isinstance(network.fc_norm,nn.Identity)))):
         raise ValueError('native DeiT3 binary512 graph differs')
+    if policy is not None:value.update(pool_policy=dict(policy),pool_include_prefix=network.pool_include_prefix)
     return value
 
 

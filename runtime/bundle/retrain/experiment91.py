@@ -66,6 +66,8 @@ AUC_MARGIN_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k
 COSINE_HEAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cosine16-v1'
 COSINE_HEAD_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-cosine16-v1'
 DEIT3_SMALL_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+DEIT3_SMALL_SEED27_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+DEIT3_MEANPATCH_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-meanpatch-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -93,7 +95,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
-                      COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING)
+                      COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -125,7 +127,7 @@ def science_configuration():
     from .layerwise_lr import LAYERWISE_LR_RULE
     from .low_rank import LOW_RANK_RULE
     from .classification_loss import OUTPUT_REGULARIZATION_RULE
-    from .config import COSINE_HEAD_RULE
+    from .config import COSINE_HEAD_RULE,DEIT3_MEANPATCH_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -187,9 +189,15 @@ def science_configuration():
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
-                                                       COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING)
+                                                       COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
+                or (value.get('candidate_profile')!=DEIT3_MEANPATCH_BINDING
+                    and (value.get('job',{}).get('deit_pool_policy')is not None
+                         or value.get('candidate',{}).get('deit_pool_policy')is not None))
+                or (value.get('candidate_profile')==DEIT3_MEANPATCH_BINDING
+                    and (value.get('job',{}).get('deit_pool_policy')!=DEIT3_MEANPATCH_RULE
+                         or value.get('candidate',{}).get('deit_pool_policy')!=DEIT3_MEANPATCH_RULE))
                 or (value.get('candidate_profile') not in (COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('cosine_head_policy') is not None
                          or value.get('candidate',{}).get('cosine_head_policy') is not None))
@@ -624,17 +632,23 @@ def candidate_from_configuration(value):
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile']==SMALL_384_SEED27_BINDING else 20261029)):
                 raise ValueError('fixed Small public384 source or original512 recipe differs')
-    elif value['candidate_profile'] == DEIT3_SMALL_BINDING:
+    elif value['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING):
         from .models import DEIT3_LIBRARY,DEIT3_FORMAT,DEIT3_VARIANT
         expected={'id':'r164-deit3-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':76,'model':'deit3_small','public_revision':'8d59b2810f277c19d0cdd1b1e691d93c24aab6db',
             'readout':'native_LN_CLS_dropout_linear_plus_age','features':384,'final_norm_eps':1e-6,'internal_norm_eps':1e-6,
             'batch_norm_modules':0,'batch_norm_buffers':0,'attention_pool':None,'stochastic_depth':.1,
             'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if value['candidate_profile']==DEIT3_SMALL_SEED27_BINDING:
+            expected.update(id='r165-deit3-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=77)
+        if value['candidate_profile']==DEIT3_MEANPATCH_BINDING:
+            from .config import DEIT3_MEANPATCH_RULE
+            expected.update(id='r166-deit3-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-meanpatch-9010',
+                experiment_order=78,readout='native_final_LN_meanpatch_dropout_linear_plus_age',deit_pool_policy=DEIT3_MEANPATCH_RULE)
         if (source.get('model')!=DEIT3_VARIANT or source.get('format')!=DEIT3_FORMAT or source.get('native_library')!=DEIT3_LIBRARY
                 or source.get('sha256')!='88140b2a114ec4db0e3588af052162b87fcdd1bb92d5e85dd93f7d2adc1fb526'
                 or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
-                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'))!=('deit3_small',20261029,512,512)
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'))!=('deit3_small',20261027 if value['candidate_profile']==DEIT3_SMALL_SEED27_BINDING else 20261029,512,512)
                 or (value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(64,8)
                 or any(value['job'].get(k)is not None for k in ('cosine_head_policy','input_preprocessing','optimizer_policy',
                     'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy',
@@ -725,7 +739,7 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile']==DEIT3_SMALL_BINDING:
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
@@ -1132,6 +1146,7 @@ def validate_normalization(value):
     if candidate()['model']=='deit3_small':
         import torch
         from .models import DEIT3_LIBRARY
+        policy=candidate().get('deit_pool_policy')
         native=value.get('deit3',{});norms=value.get('layer_norms',[]);depth=value.get('stochastic_depth',[])
         rates=[float(t)for t in torch.linspace(0,.1,12)]
         if (value.get('candidate')!=candidate()or value.get('batch_norm_modules')!=0 or value.get('buffer_count')!=0
@@ -1141,7 +1156,9 @@ def validate_normalization(value):
                 or len(depth)!=24 or any(r['p']!=rates[i//2]or r['mode']!='row'for i,r in enumerate(depth))
                 or native.get('native_library')!=DEIT3_LIBRARY or native.get('image_size')!=[512,512]
                 or native.get('pos_embed_shape')!=[1,1024,384]or native.get('patch_weight_shape')!=[384,3,16,16]
-                or native.get('global_pool')!='token'or native.get('no_embed_class')is not True
+                or native.get('global_pool')!=('avg'if policy is not None else'token')or native.get('no_embed_class')is not True
+                or native.get('pool_policy')!=policy
+                or (policy is not None and native.get('pool_include_prefix')is not False)
                 or len(native.get('blocks',[]))!=12 or any(b['heads']!=6 or b['qkv_shape']!=[1152,384]or not b['fused_attn']for b in native['blocks'])):
             raise ValueError('actual native DeiT3 CLS/positions/normalization differs')
         return True
