@@ -1,9 +1,12 @@
 """A stale allocation or overlapping executor CPUs must never reach heavy work."""
 import argparse
 import copy
+import fcntl
 import importlib.util
 import json
 import os
+import subprocess
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -49,6 +52,27 @@ class CPUBudgetTest(unittest.TestCase):
         return argparse.Namespace(allocation=path, allocation_sha=budget.sha(path),
                                   owner='executor-a', operation='run',
                                   script=self.root / 'fixture.py', script_args=[])
+
+    def test_local_executor_lease_blocks_other_process_and_releases(self):
+        identity = {'NCCCU_POD_UID': self.root.name}
+        path = budget.task_lease_path(identity, 'executor-a')
+        self.addCleanup(lambda: path.unlink(missing_ok=True))
+        self.assertEqual(path.parent, Path('/tmp'))
+        self.assertEqual(path, budget.task_lease_path(identity, 'executor-a'))
+        self.assertNotEqual(path, budget.task_lease_path(identity, 'executor-b'))
+        self.assertNotEqual(path, budget.task_lease_path({'NCCCU_POD_UID': 'other'}, 'executor-a'))
+        code = ('import fcntl,os,sys;f=os.open(sys.argv[1],os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600);'
+                '\ntry:fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)'
+                '\nexcept BlockingIOError:sys.exit(3)')
+        descriptor = os.open(path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            self.assertEqual(subprocess.run([sys.executable, '-B', '-c', code, str(path)],
+                                           check=False, timeout=10).returncode, 3)
+        finally:
+            os.close(descriptor)
+        self.assertEqual(subprocess.run([sys.executable, '-B', '-c', code, str(path)],
+                                       check=False, timeout=10).returncode, 0)
 
     def test_twenty_percent_is_shared_by_both_executors(self):
         self.assertEqual(self.value['resource_policy'], self.policy)

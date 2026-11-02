@@ -223,6 +223,13 @@ def snapshot_tree(root_pid, known, mask):
             'affinity_violations': violations}
 
 
+def task_lease_path(pod_identity, owner):
+    # Leases serialize processes in this Pod. NFS flock RPCs can stall even
+    # with LOCK_NB; keep the lease local and stable across allocation renewals.
+    key = hashlib.sha256((pod_identity['NCCCU_POD_UID'] + '\0' + owner).encode()).hexdigest()
+    return Path('/tmp') / ('.ncccu-cpu-task-' + key + '.lock')
+
+
 def run_task(args):
     allocation_path = args.allocation.resolve(strict=True)
     if sha(allocation_path) != args.allocation_sha:
@@ -249,7 +256,7 @@ def run_task(args):
     for key in ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'):
         if os.environ.get(key) != '':
             raise ValueError('CPU task must inherit hidden accelerators')
-    lease_path = allocation_path.parent / ('.cpu-task-' + owner + '.lock')
+    lease_path = task_lease_path(pod_identity, owner)
     descriptor = os.open(lease_path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
     fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
     tasks = allocation_path.parent / 'tasks'; tasks.mkdir(exist_ok=True)
@@ -284,6 +291,7 @@ def run_task(args):
             time.sleep(.2)
     receipt = {'scope': 'compute_pod_cpu_task_tree', 'identity': pod_identity, 'executor_id': owner,
                'allocation_path': str(allocation_path), 'allocation_sha256': sha(allocation_path),
+               'lease_path': str(lease_path), 'lease_scope': 'compute_pod_executor_across_preparation_bindings',
                'guard_sha256': sha(__file__), 'resource_policy': policy,
                'mask': mask, 'threads': threads, 'nice': 19, 'command': command,
                'max_total_threads': value['max_total_threads'], 'actual_resources_before_affinity': observed,
