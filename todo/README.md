@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**22:05唯一GPU R189/order102最新7125success=attempt/0skip/eval8/bad3，八rank活跃，EMA暂AUROC `.977164111350996`，无完整selected。** 原0f3冻结；后备R191新未启动ready-preparefix已在训练期间完成正常CPU19/19与精确部署，固定a77d395/tree4c5ee805、SCIf41f43a2、wholec349/165全训/5空Adam、actual SITEde26a881，guardkrvh2ica/exit0；实际冻结16GiB例外已消费，free16GiB保持。尚无新clock/activation/GPU；完整R189严格双门才R190，否则独立R191，actualsafe后核窗口并一次接续，不重跑normalCPU。旧失败阶段保留、当前冻结不改。32e3唯一Git/GPU，5de准备0–11/保留12–23与训练24–119互斥；raw .999未达，下文为历史。
+
 **21:59唯一GPU R189/order102最新5600success=attempt/0skip/eval6/bad1，八rank活跃，EMA暂AUROC `.977164111350996`/AP `.7450861591443787`，无完整selected。** 原0f3冻结；后续[R190/R191](auroc-999/R190-R191-PREPARATION.md)已[实际两technical包](../records/preparation/vit-base-20261102/TECHNICAL-PACKAGES.json)guard0。R190原37eeae6/7目标13编译，R191首次打包遗漏162字段的失败已留，仅补原prepare格式分支后真实集成通过并用新未启动ready-preparefix a77d395/8目标14编译；未新normalformal/clock/GPU。R191后备正常CPU/精确部署在可行收尾前完成，完整R189严格双门才R190，否则独立R191，actualsafe后一次接续。准备5de 0–11/保留12–23与训练24–119互斥，32e3唯一Git/GPU；raw .999未达。下文为历史时点。
 
 **21:47唯一GPU R189/order102最新2450success=attempt/0skip/eval3/bad0，八rank活跃，EMA暂内部AUROC `.9700189406026074`/AP `.6642672116490169`，无完整selected。** 原0f3冻结；实际八rankCLS初态/首成功和R1完整收尾已同步94f6dad。后续[R190条件CLS seed27/R191固定Base-CLS](auroc-999/R190-R191-PREPARATION.md)已完成[7必要目标/13源码编译及两public fresh](../records/preparation/vit-base-20261102/README.md)，当前同步源码/最终SCI，尚未新technical包/formal/clock/GPU。R191仅新round16GiB存储例外，默认/旧例外/free16GiB不变；CPU资源与完整24k时间只作情景、不冒称DCU峰值或吞吐保证。32e3唯一Git/GPU，5de准备0–11/保留12–23与训练24–119互斥；raw .999未达，下文为历史。
