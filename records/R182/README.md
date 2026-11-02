@@ -1,5 +1,7 @@
 # R182：原生 Large 与自然 LVD DINOv3 初始化
 
+已完整收口：[唯一所选结果](R182-RESULT.json)为 EMA c4@3200，内部AUROC `.9868174369138257`、AP `.8119164253097094`、error_twice21896。6400 success=attempt/0skip/c8/bad4、正常early stopping，train exit0/signals[]。严格胜R107/R120两门均false，R183条件seed27不eligible，官方按所选<.996未跑；freeze.status原值null保留。19:13:55唯一[安全终态](R182-COMPLETION.json)确认owner同birth Z、8rank消失、锁及设备使用者空/denied0/8PCI busy0，不再重查safe或大blob。selected tensor6eb9f192、blob160524f8、CSV b33da7d4及precision adb3c5f9均从既有冻结小件归档，未新hash/load/forward。后续独立R184技术失败后由R186接续，raw .999未达。以下为启动历史。
+
 [真实八rank/自然首更新](R182-START.json)已证：345全训/5空Adam初态与正常CPU匹配，whole864775ca…e54b33；首25次成功更新loss `.6626197695732117`有限、WORLD8/G64P8/448对，各rank8输入，实际PCI及训练96核mask一致。17:27:54观测50 success=attempt/0skip/eval0，无完整selector或官方结果，raw .999未达。
 
 冻结Git2a128733259ef3b7dd640f458db96283a0fdb64d/tree348d64592520d5aea30781fce16f816fa37efb80，SCIc7f2e7f3…b6fc65，SITE94812238…f47cf。[受影响5目标/12编译及两public fresh](../preparation/large-dino3-20261102/README.md)、[正常CPU18/18及精确部署](R182-PREPARATION.json)都在R180训练期间完成；一次activation/正式launch exit0，无独立GPU预演。实际未激活分配覆盖整clock和60秒预检，原clock/token/grant未重置。

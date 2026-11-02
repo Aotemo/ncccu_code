@@ -1,0 +1,23 @@
+{
+  "previous_round": 184,
+  "previous_status": "failed",
+  "previous_last_training_event_at": 1793647070.8765435,
+  "previous_whole_round_ended_at": 1793647078.3307374,
+  "previous_safe_observed_at": 1793647213.8599563,
+  "new_dispatch_at": 1793647287.6163383,
+  "latest_device_at": 1793647349.825837,
+  "first_recorded_update_at": 1793647406.6609628,
+  "round_end_to_dispatch_seconds": 209.28560090065002,
+  "round_end_to_latest_device_seconds": 271.49509954452515,
+  "round_end_to_first_recorded_update_seconds": 328.3302254676819,
+  "round_end_to_dispatch_within_300": true,
+  "round_end_to_device_within_300": true,
+  "round_end_to_first_recorded_update_within_300": false,
+  "continuous_DCU_utilization_measured": false,
+  "previous_clock_token_grant_changed": false,
+  "necessary_checks_skipped": false,
+  "note": "Separate event intervals; normal CPU and exact deployment followed an unexpected predecessor startup failure. No scientific conclusion for R184.",
+  "last_event_to_dispatch_seconds": 216.73979473114014,
+  "last_event_to_device_seconds": 278.94929337501526,
+  "last_event_to_first_recorded_update_seconds": 335.784419298172
+}

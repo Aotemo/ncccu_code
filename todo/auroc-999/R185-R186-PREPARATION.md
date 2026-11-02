@@ -1,5 +1,7 @@
 # R185/R186 准备计划：条件 ViT-S 复核与原生 CAFormer-S36
 
+19:25状态：R184初态工程失败且actualsafe，R185不eligible；独立R186已正常CPU18/18/精确部署、一次activation/direct launch0，实际八rank/396全训/5空Adam/whole d2369b38与首自然25有限均证，175success/0skip/eval0，见[启动](../../records/R186/README.md)。原f9ea149d冻结不改；未来必要非持久buffer/EMA修复另列，不回写本轮。下文为准备历史。
+
 18:57 两technical包已按真实远端f9ea149d/tree86a38dd7完成，[回执](../../records/preparation/caformer-20261102/TECHNICAL-PACKAGES.json)guard0；未newnormalformal/clock/GPU。准备辅助脚本仅继续扩R185/R186及3目标/9编译的路径/数量、默认12GiB期望，R184原4/11分支保留；两次已执行原文留存为历史txt。下一优先事项是R182最早终态前完成原R184正常准备，当前不改变其ab43冻结。
 
 18:49 当前前三项已实际完成：现来源入口两真实路径通过、两个模型目标分别取得通过证据、两候选身份共1目标通过，9个源码编译覆盖；[原件](../../records/preparation/caformer-20261102/MODEL-CPU-CHECKS.json)保留所有RED/优化器定位失败。只复测P8，首目标/原ViT图证据按相同函数正文复用。R185 SCI039715e4/whole8c62435a，R186 SCI37befe80/wholed2369b38，均实际public fresh/5空Adam/0image forward；初态占位未进Git。待同步冻结/技术包，尚无新normalformal/clock/GPU。

@@ -1,0 +1,23 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/caformer-source-audit-20261102-32e3/source-git/records/preparation/caformer-20261102/MODEL-CPU-CHECKS.json",
+    "sha256": "29395ab183df354ba562e620ce1947ac91cd5cd307b9eaa8e8c67b0f7d776a78"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "43bb6acc9603cad97309ad3705caf80480da968321b8502286993c2835ff8f0f",
+    "runtime/bundle/retrain/config.py": "acf81237c0a93524af59f424cfa18e441ba81115f4071804a10255f137f6e56b",
+    "runtime/bundle/retrain/inference.py": "1bb16cf00d1537726665c6ee113cb6ee4cc67f66a23adc5ff5b046993d3cbc82",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "runtime/bundle/retrain/experiment91.py": "ee52be7adf6dcdc70e62a2c4c97b2bf2df15e9d6688026b30e58a88b11c7d549",
+    "tools/pretraining/deit3_source.py": "2b48fdeb4c78f5ee989c3a09b66db79e348544fe16ab678c0f8913c1c645efc7",
+    "tools/validation/check_candidate.py": "e7cdbb43088e573c61572f548ef90f392d142c43d111f550a95421ef2bc2f4a5",
+    "tests/test_caformer_model.py": "81c9a9cd9bb76dae35f02a94d859a82ffce5b06293065380b5c77560fa53108d",
+    "tests/test_candidate_binding.py": "894206490de51e1f14c8afd0c2d57e1bc9d24835eff8c22eca89bbd9cd7a8d74"
+  },
+  "science_sha256": "37befe80a2e553a58a8aed2dc204d8e7687716e3f2d620b325f1bebe52e8f93f",
+  "targets_reused": 3,
+  "unchanged_implementation_files": 5,
+  "tests_rerun": false,
+  "at": 1793647120.2033966
+}

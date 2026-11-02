@@ -1,0 +1,51 @@
+{
+  "status": "failed",
+  "round_id": "r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+  "git_commit": "4dc518030a47e19c4a677be9294fad5f8690051e",
+  "science_sha256": "a231b7d0fc8c057aadd5348dc8168e3485615c2e34efdbf6e530a93a0bfdc980",
+  "progress": {
+    "status": "interrupted",
+    "phase": null,
+    "successful_updates": 0,
+    "attempted_updates": 0,
+    "skipped_updates": 0,
+    "evaluated_cycle": 0,
+    "stop_reason": "owner_stop_requested",
+    "termination_reason": null,
+    "early_bad_cycles": 0
+  },
+  "selected_internal_dev": null,
+  "strictly_beats_R107": null,
+  "strictly_beats_R120": null,
+  "conditional_seed27_eligible": false,
+  "official": null,
+  "terminal": {
+    "done": {
+      "status": "failed",
+      "phase": null,
+      "error": "RuntimeError('component not completed: {\\'status\\': \\'timeout\\', \\'exit_code\\': 130, \\'reason\\': \\'resource_guard:maybe_release:ValueError(\\\\\\'native immutable model buffers differ\\\\\\'):Traceback (most recent call last): |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102/run_training.py\", line 128, in run_component |     guard.maybe_release(ROOT,atomic,sha) |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102/run_round.py\", line 14, in maybe_release |     return release_fresh_initial(root,atomic,sha) |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102/r92_initial_gate.py\", line 177, in maybe_release |     require(len(buffers) == expected[\\\\\\'buffer_count\\\\\\'] and tensor_digest(buffers) == expected[\\\\\\'buffer_sha256\\\\\\'], |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102/r92_initial_gate.py\", line 12, in require |     raise ValueError(message) | ValueError: native immutable model buffers differ | \\'}')",
+      "live_owned_ranks": []
+    },
+    "train": null,
+    "train_component": null,
+    "freeze": null,
+    "round": null,
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793647213.8599563,
+  "whole_round_ended_at": 1793647078.3307374,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r184-20261102-32e3-ready-gatefix/PROGRESS-terminal-1.json",
+    "sha256": "2ad49abc1b5a160d0fc74e05f92a216d524e255a37d7196bc0d81cef4dcbf79a"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-1651-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-w37brmg4/CPU-RECEIPT.json",
+    "sha256": "046d70186243168e0ba61cf32e5926ea49fb46a0703e9d9d30414448eed9d335"
+  },
+  "new_forward_or_model_or_checkpoint_load": false,
+  "raw_AUROC_0_999_achieved": false,
+  "scientific_outcome": "unknown_engineering_failure_before_startup_barrier",
+  "gate": "native immutable model buffers differ",
+  "eight_rank_initial_barrier_completed": false
+}
