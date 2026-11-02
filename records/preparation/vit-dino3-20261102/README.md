@@ -1,5 +1,7 @@
 # 固定自然图像 DINOv3 ViT-S 来源准备
 
+18:03 实际 Git `ab43f5422da4d3400dc0cdc8c34b16b3a3bfb03b`/tree `c8cda1b8ef8e94ef7b0330426a19d495987ef540` 已推送，connector 回读 commit/tree 后生成[两技术包](TECHNICAL-PACKAGES.json)。R183 SITE dd76c37a、guard8f16n93n/c93f2a7c exit0；R184 SITE03452b3d、guardawrn_qkp/1a1dd552 exit0，均精确消费4目标/11编译证据及SCI，不重跑测试。归档 guardgwtpj2lf/da0c599c exit0；当前仅technical，无normalformal/clock/GPU，正式部署仍待。
+
 18:00 后续生产适配已经完成 CPU 窄验：[模型证据](MODEL-CPU-CHECKS.json)固定 4 个实际通过目标和 11 个唯一源码编译，复用相同源码的模型2/候选1/存储1，不重复旧 suite。原生 factory/RNG/独立 prefix 均值/age 一次、P8×512 全165有限梯度/5空组/EMA及真实 CheckpointStore→inference 冷图通过；非persistent FP32 RoPE 由同 native factory 重建。当前只 pin 所列四个 timm 文件，未宣称整个依赖包或新 DCU 峰值/吞吐。
 
 [R183 fresh](R183-PUBLIC-FRESH-INITIAL.json)为同 Large DINO seed27、whole c51c4d8b/SCI1f116cd6/345全训；[R184 fresh](R184-PUBLIC-FRESH-INITIAL.json)为固定 native ViT-S/seed29/512、whole e347757c/SCIa231b7d0/165全训/1个静态buffer，均5空Adam/0图像前向/0GPU。R184保持原R107数据/采样/loss/优化/LR/EMA/age与24k-800-p4，仅架构及匹配自然图像初始化改变；R183须完整R182严格过两锚点且safe才有GPU资格。新增R183精确32GiB，R184默认12GiB，原free16GiB不改。
