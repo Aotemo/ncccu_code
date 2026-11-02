@@ -588,10 +588,15 @@ def main(args):
     rejected('initial_gate_missing_rank_rejected', lambda: initial_gate.verify_records(initials[:-1], groups, groups, expected, expected_world=8))
     wrong_initial = copy.deepcopy(initials); wrong_initial[0]['model_sha256'] = '0' * 64
     rejected('initial_gate_wrong_tensor_rejected', lambda: initial_gate.verify_records(wrong_initial, groups, groups, expected, expected_world=8))
-    factors = {str(update): _lr_factor(update, total, warmup)
-               for update in (0, warmup - 1, warmup, warmup + 1, total)}
+    lr_horizon = getattr(optimizer, '_lr_decay_updates', total)
+    cursors = (0, warmup - 1, warmup, warmup + 1, total)
+    if job.get('lr_decay_updates') is not None:
+        cursors += (lr_horizon - 1, lr_horizon)
+    factors = {str(update): _lr_factor(update, lr_horizon, warmup) for update in cursors}
     check('LR_successful_update_boundaries', factors['0'] == 1 / warmup
           and factors[str(warmup - 1)] == factors[str(warmup)] == 1 and factors[str(warmup + 1)] < 1
+          and lr_horizon == (job.get('lr_decay_updates') or total)
+          and (job.get('lr_decay_updates') is None or math.isclose(factors[str(lr_horizon - 1)], .01, abs_tol=1e-15))
           and math.isclose(factors[str(total)], .01, abs_tol=1e-15), factors)
     if is_r50:
         # Boundary fixtures retain the real 159 frozen buffers. Their explicit

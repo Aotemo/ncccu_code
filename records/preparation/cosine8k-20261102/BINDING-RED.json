@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "targets_run": 3,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R194_R195_half_LR_confirmation_and_independent_decay_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R192_R193_fixed_source_and_single_backbone_LR_delta",
+    "test_candidate_binding.CandidateBindingTest.test_R193_original_optimizer_consumes_half_backbone_LR_only"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "9734a2ac7cc0ae11bc390683cc4f97ce48fdb5c63e5b610f6aeba9bb755224d3",
+    "runtime/bundle/retrain/config.py": "025182496858e06c5c83ee0dddf93048ba5602230260ac24f09c4089e605aa1b",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "tests/test_candidate_binding.py": "f7120e52a50485e7fb7980ada4881c9c4346622d3438b0221b5730306a7b486a"
+  },
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "official_read": false
+}

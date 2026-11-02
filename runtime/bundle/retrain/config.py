@@ -95,6 +95,20 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    if job.get('lr_decay_updates') is not None:
+        if (type(job['lr_decay_updates']) is not int or job['lr_decay_updates']!=8000
+                or (job.get('model'),job.get('precision'),job.get('image_size'),job.get('prepared_size'),
+                    job.get('effective_batch'),job.get('positive_per_batch'),job.get('cycles'),job.get('warmup_cycles'),
+                    job.get('backbone_lr'),job.get('head_lr'),job.get('weight_decay'))!=
+                    ('convnext_small','fp32',512,512,64,8,30,2,1e-4,1e-3,1e-4)
+                or job.get('loss',{}).get('kind')!='binary_pairwise_sigmoid'
+                or any(job.get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','vit_dino3_pool_policy',
+                    'cosine_head_policy','quadrant_mil_policy','input_preprocessing','optimizer_policy',
+                    'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy','layerwise_lr_policy',
+                    'low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization',
+                    'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                    'training_views','training_rotation','training_photometric'))):
+            raise ValueError('fixed Small sigmoid 8000-update LR decay differs')
     if job.get('model')=='vit_dino3_base' and job.get('vit_dino3_pool_policy')!=VIT_DINO3_CLS_RULE:
         raise ValueError('fixed native DINOv3 Base requires the CLS policy')
     if job.get('vit_dino3_pool_policy') is not None:
@@ -442,9 +456,9 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'), 'job')
         job.update(item)
-        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy'):
+        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
             if job.get(key) is None:
                 job.pop(key, None)
         cfg['jobs'].append(job)
@@ -547,7 +561,7 @@ def validate_split(split):
 
 def job_contract(job):
     result = copy.deepcopy(job)
-    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy'):
+    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
         if result.get(key) is None:
             result.pop(key, None)
     for key in ('device', 'workers', 'eval_workers', 'prefetch_factor', 'checkpoint_seconds',

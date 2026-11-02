@@ -1,0 +1,133 @@
+{
+  "scope": "R194_R195_fixed_LR_decay_and_saved_job_affected_CPU",
+  "at": 1793659453.5745926,
+  "passed_targets": 6,
+  "targets": [
+    "test_lr_decay.FixedLRDecayTest.test_real_groups_follow_fixed_decay_and_preserve_legacy_None",
+    "test_lr_decay.FixedLRDecayTest.test_saved_job_reconstructs_decay_after_native_optimizer_state_roundtrip",
+    "test_lr_decay.FixedLRDecayTest.test_config_roundtrip_keeps_fixed_decay_and_omits_None",
+    "test_candidate_binding.CandidateBindingTest.test_R194_R195_half_LR_confirmation_and_independent_decay_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R192_R193_fixed_source_and_single_backbone_LR_delta",
+    "test_candidate_binding.CandidateBindingTest.test_R193_original_optimizer_consumes_half_backbone_LR_only"
+  ],
+  "compiled_sources": 6,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/engine.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_lr_decay.py",
+    "tests/test_candidate_binding.py"
+  ],
+  "source_files": {
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "tests/test_round_storage_policy.py": "cb59982cfbe949595b1f37063789b52c4be17dfd3ea3d9956e1ca37702ad0bb6",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "tools/validation/check_candidate.py": "06fe5fa5b69a1051b91260af7765b91e820b380e3727d663dd53718fd2c2a46f",
+    "tests/test_candidate_binding.py": "f7120e52a50485e7fb7980ada4881c9c4346622d3438b0221b5730306a7b486a",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/bundle/retrain/experiment91.py": "5a413c5bd02b6f33ef9880f916204a75970d3ff9696ef5d152f95d62b43cdb6f",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "runtime/bundle/retrain/config.py": "025182496858e06c5c83ee0dddf93048ba5602230260ac24f09c4089e605aa1b"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c"
+  },
+  "science_sha256": {
+    "R194-SCIENCE.json": "514cab3827a0b95b6a81a6331473085d9203ac055d7941669a021d747368dd20",
+    "R195-SCIENCE.json": "57c1d89a61ef9e9e4306b680961c4e5cac7be5c13e6c3569deeb3a9e693a4841"
+  },
+  "public_fresh": {
+    "R194": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cosine8k-20261102-32e3/fresh/R194-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "bf5c25050ba46d7133087ecaaf3d3d4e2b73baf3a3eb7679cff2bdb926894d66",
+      "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "parameter_tensors": 345
+    },
+    "R195": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cosine8k-20261102-32e3/fresh/R195-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "cdb648acdb902a69f898063192635ace3854dae8641954013b9b5f0bcb538861",
+      "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "parameter_tensors": 345
+    }
+  },
+  "evidence": [
+    {
+      "label": "LR_unconsumed_and_schema_missing_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-uwu91vdd/CPU-RECEIPT.json",
+      "sha256": "e31202963ff57a5709ee526771decebb3acce4ea71c2367eabc5d6e95e834f24",
+      "exit_code": 1,
+      "output_sha256": "299f8008026ff737accc0135f11f723280585a6f5206abf664ef9e853c23a731"
+    },
+    {
+      "label": "three_real_LR_config_native_state_targets",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-99qyoiy_/CPU-RECEIPT.json",
+      "sha256": "158ec11a78370f131c9f690d0af625257a20713d4c423c5ca54779f7c1ea8645",
+      "exit_code": 0,
+      "output_sha256": "058e34a3f7a265c2f8659c0d68ab0c47101190f12460d78bbefa02c0d1242eb7"
+    },
+    {
+      "label": "candidate_unregistered_RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-r018df02/CPU-RECEIPT.json",
+      "sha256": "91da6539a88e27412e995f35a0f97d25dc0df2b94b8e10050119c800882ed80e",
+      "exit_code": 1,
+      "output_sha256": "8923d8194ecffe03a70e14d8e998b8aa4b73e2e1241fe6ddd2305a0061f1690a"
+    },
+    {
+      "label": "new_and_old_candidates_three_targets",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-i9jyxmf5/CPU-RECEIPT.json",
+      "sha256": "efaca619237d4fbefc964f00359a6bb751e2518d663a4956a7545fe11dc6c93b",
+      "exit_code": 0,
+      "output_sha256": "620587345bd713d822aaadbf3203dc8c424682e2283c6bf99797ba951117d4aa"
+    },
+    {
+      "label": "both_actual_public_fresh",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-1h2cfznh/CPU-RECEIPT.json",
+      "sha256": "1cc8c687778a8c008c5d06889409ca616d4c9b4c552712a25a0769af91c744f8",
+      "exit_code": 0,
+      "output_sha256": "a0fcf2785278b0ac629f85fd6a88398a5cf1678b77368b20788776622d713fb0"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "models": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "ema": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "single91": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "inference": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49"
+  },
+  "prior_model_evidence": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cosine8k-20261102-32e3/source-cpu/records/preparation/pair-sigmoid-lr-20261102/CPU-CHECKS.json",
+    "sha256": "8f62c51fdc681722ee7eef1be84628672a507b7d31c7db1f36b9a522b4718f17",
+    "model_loss_EMA_DDP_and_persistence_sources_exact": true,
+    "P8_EMA_cold_or_WORLD_targets_rerun": false,
+    "optimizer_None_branch_actual_compatibility_targets_passed": true
+  },
+  "native_restore_scope": "Toy+native AdamW state roundtrip; production constructor reads saved job; not a new eight-rank CheckpointStore resume proof",
+  "checker_runtime_scope": "new boundary block statically reviewed and compiled; full original check_candidate executes once in normal preparation before GPU",
+  "budget_scenarios": {
+    "model_and_forward_count_per_update_unchanged": true,
+    "maximum_successful_updates": 24000,
+    "evaluation_every": 800,
+    "patience": 4,
+    "warmup_and_EMA_copy": 1600,
+    "early_stop_assumed": false,
+    "current_GPU_benchmark": false,
+    "guaranteed_GPU_peak_or_throughput_upper_bound": false,
+    "active_clock_changed": false
+  },
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

@@ -21,6 +21,46 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R194_R195_half_LR_confirmation_and_independent_decay_identity(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in (('R194','R193',107,20261027),('R195','R120',108,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed']),(order,seed))
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping',
+                       'data_split','official_evaluation'):
+                self.assertEqual(science[key],baseline[key])
+            expected=copy.deepcopy(baseline['job'])
+            if label=='R194':expected['seed']=seed
+            else:expected['lr_decay_updates']=8000
+            self.assertEqual(science['job'],expected)
+            self.assertEqual(science['job'].get('lr_decay_updates'),8000 if label=='R195' else None)
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding), \
+                    patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                job=copy.deepcopy(science['job'])
+                job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':'imagenet','format':science['public_source']['format'],
+                    'sha256':science['public_source']['sha256'],'path':site['public_weight'],
+                    'provenance':site['public_provenance']})
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual(experiment.candidate(),science['candidate'])
+                contract=config.job_contract(job)
+                if label=='R195':self.assertEqual(contract['lr_decay_updates'],8000)
+                else:self.assertNotIn('lr_decay_updates',contract)
+                wrong=copy.deepcopy(job);wrong['lr_decay_updates']=None if label=='R195' else 8000
+                with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                wrong=copy.deepcopy(science);wrong['public_source']['revision']='0'*40
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
     def test_R192_R193_fixed_source_and_single_backbone_LR_delta(self):
         from retrain import age, config
         synthetic_age = age.make_spec({'rows': [{'name': str(i), 'sha256': str(i)*64,

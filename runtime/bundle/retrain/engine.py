@@ -293,6 +293,8 @@ def _optimizer(model, job):
                 or any(id(p) not in owned or not p.requires_grad or p.dtype != torch.float32 for _, p in targets)):
             raise ValueError('raw GC direct weight ownership differs')
         optimizer._gradient_centralization_targets = targets
+    if job.get('lr_decay_updates') is not None:
+        optimizer._lr_decay_updates = job['lr_decay_updates']
     return optimizer
 
 
@@ -352,7 +354,8 @@ def _lr_factor(successful_updates, total_updates, warmup_updates):
 
 
 def _apply_lr(optimizer, successful_updates, total_updates, warmup_updates):
-    factor = _lr_factor(successful_updates, total_updates, warmup_updates)
+    horizon = getattr(optimizer, '_lr_decay_updates', total_updates)
+    factor = _lr_factor(successful_updates, horizon, warmup_updates)
     for group in optimizer.param_groups:
         group['lr'] = group['initial_lr'] * factor
 

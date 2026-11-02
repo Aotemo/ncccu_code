@@ -1,0 +1,18 @@
+{
+  "tag": "RED",
+  "passed": false,
+  "targets_run": 3,
+  "targets": [
+    "test_lr_decay.FixedLRDecayTest.test_real_groups_follow_fixed_decay_and_preserve_legacy_None",
+    "test_lr_decay.FixedLRDecayTest.test_saved_job_reconstructs_decay_after_native_optimizer_state_roundtrip",
+    "test_lr_decay.FixedLRDecayTest.test_config_roundtrip_keeps_fixed_decay_and_omits_None"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "runtime/bundle/retrain/config.py": "a7c6bb8ff504ef1fc04a28426607dac8ace81972f5f03a9d5062960d4372f4aa",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63"
+  },
+  "GPU_initialized": false,
+  "model_scope": "Toy+native AdamW only, no production model/images/forward",
+  "official_read": false
+}
