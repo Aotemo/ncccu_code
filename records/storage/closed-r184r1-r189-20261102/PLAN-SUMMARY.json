@@ -1,0 +1,59 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "493353364bfd69fdbdc93994ff9b1fc04bcd030059ed9704cebdf753ac986f16",
+  "inventory_sha256": "4fee0c67eb0fd1f1a0fe2f8e5bc7f9fdbe8e8314629d2e99e88c2d0f6ea86865",
+  "source_commit": "2a094f43cd4a5a861c9019eaf67d54b69158732f",
+  "candidate_count": 18,
+  "skipped": [],
+  "logical_bytes": 5881382118,
+  "allocated_bytes": 5881387008,
+  "filesystem_free_now": 39514537984,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184r1-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r189-vits-dinov3-seed20261029-scale085-pairlog-cls-24k-p4-9010-20261102"
+  ],
+  "conclusions": {
+    "R184R1": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pair-sigmoid-lr-20261102-32e3/source-git/records/R184R1/R184R1-RESULT.json",
+        "sha256": "b9cd44269ad5383e60307346ede654e6d20f62fc04d9b27814efe3fae20a83a4",
+        "git_blob": "0b2f65931357eb8f3ec3aa036a586f5ca3d2b9ee"
+      },
+      "selected": {
+        "auroc": 0.9791930315921545,
+        "ap": 0.7583746393532208,
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "error_twice": 34560
+      },
+      "freeze_metadata_sha256": "4a7d839cb71ec353522b2353aa9335105d7beaa28d146157589faeb16cc5bbf5",
+      "historical_actual_safe": true
+    },
+    "R189": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pair-sigmoid-lr-20261102-32e3/source-git/records/R189/R189-RESULT.json",
+        "sha256": "718b0388e60ca71e2b9f8035823b0c710caa6f3c989ffba45e17749c3a7ff1e8",
+        "git_blob": "2936711c6c2b0ab46939e20cce9b7584ae2f1a3e"
+      },
+      "selected": {
+        "auroc": 0.977164111350996,
+        "ap": 0.7450861591443787,
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "error_twice": 37930
+      },
+      "freeze_metadata_sha256": "56380729ff5c851ffff6cc3d621e158423be5c148a144e72d95958c93ee806a3",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pair-sigmoid-lr-20261102-32e3/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

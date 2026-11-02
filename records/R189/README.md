@@ -1,5 +1,7 @@
 # R189：固定原生 DINOv3 Small CLS 单读出
 
+完整结论已同步且R191实际首成功后，本轮冗余checkpoint已与R184R1按[精确18件清单](../storage/closed-r184r1-r189-20261102/README.md)清理；原selected身份/CSV/precision/侧车和元数据保留，不再加载或评估旧权重。
+
 [完整结果](R189-RESULT.json)：7200成功更新/9轮内部dev/连续4轮未提升正常completed，唯一选点EMA c5@4000，AUROC `.977164111350996`、AP `.7450861591443787`、error_twice37930。严格超过R107与R120两门均false，官方按阈值未跑；R190 seed27不eligible。原freeze.status为null原样保留，不补造字段；模型tensor/原blob/CSV/precision SHA随精简结果封存。此固定CLS配方未胜锚点，不能据此外推所有CLS表征或临床原因。
 
 [唯一安全终态观测](R189-COMPLETION.json)确认owner627828/start368273364为Z、八rank均missing、锁持有者/设备使用者为空、8卡busy0、denied0；CPU guard yrkhrbef/`00ac6caa9579c9473730680bbdd2951eba93fdd567be34db3eebb1aeac14f67c` exit0。封存后不重复safe或加载旧权重。之后独立[R191](../R191/README.md)已实际八rank首成功；末段下一轮未启动描述均为历史。raw .999未达。
