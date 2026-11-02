@@ -4,6 +4,12 @@ import json
 from pathlib import Path
 import re
 
+DEIT3_VARIANT = 'deit3_small_patch16_384'
+DEIT3_FORMAT = 'timm-deit3-native384-state-dict-v1'
+DEIT3_LIBRARY = {'version':'1.0.27','source_sha256':{
+    'deit.py':'7fa9a4f90fc3fafb09dfa5faa7e5196347eac599f0402190d7c89cbdc346d621',
+    'vision_transformer.py':'f0f453b75952698059a1e82fa283a7a9cf2cf2217c33fc2c9cb1efc06947f552'}}
+
 STEM_XY_RULE = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y'],
                 'canvas_size':512,'coordinates':'2*k/(size-1)-1',
                 'position':'after_augmentation_and_normalization','xy_initialization':'zeros'}
@@ -241,6 +247,25 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
 
 
 def validate_initialization(initialization):
+    if initialization.get('format') == DEIT3_FORMAT:
+        from .experiment91 import public_source
+        source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
+        if (initialization.get('kind')!='imagenet' or source.get('model')!=DEIT3_VARIANT
+                or not path.is_absolute() or not meta_path.is_absolute() or path.is_symlink() or meta_path.is_symlink()
+                or initialization.get('sha256')!=source['sha256'] or _hash(path)!=source['sha256']
+                or _hash(meta_path)!=source['provenance_sha256']):
+            raise ValueError('fixed native DeiT3 source identity differs')
+        meta=json.loads(meta_path.read_text())
+        if (any(meta.get(k)!=source[k]for k in ('model','format','revision','source_url','training_data','sha256',
+                                               'original_sha256','native_library'))
+                or meta['native_library']!=DEIT3_LIBRARY or meta.get('redistribution_confirmed')is not True
+                or _hash(meta_path.parent/meta['license_file'])!=meta['license_sha256']):
+            raise ValueError('native DeiT3 provenance/license differs')
+        return {'kind':'imagenet','model':DEIT3_VARIANT,'format':DEIT3_FORMAT,'weights_sha256':source['sha256'],
+                'provenance_sha256':source['provenance_sha256'],'final_norm_eps':1e-6,'internal_norm_eps':1e-6,
+                'source_url':source['source_url'],'training_data':source['training_data'],'source_commit':source['revision'],
+                'original_sha256':source['original_sha256'],'license_sha256':meta['license_sha256'],
+                'native_library':DEIT3_LIBRARY}
     if initialization['kind'] == 'random':
         return {'kind': 'random'}
     if (initialization.get('kind') == 'imagenet'
@@ -401,6 +426,92 @@ def feature_freeze_proof(model, job, optimizer):
         'trainable_parameter_elements': sum(named[name].numel() for name in trainable)}
 
 
+def _deit3_library():
+    import inspect,timm
+    import timm.models.deit as deit
+    from timm.models.vision_transformer import VisionTransformer
+    actual={'version':timm.__version__,'source_sha256':{
+        'deit.py':_hash(inspect.getfile(deit)),
+        'vision_transformer.py':_hash(inspect.getfile(VisionTransformer))}}
+    if actual!=DEIT3_LIBRARY:raise ValueError('installed native DeiT3 library differs')
+    return actual
+
+
+def _create_deit3_binary(job, initialize=True):
+    import torch
+    from torch import nn
+    from timm.models.vision_transformer import VisionTransformer
+    from .ema import tensor_digest
+    library=_deit3_library()
+    class DeiTNetwork(VisionTransformer):
+        def forward_head(self, x, pre_logits=False):
+            features=super().forward_head(x,pre_logits=True)
+            return features if pre_logits else self.classifier(features)
+    network=DeiTNetwork(img_size=384,patch_size=16,embed_dim=384,depth=12,num_heads=6,
+        no_embed_class=True,init_values=1e-6,num_classes=1000,drop_rate=0.,
+        drop_path_rate=job.get('stochastic_depth',.1),device='cpu',dtype=torch.float32)
+    public=None
+    if initialize:
+        proof=validate_initialization(job['initialization'])
+        state=torch.load(job['initialization']['path'],map_location='cpu',weights_only=True)
+        loaded=network.load_state_dict(state,strict=True);actual=network.state_dict()
+        if (len(actual)!=176 or set(actual)!=set(state) or loaded.missing_keys or loaded.unexpected_keys
+                or network.head.weight.shape!=(1000,384)
+                or any(t.dtype!=torch.float32 or not bool(torch.isfinite(t).all()) or not torch.equal(actual[n],t)
+                       for n,t in state.items())):
+            raise ValueError('DeiT3 complete public384 strict/exact/FP32 proof differs')
+        public={'initialization':proof,'strict_missing_keys':[],'strict_unexpected_keys':[],
+            'public_tensor_count':176,'public_tensor_sha256':tensor_digest(state),'full_head_shape':[1000,384],
+            'all_public_tensors_exact':True,'all_public_tensors_FP32_finite':True,
+            'scope':'public384_before_position_resampling_and_binary_head'}
+    network.set_input_size(img_size=512)
+    network.head=nn.Identity();network.num_classes=1
+    network.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(384,1))
+    class DeiTBinary(nn.Module):
+        def __init__(self):
+            super().__init__();self.network=network;self.native_library=library
+        def forward(self, images, age_features=None):
+            logits=self.network(images).flatten()
+            if hasattr(self,'age_weight'):
+                from .age import residual
+                return residual(self,logits,age_features)
+            return logits
+    result=DeiTBinary()
+    if job.get('age')is not None:
+        from .age import attach_age
+        attach_age(result,job['age'])
+    if public is not None:
+        public['derived_position']={'source_grid':[24,24],'runtime_grid':[32,32],
+            'method':'native_set_input_size_bicubic_antialias_no_prefix',
+            'tensor_sha256':tensor_digest({'pos_embed':network.pos_embed})}
+        result.public_initialization_receipt=public
+    return result
+
+
+def describe_deit3(model):
+    import torch
+    nn=torch.nn;network=model.network;head=network.classifier[-1]
+    value={'native_library':model.native_library,'source_size':384,'image_size':list(network.patch_embed.img_size),
+        'patch_size':list(network.patch_embed.patch_size),'grid_size':list(network.patch_embed.grid_size),
+        'patch_weight_shape':list(network.patch_embed.proj.weight.shape),'pos_embed_shape':list(network.pos_embed.shape),
+        'cls_token_shape':list(network.cls_token.shape),'no_embed_class':network.no_embed_class,
+        'num_prefix_tokens':network.num_prefix_tokens,'global_pool':network.global_pool,'head_drop':network.head_drop.p,
+        'head_shape':list(head.weight.shape),'head_dropout':network.classifier[0].p,
+        'blocks':[{'heads':b.attn.num_heads,'qkv_shape':list(b.attn.qkv.weight.shape),'fused_attn':b.attn.fused_attn,
+            'drop_path1':getattr(b.drop_path1,'drop_prob',0.),'drop_path2':getattr(b.drop_path2,'drop_prob',0.),
+            'scale1':list(b.ls1.gamma.shape),'scale2':list(b.ls2.gamma.shape)}for b in network.blocks]}
+    if (value['native_library']!=DEIT3_LIBRARY or value['image_size']!=[512,512] or value['patch_size']!=[16,16]
+            or value['grid_size']!=[32,32] or value['patch_weight_shape']!=[384,3,16,16]
+            or value['pos_embed_shape']!=[1,1024,384] or value['cls_token_shape']!=[1,1,384]
+            or value['no_embed_class']is not True or value['num_prefix_tokens']!=1 or value['global_pool']!='token'
+            or value['head_drop']!=0. or value['head_shape']!=[1,384] or value['head_dropout']!=.2
+            or len(value['blocks'])!=12 or any(b['heads']!=6 or b['qkv_shape']!=[1152,384]
+                or b['fused_attn']is not True or b['scale1']!=[384] or b['scale2']!=[384]for b in value['blocks'])
+            or not isinstance(network.head,nn.Identity) or not isinstance(head,nn.Linear)):
+        raise ValueError('native DeiT3 binary512 graph differs')
+    return value
+
+
 def _cosine_linear(linear):
     """Reuse the native parameters without advancing its initialization RNG."""
     import torch
@@ -450,6 +561,8 @@ def create_model(job, initialize=True):
     if job['model'] in ('swin_base', 'swin_v2_small'):
         from .swin_model import create_swin_binary
         return create_swin_binary(job, initialize=initialize)
+    if job['model'] == 'deit3_small':
+        return _create_deit3_binary(job, initialize=initialize)
     from torchvision import models
     name = job['model']
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}

@@ -1,5 +1,9 @@
 # R162：固定余弦16末端分类头
 
+完整阴性收口：[R162-RESULT.json](R162-RESULT.json)证明7200 success=attempt、0skip、eval9/bad4、正常早停；唯一EMA c5@4000内部AUROC `.9875302682389093`、AP `.8272015483495194`、error_twice20712，低于R107 `.9884405731067525`及R120 singlebest `.9894773092062407`。固定余弦16关闭/no seed27，R163无资格且未formal/GPU，不扫尺度/归一化/LR/seed。官方不足`.996`按政策未跑、指标null；raw `.999`未达。
+
+[原终态](R162-COMPLETION.json)与[CPU观测回执](R162-CPU-COMPLETION.json)记录completed/exit0/signals空、owner原start匹配现Z、8rank退出、锁无holder、设备users空/denied0/8PCI busy0、actualsafe true。所选tensor46227f03、blob b4c68707，冻结元数据43e3ea4b；仅转存已有观测和freeze文本，无新模型加载、forward/官方或安全重扫。以下为历史启动记录。R164准备偏晚造成后续DCU空闲超过5分钟，接续实际间隔在新轮启动后分项记录，不改原结果/clock/grant。
+
 05:29:52.646149 UTC[真实八rank首成功](R162-START.json)：100 success=attempt、0skip/eval0，8PCI及96核mask匹配；345全训、5组初态空AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致。首自然25 loss `.6625226736068726` finite，WORLD8/G64P8/448pairs、每rank8输入。GPU链已实际可运行，完整AUROC收益待结果。
 
 运行Git `608e71b524e5c1e6975cb9673c64899031d68edb` / tree `069bacc30f4b333586506f3f2cc4476b54d9b416`，SCI `5ddf40f0d29a3a2907a18db0ca7111fd926d16ee581ffde77fe515fa68a699d3`，SITE `4676781dfc0c8436e0722c4c647e06ed42018144ef3dd452cd41bb694ce2ab37`。[3新目标/7compile、两public fresh及旧6loss/WORLD证据](../preparation/cosine-head-20261102/README.md)按SHA复用；[唯一正常formal](R162-PREPARATION.json)20/20、88.500秒，精确部署10.437秒、SHA `548d31abb57d840f64475fb269771f341d81d3ce1db3882fceb147cd650e1c43`；一次activation/direct launch0，无独立GPU预演。

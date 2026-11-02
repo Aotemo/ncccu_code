@@ -1,0 +1,49 @@
+{
+  "R163": {
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-20261102-32e3/fresh/R163-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "d2ec0d5ed1ea72fc0284533fc6f588f5a5f7a5d5dd6b98d5715817e1429688f0"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true,
+    "derived_position": null,
+    "image_forward_calls": 0
+  },
+  "R164": {
+    "model_tensor_sha256": "64556b75f7fb9b0f1946089b5a0115de38348f049aba6252b49f3cd8bf5c9a93",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 177,
+    "parameter_elements": 21992835,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-20261102-32e3/fresh/R164-PUBLIC-FRESH-IDENTITY.json",
+      "sha256": "3cda71aa118c1018a3fcb11e5eebc78db1b5282a7c456e59702bbd240f2a7c45"
+    },
+    "public_tensors": 176,
+    "original_public_exact": true,
+    "derived_position": {
+      "source_grid": [
+        24,
+        24
+      ],
+      "runtime_grid": [
+        32,
+        32
+      ],
+      "method": "native_set_input_size_bicubic_antialias_no_prefix",
+      "tensor_sha256": "d1801613a61a24b9315e103a885a1feafc084f52e653c96348d44190fc651829"
+    },
+    "image_forward_calls": 0
+  }
+}

@@ -85,6 +85,7 @@ def main(args):
     is_dinov2 = job['model'] == 'dinov2_vits14'
     is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
+    is_deit = job['model'] == 'deit3_small'
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
         ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
@@ -125,7 +126,7 @@ def main(args):
               and proof['rgb_before']==proof['rgb_after'] and proof['bias_before']==proof['bias_after']
               and proof['added_zero_elements']==4608 and not bool(torch.count_nonzero(stem.weight[:,3:])),
               {'stem':structure['stem_native6'],'initialization':proof})
-    check('actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
+    check('actual_DeiT3_LN_GELU_CLS_noBN_binary_agezero' if is_deit else 'actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
@@ -268,7 +269,7 @@ def main(args):
     else:
         wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
         rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
-        final_norm = model.backbone.norm if is_dinov2 else model.network.norm if is_swin else model.network.classifier[0]
+        final_norm = model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit else model.network.classifier[0]
         final_norm.eps = 1e-12
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         final_norm.eps = ex.candidate()['final_norm_eps']
@@ -331,7 +332,7 @@ def main(args):
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else
-             any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
+             any(row['name'] == ('backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == ((job['age']['contract']['weight_decay'] if group['role']=='age' else
             job['weight_decay'] if any(named[row['name']].ndim>1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) if is_lion else
@@ -494,6 +495,8 @@ def main(args):
           and reload_job == job and reloaded is not model
           and (not (is_stem_xy or is_native6) or ex.describe_model(reloaded)==structure)
           and (not is_raw_gc or ex.describe_model(reloaded)==structure)
+          and (not is_deit or (reload_origin.get('deit3') == structure['deit3']
+                              and ex.describe_model(reloaded) == structure))
           and (not is_tri3 or (reload_origin.get('tri3_downsample') == structure['tri3_downsample']
                               and ex.describe_model(reloaded) == structure))
           and (not is_mixstyle or (reload_origin.get('mixstyle') == structure['mixstyle']

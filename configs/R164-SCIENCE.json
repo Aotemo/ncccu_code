@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "64556b75f7fb9b0f1946089b5a0115de38348f049aba6252b49f3cd8bf5c9a93",
+  "candidate": {
+    "id": "r164-deit3-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 76,
+    "model": "deit3_small",
+    "public_revision": "8d59b2810f277c19d0cdd1b1e691d93c24aab6db",
+    "readout": "native_LN_CLS_dropout_linear_plus_age",
+    "features": 384,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "88140b2a114ec4db0e3588af052162b87fcdd1bb92d5e85dd93f7d2adc1fb526",
+    "provenance_sha256": "23453a056803792afc1d351d35d38c8eae644a701b43a5f43b0c41fa12a2731e",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "deit3_small_patch16_384",
+    "format": "timm-deit3-native384-state-dict-v1",
+    "revision": "8d59b2810f277c19d0cdd1b1e691d93c24aab6db",
+    "source_url": "https://huggingface.co/timm/deit3_small_patch16_384.fb_in22k_ft_in1k/resolve/8d59b2810f277c19d0cdd1b1e691d93c24aab6db/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "88140b2a114ec4db0e3588af052162b87fcdd1bb92d5e85dd93f7d2adc1fb526",
+    "sha256": "88140b2a114ec4db0e3588af052162b87fcdd1bb92d5e85dd93f7d2adc1fb526",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "original/LICENSE-apache-2.0.txt",
+    "native_library": {
+      "version": "1.0.27",
+      "source_sha256": {
+        "deit.py": "7fa9a4f90fc3fafb09dfa5faa7e5196347eac599f0402190d7c89cbdc346d621",
+        "vision_transformer.py": "f0f453b75952698059a1e82fa283a7a9cf2cf2217c33fc2c9cb1efc06947f552"
+      }
+    },
+    "provenance_sha256": "23453a056803792afc1d351d35d38c8eae644a701b43a5f43b0c41fa12a2731e"
+  },
+  "public_asset_receipt": {
+    "path": "assets/deit3-8d59b281/PUBLIC-HANDOFF.json",
+    "sha256": "b7b1aa1b5bcb20312e4d41672ee446a9eb56bfba200106ce65f8a80fb54e492e"
+  },
+  "structure": {
+    "features": 384,
+    "public_state_tensors": 176,
+    "backbone_state_tensors": 174,
+    "backbone_parameter_tensors": 174,
+    "backbone_parameters": 21992448,
+    "layer_norms": 25,
+    "gelu_modules": 12,
+    "stochastic_depth_modules": 22,
+    "full_head_shape": [
+      1000,
+      384
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/deit3-8d59b281/original/pytorch_model.bin",
+    "public_provenance": "assets/deit3-8d59b281/PROVENANCE.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "deit3_small",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent direct R107 comparison: native DeiT III Small natural ImageNet22K-to-1K public initialization, original512 preprocessing and native bicubic antialiased 384-to-512 position resampling; CLS/dropout/linear plus age once. Original single-view logistic/G64P8/AdamW/LR/EMA/24k-800-p4 retained. Model plus initialization whole-recipe comparison, no clinical mechanism, GPU speed/memory bound or pure pixel-size effect assumed. No cosine/hard-positive/margin/ROI or trained checkpoint. Main complete internal AUROC must exceed R107 and R120; no subgroup/AP rescue or seed search.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

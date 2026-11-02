@@ -6,6 +6,8 @@
 
 ## 分工及范围
 
+2026-11-02用户进一步直接确认：原始标签**仅依据眼底照片**判读。后续按这一标签依据开展图像表征实验；逐例结构标注、具体判读标准及其一致性仍未提供，不据此自动改标签或声称0.999可达。原32图/14CSV、JSON/源码SHA及既有合同均不变。
+
 - 执行/分析会话：a4e26231-4059-407f-b171-98e65362ec47；唯一 Git/Pod GPU owner 仍为 32e3b079-81b0-4f66-9604-b32491599f44。
 - owner 已确认本会话仅写 `tools/diagnostics/persistent_errors.py`、`tests/test_persistent_errors.py`、本页、`records/analysis/20261102-persistent-errors/`；不 add/commit/push，不改 runtime/config 或活跃冻结包。
 - Python、预测解析、统计、哈希、图像处理及测试仅在重新核验的既有 Pod、本人显式准备池 allocation 下执行。初次沙箱网络连接失败，随后受控只读 discover/interpreters 与本人CPU23绑定、probe均成功，未借用 A 的 executor 身份。

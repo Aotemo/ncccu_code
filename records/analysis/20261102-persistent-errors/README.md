@@ -45,6 +45,8 @@ R120相对R107在固定20组修复2088、引入1294，净少794；其余组净�
 
 ## 用户补充青光眼标签定义
 
+2026-11-02用户在根会话直接补充：原始标签仅依据眼底照片判读。此为用户确认的标签依据；逐例结构标注和具体标准仍缺，保留原视觉描述与不确定性，不把上述补充当作根因、错标或可达上限证明。原指标/名单/JSON/诊断与测试源码SHA不改。
+
 2026-11-02 UTC，用户明确回复`True_Label=1`“对应青光眼”。本项目据此记录阳性类别；阴性标签不作为其他眼底结构全部正常的保证。原病例仍缺逐例结构标注、原判读标准和疾病亚型/分期，外观描述不改写成确诊征象或错标判断。
 
 青光眼结构观察的相关对象是视神经乳头（视盘）、神经网膜缘和视网膜神经纤维层；杯盘比的意义还受视盘大小影响。参考[EGS第6版指南II.1.3原文](https://glaukomforeningen.no/wp-content/uploads/2025/10/Glaucoma-Guidelines-6th-edition-English.pdf)（[学会发布入口](https://www.eugs.org/educational_materials/188)）及[EGS关于视盘大小与杯盘比的说明](https://www.eugs.org/news/optic-disc-size-can-be-quickly-assessed-at-the-slit-lamp-2007-05-31-tip-of-the-month)。这是研究观察依据，不是对这32张图作出的临床判读；RGB照片的纹理描述也不等同于测量了神经纤维层厚度。
