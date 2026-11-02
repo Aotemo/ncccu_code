@@ -8,4 +8,4 @@
 
 新来源的384/squash只描述公开初始化；比赛仍原512预处理。R158只换同架构公开来源、回原logistic，不叠R156 loss；潜在收益不能纯归因于384像素。用户另开会话静态只读复核未见阻断问题，测试与模型计算由根在aa0f/0–22/23核完成，与peer23及训练24–119互斥，无GPU。现models/config/engine/EMA/inference均未改；唯一新增正式验收适配是把R157纳入原hard-loss检查tuple。
 
-预算沿用原Small512满24k×2历史情景24154.892秒，小于train soft27750秒，非当前GPU实测或保证、不假设早停。当前待本次实际Git同步/回读与技术包；尚未新normalformal/grant/clock/activation/GPU。R157仅R156完整双门及safe后，其他情况独立R158，详见[固定合同](../../../todo/auroc-999/R157-R158-PREPARATION.md)。
+预算沿用原Small512满24k×2历史情景24154.892秒，小于train soft27750秒，非当前GPU实测或保证、不假设早停。源码/配置已push并实际回读Git `c10dd8cd49fd2aede5fbcc3ea744ebf6fcaff5ef` / tree `04355a555d3aa6de006fdc44c4adcdbe7eb4207b`；03:21:09 UTC[两技术包](NEXT-READY.json)精确核对5源、两SCIENCE、策略及原loss/WORLD SHA，现有入口临时调用脚本语法通过，[实际guard](CPU-NEXT-READY.json) SHA `8691674d349e12493e8ea45cf00b7391e4951deb50c5864be9c18089aa1123b6` exit0。尚未新normalformal/grant/clock/activation/GPU；R157仅R156完整双门及safe后，其他情况独立R158，详见[固定合同](../../../todo/auroc-999/R157-R158-PREPARATION.md)。

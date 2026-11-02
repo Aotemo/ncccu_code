@@ -10,4 +10,4 @@ R157/order69仅在R156完整工程有效selected同时严格胜R107 `.9884405731
 
 CPU只验实际受影响的来源身份、同架构公开1000类与转换后数值/语义、原512 fresh/保存身份、R157旧loss与新seed、R158只换public来源，其余已通过字节直接复用。代码和配置实际push/回读后，当前训练期间构建两技术包；完整结果决定分支，收尾期间唯一正常formal/精确部署，actualsafe后立即一次activation/direct launch，由真实八rank/首成功证明GPU链，不另做GPU预演。
 
-完整内部总体AUROC仍为主；R158未严格胜R107则关闭精确来源合同，同时过R120才有固定seed27资格，不扫公开checkpoint或输入尺寸。官方仅完整selected≥`.996`后5849一次，raw `.999`未达。[必要实现/真实CPU证据](../../records/preparation/small384-20261102/README.md)已通过：1配置目标/5compile、旧6loss目标SHA复用、公开来源344严格链及两fresh/新512保存冷加载。当前待实际Git同步/回读和技术包，尚未normalformal/grant/GPU。
+完整内部总体AUROC仍为主；R158未严格胜R107则关闭精确来源合同，同时过R120才有固定seed27资格，不扫公开checkpoint或输入尺寸。官方仅完整selected≥`.996`后5849一次，raw `.999`未达。[必要实现/真实CPU证据](../../records/preparation/small384-20261102/README.md)已通过：1配置目标/5compile、旧6loss目标SHA复用、公开来源344严格链及两fresh/新512保存冷加载。Git c10dd8c已实际push/回读；03:21:09 UTC两技术包、源/SCI/原loss-WORLD精确SHA及入口语法通过，尚未normalformal/grant/GPU。

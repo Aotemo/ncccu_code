@@ -1,0 +1,43 @@
+{
+  "status": "checked_Git_source_and_fixed_R157_R158_technical_package_ready",
+  "at": 1793589669.0159492,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "ad8b3aa0a6b489d136ac07f3062412617a53c82ca3f7d7b36c9850c0535331cb",
+    "tools/validation/check_candidate.py": "9db46fe8160149e06aa6d951d533ac373aa7bd4ef93d1f40333f9a6570bc9994",
+    "tests/test_candidate_binding.py": "c17c5c5e109d286ccd4187b277014d7c55fd7c61190c3f8cb74d648f0eebf84c",
+    "tools/pretraining/small_source.py": "40c7af1b248e678ce85387a2aef9a1ec1c079e4c78957065ecdbb07c91a1ee3b",
+    "tools/pretraining/small_strict.py": "edb5d8e3491ac00cebcbbf54151c2f6f029d65381fc93eea8f12f48f24edf445"
+  },
+  "science_sha256": {
+    "R157-SCIENCE.json": "d633b00aea381104b2d40650ece1e0c6eef038bb5d4d4c86581fe729967508d7",
+    "R158-SCIENCE.json": "d4766e6dd4939d3563b691b0247a55dc30ebdc75519483bc7d7e4398bc0077f2"
+  },
+  "branches": [
+    {
+      "science": "R157",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r157-20261102-32e3/technical-package/package",
+      "site_sha256": "b084816c216783af65243244e2a8ca803d6fca4e46b61978ae583962e37cdfff",
+      "seconds": 5.908510446548462,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    },
+    {
+      "science": "R158",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r158-20261102-32e3/technical-package/package",
+      "site_sha256": "91e5e85e0c4aa89844b8e6b07c8e8c07be9e7a3b8153103ec36560c56b08aab6",
+      "seconds": 5.953132152557373,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-SMALL384-NEXT.py": "8bc1b4b97cb2f0673e55c704aa80c657e6caf5710bffe110a9a595bd8632595d",
+    "OBSERVE-SWINV2-START.py": "4ec215b829009932ec227f1ceec76a3c01d0063401f1b2b998931d2802eb1b13",
+    "RUN-SMALL384-NEXT.sh": "0feca6f6909a791e9e6b6a19c6730b9d863b9660fa412eb5a20a274d20e82deb"
+  },
+  "new_GPU_started": false
+}
