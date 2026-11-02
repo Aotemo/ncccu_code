@@ -21,10 +21,11 @@ def required_paths(folder):
 
 
 def verify_records(initials, actual_groups, reference_groups, expected, *, expected_world):
-    from retrain.experiment91 import candidate, validate_normalization
+    from retrain.experiment91 import candidate, validate_normalization, structure_contract
     require(expected['candidate'] == candidate()
             and expected['batch_norm_modules'] == candidate()['batch_norm_modules']
-            and expected['buffer_count'] == candidate().get('static_buffer_count', candidate().get('static_index_buffers', candidate()['batch_norm_buffers'])),
+            and expected['buffer_count'] == (structure_contract()['buffer_count'] if candidate()['model'] == 'vit_dino3_small'
+                else candidate().get('static_buffer_count', candidate().get('static_index_buffers', candidate()['batch_norm_buffers']))),
             'CPU expected candidate/noBN identity differs')
     require(type(expected_world) is int and expected_world == 8
             and len(initials) == expected_world and all(type(x.get('rank')) is int for x in initials)
