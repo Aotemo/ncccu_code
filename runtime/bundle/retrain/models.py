@@ -401,6 +401,37 @@ def feature_freeze_proof(model, job, optimizer):
         'trainable_parameter_elements': sum(named[name].numel() for name in trainable)}
 
 
+def _cosine_linear(linear):
+    """Reuse the native parameters without advancing its initialization RNG."""
+    import torch
+    from .config import COSINE_HEAD_RULE
+    class CosineLinear(torch.nn.Linear):
+        def __init__(self, original):
+            torch.nn.Module.__init__(self)
+            self.in_features, self.out_features = original.in_features, original.out_features
+            self.weight, self.bias = original.weight, original.bias
+            self.cosine_head_spec = dict(COSINE_HEAD_RULE)
+            self.train(original.training)
+        def forward(self, inputs):
+            from torch.nn import functional as F
+            spec = self.cosine_head_spec
+            return F.linear(F.normalize(inputs, dim=-1, eps=spec['eps']) * spec['scale'],
+                            F.normalize(self.weight, dim=1, eps=spec['eps']), self.bias)
+    return CosineLinear(linear)
+
+
+def describe_cosine_head(model, job):
+    from .config import COSINE_HEAD_RULE
+    head = model.network.classifier[-1]
+    if (job.get('cosine_head_policy') != COSINE_HEAD_RULE
+            or getattr(head, 'cosine_head_spec', None) != COSINE_HEAD_RULE
+            or type(head).__name__ != 'CosineLinear'
+            or (head.in_features, head.out_features) != (768, 1)):
+        raise ValueError('saved cosine16 head graph differs')
+    return {'policy':dict(COSINE_HEAD_RULE), 'module':'CosineLinear',
+            'in_features':768, 'out_features':1}
+
+
 def create_model(job, initialize=True):
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job
@@ -471,6 +502,11 @@ def create_model(job, initialize=True):
     if name in ('convnext_tiny', 'convnext_small', 'convnext_base'):
         model.classifier = nn.Sequential(*list(model.classifier.children())[:-1],
                                          nn.Dropout(job.get('dropout', .2)), model.classifier[-1])
+    if job.get('cosine_head_policy') is not None:
+        from .config import COSINE_HEAD_RULE
+        if name != 'convnext_small' or job['cosine_head_policy'] != COSINE_HEAD_RULE:
+            raise ValueError('cosine16 supports only the fixed native Small head')
+        model.classifier[-1] = _cosine_linear(model.classifier[-1])
     class BinaryModel(nn.Module):
         def __init__(self, network):
             super().__init__()

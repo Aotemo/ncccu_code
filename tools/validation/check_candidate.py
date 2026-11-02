@@ -160,13 +160,22 @@ def main(args):
               and (job['effective_batch'],job['positive_per_batch']) == (64,8)
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
               and job.get('training_views') is None and job.get('native_local_view') is None)
-    if ex.science_configuration()['candidate_profile'] == ex.AUC_MARGIN_SMALL_BINDING:
+    if ex.science_configuration()['candidate_profile'] in (ex.AUC_MARGIN_SMALL_BINDING,ex.AUC_MARGIN_SMALL_SEED27_BINDING):
         from retrain.classification_loss import PAIRWISE_LOSS_KINDS
         check('fixed_batch_primal_AUC_margin1_WORLD_and_official_bound',
               job['loss'] == ex.PAIR_AUC_MARGIN_LOSS and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
               and (job['effective_batch'],job['positive_per_batch']) == (64,8)
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
               and job.get('training_views') is None and job.get('native_local_view') is None)
+    if job.get('cosine_head_policy') is not None:
+        from retrain.models import describe_cosine_head
+        from retrain.config import COSINE_HEAD_RULE
+        check('fixed_cosine16_native_parameters_and_graph_bound',
+              job['cosine_head_policy'] == COSINE_HEAD_RULE
+              and structure['cosine_head'] == describe_cosine_head(model,job)
+              and job['loss'] == ex.PAIR_LOGISTIC_LOSS
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996,
+              structure['cosine_head'])
     if is_photo_identity:
         from unittest.mock import patch
         from retrain.data import ImageDataset
@@ -497,6 +506,10 @@ def main(args):
           and reload_origin['tensor_sha256'] == model_digest
           and loaded['successful_updates'] == loaded['attempted_updates'] == 0 and loaded['cpu_fixture_only'] is True,
           {'checkpoint': str(checkpoint), 'sha256': build.sha(checkpoint), 'fixture_only': True})
+    if job.get('cosine_head_policy') is not None:
+        check('saved_cosine16_default_factory_graph_exact',
+              reload_job['cosine_head_policy'] == job['cosine_head_policy']
+              and describe_cosine_head(reloaded,reload_job) == structure['cosine_head'])
     if is_stem_xy or is_native6 or is_global768:
         original_mode=model.training;model.eval()
         with torch.inference_mode():

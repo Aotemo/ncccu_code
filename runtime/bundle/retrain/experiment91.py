@@ -62,6 +62,8 @@ HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 AUC_MARGIN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-batch-aucmargin1-v1'
+AUC_MARGIN_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-batch-aucmargin1-v1'
+COSINE_HEAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cosine16-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -87,7 +89,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
-                      SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING)
+                      SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
+                      AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -119,6 +122,7 @@ def science_configuration():
     from .layerwise_lr import LAYERWISE_LR_RULE
     from .low_rank import LOW_RANK_RULE
     from .classification_loss import OUTPUT_REGULARIZATION_RULE
+    from .config import COSINE_HEAD_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -178,9 +182,24 @@ def science_configuration():
                                                        GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
-                                                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING)
+                                                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
+                                                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
+                or (value.get('candidate_profile') != COSINE_HEAD_SMALL_BINDING
+                    and (value.get('job',{}).get('cosine_head_policy') is not None
+                         or value.get('candidate',{}).get('cosine_head_policy') is not None))
+                or (value.get('candidate_profile') == COSINE_HEAD_SMALL_BINDING
+                    and (value.get('job',{}).get('cosine_head_policy') != COSINE_HEAD_RULE
+                         or value.get('candidate',{}).get('cosine_head_policy') != COSINE_HEAD_RULE
+                         or value.get('job',{}).get('loss') != PAIR_LOGISTIC_LOSS
+                         or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed')) != (512,512,20261029)
+                         or (value['job'].get('effective_batch'),value['job'].get('positive_per_batch')) != (64,8)
+                         or any(value['job'].get(k) is not None for k in ('input_preprocessing','optimizer_policy',
+                             'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                             'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy',
+                             'tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
+                             'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))))
                 or (value.get('candidate_profile') not in (LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('input_preprocessing') is not None
                          or value.get('candidate',{}).get('input_preprocessing') is not None))
@@ -277,9 +296,9 @@ def science_configuration():
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
-                or (value.get('candidate_profile') == AUC_MARGIN_SMALL_BINDING
+                or (value.get('candidate_profile') in (AUC_MARGIN_SMALL_BINDING,AUC_MARGIN_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('loss') != PAIR_AUC_MARGIN_LOSS
-                         or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261029)
+                         or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile']==AUC_MARGIN_SMALL_SEED27_BINDING else 20261029)
                          or (value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(64,8)
                          or any(value['job'].get(key) is not None for key in
                                 ('input_preprocessing','optimizer_policy','gradient_centralization_policy','mixstyle_policy',
@@ -428,7 +447,8 @@ def candidate_from_configuration(value):
                                         GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
                                         GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,
                                         HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
-                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING):
+                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
+                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -581,6 +601,13 @@ def candidate_from_configuration(value):
                             experiment_order=69)
         if value['candidate_profile']==AUC_MARGIN_SMALL_BINDING:
             expected.update(id='r160-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-batch-aucmargin1-9010',experiment_order=72)
+        if value['candidate_profile']==AUC_MARGIN_SMALL_SEED27_BINDING:
+            expected.update(id='r161-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-batch-aucmargin1-9010',experiment_order=73)
+        if value['candidate_profile']==COSINE_HEAD_SMALL_BINDING:
+            from .config import COSINE_HEAD_RULE
+            expected.update(id='r162-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-cosine16-9010',
+                            experiment_order=74,readout='native_avgpool_final_LN_dropout_cosine16_plus_age',
+                            cosine_head_policy=COSINE_HEAD_RULE)
         if value['candidate_profile'] in (SMALL_384_BINDING,SMALL_384_SEED27_BINDING):
             expected.update(id='r158-convnext-small-imagenet22k-to-1k-public384-24k-p4-seed20261029-scale085-pairlog-9010',
                             experiment_order=70,public_revision='14a837353b6ffeced1c635dc5c8c799356e316f4')
@@ -865,6 +892,7 @@ def validate_job(job):
         'gradient_centralization_policy': candidate().get('gradient_centralization_policy'),
         'optimizer_policy': candidate().get('optimizer_policy'),
         'input_preprocessing': candidate().get('input_preprocessing'),
+        'cosine_head_policy': candidate().get('cosine_head_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}
@@ -988,6 +1016,9 @@ def describe_model(model):
     result = {'candidate': candidate(), 'batch_norm_modules': count_bn, 'buffer_count': len(buffers),
             'buffer_sha256': tensor_digest(buffers), 'layer_norms': norms, 'head_in_features': final.in_features,
             'head_out_features': final.out_features, 'dropout': network.classifier[-2].p, 'stochastic_depth': depth}
+    if science_configuration()['job'].get('cosine_head_policy') is not None:
+        from .models import describe_cosine_head
+        result['cosine_head'] = describe_cosine_head(model, science_configuration()['job'])
     if science_configuration()['job'].get('gradient_centralization_policy') is not None:
         result['gradient_centralization']={'policy':science_configuration()['job']['gradient_centralization_policy'],
             'targets':[{'name':name+'.weight','module':type(module).__name__,
@@ -1115,6 +1146,15 @@ def validate_normalization(value):
         return True
     norms, depth = value.get('layer_norms', []), value.get('stochastic_depth', [])
     configured = science_configuration()['job']
+    if configured.get('cosine_head_policy') is not None:
+        from .config import COSINE_HEAD_RULE
+        if (science_configuration()['candidate_profile'] != COSINE_HEAD_SMALL_BINDING
+                or configured['cosine_head_policy'] != COSINE_HEAD_RULE
+                or value.get('cosine_head') != {'policy':COSINE_HEAD_RULE,'module':'CosineLinear',
+                                              'in_features':768,'out_features':1}):
+            raise ValueError('actual fixed cosine16 readout differs')
+    elif value.get('cosine_head') is not None:
+        raise ValueError('unregistered cosine head')
     if configured.get('gradient_centralization_policy') is not None:
         from .config import GRADIENT_CENTRALIZATION_RULE
         gc=value.get('gradient_centralization',{});targets=gc.get('targets',[])

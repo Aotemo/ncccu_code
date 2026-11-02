@@ -132,6 +132,9 @@ def _load_model(source, device='cpu', checkpoint='best', model_factory=None, var
     from .age import validate_model
     validate_model(model,job)
     model.load_state_dict(state, strict=True)
+    if job.get('cosine_head_policy') is not None:
+        from .models import describe_cosine_head
+        origin['cosine_head'] = describe_cosine_head(model, job)
     if job.get('mixstyle_policy') is not None:
         from .mixstyle import describe_mixstyle
         origin['mixstyle'] = describe_mixstyle(model, job)

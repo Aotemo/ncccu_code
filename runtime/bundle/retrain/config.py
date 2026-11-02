@@ -11,6 +11,8 @@ import re
 BUNDLE = Path(__file__).resolve().parents[1]
 MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'swin_base', 'swin_v2_small')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
+COSINE_HEAD_RULE = {'version':'convnext-small-cosine16-v1','scale':16.,'eps':1e-12,
+                    'position':'after_native_pool_LN_flatten_dropout','bias':'original_linear'}
 LION_RULE = {'version':'lion10x-v1','betas':[.9,.99],'learning_rate_scale':.1,
     'nonzero_weight_decay_scale':10.,'precision':'fp32','state':'exp_avg_only',
     'update':'decoupled_decay_then_sign_then_momentum'}
@@ -83,6 +85,15 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    if job.get('cosine_head_policy') is not None:
+        if (job['cosine_head_policy'] != COSINE_HEAD_RULE or job.get('model') != 'convnext_small'
+                or job.get('precision') != 'fp32' or job.get('loss',{}).get('kind') != 'binary_pairwise_logistic'
+                or any(job.get(k) is not None for k in ('input_preprocessing','optimizer_policy',
+                    'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy',
+                    'tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
+                    'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
+            raise ValueError('fixed Small cosine16 head configuration differs')
     if job.get('input_preprocessing') is not None:
         if (job['input_preprocessing'] not in (LOCAL_CONTRAST_RULE,BRIGHT_CENTER_RULE,NATIVE_BRIGHT_CENTER_RULE,GLOBAL_NATIVE_INSET_RULE,GLOBAL_NATIVE_SIX_RULE) or job.get('model') != 'convnext_small'
                 or job.get('image_size') != 512 or job.get('prepared_size') != 512
@@ -352,9 +363,9 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy'), 'job')
         job.update(item)
-        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing'):
+        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy'):
             if job.get(key) is None:
                 job.pop(key, None)
         cfg['jobs'].append(job)
@@ -457,7 +468,7 @@ def validate_split(split):
 
 def job_contract(job):
     result = copy.deepcopy(job)
-    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing'):
+    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy'):
         if result.get(key) is None:
             result.pop(key, None)
     for key in ('device', 'workers', 'eval_workers', 'prefetch_factor', 'checkpoint_seconds',

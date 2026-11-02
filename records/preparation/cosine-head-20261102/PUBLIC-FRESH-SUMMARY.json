@@ -1,0 +1,43 @@
+{
+  "R161": {
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cosine-head-20261102-32e3/fresh/R161-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "1bf803e41a83a9fb4190d19247b96cdf31696e56e8f2fd3c610adaf650202853"
+    },
+    "new_image_forward": false,
+    "head": null
+  },
+  "R162": {
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cosine-head-20261102-32e3/fresh/R162-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "ece450fe777530b8422d2aaa20c33ac4021738cef255bf7354a49504075b3a46"
+    },
+    "new_image_forward": false,
+    "head": {
+      "policy": {
+        "version": "convnext-small-cosine16-v1",
+        "scale": 16.0,
+        "eps": 1e-12,
+        "position": "after_native_pool_LN_flatten_dropout",
+        "bias": "original_linear"
+      },
+      "module": "CosineLinear",
+      "in_features": 768,
+      "out_features": 1
+    }
+  }
+}
