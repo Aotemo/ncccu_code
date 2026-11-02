@@ -1,0 +1,29 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/quadrant-mil-20261102-32e3/source-git/records/preparation/quadrant-mil-20261102/CPU-CHECKS.json",
+    "sha256": "b0bcf1cfd34d978fc839c3723cb2bab7ac9834d629a008209da048f6bcd897fd"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "59ecd1b5e372e8bee7015113549fb8e6e4bc66e865359d0fd9c1275d857d1fa4",
+    "runtime/bundle/retrain/models.py": "d96826c7e91d23ba0a7ab51c1d1a92975577a70ad0dce2dace29290413c5c12c",
+    "runtime/bundle/retrain/inference.py": "7505057ccb38ff933f7b726ecd7ea3f6b0de767f4fdfdd99e8904393c91f178a",
+    "runtime/bundle/retrain/experiment91.py": "fd4bc9b10db784475b6dc14826f7e3f819cd89c170ee5635c056363dc20bed2f",
+    "tests/test_quadrant_mil.py": "03f209ac472a780eab106655c4cd1c2ef9b4754356b2e273c9066c3ed80173e4",
+    "tests/test_candidate_binding.py": "eddb742931ac1bed2e9ef83dd3e66a84c383fe0cf6d1ce32a5959a405da35bdf",
+    "runtime/bundle/retrain/engine.py": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "runtime/bundle/retrain/distributed_engine.py": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "runtime/bundle/retrain/ema.py": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "tools/validation/check_candidate.py": "d48a4b6a309ec4757cf11e5243e80f65effa87b3e922a72d70fc58aa82d6f9a0",
+    "tests/test_pairwise_loss.py": "3f17dbb7d62189de5327b9b2ca77897c3b29d93c8c06762091acedc2ad0b862f",
+    "tests/test_pairwise_sigmoid_loss.py": "92109efd50cebf897b08cf75aed10a8fc1e24a98b77cbb0eae6ee15767c3a850",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36"
+  },
+  "science_sha256": "c7cc4bc4008386c0b7f1d70a1b969dc61e4132a8ceb9a8fb1334d6146da93230",
+  "targets_reused": 3,
+  "loss_WORLD_targets_reused": 6,
+  "tests_rerun": false,
+  "at": 1793612909.863091
+}

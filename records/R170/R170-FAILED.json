@@ -1,0 +1,76 @@
+{
+  "status": "failed",
+  "round_id": "r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+  "git_commit": "58bc7616af41df1e9b84f7e412319bee6de7cc7f",
+  "science_sha256": "5a91dada7391b7e1aea7e085dd0624cb0fdc90138c9c70ee96b61c620981a01b",
+  "terminal_observed_at": 1793613731.7607815,
+  "progress": {
+    "status": "interrupted",
+    "phase": null,
+    "successful_updates": 6144,
+    "attempted_updates": 6144,
+    "skipped_updates": 0,
+    "evaluated_cycle": 7,
+    "stop_reason": "owner_stop_requested",
+    "termination_reason": null,
+    "early_bad_cycles": 3
+  },
+  "terminal": {
+    "done": {
+      "status": "failed",
+      "phase": null,
+      "error": "RuntimeError('component not completed: {\\'status\\': \\'timeout\\', \\'exit_code\\': 130, \\'reason\\': \\'resource_guard:budget:RuntimeError(\\\\\\'round storage limit reached\\\\\\'):Traceback (most recent call last): |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102/run_training.py\", line 120, in run_component |     resources.update(guard.budget(deadline)) |                      ^^^^^^^^^^^^^^^^^^^^^^ |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102/run_round.py\", line 122, in budget |     if free<minimum_free or size>round_storage_limit():raise RuntimeError(\\\\\\'round storage limit reached\\\\\\') |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | RuntimeError: round storage limit reached | \\'}')",
+      "live_owned_ranks": []
+    },
+    "train": null,
+    "train_component": null,
+    "freeze": null,
+    "round": null,
+    "official": null
+  },
+  "selected": null,
+  "partial_status_best": {
+    "best_metrics": {
+      "auroc": 0.9804501192667952,
+      "ap": 0.782777140275786,
+      "variant": "online",
+      "cycle": 6,
+      "successful_updates": 4800,
+      "error_twice": 32472
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9855170013883353,
+      "ap": 0.815694928342545,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 24056
+    },
+    "lineage_best": {}
+  },
+  "scientific_negative": false,
+  "comparison": {
+    "strictly_beats_R107": null,
+    "strictly_beats_R120": null
+  },
+  "decision": "engineering_storage_failure_no_complete_selection; R171_not_eligible; independent_R172_after_actual_safe",
+  "official_stage_reached": false,
+  "official_read_by_observer": false,
+  "actual_safe": true,
+  "last_metrics_event": {
+    "event": "interrupted",
+    "at": 1793613696.6916156,
+    "successful_updates": 6144,
+    "attempted_updates": 6144,
+    "cycle": 7,
+    "loss": null
+  },
+  "whole_round_ended_at": 1793613705.8932137,
+  "old_round_restarted": false,
+  "old_clock_token_grant_reset": false,
+  "artifacts_preserved": true,
+  "completion_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r170-20261102-32e3/PROGRESS-cont-13.json",
+    "sha256": "d98888e83e123bf4d697fc0711e545cd554362f9cd21c7336c1d8fbeb4d5f46e"
+  }
+}

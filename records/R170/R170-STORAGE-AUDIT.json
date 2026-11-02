@@ -1,0 +1,185 @@
+{
+  "at": 1793614021.915126,
+  "scope": "failed R170 immutable tree metadata; no checkpoint content opened",
+  "round_bytes_now": 11951892576,
+  "round_storage_limit_bytes": 12884901888,
+  "exceeds_round_limit_now": false,
+  "filesystem_free_bytes_now": 42273341440,
+  "minimum_free_guard_bytes": 17179869184,
+  "free_meets_minimum_now": true,
+  "frozen_storage_policy": {
+    "schema_version": 1,
+    "default_round_storage_limit_bytes": 12884901888,
+    "round_overrides": {
+      "r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030": 17179869184,
+      "r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031": 17179869184
+    }
+  },
+  "storage_policy_sha256": "b2c7d2c995c525e8842c025d7a0d85e5a363761c2dd284d89ccf287ecf65c525",
+  "file_count": 255,
+  "largest_files": [
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-fcb3846d4a9b440dbc06b8dc1aec4d28.pt",
+      "bytes": 1401945034
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-0fda7831ee2e434db15b929d14876b6c.pt",
+      "bytes": 1401945034
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-82ff3104fb424e0b9537c1626264a72f.pt",
+      "bytes": 1401944778
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-1e3ffd0c903e44dda5b1ee8e23519612.pt",
+      "bytes": 1401944778
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-ea4323766e9b4fc8810f0bee1c4461ca.pt",
+      "bytes": 1401944586
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-97345c7a676b499ab873055da8bbd132.pt",
+      "bytes": 1401944522
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-74578a956cea43a289673e76a5306b0a.pt",
+      "bytes": 1401944522
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/checkpoint-68b8059a486442eaa8610ff1b917a0e0.pt",
+      "bytes": 1401944522
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/initial-checkpoint/checkpoint-d79076fa43cd432ca8349e16e73aff8b.pt",
+      "bytes": 700959739
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/manifest.json",
+      "bytes": 14123306
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/code/assets/train_identity.json",
+      "bytes": 13825613
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/rank-control/rank-0.log",
+      "bytes": 336772
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/ema/dev-cycle-0007.csv",
+      "bytes": 311620
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/online/dev-cycle-0003.csv",
+      "bytes": 311421
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/ema/dev-cycle-0006.csv",
+      "bytes": 311367
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/online/dev-cycle-0004.csv",
+      "bytes": 311318
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/online/dev-cycle-0006.csv",
+      "bytes": 311102
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/online/dev-cycle-0007.csv",
+      "bytes": 311063
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/predictions/ema/dev-cycle-0005.csv",
+      "bytes": 310216
+    },
+    {
+      "relative_path": "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/metrics.jsonl",
+      "bytes": 310142
+    }
+  ],
+  "checkpoint_indexes": {
+    "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/checkpoints/index.json": {
+      "best": {
+        "file": "checkpoint-82ff3104fb424e0b9537c1626264a72f.pt",
+        "format": "retraining-container-checkpoint",
+        "format_version": 1,
+        "sha256": "f5afa21078a29f10a2957c7d7c8c6fa393518e226797c5d69e94c5d60ab0ed5e"
+      },
+      "format": "retraining-container-checkpoint-index",
+      "format_version": 1,
+      "last": {
+        "file": "checkpoint-fcb3846d4a9b440dbc06b8dc1aec4d28.pt",
+        "format": "retraining-container-checkpoint",
+        "format_version": 1,
+        "sha256": "d946049fb1bd6a72409757ebb5af0fa24610a09df54b1fa49f8d2bcfda97f9a5"
+      },
+      "previous": {
+        "file": "checkpoint-0fda7831ee2e434db15b929d14876b6c.pt",
+        "format": "retraining-container-checkpoint",
+        "format_version": 1,
+        "sha256": "2dd468369a20c1156432b6c7ab9a961902e69e9fad56e7831a9307a98735c557"
+      },
+      "protected": {
+        "best_ema": {
+          "file": "checkpoint-ea4323766e9b4fc8810f0bee1c4461ca.pt",
+          "format": "retraining-container-checkpoint",
+          "format_version": 1,
+          "sha256": "1392a4737c6f7e52aa21e6dea9059b75f8a75e84330d3210baf910b9c4873d47"
+        },
+        "best_online": {
+          "file": "checkpoint-82ff3104fb424e0b9537c1626264a72f.pt",
+          "format": "retraining-container-checkpoint",
+          "format_version": 1,
+          "sha256": "f5afa21078a29f10a2957c7d7c8c6fa393518e226797c5d69e94c5d60ab0ed5e"
+        },
+        "snapshot-1600": {
+          "file": "checkpoint-97345c7a676b499ab873055da8bbd132.pt",
+          "format": "retraining-container-checkpoint",
+          "format_version": 1,
+          "sha256": "2fffd582df8a3384aff974c4fc660090831f286c03c42e6f80858fea3a89d86f"
+        },
+        "snapshot-1601": {
+          "file": "checkpoint-68b8059a486442eaa8610ff1b917a0e0.pt",
+          "format": "retraining-container-checkpoint",
+          "format_version": 1,
+          "sha256": "b01c1096f5c0119e273588ed83c5f57e27a3340b9c2fa8cd059e3e7c0959405d"
+        },
+        "snapshot-2400": {
+          "file": "checkpoint-1e3ffd0c903e44dda5b1ee8e23519612.pt",
+          "format": "retraining-container-checkpoint",
+          "format_version": 1,
+          "sha256": "01d745f0aceebedc602eed5246fe353ac5ba234b435b40777d2a0443398595d0"
+        },
+        "snapshot-800": {
+          "file": "checkpoint-74578a956cea43a289673e76a5306b0a.pt",
+          "format": "retraining-container-checkpoint",
+          "format_version": 1,
+          "sha256": "80320e76fee68d3f3e30c9c568fe578a07a78df0a8420133ee2c44be4fec139a"
+        }
+      }
+    },
+    "outputs/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_base-s20261029-b64-p8-fp32/convnext-base/initial-checkpoint/index.json": {
+      "best": {
+        "file": "checkpoint-d79076fa43cd432ca8349e16e73aff8b.pt",
+        "format": "retraining-container-checkpoint",
+        "format_version": 1,
+        "sha256": "1298e8eb2f24d2676daba9e76e2d18f843199538bf6c180b7750fb51192a92c7"
+      },
+      "format": "retraining-container-checkpoint-index",
+      "format_version": 1,
+      "last": {
+        "file": "checkpoint-d79076fa43cd432ca8349e16e73aff8b.pt",
+        "format": "retraining-container-checkpoint",
+        "format_version": 1,
+        "sha256": "1298e8eb2f24d2676daba9e76e2d18f843199538bf6c180b7750fb51192a92c7"
+      },
+      "previous": null
+    }
+  },
+  "failed_instant_bytes_reconstructed": false,
+  "weights_hashed_or_loaded": false,
+  "new_safety_scan": false,
+  "active_R172_changed": false
+}

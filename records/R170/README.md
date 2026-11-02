@@ -1,5 +1,9 @@
 # R170：原 Base 输入合同下的公开 CLIP 初始化
 
+**本轮技术失败，未形成完整所选结果。** [唯一终态观测](R170-FAILED-OBSERVATION.json)在6144 success=attempt/0skip/eval7/bad3记录`round storage limit reached`，train状态interrupted/owner_stop_requested、整轮failed，TRAIN_RESULT/freeze/official缺件、selected为null。[失败汇总](R170-FAILED.json)将两锚点比较保留null，不把暂best EMA `.9855170013883353`当完整成绩或科学阴性。actualsafe=true：同start owner为Z非reaped、八rank missing、锁holders和设备users空、denied0、八PCI busy0；不重启旧轮、不重置clock/token/grant，原产物保留。R171无完整工程有效结果而不eligible，已安全串行接续[独立R172](../R172/README.md)。
+
+[终态存储元数据](R170-STORAGE-AUDIT.json)未加载或hash checkpoint：当时目录11,951,892,576字节、原上限12,884,901,888字节、文件系统free42,273,341,440字节，事后未超限，不能重建故障瞬间。最大已有blob约1,401,945,034字节；原`CheckpointStore.save`在写入/提交新blob后才prune，须核原子保存的临时峰值。同尺寸R116既有16GiB独立例外未随本新round沿用，后续仅在未启动的新fresh身份中最小修复，不修改R170失败现场或当前R172冻结包。以下是此前真实启动证据。
+
 [真实八rank首成功](R170-START.json)证明75 success=attempt/0skip/eval0，345全训/5空Adam/whole5d2ebdcf与正常formal匹配，8rank身份/8PCI/训练96核24–119及控制112–119匹配。首自然25 loss `.7022261023521423`有限，WORLD8/G64P8/448pairs；首成功guard `f3476cedbf7ba47e417ed4dc79178a9416cf269e24aab619d8449484263694a9`，非CPU替代或独立GPU预演。
 
 运行Git `58bc7616af41df1e9b84f7e412319bee6de7cc7f` / tree `90a0c8e1da9380c3e1fcbe9ec01ffdd515f98940`、SCI `5a91dada7391b7e1aea7e085dd0624cb0fdc90138c9c70ee96b61c620981a01b`、SITEddf4cf3b。[正常formal](R170-PREPARATION.json)18/18、35.186秒和精确部署1.021秒已在前轮训练期间完成，随后唯一activation/direct launch0；无重跑formal或旧clock/token/grant重置。
