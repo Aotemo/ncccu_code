@@ -2,6 +2,8 @@
 
 使用 brainstorming / writing-plans / TDD / executing-plans，由32e3本人完成；用户已授权最小改动，无新Agent、审批或平台。当前R191/a77与既定R192/R193/2a094f4串行分支及合同保持，此页仅为更后续CPU准备。
 
+22:48两[实际technical包](../../records/preparation/cosine8k-20261102/TECHNICAL-PACKAGES.json)已按实际GitHub commit/tree693d48c/6a0f3392冻结，R194 SITEdc2bcd19/guardje89lpoy与R195 SITEebaa451e/guard2y79z2zy均0，归档5hm0stkc/d16330c4…ef74 exit0。未normalformal/新GPU allocation/clock/GPU；本组只在R193之后执行，不改变当前R191/a77与既定R192/R193/2a。后续CPU正常准备在前轮可行收尾前完成，完整结果决定唯一条件分支。
+
 22:44[实际6目标/6编译/两public fresh](../../records/preparation/cosine8k-20261102/README.md)已通过，最终guard p9m1h9xx/81ace41b…50fd exit0。R194 whole91507a65/SCI514cab38，R195原whole50c6/SCI57c1d89a；两者345全训/5空Adam，新日程元数据8000实核。原模型/EMA/loss/WORLD作用域按SHA复用，新check_candidate边界块仅编译/静态核，整体待正常CPU一次执行，不冒称已通过。当前Git同步待完成，尚无technical包/formal/clock/GPU；R191仍a77、R192/R193仍2a，不混入该组。
 
 原合同的成功计数、24000上限/800评估/patience4与绝对warmup/EMA1600保留。历史多轮在3200–4000选点并于6400–7200早停，原余弦仍按24000跨度；这不是实现bug或临床机制证明。备选是继续换来源/读出、改变固定LR大小、或固定较早完成衰减。本次选择第三项独立检验，直接回R120原Small/public fe6b/seed29/512/sigmoid/G64P8/原AdamW与原backbone1e-4/head-age1e-3，不叠R193半LR或其他方法，不据官方或dev逐样本调参。
@@ -12,7 +14,7 @@ R194/order107仅在完整有效R193唯一selected严格胜R107 `.988440573106752
 
 - [x] 先写真实原优化器消费日程的失败用例并在Pod观测RED；独立数学对照warmup/1600/7998/7999/8000/23999，重复成功计数不推进日程；None/省略与旧曲线及state/RNG保持。
 - [x] 最小实现；实际native AdamW状态往返后由保存job重建日程，下一更新/参数/state exact一致，准确标Toy+native而非生产八rank恢复。配置load/job_contract保留8000、None省略；两候选身份精确且旧R192/R193不变。仅编译实际受影响源码。
-- [ ] 两actual public fresh/5空Adam核初态，原模型P8/EMA/cold/全局pair证据按未变源码复用，无额外GPU预演。写真实SCI/CPU小回执，再Git同步/远端回读/技术打包；不把登记或CPU当启动/收益。
+- [x] 两actual public fresh/5空Adam核初态，原模型P8/EMA/cold/全局pair证据按未变源码复用，无额外GPU预演。写真实SCI/CPU小回执，再Git同步/远端回读/技术打包；不把登记或CPU当启动/收益。
 - [ ] 该组只在R193后按完整结果与actualsafe接续；当前R191/R192/R193任何冻结、clock/token/grant均不改。正常CPU/精确部署在其前轮可行收尾前完成，唯一GPU owner串行启动并核真实八rank初态/首成功。
 
 准备继续53ab实核20%池root0–11/peer12–23保留，与训练24–119互斥；全部Python/解析/测试/哈希在Pod，0官方。完整内部selected≥.996才官方一次，raw .999未达。
