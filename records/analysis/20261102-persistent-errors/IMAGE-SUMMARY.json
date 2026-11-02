@@ -1,0 +1,208 @@
+{
+  "groups": {
+    "positive_hard": {
+      "count": 8,
+      "features": {
+        "black_fraction": {
+          "mean": 0.39860105514526367,
+          "median": 0.31201744079589844
+        },
+        "content_luminance_mean": {
+          "mean": 67.43041154601848,
+          "median": 59.213732557291365
+        },
+        "content_luminance_std": {
+          "mean": 27.14256846352363,
+          "median": 26.082806580876287
+        },
+        "green_laplacian_variance": {
+          "mean": 33.21549792163786,
+          "median": 29.099415523114654
+        },
+        "content_red_green_ratio": {
+          "mean": 1.8568561798104126,
+          "median": 1.5980351041271097
+        },
+        "content_bright_fraction": {
+          "mean": 0.0015211963513461018,
+          "median": 0.0
+        },
+        "original_width": {
+          "mean": 2813.625,
+          "median": 2576.0
+        },
+        "original_height": {
+          "mean": 2054.625,
+          "median": 1920.0
+        },
+        "original_aspect_ratio": {
+          "mean": 1.3541666666666665,
+          "median": 1.3333333333333333
+        },
+        "reduction_to_512": {
+          "mean": 5.495361328125,
+          "median": 5.03125
+        }
+      }
+    },
+    "positive_random": {
+      "count": 8,
+      "features": {
+        "black_fraction": {
+          "mean": 0.5452146530151367,
+          "median": 0.6805267333984375
+        },
+        "content_luminance_mean": {
+          "mean": 78.51382608235988,
+          "median": 71.9349467894537
+        },
+        "content_luminance_std": {
+          "mean": 26.53975392517938,
+          "median": 26.334805426304108
+        },
+        "green_laplacian_variance": {
+          "mean": 45.9693592657555,
+          "median": 28.73352540375138
+        },
+        "content_red_green_ratio": {
+          "mean": 1.7163400434559528,
+          "median": 1.4878909330679617
+        },
+        "content_bright_fraction": {
+          "mean": 0.012147733916525265,
+          "median": 5.56682666138849e-05
+        },
+        "original_width": {
+          "mean": 3226.0,
+          "median": 3096.0
+        },
+        "original_height": {
+          "mean": 2229.0,
+          "median": 2124.0
+        },
+        "original_aspect_ratio": {
+          "mean": 1.4387254901960782,
+          "median": 1.5
+        },
+        "reduction_to_512": {
+          "mean": 6.30078125,
+          "median": 6.046875
+        }
+      }
+    },
+    "negative_hard": {
+      "count": 8,
+      "features": {
+        "black_fraction": {
+          "mean": 0.49358558654785156,
+          "median": 0.48780250549316406
+        },
+        "content_luminance_mean": {
+          "mean": 92.3580038427357,
+          "median": 98.27217976554351
+        },
+        "content_luminance_std": {
+          "mean": 27.24427827710413,
+          "median": 26.738557569658298
+        },
+        "green_laplacian_variance": {
+          "mean": 75.90126451389362,
+          "median": 44.53573434957464
+        },
+        "content_red_green_ratio": {
+          "mean": 1.551944093748677,
+          "median": 1.4954185077259097
+        },
+        "content_bright_fraction": {
+          "mean": 0.004887496356667291,
+          "median": 0.0008887098303156697
+        },
+        "original_width": {
+          "mean": 3210.0,
+          "median": 2904.0
+        },
+        "original_height": {
+          "mean": 2247.0,
+          "median": 2040.0
+        },
+        "original_aspect_ratio": {
+          "mean": 1.4173689138576777,
+          "median": 1.4166666666666665
+        },
+        "reduction_to_512": {
+          "mean": 6.26953125,
+          "median": 5.671875
+        }
+      }
+    },
+    "negative_random": {
+      "count": 8,
+      "features": {
+        "black_fraction": {
+          "mean": 0.4915342330932617,
+          "median": 0.49884605407714844
+        },
+        "content_luminance_mean": {
+          "mean": 95.19224063394455,
+          "median": 95.18601332180006
+        },
+        "content_luminance_std": {
+          "mean": 22.777129524400145,
+          "median": 20.78468690244025
+        },
+        "green_laplacian_variance": {
+          "mean": 51.22441243419605,
+          "median": 25.325040234221092
+        },
+        "content_red_green_ratio": {
+          "mean": 1.6610850319749697,
+          "median": 1.4735827472045204
+        },
+        "content_bright_fraction": {
+          "mean": 0.008298677537154305,
+          "median": 0.0
+        },
+        "original_width": {
+          "mean": 3370.5,
+          "median": 3480.0
+        },
+        "original_height": {
+          "mean": 2375.75,
+          "median": 2320.0
+        },
+        "original_aspect_ratio": {
+          "mean": 1.3997062372001539,
+          "median": 1.5
+        },
+        "reduction_to_512": {
+          "mean": 6.5830078125,
+          "median": 6.796875
+        }
+      }
+    }
+  },
+  "selection_sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b",
+  "artifacts_sha256": {
+    "positive_hard-01-detail.png": "36ef93b4555755365ca2985abb644143517b0ee4a5d210da6b2043eb71f0f755",
+    "positive_hard-02-detail.png": "fee3c107cdfeed38c5e11f19ee3cd5a55121077c38adc5881667c2f0e6d35355",
+    "positive_hard.png": "a89de623bd8d4fc7fe6c31ec3c9fcfa4c8da93c9eabcb88d9a533357e5f49081",
+    "positive_random.png": "b985782c3249880d1c250968b73ecb25c3c3a9095717d9b71409d9080e0d43ed",
+    "negative_hard-01-detail.png": "60838d9b7ff757b70b878e4c5a61aeb190469c9ae35887b37cb426c265d3610b",
+    "negative_hard-02-detail.png": "e847d4c465cad6f718011f210e1c06cf544f76c14f478a34de31a239394090f0",
+    "negative_hard.png": "dabc2e051b3d2c04ea733d58fbaae9fc473bae29b91e5695f5008ea647f76a27",
+    "negative_random.png": "50ceff5f7238e27ca015974acd9a52efd487ee74a977da00d4af5ccd5ea2caf9"
+  },
+  "source_sha256": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+  "production_sources_sha256": {
+    "runtime/bundle/retrain/data.py": "b3a5b585490483fda65a9eee24f18d97c21699434667aacb1c275bc7a030a15f",
+    "runtime/bundle/retrain/preprocessing.py": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456"
+  },
+  "originals_sha_verified": 32,
+  "official_read": false,
+  "model_loaded": false,
+  "new_forward": false,
+  "gpu_initialized": false,
+  "read_only_originals": true,
+  "technical_content_mask": "RGB max > 12; not anatomy",
+  "image_size": 512
+}

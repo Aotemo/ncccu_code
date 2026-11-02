@@ -1,0 +1,235 @@
+{
+  "reference": "R107",
+  "groups": "Frozen four-anchor mean-contribution top20 vs remaining147; all negatives",
+  "models": {
+    "R107": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 6623.0,
+        "repaired_mass": 0.0,
+        "introduced_mass": 0.0,
+        "shared_mass": 6623.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 2977.0,
+        "repaired_mass": 0.0,
+        "introduced_mass": 0.0,
+        "shared_mass": 2977.0
+      }
+    },
+    "R108": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 7876.0,
+        "repaired_mass": 1058.0,
+        "introduced_mass": 2311.0,
+        "shared_mass": 5565.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 2727.0,
+        "repaired_mass": 1034.0,
+        "introduced_mass": 784.0,
+        "shared_mass": 1943.0
+      }
+    },
+    "R120": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 5829.0,
+        "repaired_mass": 2088.0,
+        "introduced_mass": 1294.0,
+        "shared_mass": 4535.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 2910.0,
+        "repaired_mass": 899.0,
+        "introduced_mass": 832.0,
+        "shared_mass": 2078.0
+      }
+    },
+    "R134R1": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 6401.0,
+        "repaired_mass": 1310.0,
+        "introduced_mass": 1088.0,
+        "shared_mass": 5313.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 2632.0,
+        "repaired_mass": 789.0,
+        "introduced_mass": 444.0,
+        "shared_mass": 2188.0
+      }
+    },
+    "R135": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 6202.0,
+        "repaired_mass": 2249.0,
+        "introduced_mass": 1828.0,
+        "shared_mass": 4374.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 3382.0,
+        "repaired_mass": 1000.0,
+        "introduced_mass": 1405.0,
+        "shared_mass": 1977.0
+      }
+    },
+    "R136": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 7511.0,
+        "repaired_mass": 948.0,
+        "introduced_mass": 1836.0,
+        "shared_mass": 5675.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 2981.0,
+        "repaired_mass": 591.0,
+        "introduced_mass": 595.0,
+        "shared_mass": 2386.0
+      }
+    },
+    "R137": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 8138.0,
+        "repaired_mass": 1515.0,
+        "introduced_mass": 3030.0,
+        "shared_mass": 5108.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 3953.0,
+        "repaired_mass": 797.0,
+        "introduced_mass": 1773.0,
+        "shared_mass": 2180.0
+      }
+    },
+    "R139": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 9146.0,
+        "repaired_mass": 1964.0,
+        "introduced_mass": 4487.0,
+        "shared_mass": 4659.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 3729.0,
+        "repaired_mass": 957.0,
+        "introduced_mass": 1709.0,
+        "shared_mass": 2020.0
+      }
+    },
+    "R141": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 16323.0,
+        "repaired_mass": 2620.0,
+        "introduced_mass": 12320.0,
+        "shared_mass": 4003.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 31964.0,
+        "repaired_mass": 1276.0,
+        "introduced_mass": 30263.0,
+        "shared_mass": 1701.0
+      }
+    },
+    "R143": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 10855.0,
+        "repaired_mass": 2003.0,
+        "introduced_mass": 6235.0,
+        "shared_mass": 4620.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 7220.0,
+        "repaired_mass": 1664.0,
+        "introduced_mass": 5907.0,
+        "shared_mass": 1313.0
+      }
+    },
+    "R144": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 12711.0,
+        "repaired_mass": 2010.0,
+        "introduced_mass": 8098.0,
+        "shared_mass": 4613.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 7643.0,
+        "repaired_mass": 1604.0,
+        "introduced_mass": 6270.0,
+        "shared_mass": 1373.0
+      }
+    },
+    "R146": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 9607.0,
+        "repaired_mass": 1706.0,
+        "introduced_mass": 4690.0,
+        "shared_mass": 4917.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 3809.0,
+        "repaired_mass": 1257.0,
+        "introduced_mass": 2089.0,
+        "shared_mass": 1720.0
+      }
+    },
+    "R148": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 7281.0,
+        "repaired_mass": 1644.0,
+        "introduced_mass": 2302.0,
+        "shared_mass": 4979.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 3329.0,
+        "repaired_mass": 1045.0,
+        "introduced_mass": 1397.0,
+        "shared_mass": 1932.0
+      }
+    },
+    "R150R1": {
+      "fixed20_positive": {
+        "before_mass": 6623.0,
+        "after_mass": 7810.0,
+        "repaired_mass": 1188.0,
+        "introduced_mass": 2375.0,
+        "shared_mass": 5435.0
+      },
+      "remaining147_positive": {
+        "before_mass": 2977.0,
+        "after_mass": 3835.0,
+        "repaired_mass": 736.0,
+        "introduced_mass": 1594.0,
+        "shared_mass": 2241.0
+      }
+    }
+  },
+  "private_selection_sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b",
+  "source_sha256": "eaed079ac069dcf027e4bdc3b8258cb6edee58aec986b5a91aa83b16d5a93f23",
+  "official_read": false,
+  "new_forward": false,
+  "counts_are_pair_mass_not_images": true
+}

@@ -1,0 +1,196 @@
+{
+  "generated_at_utc": "2026-11-02T01:46:14.446181+00:00",
+  "scope": "completed selected internal-dev CSV and bounded image description; no new model inference",
+  "executor_id": "a4e26231-4059-407f-b171-98e65362ec47",
+  "identity": {
+    "NCCCU_POD_NAMESPACE": "acfwvv9ejn",
+    "NCCCU_POD_NAME": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "NCCCU_POD_UID": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "NCCCU_CONTAINER": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12"
+  },
+  "allocation_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/CPU-ALLOCATION.json",
+  "allocation_sha256": "aa0f3efa9150b709a35a6968b4f5caa8e5bd76ba8d67dbc41e95157abf9e98c8",
+  "guard_sha256": "734f937a83374d11f05ebcbd5ba64e4d330ee612cf74ade784779a9a7ad4814d",
+  "cpu_receipts": {
+    "probe": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-7nt_ozod/CPU-RECEIPT.json",
+      "sha256": "c63aab1a8ade52d23be0c30c0a56b9f0bc1f0009e5c7805036a5f3a2038c8855",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 4.3931944370269775,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "inventory": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-wl0rot2g/CPU-RECEIPT.json",
+      "sha256": "94c747a6fe88725b3183656692ccc4f6658058157fcf4bf09dd506fa3f96194e",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 0.43278026580810547,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "tests": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-mvhobph8/CPU-RECEIPT.json",
+      "sha256": "d04cbdd0c9cbc5ce926ccb4bf5112b686003fe9703962697db31a5a18d6979ec",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 0.22399210929870605,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "rankings": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-splnx_xb/CPU-RECEIPT.json",
+      "sha256": "6d3dc3f4fe7160c71a4cd7b08e0e9345de97129cbcd7a15b1cd4c5c47f3d24ac",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 1.5356974601745605,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "images": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-zu494lrc/CPU-RECEIPT.json",
+      "sha256": "ec4ed0a68e0858e0d41bc61b4bf1ed34ab66d599c455ce3a437532425cf64978",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 14.23018741607666,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "crop_review": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-9n3k5vnj/CPU-RECEIPT.json",
+      "sha256": "6e08aba924b97793d17a8deca198bedf54a386852184f35e4cc3d20fa1fc56a7",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 5.452944755554199,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "similarity_review": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-ytgtlcvp/CPU-RECEIPT.json",
+      "sha256": "a3d43e4cbdc3e03b96bcbb3c3f86a0333b350699537e1474fe6d91ef058afbf2",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 5.694499731063843,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    },
+    "pair_changes": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/a4e26231-4059-407f-b171-98e65362ec47-wr0r6mpu/CPU-RECEIPT.json",
+      "sha256": "b7421eae665fecb599fe6a1edffd1ec8ceb1823fd02a8b419bf9e9db7941eda6",
+      "mask": [
+        23
+      ],
+      "threads": 1,
+      "nice": 19,
+      "wall_seconds": 0.44301319122314453,
+      "exit_code": 0,
+      "affinity_violations": [],
+      "task_tree_exited": true,
+      "signals_sent": false,
+      "physical_cpu_envelope_enforced": true,
+      "runnable_thread_budget_respected": true
+    }
+  },
+  "source_files_sha256": {
+    "tools/diagnostics/persistent_errors.py": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+    "tests/test_persistent_errors.py": "f0271399537d46b39540429ac24500c85f35c3c54662fd745f1548d4e6d5531e"
+  },
+  "artifacts": {
+    "INVENTORY.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/INVENTORY.json",
+      "sha256": "a998842d2a7f9bd183c61c4a32e42b841d6b588becc4a8a1c531f38804aebd32"
+    },
+    "analysis/SUMMARY.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/SUMMARY.json",
+      "sha256": "3c4add1f7729ba6aca27f789a42fff107406218096c147866972607d1492d065"
+    },
+    "analysis/IMAGE-SUMMARY.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/IMAGE-SUMMARY.json",
+      "sha256": "f14f171268d0865b180c6078c28bacd034581a30eff3ff0cb353c8302d9d82bd"
+    },
+    "analysis/PRIVATE-SELECTION.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/PRIVATE-SELECTION.json",
+      "sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b"
+    },
+    "analysis/PRIVATE-IMAGE-FEATURES.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/PRIVATE-IMAGE-FEATURES.json",
+      "sha256": "6253c51b2b739bd194114d259716618b5ae4db851eb1040ef472b9c36a2ca39f"
+    },
+    "analysis/CROP-REVIEW.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/CROP-REVIEW.json",
+      "sha256": "5ed819f71dfeeee2c8e88fb327908ca2e8e1089c5a1f565f0b5bc7c93f8bdc9e"
+    },
+    "analysis/SIMILARITY-REVIEW.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/SIMILARITY-REVIEW.json",
+      "sha256": "108a5e90d26ee3d8308041668ca4d3bb370119dd376ef0faebd1f1188100ce65"
+    },
+    "analysis/PAIR-CHANGES.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/PAIR-CHANGES.json",
+      "sha256": "7f07ba46edf7af25ad92a109f0cac857fc813a6664ef2a45f2e3ad81c455bc83"
+    }
+  },
+  "tests": {
+    "run": 3,
+    "passed": 3
+  },
+  "verified_selected_vectors": 14,
+  "distinct_originals_sha_verified": 32,
+  "rendered_eval_view": "Existing production prepare_image and ImageDataset identity 512 reconstruction; not a captured training/evaluation tensor",
+  "official_read": false,
+  "checkpoint_loaded": false,
+  "new_model_forward": false,
+  "labels_modified": false,
+  "dev_rows_added_to_training": false,
+  "optimization_status": "Owner accepted fixed mean-plus-top2 positive pairwise hypothesis for independent preparation after R154; not implemented or trained by this analysis"
+}

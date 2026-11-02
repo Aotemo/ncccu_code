@@ -1,4 +1,10 @@
-# R152 全局RGB768八卡首成功
+# R152 全局RGB768完整结果
+
+2026-11-02 01:49:07.604424 UTC[完整终态](R152-COMPLETION.json)：10400次成功和attempt相同、0skip、13次评估、连续4次无提升早停。[唯一内部选点](R152-RESULT.json)为EMA c9@7200，AUROC `.9875928818012477`、AP `.8381138566395393`、error_twice20608；权重tensor `31ca2b3fa6624848edf5e49b0993984e2a5717cb38e2cf1884afdd234b4738b8`。低于R107 `.9884405731067525`及R120 singlebest `.9894773092062407`，固定全局768合同关闭，R153 seed27无资格，未formal/activation/GPU。不扩尺寸或LR扫描。
+
+官方因内部选点低于`.996`按政策未运行，metrics为null。原始终态已确认owner同birth的Z状态、八rank退出、锁持有者和设备users为空、8PCI busy0，actualsafe true；[实际CPU终态回执](R152-CPU-COMPLETION.json) exit0。安全证据不重复扫描，旧clock/token/grant及selected依赖保留。metadata归档没有加载权重或新forward。后续R154独立fresh已接续，raw `.999`仍未达。
+
+以下为本轮原始启动证据；其中“当前”仅指启动时刻。
 
 23:08:18.425436 UTC[真实首成功](R152-START.json)：running75success=attempt/0skip/eval0；345全训/5组空AdamW/whole`50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致。首自然log25 finite loss`.6362380981445312`、WORLD8/G64P8/448pairs；owner468369/start360171470及八rank468381–468388的birth/argv/mask/8PCI匹配。实际保存job/已准入asset均为768，[几何证明](R152-ACTUAL-GEOMETRY.json)与源码精确部署、真实初态/自然成功组合，不冒作新增GPU tensor hook或独立GPU预演。
 
