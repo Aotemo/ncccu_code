@@ -313,6 +313,28 @@ def validate_initialization(initialization):
                 'native_library':DEIT3_LIBRARY}
     if initialization['kind'] == 'random':
         return {'kind': 'random'}
+    if initialization.get('format') == VIT_DINO3_FORMAT:
+        from .experiment91 import public_source
+        source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
+        weight_sha='b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2'
+        provenance_sha='6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8'
+        if (initialization['kind']!='self_supervised' or initialization.get('expected_backbone_state_keys')!=162
+                or source.get('kind')!='self_supervised' or source.get('model')!='vit_small_patch16_dinov3'
+                or source.get('format')!=VIT_DINO3_FORMAT or source.get('revision')!='3bf4720a82ec2066db88137180ff1f83a675cef0'
+                or source.get('sha256')!=weight_sha or source.get('original_sha256')!=weight_sha
+                or source.get('provenance_sha256')!=provenance_sha or initialization.get('sha256')!=weight_sha
+                or not path.is_absolute() or not meta_path.is_absolute() or path.is_symlink() or meta_path.is_symlink()
+                or _hash(path)!=weight_sha or _hash(meta_path)!=provenance_sha):
+            raise ValueError('fixed native DINOv3 ViT public source differs')
+        meta=json.loads(meta_path.read_text());license_path=meta_path.parent/meta['license_file']
+        if (meta['native_library']!=_vit_dino3_library() or license_path.is_symlink()
+                or _hash(license_path)!='25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'):
+            raise ValueError('native DINOv3 ViT library/full license differs')
+        return {'kind':'self_supervised','model':'vit_dino3_small','format':VIT_DINO3_FORMAT,
+            'weights_sha256':weight_sha,'provenance_sha256':provenance_sha,
+            'source_url':meta['source_url'],'training_data':meta['training_data'],'source_commit':meta['revision'],
+            'original_sha256':weight_sha,'final_norm_eps':1e-5,'internal_norm_eps':1e-5,
+            'license_sha256':meta['license_sha256'],'native_library':meta['native_library']}
     if initialization.get('format') in DINO3_FORMATS:
         return validate_small_dino3_provenance(initialization)
     if (initialization.get('kind') == 'imagenet'
@@ -499,6 +521,69 @@ def _deit3_library():
     return actual
 
 
+def _create_vit_dino3_binary(job, initialize=True):
+    import torch,timm
+    from torch import nn
+    from .ema import tensor_digest
+    library=_vit_dino3_library()
+    network=timm.create_model(VIT_DINO3_VARIANT,pretrained=False,img_size=512,num_classes=0,
+        global_pool='avg',drop_path_rate=job.get('stochastic_depth',.1),drop_rate=0.,device='cpu',dtype=torch.float32)
+    public=None
+    if initialize and job['initialization']['kind']!='random':
+        proof=validate_initialization(job['initialization'])
+        state=torch.load(job['initialization']['path'],map_location='cpu',weights_only=True)
+        loaded=network.load_state_dict(state,strict=True);actual=network.state_dict()
+        if (len(state)!=162 or set(actual)!=set(state) or loaded.missing_keys or loaded.unexpected_keys
+                or any(t.dtype!=torch.float32 or not bool(torch.isfinite(t).all()) or not torch.equal(actual[n],t)
+                       for n,t in state.items())):
+            raise ValueError('complete native DINOv3 ViT public162 strict/exact/FP32 differs')
+        public={'initialization':proof,'strict_missing_keys':[],'strict_unexpected_keys':[],
+            'public_tensor_count':162,'public_tensor_sha256':tensor_digest(state),'full_head_shape':None,
+            'all_public_tensors_exact':True,'all_public_tensors_FP32_finite':True,'backbone_only':True}
+    class ViTBinary(nn.Module):
+        def __init__(self):
+            super().__init__();self.network=network;self.native_library=library
+            self.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(384,1))
+        def forward(self,images,age_features=None):
+            logits=self.classifier(self.network(images)).flatten()
+            if hasattr(self,'age_weight'):
+                from .age import residual
+                return residual(self,logits,age_features)
+            return logits
+    result=ViTBinary()
+    if job.get('age')is not None:
+        from .age import attach_age
+        attach_age(result,job['age'])
+    if public is not None:result.public_initialization_receipt=public
+    describe_vit_dino3(result)
+    return result
+
+
+def describe_vit_dino3(model):
+    import torch
+    from .ema import tensor_digest
+    network=model.network;buffers=dict(network.named_buffers());head=model.classifier[-1]
+    value={'native_library':model.native_library,'image_size':list(network.patch_embed.img_size),
+        'patch_size':list(network.patch_embed.patch_size),'features':network.num_features,
+        'num_prefix_tokens':network.num_prefix_tokens,'reg_token_shape':list(network.reg_token.shape),
+        'global_pool':network.global_pool,'norm_eps':network.norm.eps,
+        'nonpersistent_buffers_sha256':tensor_digest(buffers),'head_shape':list(head.weight.shape),
+        'head_dropout':model.classifier[0].p,'blocks':len(network.blocks)}
+    if (value['native_library']!=VIT_DINO3_LIBRARY or value['image_size']!=[512,512]
+            or value['patch_size']!=[16,16] or value['features']!=384 or value['num_prefix_tokens']!=5
+            or value['reg_token_shape']!=[1,4,384] or value['global_pool']!='avg'
+            or value['norm_eps']!=1e-5 or value['head_shape']!=[1,384] or value['head_dropout']!=.2
+            or value['blocks']!=12 or network.pos_embed is not None or not isinstance(network.head,torch.nn.Identity)
+            or not isinstance(network.fc_norm,torch.nn.Identity) or set(buffers)!={'rope.periods'}
+            or buffers['rope.periods'].shape!=(16,) or buffers['rope.periods'].dtype!=torch.float32
+            or 'rope.periods'in network.state_dict()
+            or value['nonpersistent_buffers_sha256']!='192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3'
+            or any(b.attn.qkv.bias is not None for b in network.blocks)
+            or any(m.eps!=1e-5 for m in network.modules()if isinstance(m,torch.nn.LayerNorm))):
+        raise ValueError('native DINOv3 ViT512 binary/FP32 RoPE graph differs')
+    return value
+
+
 def _create_deit3_binary(job, initialize=True):
     import torch
     from torch import nn
@@ -663,6 +748,8 @@ def create_model(job, initialize=True):
         return create_swin_binary(job, initialize=initialize)
     if job['model'] == 'deit3_small':
         return _create_deit3_binary(job, initialize=initialize)
+    if job['model'] == 'vit_dino3_small':
+        return _create_vit_dino3_binary(job, initialize=initialize)
     from torchvision import models
     name = job['model']
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}

@@ -21,6 +21,41 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R183_R184_native_source_recipe_and_buffer_contract(self):
+        from retrain import age,config
+        original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
+        baseline=json.loads((ROOT/'configs/R182-SCIENCE.json').read_text())
+        for label,order,seed,model,count in(('R183',95,20261027,'convnext_large',342),('R184',96,20261029,'vit_dino3_small',162)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()),patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':original_age}):
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':'self_supervised','format':science['public_source']['format'],
+                        'sha256':science['public_source']['sha256'],'path':site['public_weight'],
+                        'provenance':site['public_provenance'],'expected_backbone_state_keys':count})
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual((experiment.candidate()['experiment_order'],job['seed'],job['model']),(order,seed,model))
+                wrong=copy.deepcopy(job);wrong['initialization']['kind']='imagenet'
+                with self.assertRaises(ValueError):experiment.validate_job(wrong)
+            for key in('data_split','schedule','early_stopping','official_evaluation'):
+                self.assertEqual(science[key],baseline[key])
+            if label=='R183':
+                compare=copy.deepcopy(science['job']);compare['seed']=baseline['job']['seed']
+                self.assertEqual(compare,baseline['job'])
+                for key in('public_source','public_asset_receipt','structure','paths'):
+                    self.assertEqual(science[key],baseline[key])
+            else:
+                original=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())['job']
+                compare=copy.deepcopy(science['job'])
+                for key in('model','name','final_norm_eps'):compare[key]=original[key]
+                self.assertEqual(compare,original)
+                self.assertEqual(science['structure']['buffer_count'],1)
+                self.assertEqual(science['initial_buffer_sha256'],'b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6')
+
     def test_R181_R182_Large_fixed_science_and_public_kind(self):
         from retrain import age,config
         original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})

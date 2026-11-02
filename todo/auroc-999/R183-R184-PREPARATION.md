@@ -1,5 +1,9 @@
 # R183/R184 准备计划：条件 Large DINOv3 复核与固定原生 ViT-S
 
+18:00 实际受影响 4 目标及 11 个唯一源码编译覆盖通过；原生模型 2 目标、两身份共 1 目标、精确存储 1 目标均有 guard0，原 RED 与 fresh 辅助脚本语法错误原件保留。实际两 public fresh：R183 whole c51c4d8b、SCI1f116cd6；R184 whole e347757c、SCIa231b7d0，分别345/165全训、5空Adam，0图像前向/0GPU。源严格验收与旧默认兼容按不变源码复用；原P8/保存冷图未重复。下方模型/绑定/存储项实现已完成，Git冻结及技术包待完成，尚无新normalformal/clock/GPU。
+
+必要 repo 外范围仅复用已执行的 PREPARE-LARGE-DINO3-NEXT.py：加入 R183/R184 两文件名、对应 4目标/11编译证据路径及 R184 默认12GiB期望；旧已执行文本保留为历史 .txt，不改任何现役冻结包或启动链。既有 START observer 的初态数量本已消费 formal 的 trainable_tensors，默认Adam无需适配，不另改监控。满24k沿用原Small512×2情景24154.892秒作为参考、低于27750软预算；不依赖早停，不称ViT实测吞吐或上界。CPU保存storage3314983264B及checkpoint张量容量情景均不是DCU峰值或保存并发峰值保证。
+
 本计划由唯一Git/GPU owner32e3直接沿executing-plans实施，不派生Agent、不增加资源或审批门。当前R180冻结28e19c1、后续R181/R182已冻结技术源码2a128733，均不热改。详细来源先验见[ViT核查](VIT-DINO3-SOURCE-AUDIT-20261102.md)。
 
 目标：把一个自然图像DINOv3 ViT-S/16组合准备为R182之后的独立fresh；单模型、原R107 seed29/512/ImageNet输入/原pairlog/G64P8/采样增强/默认AdamW/LR/EMA/age及24k-800-p4保持。只改原生架构及匹配公开初始化，不叠加Large/ROI/MIL/其他policy，不扫pool、来源、LR或seed。R141/R164/R166/R176阴性保留，不预设AUROC或临床机制收益。

@@ -143,6 +143,82 @@ class DeiT3MeanPatchTest(unittest.TestCase):
         self.assertTrue(all(p.grad is not None and bool(torch.isfinite(p.grad).all())for p in model.parameters()))
         self.assertFalse(torch.cuda.is_initialized())
 
+class ViTDINO3Test(unittest.TestCase):
+    def _job(self):
+        value=job();value.update(model='vit_dino3_small',final_norm_eps=1e-5)
+        return value
+
+    def test_native_factory_rng_prefix_mean_buffer_and_age(self):
+        from retrain import models
+        value=self._job();torch.manual_seed(83)
+        reference=timm.create_model('vit_small_patch16_dinov3.lvd1689m',pretrained=False,
+            img_size=512,num_classes=0,global_pool='avg',drop_path_rate=.1,drop_rate=0.)
+        head=nn.Sequential(nn.Dropout(.2),nn.Linear(384,1))
+        expected_rng=torch.random.get_rng_state().clone()
+        torch.manual_seed(83);model=models._create_vit_dino3_binary(value,initialize=False)
+        self.assertTrue(torch.equal(expected_rng,torch.random.get_rng_state()))
+        for name,tensor in reference.state_dict().items():
+            self.assertTrue(torch.equal(tensor,model.network.state_dict()[name]),name)
+        for name,tensor in head.state_dict().items():
+            self.assertTrue(torch.equal(tensor,model.classifier.state_dict()[name]),name)
+        self.assertEqual(len(dict(model.named_parameters())),165)
+        self.assertEqual(set(dict(model.named_buffers())),{'network.rope.periods'})
+        self.assertNotIn('network.rope.periods',model.state_dict())
+        self.assertTrue(torch.equal(model.network.rope.periods,reference.rope.periods))
+        with torch.no_grad():model.age_weight.copy_(torch.tensor([.2,-.1]))
+        model.eval();reference.eval();head.eval()
+        images=torch.randn(1,3,512,512);ages=torch.tensor([[.3,1.]])
+        with torch.inference_mode():
+            features=reference.forward_features(images)
+            manual=head(features[:,5:].mean(1)).flatten()+(ages*model.age_weight).sum(1)
+            torch.testing.assert_close(model(images,ages),manual,rtol=0,atol=0)
+        description=models.describe_vit_dino3(model)
+        self.assertEqual(description['num_prefix_tokens'],5)
+        self.assertEqual(description['global_pool'],'avg')
+        self.assertEqual(description['norm_eps'],1e-5)
+        self.assertFalse(torch.cuda.is_initialized())
+
+    def test_P8_finite_gradients_optimizer_EMA_and_real_cold_graph(self):
+        from retrain import config,ema,models
+        from retrain.engine import _optimizer
+        from retrain.inference import _load_model
+        from retrain.persistence import CheckpointStore
+        value=self._job();config.validate_job(value)
+        torch.manual_seed(89);model=models.create_model(value,initialize=False)
+        optimizer=_optimizer(model,value)
+        self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        self.assertEqual({id(p)for g in optimizer.param_groups for p in g['params']},{id(p)for p in model.parameters()})
+        shadow=ema.EMA(model,ema.RULE)
+        self.assertEqual(models.describe_vit_dino3(model),models.describe_vit_dino3(shadow.model));del shadow
+        with torch.no_grad():model.age_weight.copy_(torch.tensor([.2,-.1]))
+        periods=model.network.rope.periods.clone()
+        images=torch.randn(8,3,512,512);ages=torch.stack((torch.linspace(-1,1,8),torch.ones(8)),dim=1)
+        storage={};calls=[]
+        def pack(tensor):
+            s=tensor.untyped_storage();storage[s.data_ptr()]=s.nbytes();return tensor
+        hook=model.network.register_forward_hook(lambda module,args,output:calls.append(list(args[0].shape)))
+        with torch.autograd.graph.saved_tensors_hooks(pack,lambda tensor:tensor):
+            logits=model(images,ages);(logits*torch.linspace(-1,1,8)).sum().backward()
+        hook.remove();self.assertEqual(calls,[[8,3,512,512]])
+        self.assertEqual(len(dict(model.named_parameters())),165)
+        self.assertTrue(all(p.grad is not None and bool(torch.isfinite(p.grad).all())for p in model.parameters()))
+        self.assertTrue(torch.equal(periods,model.network.rope.periods));model.eval()
+        with torch.inference_mode():expected=model(images[:1],ages[:1])
+        payload={'format_version':1,'mode':'train','job':value,'model':model.state_dict(),'age':value['age'],
+                 'identity':{},'manifest_digest':'synthetic-only','successful_updates':0}
+        with tempfile.TemporaryDirectory(dir=ROOT.parent)as directory:
+            checkpoint=CheckpointStore(Path(directory)/'checkpoints').save(payload)
+            cold,saved,_,origin,_=_load_model(checkpoint,device='cpu',variant='online')
+            self.assertEqual(saved,value)
+            self.assertEqual(origin['vit_dino3'],models.describe_vit_dino3(model))
+            self.assertTrue(torch.equal(cold.network.rope.periods,periods))
+            with torch.inference_mode():actual=cold(images[:1],ages[:1])
+        torch.testing.assert_close(actual,expected,rtol=0,atol=0)
+        print(json.dumps({'scope':'native_ViTS_CPU_P8_saved_storage_not_DCU_peak',
+            'saved_storage_bytes':sum(storage.values()),'parameter_tensors':165,
+            'nonpersistent_periods_cold_exact':True,'GPU_initialized':False}),flush=True)
+        self.assertFalse(torch.cuda.is_initialized())
+
 if __name__=='__main__':
     torch.set_num_threads(int(os.environ['NCCCU_CPU_THREADS']));torch.set_num_interop_threads(1)
     unittest.main()

@@ -64,7 +64,7 @@ def validate_fresh(spec, identity, job, topology, steps, *, mode):
               'warmup_updates':job['warmup_cycles']*steps,
               'stop_after_updates':topology.get('stop_after_updates',job['cycles']*steps)}
     initialization=identity.get('initialization',{})
-    expected_kind=({'dinov2_vits14':'self_supervised','flair_resnet50':'retinal_vision_language'}
+    expected_kind=({'dinov2_vits14':'self_supervised','vit_dino3_small':'self_supervised','flair_resnet50':'retinal_vision_language'}
                    .get(job.get('model'),'imagenet'))
     if (job.get('model'),job.get('initialization',{}).get('format')) in (
             ('convnext_small','torchvision-convnext-small-dinov3-backbone-state-dict-v1'),

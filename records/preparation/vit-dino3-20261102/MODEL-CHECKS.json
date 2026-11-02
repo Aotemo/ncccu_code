@@ -1,0 +1,15 @@
+{
+  "passed_targets": 2,
+  "targets": [
+    "test_deit3_model.ViTDINO3Test.test_native_factory_rng_prefix_mean_buffer_and_age",
+    "test_deit3_model.ViTDINO3Test.test_P8_finite_gradients_optimizer_EMA_and_real_cold_graph"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "6863c28c1bc25b4fc355c014442a31356c9bfd80b7f790fd723fe71ada1c7de7",
+    "runtime/bundle/retrain/config.py": "b606757e3e7678cda1d4ab5566256ce8c2d51ef92a7fbb443b3b1d3db0e302df",
+    "runtime/bundle/retrain/inference.py": "21314cc3030dd5ad97affcd2534cb073114464aeb273728064b60428477526b3",
+    "tests/test_deit3_model.py": "08607270415503319286375c181133a4b089659ac595064ef17e7ccc049edda9"
+  },
+  "GPU_initialized": false,
+  "real_images_or_official_read": false
+}

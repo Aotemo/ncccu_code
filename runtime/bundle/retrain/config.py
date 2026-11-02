@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 ADAMW_BETA2_RULE = {'version':'adamw-beta2-095-v1','betas':[.9,.95],'eps':1e-8,
     'amsgrad':False,'scope':'all_existing_groups','algorithm':'torch.optim.AdamW'}
@@ -307,7 +307,15 @@ def validate_job(job):
                 and job.get('model') != 'resnet50_imagenet'):
             raise ValueError('DINO backbone format requires the registered R50 factory')
     elif init['kind'] == 'self_supervised':
-        if init.get('format') in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1',
+        if init.get('format')=='timm-vits16-dinov3-native-state-dict-v1':
+            if (job['model']!='vit_dino3_small' or job['normalization']!='imagenet'
+                    or job['image_size']!=512 or job['final_norm_eps']!=1e-5
+                    or init.get('expected_backbone_state_keys')!=162
+                    or not re.fullmatch('[0-9a-f]{64}',init.get('sha256',''))
+                    or not all(isinstance(init.get(k),str) and Path(init[k]).is_absolute()
+                               and '://'not in init[k]for k in('path','provenance'))):
+                raise ValueError('native DINOv3 ViT requires its fixed local public162 format')
+        elif init.get('format') in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1',
                                   'torchvision-convnext-large-dinov3-backbone-state-dict-v1'):
             expected_model = 'convnext_large' if init['format']=='torchvision-convnext-large-dinov3-backbone-state-dict-v1' else 'convnext_small'
             if (job['model']!=expected_model or job['normalization']!='imagenet'

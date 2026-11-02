@@ -68,7 +68,9 @@ PAIR_BCE_MIX_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-2
 LARGE_BINDING = 'single-convnext-large-dc2e53fa-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 LARGE_SEED27_BINDING = 'single-convnext-large-dc2e53fa-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 LARGE_DINO3_BINDING = 'single-convnext-large-dinov3-0f8b496d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
-LARGE_VARIANT_BINDINGS = (LARGE_BINDING,LARGE_SEED27_BINDING,LARGE_DINO3_BINDING)
+LARGE_DINO3_SEED27_BINDING = 'single-convnext-large-dinov3-0f8b496d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+VIT_DINO3_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+LARGE_VARIANT_BINDINGS = (LARGE_BINDING,LARGE_SEED27_BINDING,LARGE_DINO3_BINDING,LARGE_DINO3_SEED27_BINDING)
 AUC_MARGIN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-batch-aucmargin1-v1'
 AUC_MARGIN_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-batch-aucmargin1-v1'
 COSINE_HEAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cosine16-v1'
@@ -117,7 +119,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                       BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                       BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
-                      PAIR_BCE_MIX_SMALL_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)
+                      PAIR_BCE_MIX_SMALL_SEED27_BINDING,VIT_DINO3_BINDING,*LARGE_VARIANT_BINDINGS)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -216,7 +218,7 @@ def science_configuration():
                                                        ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                                                        BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                                                        BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
-                                                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)
+                                                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,VIT_DINO3_BINDING,*LARGE_VARIANT_BINDINGS)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
@@ -739,6 +741,28 @@ def candidate_from_configuration(value):
                         'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed original Small AdamW beta2 recipe differs')
+    elif value['candidate_profile']==VIT_DINO3_BINDING:
+        from .models import VIT_DINO3_FORMAT,VIT_DINO3_LIBRARY
+        expected={'id':'r184-vits16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order':96,'model':'vit_dino3_small','public_revision':'3bf4720a82ec2066db88137180ff1f83a675cef0',
+            'readout':'native_final_LN_meanpatch_exclude5_dropout_linear_plus_age','features':384,
+            'final_norm_eps':1e-5,'internal_norm_eps':1e-5,'batch_norm_modules':0,'batch_norm_buffers':0,
+            'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if (source.get('kind')!='self_supervised' or source.get('model')!='vit_small_patch16_dinov3'
+                or source.get('format')!=VIT_DINO3_FORMAT or source.get('native_library')!=VIT_DINO3_LIBRARY
+                or source.get('revision')!='3bf4720a82ec2066db88137180ff1f83a675cef0'
+                or source.get('sha256')!='b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2'
+                or source.get('provenance_sha256')!='6193971f997c649d5e66bdd8b387a8a498ba68695894dbe908cacb27aa63aed8'
+                or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('final_norm_eps'))!=('vit_dino3_small',20261029,'imagenet',512,512,64,8,1e-5)
+                or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
+                    'quadrant_mil_policy','input_preprocessing','optimizer_policy','gradient_centralization_policy',
+                    'gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy',
+                    'mixstyle_policy','tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
+                    'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
+            raise ValueError('fixed native DINOv3 ViT source/512/original recipe differs')
     elif value['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING):
         from .models import DEIT3_LIBRARY,DEIT3_FORMAT,DEIT3_VARIANT
         expected={'id':'r164-deit3-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
@@ -773,14 +797,16 @@ def candidate_from_configuration(value):
             'stochastic_depth': value['job']['stochastic_depth'],
             'head_initialization': 'torch.nn.Linear_native', 'head_lr_scope': 'last_linear'}
         if value['candidate_profile'] in LARGE_VARIANT_BINDINGS:
-            dino3 = value['candidate_profile']==LARGE_DINO3_BINDING
-            seed27 = value['candidate_profile']==LARGE_SEED27_BINDING
+            dino3 = value['candidate_profile'] in (LARGE_DINO3_BINDING,LARGE_DINO3_SEED27_BINDING)
+            seed27 = value['candidate_profile'] in (LARGE_SEED27_BINDING,LARGE_DINO3_SEED27_BINDING)
             expected.update(id='r180-convnext-large-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
                             experiment_order=92,model='convnext_large',features=1536)
             if seed27:
                 expected.update(id='r181-convnext-large-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=93)
             if dino3:
                 expected.update(id='r182-convnext-large-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=94)
+                if seed27:
+                    expected.update(id='r183-convnext-large-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=95)
             if (source.get('model')!='convnext_large'
                     or source.get('revision')!=('0f8b496db5dea10c7533e85304400f0eddad55ac' if dino3 else 'dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854')
                     or source.get('original_sha256')!=('be34ed200bcb3a0790b0507434fe7449ce9525bc1ce8172ae78c52466b352217' if dino3 else 'fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277')
@@ -882,7 +908,7 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small'):
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small'):
             raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
@@ -894,12 +920,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,VIT_DINO3_BINDING):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=176 or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(162 if science['candidate_profile']==VIT_DINO3_BINDING else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt
@@ -943,7 +969,7 @@ def verify_public_asset(science, site):
                 or receipt.get('num_classes') != source['num_classes']
                 or receipt.get('strict_load', {}).get('sha256') != source['strict_receipt_sha256']):
             raise ValueError('Small 22K-only complete public source identity differs')
-    if science['candidate_profile'] in (SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,LARGE_DINO3_BINDING):
+    if science['candidate_profile'] in (SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,LARGE_DINO3_BINDING,LARGE_DINO3_SEED27_BINDING):
         if (receipt.get('repo')!=source['repo']
                 or receipt.get('strict_load',{}).get('sha256')!=source['strict_receipt_sha256']):
             raise ValueError('Small DINOv3 complete public backbone handoff differs')
@@ -1112,6 +1138,7 @@ def validate_job(job):
             or init.get('format') != public_source()['format']
             or (init.get('format') in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1','torchvision-convnext-large-dinov3-backbone-state-dict-v1')
                 and init.get('expected_backbone_state_keys')!=342)
+            or (init.get('format')=='timm-vits16-dinov3-native-state-dict-v1'and init.get('expected_backbone_state_keys')!=162)
             or Path(init.get('path', '')).resolve() != Path(site['public_weight']).resolve()
             or Path(init.get('provenance', '')).resolve() != Path(site['public_provenance']).resolve()):
         raise ValueError('Tiny22K-to-1K scientific/age/source/LN contract differs')
@@ -1122,6 +1149,15 @@ def describe_model(model):
     import torch
     from .ema import tensor_digest
     nn = torch.nn
+    if candidate()['model']=='vit_dino3_small':
+        from .models import describe_vit_dino3
+        value={'candidate':candidate(),'batch_norm_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm)for m in model.modules()),
+            'buffer_count':len(dict(model.named_buffers())),'buffer_sha256':tensor_digest(dict(model.named_buffers())),
+            'layer_norms':[{'name':n,'eps':float(m.eps),'normalized_shape':list(m.normalized_shape)}for n,m in model.named_modules()if isinstance(m,nn.LayerNorm)],
+            'head_in_features':384,'head_out_features':1,'dropout':model.classifier[0].p,
+            'stochastic_depth':[{'name':f'network.blocks.{i}.drop_path{j}','p':getattr(getattr(b,f'drop_path{j}'),'drop_prob',0.),'mode':'row'}
+                for i,b in enumerate(model.network.blocks)for j in(1,2)],'vit_dino3':describe_vit_dino3(model)}
+        validate_normalization(value);return value
     if candidate()['model']=='deit3_small':
         from .models import describe_deit3
         value={'candidate':candidate(),'batch_norm_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm)for m in model.modules()),
@@ -1310,6 +1346,21 @@ def describe_model(model):
 
 def validate_normalization(value):
     import hashlib
+    if candidate()['model']=='vit_dino3_small':
+        import torch
+        from .models import VIT_DINO3_LIBRARY
+        native=value.get('vit_dino3',{});norms=value.get('layer_norms',[]);depth=value.get('stochastic_depth',[])
+        rates=[float(t)for t in torch.linspace(0,.1,12)]
+        if (value.get('candidate')!=candidate()or value.get('batch_norm_modules')!=0 or value.get('buffer_count')!=1
+                or value.get('buffer_sha256')!=science_configuration().get('initial_buffer_sha256')
+                or value.get('head_in_features')!=384 or value.get('head_out_features')!=1 or value.get('dropout')!=.2
+                or len(norms)!=25 or any(n['eps']!=1e-5 or n['normalized_shape']!=[384]for n in norms)
+                or len(depth)!=24 or any(r['p']!=rates[i//2]or r['mode']!='row'for i,r in enumerate(depth))
+                or native.get('native_library')!=VIT_DINO3_LIBRARY or native.get('image_size')!=[512,512]
+                or native.get('global_pool')!='avg' or native.get('num_prefix_tokens')!=5 or native.get('reg_token_shape')!=[1,4,384]
+                or native.get('nonpersistent_buffers_sha256')!='192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3'):
+            raise ValueError('actual native DINOv3 ViT static FP32 RoPE/normalization differs')
+        return True
     if candidate()['model']=='deit3_small':
         import torch
         from .models import DEIT3_LIBRARY
