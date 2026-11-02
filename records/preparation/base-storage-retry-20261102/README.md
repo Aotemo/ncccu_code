@@ -1,5 +1,7 @@
 # R173/R174：Base 存储 headroom 与固定科学合同复验
 
+最新：R172完整双门false/actualsafe后，R173无资格；R174已完成正常formal18/18、精确部署和一次activation/launch，真实八rank/首25有限见[启动记录](../../R174/README.md)。下文的未normalformal状态是此前技术包阶段；旧R172/失败R170冻结包未改。
+
 R172继续冻结Git1859670；本次仅准备条件同MIL seed27的R173，以及原R170科学合同delta=0的独立fresh技术复验R174。R170原6144步中断/无完整selected，不判科学阴性，不恢复其checkpoint/clock。新增工程配置只给R174新round登记16GiB，沿同尺寸R116既有例外；默认12GiB、失败R170与当前R172、free16GiB底线/VRAM85%不变。训练、模型、保存/prune、评估与监控实现未改。
 
 [CPU-CHECKS](CPU-CHECKS.json)包括两项实际新执行目标：扩展SCI/candidate身份与原存储guard，11.919秒通过；3个受改Python源编译通过。原两项模型目标及6loss/WORLD目标按实际使用源码完全相同复用，**4个通过目标中2个为模型证据复用**，不是重复跑P8。新policy验证R116/R117/R174的13GiB可用、17GiB拒绝、free15GiB拒绝，并验证旧R170/当前R172及其他round保持12GiB。原存储[RED](RED-CHECKS.json)只有新R174缺例外的一FAIL/0ERROR，[guard](CPU-RED-GUARD.json)exit1；修复后[最终guard](CPU-FINAL-GUARD.json)exit0。

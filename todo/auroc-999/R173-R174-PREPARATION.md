@@ -1,6 +1,6 @@
 # R173/R174：固定局部配方复核与 Base 存储技术复验
 
-当前R172/order84使用Git1859670冻结，已真实八rank/345全训/5空Adam/首自然25有限，后续准备不改当前运行。R170在6144/eval7/bad3被存储保护中断，整轮failed、selectednull、两锚点比较null，不判其科学配方阴性，不恢复原clock/checkpoint；R171缺完整工程有效结果而无资格。
+R172/order84已完整6400/c8/bad4，唯一EMA c4@3200内部AUROC `.9882081804619195`、两门false/官方未跑/actualsafe，R173无资格且未formal/activation/GPU。独立R174已按下文固定科学合同一次fresh激活/实际启动并证明八rank初态及首自然25有限，见[实际记录](../../records/R174/README.md)。R170在6144/eval7/bad3被存储保护中断，整轮failed、selectednull、两锚点比较null，不判其科学配方阴性，不恢复原clock/checkpoint；R171缺完整工程有效结果而无资格。
 
 R173/order85仅在完整R172内部唯一selected严格超过R107 `.9884405731067525` 与R120 `.9894773092062407`、且actualsafe后，复核相同Small/fe6/固定全图512与四重叠288/max05、原输入/loss/G64P8/LR/EMA/age配方的固定seed20261027。未满足不normalformal/activation/GPU，不扫窗、权重或聚合公式。
 
@@ -13,6 +13,8 @@ R173/order85仅在完整R172内部唯一selected严格超过R107 `.9884405731067
 - [x] 存储现有目标先观察新round尚无例外的真实RED一FAIL/0ERROR，再最小policy GREEN，原函数13GiB可用/17GiB拒绝/free15GiB拒绝及旧round默认12GiB均通过。
 - [x] 两public fresh、两SCI和配置身份、3实际受改编译及原件存储峰值情景完成；新执行2目标通过、模型2与loss/WORLD6按源码复用，[CPU证据](../../records/preparation/base-storage-retry-20261102/README.md)区分。准备池nice19/隐藏GPU、根0–22与训练24–119互斥。
 - [x] Git6ec73ab/tree073fc38已push/实际回读，两技术包/源与冻结存储策略检查通过，guard0；尚无normalformal/clock/activation/GPU。
-- [ ] 在R172收尾期间完成后备R174正常CPU/精确部署，使9小时GPU CPU绑定可覆盖8.75小时正式clock；临近下一评估且bad3时安排，若改善而绑定余量不足，不activation，只为未启动阶段另建绑定，旧原件保持。完整R172决定唯一分支，actualsafe后一次串行接续。
+- [x] 在R172训练5900/bad3阶段完成R174正常CPU18/18及精确部署；登录节点heredoc满盘只影响运输入口，原检查尚未开始，后沿现有直接Pod入口完成。完整R172双门false/actualsafe后一次activation/launch，真实八rank与自然首25有限。NFS准备锁阻塞导致接续超5分钟，CPU guard本地锁修复2目标/2compile并push后继续，旧clock/token/grant未重置。
+
+窗口检查在11:43返回剩余31897.231秒≥31560（完整clock31500+preflight60）；后续环境延迟消耗了额外余量。实际formal deadline `1793651699.446633` 小于冻结GPU CPU allocation valid_until `1793651724.3323832`，完整正式clock仍被覆盖，不能声称激活时仍额外保留60秒。当前绑定不再热改，原件保持。
 
 R174正常完成后才按完整内部AUROC判断固定CLIP组合；阴性不扫normalization/LR/分辨率/seed，官方仅完整selected≥.996才一次。raw .999未达，临床定位或机制仍未证明。

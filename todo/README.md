@@ -1,6 +1,6 @@
 # 当前任务与接续
 
-**10:45实观R172 running2700 success=attempt/0skip/eval3/bad0，EMA暂best c3@2400 AUROC `.9875122066343885`，八rank活跃。** 原1859670冻结保持；后续6ec73ab/tree073fc38两technical包已通过，后备正常CPU待收尾窗口以覆盖完整授权时长。[存储窄清理](../records/storage/20261102-closed-rounds/README.md)已实删三个完整关闭旧轮R164/R166/R168的25文件，保护/侧车/结果不变、guard0，free约50.26GB；当前R172及失败R170、KEEP/锚点/缓存/public均保持。完整R172双门及safe才选择后续，raw `.999`未达。下文为此前状态。
+**当前唯一GPU为R174/order86，11:52实证25 success=attempt/0skip/eval0，八rank fresh/345全训/5空Adam/首自然25有限已证。** [实际启动](../records/R174/README.md)冻结Git6ec73ab/tree073fc38、SCI2c8d50fc，正常formal18/18及精确部署在R172训练期间完成，一次activation/direct launch0；原R170科学delta0，仅新round16GiB存储例外。R172完整6400/c8/bad4、唯一EMA c4@3200内部AUROC `.9882081804619195`、双门false/官方未跑/actualsafe，[收口](../records/R172/README.md)后不重查，R173无资格。交接完成事件至dispatch537.365秒/设备597.897秒/首25记录664.967秒超5分钟，NFS锁等待及修复过程如实保留；[CPU本地互斥锁最小修复](../records/preparation/cpu-local-lease-20261102/README.md)2目标/2编译及Git aaf475a已通过/同步，旧冻结包不改。唯一Git/GPU仍32e3；peer实核closed且未恢复，当前719a准备root0–11/12核与保留peer12–23/12核、训练24–119/96核互斥。入口r174-pod-context.env绑定start-2；下一自然公开来源仅CPU准备，尚未新实验，raw `.999`未达。下文为此前状态。
 
 **10:28实观R172 running1550 success=attempt/0skip/eval1/bad0，八rank活跃，暂best c1@800 AUROC `.970266986638025`。** 原1859670冻结；后续Git6ec73ab/tree073fc38已push/实际回读，[两技术包及冻结存储策略](../records/preparation/base-storage-retry-20261102/README.md)实核通过，guard0，未新normalformal/clock/GPU。后备R174正常CPU/精确部署安排在当前收尾阶段，使9小时绑定可覆盖8.75小时clock；现有入口启动前核授权余量，不让过早准备消耗运行窗口。完整R172双门/actualsafe后才R173，否则独立R174；当前准备23+peer1与训练96互斥，raw `.999`未达。下文为此前状态。
 
