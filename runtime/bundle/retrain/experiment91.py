@@ -68,6 +68,8 @@ COSINE_HEAD_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24
 DEIT3_SMALL_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 DEIT3_SMALL_SEED27_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 DEIT3_MEANPATCH_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-meanpatch-v1'
+DEIT3_MEANPATCH_SEED27_BINDING = 'single-deit3-small-8d59b281-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-meanpatch-v1'
+ADAMW_BETA2_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-adamw-beta2-095-v1'
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -95,7 +97,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
-                      COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING)
+                      COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,
+                      DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -127,7 +130,7 @@ def science_configuration():
     from .layerwise_lr import LAYERWISE_LR_RULE
     from .low_rank import LOW_RANK_RULE
     from .classification_loss import OUTPUT_REGULARIZATION_RULE
-    from .config import COSINE_HEAD_RULE,DEIT3_MEANPATCH_RULE
+    from .config import COSINE_HEAD_RULE,DEIT3_MEANPATCH_RULE,ADAMW_BETA2_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -189,15 +192,23 @@ def science_configuration():
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
-                                                       COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING)
+                                                       COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,
+                                                       DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
-                or (value.get('candidate_profile')!=DEIT3_MEANPATCH_BINDING
+                or (value.get('candidate_profile') not in (DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING)
                     and (value.get('job',{}).get('deit_pool_policy')is not None
                          or value.get('candidate',{}).get('deit_pool_policy')is not None))
-                or (value.get('candidate_profile')==DEIT3_MEANPATCH_BINDING
+                or (value.get('candidate_profile') in (DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING)
                     and (value.get('job',{}).get('deit_pool_policy')!=DEIT3_MEANPATCH_RULE
                          or value.get('candidate',{}).get('deit_pool_policy')!=DEIT3_MEANPATCH_RULE))
+                or (value.get('candidate_profile')!=ADAMW_BETA2_SMALL_BINDING
+                    and (value.get('job',{}).get('adamw_beta2_policy')is not None
+                         or value.get('candidate',{}).get('adamw_beta2_policy')is not None))
+                or (value.get('candidate_profile')==ADAMW_BETA2_SMALL_BINDING
+                    and (value.get('job',{}).get('adamw_beta2_policy')!=ADAMW_BETA2_RULE
+                         or value.get('candidate',{}).get('adamw_beta2_policy')!=ADAMW_BETA2_RULE
+                         or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS))
                 or (value.get('candidate_profile') not in (COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('cosine_head_policy') is not None
                          or value.get('candidate',{}).get('cosine_head_policy') is not None))
@@ -460,7 +471,8 @@ def candidate_from_configuration(value):
                                         GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,
                                         HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
-                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING):
+                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
+                                        ADAMW_BETA2_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -632,7 +644,19 @@ def candidate_from_configuration(value):
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile']==SMALL_384_SEED27_BINDING else 20261029)):
                 raise ValueError('fixed Small public384 source or original512 recipe differs')
-    elif value['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING):
+        if value['candidate_profile']==ADAMW_BETA2_SMALL_BINDING:
+            from .config import ADAMW_BETA2_RULE
+            expected.update(id='r168-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-adamw-beta2-095-9010',
+                experiment_order=80,adamw_beta2_policy=ADAMW_BETA2_RULE)
+            if ((value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'),
+                    value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(20261029,512,512,64,8)
+                    or any(value['job'].get(k)is not None for k in ('deit_pool_policy','cosine_head_policy','input_preprocessing',
+                        'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                        'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                        'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                        'training_views','training_rotation','training_photometric'))):
+                raise ValueError('fixed original Small AdamW beta2 recipe differs')
+    elif value['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING):
         from .models import DEIT3_LIBRARY,DEIT3_FORMAT,DEIT3_VARIANT
         expected={'id':'r164-deit3-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':76,'model':'deit3_small','public_revision':'8d59b2810f277c19d0cdd1b1e691d93c24aab6db',
@@ -641,14 +665,16 @@ def candidate_from_configuration(value):
             'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
         if value['candidate_profile']==DEIT3_SMALL_SEED27_BINDING:
             expected.update(id='r165-deit3-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=77)
-        if value['candidate_profile']==DEIT3_MEANPATCH_BINDING:
+        if value['candidate_profile'] in (DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING):
             from .config import DEIT3_MEANPATCH_RULE
             expected.update(id='r166-deit3-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-meanpatch-9010',
                 experiment_order=78,readout='native_final_LN_meanpatch_dropout_linear_plus_age',deit_pool_policy=DEIT3_MEANPATCH_RULE)
+            if value['candidate_profile']==DEIT3_MEANPATCH_SEED27_BINDING:
+                expected.update(id='r167-deit3-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-meanpatch-9010',experiment_order=79)
         if (source.get('model')!=DEIT3_VARIANT or source.get('format')!=DEIT3_FORMAT or source.get('native_library')!=DEIT3_LIBRARY
                 or source.get('sha256')!='88140b2a114ec4db0e3588af052162b87fcdd1bb92d5e85dd93f7d2adc1fb526'
                 or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
-                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'))!=('deit3_small',20261027 if value['candidate_profile']==DEIT3_SMALL_SEED27_BINDING else 20261029,512,512)
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'))!=('deit3_small',20261027 if value['candidate_profile'] in (DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_SEED27_BINDING) else 20261029,512,512)
                 or (value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(64,8)
                 or any(value['job'].get(k)is not None for k in ('cosine_head_policy','input_preprocessing','optimizer_policy',
                     'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy',
@@ -739,7 +765,7 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
@@ -940,6 +966,7 @@ def validate_job(job):
         'input_preprocessing': candidate().get('input_preprocessing'),
         'cosine_head_policy': candidate().get('cosine_head_policy'),
         'deit_pool_policy': candidate().get('deit_pool_policy'),
+        'adamw_beta2_policy': candidate().get('adamw_beta2_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),
         'bn_statistics': configured.get('bn_statistics')}

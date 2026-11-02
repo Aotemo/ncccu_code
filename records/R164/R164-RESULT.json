@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "round_id": "r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+  "git_commit": "f06130548f33c63f10466988386afc656b7547d7",
+  "science_sha256": "cb7e6a497b5b56e5ccb0d2c3774cd2a1dd91e44137aa3493935c2f4c587ac74f",
+  "terminal_observed_at": 1793604584.4202228,
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 7200,
+    "attempted_updates": 7200,
+    "skipped_updates": 0,
+    "evaluated_cycle": 9,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected": {
+    "auroc": 0.980575346391472,
+    "ap": 0.7480948827714725,
+    "variant": "ema",
+    "cycle": 5,
+    "successful_updates": 4000,
+    "error_twice": 32264
+  },
+  "comparison": {
+    "R107_auroc": 0.9884405731067525,
+    "R120_singlebest_auroc": 0.9894773092062407,
+    "strictly_beats_R107": false,
+    "strictly_beats_R120": false
+  },
+  "decision": "close_fixed_native_deit3_cls_no_seed27",
+  "native_deit3_cls_seed27": "not_activated_ineligible",
+  "freeze_status_original": null,
+  "selected_artifact": {
+    "checkpoint": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102/outputs/r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-deit3_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-98423dc6b1f347cabc5eadcb965839d1.pt",
+    "blob_sha256": "2c29449e995f799b4c3ef8187d4832bf869b372ae8883e03b10936432a000a99",
+    "tensor_sha256": "af18a9f91a50894bbb37c09c040d7591985178d3c6b99316cd4b87279ac1f5da",
+    "variant": "ema"
+  },
+  "freeze_metadata_sha256": "2784979fea19de707215e0e27bd139ea594f4636d8214d6d46a276f1fc4d295a",
+  "official_policy_result": {
+    "status": "completed",
+    "phase": "complete",
+    "successful_updates": 7200,
+    "cycles": 9,
+    "official_status": "not_run_by_policy",
+    "official_reason": "threshold_not_met",
+    "official_evaluated": false,
+    "selected_internal_dev_auroc": 0.980575346391472,
+    "official_metrics": null,
+    "target_auroc_at_least_0_999": null,
+    "error": null
+  },
+  "official_read_by_observer": false,
+  "actual_safe": true,
+  "checkpoint_loaded_for_archive": false,
+  "new_forward_for_archive": false,
+  "new_safety_scan_for_archive": false,
+  "original_clock_grant_and_selected_dependencies_preserved": true,
+  "completion_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r164-20261102-32e3/PROGRESS-cont-6.json",
+    "sha256": "3818067bc16026f1b87b302b4f1fa7b470d58f505a5be873517424e8e91ffad8"
+  }
+}

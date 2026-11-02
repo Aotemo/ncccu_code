@@ -1,0 +1,150 @@
+{
+  "R167": {
+    "model_tensor_sha256": "8108ef45b018a9b0049084d90b13d1cfe7ec3a357c72e38059b79e0af1c79caa",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 177,
+    "parameter_elements": 21992835,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adamw-beta2-20261102-32e3/fresh/R167-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "a0b4ecd3fb4d8ecc83df3d8e2cafd6b79f453cc4f526be8b539b39524ce31398"
+    },
+    "public_tensors": 176,
+    "original_public_exact": true,
+    "image_forward_calls": 0
+  },
+  "R168": {
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.95
+        ],
+        "eps": 1e-08,
+        "amsgrad": false,
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/adamw-beta2-20261102-32e3/fresh/R168-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "29271504e20726d1289d3631b1d7925a6befb65aebaec8ffe3703f73f210b00b"
+    },
+    "public_tensors": 344,
+    "original_public_exact": true,
+    "image_forward_calls": 0
+  }
+}

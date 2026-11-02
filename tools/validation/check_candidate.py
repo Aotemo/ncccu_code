@@ -274,6 +274,12 @@ def main(args):
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         final_norm.eps = ex.candidate()['final_norm_eps']
     optimizer = _optimizer(model, job)
+    if job.get('adamw_beta2_policy') is not None:
+        check('native_AdamW_all_existing_groups_fixed_beta2',
+              type(optimizer)is torch.optim.AdamW and len(optimizer.param_groups)==5 and not optimizer.state
+              and all(g['betas']==(.9,.95)and g['eps']==1e-8 and g['amsgrad']is False for g in optimizer.param_groups),
+              {'class':type(optimizer).__name__,'groups':[{'role':g['role'],'betas':list(g['betas']),
+                  'eps':g['eps'],'amsgrad':g['amsgrad']}for g in optimizer.param_groups]})
     from retrain.models import feature_freeze_proof
     parameter_trainability = feature_freeze_proof(model, job, optimizer)
     named = dict(model.named_parameters()); names = {id(parameter): name for name, parameter in named.items()}

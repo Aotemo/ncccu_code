@@ -1,0 +1,25 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/deit3-meanpatch-20261102-32e3/source-git/records/preparation/deit3-meanpatch-20261102/CPU-CHECKS-REVIEW.json",
+    "sha256": "f184139547cac51deb017de3a0945af5971e32fb343d85d840b4c0e4955ddb4a"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/models.py": "8af71ab33de031390d11a179b8e93f0e5e889480946275d90dfd037305830729",
+    "runtime/bundle/retrain/config.py": "621dd723273455c75c7ab3b0d7a56067377e84c4ed7c265786a287c9382642c1",
+    "runtime/bundle/retrain/experiment91.py": "d3f0595c74b405e4d7f90e605a882991a939036641d6707bf8f71a5fb56b080d",
+    "tests/test_deit3_model.py": "12c4efd43784aead64224887568659ce09fefbadef1817d92159f563b57c286b",
+    "tests/test_candidate_binding.py": "1c090e4d985e6abee45ff4841b9016f3926b65051f734b28cd699318d21fac60",
+    "runtime/bundle/retrain/inference.py": "3210bbeff465e9b6580469bf92c51313c2c4df3dd5d425a7f844959856ff6759",
+    "tools/validation/check_candidate.py": "d539775a9d959f69bc69328a665b1af52a6c7c67ce5516fb639c725a09d75d81",
+    "tools/pretraining/deit3_source.py": "4f642c04b0de84e25e1f8d06ef09188c1a10b59fa55bbc622008e20f4b15e179",
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "science_sha256": "36676a44901113aef7ac6f36b6bf690c07aecd9fe3d7501ed6737a67ec4b47a1",
+  "targets_reused": 4,
+  "loss_WORLD_targets_reused": 6,
+  "tests_rerun": false,
+  "at": 1793604438.2689972
+}
