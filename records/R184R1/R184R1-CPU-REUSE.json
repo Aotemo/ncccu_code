@@ -1,0 +1,28 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vit-rope-retry-20261102-32e3/source-git/records/preparation/vit-rope-retry-20261102/CPU-CHECKS.json",
+    "sha256": "a61dd039203a2d66feae7187c35565b00e82155c7ad2e07a1770749ced8ffa29"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/ema.py": "13bc21359337ba8a3bb311f6af05713b67420236f7cefe89507ba3947fc8a042",
+    "runtime/bundle/retrain/single91.py": "7ed32875a8dd4744c7da2b6d625a06ce65175a5caf2ed4192f30d8d23149234e",
+    "runtime/r92_initial_gate.py": "7a92f1e20e285762c12923aba60add052b3c2b5e573e517cc362b55e0d3ba787",
+    "tools/validation/check_candidate.py": "238e7158093bea1e060ee9ab8f02e353df7393ffce1fa378159a16b17d4d140f",
+    "tests/test_nonpersistent_buffers.py": "0e50bcdb53b43f284e13ba14796c5e0af55fa41f2933f3a214776e94278fb9ea",
+    "runtime/bundle/retrain/experiment91.py": "d228b274d1d62f37fc4ec898b4b5f445306ddfa12f8cecd8aeb708c9837ea367",
+    "tests/test_candidate_binding.py": "211dc800b52aae145a5f551f6a9fdc06e3ceb9693870d540b9ac751962d29229",
+    "runtime/bundle/retrain/models.py": "43bb6acc9603cad97309ad3705caf80480da968321b8502286993c2835ff8f0f",
+    "runtime/bundle/retrain/config.py": "acf81237c0a93524af59f424cfa18e441ba81115f4071804a10255f137f6e56b",
+    "runtime/bundle/retrain/inference.py": "1bb16cf00d1537726665c6ee113cb6ee4cc67f66a23adc5ff5b046993d3cbc82",
+    "runtime/bundle/retrain/engine.py": "731a5eeee5806dc00bc1f85197b076fa7c4c48af69e1032a81ad989c9267f1dd",
+    "tools/pretraining/deit3_source.py": "2b48fdeb4c78f5ee989c3a09b66db79e348544fe16ab678c0f8913c1c645efc7",
+    "tests/test_caformer_model.py": "81c9a9cd9bb76dae35f02a94d859a82ffce5b06293065380b5c77560fa53108d",
+    "tests/test_deit3_model.py": "08607270415503319286375c181133a4b089659ac595064ef17e7ccc049edda9"
+  },
+  "science_sha256": "5ec946d1571e9ce27dbd9a33b011bef431d45eee4da4ddd6cfed0bb49ac25c42",
+  "targets_reused": 2,
+  "unchanged_implementation_files": 4,
+  "tests_rerun": false,
+  "at": 1793652625.0069444
+}

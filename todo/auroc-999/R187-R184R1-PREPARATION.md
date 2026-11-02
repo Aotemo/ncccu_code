@@ -1,5 +1,7 @@
 # R187 条件 CAFormer 复核 / R184R1 独立 ViT 技术复验
 
+21:05 [R184R1已实际八rank首成功](../../records/R184R1/README.md)，当前75成功/0skip/eval0，初态165/e347/5空Adam与formal一致，原非持久RoPE初态门已通过；唯一窗口核验、activation/direct launch均0。R186完整7200/c9/bad4，唯一EMA c5内部AUROC `.983750576466211`，双门false/官方未跑/actualsafe，故R187不eligible且未normalformal/clock/GPU。原R184失败不重启、不改成本。正常formal提前重叠完成，R186整轮结束至新dispatch107.964秒/设备164.030秒/首25记录200.072秒，三事件均≤300，连续利用率未测。后续仅沿R188/R189既定分支；本节下文为准备历史。
+
 20:51 R186实际6500成功/0skip/eval8/bad3，八rank继续训练；独立后备R184R1已在20%池完成唯一正常CPU19/19与精确Git部署，guard hxwuj0lo SHA `11ead7db74cebdd90fba2701318b03499a3398c5291f2e0c12b5e64701760c3a` exit0。冻结cd7246a/tree887ad5a9、SCI5ec946d1、whole e347757c/165全训/5空Adam，实际formal SITE `77788644ca3b859cd4b05c92c6d99d29fcf71fba9227b767787f2107add9324c`，manifest `7ec5ab3bd1e9b5b7cb98c57e55cc00e7f6214fcc266233212357f5a1c4fbc0c7`，deployment `576aabe43b5013e4830faf491a5ebaf8259e3060016776d2a4f4e3dbf2e55db5`。复用2目标/7编译与原P8证据、不重复；正常检查新增实际persistent-buffer合同为19项。仅新未启动9h资源绑定，尚无clock/activation/GPU；完整R186决定条件资格且actualsafe后先核全clock窗口再一次接续。若窗口不足，保存该未启动阶段并新建未启动绑定，不改旧clock/grant。20:48另一既有会话实核closed，未唤醒/派生。
 
 19:42两technical包已按实际远端cd7246a2/tree887ad5a9完成，[逐包SITE/CPU/源码回执](../../records/preparation/vit-rope-retry-20261102/TECHNICAL-PACKAGES.json)guard0。仅扩现有准备辅助脚本的两文件名/证据路径/2目标7编译/12GiB期望，并保留R185/R186已执行文本；未newnormalformal/clock/GPU。R186最新1450成功/0skip/eval1、八rank活跃，正常CPU/精确部署仍安排在可行收尾前，完整结果决定唯一分支。
