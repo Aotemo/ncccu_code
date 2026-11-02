@@ -1,5 +1,7 @@
 # R166：最终 LN 后的原生 patch 均值读出
 
+存储状态：本轮checkpoint/initial已按用户三模型保留策略完成[精确清单清理](../storage/20261102-closed-rounds/README.md)；完整结果、指标、配置和原身份记录保留，以下checkpoint路径为历史来源。
+
 已完整收口：[结果](R166-RESULT.json)、[原始终态](R166-COMPLETION.json)与[CPU回执](R166-CPU-COMPLETION.json)记录6400 success=attempt/0skip/eval8/bad4，唯一EMA c4@3200 AUROC `.9763103995106509`、AP `.7348542302546986`、error_twice39348。低于R107与R120，两门false；关闭此固定meanpatch配方，R167不eligible且未normalformal/activation/GPU。官方按`.996`政策未跑，freeze.status原null保留；owner同start的Z、八rank缺席、锁/设备使用者空及8PCI busy0，actualsafe=true。不重查旧safe/加载权重或新forward。
 
 归档结果SHA `9a5501c89a9a24bdfade32ce53ccea6f75cef0a634dd1cb9781cd09507dbe6ec`，原终态SHA `dcb197a6244d92e1986954673fae5cefe2fe41d60cbbb0a21aa13c5de91aeea0`；原运行98冻结与旧clock/token/grant/selected依赖均保留。后续独立R168仅改原R107的AdamW beta2，不以本阴性推断所有Transformer、空间信息或临床机制无效。下文为本轮启动时记录。

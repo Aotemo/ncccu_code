@@ -1,5 +1,7 @@
 # R168：固定原生 AdamW beta2=.95
 
+存储状态：本轮checkpoint/initial已按用户三模型保留策略完成[精确清单清理](../storage/20261102-closed-rounds/README.md)；完整结果、指标、配置和原身份记录保留，以下checkpoint路径为历史来源。
+
 已完整收口：[结果](R168-RESULT.json)、[原始终态](R168-COMPLETION.json)和[CPU回执](R168-CPU-COMPLETION.json)记录6400 success=attempt/0skip/eval8/bad4，唯一EMA c4@3200 AUROC `.9871738525763675`、AP `.8265179309135852`、error_twice21304。严格低于R107/R120，两门false，关闭本固定beta2=.95配方，不扫beta/LR/seed；R169无资格且未normalformal/activation/GPU。
 
 官方按`.996`政策未跑，freeze.status原null保留；owner同start的Z、8rank缺席、锁/设备使用者空、8PCI busy0且actualsafe。结果SHA `f9b8c8bfc5e4825c01b099e7be081461505b479b598ee38068f83fd0970793b7`，原终态SHA `50f9ef5106b797d29d6d48df51001a67dadf19719c02d107d335ff585d04aa15`；未加载权重、新forward或重复旧safe。原2683冻结、clock/token/grant/selected依赖均保持，独立R170已按预定分支接续。下文为启动阶段记录。

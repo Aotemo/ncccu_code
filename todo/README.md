@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**10:45实观R172 running2700 success=attempt/0skip/eval3/bad0，EMA暂best c3@2400 AUROC `.9875122066343885`，八rank活跃。** 原1859670冻结保持；后续6ec73ab/tree073fc38两technical包已通过，后备正常CPU待收尾窗口以覆盖完整授权时长。[存储窄清理](../records/storage/20261102-closed-rounds/README.md)已实删三个完整关闭旧轮R164/R166/R168的25文件，保护/侧车/结果不变、guard0，free约50.26GB；当前R172及失败R170、KEEP/锚点/缓存/public均保持。完整R172双门及safe才选择后续，raw `.999`未达。下文为此前状态。
+
 **10:28实观R172 running1550 success=attempt/0skip/eval1/bad0，八rank活跃，暂best c1@800 AUROC `.970266986638025`。** 原1859670冻结；后续Git6ec73ab/tree073fc38已push/实际回读，[两技术包及冻结存储策略](../records/preparation/base-storage-retry-20261102/README.md)实核通过，guard0，未新normalformal/clock/GPU。后备R174正常CPU/精确部署安排在当前收尾阶段，使9小时绑定可覆盖8.75小时clock；现有入口启动前核授权余量，不让过早准备消耗运行窗口。完整R172双门/actualsafe后才R173，否则独立R174；当前准备23+peer1与训练96互斥，raw `.999`未达。下文为此前状态。
 
 **10:18实观R172 running875 success=attempt/0skip/eval1/bad0，online/EMA暂best c1@800 AUROC `.970266986638025`，八rank活跃。** 当前1859670冻结不改。后续[R173条件MIL seed27/R174原R170科学delta0的独立fresh存储技术复验](auroc-999/R173-R174-PREPARATION.md)已两public fresh/实际两目标+3编译通过、模型2与loss/WORLD6按相同源码复用，[真实证据](../records/preparation/base-storage-retry-20261102/README.md)保留原RED；仅新增R174新round16GiB例外，旧/当前policy不热改、free16GiB与VRAM85%保持。现Git同步/技术包准备，无新normalformal/GPU；完整R172决定唯一后续，raw `.999`未达。下文为此前状态。

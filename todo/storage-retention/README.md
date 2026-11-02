@@ -1,5 +1,7 @@
 # 三模型保留与历史产物清理
 
+**2026-11-02窄清理已完成：仅R164/R166/R168的25个checkpoint/initial实删，结果保留。** [实际清单与回执](../../records/storage/20261102-closed-rounds/README.md)记录0跳过/无错误、保护对象前后stat/小SHA一致、三阶段CPU guard0。pre-unlink allocated11,580,709,888字节；共享FS free38,677,774,336→50,258,247,680，点时差11,580,473,344另列。当前R172在独立训练96核池继续，准备根23核nice19隐藏GPU；KEEP三模型、失败R170、比较/中断保护对象、公开来源/原始数据/共用缓存/technical-prep及小型结果/index/锁/one-shot保持，无训练信号或实例锁。旧清理与旧失败原件不改；下文为此前批次。
+
 **最终第三批亦已收口：100,652文件+385目录实删，旧prepared768精确路径已不存在。** [最终实证](../../records/storage/20261101-cleanup/README.md)分列前两批372项与旧缓存100280文件/385目录；全部文件allocated260478643200B，最终sharedFS free22961717248→283262320640B，点时差260300603392B。第三批完整lstat清单100665项/无链接与当前引用冲突，首次低效自有子进程经明确授权精确SIGINT后真实exit-2；旧journal确认18614项、边界无缺after/伪成功，再以新独立217软件CPU入口只接81666项，52.06秒完成/guard0，原d29与旧训练clock/grant不动。保护对象stat/小SHA、prepared512与census依赖均一致；94项保护或未证冗余model/package继续保留。以下“两批已完成/旧cache未重审”文字是前序阶段。
 
 **2026-11-01新授权清理已完成两份明确清单，历史中断原件保留。** 现有Pod动态UID/Ready/A12 guard实核后，先实际归档同步R134R1终态4968edc，再实删372文件（320历史checkpoint/initial、49已完全PASS formalCPUfixture、3过期源码运输包），两批无执行错误/跳过。最终sharedFS free22961717248→249898729472B，实测增加226937012224B；删除前allocated226940564992B与logical另列，不冒充物理释放，也不把同一FS的exp-v2/v3重复相加。[真实回执与路径分类](../../records/storage/20261101-cleanup/README.md)已落盘；两批保护对象stat/小SHA均一致，KEEP18路径可见，R130全部/R120及比较依赖/R134R1 selected与完整census依赖、原始数据/共用cache/公开来源/unknown、小结果/失败成本/锁/one-shot保持。剩94项model/package含保护和未证冗余，R114缺完整终态、4个CPUfixture缺final receipt继续保留；不为收口重扫/重载模型。以下旧Pod清理中断是历史阶段，不能据本次清单完成改写其原exit137。

@@ -1,5 +1,7 @@
 # R164：原生 DeiT III Small 公开初始化
 
+存储状态：本轮checkpoint/initial已按用户三模型保留策略完成[精确清单清理](../storage/20261102-closed-rounds/README.md)；完整结果、指标、配置和原身份记录保留，以下checkpoint路径为历史来源。
+
 **完整阴性收口。** [最终结果](R164-RESULT.json)：7200 success=attempt/0skip/eval9/bad4、正常早停，唯一EMA c5@4000内部AUROC `.980575346391472`、AP `.7480948827714725`、error_twice32264，低于R107与R120。固定原生CLS配方关闭/no seed27，R165无资格且未formal/GPU；不把这一整体配方阴性外推所有ViT或临床机制。官方不足`.996`未跑/指标null，总体`.999`未达。
 
 [原终态](R164-COMPLETION.json)与[CPU观测](R164-CPU-COMPLETION.json)证明completed/exit0/signals空、owner原start匹配现Z、8rank退出、锁无holder/设备users空/scan denied0/8PCI busy0、actualsafe true；初次done时owner尚活跃的观测也保留。所选tensoraf18a9f9/blob2c29449e、freeze元数据2784979f，均仅转存既有JSON/guard，无新checkpoint加载、forward/官方或安全重扫。以下为历史启动记录。
