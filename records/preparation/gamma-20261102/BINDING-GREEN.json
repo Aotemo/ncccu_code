@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "targets_run": 2,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R196_R197_fixed_decay_confirmation_and_independent_gamma_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R194_R195_half_LR_confirmation_and_independent_decay_identity"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "a85bc85c11fbc40d9a6d3a9b33c6e2a06290a1958e6c02244bb68ad6c46bcc3a",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "tests/test_candidate_binding.py": "66253a665690f5231f45da68fce7fd59aefba8c24117e22ad2f73aef7471fc63"
+  },
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "failures": 0,
+  "errors": 0,
+  "official_read": false
+}

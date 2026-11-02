@@ -384,8 +384,8 @@ class ImageDataset:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
             raise ValueError('unknown normalization')
-        if training_photometric not in (None, 'identity-v1'):
-            raise ValueError("training_photometric must be None or 'identity-v1'")
+        if training_photometric not in (None, 'identity-v1', 'gamma-reciprocal075-v1'):
+            raise ValueError('unknown training_photometric policy')
         if training_rotation not in (None, 'identity-v1'):
             raise ValueError("training_rotation must be None or 'identity-v1'")
         if input_preprocessing is not None:
@@ -523,6 +523,10 @@ class ImageDataset:
         canvas = Image.new('RGB', (self.image_size, self.image_size))
         canvas.paste(image, (round((self.image_size - target[0]) * dx),
                              round((self.image_size - target[1]) * dy)))
+        if self.training and self.training_photometric == 'gamma-reciprocal075-v1':
+            # Independent sample-key stream preserves the original eight draws.
+            gamma = random.Random(_seed(augmentation_seed, 'training-gamma-reciprocal075-v1')).choice((.75, 1., 4/3))
+            canvas = canvas.point([round(255 * (value/255)**gamma) for value in range(256)] * 3)
         tensor = torch.from_numpy(np.asarray(canvas).copy()).permute(2, 0, 1).float().div_(255)
         if self.normalization != 'flair_rgb01':
             mean, std = ((.485, .456, .406), (.229, .224, .225)) if self.normalization == 'imagenet' else (

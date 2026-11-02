@@ -1,0 +1,22 @@
+{
+  "R196": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/gamma-20261102-32e3/fresh/R196-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "f00663b42d936ad2d93e5cb41af69424ccfca36b6dad6dff06e7a61d6a7a13d1",
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "image_forward_calls": 0,
+    "training_photometric": null
+  },
+  "R197": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/gamma-20261102-32e3/fresh/R197-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "c6286772ca384464c5fddd842c557c1e8b913c2f91b21b8c2778ede88cb1c54d",
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "image_forward_calls": 0,
+    "training_photometric": "gamma-reciprocal075-v1"
+  }
+}

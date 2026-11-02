@@ -1,0 +1,20 @@
+{
+  "tag": "GREEN",
+  "passed": true,
+  "targets_run": 3,
+  "targets": [
+    "test_gamma_policy.GammaPolicyTest.test_training_pixel_oracle_replay_and_independent_rng",
+    "test_gamma_policy.GammaPolicyTest.test_legacy_None_identity_eval_and_actual_P8_512_schema",
+    "test_gamma_policy.GammaPolicyTest.test_configuration_roundtrip_and_fixed_baseline_scope"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f"
+  },
+  "GPU_initialized": false,
+  "model_scope": "synthetic production ImageDataset pixels and P8 512 input schema; no model/forward/files",
+  "failures": 0,
+  "errors": 0,
+  "official_read": false
+}

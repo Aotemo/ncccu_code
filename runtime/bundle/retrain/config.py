@@ -225,8 +225,23 @@ def validate_job(job):
             _number(value, 'training_scale', maximum=1)
         if not 0 < scale[0] <= scale[1]:
             raise ValueError('training_scale requires 0 < lower <= upper <= 1')
-    if 'training_photometric' in job and job['training_photometric'] not in (None, 'identity-v1'):
-        raise ValueError('training_photometric must be None or identity-v1')
+    if 'training_photometric' in job and job['training_photometric'] not in (None, 'identity-v1', 'gamma-reciprocal075-v1'):
+        raise ValueError('unknown training_photometric policy')
+    if job.get('training_photometric') == 'gamma-reciprocal075-v1':
+        if ((job['model'], job['precision'], job['image_size'], job['prepared_size'],
+             job['effective_batch'], job['positive_per_batch'], job['backbone_lr'], job['head_lr'],
+             job['weight_decay'], job['dropout'], job['stochastic_depth']) !=
+                ('convnext_small', 'fp32', 512, 512, 64, 8, 1e-4, 1e-3, 1e-4, .2, .1)
+                or (job.get('loss') or {}).get('kind') != 'binary_pairwise_sigmoid'
+                or tuple(job.get('training_scale') or ()) != (.85, 1.)
+                or any(job.get(key) is not None for key in
+                       ('lr_decay_updates', 'input_preprocessing', 'optimizer_policy', 'adamw_beta2_policy',
+                        'cosine_head_policy', 'quadrant_mil_policy', 'training_views', 'training_rotation',
+                        'gradient_centralization_policy', 'gradient_clip_policy', 'head_warmup_policy',
+                        'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'mixstyle_policy',
+                        'stem_xy_policy', 'tri3_downsample_policy', 'attention_pool', 'stage3_residual',
+                        'freeze_features_before', 'final_downsample_stride', 'mixup'))):
+            raise ValueError('fixed gamma augmentation requires the original Small sigmoid recipe')
     if 'training_rotation' in job and job['training_rotation'] not in (None, 'identity-v1'):
         raise ValueError('training_rotation must be None or identity-v1')
     if job.get('experiment91') is not None:
