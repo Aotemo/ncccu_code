@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**2026-11-02 00:36:55 UTC当前R152 running5900success=attempt/0skip/eval7/bad0，EMA暂best .9863165284151183/AP .8393444798002904（c7@5600）。** 第七轮有提升，继续原patience4合同，无完整selected/官方；原b58冻结与8rank不改。R154原04172db源码另经实际CPU rank8×512两次priming前后向，402参数/804有限梯度、状态/RNG完整恢复通过，[附加启动证据](../records/preparation/swinv2-20261101/PRIMING-CPU.json)；未新normalformal/grant/clock/GPU，三目标/12compile原证据直接复用。唯一owner32e3，b781准备池至05:11 UTC，raw .999未达。
+
 **后续准备已实际同步并构建技术包：Git04172db/treec3e626dc。** 23:48:16 UTC实核12源、两SCIENCE、集中策略与原CPU通过字节一致，R153/R154技术包及既有入口wrapper语法通过，[接续回执](../records/preparation/swinv2-20261101/NEXT-READY.json)。当前唯一GPU仍为R152的b58冻结；新分支无normalformal/grant/clock/activation/GPU。完整结果决定R153资格，否则采用独立R154，前轮freeze期间完成正常formal与精确部署，actualsafe后串行接续。以下23:44数字为此前观测，不是新终态。
 
 **23:44:02 UTC当前唯一活跃R152/order64 running2400success=attempt/0skip/eval3/bad0，EMA暂best内部AUROC .9861937095043776/AP .8353499444909932；八rank活跃。** 当前无完整selected/官方，原b58冻结、clock、grant和96核/8卡不改。唯一owner32e3已在b781互斥准备池完成[固定R153/R154准备](auroc-999/R153-R154-PREPARATION.md)：实际3/3目标及12源compile、公开fresh、512保存/推理冷重建和EMA静态buffer检查通过，[证据](../records/preparation/swinv2-20261101/README.md)。R153仅在完整R152双门严格过且safe后为RGB768 seed27；否则跳过，独立R154为Swin V2 Small公开MIT/ImageNet1K、RGB512。源码/配置与回执待本次实际Git同步及技术包；未新normalformal/grant/activation/GPU，不称下一轮已可执行。原始网络/工厂/回执失败保留。raw .999未达，继续训练与必要接续准备；下文为带日期的历史记录。

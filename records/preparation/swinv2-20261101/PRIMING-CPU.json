@@ -1,0 +1,75 @@
+{
+  "status": "resolved_rank8_canvas512_production_priming_CPU_passed",
+  "at": 1793579794.0905755,
+  "seconds": 44.63176870346069,
+  "reference_CPU_checks_sha256": "24fc6daca152d5a614999d2cdc483e5579b8a0940f81a2817045e1d37a7ff0c7",
+  "git_commit": "04172db46eccc884f5d4e242c1235d066c8657af",
+  "initial_model_tensor_sha256": "4ff58b9c91fb82b9577bcd7de7711d3eb07e24bd05b8dcacd94c54c117b58726",
+  "model_and_all48_static_buffers_restored_exactly": true,
+  "mode_restored": true,
+  "python_numpy_torch_RNG_restored": true,
+  "calls": [
+    {
+      "input": [
+        8,
+        3,
+        512,
+        512
+      ],
+      "output": [
+        8
+      ]
+    },
+    {
+      "input": [
+        8,
+        3,
+        512,
+        512
+      ],
+      "output": [
+        8
+      ]
+    }
+  ],
+  "finite_parameter_gradient_callbacks": 804,
+  "distinct_parameters": 402,
+  "gradients_cleared": true,
+  "optimizer_state_entries": 0,
+  "source_files": {
+    "runtime/bundle/retrain/distributed_engine.py": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "runtime/bundle/retrain/swin_model.py": "6d729afc519b5cbbabcb6a48f7f424043008fb3f554bddb7ee1ac642beabf96c",
+    "runtime/bundle/retrain/models.py": "50168430774acdb6608667464a531c60c12202c1ff7e96474c7c27d094ae6647",
+    "runtime/bundle/retrain/experiment91.py": "43999c63fa2117374f878c2701e6f7937f7038084421a21d72749b4c4e21fa4b"
+  },
+  "actual_DDP_or_collectives_executed": false,
+  "training_updates": 0,
+  "GPU_initialized": false,
+  "data_images_read": false,
+  "new_formal_clock_or_grant": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ]
+}
