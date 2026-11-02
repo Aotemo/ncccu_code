@@ -1,5 +1,7 @@
 # 固定 ViT-B CLS 与条件 Small-CLS 后续准备
 
+两份[实际技术包回执](TECHNICAL-PACKAGES.json)均已通过、尚无normalformal/clock/GPU：R190固定37eeae6/tree5e1646f3、7目标13编译、SITE267e0af5、0m_e92pe/exit0；R191使用修复后的新未启动阶段ready-preparefix，固定a77d395/tree4c5ee805、8目标14编译、SITEb53e84e0、6_47scoy/exit0。旧失败ready目录不重试或覆盖，科学SCI/公开初态未变；R190已就绪的旧冻结包保持。最终o54zc_4t/`87b94fd101f353a5aa2c39ac04e59cd13fa99ffd608b3f4efc63f854991257a1`元数据归档exit0，不重跑模型/forward/旧safe。现役R189仍0f3；下文为准备及修复历史。
+
 R190的37eeae6技术包已实际通过；R191同源首次技术打包nxk8yk6x/exit1暴露prepare.py仅给Small格式注入public162字段、Base漏注入，原失败产物保留。最小修复只将Base格式纳入同一162分支，验证器未放宽。[真实原prepare→load_config集成](PREPARE-PUBLIC162-CHECK.json)6.053秒通过，1evksm6d/`8d1b34feaf1f001dd15996c02a54cce64fb91cf93899f75a20c573b000f9ec4e` exit0，0模型/forward/GPU；其git-base37仅为未提交修复CPU fixture的基线标识，不表示新Git部署。[当前R191精确证据](PREPARE-FIX-CHECKS.json)为原7目标/13编译按SHA复用，加1真实prepare集成/1源码编译，共8目标/14唯一源码编译；原CPU-CHECKS.json完整保留。新prepare SHA `6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e`，最终sxb7gt7n/`254883005828a1f1aab509ac11fc8717149e930a53fee54d04406fde44f2baba` exit0。R191将使用新未启动准备阶段，尚无formal/clock/GPU，原R189冻结与R190已就绪包不改。下文为首次模型准备记录。
 
 R190/order103仅在完整R189严格过R107/R120双门且safe后，以原Small-CLS/3bf4720a/seed27独立fresh复核；否则仅技术准备。R191/order104为独立Base-CLS/c6a5fb7d/seed29，保留R189原512/ImageNet/logistic/G64P8/AdamW/LR/EMA/age/9:1/24k-800-p4，只改变同家族骨干容量和匹配公开初始化。现役R189仍原0f3冻结，后续尚未formal/clock/GPU。
