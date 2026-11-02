@@ -1,5 +1,9 @@
 # R160：固定批内primal AUC margin1
 
+05:26:06.106449 UTC[完整结果](R160-RESULT.json)：6400 success=attempt、0skip、eval8/bad4，正常早停；唯一EMA c4@3200内部AUROC `.9842021165792284`、AP `.8029835679258244`、error_twice26240。未胜R107/R120，固定margin1配方关闭，R161未formal/activation/GPU；不扫margin/系数/LR，不外推所有AUC目标无效。完整selected不足.996，官方按政策未运行。
+
+[同次终态](R160-COMPLETION.json)已证owner503162/start362128728现Z、八rank缺失、锁持有者与设备使用者空、扫描拒绝0、8PCI busy0；不再重扫安全。freeze广告blob `efe2a826c7e090e683e239b89f548759020d85861b827fc6faaba4a2e5b69c9b`、tensor `e3607ce0cb31e3a1cf47ba996e18335b8a590e2645eb490c30f3a703c1f4c8dd`，本次归档未重hash/load大权重、forward或改原clock/grant。独立R162已串行接续，下文为启动阶段历史证据。
+
 04:34:12.248165 UTC[真实首成功](R160-START.json)：100 success=attempt、0skip；八rank、8PCI和96核mask匹配。345全训/5组初态空AdamW，whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal/R107一致。首自然25更新loss `.9626380801200867` finite，WORLD8/G64P8/448pairs，每rank8图。此证据证明GPU链可运行，尚无完整AUROC收益结论。
 
 运行Git `3ef3b015c9b2781be9a8a1db6e681d159f3f1986` / tree `8fd1a32e09a1c6d2d3b5a30a4357304d8e17bf3e`；SCI `d675741a5196beb27752804efa8eaa974878e06456c25240f546e101b1876e2e`，SITE `621849b29ff25dbebe40e0ce3833cb9eb14837df4d6d96e26fc7f75f46cd8119`。[7目标/5compile与两public fresh](../preparation/aucmargin-20261102/README.md)按精确SHA复用；[唯一正式验收](R160-PREPARATION.json)19/19、85.698秒，精确部署11.040秒、SHA `9e3f73a2fe97e2877fe0ebd6a4ab84b5b0f5d94d2bea3eb48a6e613ac3661a02`；一次activation/direct launch0，无GPU预演。

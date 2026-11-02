@@ -1,5 +1,7 @@
 # R160期间提前准备
 
+实际接续：R160完整6400/0skip/eval8/bad4，唯一EMA c4@3200 AUROC `.9842021165792284`、两门false/官方未跑且actualsafe；R161未formal/GPU。R162以冻结Git608e71b/SCI5ddf唯一formal20/20、精确部署和一次activation/direct launch0，05:29:52 UTC真实八rank/345初态/5空Adam及100成功0skip、首自然25 finite已证，见[实际启动](../../records/R162/README.md)。当前GPU仅R162，下面“未formal/GPU”是此前准备阶段。
+
 05:02:32 UTC实际Git608e71b/tree069bacc已同步回读，[两技术包及入口语法](../../records/preparation/cosine-head-20261102/NEXT-READY.json)完成；3新目标/7compile及原6loss/WORLD按精确SHA消费，未新normalformal/grant/clock/GPU。完整R160结果决定R161或独立R162，旧训练收尾期间沿原正常formal/精确部署，actualsafe后立即一次activation/direct launch；不等待本文后续归档。
 
 R161/order73仅在R160完整工程有效selected同时严格胜R107 `.9884405731067525`及R120 `.9894773092062407`后复核原固定批内margin1/seed20261027；否则不formal/activation/GPU。独立R162/order74直接回R107/public fe6b fresh/seed29/原512及logistic，只把原末端Linear改为固定余弦Linear：`16 * dot(x/max(norm(x),1e-12), w/max(norm(w),1e-12)) + b`，x为原GAP→LN→Flatten→Dropout的输出，之后只加原age一次。scale16、eps1e-12固定，不扫scale/温度/位置或叠R160。

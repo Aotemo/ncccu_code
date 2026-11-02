@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**05:29:52 UTC当前唯一活跃R162/order74，100 success=attempt/0skip/eval0，真实八rank与首自然25 finite已证。** [实际启动](../records/R162/README.md)对应冻结runGit608e71b/tree069bacc、SCI5ddf、正常formal20/20、精确部署和一次activation/direct launch0；直接R107原fe6/512/G64P8/原logistic，仅固定余弦16头，完整收益待结果。R160完整6400/eval8/bad4、唯一EMA c4@3200 AUROC `.9842021165792284`，双门false、官方未跑且同次actualsafe；[完整结果](../records/R160/README.md)不重查旧safe，R161未formal/GPU。交接训练完成至dispatch188.652秒/最晚device250.588秒≤300，首自然25记录322.927秒>300，连续空闲上界未测，不虚报。唯一Git/GPU仍32e3，aa0f准备0–22/23核与peer23/1核、训练24–119/96核互斥，当前r162-pod-context.env绑定START3，不新建/恢复Agent。raw `.999`未达，继续；以下为带时刻的历史状态。
+
 **05:04:14 UTC当前R160 running3975 success=attempt/0skip/eval4/bad0，EMA暂best c4@3200 AUROC `.9842021165792284`，8rank活跃。** 后续runtime Git608e71b/tree069bacc已push/回读、压缩传输，[两技术包](../records/preparation/cosine-head-20261102/NEXT-READY.json)及现有入口语法通过；7受改源/3支持源、两SCI与原WORLD/策略字节均与真实CPU证据一致，未新normalformal/grant/clock/GPU。完整R160双门及safe才R161，否则独立R162；训练收尾正常formal/部署，actualsafe后串行接续，不因文档或重复验收等待。05:04:10协调只读实核仅root32 running与peer a4 idle，无新/恢复Agent，唯一Git/GPU仍32e3；当前R160的3ef冻结保持，raw `.999`未达。
 
 **04:56:40 UTC当前R160 running3000 success=attempt/0skip/eval3/bad0，EMA暂best c3@2400 AUROC `.9835795932767484`，8rank活跃。** 原3ef冻结保持。[R161/R162固定准备](auroc-999/R161-R162-PREPARATION.md)最小实现、[3新目标/7compile及两public fresh](../records/preparation/cosine-head-20261102/README.md)已通过；原6loss/WORLD按SHA复用，不重套件/无GPU预演。现提前同步源码并构建技术包，未新normalformal/grant/GPU；完整R160双门通过才R161固定seed27，否则独立directR107原logistic的R162固定余弦头。raw `.999`未达，以下为此前阶段。
