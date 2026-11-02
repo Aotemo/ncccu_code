@@ -1,0 +1,44 @@
+{
+  "status": "checked_Git_source_and_fixed_R159_R160_technical_package_ready",
+  "at": 1793593740.1789882,
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "runtime/bundle/retrain/experiment91.py": "054badd26b9a880dc2e975d7a72af39a9e88977adf90052e88c0d052b6c780ea",
+    "tools/validation/check_candidate.py": "eda72187d8624752c9d7045502b2417862df042e40a99178fc85db0d6538bb62",
+    "tests/test_candidate_binding.py": "e7b30a82340d16cc01a82d48fdef4008b2fb69df9079e14c5bea21a9c7792888",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "science_sha256": {
+    "R159-SCIENCE.json": "23d1851fcfcb460ab743e315ee581383b21b9da41141bb78d10a97375858ca4f",
+    "R160-SCIENCE.json": "d675741a5196beb27752804efa8eaa974878e06456c25240f546e101b1876e2e"
+  },
+  "branches": [
+    {
+      "science": "R159",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r159-20261102-32e3/technical-package/package",
+      "site_sha256": "2406dcdca38fc5b95dfab3248fa3d45cafb2268a2cae03b334cee6bed297ec25",
+      "seconds": 14.265194416046143,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    },
+    {
+      "science": "R160",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r160-20261102-32e3/technical-package/package",
+      "site_sha256": "8df86e121e1949a3c45c840f44b1816fba24bf58a61799ef5964e6fbfb3897cc",
+      "seconds": 11.540594577789307,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-AUC-MARGIN-NEXT.py": "f6142d51f93dc675700ae1f1d6c2bc8962940b086ae97535fe6e6fee58d462bd",
+    "OBSERVE-SWINV2-START.py": "4ec215b829009932ec227f1ceec76a3c01d0063401f1b2b998931d2802eb1b13",
+    "RUN-AUC-MARGIN-NEXT.sh": "d74fb14c16c6ab0f7d75cd081d2f787483aa5b2ee0c8342c1907db16c4612d6f"
+  },
+  "new_GPU_started": false
+}

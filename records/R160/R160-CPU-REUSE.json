@@ -1,0 +1,19 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/source-git/records/preparation/aucmargin-20261102/CPU-CHECKS.json",
+    "sha256": "2f2ae859b14b644975ce0b12ac2bf06fce94984a535f1588176d080369bfaca3"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "runtime/bundle/retrain/experiment91.py": "054badd26b9a880dc2e975d7a72af39a9e88977adf90052e88c0d052b6c780ea",
+    "tools/validation/check_candidate.py": "eda72187d8624752c9d7045502b2417862df042e40a99178fc85db0d6538bb62",
+    "tests/test_candidate_binding.py": "e7b30a82340d16cc01a82d48fdef4008b2fb69df9079e14c5bea21a9c7792888",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "science_sha256": "d675741a5196beb27752804efa8eaa974878e06456c25240f546e101b1876e2e",
+  "targets_reused": 7,
+  "tests_rerun": false,
+  "at": 1793593757.565165
+}

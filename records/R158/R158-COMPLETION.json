@@ -1,0 +1,445 @@
+{
+  "tool": "observe_round_once",
+  "tag": "continue-5",
+  "mode": "progress",
+  "observed_at": 1793593592.2052438,
+  "observed_at_beijing": "2026-11-02T12:26:32.205244+08:00",
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+  "signals_sent": false,
+  "model_forward_executed": false,
+  "official_read": false,
+  "done": {
+    "present": true,
+    "status": "completed"
+  },
+  "round": "r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_small-s20261029-b64-p8-fp32",
+  "phase": "terminal",
+  "first_success_receipt_read": true,
+  "identity": {
+    "owner_expected": {
+      "pid": 495002,
+      "start_ticks": "361771252"
+    },
+    "owner": {
+      "pid": 495002,
+      "present": true,
+      "readable": true,
+      "state": "Z",
+      "start_ticks": "361771252",
+      "active": false
+    },
+    "owner_status": "exited",
+    "owner_match": true,
+    "ranks_expected": [
+      {
+        "pid": 495021,
+        "start_ticks": "361775365"
+      },
+      {
+        "pid": 495022,
+        "start_ticks": "361775367"
+      },
+      {
+        "pid": 495023,
+        "start_ticks": "361775368"
+      },
+      {
+        "pid": 495024,
+        "start_ticks": "361775369"
+      },
+      {
+        "pid": 495025,
+        "start_ticks": "361775370"
+      },
+      {
+        "pid": 495026,
+        "start_ticks": "361775372"
+      },
+      {
+        "pid": 495027,
+        "start_ticks": "361775374"
+      },
+      {
+        "pid": 495028,
+        "start_ticks": "361775376"
+      }
+    ],
+    "ranks": [
+      {
+        "pid": 495021,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495022,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495023,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495024,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495025,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495026,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495027,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 495028,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      }
+    ],
+    "rank_status": [
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing"
+    ],
+    "rank_matches": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "rank_count": 8
+  },
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "skipped_updates": 0,
+    "evaluated_cycle": 8,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "metrics": {
+    "event": "completed",
+    "at": 1793593465.6751976,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "cycle": 8,
+    "loss": null
+  },
+  "status_best": {
+    "best_metrics": {
+      "auroc": 0.9846632895479903,
+      "ap": 0.8075561026198592,
+      "variant": "online",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 25474
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9864032241168177,
+      "ap": 0.8270582470791915,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 22584
+    },
+    "lineage_best": {}
+  },
+  "head_warmup_phase_proofs": {},
+  "selected": {
+    "auroc": 0.9864032241168177,
+    "ap": 0.8270582470791915,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "error_twice": 22584
+  },
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9864032241168177,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 4,
+        "variant": "ema",
+        "successful_updates": 3200,
+        "error_twice": 22584,
+        "ap": 0.8270582470791915,
+        "auroc": 0.9864032241168177,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102/outputs/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "prediction_sha256": "ba4d5a8c7a595616a2dc840a7341cab116a48f036a0fd6ec7e4dabbf07f905a7",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102/outputs/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "precision_sha256": "4edf2019068ddfaf344e04db4e8ae8a54ff8a939c04be32b2fa7830c826e7284",
+        "tensor_sha256": "1247fe883ce09c285f8381d590e6ed850f8d7be713f53b5b3ab4dd128bb8fb4d"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9864032241168177,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "safety": {
+    "safe": true,
+    "reason": "terminal_idle",
+    "identity": {
+      "owner_expected": {
+        "pid": 495002,
+        "start_ticks": "361771252"
+      },
+      "owner": {
+        "pid": 495002,
+        "present": true,
+        "readable": true,
+        "state": "Z",
+        "start_ticks": "361771252",
+        "active": false
+      },
+      "owner_status": "exited",
+      "owner_match": true,
+      "ranks_expected": [
+        {
+          "pid": 495021,
+          "start_ticks": "361775365"
+        },
+        {
+          "pid": 495022,
+          "start_ticks": "361775367"
+        },
+        {
+          "pid": 495023,
+          "start_ticks": "361775368"
+        },
+        {
+          "pid": 495024,
+          "start_ticks": "361775369"
+        },
+        {
+          "pid": 495025,
+          "start_ticks": "361775370"
+        },
+        {
+          "pid": 495026,
+          "start_ticks": "361775372"
+        },
+        {
+          "pid": 495027,
+          "start_ticks": "361775374"
+        },
+        {
+          "pid": 495028,
+          "start_ticks": "361775376"
+        }
+      ],
+      "ranks": [
+        {
+          "pid": 495021,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495022,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495023,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495024,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495025,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495026,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495027,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 495028,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        }
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_count": 8
+    },
+    "lock": {
+      "present": true,
+      "readable": true,
+      "holders": []
+    },
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  }
+}

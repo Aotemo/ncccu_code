@@ -1,5 +1,7 @@
 # R158期间固定后续
 
+执行接续：R158完整6400/eval8/bad4、EMA c4@3200 AUROC `.9864032241168177`，两门false且同次actualsafe；R159未formal/GPU。R160运行Git3ef3b015/tree8fd1a32已push/回读/精确部署，唯一formal19/19、一次activation/direct launch0；04:34:12 UTC真实8rank/345初态/5空Adam及100成功0skip/首自然25 finite已证，见[实际启动](../../records/R160/README.md)。原R158冻结和clock不改，下面“待Git/未formal”为准备阶段记录。
+
 R159/order71仅在R158完整工程有效selected同时严格胜R107 `.9884405731067525`及R120 `.9894773092062407`且actualsafe后，复现同公开14a83735初始化/原logistic/RGB512的固定seed20261027；否则未formal/activation/GPU。根32e3仍唯一Git/GPU，aa0f根0–22/23核准备与peer23/1核及训练24–119/96核互斥，不创建/恢复Agent，不热改R158的c10冻结。
 
 独立R160/order72直接R107/public fe6b358a fresh、seed29、RGB512、原G64P8/采样/增强/age/AdamW/LR/EMA/24k-800-p4，仅替换损失为固定批内primal AUC margin1。全448个raw差值`d=z_n-z_p`，`mu=mean(d)`，`L=mean((d-mu)^2)+relu(1+mu)^2`。等于两类各自总体方差之和，加`relu(1+mean_neg-mean_pos)^2`；两项系数均1、margin固定1，不扫描。
