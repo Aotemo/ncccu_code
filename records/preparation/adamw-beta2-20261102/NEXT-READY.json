@@ -1,0 +1,49 @@
+{
+  "status": "checked_Git_source_and_fixed_R167_R168_technical_package_ready",
+  "at": 1793606140.3298986,
+  "source_files": {
+    "runtime/bundle/retrain/config.py": "9bff741eb994a8ea6ed2a7f4468837b4468a4409df9c9194cfeb0d457a2ebf09",
+    "runtime/bundle/retrain/engine.py": "87879b7aba9ebb35a03716b28aaf84ce622961420af66bed569bf5e8f1783d57",
+    "runtime/bundle/retrain/experiment91.py": "39001fae36346c6de23678cf4dba7d10f0fe9658afe04cf544293ec7f77b1008",
+    "tools/validation/check_candidate.py": "d48a4b6a309ec4757cf11e5243e80f65effa87b3e922a72d70fc58aa82d6f9a0",
+    "tests/test_adamw_policy.py": "49261944e6e377c4db2f094939891ad92862b3dc0c89d9c66b3b3a0786d307f3",
+    "tests/test_candidate_binding.py": "a8f161a21e1787bb820633646df3e3fd6da5139007f09253d3b71f1eb519418e",
+    "runtime/bundle/retrain/models.py": "8af71ab33de031390d11a179b8e93f0e5e889480946275d90dfd037305830729",
+    "runtime/bundle/retrain/inference.py": "3210bbeff465e9b6580469bf92c51313c2c4df3dd5d425a7f844959856ff6759",
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "science_sha256": {
+    "R167-SCIENCE.json": "b79dc0efd5d237f1497327f18e783c98d956202ccb299c1cb52457cdbef0e0f4",
+    "R168-SCIENCE.json": "d71e02eb026b8f4d689878ba653cc6d502bcedd858c5e04cb727f573e9ca2266"
+  },
+  "branches": [
+    {
+      "science": "R167",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r167-20261102-32e3/technical-package/package",
+      "site_sha256": "737ba1218598da84753779324384337bd09a47dba2f5f5e0a968d9383bd77448",
+      "seconds": 5.983937978744507,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    },
+    {
+      "science": "R168",
+      "package": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r168-20261102-32e3/technical-package/package",
+      "site_sha256": "ff071be288c77480c63612d45389ab0459265df7545135514be33a3ab9242b48",
+      "seconds": 6.126057386398315,
+      "normalformal_executed": false,
+      "grant_created": false,
+      "clock_created": false,
+      "activation_executed": false
+    }
+  ],
+  "helper_source_sha256": {
+    "PREPARE-BETA2-NEXT.py": "38650b930660a265fbebe42426f3ed924e302df14db1593155cfefb62d744c78",
+    "OBSERVE-SWINV2-START.py": "4ec215b829009932ec227f1ceec76a3c01d0063401f1b2b998931d2802eb1b13",
+    "RUN-BETA2-NEXT.sh": "6fa464c031def07070c05b1f919c28a20e453ff72d80027131c05fb38990cf8c"
+  },
+  "new_GPU_started": false
+}
