@@ -1,5 +1,7 @@
 # R193：Small sigmoid 骨干学习率减半
 
+23:39:13.007 UTC的[既有监控单次快照](R193-DEVICE-POINT.json)中，八个绑定PCI全部可读、busy均99%–100%；这是瞬时资源观察，未测连续利用率。[CPU回执](R193-CPU-DEVICE-POINT.json)45w5_4x5/`04d1f06c4fbd0e1b8b09ad0624995689634cd2d2d3033c9b96ea66ee5c27180c` exit0，未调用GPU API、forward或构建模型，未改运行。
+
 [真实八rank初态与首自然25](R193-START.json)已证345全训张量、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`；首25成功=尝试、有限loss `.9362108111381531`、WORLD8/G64P8/448对、各rank8输入。23:35最新700成功/零跳步/eval0，八rank活跃；尚无完整selected或官方结果，raw `.999`未达。
 
 直接R120原Small/公开fe6b/seed20261029/512/FP32/ImageNet/pair-sigmoid，只把骨干LR `1e-4→5e-5`；head与age仍`1e-3`，default AdamW、WD、采样、增强、EMA、warmup1600与原24k余弦保持。训练最多24000成功更新、每800内部评估、连续4次无提升早停，唯一checkpoint按完整内部dev AUROC选择；官方5849仍隔离。首25日志下一步两骨干组LR `8.125e-7`、其余三组`1.625e-5`，符合原warmup及20:1比例。仅检验此固定较慢骨干适配配方，不预判收益或临床原因。后续R195的8k衰减没有进入本轮。
