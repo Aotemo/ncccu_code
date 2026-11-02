@@ -21,12 +21,13 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
-    def test_R153_to_R158_science_consumes_geometry_model_loss_and_fresh_identity(self):
+    def test_R153_to_R160_science_consumes_geometry_model_loss_and_fresh_identity(self):
         from retrain import age,config,single91
         original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
         for label,order,size,seed,model in [('R153',65,768,20261027,'convnext_small'),('R154',66,512,20261029,'swin_v2_small'),
                                          ('R155',67,512,20261027,'swin_v2_small'),('R156',68,512,20261029,'convnext_small'),
-                                         ('R157',69,512,20261027,'convnext_small'),('R158',70,512,20261029,'convnext_small')]:
+                                         ('R157',69,512,20261027,'convnext_small'),('R158',70,512,20261029,'convnext_small'),
+                                         ('R159',71,512,20261027,'convnext_small'),('R160',72,512,20261029,'convnext_small')]:
             path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
             self.assertEqual((science['candidate']['experiment_order'],science['job']['seed'],science['job']['model']),(order,seed,model))
             site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),**{k:str(ROOT/v) for k,v in science['paths'].items()})
@@ -43,8 +44,8 @@ class CandidateBindingTest(unittest.TestCase):
                 saved=config.job_contract(resolved)
                 self.assertEqual((saved['model'],saved['seed'],saved['image_size'],saved['prepared_size']),(model,seed,size,size))
                 self.assertEqual(saved['loss'],science['job']['loss'])
-            if label in ('R153','R155','R157'):
-                baseline=json.loads((ROOT/'configs'/({'R153':'R152','R155':'R154','R157':'R156'}[label]+'-SCIENCE.json')).read_text())
+            if label in ('R153','R155','R157','R159'):
+                baseline=json.loads((ROOT/'configs'/({'R153':'R152','R155':'R154','R157':'R156','R159':'R158'}[label]+'-SCIENCE.json')).read_text())
                 science['job']['seed']=baseline['job']['seed']
                 for value in (science,baseline):
                     for key in ('candidate_profile','comparison_note','initial_model_tensor_sha256'):value.pop(key)
@@ -64,6 +65,13 @@ class CandidateBindingTest(unittest.TestCase):
                 for key in ('data_split','schedule','early_stopping','structure'):
                     self.assertEqual(science[key],baseline[key])
                 self.assertEqual(science['public_source']['revision'],'14a837353b6ffeced1c635dc5c8c799356e316f4')
+            if label=='R160':
+                baseline=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())
+                self.assertEqual(science['job']['loss'],experiment.PAIR_AUC_MARGIN_LOSS)
+                self.assertEqual(science['initial_model_tensor_sha256'],baseline['initial_model_tensor_sha256'])
+                self.assertEqual(science['public_source'],baseline['public_source'])
+                self.assertEqual({k:v for k,v in science['job'].items()if k!='loss'},
+                                 {k:v for k,v in baseline['job'].items()if k!='loss'})
 
     def test_R154_swin_v2_static_buffers_EMA_and_strict_cold_reload(self):
         import torch

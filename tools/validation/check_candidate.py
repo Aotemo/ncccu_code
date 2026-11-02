@@ -160,6 +160,13 @@ def main(args):
               and (job['effective_batch'],job['positive_per_batch']) == (64,8)
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
               and job.get('training_views') is None and job.get('native_local_view') is None)
+    if ex.science_configuration()['candidate_profile'] == ex.AUC_MARGIN_SMALL_BINDING:
+        from retrain.classification_loss import PAIRWISE_LOSS_KINDS
+        check('fixed_batch_primal_AUC_margin1_WORLD_and_official_bound',
+              job['loss'] == ex.PAIR_AUC_MARGIN_LOSS and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
+              and (job['effective_batch'],job['positive_per_batch']) == (64,8)
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
+              and job.get('training_views') is None and job.get('native_local_view') is None)
     if is_photo_identity:
         from unittest.mock import patch
         from retrain.data import ImageDataset

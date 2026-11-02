@@ -1,0 +1,30 @@
+{
+  "R159": {
+    "model_tensor_sha256": "48f668d7c7735042960d2fec37bc84af3dae309e94f7268ba5addf9909fca1e0",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/fresh/R159-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "4a8f61b4287edadf1508de031dcc3acf659cc0496db28a3e9a350a6c2fd555f4"
+    },
+    "new_image_forward": false
+  },
+  "R160": {
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "parameter_tensors": 345,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "GPU_initialized": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/fresh/R160-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "5c969be03f09a37658dad0b8c6bfc59b84633d26a2381b9a156882e2b9459f21"
+    },
+    "new_image_forward": false
+  }
+}

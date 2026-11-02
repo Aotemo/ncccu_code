@@ -1,0 +1,139 @@
+{
+  "status": "seven_targets_five_compiles_passed_original_RED_preserved",
+  "at": 1793593020.6942077,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R153_to_R160_science_consumes_geometry_model_loss_and_fresh_identity"
+  ],
+  "tests_run_now": 1,
+  "core_loss_targets_reused": 6,
+  "passed_targets": 7,
+  "compiled_sources": 5,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 3.1425297260284424,
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "1081c1e1e87774887190730dfd9f8d72dc8e255c4145113cd85b7f2232d228d4",
+    "runtime/bundle/retrain/experiment91.py": "054badd26b9a880dc2e975d7a72af39a9e88977adf90052e88c0d052b6c780ea",
+    "tools/validation/check_candidate.py": "eda72187d8624752c9d7045502b2417862df042e40a99178fc85db0d6538bb62",
+    "tests/test_candidate_binding.py": "e7b30a82340d16cc01a82d48fdef4008b2fb69df9079e14c5bea21a9c7792888",
+    "tests/test_auc_margin_loss.py": "0afd9dbb9ed08787fc4ad3f535b60c0b7890122189d31237eee81a3eb8300a36",
+    "tests/test_pairwise_hard_positive_loss.py": "a54617d15613c8b65e13bf068f4d9833ea0b44e2bfef49c571e691f7cbdde01c"
+  },
+  "configuration_files": {
+    "runtime/CLOCK_POLICY.json": "2c0121fcff95520fc24034db052dd38650100bb9a0db5e151770c67ffad049f8",
+    "runtime/PLAN.md": "71c871c43561856ee9cc86b936666f0003fbca765540bceceb12e1ed0d50720d",
+    "configs/RESOURCE-POLICY.json": "725b2b90d6932a4e80d1f60993f024209e95a263172a37562629f1f0e8d8c4bf"
+  },
+  "science_sha256": {
+    "R159-SCIENCE.json": "23d1851fcfcb460ab743e315ee581383b21b9da41141bb78d10a97375858ca4f",
+    "R160-SCIENCE.json": "d675741a5196beb27752804efa8eaa974878e06456c25240f546e101b1876e2e"
+  },
+  "core_original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/CORE-CHECKS.json",
+    "sha256": "75463ed46013e6fd3fc071ba7eb3d8afa4e484cfe539883932905d64a4f27876"
+  },
+  "public_fresh_reports": {
+    "R159": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/fresh/R159-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "4a8f61b4287edadf1508de031dcc3acf659cc0496db28a3e9a350a6c2fd555f4"
+    },
+    "R160": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/fresh/R160-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "5c969be03f09a37658dad0b8c6bfc59b84633d26a2381b9a156882e2b9459f21"
+    }
+  },
+  "unchanged_model_WORLD_files": {
+    "models": "50168430774acdb6608667464a531c60c12202c1ff7e96474c7c27d094ae6647",
+    "config": "60c2ac4d5fd5777c2becaf378c7bccf84698b57a2772a4a26a4ba87ceadebc41",
+    "engine": "12cd92f27c5a72c6a741b0f55be3e8458e9ccac22e10619af974cdeff23da133",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "ema": "6953381b5f282064020116f566391fb7c040689beb3cdcaa81c71cc5baa82acf",
+    "inference": "1de3c53975a38d09fc5a0ce427efd51c36e1ac9ebe0e791bdef53be6d32d4643"
+  },
+  "evidence": [
+    {
+      "scope": "RED_unsupported_margin_version",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g4enk_jv/CPU-RECEIPT.json",
+      "sha256": "bd340c0143087c9f6e75f783058e95c44e5d9e565fcf4f87bcff176878de6492",
+      "exit_code": 1,
+      "output_sha256": "93f4b41b751ee756453fb92c94706bb6a4c2cf26ccb78191f271673456edc805"
+    },
+    {
+      "scope": "six_new_and_legacy_loss_targets",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gjdhg3jc/CPU-RECEIPT.json",
+      "sha256": "a5c3034eca8461c9d2f18cfc99b8a672de4e51fe712acdcb13e6f5001462c3fd",
+      "exit_code": 0,
+      "output_sha256": "b68188917fa94c6af7ae55cf92e124eec6aa8b836c28fa1cd05b4dd47cb7f098"
+    },
+    {
+      "scope": "actual_two_public_fresh_initials",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6gv7zj0i/CPU-RECEIPT.json",
+      "sha256": "1ae9f4fa260bd75198c539812a3584ececfd68a9bb706bb2f7c967587961ee99",
+      "exit_code": 0,
+      "output_sha256": "e26288643ee2b79390764982df46470aacdc83eb56166473829d0e2083dd2435"
+    },
+    {
+      "scope": "final_configuration_and_five_compiles",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g5t7hc2t/CPU-RECEIPT.json",
+      "sha256": "7c7e74241d02d341c042b65ce9da9eeca0bacb3055e69525911d5eedcee1123a",
+      "exit_code": 0,
+      "output_sha256": "47d54b24c68ed19c1291f45bbcd1f91dc6a9e5d6616bdd12b7f329dbb2c8c7fa"
+    }
+  ],
+  "budget_scenarios": {
+    "R157_and_R158_same_Small512_graph": {
+      "reference": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-positive-20261102-32e3/source-cpu/records/R107/ROUND_RESULT.json",
+        "sha256": "55c9ea1ad3db96fa773e4d3d9cd4fa6830ae4ee792b332f5238a331af05adda5",
+        "successful_updates": 6400,
+        "train_wall_seconds": 3220.652200460434
+      },
+      "full_24k_scenario_multiplier": 2.0,
+      "scenario_seconds": 24154.891503453255,
+      "train_soft_seconds": 27750,
+      "extra_model_forward": false,
+      "current_GPU_benchmark": false,
+      "guaranteed_upper_bound": false,
+      "early_stop_assumed": false,
+      "active_clock_changed": false
+    },
+    "current_GPU_benchmark": false,
+    "early_stop_assumed": false,
+    "active_clock_changed": false
+  },
+  "actual_GPU_initialized": false,
+  "official_read": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "final_report": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/aucmargin-20261102-32e3/FINAL-CHECKS.json",
+    "sha256": "eaf3a046ff951b9229759a01f2de8875f210e5b1dbd63e60b11733f6ed85d1d6"
+  },
+  "active_R158_changed": false,
+  "new_normalformal_executed": false,
+  "new_grant_created": false,
+  "new_GPU_started": false
+}

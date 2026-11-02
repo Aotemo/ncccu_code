@@ -10,4 +10,4 @@ R159/order71仅在R158完整工程有效selected同时严格胜R107 `.9884405731
 
 先实际RED，再CPU独立解析8×56值/逐logit梯度、均值间隔小于/等于/超过1及方差非零、平移与共享bias梯度0、极值有限、两rank真实WORLD/DDP完整参数梯度；受影响的旧None/logistic/sigmoid/hard-positive值/梯度复核。两fresh身份实际核定，源码/SCI push回读、技术包在当前训练期间完成；旧训练收尾正常formal/部署，actualsafe后立即一次activation/direct launch，真实八rank/首自然成功证明GPU链，不加GPU预演。
 
-R160完整selected未严格胜R107则关闭精确配方，同时严格过R120才有固定seed27资格；不扫margin/系数/LR。官方仍仅完整selected≥.996后5849一次，raw .999未达。旧代码不支持新版本的实际RED已复现，必要最小实现进行中，尚未新CPU通过/formal/grant/GPU。
+R160完整selected未严格胜R107则关闭精确配方，同时严格过R120才有固定seed27资格；不扫margin/系数/LR。官方仍仅完整selected≥.996后5849一次，raw .999未达。必要最小实现及[7目标/5compile、两fresh证据](../../records/preparation/aucmargin-20261102/README.md)已通过，原RED保留；当前待实际Git/技术包，未normalformal/grant/GPU。

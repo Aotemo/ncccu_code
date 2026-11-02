@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "48f668d7c7735042960d2fec37bc84af3dae309e94f7268ba5addf9909fca1e0",
+  "candidate": {
+    "id": "r159-convnext-small-imagenet22k-to-1k-public384-24k-p4-seed20261027-scale085-pairlog-9010",
+    "experiment_order": 71,
+    "model": "convnext_small",
+    "public_revision": "14a837353b6ffeced1c635dc5c8c799356e316f4",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "218df88c96a379af7db5732c2adc684047ec487159ff0ebd7ee43acf59aaf3d8",
+    "provenance_sha256": "ec9c4e396a2a7a132841f703a17a6af7ee4f64665c09ba30b81c005a0e7a0800",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_small",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "14a837353b6ffeced1c635dc5c8c799356e316f4",
+    "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k_384/resolve/14a837353b6ffeced1c635dc5c8c799356e316f4/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "24f8525364a67ec20ae1ab21f45a525638950a8dc057534506b7aaee63b7e2a6",
+    "sha256": "218df88c96a379af7db5732c2adc684047ec487159ff0ebd7ee43acf59aaf3d8",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "ec9c4e396a2a7a132841f703a17a6af7ee4f64665c09ba30b81c005a0e7a0800"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/small384-20261102-32e3/PUBLIC-HANDOFF.json",
+    "sha256": "52ef8fa708987329882ffdef98d2521cd79c204d169a049629f6982e8ccd4704"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/small384-14a83735/converted/convnext-small-tv-14a83735.pt",
+    "public_provenance": "assets/small384-14a83735/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "convnext_small",
+    "seed": 20261027,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Conditional same public14a83735 Small384 initialization/original logistic/RGB512 fixed seed20261027, only after complete R158 selected strictly beats R107 and R120 and actualsafe. Independent public fresh; no trained initialization.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}
