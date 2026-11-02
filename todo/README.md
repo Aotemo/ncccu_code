@@ -1,6 +1,6 @@
 # 当前任务与接续
 
-**2026-11-02 00:36:55 UTC当前R152 running5900success=attempt/0skip/eval7/bad0，EMA暂best .9863165284151183/AP .8393444798002904（c7@5600）。** 第七轮有提升，继续原patience4合同，无完整selected/官方；原b58冻结与8rank不改。R154原04172db源码另经实际CPU rank8×512两次priming前后向，402参数/804有限梯度、状态/RNG完整恢复通过，[附加启动证据](../records/preparation/swinv2-20261101/PRIMING-CPU.json)；未新normalformal/grant/clock/GPU，三目标/12compile原证据直接复用。唯一owner32e3，b781准备池至05:11 UTC，raw .999未达。
+**2026-11-02 00:44:44 UTC当前R152 running6400success=attempt/0skip/eval8/bad0，EMA暂best .9875832489455033/AP .8411653623453575（c8@6400）。** 第八轮有提升，继续原最多24000/每800/patience4合同，无完整selected/官方；原b58冻结与8rank不改。R154原04172db源码另经实际CPU rank8×512两次priming前后向，402参数/804有限梯度、状态/RNG完整恢复通过，[附加启动证据](../records/preparation/swinv2-20261101/PRIMING-CPU.json)；未新normalformal/grant/clock/GPU，三目标/12compile原证据直接复用。唯一owner32e3，b781准备池至05:11 UTC，raw .999未达。
 
 **后续准备已实际同步并构建技术包：Git04172db/treec3e626dc。** 23:48:16 UTC实核12源、两SCIENCE、集中策略与原CPU通过字节一致，R153/R154技术包及既有入口wrapper语法通过，[接续回执](../records/preparation/swinv2-20261101/NEXT-READY.json)。当前唯一GPU仍为R152的b58冻结；新分支无normalformal/grant/clock/activation/GPU。完整结果决定R153资格，否则采用独立R154，前轮freeze期间完成正常formal与精确部署，actualsafe后串行接续。以下23:44数字为此前观测，不是新终态。
 
