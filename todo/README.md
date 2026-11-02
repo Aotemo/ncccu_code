@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**03:49:52 UTC当前唯一活跃R158/order70，running2075 success=attempt/0skip/eval2/bad0，EMA暂best `.9794097708464029`。** [八rank初态与自然首成功](../records/R158/README.md)已证，原C10冻结/512输入/原logistic保持，18/18正常formal、精确部署和一次launch0。R156完整6400/eval8/bad4、唯一EMA c4@3200 `.9860275427427871`，两门false/官方未跑/actualsafe；原难20组错序质量净多2139，整体净多2004，[阴性收口](../records/R156/README.md)不重查安全，不扫topk/系数。R157未formal/activation/GPU。根32e3唯一Git/GPU、peer仅CPU23只读，aa0f根0–22/23核与训练24–119/96核互斥至07:33:47 UTC，当前r158-pod-context.env绑定START3。raw `.999`未达，继续；以下状态均为此前阶段。
+
 **03:22:54 UTC当前R156 running5725 success=attempt、0skip、eval7/bad3，暂best EMA c4@3200 AUROC `.9860275427427871`；8rank活跃。** 后续runtime Gitc10dd8c/tree04355a55已push/回读，[两技术包](../records/preparation/small384-20261102/NEXT-READY.json)已实际构建，5源/两SCI/策略与原loss-WORLD SHA、现有入口调用语法通过。尚未新normalformal/grant/clock/GPU；完整R156双门及safe才R157，否则独立R158，前轮收尾期间正常formal/精确部署，安全释放后立即串行接续。原R156的874feff冻结不改，raw `.999`未达；下方“待Git/技术包”为此前阶段。
 
 **03:14:36 UTC当前R156 running4725 success=attempt、0skip、eval5/bad1，暂best EMA c4@3200内部AUROC `.9860275427427871`；8rank活跃。** 原874feff冻结不改。[R157/R158固定后续](auroc-999/R157-R158-PREPARATION.md)已完成[1配置目标/5compile、公开来源344严格链、两fresh和新512保存冷加载](../records/preparation/small384-20261102/README.md)，旧6loss/WORLD目标按原SHA复用。只读复核无阻断；新方案仅同架构不同公开初始化，不把潜在收益归因于384像素。现待实际Git同步/回读及技术包，无新normalformal/grant/GPU；完整R156双门及safe才R157，否则独立R158。raw `.999`未达，下方running为此前状态。

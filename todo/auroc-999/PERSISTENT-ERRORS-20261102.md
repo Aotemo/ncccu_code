@@ -33,4 +33,4 @@
 - [x] 将单条可证伪优化交唯一owner并获接纳：fit批内`0.5×原8正例均值+0.5×最难2正例均值`，全部448pairs保留，不用dev名单，不新增模型forward。
 - [x] owner完成R152/R154接续后已登记[R155/R156](R155-R156-PREPARATION.md)，完成最小新loss及6目标/6compile的[CPU证据](../../records/preparation/hard-positive-20261102/README.md)。分析会话未越界改runtime/config/GPU；实际Git/技术包由owner继续，尚无新训练收益。
 
-当前状态：14轮现成预测与32图分析已由32e3实际同步Git6629b9e并远端回读。稳定难例没有单一图像根因；下一独立fresh损失已完成最小实现和CPU验证，未训练或获得新收益。逐例资料只在exp-v3，不改旧selected/clock/grant，不改变官方隔离和现有GPU接续。
+当前状态：14轮现成预测与32图分析已由32e3实际同步Git6629b9e并远端回读。固定损失R156完整6400/eval8/bad4、AUROC `.9860275427427871`，原20难组错序质量净多2139；[精确合同阴性收口](../../records/R156/README.md)，不扫topk/权重，也不外推所有困难样本方法无效。原组不重选，逐例资料只在exp-v3；当前独立R158冻结运行，不改旧selected/clock/grant或官方隔离。

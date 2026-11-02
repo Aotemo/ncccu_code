@@ -1,0 +1,19 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small384-20261102-32e3/source-git/records/preparation/small384-20261102/CPU-CHECKS.json",
+    "sha256": "94f94f0db514c78486224bc0609a7567242e41c4b906b1ef02f8f8abb1933b3c"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "ad8b3aa0a6b489d136ac07f3062412617a53c82ca3f7d7b36c9850c0535331cb",
+    "tools/validation/check_candidate.py": "9db46fe8160149e06aa6d951d533ac373aa7bd4ef93d1f40333f9a6570bc9994",
+    "tests/test_candidate_binding.py": "c17c5c5e109d286ccd4187b277014d7c55fd7c61190c3f8cb74d648f0eebf84c",
+    "tools/pretraining/small_source.py": "40c7af1b248e678ce85387a2aef9a1ec1c079e4c78957065ecdbb07c91a1ee3b",
+    "tools/pretraining/small_strict.py": "edb5d8e3491ac00cebcbbf54151c2f6f029d65381fc93eea8f12f48f24edf445"
+  },
+  "science_sha256": "d4766e6dd4939d3563b691b0247a55dc30ebdc75519483bc7d7e4398bc0077f2",
+  "targets_reused": 1,
+  "unchanged_loss_targets_reused": 6,
+  "tests_rerun": false,
+  "at": 1793590155.198622
+}

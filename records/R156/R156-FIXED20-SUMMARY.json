@@ -1,0 +1,59 @@
+{
+  "generated_at_utc": "2026-11-02T03:53:54.672932+00:00",
+  "selected": {
+    "error_twice": 23208,
+    "ap": 0.8255205020020818,
+    "auroc": 0.9860275427427871,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "tensor_sha256": "02bfc24718ab07ae0cee91c97aaf6775c4ac949e1044022aee53c85cd864436a"
+  },
+  "groups": {
+    "fixed20_positive": {
+      "positive_count": 20,
+      "R107_error_mass": 6623.0,
+      "R156_error_mass": 8762.0,
+      "repaired_mass": 814.0,
+      "introduced_mass": 2953.0,
+      "shared_mass": 5809.0,
+      "change_R156_minus_R107": 2139.0
+    },
+    "remaining147_positive": {
+      "positive_count": 147,
+      "R107_error_mass": 2977.0,
+      "R156_error_mass": 2842.0,
+      "repaired_mass": 749.0,
+      "introduced_mass": 614.0,
+      "shared_mass": 2228.0,
+      "change_R156_minus_R107": -135.0
+    }
+  },
+  "fixed20_definition": "Exact original four-anchor mean-contribution sort; R156 excluded",
+  "fixed20_indices_sha256": "37bc23e5065e8ae2fce14d5ee1a9b06aea777f8359d0b35e5d4bf07c0310285e",
+  "old_private_selection_sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b",
+  "prediction_sha256": "b639d83fafc52f2c27a87d0066c0ea93e6caa50012607eb8e3a8636c5895e56a",
+  "precision_sha256": "3869e450f173972ce8431c2a193e2498f6eaef447a141cac6b0fa13605c284ce",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "original_diagnostic_sha256": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+  "script_sha256": "dbd7f6c157b9b0040251736dea4b76fdce9c5bf3e3286375acd018ca25cac57f",
+  "source_original_reads": {
+    "R156_selected_csv": 1,
+    "R156_selected_precision": 1,
+    "old_round_CSVs": 0
+  },
+  "rows_labels_order_verified": true,
+  "per_class_contribution_total_verified": true,
+  "original_group_definition_unchanged": true,
+  "groups_are_disjoint": true,
+  "counts_are_pair_mass_not_images": true,
+  "official_read": false,
+  "images_read": false,
+  "model_loaded": false,
+  "new_forward": false,
+  "git_or_runtime_modified": false,
+  "executor_id": "a4e26231-4059-407f-b171-98e65362ec47",
+  "cpu_mask": [
+    23
+  ]
+}
