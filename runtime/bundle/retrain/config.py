@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'swin_base', 'swin_v2_small', 'deit3_small')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 ADAMW_BETA2_RULE = {'version':'adamw-beta2-095-v1','betas':[.9,.95],'eps':1e-8,
     'amsgrad':False,'scope':'all_existing_groups','algorithm':'torch.optim.AdamW'}

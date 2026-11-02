@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-large-dc2e53fa-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "3360682ea3aed68301752371888352f31e7a12ab541f8d438e7df4bcd71450e0",
+  "candidate": {
+    "id": "r180-convnext-large-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 92,
+    "model": "convnext_large",
+    "public_revision": "dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 1536,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "b27d6640f40b2e9a296b4c4374b0aa89a0bbdf4e6240dd04b9176a9e63044f21",
+    "provenance_sha256": "d57564b87040538ea4b500b305acdb1bed620682b74ecca145e8c5212f8ae4d3",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_large",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854",
+    "source_url": "https://huggingface.co/timm/convnext_large.fb_in22k_ft_in1k/resolve/dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277",
+    "sha256": "b27d6640f40b2e9a296b4c4374b0aa89a0bbdf4e6240dd04b9176a9e63044f21",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "d57564b87040538ea4b500b305acdb1bed620682b74ecca145e8c5212f8ae4d3"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/large22k-20261102-32e3/LARGE-HANDOFF.json",
+    "sha256": "fd9a6ae244a08177341d8f10bfe5431b7ef021192c2c7d095ffb2e004baea9b3"
+  },
+  "structure": {
+    "features": 1536,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 196230336,
+    "public_parameters": 197767336,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      1536
+    ],
+    "stage_widths": [
+      192,
+      384,
+      768,
+      1536
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/large22k-dc2e53fa/converted/convnext-large-tv-dc2e53fa.pt",
+    "public_provenance": "assets/public/large22k-dc2e53fa/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-large",
+    "model": "convnext_large",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent direct R107 original seed29/512/ImageNet input/448-pair logistic/G64P8/sampling augmentation/default AdamW/LR/EMA/age/24k-800-p4; only backbone and its matching fixed public ImageNet22K-to-1K initialization change together to native ConvNeXt Large/dc2e53fa. Full native network/avgpool/final LN/Dropout.2/Linear1536-to-1/external age once. This paired architecture-and-initialization comparison is not a pure capacity causal ablation. No joint BCE, DINOv3, ROI, MIL, beta2, normalization/resolution/source/LR/seed scan or teacher. Prior Small/Base results do not establish Large benefit. Main criterion complete overall internal AUROC versus R107 and singlebest R120; AP or local groups cannot rescue a negative. Exact new round storage32GiB is engineering headroom, not scientific delta or peak guarantee; original free16GiB/clock/resource policy unchanged. Clock truncation is engineering failure, not scientific negative. Official isolated until complete selected>=.996 once. Draft initial identity must be replaced by actual public fresh CPU evidence before adoption.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

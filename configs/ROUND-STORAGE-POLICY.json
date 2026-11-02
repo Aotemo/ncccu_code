@@ -5,6 +5,7 @@
     "r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030": 17179869184,
     "r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031": 17179869184,
     "r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102": 17179869184,
-    "r175-baseclip-seed20261027-scale085-pairlog-storage16-24k-p4-9010-20261102": 17179869184
+    "r175-baseclip-seed20261027-scale085-pairlog-storage16-24k-p4-9010-20261102": 17179869184,
+    "r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102": 34359738368
   }
 }

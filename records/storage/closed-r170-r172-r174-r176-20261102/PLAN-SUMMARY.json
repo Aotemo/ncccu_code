@@ -1,0 +1,92 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "3bfd59e6ea1d389ca722ff9325243c7dbcff5198d2a4e60144e22c46844f1ba3",
+  "inventory_sha256": "1eb49350e376d81b4cc12040a334a8f4ac0406ac0eeacff4a5c76fc7b6c841f9",
+  "source_commit": "30023dadf504245fc5cbf2cec76b91d97d4f448f",
+  "candidate_count": 35,
+  "skipped": [],
+  "logical_bytes": 36507477730,
+  "allocated_bytes": 36507485184,
+  "filesystem_free_now": 21448622080,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r176-small-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102"
+  ],
+  "conclusions": {
+    "R170": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/source-cpu/records/R170/R170-FAILED.json",
+        "sha256": "a2dff5faf720160e03650fdd61c916f56ed779293cf1663ac1c4d418f9d2e7a6",
+        "git_blob": "ac428db03deb3ed994614e8c04a811ace42aac05"
+      },
+      "selected": null,
+      "status": "failed",
+      "historical_actual_safe": true,
+      "R170_release_reason": "engineering failure fully archived; independent R174 completed and safe; failure metadata and null scientific result preserved"
+    },
+    "R172": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/source-cpu/records/R172/R172-RESULT.json",
+        "sha256": "92a7ff95611a9a12da81dad1f4a5f621536e8ed6d6ca4a2385c21ec87e9eaf00",
+        "git_blob": "bbe6c572b6369bf475437ed9dfe5a1433c6dbeae"
+      },
+      "selected": {
+        "auroc": 0.9882081804619195,
+        "ap": 0.8264419710103553,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 19586
+      },
+      "status": "completed",
+      "historical_actual_safe": true,
+      "R170_release_reason": null
+    },
+    "R174": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/source-cpu/records/R174/R174-RESULT.json",
+        "sha256": "d083816e2155f4a34823c23028b2ae4d8b4e3532078d3024a7819203c50f9c82",
+        "git_blob": "5e7447cd184335bc72176cd0f0982312d277fe3d"
+      },
+      "selected": {
+        "auroc": 0.9855170013883353,
+        "ap": 0.815694928342545,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 24056
+      },
+      "status": "completed",
+      "historical_actual_safe": true,
+      "R170_release_reason": null
+    },
+    "R176": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/source-cpu/records/R176/R176-RESULT.json",
+        "sha256": "55f080798d66207fca60a3246f9cb185089c3b844ef4090b5a10fc32794c491f",
+        "git_blob": "62fef0c810993b27d5a35a7ac99252d39fd16684"
+      },
+      "selected": {
+        "auroc": 0.9834218552639342,
+        "ap": 0.8166475394149084,
+        "variant": "ema",
+        "cycle": 7,
+        "successful_updates": 5600,
+        "error_twice": 27536
+      },
+      "status": "completed",
+      "historical_actual_safe": true,
+      "R170_release_reason": null
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/source-cpu/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

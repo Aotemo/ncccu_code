@@ -1,0 +1,99 @@
+{
+  "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt": {
+    "device": 132,
+    "inode": 18514790502,
+    "size": 445634953,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1792982887000000000,
+    "allocated": 445635072
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt.json": {
+    "device": 132,
+    "inode": 9776956998,
+    "size": 196,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1792982887000000000,
+    "allocated": 512,
+    "small_file_sha256": "a4d746cb7d99ec1d8d7dc814a05569f5fd097b2d8f8dde6f53d2085fa89fe573"
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt": {
+    "device": 132,
+    "inode": 8637160750,
+    "size": 445592667,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1792928608000000000,
+    "allocated": 445593088
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt.json": {
+    "device": 132,
+    "inode": 8909740314,
+    "size": 196,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1792928609000000000,
+    "allocated": 512,
+    "small_file_sha256": "ab63a5169a9bf322edcac307df76c629588e4d9d89f5c4344186f85a8842a2d4"
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt": {
+    "device": 132,
+    "inode": 19720964212,
+    "size": 377154663,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1793094582000000000,
+    "allocated": 377155072
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt.json": {
+    "device": 132,
+    "inode": 19133374070,
+    "size": 196,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1793094582000000000,
+    "allocated": 512,
+    "small_file_sha256": "24073bb7fb3846d182af8e20fac7e9e9fa870bb4f49c049a38c33c7c8e0dc839"
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102/SCIENCE.json": {
+    "device": 132,
+    "inode": 10316715846,
+    "size": 5813,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1793628561000000000,
+    "allocated": 6144,
+    "small_file_sha256": "1ab259410210ad148942755f577a42448c79709d3ef0f3798951e715665d85ba"
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102/SITE_BINDING.json": {
+    "device": 132,
+    "inode": 19165762680,
+    "size": 8452,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1793628561000000000,
+    "allocated": 8704,
+    "small_file_sha256": "55b95cdf030707245693fef28b8833126d6718780cf367179c9e1131c019c50e"
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102/TRAIN_CONFIG.json": {
+    "device": 132,
+    "inode": 19165762936,
+    "size": 6549,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1793628564000000000,
+    "allocated": 6656,
+    "small_file_sha256": "fe9a2c1072c0c5f9329063dc94c5e26509af7f74145d05c47a691a343389f08a"
+  },
+  "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r178-20261102-32e3/formal-cpu/package/SITE_BINDING.json": {
+    "device": 132,
+    "inode": 20242055525,
+    "size": 8452,
+    "mode": 33188,
+    "nlink": 1,
+    "mtime_ns": 1793628561000000000,
+    "allocated": 8704,
+    "small_file_sha256": "55b95cdf030707245693fef28b8833126d6718780cf367179c9e1131c019c50e"
+  }
+}

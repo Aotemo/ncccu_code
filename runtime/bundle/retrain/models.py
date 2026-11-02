@@ -381,7 +381,7 @@ def validate_initialization(initialization):
             'final_norm_eps': 1e-6, 'internal_norm_eps': 1e-6,
             'license_file': '../original/LICENSE-apache-2.0.txt'}
         provenance_sha = '40c14c8bd780d4feb88ae96d7e9def1ef78499daf93ae4412eff78502780233f'
-        if meta['model'] in ('convnext_small', 'convnext_base', 'swin_base_patch4_window7_224'):
+        if meta['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base_patch4_window7_224'):
             from .experiment91 import public_source
             source = public_source()
             expected = {key: source[key] for key in expected}
@@ -645,10 +645,11 @@ def create_model(job, initialize=True):
     kwargs = {'weights': None, 'stochastic_depth_prob': job.get('stochastic_depth', .1)}
     if name == 'efficientnet_v2_s':
         model = models.efficientnet_v2_s(dropout=job.get('dropout', .2), **kwargs)
-    elif name in ('convnext_tiny', 'convnext_small', 'convnext_base'):
+    elif name in ('convnext_tiny', 'convnext_small', 'convnext_base', 'convnext_large'):
         factory = {'convnext_tiny': models.convnext_tiny,
                    'convnext_small': models.convnext_small,
-                   'convnext_base': models.convnext_base}[name]
+                   'convnext_base': models.convnext_base,
+                   'convnext_large': models.convnext_large}[name]
         model = factory(**kwargs)
         model.classifier[0].eps=float(job.get('final_norm_eps',1e-6))
     else:
@@ -700,7 +701,7 @@ def create_model(job, initialize=True):
     # Keep native names so optimizer grouping and raw checkpoint state_dicts remain simple.
     last = model.classifier[-1]
     model.classifier[-1] = nn.Linear(last.in_features, 1)
-    if name in ('convnext_tiny', 'convnext_small', 'convnext_base'):
+    if name in ('convnext_tiny', 'convnext_small', 'convnext_base', 'convnext_large'):
         model.classifier = nn.Sequential(*list(model.classifier.children())[:-1],
                                          nn.Dropout(job.get('dropout', .2)), model.classifier[-1])
     if job.get('cosine_head_policy') is not None:

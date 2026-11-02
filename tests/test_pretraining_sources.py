@@ -106,6 +106,28 @@ class PretrainingSourcesTest(unittest.TestCase):
 
 
 class SmallMappingTest(unittest.TestCase):
+    def test_large_full_mapping_and_existing_base_defaults(self):
+        import torch,timm,torchvision
+        import base_source,base_strict
+        self.assertIn('large224',base_source.SOURCE_PROFILES)
+        profile=base_source.SOURCE_PROFILES['large224']
+        self.assertEqual((profile['model'],profile['features']),('convnext_large',1536))
+        self.assertEqual(profile['revision'],'dc2e53fad264aa1fb4e5940e0d1c9b79ac6e0854')
+        self.assertEqual(base_source.download.__defaults__,(None,'base224'))
+        self.assertEqual((base_source.MODEL,base_source.REPO),('convnext_base','timm/convnext_base.fb_in22k_ft_in1k'))
+        source=timm.create_model('convnext_large.fb_in22k_ft_in1k',pretrained=False,drop_path_rate=.1)
+        target=torchvision.models.convnext_large(weights=None,stochastic_depth_prob=.1)
+        state=source.state_dict();converted={}
+        for key,value in state.items():
+            name,gamma=target_key(key,(3,3,27,3))
+            converted[name]=value.reshape(-1,1,1).contiguous()if gamma else value
+        rows=base_strict.base_mapping(state,converted,target.state_dict())
+        self.assertEqual(len(rows),344);self.assertEqual(sum(r['gamma_reshape']for r in rows),36)
+        self.assertEqual(tuple(converted['classifier.2.weight'].shape),(1000,1536))
+        loaded=target.load_state_dict(converted,strict=True)
+        self.assertFalse(loaded.missing_keys or loaded.unexpected_keys)
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_dino3_complete_headless_mapping_and_original_source_defaults(self):
         import torch
         import timm
