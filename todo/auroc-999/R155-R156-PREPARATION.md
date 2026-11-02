@@ -14,4 +14,4 @@ CPU窄验覆盖真实8×56非同分独立解析loss/梯度、全体logit平移�
 
 完整总体内部dev AUROC为主判，固定难组仅描述，不以AP/局部救门。R156完整工程有效selected未严格胜R107则关闭精确合同；只过R107为有限正向，同时严格过R120才有后续固定seed27资格。最多24000成功、每800内部dev评估、patience4、唯一online/EMA selector，完整selected≥`.996`才官方5849一次，raw `.999`仍是总体目标。
 
-必要最小实现及[真实CPU证据](../../records/preparation/hard-positive-20261102/README.md)已完成：6目标/6源compile、两public fresh、WORLD逐logit与参数梯度通过；原RED及辅助脚本失败保留。尚待本次实际源码/配置push、远端回读和技术包；没有新normalformal/grant/activation/GPU或训练收益。前轮训练完成进入freeze时完成唯一正常formal与精确部署，actualsafe后立即一次activation/direct launch，真实8rank初态与首自然成功证明GPU链，不新增独立GPU预演或例行审批。
+必要最小实现及[真实CPU证据](../../records/preparation/hard-positive-20261102/README.md)已完成：6目标/6源compile、两public fresh、WORLD逐logit与参数梯度通过；原RED及辅助脚本失败保留。源码/配置已实际push/远端回读Git874feff，02:26:35 UTC两技术包、精确SHA和临时调用脚本语法已过；没有新normalformal/grant/activation/GPU或训练收益。前轮训练完成进入freeze时完成唯一正常formal与精确部署，actualsafe后立即一次activation/direct launch，真实8rank初态与首自然成功证明GPU链，不新增独立GPU预演或例行审批。

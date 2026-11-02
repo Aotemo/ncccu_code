@@ -10,4 +10,6 @@
 
 SCIENCE SHA：R155 `63a94a917e2d866423d209883a9c7884ed49d40661b6a924065d025eba94488a`；R156 `ec65ee71c6a55c5009b9d79302462ae0fba48acc5030eee0b15b8b60a39fbfb9`。R155只在R154完整双门及safe后复现seed27；否则独立directR107的R156固定`.5全8均值+.5稳定top2均值`。原完整内部选点、24k/800/p4、官方≥.996一次与raw .999目标保持，未见新训练收益。
 
-工程预算不变：train27900秒/total31500秒/9h allocation。R155同结构继承原Swin历史24k×2.5情景26205.225秒，R156原R107训练耗时外推满24k×2情景24154.892秒，均低于train soft27750秒；原official×2.5耗时2058.503秒低于soft2250秒。它们是历史情景，不是当前GPU实测或保证，不依赖早停兜底，不热改R154 clock。源码/配置待本次实际Git同步、远端回读及技术包；尚未新normalformal/grant/activation/GPU。
+工程预算不变：train27900秒/total31500秒/9h allocation。R155同结构继承原Swin历史24k×2.5情景26205.225秒，R156原R107训练耗时外推满24k×2情景24154.892秒，均低于train soft27750秒；原official×2.5耗时2058.503秒低于soft2250秒。它们是历史情景，不是当前GPU实测或保证，不依赖早停兜底，不热改R154 clock。
+
+源码/配置已实际push并远端回读Git `874fefff678d99b2174df929331b9bb38f4b1ca6` / tree `c575ce4fb760000da02576815d1f016be57d9cf1`。02:26:35 UTC[技术包回执](NEXT-READY.json)证明6源、两SCIENCE、集中策略与CPU通过字节一致；现有prepare/check/freeze/activation/launch入口仅注入新绑定，临时调用脚本语法已过。[实际guard](CPU-NEXT-READY.json) SHA `de7579f12c91aa38c8672553548bc74b2fd0ebe46c29bb9d37fbb4113fb82590`，exit0。R155技术SITE `235955aea51783814c9cfe3483b3ce89be6981fc628acc4bbb58ab2277146a9e`，R156 `b95d2f705ed90288f54820f8722e22cb70e297d5ec0fb1693988326c01b61478`；均未normalformal/grant/clock/activation/GPU，仍待R154完整结果沿既定分支接续，不重跑已通过窄验。
