@@ -1,0 +1,11 @@
+{
+  "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+  "round_id": "r181-large22k-seed20261027-scale085-pairlog-storage32-24k-p4-9010-20261102",
+  "git_commit": "2a128733259ef3b7dd640f458db96283a0fdb64d",
+  "tree_sha": "348d64592520d5aea30781fce16f816fa37efb80",
+  "science_sha256": "c94d274c83e862bbdf64bf9ef00dd7ea2679f7b694bf7de770570cd6b3ebf9e8",
+  "site_sha256": "086fcd0d7325384739918e1c9d412392aaad2cce10812499f2974de4797ca70b",
+  "CPU_checks_sha256": "a86a0729a9394b30259ad987e8078a41f6d4cbdc90fd9796b7ba23bc25b72748",
+  "formal_clock_created": false,
+  "GPU_started": false
+}

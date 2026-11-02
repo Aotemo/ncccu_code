@@ -9,3 +9,5 @@
 原RED及两处fixture错误回执全部保留：缺profile/format；kind fixture保留random的normalization；候选fixture的work_root与路径不匹配。只修fixture/必要实现后复测受影响项，已经通过的kind/存储不重复。源验收独立guard0；当时shell组合未按预期阻断独立源任务，记录中区分各子任务真实exit，不把失败整树写成通过。source接受、两fresh、RNG冷图和最终目标各有独立真实回执。
 
 只为新精确R181/R182 round给32GiB，旧default/例外/free16GiB不改。CPU原件在exp-v3/technical-prep/large-dino3-20261102-32e3，当前仅准备；实际GPU可运行仍须后续冻结部署的八rank/自然首更新。raw .999未达。
+
+16:50实际Git2a128733/tree348d6459已push、远端commit/tree回读并生成两technical包。R181 SITE086fcd0d、guard3c9kr1bl SHAfb803b44…62d2e exit0；R182 SITE20184a34、guarddeq05_ky SHAef41b6aa…71fc7 exit0。两者精确核5目标/12编译、源码/SCI/原始CPU回执和未改的6件实现SHA，没有重跑测试；尚无新normalformal/clock/GPU。R181条件资格仍未成立，后备正常CPU/精确部署在R180收尾前完成以保留完整软件授权窗口。
