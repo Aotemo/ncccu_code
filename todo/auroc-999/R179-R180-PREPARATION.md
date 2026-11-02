@@ -12,7 +12,7 @@ R179/order91仅在完整工程有效R178唯一selected严格超过R107 `.9884405
 - [x] `runtime/bundle/retrain/models.py`仅将Large接入既有原生ConvNeXt工厂/Dropout及固定provenance分支，`config.py`只扩model白名单；首次模型检查已在真实冷加载发现`inference.py`还有独立架构白名单，现仅加Large一项，不改加载算法。fresh/optimizer/DDP/EMA/保存/启动/监控实现不改。新`tests/test_convnext_large.py`验证同seed原生头/age RNG、512/P8有限梯度、5空Adam全参数覆盖、age一次、EMA与真实CheckpointStore→inference冷图；native随机初始化fixture和真实公开原件strict/fresh分别表述，CPU storage不当DCU峰值上界。原source目标已PASS不重复，修正后只复测受影响模型目标。
 - [x] 既有`experiment91.py`两身份/互斥/seed/source/结构与保存选点绑定，现`check_candidate.py`复用相同结构检查；扩现candidate目标和两SCI。真实完整原权重/LFS、适用完整许可、两factory strict/非张量及两public fresh完成后再固定SHA，不将metadata登记当加载验证。
 - [x] 现`ROUND-STORAGE-POLICY.json`仅为新精确Large round登记32GiB（默认12/旧例外/free16GiB不改），扩现存储函数目标；原子新blob前prune情景按实际状态大小核，非最大瞬时峰值保证。按已授权清理规则，仅对已完整归档/无活跃依赖的旧轮checkpoint生成真实清单并清理，永久KEEP3/锚点/当前运行/公开资产及数据缓存保护。
-- [ ] 受影响CPU检查、Git push/实际回读、两技术包在R178训练期间完成。现27900训练/31500整轮/32400绑定及资源policy保持，CPU不能证明Large DCU吞吐或满额完成；若工程截断不得判科学阴性。收尾前唯一正常CPU/精确部署，actualsafe后按完整分支一次activation/direct launch，真实八rank/自然首更新证明GPU可运行，无额外GPU预演。
+- [x] 实际完成5受影响目标/11个唯一源码编译覆盖、Git push/API回读、R180 technical/正常CPU18/18及精确部署；这些准备未全部赶在R178训练期间完成，交接超5分钟事实保留。R179已不eligible，不建无用正式包。现27900训练/31500整轮/32400绑定及资源policy保持，若工程截断不得判科学阴性。R178完整/safe后一次activation/direct launch0，真实八rank/自然首25有限现已证明GPU链可运行，无独立GPU预演；[实际启动与延迟](../../records/R180/README.md)为准。
 
 15:15实际来源344/full1000两factory strict、许可/LFS及两public fresh、4个受影响目标/11编译通过，[原件汇总](../../records/preparation/large22k-20261102/README.md)保留失败及CPU整树证据。R179 whole91507a65、SCI7d8ed30c；R180 whole3360682e、SCI34e6c689、converted b27d6640。当前Git同步/冻结部署待完成，未新formal/clock/GPU；完整selected≥.996才官方5849一次，不用官方调参。raw .999未达。
 

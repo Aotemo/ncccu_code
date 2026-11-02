@@ -1,0 +1,25 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large22k-20261102-32e3/source-git-final/records/preparation/large22k-20261102/CPU-CHECKS-HANDOFF-FIX.json",
+    "sha256": "7ae7c447e2299ac2da0f810834880b447b65a255c2895c1b5ae9dbc5f6a214b0"
+  },
+  "source_files": {
+    "tools/pretraining/base_source.py": "c5f53fc1a7a7f4965d49857fc51dc5fcb0e2f261c54670cfe7c5dd9a2d10808d",
+    "tools/pretraining/base_strict.py": "95a35ebb294203a1c69b4b1f56d2f862548ae93908bb4c095d1362bc4c8a187e",
+    "tools/validation/check_candidate.py": "7426f5bb880b17d5297a2da88525e9e220d5498d28463bbc2551be966b185d99",
+    "runtime/bundle/retrain/models.py": "fd9897514db6bd3e102aba9f3614254d7a9360fb0c960f83c7f698923c4bb74a",
+    "runtime/bundle/retrain/config.py": "5dabee550f6846fdcdcd24a4a4a5e8a2ae40c576e60ff1e791659fba3756132e",
+    "runtime/bundle/retrain/inference.py": "558444d07d3e27c689406c8fab88690a4a1c10220ba2e51303981d8091b7e8c0",
+    "runtime/bundle/retrain/experiment91.py": "e4e97416a918fcdc8cf7ef4ee80221ebe2a4794cf63cbec628a1b21cfab74828",
+    "tests/test_pretraining_sources.py": "6a9cdf35d8fc1a0957af5f73f8cc9e8e79847a453b7aa4b8b05a0ce71b8306c3",
+    "tests/test_convnext_large.py": "aa7e4e2e15637202f61de9268c803d9c23a0c0fd42a9c4fb3f909f01b7f3d4e0",
+    "tests/test_candidate_binding.py": "bc5594ef11021e7a98fd1afac0f312d026afbfdf90ae9ca56d3fdbfea639a3a8",
+    "tests/test_round_storage_policy.py": "726676af21db31e3763aa12040d9d99dc1a9ad4f2b55d3af8036305515be24fd"
+  },
+  "science_sha256": "9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442",
+  "targets_reused": 5,
+  "unchanged_implementation_files": 6,
+  "tests_rerun": false,
+  "at": 1793633333.1245897
+}

@@ -1,0 +1,32 @@
+{
+  "previous_training_completion_event_at": 1793632201.635885,
+  "previous_whole_round_ended_at": 1793632264.8089213,
+  "previous_safe_observed_at": 1793632609.7554455,
+  "new_dispatch_at": 1793633714.5793703,
+  "completion_event_to_dispatch_seconds": 1512.9434852600098,
+  "completion_event_to_latest_device_seconds": 1583.9186208248138,
+  "completion_event_to_first_recorded_update_seconds": 1668.387812614441,
+  "event_to_dispatch_within_300_seconds": false,
+  "event_to_device_within_300_seconds": false,
+  "event_to_first_recorded_update_within_300_seconds": false,
+  "round_end_to_dispatch_seconds": 1449.770448923111,
+  "round_end_to_latest_device_seconds": 1520.745584487915,
+  "round_end_to_first_recorded_update_seconds": 1605.2147762775421,
+  "continuous_DCU_idle_within_300_seconds_proven": false,
+  "semantics": "separate actual event intervals, not a continuous DCU-utilization measurement",
+  "checks_skipped": false,
+  "old_clock_token_grant_reset": false,
+  "previous_observation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r178-20261102-32e3/PROGRESS-cont-9.json",
+    "sha256": "e74a1655891cf9f2f04ccac15cce7c16ca629f38aec3af9753b454761ba208a4"
+  },
+  "gap_requirement_met": false,
+  "contributing_causes": [
+    "next preparation not fully completed during previous training",
+    "full transfer/proxy/SSH failures and fixed-LFS segmented relay",
+    "130-second existing candidate fixture",
+    "redundant science field/handoff mismatch corrected before any formal clock",
+    "Git synchronization/source copy/formal admission and deployment occurred after previous training"
+  ],
+  "future_action": "complete source/code/CPU/technical package while active training; reserve only necessary final normal admission and once-only handoff for late stage"
+}
