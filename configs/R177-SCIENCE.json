@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-small-dinov3-c497e64d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "5f2abba3302926dc883ab8c32db02cd7d643c5b745428295e0ae006183c276aa",
+  "candidate": {
+    "id": "r177-convnext-small-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-9010",
+    "experiment_order": 89,
+    "model": "convnext_small",
+    "public_revision": "c497e64d5d483b3ad42eac93e2ef9d1799f9547c",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "33fdc1b52cbfefa8f1f8fa35de081e60526e6baa2ab99a167e8a1105fc8c071e",
+    "provenance_sha256": "bdf428cd42138e329cbbbafda538f11746f2a7060dc845222fd0377ff97dcd9e",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "kind": "self_supervised",
+    "model": "convnext_small",
+    "format": "torchvision-convnext-small-dinov3-backbone-state-dict-v1",
+    "repo": "timm/convnext_small.dinov3_lvd1689m",
+    "tag": "dinov3_lvd1689m",
+    "revision": "c497e64d5d483b3ad42eac93e2ef9d1799f9547c",
+    "source_url": "https://huggingface.co/timm/convnext_small.dinov3_lvd1689m/resolve/c497e64d5d483b3ad42eac93e2ef9d1799f9547c/pytorch_model.bin",
+    "training_data": "LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B",
+    "original_sha256": "587d3fd7f07b9a2dc5a27276b45444826898c94dd2bdaeebf7d901c89dc96ce5",
+    "sha256": "33fdc1b52cbfefa8f1f8fa35de081e60526e6baa2ab99a167e8a1105fc8c071e",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-dinov3.md",
+    "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "num_classes": 0,
+    "backbone_only": true,
+    "structure": {
+      "features": 768,
+      "public_state_tensors": 342,
+      "backbone_state_tensors": 342,
+      "backbone_parameters": 49454688,
+      "layer_norms": 41,
+      "gelu_modules": 36,
+      "stochastic_depth_modules": 36,
+      "full_head_shape": null
+    },
+    "provenance_sha256": "bdf428cd42138e329cbbbafda538f11746f2a7060dc845222fd0377ff97dcd9e",
+    "strict_receipt_sha256": "330f637c13604675e967558be861223b836abe39c3c98af64f7b62882dd09fc4"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/small-dino3-20261102-32e3/PUBLIC-ASSET.json",
+    "sha256": "8a6911e9caf118fe350cfa7eeb87aa91428df2cf161b7659403b235de0e157f1"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 342,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": null
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/smalldino3-c497e64d/converted/convnext-small-tv-c497e64d.pt",
+    "public_provenance": "assets/public/smalldino3-c497e64d/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "convnext_small",
+    "seed": 20261027,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Conditional fixed R176 Small DINOv3 c497e64d public fresh/original512/logistic/G64P8/default AdamW/LR/EMA/age recipe seed27, only after complete engineering-valid R176 strictly beats both R107 and R120 and is safe. No old checkpoint/clock restart or source/normalization/LR/resolution/seed scan. Independent actual public fresh identity must be measured before adoption; official only complete selected>=.996 once.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

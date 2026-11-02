@@ -21,7 +21,7 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
-    def test_R153_to_R176_science_consumes_geometry_model_loss_and_fresh_identity(self):
+    def test_R153_to_R178_science_consumes_geometry_model_loss_and_fresh_identity(self):
         from retrain import age,config,single91
         original_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)} for i in range(4)],'fit_indices':[0,1,2,3]})
         for label,order,size,seed,model in [('R153',65,768,20261027,'convnext_small'),('R154',66,512,20261029,'swin_v2_small'),
@@ -35,7 +35,8 @@ class CandidateBindingTest(unittest.TestCase):
                                          ('R169',81,512,20261027,'convnext_small'),('R170',82,512,20261029,'convnext_base'),
                                          ('R171',83,512,20261027,'convnext_base'),('R172',84,512,20261029,'convnext_small'),
                                          ('R173',85,512,20261027,'convnext_small'),('R174',86,512,20261029,'convnext_base'),
-                                         ('R175',87,512,20261027,'convnext_base'),('R176',88,512,20261029,'convnext_small')]:
+                                         ('R175',87,512,20261027,'convnext_base'),('R176',88,512,20261029,'convnext_small'),
+                                         ('R177',89,512,20261027,'convnext_small'),('R178',90,512,20261029,'convnext_small')]:
             path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
             self.assertEqual((science['candidate']['experiment_order'],science['job']['seed'],science['job']['model']),(order,seed,model))
             site=copy.deepcopy(self.site);site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),**{k:str(ROOT/v) for k,v in science['paths'].items()})
@@ -45,7 +46,7 @@ class CandidateBindingTest(unittest.TestCase):
                 self.assertEqual(experiment.science_configuration(),science)
                 self.assertEqual(experiment.candidate(),science['candidate'])
                 job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization={'kind':science['public_source'].get('kind','imagenet'),'format':science['public_source']['format'],'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']})
-                if label=='R176':job['initialization']['expected_backbone_state_keys']=342
+                if label in ('R176','R177'):job['initialization']['expected_backbone_state_keys']=342
                 cfg=self.path.parent/(label+'-TRAIN.json');cfg.write_text(json.dumps({'mode':'train','data':{'split':science['data_split']},'execution':{'devices':['cuda:'+str(i) for i in range(8)],'evaluation_physical_batch':32},'jobs':[job]}))
                 resolved=config.load_config(cfg,environ={})['jobs'][0]
                 self.assertEqual(experiment.validate_job(resolved),resolved)
@@ -68,13 +69,20 @@ class CandidateBindingTest(unittest.TestCase):
                 saved=config.job_contract(resolved)
                 self.assertEqual((saved['model'],saved['seed'],saved['image_size'],saved['prepared_size']),(model,seed,size,size))
                 self.assertEqual(saved['loss'],science['job']['loss'])
-            if label in ('R153','R155','R157','R159','R161','R163','R165','R167','R169','R171','R173','R175'):
-                baseline=json.loads((ROOT/'configs'/({'R153':'R152','R155':'R154','R157':'R156','R159':'R158','R161':'R160','R163':'R162','R165':'R164','R167':'R166','R169':'R168','R171':'R170','R173':'R172','R175':'R174'}[label]+'-SCIENCE.json')).read_text())
+            if label in ('R153','R155','R157','R159','R161','R163','R165','R167','R169','R171','R173','R175','R177'):
+                baseline=json.loads((ROOT/'configs'/({'R153':'R152','R155':'R154','R157':'R156','R159':'R158','R161':'R160','R163':'R162','R165':'R164','R167':'R166','R169':'R168','R171':'R170','R173':'R172','R175':'R174','R177':'R176'}[label]+'-SCIENCE.json')).read_text())
                 science['job']['seed']=baseline['job']['seed']
                 for value in (science,baseline):
                     for key in ('candidate_profile','comparison_note','initial_model_tensor_sha256'):value.pop(key)
                     for key in ('id','experiment_order'):value['candidate'].pop(key)
                 self.assertEqual(science,baseline)
+            if label=='R178':
+                baseline=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())
+                self.assertEqual(science['job']['loss'],experiment.PAIR_BCE_MIX_LOSS)
+                self.assertEqual({k:v for k,v in science['job'].items() if k!='loss'},
+                                 {k:v for k,v in baseline['job'].items() if k!='loss'})
+                for key in ('public_source','paths','structure','data_split','schedule','early_stopping','initial_model_tensor_sha256'):
+                    self.assertEqual(science[key],baseline[key])
             if label=='R168':
                 baseline=json.loads((ROOT/'configs/R107-SCIENCE.json').read_text())
                 self.assertEqual(science['job']['adamw_beta2_policy'],config.ADAMW_BETA2_RULE)

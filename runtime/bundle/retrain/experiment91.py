@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
-from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS
+from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS, PAIR_BCE_MIX_LOSS
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
@@ -62,6 +62,8 @@ HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 SMALL_DINO3_BINDING = 'single-convnext-small-dinov3-c497e64d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+SMALL_DINO3_SEED27_BINDING = 'single-convnext-small-dinov3-c497e64d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+PAIR_BCE_MIX_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-bce-mix05-v1'
 AUC_MARGIN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-batch-aucmargin1-v1'
 AUC_MARGIN_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-batch-aucmargin1-v1'
 COSINE_HEAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cosine16-v1'
@@ -109,7 +111,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING,
                       ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                       BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
-                      BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING)
+                      BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
@@ -207,7 +209,7 @@ def science_configuration():
                                                        DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING,
                                                        ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
                                                        BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
-                                                       BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING)
+                                                       BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING)
                     and value.get('official_evaluation') != OFFICIAL_GATE_0996)
                 or type(value.get('age_enabled', True)) is not bool
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
@@ -345,6 +347,16 @@ def science_configuration():
                          or (value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(64,8)
                          or any(value['job'].get(key) is not None for key in
                                 ('input_preprocessing','optimizer_policy','gradient_centralization_policy','mixstyle_policy',
+                                 'tri3_downsample_policy','low_rank_policy','layerwise_lr_policy','output_regularization',
+                                 'head_warmup_policy','gradient_clip_policy','attention_pool','stage3_residual',
+                                 'training_views','training_rotation','training_photometric','freeze_features_before','final_downsample_stride'))))
+                or (value.get('candidate_profile') == PAIR_BCE_MIX_SMALL_BINDING
+                    and (value.get('job',{}).get('loss') != PAIR_BCE_MIX_LOSS
+                         or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('image_size'),
+                             value['job'].get('prepared_size'),value['job'].get('effective_batch'),value['job'].get('positive_per_batch')) != ('convnext_small',20261029,512,512,64,8)
+                         or any(value['job'].get(key) is not None for key in
+                                ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy','quadrant_mil_policy',
+                                 'input_preprocessing','optimizer_policy','gradient_centralization_policy','mixstyle_policy',
                                  'tri3_downsample_policy','low_rank_policy','layerwise_lr_policy','output_regularization',
                                  'head_warmup_policy','gradient_clip_policy','attention_pool','stage3_residual',
                                  'training_views','training_rotation','training_photometric','freeze_features_before','final_downsample_stride'))))
@@ -493,7 +505,8 @@ def candidate_from_configuration(value):
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
                                         ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING,
-                                        QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,SMALL_DINO3_BINDING):
+                                        QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,SMALL_DINO3_BINDING,
+                                        SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
             'public_revision': 'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
@@ -648,6 +661,8 @@ def candidate_from_configuration(value):
             expected.update(id='r160-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-batch-aucmargin1-9010',experiment_order=72)
         if value['candidate_profile']==AUC_MARGIN_SMALL_SEED27_BINDING:
             expected.update(id='r161-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-batch-aucmargin1-9010',experiment_order=73)
+        if value['candidate_profile']==PAIR_BCE_MIX_SMALL_BINDING:
+            expected.update(id='r178-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-bce-mix05-9010',experiment_order=90)
         if value['candidate_profile'] in (COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING):
             from .config import COSINE_HEAD_RULE
             expected.update(id='r162-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-cosine16-9010',
@@ -665,9 +680,11 @@ def candidate_from_configuration(value):
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile']==SMALL_384_SEED27_BINDING else 20261029)):
                 raise ValueError('fixed Small public384 source or original512 recipe differs')
-        if value['candidate_profile']==SMALL_DINO3_BINDING:
+        if value['candidate_profile'] in (SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING):
             expected.update(id='r176-convnext-small-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-9010',
                             experiment_order=88,public_revision='c497e64d5d483b3ad42eac93e2ef9d1799f9547c')
+            if value['candidate_profile']==SMALL_DINO3_SEED27_BINDING:
+                expected.update(id='r177-convnext-small-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=89)
             if (source.get('kind')!='self_supervised'
                     or source.get('format')!='torchvision-convnext-small-dinov3-backbone-state-dict-v1'
                     or source.get('original_sha256')!='587d3fd7f07b9a2dc5a27276b45444826898c94dd2bdaeebf7d901c89dc96ce5'
@@ -675,7 +692,7 @@ def candidate_from_configuration(value):
                     or source.get('provenance_sha256')!='bdf428cd42138e329cbbbafda538f11746f2a7060dc845222fd0377ff97dcd9e'
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('seed'),value['job'].get('normalization'),value['job'].get('image_size'),
-                        value['job'].get('prepared_size'),value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(20261029,'imagenet',512,512,64,8)
+                        value['job'].get('prepared_size'),value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=(20261027 if value['candidate_profile']==SMALL_DINO3_SEED27_BINDING else 20261029,'imagenet',512,512,64,8)
                     or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
                         'quadrant_mil_policy','input_preprocessing','optimizer_policy','gradient_centralization_policy',
                         'gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy',
@@ -892,7 +909,7 @@ def verify_public_asset(science, site):
                 or receipt.get('num_classes') != source['num_classes']
                 or receipt.get('strict_load', {}).get('sha256') != source['strict_receipt_sha256']):
             raise ValueError('Small 22K-only complete public source identity differs')
-    if science['candidate_profile'] == SMALL_DINO3_BINDING:
+    if science['candidate_profile'] in (SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING):
         if (receipt.get('repo')!=source['repo']
                 or receipt.get('strict_load',{}).get('sha256')!=source['strict_receipt_sha256']):
             raise ValueError('Small DINOv3 complete public backbone handoff differs')

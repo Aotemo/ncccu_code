@@ -1,0 +1,155 @@
+{
+  "R177": {
+    "status": "actual_public_fresh_initial_CPU",
+    "at": 1793625154.5535364,
+    "seconds": 4.894443988800049,
+    "model_tensor_sha256": "5f2abba3302926dc883ab8c32db02cd7d643c5b745428295e0ae006183c276aa",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "science_sha256": "bf9a153d5ee0897a840cfd14af59f3b5c4b2c67c802ff8887f092a0db9a17d9a",
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "real_image_or_training_checkpoint_read": false,
+    "official_read": false,
+    "CPU_threads": {
+      "allocated": 12,
+      "torch_intraop": 5,
+      "interop": 1
+    },
+    "public_tensor_count": 342,
+    "full_head_shape": null,
+    "backbone_only": true,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pair-bce-mix-20261102-32e3/fresh/R177-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "417ae5e291fdf71e69c3e364139cea3e78f4137e272fccb0530981129b599697"
+    }
+  },
+  "R178": {
+    "status": "actual_public_fresh_initial_CPU",
+    "at": 1793625158.0978012,
+    "seconds": 3.0143699645996094,
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "all_parameters_trainable": true,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "optimizer_groups_actual": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    ],
+    "science_sha256": "1ab259410210ad148942755f577a42448c79709d3ef0f3798951e715665d85ba",
+    "GPU_initialized": false,
+    "image_forward_calls": 0,
+    "real_image_or_training_checkpoint_read": false,
+    "official_read": false,
+    "CPU_threads": {
+      "allocated": 12,
+      "torch_intraop": 5,
+      "interop": 1
+    },
+    "public_tensor_count": 344,
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "backbone_only": false,
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/pair-bce-mix-20261102-32e3/fresh/R178-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "1e61b49c89391730791e7804960a01affea7072f946f9fae539a18b8f02d8ead"
+    }
+  }
+}

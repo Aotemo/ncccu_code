@@ -168,6 +168,13 @@ def main(args):
               and (job['effective_batch'],job['positive_per_batch']) == (64,8)
               and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
               and job.get('training_views') is None and job.get('native_local_view') is None)
+    if ex.science_configuration()['candidate_profile'] == ex.PAIR_BCE_MIX_SMALL_BINDING:
+        from retrain.classification_loss import PAIRWISE_LOSS_KINDS
+        check('fixed_pairlog_pointwise_BCE_mix05_WORLD_and_official_bound',
+              job['loss'] == ex.PAIR_BCE_MIX_LOSS and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
+              and (job['effective_batch'],job['positive_per_batch']) == (64,8)
+              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
+              and job.get('training_views') is None and job.get('native_local_view') is None)
     if job.get('cosine_head_policy') is not None:
         from retrain.models import describe_cosine_head
         from retrain.config import COSINE_HEAD_RULE
