@@ -1,0 +1,20 @@
+{
+  "status": "full_public_source_and_old_profile_API_checks_passed",
+  "actual_source_result": {
+    "status": "native_public_DINOv3_strict_no_conversion_no_forward",
+    "weight_sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+    "provenance_sha256": "36847019b4a3e679749471376944fa45e59c75768fdcf39e9c40458194f52f0e",
+    "handoff_sha256": "f0dbbd7ec8392a5066a4dc8eeb26dafb28946f9f36b3492ff317c571a4b1c088",
+    "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "public_tensor_count": 162,
+    "asset_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/vit-base-dino3-c6a5fb7d"
+  },
+  "source_sha256": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+  "old_profiles_exact": true,
+  "old_API_default_signature_exact": true,
+  "compiled_sources": 1,
+  "new_source_execution": "existing_prepare_explicit_vitdinobase_profile",
+  "old_full_weight_loads_repeated": false,
+  "runtime_training_factory_modified": false,
+  "new_GPU_or_round_created": false
+}

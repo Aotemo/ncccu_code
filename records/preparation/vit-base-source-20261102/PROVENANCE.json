@@ -1,0 +1,30 @@
+{
+  "model": "vit_base_patch16_dinov3",
+  "format": "timm-vitb16-dinov3-native-state-dict-v1",
+  "revision": "c6a5fb7d12bbd3cf3b0079253141c3332aaed7da",
+  "source_url": "https://huggingface.co/timm/vit_base_patch16_dinov3.lvd1689m/resolve/c6a5fb7d12bbd3cf3b0079253141c3332aaed7da/pytorch_model.bin",
+  "training_data": "LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B",
+  "sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+  "original_sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+  "native_library": {
+    "version": "1.0.27",
+    "source_sha256": {
+      "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+      "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914",
+      "layers/attention.py": "608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947",
+      "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa"
+    }
+  },
+  "license_file": "original/LICENSE.md",
+  "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+  "redistribution_confirmed": true,
+  "public_tensor_count": 162,
+  "public_tensor_sha256": "708e2c914b8291f4d834bde8e58678099770b0d0e0a402eb89cb3b574dbb8141",
+  "full_head_shape": null,
+  "final_norm_eps": 1e-05,
+  "internal_norm_eps": 1e-05,
+  "converted": false,
+  "kind": "self_supervised",
+  "repo": "timm/vit_base_patch16_dinov3.lvd1689m",
+  "nonpersistent_buffers_sha256": "192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3"
+}

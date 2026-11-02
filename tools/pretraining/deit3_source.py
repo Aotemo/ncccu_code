@@ -22,6 +22,13 @@ SOURCE_PROFILES = {
         model='vit_small_patch16_dinov3',training='LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B',
         classes=0,source_size=256,state_tensors=162,
         license_sha='25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'),
+    'vitdinobase':dict(repo='timm/vit_base_patch16_dinov3.lvd1689m',
+        revision='c6a5fb7d12bbd3cf3b0079253141c3332aaed7da',
+        weight_sha='ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1',
+        weight_bytes=342624338,format='timm-vitb16-dinov3-native-state-dict-v1',
+        model='vit_base_patch16_dinov3',training='LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B',
+        classes=0,source_size=256,state_tensors=162,features=768,
+        license_sha='25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e'),
     'caformer':dict(repo='timm/caformer_s36.sail_in1k_384',
         revision='695903aebe60ba2a96868cedd9129ea256a1f96e',
         weight_sha='424a3a029dd1931ace03ac0c4697e4d760447c917d2042a82677ae11083ed592',
@@ -52,7 +59,7 @@ def verified_fetch(url,target,transport_file,expected_sha=None,expected_bytes=No
             'transport_path':str(transport_file),'transport':'existing_exact_relay_reverified_on_pod'}
 
 def prepare(assets,transport,source_root,source_profile='deit3'):
-    profile=SOURCE_PROFILES[source_profile];dino=source_profile=='vitdino3'
+    profile=SOURCE_PROFILES[source_profile];dino=source_profile in ('vitdino3','vitdinobase')
     caformer=source_profile=='caformer'
     repo,revision,model=profile['repo'],profile['revision'],profile['model']
     weight_sha,weight_bytes=profile['weight_sha'],profile['weight_bytes']
@@ -74,7 +81,7 @@ def prepare(assets,transport,source_root,source_profile='deit3'):
     row=next(s for s in api['siblings']if s['rfilename']=='pytorch_model.bin')
     require(row['lfs']['sha256']==weight_sha and row['size']==weight_bytes,'advertised public bin differs')
     config=json.loads((original/'config.json').read_text());cfg=config['pretrained_cfg']
-    require((config['architecture'],config['num_classes'],config['num_features'])==(model,profile['classes'],512 if caformer else 384)
+    require((config['architecture'],config['num_classes'],config['num_features'])==(model,profile['classes'],512 if caformer else profile.get('features',384))
         and cfg['tag']==('lvd1689m'if dino else'sail_in1k_384'if caformer else'fb_in22k_ft_in1k')and cfg['input_size']==[3,profile['source_size'],profile['source_size']]
         and cfg['mean']==[.485,.456,.406]and cfg['std']==[.229,.224,.225]
         and cfg['crop_pct']==1. and cfg['first_conv']==('stem.conv'if caformer else'patch_embed.proj')
@@ -104,8 +111,8 @@ def prepare(assets,transport,source_root,source_profile='deit3'):
         'native full1000 strict/exact/FP32 differs')
     if dino:
         buffers=dict(native.named_buffers())
-        require(len(native.blocks)==12 and native.num_prefix_tokens==5 and native.reg_token.shape==(1,4,384)
-            and native.num_features==384 and native.pos_embed is None and native.global_pool=='avg'
+        require(len(native.blocks)==12 and native.num_prefix_tokens==5 and native.reg_token.shape==(1,4,profile.get('features',384))
+            and native.num_features==profile.get('features',384) and native.pos_embed is None and native.global_pool=='avg'
             and isinstance(native.head,torch.nn.Identity)and isinstance(native.fc_norm,torch.nn.Identity)
             and native.norm.eps==1e-5 and native.blocks[0].attn.qkv.bias is None
             and set(buffers)=={'rope.periods'}and buffers['rope.periods'].shape==(16,)

@@ -1,5 +1,7 @@
 # R184R1 之后：条件均值复核与固定原生 CLS 读出
 
+21:16当前唯一GPU已为R184R1/cd7246a，最新2925成功/0skip/eval3/bad0，暂EMA内部AUROC `.9750773939753712`，尚无完整selected。R186已完整阴性/safe，R187不eligible；R188/R189仍原0f3两technical包、未normalformal/clock/GPU，完整R184R1双门与safe决定既定分支。下一单一ViT-B公开来源只作[独立可行性准备](VIT-BASE-SOURCE-AUDIT-20261102.md)，不改本队列或现冻结。下文为原准备历史。
+
 20:26两technical包已按实际推送/远端回读的0f3b19e6/tree458e9c7f完成，[回执](../../records/preparation/vit-cls-20261102/TECHNICAL-PACKAGES.json)均guard0。仅扩现prepare辅助脚本两SCI/4目标5编译/12GiB路径并保留R187/R184R1执行文本；它们的cd冻结包/接续顺序及当前R186不改。新两轮尚无normalformal/clock/GPU；R186最新4575成功/0skip/eval5/bad0，暂EMA .983750576466211，完整结果未出。
 
 20:20实际4个必要CPU目标/5唯一源码编译及两public fresh已通过，[原件](../../records/preparation/vit-cls-20261102/README.md)保留真实数值RED。两个CLS模型目标25.617s、共享非持久回归6.131s、新身份目标3.592s均guard0；R188 whole8c62435a/SCIb21417ee，R189 wholee347757c/SCI11cf4bc7，均真实noBN EMA首更新、0实图/0GPU。None/原avg兼容与保存冷图已测，source模型不添参数/forward；零SHA不进Git。当前Git同步与技术包尚待完成，不改变R186及既定R187/R184R1接续，无newnormalformal/clock/GPU。

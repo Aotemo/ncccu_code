@@ -1,0 +1,83 @@
+{
+  "repo": "timm/vit_base_patch16_dinov3.lvd1689m",
+  "revision": "c6a5fb7d12bbd3cf3b0079253141c3332aaed7da",
+  "private": false,
+  "gated": false,
+  "card_license": "dinov3-license",
+  "registry_sha256": "06d9ef35589748c846af1b00e3648729f4ab6a0e5bde11abe0451780835c0ae2",
+  "original_binary": {
+    "rfilename": "pytorch_model.bin",
+    "blobId": "17ee0a913900dc0c0d55a86df02fb7cb147cc900",
+    "size": 342624338,
+    "lfs": {
+      "sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+      "size": 342624338,
+      "pointerSize": 134
+    }
+  },
+  "checked_at": 1793653906.50308,
+  "status": "fixed_public_metadata_and_random_native512_factory_only",
+  "config_sha256": "5ca17ece8677541aa067db570946330ecca4125b713a51e89be9e7ec97395e94",
+  "card_sha256": "cebdbe299e69067797886eb381366e3e353b793a2fed95d2c5a47716f9749b96",
+  "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+  "native_library": {
+    "version": "1.0.27",
+    "source_sha256": {
+      "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+      "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914",
+      "layers/attention.py": "608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947",
+      "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa"
+    }
+  },
+  "native": {
+    "parameter_tensors": 162,
+    "state_tensors": 162,
+    "parameter_elements": 85641216,
+    "features": 768,
+    "image_size": [
+      512,
+      512
+    ],
+    "patch_size": [
+      16,
+      16
+    ],
+    "blocks": 12,
+    "heads": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "prefix_tokens": 5,
+    "register_shape": [
+      1,
+      4,
+      768
+    ],
+    "global_pool": "avg",
+    "final_norm_eps": 1e-05,
+    "head": "Identity",
+    "fc_norm": "Identity",
+    "nonpersistent_rope_shape": [
+      16
+    ],
+    "nonpersistent_rope_sha256": "192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3",
+    "batch_norm_modules": 0
+  },
+  "torch": "2.10.0",
+  "at": 1793653912.0917532,
+  "public_binary_downloaded_or_loaded": false,
+  "model_forward_calls": 0,
+  "real_images_or_training_checkpoints_read": false,
+  "GPU_initialized": false,
+  "new_candidate_or_formal_identity_created": false
+}
