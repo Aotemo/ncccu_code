@@ -1,0 +1,142 @@
+{
+  "status": "fixed_metadata_and_random_native_structure_only_not_candidate",
+  "at": 1793714185.0780292,
+  "repo": "timm/eva02_base_patch14_448.mim_in22k_ft_in22k_in1k",
+  "revision": "81063ecfe9c381a16a19d06f396d6c7011aa426a",
+  "license": "mit",
+  "fixed_files": {
+    "FIXED-REGISTRY.json": "44e2cc45a00c85cc36a0ee6d3c48bea6569f01b11e51ecce67702dabf5e3304c",
+    "config.json": "d62e73f578eb363032000b6bfcc57764c6a5d10ee2562cbfe3f105d795e1c4be",
+    "README.md": "b347298844860ff288638f1d7c0baece71d9fe1cd796eefbfbf3f0780175ba07"
+  },
+  "public_bin_LFS": {
+    "rfilename": "pytorch_model.bin",
+    "blobId": "4ac01c9b97b54a6645d6cc8d83d2a18a96acb8ac",
+    "size": 348553277,
+    "lfs": {
+      "sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+      "size": 348553277,
+      "pointerSize": 134
+    }
+  },
+  "native": {
+    "library_versions": {
+      "timm": "1.0.27",
+      "torch": "2.10.0",
+      "torchvision": "0.25.0"
+    },
+    "selected_library_files": {
+      "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+      "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa",
+      "/usr/local/python3.12/lib/python3.12/site-packages/timm/layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914",
+      "/usr/local/python3.12/lib/python3.12/site-packages/timm/models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d"
+    },
+    "state_tensors": 236,
+    "parameter_tensors": 236,
+    "parameter_elements": 87117544,
+    "buffers": [
+      {
+        "name": "rope.pos_embed",
+        "shape": [
+          1024,
+          128
+        ],
+        "dtype": "torch.float32",
+        "persistent_in_state_dict": false
+      }
+    ],
+    "depth": 12,
+    "features": 768,
+    "pool": "avg",
+    "source_head": [
+      768,
+      1000
+    ],
+    "patch_attributes": {
+      "training": true,
+      "patch_size": [
+        14,
+        14
+      ],
+      "img_size": [
+        448,
+        448
+      ],
+      "grid_size": [
+        32,
+        32
+      ],
+      "num_patches": 1024,
+      "flatten": true,
+      "output_fmt": "NCHW",
+      "strict_img_size": true,
+      "dynamic_img_pad": false
+    },
+    "rope_attributes": {
+      "training": true,
+      "dim": 64,
+      "max_res": 224,
+      "temperature": 10000.0,
+      "in_pixels": false,
+      "linear_bands": false,
+      "feat_shape": [
+        32,
+        32
+      ],
+      "ref_feat_shape": [
+        16,
+        16
+      ],
+      "grid_offset": 0.0,
+      "grid_indexing": "ij",
+      "bands": null
+    },
+    "norm_class": "Identity",
+    "fc_norm_class": "LayerNorm",
+    "mlp_class": "SwiGLU",
+    "MLP_norm_class": "LayerNorm",
+    "position_shape": [
+      1,
+      1025,
+      768
+    ],
+    "num_prefix_tokens": 1,
+    "model_constructor_signature": "(img_size: Union[int, Tuple[int, int]] = 224, patch_size: Union[int, Tuple[int, int]] = 16, in_chans: int = 3, num_classes: int = 1000, global_pool: str = 'avg', embed_dim: int = 768, depth: int = 12, num_heads: int = 12, qkv_bias: bool = True, qkv_fused: bool = True, mlp_ratio: float = 4.0, swiglu_mlp: bool = False, swiglu_align_to: int = 0, scale_mlp: bool = False, scale_attn_inner: bool = False, attn_type: str = 'eva', drop_rate: float = 0.0, pos_drop_rate: float = 0.0, patch_drop_rate: float = 0.0, proj_drop_rate: float = 0.0, attn_drop_rate: float = 0.0, drop_path_rate: float = 0.0, norm_layer: Callable = <class 'timm.layers.norm.LayerNorm'>, init_values: Optional[float] = None, class_token: bool = True, num_reg_tokens: int = 0, no_embed_class: bool = False, use_abs_pos_emb: bool = True, use_rot_pos_emb: bool = False, rope_type: Optional[str] = 'cat', rope_grid_offset: float = 0.0, rope_grid_indexing: str = 'ij', rope_temperature: float = 10000.0, rope_rotate_half: bool = False, use_post_norm: bool = False, use_pre_transformer_norm: bool = False, use_post_transformer_norm: Optional[bool] = None, use_fc_norm: Optional[bool] = None, attn_pool_num_heads: Optional[int] = None, attn_pool_mlp_ratio: Optional[float] = None, dynamic_img_size: bool = False, dynamic_img_pad: bool = False, ref_feat_shape: Union[int, Tuple[int, int], NoneType] = None, head_init_scale: float = 0.001, device=None, dtype=None)",
+    "set_input_size_signature": "(img_size: Optional[Tuple[int, int]] = None, patch_size: Optional[Tuple[int, int]] = None) -> None"
+  },
+  "source_preprocessing": {
+    "tag": "mim_in22k_ft_in22k_in1k",
+    "custom_load": false,
+    "input_size": [
+      3,
+      448,
+      448
+    ],
+    "fixed_input_size": true,
+    "interpolation": "bicubic",
+    "crop_pct": 1.0,
+    "crop_mode": "squash",
+    "mean": [
+      0.48145466,
+      0.4578275,
+      0.40821073
+    ],
+    "std": [
+      0.26862954,
+      0.26130258,
+      0.27577711
+    ],
+    "num_classes": 1000,
+    "pool_size": null,
+    "first_conv": "patch_embed.proj",
+    "classifier": "head",
+    "license": "mit"
+  },
+  "contest512_adaptation_tested": false,
+  "public_weights_downloaded_or_loaded": false,
+  "image_forward_calls": 0,
+  "datasets_or_training_checkpoint_read": false,
+  "GPU_initialized": false,
+  "new_candidate_registered": false,
+  "producer_sha256": "984d6bf015a9f436f5a4062558810ddb56593eac8325de3c9016d3cc79bd1f24"
+}
