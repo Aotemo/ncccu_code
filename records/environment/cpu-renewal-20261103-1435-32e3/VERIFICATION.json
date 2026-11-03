@@ -1,0 +1,42 @@
+{
+  "status": "renewed_same_live_equal_pools_and_first_guarded_observer_verified",
+  "at": 1793716703.7007565,
+  "allocation_sha256": "7c7af22ca15c3b20cd4e88016dd11e73f842530d4330dba485599b2dcb791e7e",
+  "summary_sha256": "f2d3be33364cea8b9d2433351bc28f89ff231f2e0def007212b0f55bd0835215",
+  "first_guard_sha256": "ef816d6a4387f5e137fe41b9adbf5f7490c3e32d2f8f6cc3ca6085f691d36174",
+  "old_allocation_unchanged": true,
+  "active_GPU_site_unchanged": true,
+  "no_model_or_GPU_forward": true,
+  "observer_environment": "r217-cpu1435-pod-context.env",
+  "masks": {
+    "32e3b079-81b0-4f66-9604-b32491599f44": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "a4e26231-4059-407f-b171-98e65362ec47": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ]
+  },
+  "valid_until": 1793738092.8096552
+}
