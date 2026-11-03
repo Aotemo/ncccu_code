@@ -44,10 +44,11 @@ Files：`configs/R210-SCIENCE.json`、`configs/R211-SCIENCE.json`、`runtime/bun
 
 ## Task 3：同步与原链接续
 
-- [ ] 真实精简回执入records；代码/config同步GitHub并实际回读后精确部署两个technical包。
+- [x] 真实精简回执入records；代码/config同步GitHub并实际回读后精确部署两个technical包。
 - [ ] 本轮训练期间完成可行后备normal，完整结果决定唯一分支；actualsafe后一次activation/direct launch，以真实八rank初态及自然首25证明能跑。
 
 ## Ledger
 
 - 08:13 UTC设计固定，尚未实现/测试/生成SCI/训练。Ruling：沿用户明确授权由本人实施、不派生或追加审批；验证限实际受影响路径，旧已通过且源身份相同证据复用。独立technical-prep源快照用于CPU隔离，主仓唯一Git写入者保持。最终由本人另作完整diff自审，不把它称为独立Agent审查。
 - 08:30后实际[8目标/6compile/两public fresh及最终guard](../../records/preparation/nadam-20261103/README.md)已通过；完整diff本人自审未见阻断，旧参数分组/调度/保存为不变通用实现，不追加GPU预演。原source上传过早的目录不存在运输错误与预期RED均如实保留。R209仍八rank训练，无新normal/clock/GPU，待Git/technical。
+- 08:34 source158bfb0/tree2e993be9已push并GitHub实际回读，[两technical包](../../records/preparation/nadam-20261103/TECHNICAL-PACKAGES.json)guard0/原storage保持；无新normal/clock/GPU。source archive首次taskset参数错误已记录，正确重传exit0后才绑定/打包。R209完整结果仍未知，不先判条件R210。

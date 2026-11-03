@@ -1,0 +1,41 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "fa6846818cc454af978a7630906196a6fe75dc0d8f998179c2375bbcb65b60d9",
+  "inventory_sha256": "0170d2d986c2ce959c75041bc0e5cf1560b5d7593f121b3998d6e463fe30547b",
+  "source_commit": "158bfb0c9e174d9a71991651a1c7e33d77c3eaf8",
+  "candidate_count": 9,
+  "skipped": [],
+  "logical_bytes": 6733279115,
+  "allocated_bytes": 6733281792,
+  "filesystem_free_now": 32056016896,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r207-small22k-seed29-pairsqhinge-m1q025-24k-p4-9010-20261103"
+  ],
+  "conclusions": {
+    "R207": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/source-git/records/R207/R207-RESULT.json",
+        "sha256": "67cd4c672d3bd83a2e70c1594881357d78815c8f85abd527b23ab90e084eb2fa",
+        "git_blob": "2afb70e4db55a4480557987eeef1c4489329d76b"
+      },
+      "selected": {
+        "auroc": 0.9865633703435679,
+        "ap": 0.8282748154536138,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 22318
+      },
+      "freeze_metadata_sha256": "88930eed0aec661e237dfcedadc762f4774ac5d6ebb6b170b897153ade0eee9c",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}
