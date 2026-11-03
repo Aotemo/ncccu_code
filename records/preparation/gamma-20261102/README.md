@@ -1,5 +1,7 @@
 # 固定 fit gamma 曝光增强 CPU 准备
 
+11-03 01:11在R195仍训练、bad3期间，后备R197[正常CPU18/18及精确Git部署](NORMAL-R197.json)一次完成：[guardok8kthh7](CPU-NORMAL-R197.json) / `5f75d9af5c3c2cdf12a6b204b66ff60b47fd8ae3640e15377fe72f0dd136ae0a` exit0，固定436ae5b/tree3613123a、SCI6000c2a8、原whole50c6/345全训/5空Adam，实际SITE8bbbdd43。manifest6dfd5064 / CPU-prepe5f29a30 / deploymentbdd55f2f，默认12GiB/free16GiB保持；五目标五编译按原SHA复用。当前无新clock/activation/GPU；待R195完整selected与actualsafe，只核未激活分配窗口、一次activation/direct launch，后续真实八rank初态/自然首更新证明GPU链。不重复normal，不修改当前693冻结。
+
 23:57两[actual technical包](TECHNICAL-PACKAGES.json)已按实际GitHub回读commit `436ae5b72dd51bbd567e7e5df60762e44ccb70bf`/tree `3613123ab20606aa68e427026de1fc5bcb2f1c64`生成；R196 SITE737d93b7与[guard6429n469](CPU-TECHNICAL-R196.json)、R197 SITEd26295ea与[guardm026ckp2](CPU-TECHNICAL-R197.json)均0。归档s8jndylw SHA `f25e2958532a9169492ef37592f66b6a12e06f4279746854e19d03d468ec30c5` exit0，实核两者无formal-cpu/gpu-inputs/真实round目录，未新clock或GPU。当前R193/2a与先行R194/R195/693不改；本组正常CPU仅在前轮可行收尾前执行一次。
 
 [CPU汇总](CPU-CHECKS.json)SHA `24b6ead934fffbb8079db96ebdc2efb1b4a351500dd76cc08a4d8cf9f59ae1a7`：5个受影响目标通过、5份源码编译、两actual public fresh；[最终guard](CPU-FINAL-GUARD.json)gagx9qd0/`dbc776c0ca8d9005824cb07d9e76be503f8e7b427e232cdd8d5f3ac50827f88f` exit0。全部在逐次核UID/Ready的既有Pod、53ab/root0–11、nice19/隐藏GPU运行，与当前R193训练24–119互斥，未恢复/派生Agent。
