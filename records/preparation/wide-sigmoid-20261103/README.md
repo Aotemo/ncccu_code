@@ -1,5 +1,7 @@
 # 固定较宽 sigmoid 目标 CPU 准备
 
+11-03 03:28后备R201已在R199/bad3仍训练时完成[正常CPU18/18与精确部署](NORMAL-R201.json)，[guardk3w5kpql](NORMAL-R201-CPU.json) / `7bdb18d0566a78c5c3fdd6ad4f7203f6bc2c5e82f357d8ac0a3ef1275e136ab5` exit0。原5目标/4编译按SHA复用，新完整producer实际通过；345全训/5空AdamW/whole50c6、actual SITE `d50c8471e7a1f64bb509d4d50d8d30b1f5de8e24eebae6fd39fbc60637f40788`，manifest2a440a9e、CPU-prep2a077d5c、deployment74f6e00b。source8635b53/tree844d586、SCIbb449eb8、默认12GiB/free16GiB不变，无新clock/activation/GPU。使用新ec5准备0–11，与R199训练24–119互斥；完整R199双门及actualsafe决定唯一分支，下文待normal状态为历史。
+
 01:48两[actual technical包](TECHNICAL-PACKAGES.json)已按GitHub实际回读commit `8635b53728f3b52829e44d9faa24434ec0c2197f` / tree `844d58670225afab2aca011223a0ba46b99909cc`生成。R200 SITE07639d30 / [guardaydxy8l5](CPU-TECHNICAL-R200.json)、R201 SITEf2ce4173 / [guard14i5jk_w](CPU-TECHNICAL-R201.json)均0；归档v88xsue3 / `bee0963906fc762a62cf7be4e325529a440858a18e614e8ddc06cb522bb1e06e` exit0，实核无formal-cpu/gpu-inputs/真实round目录，无新clock/GPU。当前R197/436与先行R198/R199/82add93保持冻结，本组正常CPU/精确部署仍在前轮可行收尾前执行一次。
 
 [CPU汇总](CPU-CHECKS.json) SHA `34706b04cdfda1197191e44dd3d35b7ad8dbb07a794b9c7dd0f276d91450111b`：5必要目标通过、4份受影响源码编译、两actual public fresh；[最终guard](CPU-FINAL-GUARD.json)m7dh84qz / `b6c78d314553926f6acfa79ec9823d18caa5760fb2baa36ed966060b5e4e6a92` exit0。全部在当次实核UID/Ready的既有Pod、53ab/root0–11、nice19/隐藏GPU，与R197训练24–119互斥；无新Agent或计算资源。
