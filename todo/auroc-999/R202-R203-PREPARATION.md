@@ -1,5 +1,7 @@
 # R201 后续公开 ViT-B 骨干低学习率对照
 
+11-03 05:18[R203真实八rank及首自然25](../../records/R203/README.md)已通过，165全训/5空AdamW/wholec3495f5a、有限loss/WORLD8-G64P8-448，05:19已200成功0跳过。R201完整内部selected`.9889535226751404`只胜R107、未胜R120，R202不eligible；actualsafe后按原normal19/19、窗口/一次activation/direct launch串行接续，573/SCI33054ab0/actual SITEfac19be4冻结。旧长名失败、clock/token/grant原件不重写；下文待normal/GPU为历史。R203完整收益仍待终态，raw .999未达。
+
 11-03 05:08后备R203已在R201/bad3仍训练时完成[正常CPU19/19及精确Git部署](../../records/preparation/vitb-low-lr-20261103/NORMAL-R203.json)，guardia7rr8p2 / fe87e96b exit0，165全训/5空AdamW/wholec3495f5a、actual SITEfac19be4、source573/SCI33054ab0、16GiB/free16GiB均相符；原四目标三编译按SHA复用。未新clock/activation/GPU，完整R201严格双门才R202，否则独立R203，actualsafe后仅核窗口/一次activation/direct launch，不重跑normal。当前ec5/root0–11与R201训练24–119互斥；05:07实核peer idle/activeTurn null，仅32e3 running，未恢复/派生或发消息。下文未normal状态为历史。
 
 11-03 04:31当前R201/8635已真实八rank训练，准备改用实核ec5/root0–11，与训练24–119互斥；两technical包保持。提前将原终态/下一轮首成功归档助手只替换为R201→R202/R203身份，未触碰冻结包。一次直接`-m py_compile`调用被只接收绝对.py脚本路径的CPU守护器CLI拒绝exit2、未生成CPU任务；随后发现当前解释器自带py_compile脚本并沿原受控脚本入口编译通过，guardl5c7ubmc / `567e53de39fd724588f21e2081630e85a52ea4daa8b19e80ff6bb0dfb604ca2e` exit0。只属私有元数据助手语法，不替代既有四目标三编译/两fresh或真实GPU证据；正常CPU仍待可行收尾前执行。

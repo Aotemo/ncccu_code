@@ -1,0 +1,37 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/source-git-namefix/records/preparation/vitb-low-lr-20261103/CPU-CHECKS.json",
+    "sha256": "8a3e7f62821062d59f2ab80a81b5a33d3cd1cbcf41da750259504dacd730ba65"
+  },
+  "source_files": {
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "tests/test_candidate_binding.py": "c535b3800c5baf1fe0acf3c53d77c6097e983916f60b1004d1cdb04540d608a1",
+    "tools/validation/check_candidate.py": "eb502c8a04f717e1deaf2b4610e2c292682f3194448fe3227f56e62cefbb2cf8",
+    "configs/ROUND-STORAGE-POLICY.json": "187a713b63a40135fbdd61b722e39ae0727e2f5fd7917ca0505053bfa3772337",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tests/test_pairwise_sigmoid_wide_loss.py": "6e794704b84312f7818584a4b417e1c5e39f55b10d14275f988fa57dfc2b5639",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "tests/test_round_storage_policy.py": "76a9d2d51dfb6667d2ee77d683bcb7c223beaef8e9f57d966b701b7da66c8a37",
+    "runtime/bundle/retrain/experiment91.py": "9c36284c0707beebf2eca829ac7eb0dc8aab169f125077c04c46725540114cef",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "runtime/bundle/retrain/classification_loss.py": "7fd8c903b6650577a0515e1e9328d5918395c6707d54e404f661336e295b9aa6",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41"
+  },
+  "science_sha256": "33054ab03a6e88a3999e348359bcfff8516a816d8489fec2128e9ca1055e14c8",
+  "targets_reused": 4,
+  "unchanged_implementation_files": 11,
+  "tests_rerun": false,
+  "at": 1793682478.9469273
+}

@@ -1,5 +1,7 @@
 # R201：固定较宽 sigmoid 的独立 fresh
 
+11-03 05:15[完整结束](R201-RESULT.json)：7200 success=attempt/0skip、9次评估、连续4次未提升早停，唯一EMA c5@4000内部AUROC `.9889535226751404` / AP `.8363466610846791` / error_twice18348；严格R107门true/R120门false，条件R202不eligible，固定wide2组合关闭。官方不足`.996`未跑，freeze.status原null保留。同次[终态安全证据](R201-COMPLETION.json)证明owner679171/start370666628为Z/非active、八rank missing、锁holders/device_users空、扫描denied0及八PCI busy0；[guardekweron4](R201-CPU-COMPLETION.json) / `4587399e901082b9c90f879ca4bccd3973ca1d845a0d334d8877224557633fe1` exit0，旧safe此后不重查，不重启本轮。独立[R203实际接续](../R203/README.md)已证八rank/165全训/5空组/首自然25有限；原8635冻结不改，下文为历史。
+
 04:27[既有监控单次快照](R201-DEVICE-POINT.json)八绑定PCI busy均100%，[guard964izxpj](R201-CPU-DEVICE-POINT.json) / `8db676dffc99254fe65db3a7b1810118c448e4a58e3da1c042545f7a6864e05f` exit0；这是sysfs时点观测，不是连续利用率。最近1500 success=attempt/0skip/eval1/bad0，首次内部AUROC `.976776388907285`，无完整selected。04:28 Paseo实核仅32e3 running、peer a4 idle且activeTurn null，未恢复/派生或发消息；ec5两CPU池继续互斥。
 
 11-03 04:17[真实初态及首自然25](R201-START.json)已证八rank、345全训、5空原生AdamW、whole50c6与formal一致，WORLD8/G64P8/448对、每rank8图，首25 loss `1.92756986618042`有限、0skip；当次已50 success=attempt、尚未内部评估。这里只确认当前路径能运行，完整AUROC收益尚待终态，raw .999未达。
