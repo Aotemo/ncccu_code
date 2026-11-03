@@ -1,5 +1,7 @@
 # R230 fit-only EMA跨视图分布实际启动
 
+22:44 [实际进度](R230-PROGRESS-after-r228-cleanup.json)为900次fit适配，原owner和八rank活跃；已越722步原型冻结边界，prototype_frozen=false，loss/gradient仍有限。完整1600及监督交接仍待。原R228的9 checkpoint/6.733GB已按[真实清单](../storage/closed-r228-20261103/README.md)清理，保护stat/小SHA前后一致、共享free31.241GB；当前冻结、clock/token/grant不改。后备[9600时长问题](../../todo/auroc-999/R232-R233-EMA-HORIZON-20261103.md)仅在当前无完整dev时预登记，未实现/未激活，不改变本轮1600合同。
+
 实际八rank公开初态、教师初态及自然首成功已经核实：[首75观测](R230-START.json)60a79c5a/guard316efefc；公开模型50c6f55c、全部344公开张量及空初态匹配18/18正式CPU。[教师/学生初态](R230-SSL-INITIAL-RANKS.json)八rank一致、无梯度/无参数共享，完整教师摘要1a1d51c8与真实P8 CPU一致；[原公开初态门](R230-SSL-INITIAL-GATE.json)已释放。实际全局64图/128唯一视图、输出64×65536，学生与教师合计256 encoder-view forward；首1 loss10.446009、首75 loss10.965660、loss/梯度有限，原型在722步内冻结。目标熵与平均目标熵只作fit诊断，不用来选SSL checkpoint或宣称收益。
 
 完整1600适配、最终教师/center跨rank一致及丢弃、监督交接和完整dev收益仍待证明。当前核实点owner817444/start377243020及八rank活跃；冻结Git4099eed/tree4888dc5c、SCI8cb98a2b、actual SITE d0385fcd、ready=`r230-20261103-4e0c-ready`。当前私有r230 env的first receipt为ACTUAL-START-2（SSL），全程保持该轮原clock/token/grant；监督后再更新为真实监督first receipt。4e0c唯一Git/串行GPU，准备0–23/24核与训练24–119/96核互斥，无新Agent或资源。

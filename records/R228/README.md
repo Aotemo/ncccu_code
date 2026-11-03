@@ -4,9 +4,9 @@
 
 [原固定20/其余147配对结果](PAIRED-REPORT.json)对R107：全体错序9600→12851，修复2179、新增5430、净增3251；固定20为6623→8796，修复1198/新增3371/净增2173；其余147为2977→4055，修复981/新增2059/净增1078。两组都未得到净修复，不以少量修复替代完整AUROC主判。对R107 AUROC差−.00391455、2000次图像分层paired-bootstrap 95%区间[−.00787501,−.00088574]；对R120差−.00495129、区间[−.01089458,−.00068249]。对R115/R224/R226区间均跨0。区间不覆盖患者级依赖、训练seed方差、选点偏差或多重比较；本轮不作临床因果归因。
 
-真实成本：1600次SSL、102400主图/204800增强视图，首至末SSL日志1125.665秒；joint train component4343.877秒，其中start→SSL完成1219.223秒、SSL完成→监督component结束3124.654秒。dense16384×256相关token计算不同，不能因更新数与R115相同就称等算力，也不能将不同监督早停长度等同固定预算比较。
+真实成本：1600次SSL、102400主图/204800增强视图，首至末SSL日志1125.665秒；joint train component4343.877秒，其中start→SSL完成1219.223秒、SSL完成→监督component结束3124.654秒。dense16384×256相关token计算不同，不能因更新数与R115相同就称等算力，也不能将不同监督早停长度等同固定预算比较。结果与新轮真实首成功先以aab07d7同步后，9个checkpoint已按[精确清单](../storage/closed-r228-20261103/README.md)删除6,733,343,307逻辑字节，所选现在只留历史身份及CSV，不能再称可加载；侧车/索引/结果及三KEEP/当前R230/数据缓存不改。
 
-[唯一actualsafe](R228-COMPLETION.json)6b3e3a47/guard07c0f6a9于22:28:14确认：原owner808714同出生身份Z、八rank消失、锁无持有者、device user为空/denied0、八卡busy0。旧safe只复用，未重复观测或重置clock/token/grant。[新R230](../R230/README.md)按事前分支在实际安全后一次激活/入口/dispatch并已首75，整轮结束至首1/25为278.461/298.386秒；完整结果与该启动来源先归档，再按真实清单处理无未来forward依赖的旧checkpoint，当前仍未清理。下方为带时间点的历史准备与运行记录。
+[唯一actualsafe](R228-COMPLETION.json)6b3e3a47/guard07c0f6a9于22:28:14确认：原owner808714同出生身份Z、八rank消失、锁无持有者、device user为空/denied0、八卡busy0。旧safe只复用，未重复观测或重置clock/token/grant。[新R230](../R230/README.md)按事前分支在实际安全后一次激活/入口/dispatch并已首75，整轮结束至首1/25为278.461/298.386秒；完整结果与该启动来源先归档，再按真实清单处理无未来forward依赖的旧checkpoint，已按上述真实清单完成9 checkpoint清理，清单外文件未动。下方为带时间点的历史准备与运行记录。
 
 22:19前后的[只读快照](R228-PROGRESS-ema-formal-ready.json)：5475 success=attempt/0skip/c6/bad2，原owner及八rank仍活跃，暂EMA best c4@3200 AUROC.9845260214/AP.8101778592。尚无完整selected，不据此提前判定双门；冻结部署和原clock/token/grant不改。此时[R230/条件R231后备](../preparation/ema-assignment-20261103/README.md)已完成19必要目标、真实P8、各18/18正式CPU及4099eed精确部署，均未激活；完整本轮双门过优先原R229，否则唯一actualsafe后R230，无文档或审批等待。
 
