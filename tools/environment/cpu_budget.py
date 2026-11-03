@@ -139,8 +139,8 @@ def identity():
 
 
 def build_allocation(resources, owners, pod_identity, *, now, valid_seconds):
-    if len(owners) != 2 or len(set(owners)) != 2 or any(not owner.strip() for owner in owners):
-        raise ValueError('two explicit, distinct existing executor IDs required')
+    if not 1 <= len(owners) <= 2 or len(set(owners)) != len(owners) or any(not owner.strip() for owner in owners):
+        raise ValueError('one or two explicit, distinct existing executor IDs required')
     if type(valid_seconds) is not int or not 1 <= valid_seconds <= 21600:
         raise ValueError('explicit allocation validity must be within six hours')
     total, pool = validation_pool(resources)
@@ -169,7 +169,7 @@ def validate_allocation(value, resources, pod_identity, owner, *, now):
             or not value.get('created_at', float('inf')) <= now <= value.get('valid_until', -1)):
         raise ValueError('CPU allocation identity is missing, expired or belongs to another Pod')
     allocations = value.get('allocations', {})
-    if not isinstance(allocations, dict) or len(allocations) != 2 or owner not in allocations:
+    if not isinstance(allocations, dict) or not 1 <= len(allocations) <= 2 or owner not in allocations:
         raise ValueError('explicit executor allocation is missing')
     masks = []
     for item in allocations.values():

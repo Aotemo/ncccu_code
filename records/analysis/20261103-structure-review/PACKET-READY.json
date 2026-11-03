@@ -1,0 +1,14 @@
+{
+  "status": "blind_material_ready_not_yet_reviewed",
+  "at": 1793727204.888562,
+  "count": 36,
+  "fixed20_count": 20,
+  "original_controls_count": 16,
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/source",
+  "site_sha256": "c833c9adb3e5cc15334721e8560a3f8c27d047bda3c549c09a4cd023b9501238",
+  "packet_sha256": "465708a98099b3ef80d35e859a9b2a4f36a855d435be63e124c292ee85e0916f",
+  "provenance_sha256": "ef4f6244c86cac246536c6089e2fb6f814764d9237edb105920ca97c8f7b0b73",
+  "official_read": false,
+  "model_forward": false,
+  "gpu_initialized": false
+}

@@ -87,6 +87,19 @@ class CPUBudgetTest(unittest.TestCase):
         value = budget.build_allocation(smaller, ['a', 'b'], self.identity, now=1000, valid_seconds=600)
         self.assertEqual(value['allocations'], {'a': {'threads': 1, 'mask': [2]}, 'b': {'threads': 1, 'mask': [4]}})
 
+    def test_one_executor_can_own_the_complete_preparation_pool(self):
+        value = budget.build_allocation(self.resources, ['executor-a'], self.identity,
+                                        now=1000, valid_seconds=600)
+        self.assertEqual(value['allocations'], {'executor-a': {'threads': 24, 'mask': list(range(24))}})
+        self.assertEqual(budget.validate_allocation(value, self.resources, self.identity,
+                                                   'executor-a', now=1001)['threads'], 24)
+        with self.assertRaises(ValueError):
+            budget.validate_allocation(value, self.resources, self.identity, 'executor-b', now=1001)
+        bad = copy.deepcopy(value)
+        bad['allocations']['executor-a']['mask'][-1] = 24
+        with self.assertRaises(ValueError):
+            budget.validate_allocation(bad, self.resources, self.identity, 'executor-a', now=1001)
+
     def test_overlapping_masks_missing_owner_and_quota_reduction_fail(self):
         bad = copy.deepcopy(self.value); bad['allocations']['executor-b']['mask'][0] = 0
         with self.assertRaises(ValueError):
@@ -106,7 +119,7 @@ class CPUBudgetTest(unittest.TestCase):
                 budget.validate_allocation(self.value, self.resources, identity, 'executor-a', now=now)
 
     def test_inadequate_capacity_or_missing_executor_is_rejected(self):
-        for owners, resources in [(['only-one'], self.resources), (['a', 'a'], self.resources),
+        for owners, resources in [([], self.resources), (['a', 'b', 'c'], self.resources), (['a', 'a'], self.resources),
                                    (['a', 'b'], {**self.resources, 'available': list(range(5)),
                                                 'cpuset': list(range(5)),
                                                 'effective_cpu_fraction': '5', 'effective_cpus': 5.0,

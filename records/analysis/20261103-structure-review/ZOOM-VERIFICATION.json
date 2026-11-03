@@ -1,0 +1,16 @@
+{
+  "mismatches": [
+    {
+      "name": "ARTIFACTS.json",
+      "recorded": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e03f5f3ed8d7918e194ab8d752ac840f9e5c918b483bb0bc1ea23306f887e60f"
+    }
+  ],
+  "png_count": 12,
+  "geometry_matches": true,
+  "expected_self_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "original_manifest_sha256": "e03f5f3ed8d7918e194ab8d752ac840f9e5c918b483bb0bc1ea23306f887e60f",
+  "explanation": "The producer opened ARTIFACTS.json before enumerating/hash-reading files, so it accidentally included the empty self file.",
+  "images_modified": false,
+  "review_sealed": false
+}

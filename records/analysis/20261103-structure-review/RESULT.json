@@ -1,0 +1,118 @@
+{
+  "scope": "AI-assisted blinded technical original-and-512 structure review, original sealed fixed20 plus controls",
+  "at": 1793727902.3035574,
+  "reviewer": "OpenAI assistant in session 4e0c; AI-assisted visual structure review; not a clinical expert or original annotator",
+  "expert_review": false,
+  "original_label_standard_available": false,
+  "blind_review_sha256": "dfaa1d8b8a20b0f097411d9514a9e3d4158200a489274d120ee30f1677c09b85",
+  "review_tsv_sha256": "a4719f078085f4cd0442c33466e34ba24cac26a0b56add55f79cdb1c34e8a89f",
+  "packet_sha256": "465708a98099b3ef80d35e859a9b2a4f36a855d435be63e124c292ee85e0916f",
+  "provenance_sha256": "ef4f6244c86cac246536c6089e2fb6f814764d9237edb105920ca97c8f7b0b73",
+  "unblinded_review_sha256": "2d6c80b0970ff177de846432a063a94bd2339364a0a5e6c0b8bac49ee3d1dd5a",
+  "original_group_definition_sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b",
+  "fixed20_digest": "50cd354e1e6b8e6b53a7bd5b414b33152b25ce16a5cd78c2fcd957b33bbb3b5c",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "review_order_seed": 20261103,
+  "actual_readonly_cache_checked_count": 36,
+  "groups": {
+    "fixed20": {
+      "n": 20,
+      "structure": {
+        "original_disc_visible": {
+          "yes": 20
+        },
+        "prepared_disc_visible": {
+          "yes": 20
+        },
+        "original_rim_resolvable": {
+          "partial": 13,
+          "yes": 4,
+          "no": 3
+        },
+        "prepared_rim_resolvable": {
+          "partial": 16,
+          "no": 3,
+          "yes": 1
+        },
+        "original_adjacent_resolvable": {
+          "yes": 12,
+          "partial": 8
+        },
+        "prepared_adjacent_resolvable": {
+          "yes": 12,
+          "partial": 8
+        },
+        "detail_loss": {
+          "yes": 14,
+          "partial": 6
+        },
+        "label_interpretability": {
+          "unknown": 20
+        }
+      },
+      "rim_visibility_downgrades": 3,
+      "whole_disc_newly_lost_after512": 0,
+      "label_review_uncertain": 20
+    },
+    "original_controls16": {
+      "n": 16,
+      "structure": {
+        "original_disc_visible": {
+          "yes": 15,
+          "partial": 1
+        },
+        "prepared_disc_visible": {
+          "yes": 15,
+          "partial": 1
+        },
+        "original_rim_resolvable": {
+          "partial": 12,
+          "yes": 3,
+          "no": 1
+        },
+        "prepared_rim_resolvable": {
+          "partial": 12,
+          "yes": 3,
+          "no": 1
+        },
+        "original_adjacent_resolvable": {
+          "partial": 5,
+          "yes": 11
+        },
+        "prepared_adjacent_resolvable": {
+          "partial": 5,
+          "yes": 11
+        },
+        "detail_loss": {
+          "partial": 2,
+          "yes": 14
+        },
+        "label_interpretability": {
+          "unknown": 16
+        }
+      },
+      "rim_visibility_downgrades": 0,
+      "whole_disc_newly_lost_after512": 0,
+      "label_review_uncertain": 16
+    }
+  },
+  "rubric": {
+    "disc_visible": "entire disc within the image, even if blurred; partial means source field cuts disc",
+    "rim_resolvable": "technical tracing of coarse inner/outer tissue boundaries: yes enough for rough contour comparison, partial only segments, no unreliable; not CDR or glaucoma grading",
+    "adjacent_resolvable": "coarse adjacent vessels/visible texture can be followed; not microscopic RNFL integrity or thickness",
+    "detail_loss": "visible loss of small vessel/edge or texture detail at matched field; does not establish clinical decisiveness",
+    "label_interpretability": "unknown without original per-case marking standard; all label_review uncertain"
+  },
+  "zoom_geometry_sha256": "ef811fdbefcd3f9bfdeecc1e0de96f3195b17902b5d3e2ab325aa59c488a4724",
+  "zoom_artifacts_sha256": "e03f5f3ed8d7918e194ab8d752ac840f9e5c918b483bb0bc1ea23306f887e60f",
+  "production_sources_sha256": {
+    "runtime/bundle/retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "runtime/bundle/retrain/preprocessing.py": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456"
+  },
+  "review_source_sha256": "f1bb7ade536ff0fd5b6daea59edb83752a1d5d99d4bc13214df6e4237d457dbd",
+  "notes": "Blinded notes were durably written before parsing alias/name/label mapping. Manual disc coordinates serve display only; no training use. Photographic blur/glare and one partial original disc coexist with downsampling losses; neither diagnosis nor label correctness is established.",
+  "official_read": false,
+  "model_loaded": false,
+  "new_forward": false,
+  "training_inputs_or_labels_changed": false
+}
