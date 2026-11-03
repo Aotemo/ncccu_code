@@ -1,5 +1,7 @@
 # R197：原 Small sigmoid 的独立 fit gamma 增强
 
+11-03 01:35:40.963 UTC[既有监控单次快照](R197-DEVICE-POINT.json)八绑定PCI全部busy100%，非连续利用率；[guardi9s5j806](R197-CPU-DEVICE-POINT.json) / `2ab3c4f81f69c14927d117066fc4dab3b4338020eb2eeaa6bbafefec763dce56` exit0，0 GPU API/模型/forward、未改runtime。01:42最近2525 success=attempt/0skip/eval3/bad0，暂best EMA c3@2400内部AUROC `.9863695091217123` / AP `.8258739741425536`，尚无完整selected。
+
 [真实八rank初态与首自然25](R197-START.json)已通过：345全训、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致，WORLD8/G64P8/448对、各rank8图，有限loss `.9216874241828918`。11-03 01:23最近175 success=attempt/0skip/eval0，八rank活跃，尚无完整selected或官方结果；raw `.999`未达。
 
 仅直接R120原Small/public fe6/seed20261029/512/FP32/ImageNet/sigmoid新增fit `gamma-reciprocal075-v1`。原八次sample-key几何/光度抽样后，以独立流等概率选`.75,1,4/3`，同RGB查表`round(255*(i/255)**gamma)`，转张量/原normalization前应用；eval不变。原backbone1e-4/head-age1e-3/default AdamW/WD1e-4与原24000余弦保持，不叠半LR、8000跨度或后续WD=.05。最多24000成功更新/每800内部评估/p4早停/EMA1600与唯一内部AUROC选择保持；固定曝光鲁棒性是假设，未证明临床机制或收益。

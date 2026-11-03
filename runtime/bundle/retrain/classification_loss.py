@@ -24,13 +24,19 @@ PAIR_BCE_MIX_LOSS = {
     'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
     'pointwise_weight': .5,
 }
+PAIR_WIDE_SIGMOID_LOSS = {
+    'version': 'binary-pairwise-sigmoid-wide2-peakgrad-v1', 'kind': 'binary_pairwise_sigmoid_wide',
+    'temperature': 2.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
+}
 PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid',
-                       PAIR_HARD_POSITIVE_LOSS['kind'], PAIR_AUC_MARGIN_LOSS['kind'], PAIR_BCE_MIX_LOSS['kind'])
+                       PAIR_HARD_POSITIVE_LOSS['kind'], PAIR_AUC_MARGIN_LOSS['kind'], PAIR_BCE_MIX_LOSS['kind'],
+                       PAIR_WIDE_SIGMOID_LOSS['kind'])
 _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
                           'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1',
                           PAIR_HARD_POSITIVE_LOSS['kind']: PAIR_HARD_POSITIVE_LOSS['version'],
                           PAIR_AUC_MARGIN_LOSS['kind']: PAIR_AUC_MARGIN_LOSS['version'],
-                          PAIR_BCE_MIX_LOSS['kind']: PAIR_BCE_MIX_LOSS['version']}
+                          PAIR_BCE_MIX_LOSS['kind']: PAIR_BCE_MIX_LOSS['version'],
+                          PAIR_WIDE_SIGMOID_LOSS['kind']: PAIR_WIDE_SIGMOID_LOSS['version']}
 
 
 def validate_loss(specification):
@@ -53,8 +59,9 @@ def validate_loss(specification):
                 or specification['scope'] != 'global_batch'):
             raise ValueError('pairwise loss requires its explicit versioned contract')
         temperature = specification['temperature']
-        if type(temperature) not in (int, float) or not math.isfinite(temperature) or temperature != 1.0:
-            raise ValueError('binary pairwise loss temperature must be 1.0')
+        expected_temperature = 2.0 if kind == PAIR_WIDE_SIGMOID_LOSS['kind'] else 1.0
+        if type(temperature) not in (int, float) or not math.isfinite(temperature) or temperature != expected_temperature:
+            raise ValueError('binary pairwise loss temperature differs from its fixed version')
         return specification
     fields = {'version', 'kind', 'gamma', 'alpha', 'reduction', 'dtype',
               'modulation_detached'}
@@ -128,6 +135,8 @@ def classification_loss(logits, targets, specification=None):
             hardest = torch.sort(per_positive, descending=True, stable=True).values[:specification['top_positive_count']]
             weight = specification['hard_positive_weight']
             return (1. - weight) * per_positive.mean() + weight * hardest.mean()
+        if specification['kind'] == PAIR_WIDE_SIGMOID_LOSS['kind']:
+            return 2. * specification['temperature'] * torch.sigmoid(scaled).mean()
         return 2. * torch.sigmoid(scaled).mean()
     bce = F.binary_cross_entropy_with_logits(logits.float(), targets.float(), reduction='none')
     gamma = float(specification['gamma'])

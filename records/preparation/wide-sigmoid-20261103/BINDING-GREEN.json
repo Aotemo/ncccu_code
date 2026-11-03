@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "targets_run": 2,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R200_R201_weight_decay_confirmation_and_independent_wide_sigmoid_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R198_R199_gamma_confirmation_and_weight_decay_identity"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "ef20c54e81738eda6bd2b93b0034423bc8a53fef7fb83ca45dec7e9ef374016d",
+    "runtime/bundle/retrain/classification_loss.py": "7fd8c903b6650577a0515e1e9328d5918395c6707d54e404f661336e295b9aa6",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "tests/test_candidate_binding.py": "77ce216d6557d7d5efbec61bddab166c8bf44d25b37e0798a74cc06b0de81d04"
+  },
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "failures": 0,
+  "errors": 0,
+  "official_read": false
+}

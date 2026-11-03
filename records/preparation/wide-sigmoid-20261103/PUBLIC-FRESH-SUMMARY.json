@@ -1,0 +1,50 @@
+{
+  "R200": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/wide-sigmoid-20261103-32e3/fresh/R200-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "6acc4acba7883182d0ad14e0462b251f6e902be9226064b8cb38bde6c4354b90",
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "weight_decay_by_group": [
+      0.0,
+      0.05,
+      0.0,
+      0.05,
+      0.0001
+    ],
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-sigmoid-v1",
+      "kind": "binary_pairwise_sigmoid",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    }
+  },
+  "R201": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/wide-sigmoid-20261103-32e3/fresh/R201-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "e0827e120a37fa159067427191476732b12f1cae27df53f4e2992e23f37990df",
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-sigmoid-wide2-peakgrad-v1",
+      "kind": "binary_pairwise_sigmoid_wide",
+      "temperature": 2.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    }
+  }
+}

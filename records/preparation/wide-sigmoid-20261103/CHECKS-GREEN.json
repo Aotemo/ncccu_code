@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "targets_run": 3,
+  "targets": [
+    "test_pairwise_sigmoid_wide_loss.WideSigmoidLossTest.test_complete_8x56_independent_value_gradient_and_invariances",
+    "test_pairwise_sigmoid_wide_loss.WideSigmoidLossTest.test_strict_spec_extremes_and_legacy_values_and_gradients",
+    "test_pairwise_sigmoid_wide_loss.WideSigmoidLossTest.test_two_rank_global_logits_and_DDP_parameter_gradients"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "7fd8c903b6650577a0515e1e9328d5918395c6707d54e404f661336e295b9aa6",
+    "tests/test_pairwise_sigmoid_wide_loss.py": "6e794704b84312f7818584a4b417e1c5e39f55b10d14275f988fa57dfc2b5639"
+  },
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "official_read": false,
+  "Toy_linear_forward_calls_per_Gloo_rank": 1,
+  "failures": 0,
+  "errors": 0
+}
