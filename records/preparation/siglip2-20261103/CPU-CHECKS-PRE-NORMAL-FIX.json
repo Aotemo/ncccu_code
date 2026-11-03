@@ -1,0 +1,200 @@
+{
+  "scope": "R214_R215_native_EfficientNet_confirmation_and_full_SigLIP2_public_MAP_affected_CPU",
+  "at": 1793704740.908383,
+  "passed_targets": 7,
+  "compiled_sources": 12,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/siglip2_model.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/single91.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_siglip2_model.py",
+    "tests/test_candidate_binding.py",
+    "tests/test_official_gate.py",
+    "tests/test_round_storage_policy.py",
+    "tools/pretraining/siglip2_source.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/siglip2_model.py": "b9e24f1a768922ea68db667794a4ba62b625938e5b3fbfe995f240d5b24af908",
+    "runtime/bundle/retrain/models.py": "cdc3314c341b569e063bada0ecd47576654097268e46affefe0672c83ce41745",
+    "runtime/bundle/retrain/config.py": "9cb9e5ab095c69ff451e23ea6fb22cd38bbffa8c958ec07fbf665039151b135a",
+    "runtime/bundle/retrain/inference.py": "2d1cf7260fa3eb3c934b5c26598c3179815117fddf8743f4ce7025b95314db61",
+    "runtime/bundle/retrain/single91.py": "5f1a15bfe09510419c16447f63a5e946e6e51a7b52f397c836c415390cdb03ba",
+    "runtime/bundle/retrain/experiment91.py": "b0337b3e4ea94d198d4c47232f2c9cf66a3a236a7aa18de95e94201dc83aa440",
+    "tools/validation/check_candidate.py": "18eaf33df523af29a5dd95ce3b999b097618d2eb818b838a110ce3257e8e94ff",
+    "tests/test_siglip2_model.py": "b8a4edd46889e55ad9718b7f51cc513b8c461474a1657b358742595d5ea9b918",
+    "tests/test_candidate_binding.py": "04b8080a80fb6e92ae0db3560991b4d9896278345fc1ac7b48e6b578e5b806d7",
+    "tests/test_official_gate.py": "b453e903ab8453f07ef336a7b71627f735ccd4599e7f0d276075a4f06a3320be",
+    "tests/test_round_storage_policy.py": "9325c2253ee4242e707e9d85a3ca1cb1866099a475d7b31b7694c400a04dbbaf",
+    "tools/pretraining/siglip2_source.py": "3e016e381a9361c8d6b37861bf57055cbc09933ead52cacd6eeff5de4caa33ea",
+    "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/precision.py": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "runtime/bundle/retrain/finite.py": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/ema.py": "53b5488eb595985f6bd105fd2f3bfd4809c2d58e4b6aa6b6fed66109d8a2d8f2",
+    "runtime/bundle/retrain/distributed.py": "73bdd2cc31425f7185767977126f981983ca7521ce73352940baeb0d9befb1cd",
+    "runtime/bundle/retrain/distributed_engine.py": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "tools/pretraining/source_chain.py": "5d183e1a0949e913956d57647f6b819846696c34fcb1b4f5d1c82c1510d76473",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "a5329e3c205c1d06216199e6d9495b33320194a9e2da614cea8b667a105a4bbd"
+  },
+  "science_sha256": {
+    "R214-SCIENCE.json": "519ba8d88254dfcbc6ad29929a26ca419795aa79561575b90d407d4f7478ea2c",
+    "R215-SCIENCE.json": "687032413916fbf64689071f30c0bc1e850aa94bd677736d8d0910f35aa9081e"
+  },
+  "unchanged_implementation_files": {
+    "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "data": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a"
+  },
+  "evidence": [
+    {
+      "label": "MODEL-NATIVE-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-shj6jz_w/CPU-RECEIPT.json",
+      "sha256": "ba7a7ec28e9adac48c6ec54896cee8132b6bcedeed0fadb11bd0ba0a917dec65",
+      "exit_code": 0,
+      "output_sha256": "eee12199188db2af51e872c341c95c3d62c5910ef4acc21cd1195cafea503b11"
+    },
+    {
+      "label": "MODEL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-539vqdxy/CPU-RECEIPT.json",
+      "sha256": "4f737b6c0d65b5eaa338b7eb53246506301eba36b764c08f5cb43d7602df7e26",
+      "exit_code": 1,
+      "output_sha256": "4774584e464c16f19bd579f8242bf180c0a8461086fa1202cf0f3a4bc1d819c5"
+    },
+    {
+      "label": "MODEL-FIRST-FIXTURE-ERROR",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g5dgy2r7/CPU-RECEIPT.json",
+      "sha256": "dec2f4f92f7c8e93dc6fbe11b9cd4bb45bb92d0c11c119a2e748a88f4d7b2833",
+      "exit_code": 1,
+      "output_sha256": "3fa3e89a1eae461fb72141cc60173110ee36ac58a070cdb5d114e4c625676817"
+    },
+    {
+      "label": "MODEL-P8-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-68blrs2d/CPU-RECEIPT.json",
+      "sha256": "5c8823ac0467f694e19bfb329f596002a9dd4fa813b547ea98e8d56d00ea06fb",
+      "exit_code": 0,
+      "output_sha256": "f6d5eefc13bdb8d742bf3fa87cfdadc51b5c08cd11da6e9b9dc9fb3e1e32431a"
+    },
+    {
+      "label": "BINDING-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ub0qg7d0/CPU-RECEIPT.json",
+      "sha256": "f59124540d03d4cf032c171829026bce7c8804e999c3189d149c30c4ee441bd1",
+      "exit_code": 1,
+      "output_sha256": "ce01d05e57b13e7ca6fb5a8cf8a46b49b2c657eef426795e5f7ccb61e9c873a5"
+    },
+    {
+      "label": "BINDING-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-_rh__0w3/CPU-RECEIPT.json",
+      "sha256": "e7762eebe25ae6f1b84bc723115a63501f2fb950399127a6bf64469565be0a07",
+      "exit_code": 0,
+      "output_sha256": "541a979824b3cf07e3904fedf449f26ca30bbf47432bf52d593e7d9f56f891de"
+    },
+    {
+      "label": "FREEZE-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-aedgdlhk/CPU-RECEIPT.json",
+      "sha256": "12d78eecdf7fcc1e850d96c090788385cf3b659c2787016c770fed3e5b0e6f43",
+      "exit_code": 1,
+      "output_sha256": "4b56ad486f67c6043a202b6b8f510d8b88dcc76ee501f09d95f35dc1f94b5517"
+    },
+    {
+      "label": "FREEZE-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-huvshhru/CPU-RECEIPT.json",
+      "sha256": "35f9b6f5132bffa8c5f0606c035349f6176e58b5ed84699e95397afb66a3b25e",
+      "exit_code": 0,
+      "output_sha256": "185169e34f74825818f047a1aa19141982c32b705fafd3454fc9f704ebd08bbd"
+    },
+    {
+      "label": "STORAGE-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-djkrjzhb/CPU-RECEIPT.json",
+      "sha256": "a3daded6587a61857a5b52e0610cf3b7c24935ae53129295bbf1aba3e14034e2",
+      "exit_code": 1,
+      "output_sha256": "25240857e60527f53e2784f0b84a6c5bec5667b50fb131b7cc13f50fcfb4d0b4"
+    },
+    {
+      "label": "STORAGE-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-83rkjv28/CPU-RECEIPT.json",
+      "sha256": "b1a5027932c8205f526de3b4a2d57e99ce55591a4cb9d8e0b60da4bc22717b09",
+      "exit_code": 0,
+      "output_sha256": "a41e08b8782ccff561fc04da1c4aa92b79d00989913c15ae6639e0c2e9b7e03c"
+    },
+    {
+      "label": "PUBLIC-STRICT",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-y63no1og/CPU-RECEIPT.json",
+      "sha256": "89a038f2112f7ac2b49f0435c6447442e891c65fa7c7018dcf44d6ebcd360a19",
+      "exit_code": 0,
+      "output_sha256": "bd36cf6ae2cf1ed94c94f8d3a62c5714e33b5d1b6ff0d9cc22343a513959a5a6"
+    },
+    {
+      "label": "PUBLIC-REGISTER",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ypeumziz/CPU-RECEIPT.json",
+      "sha256": "f483a337246796460f46ced1ff5fc671a97ab2bea3cd6b13d0a0baeaa1402c52",
+      "exit_code": 0,
+      "output_sha256": "89965811d2c055b7ccc7290ece5020c10da0f28d445215e9ce7d04f3f6a07a99"
+    },
+    {
+      "label": "FIRST-HEAD-IDENTITIES",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-w0z4558p/CPU-RECEIPT.json",
+      "sha256": "c40b2d1ae7e97b8b4fbd00f0dbf75171692c7969b0a132d27c3ef7dd248aba7a",
+      "exit_code": 0,
+      "output_sha256": "e17a2dbe39b6414893f2cac295406cdd4db875a1d48ce58717f18be7bb2d3288"
+    },
+    {
+      "label": "ACTUAL-FRESH",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-v4ctcpa3/CPU-RECEIPT.json",
+      "sha256": "70da3418f6e5735703838f089cd3fa8948230bd4527ae15d2055631d8261f3cd",
+      "exit_code": 0,
+      "output_sha256": "06af9f5c3214f680fbeca250cc63e63360bb59f0304f6f1271a240f191197491"
+    },
+    {
+      "label": "SOURCE-METADATA-CASE-ERROR",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-7hr10ikv/CPU-RECEIPT.json",
+      "sha256": "1f67f97d60ec51be666befbb2ae76a2b13c72a393a42d71709eb346384176794",
+      "exit_code": 1,
+      "output_sha256": "c46499abd76ccd6d2ffd8a559c9f3dc555956f72217585d74833071a5d0f3b94"
+    },
+    {
+      "label": "SOURCE-NATIVE-PROBE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-b1jhgru5/CPU-RECEIPT.json",
+      "sha256": "1c6673a9a08d061e384cfbe6ad4bd50bf844ebc7276d369bccc0ff89eec77ae1",
+      "exit_code": 0,
+      "output_sha256": "41a7db9e72101fe7f56c3afdfa48db4782fc1cf978fd2b6577a07cefca28c7a5"
+    }
+  ],
+  "targets": {
+    "native_MAP_RNG_single_age_oracle": 1,
+    "P8_gradients_optimizer_EMA_real_cold_load": 1,
+    "two_candidate_config_bindings": 1,
+    "freeze_unit_and_imagenet_binding": 1,
+    "storage_exact_round_and_free_floor": 1,
+    "two_actual_public_fresh_initials": 2
+  },
+  "scope_notes": [
+    "First combined model invocation passed the native oracle but the P8 fixture omitted the required EMA rule. The fixture alone was corrected; P8 then passed, and the unchanged native oracle obtained a separate clean final receipt. Generic fixture uses R8_RULE copy step1; actual fresh/formal CPU consumes frozen EMA1600 policy.",
+    "Full162 source strict/exact/FP32 is tensor loading evidence with zero source forward. Random-native oracle and P8/checkpoint CPU evidence do not prove DCU memory, throughput, clinical mechanism or AUROC gain.",
+    "Unit uses the unchanged existing .5/.5 RGB transform; source crop/bicubic metadata is not claimed as contest preprocessing. Only freeze normalization field and registered job normalization now consume frozen science.",
+    "Storage24GiB applies only exact R215 name. Tensor storage scenarios exclude serialization, metadata, workspace and concurrent writes, and are not peak bounds.",
+    "No real images, official5849, old checkpoints, training signals, GPU preview or additional resources. Current R213 remains frozen."
+  ],
+  "producer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/FINAL-SIGLIP2-CHECKS.py",
+    "sha256": "140088afc96bd42b566f4c0e7195d1cc9b3b39803cf3794172c3c79e24890b7c"
+  }
+}

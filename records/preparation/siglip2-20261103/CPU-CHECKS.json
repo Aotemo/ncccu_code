@@ -1,6 +1,6 @@
 {
   "scope": "R214_R215_native_EfficientNet_confirmation_and_full_SigLIP2_public_MAP_affected_CPU",
-  "at": 1793704740.908383,
+  "at": 1793705089.1889448,
   "passed_targets": 7,
   "compiled_sources": 12,
   "compiled_source_names": [
@@ -24,7 +24,7 @@
     "runtime/bundle/retrain/inference.py": "2d1cf7260fa3eb3c934b5c26598c3179815117fddf8743f4ce7025b95314db61",
     "runtime/bundle/retrain/single91.py": "5f1a15bfe09510419c16447f63a5e946e6e51a7b52f397c836c415390cdb03ba",
     "runtime/bundle/retrain/experiment91.py": "b0337b3e4ea94d198d4c47232f2c9cf66a3a236a7aa18de95e94201dc83aa440",
-    "tools/validation/check_candidate.py": "18eaf33df523af29a5dd95ce3b999b097618d2eb818b838a110ce3257e8e94ff",
+    "tools/validation/check_candidate.py": "b189e83c06fdb6d57de47ec776150f94e529c097bc5423cc1c66be755583c9b4",
     "tests/test_siglip2_model.py": "b8a4edd46889e55ad9718b7f51cc513b8c461474a1657b358742595d5ea9b918",
     "tests/test_candidate_binding.py": "04b8080a80fb6e92ae0db3560991b4d9896278345fc1ac7b48e6b578e5b806d7",
     "tests/test_official_gate.py": "b453e903ab8453f07ef336a7b71627f735ccd4599e7f0d276075a4f06a3320be",
@@ -176,6 +176,13 @@
       "sha256": "1c6673a9a08d061e384cfbe6ad4bd50bf844ebc7276d369bccc0ff89eec77ae1",
       "exit_code": 0,
       "output_sha256": "41a7db9e72101fe7f56c3afdfa48db4782fc1cf978fd2b6577a07cefca28c7a5"
+    },
+    {
+      "label": "NORMAL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-53bxb8v_/CPU-RECEIPT.json",
+      "sha256": "5b2d3bfd8d01a16f5c0041a16196abea865d4d7773ac610785e97551e435c66b",
+      "exit_code": 1,
+      "output_sha256": "1855dfc8fff3dac0f38da8ef65e01db78bd47958f2ae842b2df4a7ef540ee038"
     }
   ],
   "targets": {
@@ -191,10 +198,24 @@
     "Full162 source strict/exact/FP32 is tensor loading evidence with zero source forward. Random-native oracle and P8/checkpoint CPU evidence do not prove DCU memory, throughput, clinical mechanism or AUROC gain.",
     "Unit uses the unchanged existing .5/.5 RGB transform; source crop/bicubic metadata is not claimed as contest preprocessing. Only freeze normalization field and registered job normalization now consume frozen science.",
     "Storage24GiB applies only exact R215 name. Tensor storage scenarios exclude serialization, metadata, workspace and concurrent writes, and are not peak bounds.",
-    "No real images, official5849, old checkpoints, training signals, GPU preview or additional resources. Current R213 remains frozen."
+    "No real images, official5849, old checkpoints, training signals, GPU preview or additional resources. Current R213 remains frozen.",
+    "Actual formal CPU caught one remaining final-LN selector omission before GPU. Only check_candidate selector was changed and recompiled; other exact-source7 targets reused. Formal19 must run in a new unstarted normfix stage; old partial formal/grant unchanged. Registration is not a formal pass."
   ],
   "producer": {
-    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/FINAL-SIGLIP2-CHECKS.py",
-    "sha256": "140088afc96bd42b566f4c0e7195d1cc9b3b39803cf3794172c3c79e24890b7c"
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/REFRESH-SIGLIP2-NORMAL-FIX.py",
+    "sha256": "6c9eab1ed3427ae8ff206da8d1de8dd78aa15f5efcef1a105f8cf75e41c0c1b0"
+  },
+  "prior_snapshot": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/source-cpu/records/preparation/siglip2-20261103/CPU-CHECKS-PRE-NORMAL-FIX.json",
+    "sha256": "04bb5d0167b11698cd164f2260745b1123f22da7cae0d69e0436d03bffe233a0"
+  },
+  "normal_selector_fix": {
+    "source": "tools/validation/check_candidate.py",
+    "only_delta": "native final LN selector adds registered SigLIP2",
+    "AST_oracle": "exact inverse text equals published341124f file",
+    "affected_compile_count": 1,
+    "prior_7_targets_reused": true,
+    "new_formal19_passed": false,
+    "failed_unstarted_stage_preserved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready"
   }
 }

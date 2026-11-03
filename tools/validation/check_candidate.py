@@ -287,7 +287,7 @@ def main(args):
     else:
         wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
         rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
-        final_norm = model.network.head.norm if is_caformer else model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit or is_vit_dino3 else model.network.classifier[0]
+        final_norm = model.network.head.norm if is_caformer else model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit or is_vit_dino3 or is_siglip2 else model.network.classifier[0]
         final_norm.eps = 1e-12
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         final_norm.eps = ex.candidate()['final_norm_eps']
