@@ -1,5 +1,7 @@
 # 固定较宽 sigmoid 目标 CPU 准备
 
+04:06未启动R201 window2已完成[normal18/18及精确部署](NORMAL-R201-WINDOW2.json)，[guardtc1wjs8i](NORMAL-R201-WINDOW2-CPU.json) / `c80abaa023b35e5859adbccadfe79f3cfc2f2265faa355c884716fea8e5552c0` exit0。actual SITE `4f412fe0ef87385aa3181d2ff1c4fd06ed0f795ca8a9092af95ac087f79262d5`，manifest978d3be0、CPU-prepd7fad6bb、deployment7b8aec7d；source8635/SCIbb449eb8、345全训/5空AdamW/whole50c6、默认12GiB/free16GiB及原五目标四编译均保持。使用ec5/root0–11，与当前R199训练24–119互斥；未新clock/activation/GPU，待R199完整selected/双门及actualsafe后沿既有入口接续。原stage、grant及03:43窗口拒绝原件保留，以下为历史时点。
+
 03:43原R201未启动stage的完整clock窗口实际被拒绝：[guardg8lc2hm_](R201-ORIGINAL-WINDOW-CPU.json) / `d1700c08fe4cbdc38cff8b91adca706963a255346efa7ede45ab99f3e46f77d4` exit1，原helper明确剩余准入时间不足覆盖完整clock+60秒。这是资源时窗条件，不是代码/模型失败或科学阴性；原normal18/18、grant及回执不重写，不创建clock/activation/真实round。window2仅技术包，后续可行收尾前按既有入口为新未启动stage生成绑定；原数学/源码/初始化证据保持。
 
 03:34 R199 c7微升后早停归零，接续后移；原R201 normal18/18、其GPU grant及全部回执保持，不重置。另备未启动window2的[纯技术包](R201-WINDOW2-TECHNICAL.json)，[guardnr5hysvh](R201-WINDOW2-CPU.json) / `5ccabc9d93c07239248e06a395b3d03d96e1c95f010320d809db25670a78afa4` exit0，原source8635/SCIbb449eb8/技术SITEf2ce4173与原包相同，5目标4编译证据按SHA复用。window2当前无formal、GPU allocation、clock或activation；后续按真实headroom为未启动阶段建立可覆盖完整clock的新绑定，不热改旧grant/当前R199或科学值。
