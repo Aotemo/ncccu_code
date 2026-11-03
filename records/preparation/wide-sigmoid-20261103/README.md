@@ -1,5 +1,7 @@
 # 固定较宽 sigmoid 目标 CPU 准备
 
+01:48两[actual technical包](TECHNICAL-PACKAGES.json)已按GitHub实际回读commit `8635b53728f3b52829e44d9faa24434ec0c2197f` / tree `844d58670225afab2aca011223a0ba46b99909cc`生成。R200 SITE07639d30 / [guardaydxy8l5](CPU-TECHNICAL-R200.json)、R201 SITEf2ce4173 / [guard14i5jk_w](CPU-TECHNICAL-R201.json)均0；归档v88xsue3 / `bee0963906fc762a62cf7be4e325529a440858a18e614e8ddc06cb522bb1e06e` exit0，实核无formal-cpu/gpu-inputs/真实round目录，无新clock/GPU。当前R197/436与先行R198/R199/82add93保持冻结，本组正常CPU/精确部署仍在前轮可行收尾前执行一次。
+
 [CPU汇总](CPU-CHECKS.json) SHA `34706b04cdfda1197191e44dd3d35b7ad8dbb07a794b9c7dd0f276d91450111b`：5必要目标通过、4份受影响源码编译、两actual public fresh；[最终guard](CPU-FINAL-GUARD.json)m7dh84qz / `b6c78d314553926f6acfa79ec9823d18caa5760fb2baa36ed966060b5e4e6a92` exit0。全部在当次实核UID/Ready的既有Pod、53ab/root0–11、nice19/隐藏GPU，与R197训练24–119互斥；无新Agent或计算资源。
 
 [三个数学目标](CHECKS-GREEN.json)覆盖完整8×56独立标量目标/逐logit解析梯度、平移/bias0、零点与原sigmoid同峰值导数、镜像、有限极端值、严格独立版本/温度2/字段，以及旧None/logistic/sigmoid数值和梯度bitwise保持。实际两rank CPU Gloo/WORLD可微gather+DDP，局部正例[0,8]，保留实际global/local logit梯度，与独立解析值及world倍数比较，参数梯度与独立`X^T*g`比较；原gather/regularized/helper函数源码逐字符相同。这里有每rank一次Toy Linear前向，没有生产图像/公开模型前向或八DCU证明。

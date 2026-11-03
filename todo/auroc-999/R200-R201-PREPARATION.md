@@ -1,5 +1,7 @@
 # R199 之后固定较宽 sigmoid 梯度范围计划
 
+01:48已按实际GitHub回读commit `8635b53728f3b52829e44d9faa24434ec0c2197f` / tree `844d58670225afab2aca011223a0ba46b99909cc`生成[两actual technical包](../../records/preparation/wide-sigmoid-20261103/TECHNICAL-PACKAGES.json)：R200 SITE07639d30与R201 SITEf2ce4173均guard0，归档v88xsue3 exit0。无normal/新allocation/clock/GPU；现役R197/436及先行82add93不改。下文“尚未Git冻结/技术包”为CPU完成时点。
+
 11-03已完成[5必要目标/4源码编译及两actual public fresh](../../records/preparation/wide-sigmoid-20261103/README.md)，最终guardm7dh84qz / b6c78d31 exit0。R200 whole9150/SCI644d7946，R201原whole50c6/SCIbb449eb8，均345全训/5空Adam/0图像forward；尚未Git冻结/技术包/normal/clock/GPU。现役R197/436与先行R198/R199/82add93冻结不改，R195已完整归档。32e3唯一Git/GPU，不恢复/派生Agent；用户已授权最小修改，无例行审批，既有brainstorming/writing-plans/TDD/executing-plans流程仅20%准备池实施。
 
 备选是再换架构、加模型视野、或只改已有448对上的平滑目标。前两项已有多个独立阴性且涉及更多路径；本次只选择第三项。原封存难20正例在多轮承担大部分错序，但没有统一图像外观或临床机制证据。原hard-positive logistic固定top2混合R156未改善总体或固定组，不能据此声称所有难例方法已失败，也不再按dev名单赋权。R120原sigmoid是本组直接比较基线。
@@ -13,6 +15,6 @@ R200/order113仅在完整有效R199唯一内部selected严格胜R107 `.988440573
 - [x] 独立标量解析目标/逐logit梯度覆盖真实8×56、平移/bias0、零点同峰值导数、极端有限性；旧None/logistic/sigmoid原数值和梯度bitwise保持，严格新版本/温度/字段拒绝，实际RED→GREEN。
 - [x] 实际两rank CPU Gloo/WORLD可微gather+DDP、局部正例[0,8]，保留实际global/local logit梯度与独立解析值比较，参数梯度核`X^T*g`、无多余world因子。只有Toy Linear前向，不冒充八DCU或生产模型前向。
 - [x] 新旧候选身份/仅单项job差异/source/9:1/日程/早停/官方门/保存job及非法叠加实际RED→最小实现→GREEN，4份源码编译。两公开fresh核345全训/5空组/SCI，模型/P8/EMA/cold按未变SHA复用；gather/helper函数源码逐字符保持。
-- [ ] 精简真实回执、Git同步实际回读及技术包；正常CPU/精确部署安排在前轮可行收尾前，actualsafe后唯一owner沿原入口串行接续，不重复GPU预演、不改旧clock/token/grant。
+- [x] 精简真实回执、Git8635b53同步实际回读及两technical包已完成；正常CPU/精确部署仍安排在前轮可行收尾前，actualsafe后唯一owner沿原入口串行接续，不重复GPU预演、不改旧clock/token/grant。当前尚无normal/clock/GPU。
 
 标签1=青光眼且仅按眼底照片，0仅任务阴性；不改标签/拆分/难组名单。最多24000成功更新、每800内部评估、p4早停/EMA1600/唯一内部AUROC选点保持，完整内部selected≥.996才官方一次；raw .999未达。

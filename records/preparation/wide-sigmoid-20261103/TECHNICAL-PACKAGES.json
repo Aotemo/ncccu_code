@@ -1,0 +1,48 @@
+{
+  "status": "two_technical_packages_no_formal_clock_or_GPU",
+  "at": 1793670518.2046459,
+  "packages": [
+    {
+      "label": "R200",
+      "actual": {
+        "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+        "round_id": "r200-small22k-seed20261027-scale085-pairsigmoid-wd005-24k-p4-9010-20261103",
+        "git_commit": "8635b53728f3b52829e44d9faa24434ec0c2197f",
+        "tree_sha": "844d58670225afab2aca011223a0ba46b99909cc",
+        "science_sha256": "644d7946c861cb70aae2cf270948a026f3ea80b3a54ccf4c78d4cecaad2fc27d",
+        "site_sha256": "07639d30f84622256baa7ea6048a6312d9dc18c4d2bd284f7a7eb3116a5eda3d",
+        "CPU_checks_sha256": "34706b04cdfda1197191e44dd3d35b7ad8dbb07a794b9c7dd0f276d91450111b",
+        "formal_clock_created": false,
+        "GPU_started": false
+      },
+      "result_sha256": "e78328f10955238435cc43195ce6808341caa90ab1a946a897630944663a3cdd",
+      "guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-aydxy8l5/CPU-RECEIPT.json",
+        "sha256": "5631389289e2bf63e8b0f9856b1f69db657daed3a5dd7fb8ecf80bca60cf9920",
+        "exit_code": 0,
+        "output_sha256": "33d225bbda3df7b29faa621fe20fcf8db2898bde0faa9cd8aa693095a546a754"
+      }
+    },
+    {
+      "label": "R201",
+      "actual": {
+        "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+        "round_id": "r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+        "git_commit": "8635b53728f3b52829e44d9faa24434ec0c2197f",
+        "tree_sha": "844d58670225afab2aca011223a0ba46b99909cc",
+        "science_sha256": "bb449eb85474e644f61e0f8e40bc9d2780d04d1dc13905fb4da115864c2774a8",
+        "site_sha256": "f2ce41737bf6025eaa142eafb153f9634115050ca764fe27a7ee9f7a12942575",
+        "CPU_checks_sha256": "34706b04cdfda1197191e44dd3d35b7ad8dbb07a794b9c7dd0f276d91450111b",
+        "formal_clock_created": false,
+        "GPU_started": false
+      },
+      "result_sha256": "a6613c2640635bc62ab4efb2c569aa2a2049182a957784c32cc2ae77fb922c9a",
+      "guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-14i5jk_w/CPU-RECEIPT.json",
+        "sha256": "19f7b46889b25f9672db2fcd07bdbc6225bdee18d9702649fcef1d4d64478aa8",
+        "exit_code": 0,
+        "output_sha256": "2500933117bc50d5684bbfd35f42c66ebee035914671a7ff82fe73cfddfef60a"
+      }
+    }
+  ]
+}
