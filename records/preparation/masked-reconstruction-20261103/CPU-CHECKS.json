@@ -1,0 +1,116 @@
+{
+  "status": "affected_CPU_checks_passed",
+  "passed_targets": 7,
+  "compiled_sources": 6,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/masked_reconstruction.py",
+    "runtime/bundle/retrain/ssl_stage.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/r115_ssl_gate.py",
+    "tests/test_masked_reconstruction.py",
+    "tests/test_masked_reconstruction_candidate.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/masked_reconstruction.py": "615078f1be40809d486ba76c4e47f1b6bf5107f1a1794ed228ac71ab7b54a0b1",
+    "runtime/bundle/retrain/ssl_stage.py": "d0c8b231ddfd230780948b11143d441d35a097ff9f4bc3946024afe75e24020b",
+    "runtime/bundle/retrain/experiment91.py": "f7e7961a0ec30a870a97440898356d747510bdb83bfb912fb49d4bce7498f123",
+    "runtime/r115_ssl_gate.py": "a7bf8ef2faf50281da3bada1c52894dfa504a61aa64315c79f35f979288aea31",
+    "tests/test_masked_reconstruction.py": "b049f34406c7442fc5621acc23876dfff96eb0ded9377ae6a58dd86cdf13e61b",
+    "tests/test_masked_reconstruction_candidate.py": "9283691e7d3ada3ddfa3b82be2e4d91c63009fdd3ce1a60b363b30af5963b8de"
+  },
+  "configuration_files": {
+    "configs/R224-SCIENCE.json": "79afb5e1827931880097140377da3e90bdd1f25b4825a3ad2e1f3f3a30141148",
+    "configs/R225-SCIENCE.json": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede"
+  },
+  "science_sha256": {
+    "R224-SCIENCE.json": "79afb5e1827931880097140377da3e90bdd1f25b4825a3ad2e1f3f3a30141148",
+    "R225-SCIENCE.json": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede"
+  },
+  "unchanged_implementation_files": {
+    "models": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "config": "a79b02336db57c50d85bbfe649f1d6d1f33b89344f56e579f9b013c99d40c4d8",
+    "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "distributed": "73bdd2cc31425f7185767977126f981983ca7521ce73352940baeb0d9befb1cd",
+    "distributed_engine": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "data": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "ema": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "inference": "1a00f003fe5db81627934b2afba2e71af68dafed76810d9ba6fa26835fcb7833"
+  },
+  "evidence": {
+    "masked_red": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-msnhdk3e/CPU-RECEIPT.json",
+      "sha256": "06d6b6ccf94a400ce55d85db9bb51b607942a95c6b36ff73ca219d6a78a5a967",
+      "exit_code": 1,
+      "output_sha256": "414edd77fab239ce07749c2c17d2f61346ae9121f88774aed2b4df774049af2d",
+      "wall_seconds": 4.265859365463257
+    },
+    "candidate_red": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-ft4bgmbh/CPU-RECEIPT.json",
+      "sha256": "b317762219656a678cef5e8ecf0bb68ade566b20fb0aa68e4730117c44047647",
+      "exit_code": 1,
+      "output_sha256": "63a94f0a852f0e0dbe465d22a38ddabf0bd392fec838e6d387fd84f96f879d24",
+      "wall_seconds": 0.22962498664855957
+    },
+    "masked_three_green": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-i17zu7u3/CPU-RECEIPT.json",
+      "sha256": "4c1092690c9a1be79f5eed9c9c0009ba3c121e83ad15c776c4c1757067b7cb75",
+      "exit_code": 0,
+      "output_sha256": "14aebbba6d25b86644d2f4f9075880fcb7e562d03723c8d7ae1b7122d5ef508b",
+      "wall_seconds": 8.51943850517273
+    },
+    "fresh_context_failure": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-r239ayy7/CPU-RECEIPT.json",
+      "sha256": "a887c8cb25823b74d07781729eb7bb14772d2ad6cc656a51c93fa7e36aee3866",
+      "exit_code": 1,
+      "output_sha256": "6f6118cbca54a685675f9cad66137b3bff52e2957057fbc83250510dc3064cda",
+      "wall_seconds": 6.191466808319092
+    },
+    "control_references": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-tm4_c5oj/CPU-RECEIPT.json",
+      "sha256": "94f651dd95a820fda7a13de0ea828244acf3e759ae20e69c0c14e1a48979188b",
+      "exit_code": 0,
+      "output_sha256": "5800a8bf828bf3237d32d9760c63f65e53fbc7d9096998b5761b20a9a2e25e48",
+      "wall_seconds": 6.825332880020142
+    },
+    "technical_package": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-hvtmnaux/CPU-RECEIPT.json",
+      "sha256": "50b019a327ad1fb9e298c76db316f3ac66d75cfaf05324f6b6d4ce7d6243fc48",
+      "exit_code": 0,
+      "output_sha256": "f266f004c38cb094686c76ebc77a2a345f465991fd49ab60bf904a7ce9c3d9bf",
+      "wall_seconds": 11.861521005630493
+    },
+    "actual_P8_legacy_and_candidate": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-6n0nrp7a/CPU-RECEIPT.json",
+      "sha256": "2f7540737837d8cf13b1ae11a9f450a309d56c47db85cd8ee17cb6496b152cec",
+      "exit_code": 0,
+      "output_sha256": "be0ff8cc3e3dbd6a0584150dd6ebec57609152576ca630dc86d3826c2606afe9",
+      "wall_seconds": 88.62558078765869
+    }
+  },
+  "extra_target": {
+    "name": "equal-mask-count local/DDP/global loss and gradient",
+    "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/DDP-MEAN.log",
+    "log_sha256": "6f031db2b93d233eee0351bdcc5d7a9983faf241e3e31a745febc1178c16ca4f"
+  },
+  "actual_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "f90c29c81df6c534c948265f7e6560899e8eedf5b754799b22fa99a40079c8ae"
+  },
+  "legacy_logs": {
+    "LEGACY-SSL": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/LEGACY-SSL.log",
+      "sha256": "3aac45c00f36a819894c6f6a646802e36f938cdcd66c7493410b0317077eaeda"
+    },
+    "CANDIDATE": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/CANDIDATE.log",
+      "sha256": "b8034aa4a5a65abe80482a5e20a5214a16c033f04beabc8495841682f2840c30"
+    }
+  },
+  "three_model_targets_reused_by_exact_source_and_method_AST": true,
+  "original_test_snapshot_tar_sha256": "e1cd15491156575df68fa7bf6af052be3be68d84f4cf0caf8b9460aec03c6620",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "fixture_loaded_for_training": false,
+  "at": 1793729109.4310033
+}

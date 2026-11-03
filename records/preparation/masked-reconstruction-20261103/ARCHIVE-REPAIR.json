@@ -1,0 +1,15 @@
+{
+  "original_failed_call": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-njhffqpv/CPU-RECEIPT.json",
+    "sha256": "c529a4fae5f5097a6188b4eaaeb26b8dc609e06c974d1d9300b02358049b8a40",
+    "exit_code": 1,
+    "output_sha256": "86db21097fbe3beaba1332d4989aa3df5b50b20bebae26633da86c038750020b",
+    "wall_seconds": 7.664628982543945
+  },
+  "CPU_tests_and_checks_completed_before_archive_error": true,
+  "original_checks_sha256": "e7d86b007f4f858fed03fc5c6823556cedce3b79f237968243b2245a2ae671ab",
+  "source_sha256": "ba927b62a350807747f4c44cf858897e054f74669f5e3e4a6b548d2cfe48918a",
+  "only_fix": "archive caller uses existing _selected three-value return, no runtime/model/test/source or science change",
+  "tests_rerun": false,
+  "old_actualsafe_repolled": false
+}

@@ -22,7 +22,7 @@ def maybe_release(root, atomic, sha):
     if not proof_path.is_file() or not devices_path.is_file():
         return False
     from retrain.site_binding import load_site, verify_rank_devices
-    from retrain.ssl_stage import validate_recipe
+    from retrain.ssl_stage import validate_recipe, ssl_head_shape
     from retrain.experiment91 import metadata
     site = load_site()
     world = len(site['gpus'])
@@ -36,7 +36,7 @@ def maybe_release(root, atomic, sha):
                    or item.get('public_tensor_sha256') != expected['public_tensor_sha256']
                    or item.get('strict_public_exact') is not True
                    or item.get('optimizer_state_entries') != 0
-                   or item.get('projector_shape') != [768, 1024, 256]
+                   or item.get('projector_shape') != ssl_head_shape(recipe)
                    or not isinstance(item.get('non_encoder_sha256'), str)
                    or len(item['non_encoder_sha256']) != 64 for item in proof)):
         raise ValueError('R115 eight-rank public source/empty Adam/projector identity differs')

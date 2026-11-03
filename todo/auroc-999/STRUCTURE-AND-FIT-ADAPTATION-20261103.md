@@ -35,6 +35,12 @@ Ruling（审阅后）：预登记R224/order139，条件R225/order140 seed27；�
 
 精确源码边界：小改现有`runtime/bundle/retrain/ssl_stage.py`复用同owner整段与派发，仅加不可缺的`runtime/bundle/retrain/masked_reconstruction.py`空间头/无泄漏mask及loss；原`runtime/r115_ssl_gate.py`读取配方声明头几何，保留旧VICReg门；`runtime/bundle/retrain/experiment91.py`补两绑定和候选/固定合同，`configs/R224-SCIENCE.json`与`R225-SCIENCE.json`独立身份；新`tests/test_masked_reconstruction.py`/`tests/test_masked_reconstruction_candidate.py`及旧`tests/test_ssl_stage.py`必要目标。现有prepare/check_candidate、训练launcher/distributed/save/inference/observer均复用，实核无新增必要点前不扩范围。
 
+当前模型先3FAIL（06d6b6cc）/候选1FAIL（b3177622），随后3模型目标4c109269通过：遮154块/64bit seed重放、hidden像素不能影响预测/梯度、masked-only L1独立梯度oracle、encoder更新但head/age不动、旧VICReg配方与fit隔离保持。首私有fresh构造脚本缺技术site上下文而被生产校验拒绝（a887c8cb），未写SCI/未前向；不松生产门。Ruling：避免为身份重复造一次裸fresh，R224/R225先引用同job/public的R107/R108初态控制（tm4_c5oj/94f651dd），后由真实技术package与实际P8/正式CPU/八rank证明新fresh。SCI79afb5e1/4a49e929，技术site979865ac（50b019a3），均无clock/GPU。
+
+R221R2已完整6400/c8/bad4/0skip及唯一actualsafe（2a4d7385）封存，EMA .9784452811649976/AP .7396113715466042，R222不eligible、官方未跑；后续R224必要检查执行中，间隙不隐瞒，不再重复旧safe观测。
+
+7必要目标/6编译及真实公开Small/P8真实fit更新/derived冷加载均通过（2f754073，57.817秒；CPU-CHECKS e7d86b00，c53b14e6源身份终核exit0）。临时CPU权重已删，监督head/age保持/5空组，未用作正式初始化。DDP均值新增目标0.255秒通过，旧3目标按原快照字节/AST复用。归档脚本一次误解三返回值、一次截取注释造成缩进错误，失败c529a4fa/136feb51均保留；已将归档后移，不变更运行源码或重复已过forward。当前formal/Git新冻结/新GPU仍待完成，DCU空闲已超300秒；禁止将超时压力作为省略必要校验的理由。
+
 - [ ] 结合Task1证据固定单一可证伪问题及配方，不以AI审阅宣称标签一致已获证；若512确有决定性信息缺失，先评估可靠定位，不复活亮区裁剪/四角窗。
 - [ ] 明确需改的现有SSL/初态/CPU消费点及精确文件边界后，先必要RED再最小实现；fit-only、无dev/官方/标签/age损失、公开fresh头/age保持、监督空优化器重建、原G64P8/LR/EMA/24k/800/patience4不变。
 - [ ] 必要CPU/现有正式验证、Git同步及精确部署在当前训练期间推进；当前运行安全终态后仅唯一owner沿现有入口接续，不加GPU预演/旧clock重置。若准备未完成而超5分钟，记录真实原因与间隙，不虚报可运行。

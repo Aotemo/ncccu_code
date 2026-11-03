@@ -16,6 +16,10 @@ FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-se
 FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1'
 LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1'
 FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitssl1600-v1'
+FIT_MIM_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitmim1600-v1'
+FIT_MIM_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fitmim1600-v1'
+FIT_MIM_BINDINGS = (FIT_MIM_SMALL_BINDING, FIT_MIM_SMALL_SEED27_BINDING)
+FIT_SSL_BINDINGS = (FIT_SSL_SMALL_BINDING, *FIT_MIM_BINDINGS)
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SWIN_BINDING = 'single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 DINO_R50_BINDING = 'single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1'
@@ -147,7 +151,7 @@ PAIR_LOGISTIC_LOSS = {'version': 'binary-pairwise-logistic-v1', 'kind': 'binary_
                       'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                       'scope': 'global_batch'}
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
-                      LAST_STRIDE_SMALL_BINDING, FIT_SSL_SMALL_BINDING, BASE_BINDING, SWIN_BINDING,
+                      LAST_STRIDE_SMALL_BINDING, *FIT_SSL_BINDINGS, BASE_BINDING, SWIN_BINDING,
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                       PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING, PAIR_SIGMOID_DECAY_SMALL_BINDING,
@@ -246,7 +250,7 @@ def science_configuration():
             from .config import GLOBAL_NATIVE_SIX_RULE
         if (type(value.get('schema_version')) is not int or value['schema_version'] != 1
                 or value.get('candidate_profile') not in SUPPORTED_BINDINGS
-                or (value.get('candidate_profile') == FIT_SSL_SMALL_BINDING) != (value.get('ssl_recipe') is not None)
+                or (value.get('candidate_profile') in FIT_SSL_BINDINGS) != (value.get('ssl_recipe') is not None)
                 or (value.get('candidate_profile') in (SWIN_BINDING, DINO_R50_BINDING,
                                                        PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,
@@ -278,7 +282,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING,*FIT_MIM_BINDINGS,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -598,7 +602,7 @@ def candidate_from_configuration(value):
                         experiment_order=28, public_revision=source['revision'],
                         bn_initialization='public')
     elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING,
-                                        FIT_SSL_SMALL_BINDING, PAIR_SIGMOID_SMALL_BINDING,
+                                        *FIT_SSL_BINDINGS, PAIR_SIGMOID_SMALL_BINDING,
                                         PAIR_SIGMOID_SMALL_SEED27_BINDING,
                                         PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                         PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
@@ -642,6 +646,26 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == FIT_SSL_SMALL_BINDING:
             expected.update(id='r115-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitssl1600-9010',
                             experiment_order=25)
+        if value['candidate_profile'] in FIT_MIM_BINDINGS:
+            from .masked_reconstruction import MASKED_RECIPE
+            seed27 = value['candidate_profile'] == FIT_MIM_SMALL_SEED27_BINDING
+            expected.update(id=('r225-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-fitmim1600-9010'
+                                if seed27 else 'r224-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitmim1600-9010'),
+                            experiment_order=140 if seed27 else 139)
+            if (value.get('ssl_recipe') != MASKED_RECIPE or value.get('official_evaluation') != OFFICIAL_GATE_0996
+                    or value['job'].get('loss') != PAIR_LOGISTIC_LOSS
+                    or (value['job'].get('seed'), value['job'].get('image_size'), value['job'].get('prepared_size'),
+                        value['job'].get('normalization'), value['job'].get('effective_batch'), value['job'].get('positive_per_batch'),
+                        value['job'].get('backbone_lr'), value['job'].get('head_lr'), value['job'].get('weight_decay'),
+                        value['job'].get('dropout'), value['job'].get('stochastic_depth'), value['job'].get('training_scale')) !=
+                        (20261027 if seed27 else 20261029, 512, 512, 'imagenet', 64, 8, 1e-4, 1e-3, 1e-4, .2, .1, [.85, 1.])
+                    or source.get('sha256') != '7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610'
+                    or any(value['job'].get(k) is not None for k in ('input_preprocessing','optimizer_policy','nadam_policy',
+                        'adamw_amsgrad_policy','adamw_beta2_policy','gradient_clip_policy','gradient_centralization_policy',
+                        'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                        'head_warmup_policy','output_regularization','attention_pool','stage3_residual','freeze_features_before',
+                        'final_downsample_stride','training_views','training_rotation','training_photometric','lr_decay_updates','head_seed'))):
+                raise ValueError('fixed fit-only masked spatial signal or R107 supervision differs')
         if value['candidate_profile'] == PAIR_SIGMOID_SMALL_BINDING:
             expected.update(id='r120-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-9010',
                             experiment_order=30)
@@ -1810,7 +1834,7 @@ def describe_model(model):
             'shape': list(weight.shape), 'dtype': str(weight.dtype),
             'feature_index': 5, 'channels': convolution.out_channels}
     if ('final_downsample_stride' in science_configuration()['job']
-            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)):
+            or science_configuration()['candidate_profile'] in (*FIT_SSL_BINDINGS, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)):
         convolution = network.features[6][1]
         if not isinstance(convolution, nn.Conv2d):
             raise ValueError('actual final ConvNeXt downsample must remain Conv2d')
@@ -2100,7 +2124,7 @@ def validate_normalization(value):
     elif value.get('stage3_residual') is not None:
         raise ValueError('unregistered stage3 residual parameter')
     if ('final_downsample_stride' in configured
-            or science_configuration()['candidate_profile'] in (FIT_SSL_SMALL_BINDING, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)):
+            or science_configuration()['candidate_profile'] in (*FIT_SSL_BINDINGS, BASE_BINDING,BASE_CLIP_BINDING,BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,BASE_CLIP_STORAGE16_SEED27_BINDING,*LARGE_VARIANT_BINDINGS)):
         stride = configured.get('final_downsample_stride', 2)
         if value.get('final_downsample') != {'name': 'network.features.6.1', 'stride': [stride, stride],
                 'kernel_size': [2, 2], 'padding': [0, 0], 'dilation': [1, 1]}:

@@ -1,0 +1,14 @@
+{
+  "status": "CPU_checks_source_matched_verified",
+  "at": 1793729235.3433757,
+  "checks_sha256": "e7d86b007f4f858fed03fc5c6823556cedce3b79f237968243b2245a2ae671ab",
+  "passed_targets": 7,
+  "compiled_sources": 6,
+  "actual_P8_and_cold_derived": true,
+  "archive_failures_are_after_tests": true,
+  "archive_failures_do_not_change_source": true,
+  "CPU_fixtures_removed": true,
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "free_bytes": 24933040128
+}

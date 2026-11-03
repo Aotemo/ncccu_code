@@ -1,4 +1,4 @@
-"""One fit-only VICReg phase inside the admitted fresh training owner."""
+"""One registered fit-only representation phase inside the fresh training owner."""
 import hashlib
 import json
 import math
@@ -30,13 +30,20 @@ def validate_recipe(recipe, job, manifest, world):
         'projector_lr': 1e-3, 'weight_decay': 1e-4,
         'warmup_updates': 160, 'final_lr_factor': 0.01,
         'gradient_clip': 1.0, 'precision': 'fp32'}
+    if recipe.get('version') == 'fit-masked-rgb32-1600-v1':
+        from .masked_reconstruction import MASKED_RECIPE
+        expected = MASKED_RECIPE
     if recipe != expected or world != 8 or job['model'] != 'convnext_small' or job['image_size'] != 512:
-        raise ValueError('R115 fixed fit-only SSL recipe/topology differs')
+        raise ValueError('registered fixed fit-only SSL recipe/topology differs')
     indices = manifest['fit_indices']
     if (not indices or len(indices) < 64 or len(set(indices)) != len(indices)
             or set(indices) & set(manifest['dev_indices']) or manifest.get('audit_indices')):
         raise ValueError('SSL requires unique fit-only indices and no dev/audit overlap')
     return recipe
+
+
+def ssl_head_shape(recipe):
+    return list(recipe['projector'])
 
 
 class UniformFitSampler:
@@ -150,10 +157,16 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     ctx.barrier()
     # The public head/age must match the CPU seed before any SSL parameters move.
     domain = recipe['version']
+    masked = domain == 'fit-masked-rgb32-1600-v1'
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
     # Only the encoder participates; the fresh native head and age stay untouched.
-    model = SSLModel(binary, projector_seed=_seed(job['seed'], domain, 'projector')).to(ctx.device)
+    if masked:
+        from .masked_reconstruction import MaskedReconstructionModel, spatial_mask, masked_l1
+        model = MaskedReconstructionModel(binary, projector_seed=_seed(job['seed'], domain, 'projector'))
+    else:
+        model = SSLModel(binary, projector_seed=_seed(job['seed'], domain, 'projector'))
+    model = model.to(ctx.device)
     wrapped = ctx.wrap(model)
     public_digest = tensor_digest(binary.state_dict())
     public_encoder_digest = tensor_digest(_derived_state(binary))
@@ -164,7 +177,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
         'public_tensor_sha256': public_receipt['public_tensor_sha256'],
         'strict_public_exact': public_receipt['all_public_tensors_exact'],
         'non_encoder_sha256': public_non_encoder_digest, 'optimizer_state_entries': 0,
-        'projector_shape': [768, 1024, 256]})
+        'projector_shape': ssl_head_shape(recipe)})
     if (len({item['model_sha256'] for item in publics}) != 1
             or len({item['encoder_tensor_sha256'] for item in publics}) != 1
             or len({item['public_tensor_sha256'] for item in publics}) != 1
@@ -183,8 +196,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     optimizer = _optimizer(model)
     dataset = ImageDataset(data_root, manifest['rows'], 512, training=True,
         normalization='imagenet', prepared_size=512, age=None,
-        training_scale=[0.85, 1.0], training_views=2, include_labels=False)
-    sampler = UniformFitSampler(manifest['fit_indices'], seed=_seed(job['seed'], domain, 'sampler'),
+        training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False)
+    sampler = UniformFitSampler(manifest['fit_indices'], seed=_seed(job['seed'], recipe.get('sampling_rng_domain', domain), 'sampler'),
         updates=1600, rank=ctx.rank, world=ctx.world_size)
     loader = DataLoader(dataset, batch_sampler=sampler,
         **single._loader_options(job['workers'], job, persistent=True,
@@ -195,16 +208,23 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             if ctx.any(time.time() >= deadline_at or (stop_event is not None and stop_event.is_set())):
                 raise TimeoutError('R115 joint training deadline or owner stop during SSL')
             optimizer.zero_grad(set_to_none=True)
-            images, _ = next(iterator)
-            if images.shape != (8, 2, 3, 512, 512):
-                raise ValueError('SSL loader did not yield exactly eight two-view fit images')
+            images, indices = next(iterator)
+            expected_shape = (8, 3, 512, 512) if masked else (8, 2, 3, 512, 512)
+            if images.shape != expected_shape:
+                raise ValueError('SSL loader fit image/view geometry differs')
             images = images.to(ctx.device, non_blocking=True)
-            embeddings = wrapped(images.reshape(16, 3, 512, 512)).reshape(8, 2, 256)
-            z1 = gather_embeddings(embeddings[:, 0])
-            z2 = gather_embeddings(embeddings[:, 1])
-            if z1.shape != (64, 256) or z2.shape != (64, 256):
-                raise ValueError('SSL actual global two-view embedding geometry differs')
-            loss = vicreg_loss(z1.float(), z2.float())
+            if masked:
+                mask = spatial_mask([_seed(job['seed'], domain, 'mask', update, ctx.rank, int(index))
+                                     for index in indices], device=ctx.device)
+                prediction = wrapped(images, mask)
+                loss = masked_l1(prediction.float(), images.float(), mask)
+            else:
+                embeddings = wrapped(images.reshape(16, 3, 512, 512)).reshape(8, 2, 256)
+                z1 = gather_embeddings(embeddings[:, 0])
+                z2 = gather_embeddings(embeddings[:, 1])
+                if z1.shape != (64, 256) or z2.shape != (64, 256):
+                    raise ValueError('SSL actual global two-view embedding geometry differs')
+                loss = vicreg_loss(z1.float(), z2.float())
             if ctx.any(not bool(torch.isfinite(loss))):
                 raise FloatingPointError('nonfinite R115 VICReg loss')
             loss.backward()
@@ -221,8 +241,10 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             if ctx.primary and (update % 25 == 0 or update == 1):
                 with (folder / 'metrics.jsonl').open('a') as stream:
                     stream.write(json.dumps({'phase': 'fit_only_ssl', 'successful_updates': update,
-                        'primary_inputs': 64, 'view_inputs': 128,
-                        'global_embedding_shape': [64, 256], 'finite_loss_and_gradient': True,
+                        'primary_inputs': 64, 'view_inputs': 64 if masked else 128,
+                        'global_embedding_shape': None if masked else [64, 256],
+                        'spatial_masked_blocks_per_image': 154 if masked else None,
+                        'finite_loss_and_gradient': True,
                         'loss': float(loss.detach()), 'lr_factor': factor, 'at': time.time()}) + '\n')
                 atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
                     'successful_updates': update, 'target_updates': 1600,
@@ -281,7 +303,11 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'derived_tensor_sha256': digest, 'at': time.time()})
     receipt = ctx.broadcast(receipt)
     ctx.barrier()
-    del wrapped, model, binary, optimizer, state, images, embeddings, z1, z2, loss, norm
+    del wrapped, model, binary, optimizer, state, images, loss, norm
+    if masked:
+        del prediction, mask
+    else:
+        del embeddings, z1, z2
     if ctx.device.type == 'cuda':
         torch.cuda.empty_cache()
     return receipt

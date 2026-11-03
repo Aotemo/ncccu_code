@@ -1,0 +1,18 @@
+{
+  "status": "same_public_supervised_control_referenced_not_new_fresh_validation",
+  "label": "R225",
+  "at": 1793728723.8339386,
+  "initial_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+  "reference_science_sha256": "fe284d11deb802cc505cc40781c43242d91617a4a70370932ed2b99a89466666",
+  "science_sha256": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede",
+  "image_forward_calls": 0,
+  "model_constructed": false,
+  "GPU_initialized": false,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "f7e7961a0ec30a870a97440898356d747510bdb83bfb912fb49d4bce7498f123",
+    "runtime/bundle/retrain/ssl_stage.py": "d0c8b231ddfd230780948b11143d441d35a097ff9f4bc3946024afe75e24020b",
+    "runtime/bundle/retrain/masked_reconstruction.py": "615078f1be40809d486ba76c4e47f1b6bf5107f1a1794ed228ac71ab7b54a0b1",
+    "runtime/r115_ssl_gate.py": "a7bf8ef2faf50281da3bada1c52894dfa504a61aa64315c79f35f979288aea31"
+  },
+  "producer_sha256": "ec78c6a7fb6e28eee472878b0a6c043e272fde556f1dde115c51d60b294ea915"
+}
