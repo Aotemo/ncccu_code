@@ -19,7 +19,11 @@ FIT_SSL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop
 FIT_MIM_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitmim1600-v1'
 FIT_MIM_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fitmim1600-v1'
 FIT_MIM_BINDINGS = (FIT_MIM_SMALL_BINDING, FIT_MIM_SMALL_SEED27_BINDING)
-FIT_SSL_BINDINGS = (FIT_SSL_SMALL_BINDING, *FIT_MIM_BINDINGS)
+FIT_HOG_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fithog1600-v1'
+FIT_HOG_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fithog1600-v1'
+FIT_HOG_BINDINGS = (FIT_HOG_SMALL_BINDING, FIT_HOG_SMALL_SEED27_BINDING)
+FIT_MASKED_BINDINGS = (*FIT_MIM_BINDINGS, *FIT_HOG_BINDINGS)
+FIT_SSL_BINDINGS = (FIT_SSL_SMALL_BINDING, *FIT_MASKED_BINDINGS)
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SWIN_BINDING = 'single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 DINO_R50_BINDING = 'single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1'
@@ -282,7 +286,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING,*FIT_MIM_BINDINGS,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING,*FIT_MASKED_BINDINGS,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -646,13 +650,16 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == FIT_SSL_SMALL_BINDING:
             expected.update(id='r115-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitssl1600-9010',
                             experiment_order=25)
-        if value['candidate_profile'] in FIT_MIM_BINDINGS:
-            from .masked_reconstruction import MASKED_RECIPE
-            seed27 = value['candidate_profile'] == FIT_MIM_SMALL_SEED27_BINDING
-            expected.update(id=('r225-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-fitmim1600-9010'
-                                if seed27 else 'r224-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitmim1600-9010'),
-                            experiment_order=140 if seed27 else 139)
-            if (value.get('ssl_recipe') != MASKED_RECIPE or value.get('official_evaluation') != OFFICIAL_GATE_0996
+        if value['candidate_profile'] in FIT_MASKED_BINDINGS:
+            from .masked_reconstruction import MASKED_RECIPE, HOG_RECIPE
+            hog = value['candidate_profile'] in FIT_HOG_BINDINGS
+            seed27 = value['candidate_profile'] in (FIT_MIM_SMALL_SEED27_BINDING, FIT_HOG_SMALL_SEED27_BINDING)
+            number = (227 if seed27 else 226) if hog else (225 if seed27 else 224)
+            seed = 20261027 if seed27 else 20261029
+            target = 'fithog1600' if hog else 'fitmim1600'
+            expected.update(id=f'r{number}-convnext-small-imagenet22k-to-1k-24k-p4-seed{seed}-scale085-pairlog-{target}-9010',
+                            experiment_order=number - 85)
+            if (value.get('ssl_recipe') != (HOG_RECIPE if hog else MASKED_RECIPE) or value.get('official_evaluation') != OFFICIAL_GATE_0996
                     or value['job'].get('loss') != PAIR_LOGISTIC_LOSS
                     or (value['job'].get('seed'), value['job'].get('image_size'), value['job'].get('prepared_size'),
                         value['job'].get('normalization'), value['job'].get('effective_batch'), value['job'].get('positive_per_batch'),

@@ -1,0 +1,18 @@
+{
+  "status": "verified_small_artifacts_exported",
+  "at": 1793731433.6187382,
+  "files": {
+    "configs/R226-SCIENCE.json": "43964fcfb495690e910bed77995bc3a1801f6de61bd04a5ac4c2b6bb2d9248f2",
+    "configs/R227-SCIENCE.json": "cdc9822a86fe0ff8729206c5ff47a64f957442758a10ba6c9e4330e5693d39ec",
+    "records/R224/R224-PROGRESS-after-hog-CPU.json": "6e5447de7615c6235d3528e1070991e5cd0024559ea64ab6ca6e2cb2e223af7f",
+    "records/R224/R224-SSL-RESULT.json": "b3d952fa38771b497f9bfc4244d643564449313ba76b1afb410cc083a2d5bc3b",
+    "records/R224/R224-SUPERVISED-RECEIPT.json": "da454b5c29aafb06dc886d220bcce00d0cb84432c4061291068ad2a6dd75c531",
+    "records/R224/R224-SUPERVISED-START.json": "1fbb0323eb030e870a11d1bbb96bf75cea5748620f01fd4dc780ccf967ca1270",
+    "records/preparation/hog-reconstruction-20261103/ACTUAL-P8-CPU.json": "94c27e91f9a694f5a492f32aa758012bbd7e026ea9c7818ad34f6db9b58c497d",
+    "records/preparation/hog-reconstruction-20261103/CPU-CHECKS.json": "c65bd8af70d11e9e36b481cb25578fbb94a4c9c631cbdffcf55b27b2ad236859",
+    "records/storage/closed-r221r2-20261103/DELETE-RECEIPT.json": "68210fa6e41e1617f4c66d69927790e82ed3326a6db99daa5e8cf046f97a998c",
+    "records/storage/closed-r221r2-20261103/FINAL-VERIFICATION.json": "b197d12bd5c8a45495263b780682f572d4b993ae5a8bf43cd6c6fe39b3c87660",
+    "records/storage/closed-r221r2-20261103/PLAN-SUMMARY.json": "9b5b682d7ce2e45c60aa03e1247b03d8f13f6b68467170ec558215ac733969c1"
+  },
+  "images_weights_sample_predictions_exported": false
+}

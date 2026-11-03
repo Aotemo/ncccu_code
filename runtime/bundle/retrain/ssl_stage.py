@@ -33,6 +33,9 @@ def validate_recipe(recipe, job, manifest, world):
     if recipe.get('version') == 'fit-masked-rgb32-1600-v1':
         from .masked_reconstruction import MASKED_RECIPE
         expected = MASKED_RECIPE
+    if recipe.get('version') == 'fit-masked-hog8-1600-v1':
+        from .masked_reconstruction import HOG_RECIPE
+        expected = HOG_RECIPE
     if recipe != expected or world != 8 or job['model'] != 'convnext_small' or job['image_size'] != 512:
         raise ValueError('registered fixed fit-only SSL recipe/topology differs')
     indices = manifest['fit_indices']
@@ -44,6 +47,18 @@ def validate_recipe(recipe, job, manifest, world):
 
 def ssl_head_shape(recipe):
     return list(recipe['projector'])
+
+
+def ssl_rng_derivation(recipe, seed, world):
+    """Consume and report the same seeds; paired spatial targets share a stream."""
+    domain = recipe['version']
+    learning = recipe.get('learning_rng_domain', domain)
+    sampling = recipe.get('sampling_rng_domain', domain)
+    return {'domain': domain, 'learning_domain': learning, 'sampling_domain': sampling,
+        'projector_seed': _seed(seed, learning, 'projector'),
+        'model_seeds': [_seed(seed, learning, 'model', rank) for rank in range(world)],
+        'sampler_seed': _seed(seed, sampling, 'sampler'),
+        'loader_seeds': [_seed(seed, learning, 'loader', rank) for rank in range(world)]}
 
 
 class UniformFitSampler:
@@ -157,15 +172,17 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     ctx.barrier()
     # The public head/age must match the CPU seed before any SSL parameters move.
     domain = recipe['version']
-    masked = domain == 'fit-masked-rgb32-1600-v1'
+    masked = domain in ('fit-masked-rgb32-1600-v1', 'fit-masked-hog8-1600-v1')
+    hog = domain == 'fit-masked-hog8-1600-v1'
+    rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
     # Only the encoder participates; the fresh native head and age stay untouched.
     if masked:
-        from .masked_reconstruction import MaskedReconstructionModel, spatial_mask, masked_l1
-        model = MaskedReconstructionModel(binary, projector_seed=_seed(job['seed'], domain, 'projector'))
+        from .masked_reconstruction import MaskedReconstructionModel, spatial_mask, masked_l1, hog_target, masked_hog_mse
+        model = MaskedReconstructionModel(binary, projector_seed=rng['projector_seed'], target='hog' if hog else 'rgb')
     else:
-        model = SSLModel(binary, projector_seed=_seed(job['seed'], domain, 'projector'))
+        model = SSLModel(binary, projector_seed=rng['projector_seed'])
     model = model.to(ctx.device)
     wrapped = ctx.wrap(model)
     public_digest = tensor_digest(binary.state_dict())
@@ -189,7 +206,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'successful_updates': 0, 'target_updates': 1600, 'recipe': recipe})
     ctx.barrier()
     _wait_barrier(barrier_path, recipe, ctx, deadline_at, stop_event)
-    single._seed(_seed(job['seed'], domain, 'model', ctx.rank), ctx.device)
+    single._seed(rng['model_seeds'][ctx.rank], ctx.device)
     if ctx.primary:
         atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
             'successful_updates': 0, 'target_updates': 1600, 'recipe': recipe})
@@ -197,11 +214,11 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     dataset = ImageDataset(data_root, manifest['rows'], 512, training=True,
         normalization='imagenet', prepared_size=512, age=None,
         training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False)
-    sampler = UniformFitSampler(manifest['fit_indices'], seed=_seed(job['seed'], recipe.get('sampling_rng_domain', domain), 'sampler'),
+    sampler = UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
         updates=1600, rank=ctx.rank, world=ctx.world_size)
     loader = DataLoader(dataset, batch_sampler=sampler,
         **single._loader_options(job['workers'], job, persistent=True,
-                                 seed=_seed(job['seed'], domain, 'loader', ctx.rank)))
+                                 seed=rng['loader_seeds'][ctx.rank]))
     iterator = iter(loader)
     try:
         for update in range(1, 1601):
@@ -214,10 +231,11 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                 raise ValueError('SSL loader fit image/view geometry differs')
             images = images.to(ctx.device, non_blocking=True)
             if masked:
-                mask = spatial_mask([_seed(job['seed'], domain, 'mask', update, ctx.rank, int(index))
+                mask = spatial_mask([_seed(job['seed'], rng['learning_domain'], 'mask', update, ctx.rank, int(index))
                                      for index in indices], device=ctx.device)
                 prediction = wrapped(images, mask)
-                loss = masked_l1(prediction.float(), images.float(), mask)
+                loss = (masked_hog_mse(prediction.float(), hog_target(images), mask[:, :, ::8, ::8]) if hog
+                        else masked_l1(prediction.float(), images.float(), mask))
             else:
                 embeddings = wrapped(images.reshape(16, 3, 512, 512)).reshape(8, 2, 256)
                 z1 = gather_embeddings(embeddings[:, 0])
@@ -292,10 +310,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'ssl_rank0_non_encoder_sha256': publics[0]['non_encoder_sha256'],
             'derived_tensor_sha256': digest, 'asset_path': str(asset),
             'asset_sha256': sha256_file(asset), 'rank_proofs': digests,
-            'rng_derivation': {'domain': domain, 'projector_seed': _seed(job['seed'], domain, 'projector'),
-                'model_seeds': [_seed(job['seed'], domain, 'model', rank) for rank in range(ctx.world_size)],
-                'sampler_seed': _seed(job['seed'], domain, 'sampler'),
-                'loader_seeds': [_seed(job['seed'], domain, 'loader', rank) for rank in range(ctx.world_size)]},
+            'rng_derivation': rng,
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)
         atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'completed',

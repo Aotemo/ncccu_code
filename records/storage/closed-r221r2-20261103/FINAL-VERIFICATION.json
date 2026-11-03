@@ -1,0 +1,34 @@
+{
+  "status": "eight_removed_sidecars_kept_and_protected_stat_small_SHA_unchanged",
+  "at": 1793731433.569654,
+  "plan": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/closed-r221r2-20261103-4e0c/PLAN.json",
+    "sha256": "33e1483ea0413ae7e1df1b665c5a6a449c375b869cc1bda8a54979c4a52c8aae"
+  },
+  "delete": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/closed-r221r2-20261103-4e0c/DELETE-RECEIPT.json",
+    "sha256": "68210fa6e41e1617f4c66d69927790e82ed3326a6db99daa5e8cf046f97a998c"
+  },
+  "CPU_evidence": {
+    "plan": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-ahbya3z2/CPU-RECEIPT.json",
+      "sha256": "c3b3f0b9452acf76610d170a37ec92f589e48a33aa6f968d17315a7777d79abf",
+      "exit_code": 0,
+      "wall_seconds": 0.4385850429534912,
+      "output_sha256": "9b5b682d7ce2e45c60aa03e1247b03d8f13f6b68467170ec558215ac733969c1"
+    },
+    "delete": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-3lm5tap5/CPU-RECEIPT.json",
+      "sha256": "bd6a463ac3b9b05406c9c42344d4452357300aca5a8c394ca7380daa7cd718dc",
+      "exit_code": 0,
+      "wall_seconds": 1.4973912239074707,
+      "output_sha256": "4e4828f84baaf8b43c8d2a1a0700726943d54a8dd83b5d8ebc503031ddb05cae"
+    }
+  },
+  "current_round": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+  "current_site_sha256": "0f4eed58095dd57122d134a133dc7ea298cb60b1abe270e488415cbde6327a6a",
+  "checkpoint_load_or_GPU_forward": false,
+  "free_bytes": 32677822464,
+  "logical_bytes_removed": 10398855157,
+  "large_payloads_rehashed": false
+}

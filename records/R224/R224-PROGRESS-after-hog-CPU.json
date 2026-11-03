@@ -1,0 +1,196 @@
+{
+  "tool": "observe_round_once",
+  "tag": "after-hog-CPU",
+  "mode": "progress",
+  "observed_at": 1793731433.599683,
+  "observed_at_beijing": "2026-11-04T02:43:53.599683+08:00",
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+  "signals_sent": false,
+  "model_forward_executed": false,
+  "official_read": false,
+  "done": {
+    "present": false,
+    "status": null
+  },
+  "round": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32",
+  "phase": "running",
+  "first_success_receipt_read": true,
+  "identity": {
+    "owner_expected": {
+      "pid": 790052,
+      "start_ticks": "375759290"
+    },
+    "owner": {
+      "pid": 790052,
+      "present": true,
+      "readable": true,
+      "state": "S",
+      "start_ticks": "375759290",
+      "active": true
+    },
+    "owner_status": "active",
+    "owner_match": true,
+    "ranks_expected": [
+      {
+        "pid": 790071,
+        "start_ticks": "375764255"
+      },
+      {
+        "pid": 790072,
+        "start_ticks": "375764257"
+      },
+      {
+        "pid": 790073,
+        "start_ticks": "375764259"
+      },
+      {
+        "pid": 790074,
+        "start_ticks": "375764260"
+      },
+      {
+        "pid": 790075,
+        "start_ticks": "375764261"
+      },
+      {
+        "pid": 790076,
+        "start_ticks": "375764263"
+      },
+      {
+        "pid": 790077,
+        "start_ticks": "375764265"
+      },
+      {
+        "pid": 790078,
+        "start_ticks": "375764266"
+      }
+    ],
+    "ranks": [
+      {
+        "pid": 790071,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764255",
+        "active": true
+      },
+      {
+        "pid": 790072,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764257",
+        "active": true
+      },
+      {
+        "pid": 790073,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764259",
+        "active": true
+      },
+      {
+        "pid": 790074,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764260",
+        "active": true
+      },
+      {
+        "pid": 790075,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764261",
+        "active": true
+      },
+      {
+        "pid": 790076,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764263",
+        "active": true
+      },
+      {
+        "pid": 790077,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764265",
+        "active": true
+      },
+      {
+        "pid": 790078,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "375764266",
+        "active": true
+      }
+    ],
+    "rank_status": [
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active"
+    ],
+    "rank_matches": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "rank_count": 8
+  },
+  "progress": {
+    "status": "running",
+    "phase": null,
+    "successful_updates": 925,
+    "attempted_updates": 925,
+    "skipped_updates": 0,
+    "evaluated_cycle": 1,
+    "stop_reason": null,
+    "termination_reason": null,
+    "early_bad_cycles": 0
+  },
+  "metrics": {
+    "event": "update",
+    "at": 1793731427.6022112,
+    "successful_updates": 925,
+    "attempted_updates": 925,
+    "cycle": 1,
+    "loss": 0.16245733201503754
+  },
+  "status_best": {
+    "best_metrics": {
+      "auroc": 0.9574059201123191,
+      "ap": 0.6830841545434001,
+      "variant": "online",
+      "cycle": 1,
+      "successful_updates": 800,
+      "error_twice": 70748
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9574059201123191,
+      "ap": 0.6830841545434001,
+      "variant": "ema",
+      "cycle": 1,
+      "successful_updates": 800,
+      "error_twice": 70748
+    },
+    "lineage_best": {}
+  },
+  "head_warmup_phase_proofs": {},
+  "selected": null,
+  "safety": null
+}

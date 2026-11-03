@@ -1,0 +1,82 @@
+{
+  "status": "twelve_affected_targets_passed",
+  "targets": 12,
+  "compiled_sources": 5,
+  "reports": [
+    {
+      "name": "test_masked_reconstruction.py",
+      "targets": 8,
+      "wall_seconds": 9.27921199798584,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/SPATIAL-GREEN.log",
+      "log_sha256": "db8f1ab3cd1a0d3bbe115978249aa7cb8f7b671c143adad7e19b76f96b6c0f87"
+    },
+    {
+      "name": "test_masked_reconstruction_candidate.py",
+      "targets": 2,
+      "wall_seconds": 4.1802520751953125,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/CANDIDATE-GREEN.log",
+      "log_sha256": "6861b2dd2921513adb93797bb583ab896bd3941d871e8b7f2a24e8c88a5f7d22"
+    },
+    {
+      "name": "test_ssl_stage.py",
+      "targets": 2,
+      "wall_seconds": 7.190017461776733,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/LEGACY-SSL-GREEN.log",
+      "log_sha256": "5b98265d77e610a92cd29bee1f869efd5a64b1bbbfa4c078879b8575a9aad736"
+    }
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/masked_reconstruction.py": "ed64afd50492dd9072fa7cf6f80ee426a7ef1c6550052051f668af7e49e64621",
+    "runtime/bundle/retrain/ssl_stage.py": "94b69350b3cc389b5ca68395b7b56e805666a4245250352ac8e9f0f989233bf7",
+    "runtime/bundle/retrain/experiment91.py": "39fe1dfa6e53c0e3bf32ee9ea73997bf0e841b8d87eea9323343b72a457a72e7",
+    "tests/test_masked_reconstruction.py": "59aa4b9f61703d1e6c5bc6a51816a6d1a2301eb604ad2108055325a51dd03788",
+    "tests/test_masked_reconstruction_candidate.py": "4339cc9cf80707dcaad1a561081e882dec1524f4a86466df34b727751165f559"
+  },
+  "configuration_files": {
+    "configs/R226-SCIENCE.json": "43964fcfb495690e910bed77995bc3a1801f6de61bd04a5ac4c2b6bb2d9248f2",
+    "configs/R227-SCIENCE.json": "cdc9822a86fe0ff8729206c5ff47a64f957442758a10ba6c9e4330e5693d39ec"
+  },
+  "current_R224_frozen_files_modified": false,
+  "GPU_started": false,
+  "at": 1793731078.9604716,
+  "evidence": {
+    "expected_five_RED": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-cc1xry69/CPU-RECEIPT.json",
+      "sha256": "58722a2bfc6e8db72cfb4029fb3cfc961a92819c138b5b1abe3db75de14722cd",
+      "exit_code": 1,
+      "wall_seconds": 24.36265540122986,
+      "output_sha256": "4f8e74d720a8e418a3fa610b8dde9d5e75c6f7b1fcaba199e37524b2fde1bc4d"
+    },
+    "twelve_GREEN": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-jl4fkgxn/CPU-RECEIPT.json",
+      "sha256": "234c8fa7ec762e29b2871c10b03ccafc7ac1c28a80f1846832067e2c60f0f56b",
+      "exit_code": 0,
+      "wall_seconds": 25.25625729560852,
+      "output_sha256": "bebe2c5828334bac7a392020be54e2dd50e32b6c6cc76155a3a5f9e31de26b89"
+    },
+    "actual_public_P8_and_cold_derived": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-ftqpbkbl/CPU-RECEIPT.json",
+      "sha256": "a6e1df77bc06745124979213957d3d6d8dac504ac4a2ad68bdb80b1d403f6cae",
+      "exit_code": 0,
+      "wall_seconds": 96.67350339889526,
+      "output_sha256": "94c27e91f9a694f5a492f32aa758012bbd7e026ea9c7818ad34f6db9b58c497d"
+    }
+  },
+  "actual_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "94c27e91f9a694f5a492f32aa758012bbd7e026ea9c7818ad34f6db9b58c497d"
+  },
+  "unchanged_implementation_files": {
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/config.py": "a79b02336db57c50d85bbfe649f1d6d1f33b89344f56e579f9b013c99d40c4d8",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/distributed.py": "73bdd2cc31425f7185767977126f981983ca7521ce73352940baeb0d9befb1cd",
+    "runtime/bundle/retrain/distributed_engine.py": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "runtime/bundle/retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/inference.py": "1a00f003fe5db81627934b2afba2e71af68dafed76810d9ba6fa26835fcb7833"
+  },
+  "legacy_test_sha256": "8e8e34482b3030740e7a25284a1d05347f6d63cfc33dafe2bdfe7ac9cb5a09f3",
+  "new_GPU_or_formal_clock": false
+}

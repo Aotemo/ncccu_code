@@ -1,4 +1,5 @@
-"""One fit-only spatial RGB reconstruction signal, without labels or a teacher."""
+"""Fixed fit-only spatial RGB or normalized-gradient targets; no labels/teacher."""
+import math
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -13,6 +14,12 @@ MASKED_RECIPE = {'version': 'fit-masked-rgb32-1600-v1', 'updates': 1600,
     'mask_patch_size': 32, 'mask_count': 154, 'mask_grid': [16, 16],
     'mask_fill': 'normalized_zero', 'target': 'same_augmented_normalized_RGB',
     'loss': 'masked_L1_mean_RGB', 'sampling_rng_domain': 'r115-fit-vicreg-1600-v1'}
+
+HOG_RECIPE = {**MASKED_RECIPE, 'version': 'fit-masked-hog8-1600-v1',
+    'projector': [768, 432, 4], 'target': 'same_augmented_RGB_local_HOG8x9',
+    'loss': 'masked_MSE_mean_HOG', 'hog_cell_size': 8, 'hog_bins': 9,
+    'hog_gradient': 'sobel3_reflect_unsigned_floor', 'hog_norm_eps': 1e-6,
+    'learning_rng_domain': MASKED_RECIPE['version']}
 
 
 def spatial_mask(seeds, *, device=None):
@@ -41,17 +48,55 @@ def masked_l1(prediction, target, mask):
     return ((prediction - target.detach()).abs() * mask).sum() / (3 * count)
 
 
+@torch.no_grad()
+def hog_target(images):
+    """RGB Sobel directions, nine unsigned bins/cell, local contrast normalized.
+
+    Fixed HOG target motivated by MaskFeat (CVPR 2022); this dense CNN path
+    does not reproduce the paper's Transformer or video training protocol.
+    """
+    if images.ndim != 4 or images.shape[1:] != (3, 512, 512):
+        raise ValueError('fixed HOG target requires native512 RGB')
+    images = images.detach().float()
+    derivative = images.new_tensor([[-1., 0., 1.], [-2., 0., 2.], [-1., 0., 1.]])
+    horizontal = derivative.reshape(1, 1, 3, 3).repeat(3, 1, 1, 1)
+    padded = F.pad(images, (1, 1, 1, 1), mode='reflect')
+    gx = F.conv2d(padded, horizontal, groups=3)
+    gy = F.conv2d(padded, horizontal.transpose(2, 3), groups=3)
+    magnitude = torch.sqrt(gx.square() + gy.square())
+    orientation = (torch.atan2(gy, gx) * (9. / math.pi)).floor().long().remainder(9)
+    histogram = images.new_zeros((images.shape[0], 3, 9, 512, 512))
+    histogram.scatter_add_(2, orientation.unsqueeze(2), magnitude.unsqueeze(2))
+    cells = histogram.reshape(images.shape[0], 3, 9, 64, 8, 64, 8).sum(dim=(4, 6))
+    return F.normalize(cells, p=2., dim=2, eps=1e-6).reshape(images.shape[0], 27, 64, 64)
+
+
+def masked_hog_mse(prediction, target, mask):
+    """Mean squared error of only hidden cells/channels; detached local target."""
+    if (prediction.ndim != 4 or prediction.shape != target.shape or prediction.shape[1] != 27
+            or mask.shape != (prediction.shape[0], 1, *prediction.shape[2:])
+            or mask.dtype != torch.bool):
+        raise ValueError('aligned HOG predictions/targets and binary cell mask required')
+    count = mask.sum()
+    if not bool(count):
+        raise ValueError('masked HOG reconstruction requires hidden cells')
+    return ((prediction - target.detach()).square() * mask).sum() / (27 * count)
+
+
 class MaskedReconstructionModel(nn.Module):
     """Shared native Small features/final-LN; the spatial decoder is disposable."""
-    def __init__(self, binary, *, projector_seed):
+    def __init__(self, binary, *, projector_seed, target='rgb'):
         super().__init__()
         self.features = binary.network.features
         self.final_norm = binary.network.classifier[0]
         if self.final_norm.weight.numel() != 768 or self.final_norm.bias.numel() != 768:
             raise ValueError('masked reconstruction requires the native Small final LN')
+        if target not in ('rgb', 'hog'):
+            raise ValueError('only the fixed RGB or HOG spatial target is registered')
+        channels, upscale = (27, 4) if target == 'hog' else (3, 32)
         with torch.random.fork_rng(devices=[]):
             torch.random.default_generator.manual_seed(projector_seed)
-            self.projector = nn.Sequential(nn.Conv2d(768, 3 * 32 ** 2, 1), nn.PixelShuffle(32))
+            self.projector = nn.Sequential(nn.Conv2d(768, channels * upscale ** 2, 1), nn.PixelShuffle(upscale))
 
     def forward(self, images, mask):
         if (images.ndim != 4 or images.shape[1:] != (3, 512, 512)

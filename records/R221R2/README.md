@@ -10,6 +10,8 @@
 
 按原固定组计算，平分ties；不是病例数或独立观测数。两组均恶化，不以局部修复抵消整体代价。没有预声明的后续forward依赖，结束后的权重可按真实manifest清理，预测CSV/结果继续保留；清理是否执行另看存储回执。
 
+实际8个checkpoint已[清理](../storage/closed-r221r2-20261103/README.md)，共10.399GB逻辑字节，原预测/结果/sidecar和三KEEP保留。所选EMA现在只保留参数/预测身份，不能再称可加载。
+
 冻结c7326677/tree9d4bbada、SCIecf6e050、actual SITEc833c9ad。正式20/20 CPU和整树精确部署完成；窗口检查、一次activation、direct launch均exit0，未做GPU预演。科学合同与R221/R221R1相同，仅独立fresh身份/order136和存储报错补足四个实际字节值，预算阈值未改。
 
 11-03 16:52:29 UTC记录自然首25成功，loss .5590348839759827有限、WORLD8/G64P8/448对/scale1；16:52:44实观50成功/0跳步，随后17:08实观1700成功/0跳步/c2/八rank活跃，已跨1382旧存储故障点及1601 EMA blend边界（cont4/qchar9_d exit0）。实际八rank/237参数/五空AdamW/初态51592a3d与正式CPU一致。start2/23e51726、guardrznpl7fo/bd48c126 exit0。raw .999未达。

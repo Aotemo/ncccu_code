@@ -1,0 +1,33 @@
+{
+  "status": "fit_only_1600_and_eight_rank_supervised_first25_verified",
+  "at": 1793731433.5442474,
+  "first_success": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/START-OBSERVATION-supervised-1.json",
+    "sha256": "1fbb0323eb030e870a11d1bbb96bf75cea5748620f01fd4dc780ccf967ca1270"
+  },
+  "CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-50utye4d/CPU-RECEIPT.json",
+    "sha256": "2f9010839dbf6a73f158fa7cf23cf1012c137c17b13c320e942a349ea69d8080",
+    "exit_code": 0,
+    "wall_seconds": 7.873944282531738,
+    "output_sha256": "a3360b98ffc1375b784cea25bb08278a45503097a6bbfbb38943363952c58693"
+  },
+  "actual_initial_gate": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/evidence/ACTUAL_FRESH_INITIAL.json",
+    "sha256": "d72b3c92650e951cfab6c61abe56e334fdc34bd13493b3a7b5f6c63c1773678f"
+  },
+  "SSL_result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+    "sha256": "b3d952fa38771b497f9bfc4244d643564449313ba76b1afb410cc083a2d5bc3b"
+  },
+  "sampler_metadata_erratum": {
+    "recorded_sampler_seed": 17388822420789876297,
+    "actual_sampler_seed": 14997478083172343433,
+    "actual_sampling_domain": "r115-fit-vicreg-1600-v1",
+    "recorded_value_matches_actual": false,
+    "reason": "Frozen source consumes recipe sampling_rng_domain; old receipt field used version domain. Runtime stream unchanged; freeze retained."
+  },
+  "frozen_ssl_stage_sha256": "d0c8b231ddfd230780948b11143d441d35a097ff9f4bc3946024afe75e24020b",
+  "frozen_files_modified": false,
+  "new_forward": false
+}
