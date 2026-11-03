@@ -1,5 +1,7 @@
 # 固定较宽 sigmoid 目标 CPU 准备
 
+03:34 R199 c7微升后早停归零，接续后移；原R201 normal18/18、其GPU grant及全部回执保持，不重置。另备未启动window2的[纯技术包](R201-WINDOW2-TECHNICAL.json)，[guardnr5hysvh](R201-WINDOW2-CPU.json) / `5ccabc9d93c07239248e06a395b3d03d96e1c95f010320d809db25670a78afa4` exit0，原source8635/SCIbb449eb8/技术SITEf2ce4173与原包相同，5目标4编译证据按SHA复用。window2当前无formal、GPU allocation、clock或activation；后续按真实headroom为未启动阶段建立可覆盖完整clock的新绑定，不热改旧grant/当前R199或科学值。
+
 11-03 03:28后备R201已在R199/bad3仍训练时完成[正常CPU18/18与精确部署](NORMAL-R201.json)，[guardk3w5kpql](NORMAL-R201-CPU.json) / `7bdb18d0566a78c5c3fdd6ad4f7203f6bc2c5e82f357d8ac0a3ef1275e136ab5` exit0。原5目标/4编译按SHA复用，新完整producer实际通过；345全训/5空AdamW/whole50c6、actual SITE `d50c8471e7a1f64bb509d4d50d8d30b1f5de8e24eebae6fd39fbc60637f40788`，manifest2a440a9e、CPU-prep2a077d5c、deployment74f6e00b。source8635b53/tree844d586、SCIbb449eb8、默认12GiB/free16GiB不变，无新clock/activation/GPU。使用新ec5准备0–11，与R199训练24–119互斥；完整R199双门及actualsafe决定唯一分支，下文待normal状态为历史。
 
 01:48两[actual technical包](TECHNICAL-PACKAGES.json)已按GitHub实际回读commit `8635b53728f3b52829e44d9faa24434ec0c2197f` / tree `844d58670225afab2aca011223a0ba46b99909cc`生成。R200 SITE07639d30 / [guardaydxy8l5](CPU-TECHNICAL-R200.json)、R201 SITEf2ce4173 / [guard14i5jk_w](CPU-TECHNICAL-R201.json)均0；归档v88xsue3 / `bee0963906fc762a62cf7be4e325529a440858a18e614e8ddc06cb522bb1e06e` exit0，实核无formal-cpu/gpu-inputs/真实round目录，无新clock/GPU。当前R197/436与先行R198/R199/82add93保持冻结，本组正常CPU/精确部署仍在前轮可行收尾前执行一次。

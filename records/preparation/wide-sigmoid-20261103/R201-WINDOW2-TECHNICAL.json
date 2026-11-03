@@ -1,0 +1,11 @@
+{
+  "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+  "round_id": "r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+  "git_commit": "8635b53728f3b52829e44d9faa24434ec0c2197f",
+  "tree_sha": "844d58670225afab2aca011223a0ba46b99909cc",
+  "science_sha256": "bb449eb85474e644f61e0f8e40bc9d2780d04d1dc13905fb4da115864c2774a8",
+  "site_sha256": "f2ce41737bf6025eaa142eafb153f9634115050ca764fe27a7ee9f7a12942575",
+  "CPU_checks_sha256": "34706b04cdfda1197191e44dd3d35b7ad8dbb07a794b9c7dd0f276d91450111b",
+  "formal_clock_created": false,
+  "GPU_started": false
+}
