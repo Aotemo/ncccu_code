@@ -1,0 +1,192 @@
+{
+  "scope": "fixed_publisher_text_and_configuration_metadata_only",
+  "passed": true,
+  "execution": {
+    "at": "2026-11-03T08:52:33.517480+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/CPU-ALLOCATION.json",
+      "sha256": "ec5cb66f3548814547e0cfb0be891f75fd2206cdbc27a20d16cda3a780c91396",
+      "executor_id": "32e3b079-81b0-4f66-9604-b32491599f44",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "repo": "timm/efficientnetv2_rw_s.ra2_in1k",
+  "revision": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+  "registry_sha256": "fe2075d5445c7532657f32cfadc6d7d670de23a6a5153a01670722de3e780a50",
+  "files": {
+    "config.json": {
+      "url": "https://huggingface.co/timm/efficientnetv2_rw_s.ra2_in1k/resolve/ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704/config.json",
+      "started_at": "2026-11-03T08:52:33.535228+00:00",
+      "completed_at": "2026-11-03T08:52:33.543221+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/config.json",
+      "bytes": 643,
+      "sha256": "000775a1f61f67415c91e067d887e7fc07807beae8db8dd586e04111053277ab",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/metadata-relay/config.json",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/config.json",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/config.json",
+        "bytes": 643,
+        "device": 132,
+        "inode": 9126557247,
+        "mtime_ns": 1793695953000000000,
+        "ctime_ns": 1793695953000000000
+      }
+    },
+    "README.md": {
+      "url": "https://huggingface.co/timm/efficientnetv2_rw_s.ra2_in1k/raw/ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704/README.md",
+      "started_at": "2026-11-03T08:52:33.545150+00:00",
+      "completed_at": "2026-11-03T08:52:33.552871+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/README.md",
+      "bytes": 4788,
+      "sha256": "62ef37844536c93207d7f357397467dd837a9ed13baa3a8824d17dbe1e494c38",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/metadata-relay/README.md",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/README.md",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/README.md",
+        "bytes": 4788,
+        "device": 132,
+        "inode": 19827904379,
+        "mtime_ns": 1793695953000000000,
+        "ctime_ns": 1793695953000000000
+      }
+    },
+    "LICENSE-apache-2.0.txt": {
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "started_at": "2026-11-03T08:52:33.554121+00:00",
+      "completed_at": "2026-11-03T08:52:33.562303+00:00",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/LICENSE-apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "resolved_host": null,
+      "transport": "authorized_raw_byte_relay_verified_on_pod",
+      "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/metadata-relay/LICENSE-apache-2.0.txt",
+      "expected_lfs_sha256": null,
+      "expected_lfs_bytes": null,
+      "identity": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/LICENSE-apache-2.0.txt",
+        "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/fixed-metadata/LICENSE-apache-2.0.txt",
+        "bytes": 11358,
+        "device": 132,
+        "inode": 19827904635,
+        "mtime_ns": 1793695953000000000,
+        "ctime_ns": 1793695953000000000
+      }
+    }
+  },
+  "configuration": {
+    "architecture": "efficientnetv2_rw_s",
+    "num_classes": 1000,
+    "num_features": 1792,
+    "pretrained_cfg": {
+      "tag": "ra2_in1k",
+      "custom_load": false,
+      "input_size": [
+        3,
+        288,
+        288
+      ],
+      "test_input_size": [
+        3,
+        384,
+        384
+      ],
+      "fixed_input_size": false,
+      "interpolation": "bicubic",
+      "crop_pct": 1.0,
+      "crop_mode": "center",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "num_classes": 1000,
+      "pool_size": [
+        9,
+        9
+      ],
+      "first_conv": "conv_stem",
+      "classifier": "classifier"
+    }
+  },
+  "declared_training_data": "ImageNet-1K",
+  "declared_license": "Apache-2.0",
+  "advertised_bin": {
+    "sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+    "bytes": 96674637,
+    "url": "https://huggingface.co/timm/efficientnetv2_rw_s.ra2_in1k/resolve/ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704/pytorch_model.bin"
+  },
+  "weights_downloaded": false,
+  "strict_loaded": false,
+  "native_timm_model_constructed": false,
+  "forward_calls": 0,
+  "data_or_official_read": false,
+  "candidate_registered": false,
+  "science_or_live_runtime_changed": false
+}

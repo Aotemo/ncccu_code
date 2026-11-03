@@ -1,5 +1,7 @@
 # R209：原生 AMSGrad 的独立 fresh
 
+08:41[既有sysfs单次设备快照](R209-DEVICE-POINT.json)实核8PCI busy99%–100%，不推连续利用率；[guard51g3yug_](R209-CPU-DEVICE.json) / 3e89dbd8257a418897e5e46f3726831caf15c0078e45f6958f0d49ead4214eb5 exit0，无GPU API/forward或runtime修改。08:46实观4925/0skip/eval6/bad2、八rank活跃，暂best EMA c4@3200`.9862551189597479`，仍无完整selected。后续158bfb0两technical包已完成，normal在可行收尾前准备，现役冻结不改。
+
 11-03 08:06[真实初态和自然首25](R209-START.json)已证八rank、345全训、5个参数组、各rank优化器初始state为空、whole50c6与formal一致；WORLD8/G64P8/448对、每rank8图，首25日志loss `.6513814926147461`有限、0skip。08:09实观325 success=attempt/0skip/eval0，八rank活跃。当前链路可运行，完整AUROC收益尚待终态；raw .999未达。
 
 独立直接R107 Small/publicfe6/seed20261029/RGB512/FP32/ImageNet/原logistic/G64P8，只用`adamw_amsgrad_policy='adamw-amsgrad-v1'`将五个原生AdamW组设为amsgrad=True。保留原组顺序、LR/WD、age、betas(.9,.999)、eps1e-8、foreach/fused原默认；不叠beta095、hinge、困难样本loss或其他policy。最多24000成功更新/每800内部评估/p4/EMA1600和完整内部AUROC唯一选点保持，显式官方>=.996门沿现R120，历史R107不改。

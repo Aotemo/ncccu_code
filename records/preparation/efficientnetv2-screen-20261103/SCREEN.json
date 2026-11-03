@@ -1,0 +1,70 @@
+{
+  "scope": "installed_native_EfficientNetV2_S_source_and_structure_screen_only",
+  "at": 1793695552.895811,
+  "pod_uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+  "torch": "2.10.0",
+  "torchvision": "0.25.0",
+  "library_source": {
+    "path": "/usr/local/python3.12/lib/python3.12/site-packages/torchvision/models/efficientnet.py",
+    "sha256": "82d058e1989ef84e4ef7ce43e4a49dc10f1b95dcd003303c2c052438de823b17"
+  },
+  "public_enum": "EfficientNet_V2_S_Weights.IMAGENET1K_V1",
+  "public_url": "https://download.pytorch.org/models/efficientnet_v2_s-dd5fe13b.pth",
+  "source_training_data": "ImageNet-1K according to the official torchvision enum",
+  "source_categories": 1000,
+  "source_full_parameters": 21458488,
+  "source_preprocessing": {
+    "crop_size": [
+      384
+    ],
+    "resize_size": [
+      384
+    ],
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "interpolation": "InterpolationMode.BILINEAR"
+  },
+  "native_structure": {
+    "parameter_tensors": 452,
+    "parameter_elements": 21458488,
+    "state_keys": 782,
+    "buffer_count": 330,
+    "batch_norm_modules": 110,
+    "floating_buffer_count": 220,
+    "integer_buffer_count": 110,
+    "buffer_dtypes": [
+      "torch.float32",
+      "torch.int64"
+    ],
+    "native_bn_eps_values": [
+      0.001
+    ],
+    "native_bn_momentum_values": [
+      0.1
+    ],
+    "head_shape": [
+      1000,
+      1280
+    ],
+    "dropout": 0.2,
+    "stochastic_depth_module_count": 40,
+    "native_train_mode_updates_BN_buffers": true
+  },
+  "weights_downloaded": false,
+  "public_pretrained_loaded": false,
+  "checkpoint_loaded": false,
+  "image_or_dataset_read": false,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "candidate_registered": false,
+  "science_or_live_runtime_changed": false,
+  "limitations": "Native structure and publisher metadata only; no full public SHA/strict load, legal acceptance, binary fresh, CPU backward, cold load, GPU feasibility or performance evidence."
+}

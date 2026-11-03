@@ -1,0 +1,15 @@
+# EfficientNetV2：后续来源与接口筛查，尚未采纳
+
+R209仍唯一GPU，R210/R211的158bfb0冻结队列保持。R185/R206曾因BN/EMA适配范围暂缓此架构，属于工程范围选择，未有本合同科学阴性；不将它包装为已跑新候选，也不重开已关闭读出/配额/ROI/光度/SSL扫描。拟比较的机制是不同原生卷积/SE架构与匹配自然图像公开初始化的整体组合，不先声称临床定位、容量瓶颈或AUROC收益。
+
+08:45在ec5/root0–11/nice19/隐藏GPU做一次[当前已安装TorchVision原生结构筛查](../../records/preparation/efficientnetv2-screen-20261103/SCREEN.json)，SHA b6ce55c13a991939c710a2d9e0be5c446696f32d6094637aab59a9b7f3317dde；[guardzaafybf9](../../records/preparation/efficientnetv2-screen-20261103/CPU-SCREEN.json) / eb7c88c3164e0686dfaee416214a5cebf170163a76ad9cd523cbc29bc75674d9 exit0。仅weights=None工厂及来源enum，452参数张量/21,458,488参数、782state keys、110BN/330buffers（220FP32+110int64）、BN eps.001/momentum.1、1000×1280公开头、40SD；实际efficientnet.py SHA82d058e1989ef84e4ef7ce43e4a49dc10f1b95dcd003303c2c052438de823b17。未下载或加载公开权重，0 forward/真实图像/数据/官方读取，无新SCI/normal/clock/GPU。
+
+[TorchVision0.25官方实现](https://docs.pytorch.org/vision/0.25/_modules/torchvision/models/efficientnet.html)确认该enum公开ImageNet-1K权重与来源384/BILINEAR/ImageNet mean/std。网页generated页读取失败，实际enum与源码以上述Pod回执为准；不称公共完整SHA、strict加载或二分类fresh已核。现有models.check_imagenet_provenance仅登记R50的BSD代码许可及未完全解决的数据派生权重条款，不能据该R50专属登记把新TV权重标成已获比赛分发许可。
+
+[作者timm的efficientnetv2_rw_s.ra2_in1k模型卡](https://huggingface.co/timm/efficientnetv2_rw_s.ra2_in1k)明确ImageNet-1K和Apache-2.0。它是timm特有架构变体，训练288/test384、1792特征，与上述TV工厂不是同一模型，不能套用TV的110BN/330buffers或1280维计数。后续如采纳，仅固定此一种作者来源，使用原生图而非猜测跨框架映射，不作dev驱动权重或变体筛选。
+
+08:51已在Pod核[一次当前registry后固定revision](../../records/preparation/efficientnetv2-screen-20261103/REGISTRY-RECEIPT.json) ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704，public/non-gated/Apache-2.0，advertised bin SHA8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303 /96,674,637 B；这仍是发布者宣告，不等同权重字节已核。08:52[固定config/card/完整Apache文本](../../records/preparation/efficientnetv2-screen-20261103/FIXED-METADATA-RECEIPT.json) SHA4133bac7、guardj7kepa7i /6561417b exit0，确认原生变体1792维、来源288/test384、ImageNet mean/std与bicubic/crop1/center，未运行来源预处理。card SHA62ef3784、license SHA cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30。原Pod直连代理503的[失败guard](../../records/preparation/efficientnetv2-screen-20261103/CPU-REGISTRY-FAILURE.json) rvej7a81/ee3085e4保留；原字节relay由[guard5oamxepb](../../records/preparation/efficientnetv2-screen-20261103/CPU-REGISTRY-RELAY.json) /1aef4489核后通过。README resolve下载曾因证书主机名不符退出60，改同一固定revision的raw官方路径后成功，未关闭TLS验证。
+
+首权重curl在60秒内仅收到7,820,671/96,674,637 B后退出28；上游退出前曾提前传输，所得部分文件已移存`byte-relay/pytorch_model.bin.incomplete-transport-1`，未调用解析/加载或把它记为source通过。后续range续传第一次300秒收到额外28,754,477 B后仍退出28，保留.part，正在继续原固定资产；后续只在上游exit0与全部实际LFS SHA/size通过后加载。未创建二分类fresh/SCI/normal/clock/GPU，尚无原生timm结构计数、strict或收益证据，此下载不阻塞R209接续。
+
+实际需要适配的既有消费者已定位：config的frozen_bn模型白名单；models/候选描述的完整公开加载（包含已知整数BN counter）与固定BN train语义；experiment91的版本化结构/EMA/缓冲区合同；distributed_engine的显式微批BN准入及既有固定buffer初态/保存核对；EMA固定BN copy的159旧值兼容扩展；check_candidate正式验收及inference冷图；来源工具及两必要测试/SCI。single91已有按BN后缀提取不可变buffer的通用接口，可复用，无需新训练、启动、保存、选点或官方链路。没有在当前轮热改这些文件。下一步要先完成所选来源完整字节/许可与原生结构身份，再封存精确实现范围和受影响窄验；不让此筛查阻塞R209安全接续。
