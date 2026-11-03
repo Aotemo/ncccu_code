@@ -1,5 +1,7 @@
 # R203：原生 ViT-B/CLS 的固定较低骨干学习率
 
+11-03 06:17[完整结束](R203-RESULT.json)：8000 success=attempt/0skip、10次评估、bad4早停，唯一EMA c6@4800内部AUROC `.9816433892721294` / AP `.7749613204357814` / error_twice30490；两严格门false，固定backbone1e-5组合关闭，R204不eligible。官方不足.996未跑，freeze.status原null保留。[同次安全证据](R203-COMPLETION.json)已核owner687476/start371037834为Z/非active、八rank missing、holders/device_users空、denied0和八PCI busy0；[guardlo7k7b_m](R203-CPU-COMPLETION.json) / `78887735461c07676259569a1826d20f7bddd7fdd17edc3d3f4e90b87fff16e0` exit0，旧safe不重查。独立[R205实际接续](../R205/README.md)已证真实八rank及自然首25，原573冻结不改。下文为历史时点。
+
 11-03 05:40实观3050 success=attempt/0skip/eval3/bad0，八rank活跃，暂best EMA c3@2400内部AUROC `.9771051101095617`，无完整selected。05:37[既有监控单次sysfs快照](R203-DEVICE-POINT.json)八绑定PCI busy为99/99/99/99/99/96/69/79%，不代表连续利用率；[guardnr_gz1gw](R203-CPU-DEVICE-POINT.json) / `c27c31aef1e763ecd6510fd5413f4a49b656cf1cf82af75cf5dbe947350a9db2` exit0，无新GPU API或forward。原573冻结不改，下文为初态时点。
 
 11-03 05:18[真实初态与自然首25](R203-START.json)已证八rank、165可训练张量、5空原生AdamW、wholec3495f5a与formal一致，WORLD8/G64P8/448对、每rank8图，首25 loss `.7028408646583557`有限、0skip；05:19实观200成功0跳过，尚无内部评估。这里证明当前链路能运行，不是AUROC收益；raw .999未达。

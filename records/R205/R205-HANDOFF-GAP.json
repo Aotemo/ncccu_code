@@ -1,0 +1,22 @@
+{
+  "previous_round": "R203",
+  "previous_status": "completed",
+  "previous_whole_round_ended_at": 1793686646.8819242,
+  "previous_safe_observed_at": 1793686681.3620226,
+  "new_dispatch_at": 1793686793.6718707,
+  "latest_device_at": 1793686852.177379,
+  "first_recorded_update_at": 1793686915.146807,
+  "round_end_to_dispatch_seconds": 146.7899465560913,
+  "round_end_to_latest_device_seconds": 205.2954547405243,
+  "round_end_to_first_recorded_update_seconds": 268.26488280296326,
+  "round_end_to_dispatch_within_300": true,
+  "round_end_to_device_within_300": true,
+  "round_end_to_first_recorded_update_within_300": true,
+  "continuous_DCU_utilization_measured": false,
+  "previous_clock_token_grant_changed": false,
+  "necessary_checks_skipped": false,
+  "previous_last_training_event_at": 1793686596.3507414,
+  "last_event_to_dispatch_seconds": 197.321129322052,
+  "last_event_to_device_seconds": 255.82663750648499,
+  "last_event_to_first_recorded_update_seconds": 318.79606556892395
+}
