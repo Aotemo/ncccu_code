@@ -1,0 +1,110 @@
+{
+  "status": "seven_storage_section_cases_verified",
+  "at": 1793672130.4606755,
+  "old_helper_sha256": "aedc61d4860fb819df367c20ffd30565ac42f262a2dcf647f677aaeb5b93a32d",
+  "new_helper_sha256": "7fc6b3ddf803ed12922df5250ce0f1c7b27bb289752043d1f9c2de9048ee1aa3",
+  "deleted_lines": 2,
+  "inserted_lines": 0,
+  "source_policy_equality_check_preserved": true,
+  "cases": [
+    {
+      "label": "R198",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R199",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R200",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R201",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_R197_12GiB",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_16GiB_policy_fixture",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 17179869184,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_32GiB_policy_fixture",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 34359738368,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    }
+  ],
+  "existing_runtime_source_sha256": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+  "compiled_helpers": 1,
+  "evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-8xcxzf6s/CPU-RECEIPT.json",
+      "sha256": "a935a871d73e087cf3de8c30c74e56132c54c15e9c65f333b9f89f9b06d7333d",
+      "exit_code": 1,
+      "output_sha256": "4599677074f3974c96bd97bfd1986d2be8a877255af9b3e393c79082fefbcde6"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-eyg_egtk/CPU-RECEIPT.json",
+      "sha256": "a099cadba6be226019c3bd24e2c20d432704b817f13941c1dbb2e968297d9d4a",
+      "exit_code": 1,
+      "output_sha256": "4ebe4b2202dd73426683722d7342a0c34a1a0dc5b287ccb1f1aa5fe502353d10"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-shg7o73x/CPU-RECEIPT.json",
+      "sha256": "b72b946f7c4d446c258029ae27a5644272a49d397deaaf9eab32f04727f644bc",
+      "exit_code": 1,
+      "output_sha256": "169b7af0d914bec8112ae7bae76f8c1c672d38aff83731b86d4b26fe491a99ec"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-5irt3adg/CPU-RECEIPT.json",
+      "sha256": "43d7412337ece1e5009c8b412854856700fd014e807708273f04f2c46fc22936",
+      "exit_code": 0,
+      "output_sha256": "a721bb0b54521219f690cd430463025a7b6bc7f7a6f3a73c2759ca8dca2ce6a3"
+    }
+  ],
+  "probe_failures_retained": [
+    "first syntax typo",
+    "second missing runtime import path"
+  ],
+  "scope": "execute existing helper storage section and original budget function with synthetic size/free; no full normal producer rerun",
+  "normal_formal_or_allocation_or_clock_or_GPU_created": false,
+  "active_runtime_or_storage_policy_changed": false,
+  "helper_installed": false
+}

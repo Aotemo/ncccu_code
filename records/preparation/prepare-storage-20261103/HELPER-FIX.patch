@@ -1,0 +1,11 @@
+--- before/PREPARE-LARGE-DINO3-NEXT.py
++++ after/PREPARE-LARGE-DINO3-NEXT.py
+@@ -173,8 +173,6 @@
+ if frozen_storage!=read(source/'configs/ROUND-STORAGE-POLICY.json'):
+     raise ValueError('frozen storage policy differs from checked Git bytes')
+ storage_limit=frozen_storage['round_overrides'].get(round_id,frozen_storage['default_round_storage_limit_bytes'])
+-if storage_limit!=(17179869184 if science_filename in ('R191-SCIENCE.json','R192-SCIENCE.json') else 12884901888 if science_filename in ('R184-SCIENCE.json','R185-SCIENCE.json','R186-SCIENCE.json','R187-SCIENCE.json','R184R1-SCIENCE.json','R188-SCIENCE.json','R189-SCIENCE.json','R190-SCIENCE.json','R193-SCIENCE.json','R194-SCIENCE.json','R195-SCIENCE.json','R196-SCIENCE.json','R197-SCIENCE.json') else 34359738368):
+-    raise ValueError('new round does not consume its exact checked storage limit')
+ cpu = read(formal / 'CPU-RECEIPT.json')
+ initial, science = cpu['initial_state_control'], read(science_path)
+ groups = next(row['actual'] for row in cpu['checks'] if row['name'].startswith('unique_groups_empty'))

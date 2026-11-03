@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "at": 1793672052.7717013,
+  "cases": [
+    {
+      "label": "R198",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R199",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R200",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R201",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_R197_12GiB",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_16GiB_policy_fixture",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 17179869184,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_32GiB_policy_fixture",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 34359738368,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    }
+  ],
+  "errors": [],
+  "helper_sha256": "7fc6b3ddf803ed12922df5250ce0f1c7b27bb289752043d1f9c2de9048ee1aa3",
+  "helper_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/prepare-storage-20261103-32e3/NEW-PREPARE.py",
+  "existing_runtime_source_sha256": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+  "compiled_helpers": 1,
+  "scope": "execute only original storage metadata section; actual budget function with bounded synthetic size/free",
+  "new_formal_package_or_allocation_or_clock_or_GPU": false,
+  "model_or_forward_or_large_files_created": false,
+  "existing_policy_or_runtime_budget_changed": false,
+  "active_R197_changed": false
+}

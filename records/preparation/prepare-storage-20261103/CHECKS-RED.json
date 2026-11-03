@@ -1,0 +1,96 @@
+{
+  "status": "expected_RED_helper_rejects_actual_policy",
+  "at": 1793671999.8689432,
+  "cases": [
+    {
+      "label": "R198",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": false,
+      "helper_error": "ValueError('new round does not consume its exact checked storage limit')",
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R199",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": false,
+      "helper_error": "ValueError('new round does not consume its exact checked storage limit')",
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R200",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": false,
+      "helper_error": "ValueError('new round does not consume its exact checked storage limit')",
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "R201",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": false,
+      "helper_error": "ValueError('new round does not consume its exact checked storage limit')",
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_R197_12GiB",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 12884901888,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_16GiB_policy_fixture",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 17179869184,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    },
+    {
+      "label": "existing_32GiB_policy_fixture",
+      "frozen_policy_sha256": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c",
+      "actual_runtime_limit": 34359738368,
+      "helper_section_accepted": true,
+      "helper_error": null,
+      "runtime_overcap_rejected": true,
+      "free15GiB_rejected": true
+    }
+  ],
+  "errors": [
+    {
+      "label": "R198",
+      "error": "ValueError('new round does not consume its exact checked storage limit')"
+    },
+    {
+      "label": "R199",
+      "error": "ValueError('new round does not consume its exact checked storage limit')"
+    },
+    {
+      "label": "R200",
+      "error": "ValueError('new round does not consume its exact checked storage limit')"
+    },
+    {
+      "label": "R201",
+      "error": "ValueError('new round does not consume its exact checked storage limit')"
+    }
+  ],
+  "helper_sha256": "aedc61d4860fb819df367c20ffd30565ac42f262a2dcf647f677aaeb5b93a32d",
+  "helper_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/large-dino3-20261102-32e3/PREPARE-LARGE-DINO3-NEXT.py",
+  "existing_runtime_source_sha256": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+  "compiled_helpers": 0,
+  "scope": "execute only original storage metadata section; actual budget function with bounded synthetic size/free",
+  "new_formal_package_or_allocation_or_clock_or_GPU": false,
+  "model_or_forward_or_large_files_created": false,
+  "existing_policy_or_runtime_budget_changed": false,
+  "active_R197_changed": false
+}
