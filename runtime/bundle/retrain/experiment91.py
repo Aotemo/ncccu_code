@@ -71,6 +71,8 @@ HARD_POSITIVE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-ear
 HARD_NEGATIVE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-negative-top14-mix05-v1'
 HARD_NEGATIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-negative-top14-mix05-v1'
 PAIR_SQUARED_HINGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsqhinge-margin1-quarter-v1'
+PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsqhinge-margin1-quarter-v1'
+ADAMW_AMSGRAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-adamw-amsgrad-v1'
 HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-positive-top2-mix05-v1'
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
@@ -144,6 +146,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
+                      PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -249,6 +252,7 @@ def science_configuration():
                                                        GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
+                                                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -268,8 +272,14 @@ def science_configuration():
                     != (value.get('job',{}).get('loss')==PAIR_WIDE_SIGMOID_LOSS))
                 or ((value.get('candidate_profile')in(HARD_NEGATIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_HARD_NEGATIVE_LOSS))
-                or ((value.get('candidate_profile')==PAIR_SQUARED_HINGE_SMALL_BINDING)
+                or ((value.get('candidate_profile')in(PAIR_SQUARED_HINGE_SMALL_BINDING,PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_SQUARED_HINGE_LOSS))
+                or ((value.get('candidate_profile')==ADAMW_AMSGRAD_SMALL_BINDING)
+                    != (value.get('job',{}).get('adamw_amsgrad_policy')is not None
+                        or value.get('candidate',{}).get('adamw_amsgrad_policy')is not None))
+                or (value.get('candidate_profile')==ADAMW_AMSGRAD_SMALL_BINDING
+                    and (value.get('job',{}).get('adamw_amsgrad_policy')!='adamw-amsgrad-v1'
+                         or value.get('candidate',{}).get('adamw_amsgrad_policy')!='adamw-amsgrad-v1'))
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('quadrant_mil_policy')is not None
                          or value.get('candidate',{}).get('quadrant_mil_policy')is not None))
@@ -575,6 +585,7 @@ def candidate_from_configuration(value):
                                         GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
                                         GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                         HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
+                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
                                         HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
@@ -636,16 +647,18 @@ def candidate_from_configuration(value):
                         'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation'))):
                 raise ValueError('fixed Small sigmoid LR, decay, gamma or weight decay recipe differs')
-        if value['candidate_profile'] in (HARD_NEGATIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING):
+        if value['candidate_profile'] in (HARD_NEGATIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING):
             from .classification_loss import validate_loss
             validate_loss(value['job'].get('loss'))
-            seed27=value['candidate_profile']==HARD_NEGATIVE_SMALL_SEED27_BINDING
-            squared_hinge=value['candidate_profile']==PAIR_SQUARED_HINGE_SMALL_BINDING
+            seed27=value['candidate_profile']in(HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING)
+            squared_hinge=value['candidate_profile']in(PAIR_SQUARED_HINGE_SMALL_BINDING,PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING)
             expected.update(id='r205-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-negative-top14-mix05-9010',experiment_order=118)
             if seed27:
                 expected.update(id='r206-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-negative-top14-mix05-9010',experiment_order=119)
             if squared_hinge:
                 expected.update(id='r207-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsqhinge-margin1-quarter-9010',experiment_order=120)
+                if seed27:
+                    expected.update(id='r208-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsqhinge-margin1-quarter-9010',experiment_order=121)
             if ((value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('backbone_lr'),value['job'].get('head_lr'),
@@ -659,6 +672,23 @@ def candidate_from_configuration(value):
                         'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed Small hard-negative or squared-hinge original recipe differs')
+        if value['candidate_profile'] == ADAMW_AMSGRAD_SMALL_BINDING:
+            from .config import ADAMW_AMSGRAD_RULE
+            expected.update(id='r209-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-adamw-amsgrad-9010',
+                experiment_order=122,adamw_amsgrad_policy=ADAMW_AMSGRAD_RULE)
+            if ((value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('backbone_lr'),value['job'].get('head_lr'),
+                    value['job'].get('weight_decay'),value['job'].get('adamw_amsgrad_policy'))!=
+                    ('convnext_small',20261029,'imagenet',512,512,64,8,1e-4,1e-3,1e-4,ADAMW_AMSGRAD_RULE)
+                    or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                    or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','vit_dino3_pool_policy',
+                        'cosine_head_policy','quadrant_mil_policy','input_preprocessing','optimizer_policy',
+                        'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy','layerwise_lr_policy',
+                        'low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization',
+                        'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                        'training_views','training_rotation','training_photometric','lr_decay_updates'))):
+                raise ValueError('fixed original Small native AMSGrad recipe differs')
         if value['candidate_profile'] == PHOTO_IDENTITY_SMALL_BINDING:
             expected.update(id='r122-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-photoidentity-9010',
                             experiment_order=32)
@@ -1302,6 +1332,7 @@ def validate_job(job):
         'deit_pool_policy': candidate().get('deit_pool_policy'),
         'vit_dino3_pool_policy': candidate().get('vit_dino3_pool_policy'),
         'adamw_beta2_policy': candidate().get('adamw_beta2_policy'),
+        'adamw_amsgrad_policy': candidate().get('adamw_amsgrad_policy'),
         'quadrant_mil_policy': candidate().get('quadrant_mil_policy'),
         'frozen_bn': configured['frozen_bn'],
         'final_norm_eps': configured['final_norm_eps'], 'head_seed': configured.get('head_seed'),

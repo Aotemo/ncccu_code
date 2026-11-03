@@ -1,0 +1,309 @@
+{
+  "scope": "R208_R209_hinge_confirmation_and_native_AMSGrad_affected_CPU",
+  "at": 1793685623.4961038,
+  "passed_targets": 6,
+  "compiled_sources": 6,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/engine.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_adamw_amsgrad_policy.py",
+    "tests/test_candidate_binding.py"
+  ],
+  "source_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c",
+    "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "runtime/bundle/retrain/config.py": "664c14e952cf2012feca730f2ee97f5548201ff683c86c72ecf06ccf49cd6f2f",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/engine.py": "a28ed13a6173e81fd1de90041d0f38a941a08e03f81f3f188eff1ed8ecd0dc9e",
+    "runtime/bundle/retrain/experiment91.py": "d5704ed1ed33bc3b7341f52311b765f3a290f28b4bf1b67c278e3de0be1a6653",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "tests/test_adamw_amsgrad_policy.py": "c7199cff7b583ab6076ced3f65b3b8863da81551e56f60f99034e1f0108d1456",
+    "tests/test_adamw_policy.py": "49261944e6e377c4db2f094939891ad92862b3dc0c89d9c66b3b3a0786d307f3",
+    "tests/test_candidate_binding.py": "996d1219618605e9c05c971b594e0f1fa8f5902819b249218f30cae1ca2a7f20",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tests/test_pairwise_hard_negative_loss.py": "19c763ae9268e6528b39ab22b27a8fb91b3767a81e2aef4a2c2ba1d07a79912d",
+    "tests/test_pairwise_sigmoid_wide_loss.py": "6e794704b84312f7818584a4b417e1c5e39f55b10d14275f988fa57dfc2b5639",
+    "tests/test_pairwise_squared_hinge_loss.py": "83863878f11470f22e69bf647ee0cbb5416ae6fdeb61374ca6cd9474eeeedefe",
+    "tests/test_round_storage_policy.py": "57724e586c2075590bb4664a39339a3d8a2ea0a5ddec98ad0a5b5063fd699405",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "tools/validation/check_candidate.py": "75f8eb53c9f5a99024d11102d731477d88a3b1843dcabf9664336c700991b9fc"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c"
+  },
+  "science_sha256": {
+    "R208-SCIENCE.json": "e4c99791df4441e0cbe09fca65628b20a00c30317c18d5a6c1ff81541faf9288",
+    "R209-SCIENCE.json": "86272648c18e596c702eb46c131fc55c893897f89df7cf8f1b4cfb538cebf7d9"
+  },
+  "unchanged_implementation_files": {
+    "models": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "data": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "ema": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "inference": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "single91": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a"
+  },
+  "evidence": [
+    {
+      "label": "MATH-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-0tg0d2c6/CPU-RECEIPT.json",
+      "sha256": "0f81e0336d60ddda66d923d4d1ac238b994c71ecf9176208cc5b27aa3eb1d689",
+      "exit_code": 1,
+      "output_sha256": "6e3355d9946657f6eb9721e445aa25848b370e0b11adc093886d7104f789f928"
+    },
+    {
+      "label": "BINDING-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ninimcw2/CPU-RECEIPT.json",
+      "sha256": "be10c71a16470d50a648b93f8f93bae2b4c3da25bae511e8f9c373274457f284",
+      "exit_code": 1,
+      "output_sha256": "25ddcbfa1c94bc2b218e88d444fc23ac85c82cdfa4dcaa07aab0117eeda743d1"
+    },
+    {
+      "label": "MATH-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-xvs5o8k0/CPU-RECEIPT.json",
+      "sha256": "8d8be30b52105b19f0bb55211c8aa6836cc61f50d8d789959b7c0871db1ca65d",
+      "exit_code": 0,
+      "output_sha256": "e24fdc6287ab12b4ee897762cbfacfee8a9b7fd7f7f5996b177d634fbbdab8eb"
+    },
+    {
+      "label": "BINDING-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-mo0qncoi/CPU-RECEIPT.json",
+      "sha256": "861912a5ff7a30b313eecaaa9ea5a84d1380c935034f0197f68fd1b1c0d95689",
+      "exit_code": 0,
+      "output_sha256": "c9097eed936b81e15ca6d40cfe5f2ed827c12f4bad185c4ef24467fa5659893b"
+    },
+    {
+      "label": "LEGACY-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-yl7q0bq8/CPU-RECEIPT.json",
+      "sha256": "f5e202873402dedb656b0d29f71fc9ee71d2999a427fad6c91447cb59ef0ce9f",
+      "exit_code": 0,
+      "output_sha256": "2cce5f13581ff949b48e56dd9c4f7c539fcee1b5f68dda2667a9606f246a058d"
+    },
+    {
+      "label": "CPU-COMPILE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-cq54p9m4/CPU-RECEIPT.json",
+      "sha256": "79928dc564aaeb10afbf314cdef2882c770c772e37cd5d88618ae9fcb6d41ffa",
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "CPU-FRESH",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-jkpjy1jv/CPU-RECEIPT.json",
+      "sha256": "51e125d644e9521638197e91f68f68461a37d91a55dcbf69b0a334a385b47c19",
+      "exit_code": 0,
+      "output_sha256": "a7ba8c31ab2729084356a335d304e910d784cec7b89c60eb55322c6ca39ba109"
+    }
+  ],
+  "public_fresh": {
+    "R208": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/fresh/R208-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "0cbb167faa4931858d7c8acd81ace9d07a9dccbf492db15b8977f78e3092650f",
+      "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "parameter_tensors": 345,
+      "parameter_elements": 49455459,
+      "optimizer_groups": [
+        {
+          "role": "backbone",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.0001,
+          "weight_decay": 0.0,
+          "amsgrad": false,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "backbone",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.0001,
+          "weight_decay": 0.0001,
+          "amsgrad": false,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "head",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.001,
+          "weight_decay": 0.0,
+          "amsgrad": false,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "head",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.001,
+          "weight_decay": 0.0001,
+          "amsgrad": false,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "age",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.001,
+          "weight_decay": 0.0001,
+          "amsgrad": false,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        }
+      ],
+      "optimizer_state_entries": 0,
+      "image_forward_calls": 0,
+      "loss": {
+        "version": "binary-pairwise-squared-hinge-margin1-quarter-v1",
+        "kind": "binary_pairwise_squared_hinge",
+        "temperature": 1.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch"
+      },
+      "tensor_storage_scenario": {
+        "FP32_parameter_bytes": 197821836,
+        "additional_AMSGrad_bytes": 0,
+        "successful_checkpoint_main_float_bytes": 791287344,
+        "initial_two_copy_float_bytes": 395643672,
+        "9C_plus_I_float_bytes": 7517229768,
+        "9C_plus_I_plus_atomic_C_float_bytes": 8308517112,
+        "scope": "raw float tensor scenario only; excludes step/RNG/metadata/serialization/workspace/other concurrent writes; not a peak bound"
+      }
+    },
+    "R209": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/fresh/R209-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "2d4cdc9406767575a6b4bfac55160e676f505097b3a6890e4411062748ebf1d8",
+      "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "parameter_tensors": 345,
+      "parameter_elements": 49455459,
+      "optimizer_groups": [
+        {
+          "role": "backbone",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.0001,
+          "weight_decay": 0.0,
+          "amsgrad": true,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "backbone",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.0001,
+          "weight_decay": 0.0001,
+          "amsgrad": true,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "head",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.001,
+          "weight_decay": 0.0,
+          "amsgrad": true,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "head",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.001,
+          "weight_decay": 0.0001,
+          "amsgrad": true,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        },
+        {
+          "role": "age",
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "lr": 0.001,
+          "weight_decay": 0.0001,
+          "amsgrad": true,
+          "eps": 1e-08,
+          "foreach": null,
+          "fused": null
+        }
+      ],
+      "optimizer_state_entries": 0,
+      "image_forward_calls": 0,
+      "loss": {
+        "version": "binary-pairwise-logistic-v1",
+        "kind": "binary_pairwise_logistic",
+        "temperature": 1.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch"
+      },
+      "tensor_storage_scenario": {
+        "FP32_parameter_bytes": 197821836,
+        "additional_AMSGrad_bytes": 197821836,
+        "successful_checkpoint_main_float_bytes": 989109180,
+        "initial_two_copy_float_bytes": 395643672,
+        "9C_plus_I_float_bytes": 9297626292,
+        "9C_plus_I_plus_atomic_C_float_bytes": 10286735472,
+        "scope": "raw float tensor scenario only; excludes step/RNG/metadata/serialization/workspace/other concurrent writes; not a peak bound"
+      }
+    }
+  },
+  "old_optimizer_exact_after_only_native_AMSGrad_branch_removed": true,
+  "tests_repeated_by_finalizer": false,
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "official_read": false,
+  "image_forward_calls": 0
+}

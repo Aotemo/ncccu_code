@@ -1,0 +1,188 @@
+{
+  "R208": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/fresh/R208-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "0cbb167faa4931858d7c8acd81ace9d07a9dccbf492db15b8977f78e3092650f",
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "optimizer_groups": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0,
+        "amsgrad": false,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001,
+        "amsgrad": false,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0,
+        "amsgrad": false,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "amsgrad": false,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "amsgrad": false,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      }
+    ],
+    "optimizer_state_entries": 0,
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-squared-hinge-margin1-quarter-v1",
+      "kind": "binary_pairwise_squared_hinge",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "tensor_storage_scenario": {
+      "FP32_parameter_bytes": 197821836,
+      "additional_AMSGrad_bytes": 0,
+      "successful_checkpoint_main_float_bytes": 791287344,
+      "initial_two_copy_float_bytes": 395643672,
+      "9C_plus_I_float_bytes": 7517229768,
+      "9C_plus_I_plus_atomic_C_float_bytes": 8308517112,
+      "scope": "raw float tensor scenario only; excludes step/RNG/metadata/serialization/workspace/other concurrent writes; not a peak bound"
+    }
+  },
+  "R209": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/fresh/R209-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "2d4cdc9406767575a6b4bfac55160e676f505097b3a6890e4411062748ebf1d8",
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "optimizer_groups": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0,
+        "amsgrad": true,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001,
+        "amsgrad": true,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0,
+        "amsgrad": true,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "amsgrad": true,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "amsgrad": true,
+        "eps": 1e-08,
+        "foreach": null,
+        "fused": null
+      }
+    ],
+    "optimizer_state_entries": 0,
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "tensor_storage_scenario": {
+      "FP32_parameter_bytes": 197821836,
+      "additional_AMSGrad_bytes": 197821836,
+      "successful_checkpoint_main_float_bytes": 989109180,
+      "initial_two_copy_float_bytes": 395643672,
+      "9C_plus_I_float_bytes": 9297626292,
+      "9C_plus_I_plus_atomic_C_float_bytes": 10286735472,
+      "scope": "raw float tensor scenario only; excludes step/RNG/metadata/serialization/workspace/other concurrent writes; not a peak bound"
+    }
+  }
+}

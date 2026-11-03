@@ -11,6 +11,7 @@ import re
 BUNDLE = Path(__file__).resolve().parents[1]
 MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
+ADAMW_AMSGRAD_RULE = 'adamw-amsgrad-v1'
 ADAMW_BETA2_RULE = {'version':'adamw-beta2-095-v1','betas':[.9,.95],'eps':1e-8,
     'amsgrad':False,'scope':'all_existing_groups','algorithm':'torch.optim.AdamW'}
 QUADRANT_MIL_RULE = {'version':'global512-corner288-max05-v1','global_size':512,'local_size':288,
@@ -135,6 +136,18 @@ def validate_job(job):
                     'tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
                     'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
             raise ValueError('fixed shared Small global/corner image readout differs')
+    if job.get('adamw_amsgrad_policy') is not None:
+        if (job['adamw_amsgrad_policy']!=ADAMW_AMSGRAD_RULE or job.get('model')!='convnext_small'
+                or job.get('precision')!='fp32' or (job.get('image_size'),job.get('prepared_size'))!=(512,512)
+                or (job.get('effective_batch'),job.get('positive_per_batch'))!=(64,8)
+                or job.get('loss',{}).get('kind')!='binary_pairwise_logistic'
+                or any(job.get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
+                    'input_preprocessing','optimizer_policy','gradient_centralization_policy','gradient_clip_policy',
+                    'head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy',
+                    'tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
+                    'freeze_features_before','final_downsample_stride','training_views','training_rotation',
+                    'training_photometric','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'))):
+            raise ValueError('fixed original Small native AdamW AMSGrad policy differs')
     if job.get('adamw_beta2_policy') is not None:
         if (job['adamw_beta2_policy']!=ADAMW_BETA2_RULE or job.get('model')!='convnext_small'
                 or job.get('precision')!='fp32' or (job.get('image_size'),job.get('prepared_size'))!=(512,512)
@@ -471,9 +484,9 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'), 'job')
         job.update(item)
-        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
+        for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
             if job.get(key) is None:
                 job.pop(key, None)
         cfg['jobs'].append(job)
@@ -576,7 +589,7 @@ def validate_split(split):
 
 def job_contract(job):
     result = copy.deepcopy(job)
-    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
+    for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
         if result.get(key) is None:
             result.pop(key, None)
     for key in ('device', 'workers', 'eval_workers', 'prefetch_factor', 'checkpoint_seconds',
