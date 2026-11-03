@@ -1,0 +1,39 @@
+{
+  "at": 1793712042.394114,
+  "status": "two_technical_packages_ready_no_formal_clock_or_GPU",
+  "source_commit": "b8b8bbe6a21e60620a858c299172e1de9b5247fc",
+  "tree_sha": "de0a717672a61a1c2a541759f68f921d44ea140d",
+  "rows": [
+    {
+      "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+      "round_id": "r218-small22k-seed27-pairlog-ema09999-24k-p4-9010-20261103",
+      "git_commit": "b8b8bbe6a21e60620a858c299172e1de9b5247fc",
+      "tree_sha": "de0a717672a61a1c2a541759f68f921d44ea140d",
+      "science_sha256": "cbdd1629f74bdb026345d570cba6db93e37f761c74c9595792782895684dbfbd",
+      "site_sha256": "43f8f88039be54cdb47dc866adf8a2f8dac994fc5e0fcfaac725b86cc4a39142",
+      "CPU_checks_sha256": "98ae50cd1c8cfe4b6e2c171c24be526543454e16750cd761a378d81686fde15b",
+      "formal_clock_created": false,
+      "GPU_started": false
+    },
+    {
+      "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+      "round_id": "r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103",
+      "git_commit": "b8b8bbe6a21e60620a858c299172e1de9b5247fc",
+      "tree_sha": "de0a717672a61a1c2a541759f68f921d44ea140d",
+      "science_sha256": "ca352c2eef8d7ed1e4fb2e57bba0d55071950c0f848e9639099d5b2fc291b866",
+      "site_sha256": "1cd339d178adaf30f901451290595b75542d467130c29d16303777f0ae023193",
+      "CPU_checks_sha256": "98ae50cd1c8cfe4b6e2c171c24be526543454e16750cd761a378d81686fde15b",
+      "formal_clock_created": false,
+      "GPU_started": false
+    }
+  ],
+  "stage_binding_sha256": "9126f1cb747390744a656334adaee704753a11f976ba82367cd1b4c5ccdc2989",
+  "remote_commit_sha256": "6c69c2d5057b66409ad9a6f008d92b8206ea46327fcbe41cbd3db24921bc9735",
+  "remote_tree_sha256": "481f018bd8de29d749f78b970d9ea85dfa6c08a5dfc5093e5605d788acbcb550",
+  "source_tree_complete_verification": "pending existing precise deployment during normal CPU preparation",
+  "CPU_targets_reused": 7,
+  "compiles_reused": 5,
+  "current_R217_frozen_source_unchanged": true,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

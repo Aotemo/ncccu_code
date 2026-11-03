@@ -10,4 +10,6 @@
 
 R218仅完整R217严格胜两固定基线且actualsafe后的同原fe6/long EMA独立seed27；[实际fresh](R218-PUBLIC-FRESH-INITIAL.json) whole91507a65/SCIcbdd1629。R219直接原R107/seed29原job，只有公开初始化换为固定ImageNet12k→1k；[实际fresh](R219-PUBLIC-FRESH-INITIAL.json) whole568263ab/SCIca352c2e。均345全训、49,455,459参数、0buffer、5空原生AdamW组、0图像forward；metadata实际EMA分别1600/.9999与1600/.999。来源384/squash不改比赛512预处理，不叠EMA或其他策略，不作纯分辨率因果解释。
 
-原P8/冷加载仅按未变函数/源码身份复用，未来正式CPU仍由原入口绑定实际阶段。容量为原Small浮点情景，不是DCU峰值或磁盘峰值保证。未读官方/训练checkpoint或新增GPU预演，未证明临床机制、fit上限或AUROC收益；当前R217冻结6fb不改。尚待Git同步回读、technical及后备normal，无新clock/GPU。
+原P8/冷加载仅按未变函数/源码身份复用，未来正式CPU仍由原入口绑定实际阶段。容量为原Small浮点情景，不是DCU峰值或磁盘峰值保证。未读官方/训练checkpoint或新增GPU预演，未证明临床机制、fit上限或AUROC收益；当前R217冻结6fb不改。
+
+13:20实际源码已提交并推送 `b8b8bbe6a21e60620a858c299172e1de9b5247fc` / tree `de0a717672a61a1c2a541759f68f921d44ea140d`，GitHub API回读与受影响文件/SCI SHA一致。[两技术包](TECHNICAL-PACKAGES.json) SHA320efb7e已生成，R218/R219 guard分别vkfzglw5/5a533017和drgdsdci/87649cf7均exit0；绑定guard1h4uh6kp/d51e6180。完整Git源树已传输，逐文件部署核验仍由后续原normal/precise-deployment执行，不能把技术包当成正式可启动。未创建新formal clock或GPU任务；后备normal临近当前轮收尾执行，避免提前耗尽完整授权窗口。
