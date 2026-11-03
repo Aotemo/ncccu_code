@@ -1,5 +1,7 @@
 # 准备助手重复容量判断最小修复
 
+02:19已在补丁/回执commit `90f1898e8d05c8668d1fc1da4c0777161709f73f`实际GitHub回读后，[安装回原助手入口](INSTALLED.json)，实际目标SHA `7fc6b3ddf803ed12922df5250ce0f1c7b27bb289752043d1f9c2de9048ee1aa3`；[guardjnij0n_7](CPU-INSTALL-GUARD.json) / `b473f66b38f35f8ae7deb7becbe07bc289e52ceb80da7ef13a3523bfffc71e66` exit0。安装前再核旧目标/新候选SHA、仅两行删除、原回执与四新轮未formal状态，旧原件保留。未重建technical包或重跑5/4、3/3证据，当前R197冻结/clock不改；下文“入口安装随后单列”为验证时点。
+
 静态核对发现现有private prepare适配助手的正常路径虽已读冻结STORAGE_POLICY并核其与Git配置相同，随后又按SCI编号手写12/16/32GiB预期。R198–R201新增编号未在默认12名单，落到32预期，因而会在正常CPU/部署后错误拒绝；此前technical-only已提前返回，未执行该段。尚未实际运行这些新轮normal，没有把反事实拒绝写成正式阶段失败。
 
 [精确补丁](HELPER-FIX.patch)只删除这2行重复判断、0新增行。冻结policy等于Git配置的检查及读取同一round_overrides/default值保持；原runtime/run_round.py预算函数和版本化存储policy完全未改。旧helper SHA `aedc61d4860fb819df367c20ffd30565ac42f262a2dcf647f677aaeb5b93a32d`、新候选 `7fc6b3ddf803ed12922df5250ce0f1c7b27bb289752043d1f9c2de9048ee1aa3`，实际完整原件在`exp-v3/technical-prep/prepare-storage-20261103-32e3`，不新建维护一套训练/启动平台。
