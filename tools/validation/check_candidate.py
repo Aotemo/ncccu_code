@@ -82,6 +82,7 @@ def main(args):
     import r92_initial_gate as initial_gate
     model = create_cpu_fresh_model(job)
     is_r50 = job['model'] == 'resnet50_imagenet'
+    is_effnet = job['model'] == 'efficientnetv2_rw_s'
     is_dinov2 = job['model'] == 'dinov2_vits14'
     is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,*ex.VIT_DINO3_BINDINGS)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
@@ -109,7 +110,7 @@ def main(args):
     structure = ex.describe_model(model); public = model.public_initialization_receipt
     contract = ex.structure_contract()
     check('strict_exact_finite_source_then_fresh_binary', bool(public)
-          and public['all_public_tensors_exact'] and public['all_public_floating_FP32_finite' if is_r50 else 'all_public_tensors_FP32_finite']
+          and public['all_public_tensors_exact'] and public['all_public_floating_FP32_finite' if is_r50 or is_effnet else 'all_public_tensors_FP32_finite']
           and public['public_tensor_count'] == contract['public_state_tensors']
           and public['full_head_shape'] == contract['full_head_shape']
           and public.get('backbone_only', False) is is_dino
@@ -128,7 +129,7 @@ def main(args):
               and proof['rgb_before']==proof['rgb_after'] and proof['bias_before']==proof['bias_after']
               and proof['added_zero_elements']==4608 and not bool(torch.count_nonzero(stem.weight[:,3:])),
               {'stem':structure['stem_native6'],'initialization':proof})
-    check('actual_DeiT3_LN_GELU_CLS_noBN_binary_agezero' if is_deit else 'actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
+    check('actual_native_EfficientNet_publicBN_avgpool_binary_agezero' if is_effnet else 'actual_DeiT3_LN_GELU_CLS_noBN_binary_agezero' if is_deit else 'actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
@@ -256,7 +257,14 @@ def main(args):
               {'input': [1, 3, 512, 512], 'output': list(output_512.shape),
                'logit': float(output_512[0]), 'window': contract['window'],
                'GPU_initialized': torch.cuda.is_initialized()})
-    if is_r50:
+    if is_effnet:
+        layers=model.assert_bn_mode()
+        from retrain.distributed_engine import validate_explicit_microbatch_normalization
+        validate_explicit_microbatch_normalization(model,topology)
+        check('native_EfficientNet_public_BN_frozen_affine_trainable',len(layers)==112
+              and all(not m.training and m.weight.requires_grad and m.bias.requires_grad for m in layers)
+              and structure['buffer_sha256']==ex.science_configuration()['initial_buffer_sha256'])
+    elif is_r50:
         layers = model.assert_bn_mode()
         from retrain.distributed_engine import validate_explicit_microbatch_normalization
         validate_explicit_microbatch_normalization(model, topology)
@@ -367,7 +375,7 @@ def main(args):
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else
-             any(row['name'] == ('network.head.norm.weight' if is_caformer else 'backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit or is_vit_dino3 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
+             any(row['name'] == ('network.bn1.weight' if is_effnet else 'network.head.norm.weight' if is_caformer else 'backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit or is_vit_dino3 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == ((job['age']['contract']['weight_decay'] if group['role']=='age' else
             job['weight_decay'] if any(named[row['name']].ndim>1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) if is_lion else
@@ -449,7 +457,7 @@ def main(args):
           and (not is_raw_gc or raw_gc_ema_structure == structure)
           and (common_digest == '50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5'
                if (is_content_pool or is_stage3_residual) else model_digest == ex.science_configuration()['initial_model_tensor_sha256'])
-          and (not is_r50 or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
+          and (not (is_r50 or is_effnet) or tensor_digest(dict(model.named_parameters())) == ex.science_configuration()['initial_parameters_sha256'])
           and not {id(parameter) for parameter in ema.model.parameters()} & {id(parameter) for parameter in members},
           {'online_tri3': structure['tri3_downsample'],
            'ema_tri3': tri3_ema_structure['tri3_downsample']} if is_tri3 else
@@ -528,6 +536,8 @@ def main(args):
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
           and reload_job == job and reloaded is not model
+          and (not is_effnet or (reload_origin.get('efficientnetv2')==structure['efficientnetv2']
+                                and ex.describe_model(reloaded)==structure))
           and (not (is_stem_xy or is_native6) or ex.describe_model(reloaded)==structure)
           and (not is_raw_gc or ex.describe_model(reloaded)==structure)
           and (not is_deit or (reload_origin.get('deit3') == structure['deit3']
@@ -597,6 +607,16 @@ def main(args):
         for record in initials: record['low_rank_optimizer'] = low_rank_initial
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',
         initial_gate.verify_records(initials, groups, groups, expected, expected_world=8) == model_digest)
+    if is_effnet:
+        original_mode=model.training;model.eval()
+        with torch.inference_mode():
+            images=torch.zeros(1,3,512,512,dtype=torch.float32);ages=torch.zeros(1,2,dtype=torch.float32)
+            online=model(images,ages);rebuilt=reloaded(images,ages)
+        model.train(original_mode)
+        check('native_EfficientNet_public512_checkpoint_cold_exact',tuple(online.shape)==(1,)
+              and bool(torch.isfinite(online).all()) and torch.equal(online,rebuilt)
+              and ex.describe_model(model)==ex.describe_model(reloaded)
+              and not torch.cuda.is_initialized())
     if is_vit_dino3:
         from retrain.single91 import immutable_buffers, immutable_buffer_contract
         buffers = immutable_buffers(loaded['model'])
@@ -617,7 +637,26 @@ def main(args):
           and lr_horizon == (job.get('lr_decay_updates') or total)
           and (job.get('lr_decay_updates') is None or math.isclose(factors[str(lr_horizon - 1)], .01, abs_tol=1e-15))
           and math.isclose(factors[str(total)], .01, abs_tol=1e-15), factors)
-    if is_r50:
+    if is_effnet:
+        boundaries={}
+        for update in (warmup-1,warmup,warmup+1,total):
+            prior=update-1;state=ema.state_dict()
+            state.update(update_count=prior,copy_count=min(prior,warmup),
+                         blend_count=max(0,prior-warmup),last_update_success=prior)
+            ema.successful=prior
+            validate_state(state,model.state_dict(),prior,ex.ema_rule())
+            with torch.no_grad():
+                ema.model.network.classifier[-1].bias.fill_(float(prior))
+                model.network.classifier[-1].bias.fill_(float(update))
+            ema.update(model,update)
+            state=ema.state_dict();validate_state(state,model.state_dict(),update,ex.ema_rule())
+            expected_bias=float(update) if update<=warmup else update-ex.ema_rule()['decay']
+            check('EfficientNet_EMA_synthetic_boundary_'+str(update),
+                  math.isclose(ema.model.network.classifier[-1].bias.item(),expected_bias,abs_tol=.002)
+                  and all(torch.equal(dict(model.named_buffers())[n],t)for n,t in ema.model.named_buffers()))
+            boundaries[str(update)]={k:v for k,v in state.items()if k!='model'}
+        model.load_state_dict(loaded['model'],strict=True)
+    elif is_r50:
         # Boundary fixtures retain the real 159 frozen buffers. Their explicit
         # synthetic cursors are CPU evidence, never a training/initial checkpoint.
         boundaries = {}

@@ -131,7 +131,8 @@ class RankContext:
     def prepare_model(self,model):
         from .flair_model import FlairResnetBinary
         from .imagenet_resnet import ImageNetResnetBinary
-        if isinstance(model,(FlairResnetBinary,ImageNetResnetBinary)):
+        from .efficientnet_model import EfficientNetBinary
+        if isinstance(model,(FlairResnetBinary,ImageNetResnetBinary,EfficientNetBinary)):
             model.assert_bn_mode()
             return model
         if self.world_size==6 and any(isinstance(m,nn.modules.batchnorm._BatchNorm) for m in model.modules()):
@@ -155,7 +156,8 @@ class ReferenceBatchNorm:
         self.context=context
         from .flair_model import FlairResnetBinary
         from .imagenet_resnet import ImageNetResnetBinary
-        if isinstance(model,(FlairResnetBinary,ImageNetResnetBinary)):
+        from .efficientnet_model import EfficientNetBinary
+        if isinstance(model,(FlairResnetBinary,ImageNetResnetBinary,EfficientNetBinary)):
             model.assert_bn_mode()
             self.layers=[];self.before=[]
             return

@@ -13,7 +13,8 @@ FROZEN_BN_RULE={'version':'ema-warmcopy1422-decay0999-frozenbn-v1','warmcopy_upd
                 'integer_buffers':'copy','frozen_bn_buffers':'copy'}
 
 def validate_rule(rule):
- if rule not in (RULE,R8_RULE,R11_RULE,FROZEN_BN_RULE):
+ from .efficientnet_model import EMA_RULE as EFFICIENTNET_RULE
+ if rule not in (RULE,R8_RULE,R11_RULE,FROZEN_BN_RULE,EFFICIENTNET_RULE):
   from .experiment91 import ema_rule
   if rule!=ema_rule():raise ValueError('EMA rule is not an explicitly supported frozen rule')
  return rule
@@ -38,7 +39,7 @@ def validate_state(state,reference,successful,rule=None):
  if not isinstance(tensors,dict) or tensors.keys()!=reference.keys():raise ValueError('EMA tensor keys differ')
  if rule.get('batch_norm_buffers')==0 and any(n.endswith(('.running_mean','.running_var','.num_batches_tracked')) for n in reference):raise ValueError('Tiny noBN EMA state contains BN buffers')
  fixed={name for name in reference if name.endswith(('.running_mean','.running_var','.num_batches_tracked'))} if rule.get('frozen_bn_buffers')=='copy' else set()
- if rule.get('frozen_bn_buffers')=='copy' and len(fixed)!=159:raise ValueError('EMA fixed BN buffers missing')
+ if rule.get('frozen_bn_buffers')=='copy' and len(fixed)!=rule.get('frozen_bn_buffer_count',159):raise ValueError('EMA fixed BN buffers missing')
  if rule.get('static_integer_buffers')=='relative_position_index':
   from .swin_model import static_index_buffers
   indices=static_index_buffers(reference)
@@ -110,7 +111,10 @@ class EMA:
    describe_vit_dino3(online);describe_vit_dino3(self.model)
   if self.rule.get('frozen_bn_buffers')=='copy':
    from .imagenet_resnet import ImageNetResnetBinary
-   if isinstance(online,ImageNetResnetBinary):
+   from .efficientnet_model import EfficientNetBinary
+   if isinstance(online,EfficientNetBinary):
+    from .efficientnet_model import frozen_bn_names
+   elif isinstance(online,ImageNetResnetBinary):
     from .imagenet_resnet import frozen_bn_names
    else:
     from .flair_model import frozen_bn_names

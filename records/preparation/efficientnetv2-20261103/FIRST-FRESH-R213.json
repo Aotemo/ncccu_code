@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "scope": "actual native public full1000 strict then binary fresh, no image forward",
+  "public": {
+    "initialization": {
+      "kind": "imagenet",
+      "model": "efficientnetv2_rw_s",
+      "format": "timm-efficientnetv2-rw-s-native-full1000-state-dict-v1",
+      "weights_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+      "provenance_sha256": "bc653f4a6e9ff5d57649420e48d24ab0cd3b309a75484e6f8e2a2c954fe379ed",
+      "final_norm_eps": null,
+      "internal_norm_eps": null,
+      "source_url": "https://huggingface.co/timm/efficientnetv2_rw_s.ra2_in1k/resolve/ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704/pytorch_model.bin",
+      "training_data": "ImageNet-1K",
+      "source_commit": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+      "original_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "native_library": {
+        "version": "1.0.27",
+        "source_sha256": {
+          "models/efficientnet.py": "c0a9b9ade7ca27395379217636ef2f222b33878fbd4ac81088b581594a06ad6a",
+          "models/_efficientnet_builder.py": "084cf15cc4725fd926966f0dad94c8b4786f4c96aae625a8497f35ae00704000",
+          "models/_efficientnet_blocks.py": "2a3de2c0371a74d7f4fe165f4ad062d768473ca9565a9ebf63fadbd0aa5ae021",
+          "layers/norm_act.py": "4821c9fa7b73c19cb63d16a4c86912f36380c56e34d25bc6170ea728aa21fed6"
+        }
+      }
+    },
+    "strict_missing_keys": [],
+    "strict_unexpected_keys": [],
+    "public_tensor_count": 794,
+    "public_tensor_sha256": "8e3020a2d1424f56020c3c9898524273047e550c5707d59cd65757824e4f4ccd",
+    "full_head_shape": [
+      1000,
+      1792
+    ],
+    "backbone_only": false,
+    "all_public_tensors_exact": true,
+    "all_public_floating_FP32_finite": true,
+    "public_integer_counter_tensors": 112
+  },
+  "native": {
+    "version": "efficientnetv2-rws-publicbn-v1",
+    "model": "efficientnetv2_rw_s",
+    "native_variant": "efficientnetv2_rw_s.ra2_in1k",
+    "feature_width": 1792,
+    "stage_depths": [
+      2,
+      4,
+      4,
+      6,
+      9,
+      15
+    ],
+    "pool": "avg",
+    "dropout": 0.2,
+    "native_drop_rate": 0.0,
+    "batch_norm_modules": 112,
+    "batch_norm_buffers": 336,
+    "batch_norm_eps": 1e-05,
+    "batch_norm_momentum": 0.1,
+    "batch_norm_statistics": "frozen_public",
+    "batch_norm_affine": "trainable_online",
+    "parameter_tensor_count": 459,
+    "age_readouts": 1
+  },
+  "initial_model_tensor_sha256": "cb874611e2bc16ee15a76d570d9cdfe38dd2168205f415a0e8bc9470e6113c1f",
+  "initial_parameters_sha256": "f46b7d1d83ffdde5713565ba16f9d3476712f9315c06475b812f7afc3f697a99",
+  "initial_buffer_sha256": "eb77f82bcbee56db34756d668a5bad312ab990d7e91b6c6150638e59c1c7c3e7",
+  "parameter_elements": 22150091,
+  "parameter_tensors": 459,
+  "buffer_count": 336,
+  "state_count": 795,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "datasets_read": false,
+  "configuration_sha256": "2b6adc35e039144c0c0485a05ef8f191b0766d25437b28484cd4d70b6dbe11a1"
+}

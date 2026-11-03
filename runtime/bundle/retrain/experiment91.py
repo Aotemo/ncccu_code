@@ -75,6 +75,8 @@ PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-
 ADAMW_AMSGRAD_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-adamw-amsgrad-v1'
 ADAMW_AMSGRAD_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-adamw-amsgrad-v1'
 NADAM_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-nadam-decoupled-v1'
+NADAM_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-nadam-decoupled-v1'
+EFFICIENTNET_BINDING = 'single-efficientnetv2-rws-ee38fe1c-publicbn-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-positive-top2-mix05-v1'
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
@@ -149,7 +151,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,
+                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,EFFICIENTNET_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -256,7 +258,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,EFFICIENTNET_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -278,10 +280,10 @@ def science_configuration():
                     != (value.get('job',{}).get('loss')==PAIR_HARD_NEGATIVE_LOSS))
                 or ((value.get('candidate_profile')in(PAIR_SQUARED_HINGE_SMALL_BINDING,PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_SQUARED_HINGE_LOSS))
-                or ((value.get('candidate_profile')==NADAM_SMALL_BINDING)
+                or ((value.get('candidate_profile')in(NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('nadam_policy')is not None
                         or value.get('candidate',{}).get('nadam_policy')is not None))
-                or (value.get('candidate_profile')==NADAM_SMALL_BINDING
+                or (value.get('candidate_profile')in(NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('nadam_policy')!='nadam-decoupled-native-v1'
                          or value.get('candidate',{}).get('nadam_policy')!='nadam-decoupled-native-v1'))
                 or ((value.get('candidate_profile')in(ADAMW_AMSGRAD_SMALL_BINDING,ADAMW_AMSGRAD_SMALL_SEED27_BINDING))
@@ -596,7 +598,7 @@ def candidate_from_configuration(value):
                                         GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                         HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                         PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                        ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,
+                                        ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,
                                         HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
@@ -683,15 +685,17 @@ def candidate_from_configuration(value):
                         'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed Small hard-negative or squared-hinge original recipe differs')
-        if value['candidate_profile'] == NADAM_SMALL_BINDING:
+        if value['candidate_profile'] in (NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING):
             from .config import NADAM_RULE
+            seed27=value['candidate_profile']==NADAM_SMALL_SEED27_BINDING
             expected.update(id='r211-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-nadam-decoupled-9010',
                 experiment_order=124,nadam_policy=NADAM_RULE)
+            if seed27:expected.update(id='r212-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-nadam-decoupled-9010',experiment_order=125)
             if ((value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('backbone_lr'),value['job'].get('head_lr'),
                     value['job'].get('weight_decay'),value['job'].get('nadam_policy'))!=
-                    ('convnext_small',20261029,'imagenet',512,512,64,8,1e-4,1e-3,1e-4,NADAM_RULE)
+                    ('convnext_small',20261027 if seed27 else 20261029,'imagenet',512,512,64,8,1e-4,1e-3,1e-4,NADAM_RULE)
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or any(value['job'].get(k)is not None for k in ('adamw_amsgrad_policy','adamw_beta2_policy',
                         'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy',
@@ -925,6 +929,33 @@ def candidate_from_configuration(value):
                         'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed original Small AdamW beta2 recipe differs')
+    elif value['candidate_profile'] == EFFICIENTNET_BINDING:
+        from .efficientnet_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
+        expected={'id':'r213-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order':126,'model':MODEL,'public_revision':REVISION,
+            'readout':'native_avgpool_publicBN_dropout_linear_plus_age','features':1792,
+            'final_norm_eps':None,'internal_norm_eps':None,'batch_norm_modules':112,'batch_norm_buffers':336,
+            'bn_initialization':'public','attention_pool':None,'stochastic_depth':.1,
+            'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if (source.get('kind','imagenet')!='imagenet' or source.get('model')!=VARIANT
+                or source.get('format')!=FORMAT or source.get('native_library')!=LIBRARY
+                or source.get('revision')!=REVISION or source.get('sha256')!=WEIGHT_SHA
+                or source.get('original_sha256')!=WEIGHT_SHA
+                or source.get('provenance_sha256')!='bc653f4a6e9ff5d57649420e48d24ab0cd3b309a75484e6f8e2a2c954fe379ed'
+                or source.get('public_tensor_count')!=794 or source.get('full_head_shape')!=[1000,1792]
+                or source.get('source_features')!=1792 or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
+                    value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
+                    (MODEL,20261029,'imagenet',512,512,64,8,True,1e-4,1e-3,1e-4)
+                or any(value['job'].get(k)is not None for k in ('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
+                    'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
+                    'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                    'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                    'training_views','training_rotation','training_photometric','lr_decay_updates','bn_statistics'))):
+            raise ValueError('fixed native EfficientNet source/publicBN/original recipe differs')
     elif value['candidate_profile'] in CAFORMER_BINDINGS:
         from .models import CAFORMER_FORMAT,CAFORMER_LIBRARY
         seed27=value['candidate_profile']==CAFORMER_SEED27_BINDING
@@ -1143,7 +1174,7 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36'):
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s'):
             raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
@@ -1155,12 +1186,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,EFFICIENTNET_BINDING):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=(395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in VIT_DINO3_BINDINGS else 176) or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(794 if science['candidate_profile']==EFFICIENTNET_BINDING else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in VIT_DINO3_BINDINGS else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt
@@ -1265,6 +1296,10 @@ def _metadata(root):
             'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
             'floating_buffers': 'same_as_parameters_except_frozen_bn', 'integer_buffers': 'copy',
             'frozen_bn_buffers': 'copy'}
+    if candidate()['model'] == 'efficientnetv2_rw_s':
+        from .efficientnet_model import EMA_RULE
+        if warm!=EMA_RULE['warmcopy_updates']:raise ValueError('native EfficientNet EMA warmup differs')
+        values['EMA-TINY.json']=copy.deepcopy(EMA_RULE)
     values['binding'] = {'version': science_configuration()['candidate_profile'], 'candidate': candidate(),
         'science_config_sha256': load_site()['science']['configuration']['sha256'],
         'freeze_sha256': FREEZE_SHA, 'manifest_sha256': c['new_manifest']['sha256'],
@@ -1388,6 +1423,17 @@ def describe_model(model):
     import torch
     from .ema import tensor_digest
     nn = torch.nn
+    if candidate()['model']=='efficientnetv2_rw_s':
+        from .efficientnet_model import describe
+        native=describe(model)
+        value={'candidate':candidate(),'batch_norm_modules':112,
+            'buffer_count':len(dict(model.named_buffers())),'buffer_sha256':tensor_digest(dict(model.named_buffers())),
+            'layer_norms':[],'head_in_features':1792,'head_out_features':1,'dropout':.2,'efficientnetv2':native,
+            'batch_norms':[{'name':n,'eps':m.eps,'training':m.training,'track_running_stats':m.track_running_stats}
+                for n,m in model.named_modules()if isinstance(m,nn.modules.batchnorm._BatchNorm)],
+            'stochastic_depth':[{'name':f'network.blocks.{i}.{j}.drop_path','p':float(getattr(b.drop_path,'drop_prob',0.)),'mode':'row'}
+                for i,stage in enumerate(model.network.blocks)for j,b in enumerate(stage)]}
+        validate_normalization(value);return value
     if candidate()['model']=='caformer_s36':
         from .models import describe_caformer
         native=describe_caformer(model)
@@ -1597,6 +1643,19 @@ def describe_model(model):
 
 def validate_normalization(value):
     import hashlib
+    if candidate()['model']=='efficientnetv2_rw_s':
+        layers=value.get('batch_norms',[]);native=value.get('efficientnetv2',{})
+        if (value.get('candidate')!=candidate() or value.get('batch_norm_modules')!=112
+                or value.get('buffer_count')!=336 or len(layers)!=112 or len({r['name']for r in layers})!=112
+                or any(r['training'] or not r['track_running_stats'] or r['eps']!=1e-5 for r in layers)
+                or value.get('buffer_sha256')!=science_configuration()['initial_buffer_sha256']
+                or value.get('head_in_features')!=1792 or value.get('head_out_features')!=1 or value.get('dropout')!=.2
+                or value.get('layer_norms')!=[] or value.get('stochastic_depth')!=structure_contract()['stochastic_depth']
+                or native.get('native_variant')!='efficientnetv2_rw_s.ra2_in1k'
+                or native.get('stage_depths')!=[2,4,4,6,9,15] or native.get('pool')!='avg'
+                or native.get('batch_norm_statistics')!='frozen_public' or native.get('native_drop_rate')!=0.):
+            raise ValueError('actual native EfficientNet fixed public BN/SD/head differs')
+        return True
     if candidate()['model']=='caformer_s36':
         import torch
         from .models import CAFORMER_LIBRARY

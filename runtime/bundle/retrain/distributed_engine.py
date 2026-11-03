@@ -137,8 +137,9 @@ def validate_explicit_microbatch_normalization(model, plan):
     if plan.get('explicit_per_rank_microbatch') and any(
             isinstance(module, nn.modules.batchnorm._BatchNorm) for module in model.modules()):
         from .imagenet_resnet import ImageNetResnetBinary
-        if not isinstance(model, ImageNetResnetBinary):
-            raise ValueError('explicit microbatch requires no BN or the fixed-BN ImageNet R50')
+        from .efficientnet_model import EfficientNetBinary
+        if not isinstance(model, (ImageNetResnetBinary,EfficientNetBinary)):
+            raise ValueError('explicit microbatch requires no BN or a registered fixed-public-BN model')
         model.assert_bn_mode()
 
 
@@ -347,8 +348,10 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     ema=EMA(base,ema_rule,state=previous.get('ema') if previous else None,successful=successful) if ema_rule else None
     n05_bn_initial=None
     sampled_loss=None
-    if job.get('model') in ('flair_resnet50','resnet50_imagenet'):
-        if job.get('model')=='resnet50_imagenet':
+    if job.get('model') in ('flair_resnet50','resnet50_imagenet','efficientnetv2_rw_s'):
+        if job.get('model')=='efficientnetv2_rw_s':
+            from .efficientnet_model import frozen_bn_digest
+        elif job.get('model')=='resnet50_imagenet':
             from .imagenet_resnet import frozen_bn_digest
         else:
             from .flair_model import frozen_bn_digest
@@ -358,7 +361,7 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         if any(x['online']!=n05_bn_initial or x['ema']!=n05_bn_initial for x in initial_bn):
             raise ValueError('N05 initial BN buffers differ across ranks or EMA')
         if ctx.primary:atomic_json(folder/'bn-initial-ranks.json',initial_bn)
-        sampled_loss=torch.zeros(4,device=device,dtype=torch.float64)
+        if job.get('model')!='efficientnetv2_rw_s':sampled_loss=torch.zeros(4,device=device,dtype=torch.float64)
     if ema and previous is not None and any(k not in previous for k in ('ema','ema_best_metrics','ema_last_metrics','ema_rank_proof')):
         raise ValueError('coupled EMA resume history absent')
     ema_best=copy.deepcopy(previous.get('ema_best_metrics')) if previous else None
@@ -494,7 +497,9 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
         parameter_trainability=feature_freeze_proof(base,job,optimizer)
         n05_bn_proofs=None
         if n05_bn_initial is not None:
-            if job.get('model')=='resnet50_imagenet':
+            if job.get('model')=='efficientnetv2_rw_s':
+                from .efficientnet_model import frozen_bn_digest
+            elif job.get('model')=='resnet50_imagenet':
                 from .imagenet_resnet import frozen_bn_digest
             else:
                 from .flair_model import frozen_bn_digest

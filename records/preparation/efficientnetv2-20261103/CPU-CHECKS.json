@@ -1,0 +1,221 @@
+{
+  "scope": "R212_R213_NAdam_confirmation_and_native_public_BN_EfficientNet_affected_CPU",
+  "at": 1793699901.0398297,
+  "passed_targets": 7,
+  "compiled_sources": 12,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/efficientnet_model.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/ema.py",
+    "runtime/bundle/retrain/distributed_engine.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_candidate_binding.py",
+    "tests/test_efficientnet_model.py",
+    "tools/pretraining/efficientnet_source.py",
+    "runtime/bundle/retrain/distributed.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/efficientnet_model.py": "17e8541d8c543b07a125cc8a4f57c8381c6d345492d470be273dc037eb4c5b66",
+    "runtime/bundle/retrain/models.py": "ef8764066dfe4ce04dd2a5adfc4c6d8f87ba230cffcc7d96f155321374cc1fa6",
+    "runtime/bundle/retrain/config.py": "a9fc0d0c728a88fffe6bd782af77ce9b607edaabd78806d507a3f090573d7d4c",
+    "runtime/bundle/retrain/inference.py": "33944f94cc76c730d646f48574f3a927150af126fa4b5837d864429cafd21cc8",
+    "runtime/bundle/retrain/ema.py": "53b5488eb595985f6bd105fd2f3bfd4809c2d58e4b6aa6b6fed66109d8a2d8f2",
+    "runtime/bundle/retrain/distributed_engine.py": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "runtime/bundle/retrain/experiment91.py": "f784b3f7f816d7515ae668bd10c1fef5e43a8ec8673f648b2e7d493beed667e5",
+    "tools/validation/check_candidate.py": "7f7e01ac646176fe4214647eb00265051d488a74dddbbef57ad685ca7c63b8d6",
+    "tests/test_candidate_binding.py": "f349d3e85fe04a4cb2aa9209ac13e6e2c1df4dfd0b3fed4b034395f44b46b513",
+    "tests/test_efficientnet_model.py": "d167b46cf4f126a8cce5df2559fc1a97afd3eebbedbca11fc0cbc835cedba07d",
+    "tools/pretraining/efficientnet_source.py": "cca027b9a2939d6abc90190c349ffc0844353e221558e9e7ddcbc25352c459d9",
+    "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/precision.py": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "runtime/bundle/retrain/finite.py": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "tools/pretraining/source_chain.py": "5d183e1a0949e913956d57647f6b819846696c34fcb1b4f5d1c82c1510d76473",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/bundle/retrain/distributed.py": "73bdd2cc31425f7185767977126f981983ca7521ce73352940baeb0d9befb1cd"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c"
+  },
+  "science_sha256": {
+    "R212-SCIENCE.json": "338c543337ff648b78a3f35d9a4d85085a3bbf7aaae4e8958d3fff74a2fd8f74",
+    "R213-SCIENCE.json": "7f6de4e13109a6e0262fd9dfa91d2a5247fc6df34e13d55eaf3cf08348c69420"
+  },
+  "unchanged_implementation_files": {
+    "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "data": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "single91": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a"
+  },
+  "evidence": [
+    {
+      "label": "MODEL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-e_fc6m_h/CPU-RECEIPT.json",
+      "sha256": "61fbb507b7f72956fd21a40746baf2d738e13434c627a666f0817d25f98ce5a9",
+      "exit_code": 1,
+      "output_sha256": "e3630d14e7be497e9e05b36e86c475c038cefa73c006c8babfabfa90e17ae8e0"
+    },
+    {
+      "label": "MODEL-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-xhyg7ga7/CPU-RECEIPT.json",
+      "sha256": "d755cb045fe60449aafaadf307f6311c4044fa1c0dc560c0f41b0de9516ad2a8",
+      "exit_code": 0,
+      "output_sha256": "e0aeeb314953cef3c70655746c939bcbe7df1eab261938263db5ee06edcd9fb5"
+    },
+    {
+      "label": "PUBLIC-SOURCE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-39h4gwsf/CPU-RECEIPT.json",
+      "sha256": "6ab00371a1b75cd9a77a50d133231ccba2f2b0abbec53e07b6ebea4132fbdae2",
+      "exit_code": 0,
+      "output_sha256": "9a263f49d9dbb5c39b16b38334144443589d06598d2b12cfa57b327e40089a4d"
+    },
+    {
+      "label": "FIRST-FRESH",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-iqw8fz5u/CPU-RECEIPT.json",
+      "sha256": "88c6ba7a78413841260f2f0e6ea810be2a5df46bfbd1b72071268ae30837371a",
+      "exit_code": 0,
+      "output_sha256": "11e27f493db3edbfb3116cf5f5f531f18be5bbe339fbb687cdd49fe53b5fc706"
+    },
+    {
+      "label": "BINDING-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-h0id8l_7/CPU-RECEIPT.json",
+      "sha256": "efa46024c722fc7b849366ab0f1371ab2969aa155e8d9556c75433c7fc366ce3",
+      "exit_code": 1,
+      "output_sha256": "953bbf1a4f84f97e67c784c107bafb796e43317d4e2d981c521c74bbddec6f9c"
+    },
+    {
+      "label": "BINDING-INITIAL-FAIL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-lvd6bpfv/CPU-RECEIPT.json",
+      "sha256": "9a4ce9d723961f2cc70cb0f5c55edf5cae4be62b5308b58969bac65766b50f38",
+      "exit_code": 1,
+      "output_sha256": "8a55b5febc80f5315c4b75b818367f999cccc3e1275c7b7dbaffbc7acfb79e67"
+    },
+    {
+      "label": "OFFICIAL-GATE-FIX",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-c9qqfkm5/CPU-RECEIPT.json",
+      "sha256": "9b9f2189a25f5e6f9b4a2d1e621189d850679170ce1f2c8bf2067cbabc56fc0e",
+      "exit_code": 0,
+      "output_sha256": "8acaeb514c80b2ac5c727ea890e666025634a54336282b79817701985e537a4b"
+    },
+    {
+      "label": "BINDING-GREEN-PARTIAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-trqaeyw7/CPU-RECEIPT.json",
+      "sha256": "af34bc9080445c0f8507e8cde1cc368dd3468a18db8e5a8f7187dc0e398231f6",
+      "exit_code": 0,
+      "output_sha256": "91a1cb4d9a398add76287a722b129a6a508e59bb68164333eefae661e6ea862a"
+    },
+    {
+      "label": "COMPILE-INITIAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-efphptpc/CPU-RECEIPT.json",
+      "sha256": "64ad4064f094b35c896ddb8b16fa839b27e5e2a1237a6170446738eaa080a9e3",
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "FRESH-ADAPT",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-g6au59v5/CPU-RECEIPT.json",
+      "sha256": "0bab3ac6b7dfd26179f038ddd48304f3cba5b1839f8113f9f6b26cd6c6ab9f97",
+      "exit_code": 0,
+      "output_sha256": "f62b5f84f68914b1a6d3c42eec3cf069f691e93107253e1db223c3eb47029577"
+    },
+    {
+      "label": "PREPARE-ADAPT",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-758399dk/CPU-RECEIPT.json",
+      "sha256": "45757b5dc05cbb26fb420510116c953da2134be60a2051fbb721d804fca837bc",
+      "exit_code": 0,
+      "output_sha256": "3dfa021c781c3dc0298dbf07d8100aebd2d79fa3f01b4ac6daa052a47138ef51"
+    },
+    {
+      "label": "TWO-PUBLIC-FRESH",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-mzhavc4m/CPU-RECEIPT.json",
+      "sha256": "fe8f8365a49487b86c82a6b6f55e613d2714839b629eb341e723f1794bbb5faa",
+      "exit_code": 0,
+      "output_sha256": "a7d8e605e34b56422351c4cf17d15ca4adc2fcbf2f089e223889c91b46c076e5"
+    },
+    {
+      "label": "BINDING-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-srbuvq35/CPU-RECEIPT.json",
+      "sha256": "acb1cd7dcd5e8bbc3c807882ecbd374a6742c488b6e80c342ef3700abb21e815",
+      "exit_code": 0,
+      "output_sha256": "4e11c3e0c161ea83dc9c0512750775786f4a3ab6f8d2651bac8855de8ddb7ddc"
+    },
+    {
+      "label": "WORLD8-FIXED-BN-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-sij3xj77/CPU-RECEIPT.json",
+      "sha256": "4d67a94e6cd1c78618c4a46bff983f4dff6206f8e6078924202514e0a71a846d",
+      "exit_code": 1,
+      "output_sha256": "fafa4d70f6b69a9f00ba6085140190cd90b82af6bd019ccb72672587dbbcc034"
+    },
+    {
+      "label": "WORLD8-FIXED-BN-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-s01hh0_b/CPU-RECEIPT.json",
+      "sha256": "d2114ff6d498bbf8854370fa4758ec701b1b5c04de2c0fe84787d967697ef3f0",
+      "exit_code": 0,
+      "output_sha256": "2f82df80f5855e161dbe8750dec71001580313cb28998566ed5033983999fb76"
+    }
+  ],
+  "DDP_AST_changed_functions": [
+    "validate_explicit_microbatch_normalization",
+    "_run"
+  ],
+  "DDP_other_top_level_functions_exact": true,
+  "targets": {
+    "native_graph_RNG_and_age": 1,
+    "P8_all459_finite_gradients_fixed336_EMA_legacy159_real_cold": 1,
+    "R212_R213_binding": 1,
+    "legacy_R210_R211_binding": 1,
+    "R212_actual_public_fresh": 1,
+    "R213_actual_public_fresh": 1,
+    "WORLD8_fixed_BN_method_no_process_group_or_collective": 1
+  },
+  "scope_notes": [
+    "Core two tests preceded only the canonical FORMAT string correction; factory/forward/train/EMA/cold function bodies unchanged. Final canonical public initialization and binding are separately exercised by two actual public fresh checks.",
+    "Original R213 first-fresh science hash predates adding the already fixed official gate only; final two-fresh and binding proofs pin final SCI. Original failure/source receipts remain immutable.",
+    "CPU synthetic gradients/cold outputs are not DCU memory, throughput or eight-rank evidence. Normal production public512/cold numeric check remains part of existing formal admission.",
+    "Source provenance reuses existing full1000 strict receipt with zero new forward; no claim of a second strict-source forward comparison.",
+    "Late call-site review found and fixed two legacy fixed-BN type exclusions before any Git deployment/GPU. New CPU WORLD8-method target RED then GREEN; no actual eight-rank process group or GPU proof is claimed. Historical Tiny-only gpu_admission/finalize scripts are outside the current direct-launch chain and remain unchanged."
+  ],
+  "producer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/FINAL-EFFICIENTNET-BN-CHECKS.py",
+    "sha256": "70694d59dfc6ba09f956250b5ce3e0e60086795c0a21db97a038e11e3247c5e5"
+  },
+  "distributed_AST_changed_methods": [
+    "RankContext.prepare_model",
+    "ReferenceBatchNorm.__init__"
+  ],
+  "private_helpers": {
+    "prepare": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/PREPARE-LARGE-DINO3-NEXT-EFFICIENTNET-BN.py",
+      "sha256": "5c854f4235e68b26b87ef189a738ed32ffc8539360b440ae10020917b8aa4afd",
+      "prior_sha256": "00f74bc7c65ad3a1d3fe4d6f7e3e48ee5f2d2f95932297839ed0223707720064",
+      "only_delta": "CPU evidence 7 targets/12 compiles"
+    },
+    "startup_observer": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/OBSERVE-START-EXPECTED.py",
+      "sha256": "d2986c81855bc09a0c4398a055c31e956c386ec4a04132c4035aa6b01b6b5318",
+      "prior_sha256": "ec2bcaefed6edc0959f1d82ecb59bab0ba0ed7e59fec597494b2a234ab86c782",
+      "only_delta": "parameter and BN counts consume existing frozen formal CPU expectation; original observer remains"
+    },
+    "compiled_helpers": 2
+  },
+  "prior_snapshot": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/source-cpu/records/preparation/efficientnetv2-20261103/CPU-CHECKS-PRE-DISTRIBUTED-FIX.json",
+    "sha256": "7bef8b4a6dcde6c115fc0943f10cceecb085e1ae99b7a288a5f25f5beaafb69c"
+  }
+}

@@ -303,6 +303,9 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
 
 
 def validate_initialization(initialization):
+    if initialization.get('format') == 'timm-efficientnetv2-rw-s-native-full1000-state-dict-v1':
+        from .efficientnet_model import validate_initialization as validate_efficientnet
+        return validate_efficientnet(initialization)
     if initialization.get('format') == DEIT3_FORMAT:
         from .experiment91 import public_source
         source=public_source();path=Path(initialization['path']);meta_path=Path(initialization['provenance'])
@@ -870,6 +873,9 @@ def create_model(job, initialize=True):
         validate_job(job)
     import torch
     from torch import nn
+    if job['model'] == 'efficientnetv2_rw_s':
+        from .efficientnet_model import create_model as create_efficientnet
+        return create_efficientnet(job, initialize=initialize)
     if job['model'] == 'flair_resnet50':
         from .flair_model import create_flair_binary
         return create_flair_binary(job, initialize=initialize)
