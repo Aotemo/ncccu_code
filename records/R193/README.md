@@ -1,5 +1,7 @@
 # R193：Small sigmoid 骨干学习率减半
 
+[结果同步a5a8505且R195实际首成功后，8个冗余权重已清理](../storage/closed-r193-20261103/README.md)，逻辑5,941,126,977B。预测/precision/sidecar/身份仍留，三KEEP和当前依赖未变。
+
 已完整结束并安全收口：[最终结果](R193-RESULT.json)为6400 success=attempt、0skip、8次内部评估、连续4次无提升早停。唯一EMA c4@3200内部AUROC `.9838854364466322`、AP `.8086886177323231`、error_twice26766；严格胜R107/R120两门均false，R194不eligible。官方5849未达`.996`门而未运行，raw `.999`未达；freeze.status原值null保持。
 
 [安全终态](R193-COMPLETION.json)于11-03 00:22:38.256 UTC确认owner同birth为Z、八rank缺席、锁holders与设备users空、denied0、八PCI busy0；[CPU回执](R193-CPU-COMPLETION.json)wf2703qi/5e04046f…93f7b exit0。selected tensor `96e03c5c584e76d56da26d1c720e789f45b0a20b63b4c064c4fa7da487cdefca`、blob `07df6f1b3581130748963ad8a8b6ef8ae6b7e64391bca09344a577c093aea205`，CSV/precision身份存最终结果。此后独立接续[R195](../R195/README.md)；不重复查旧safe、forward或加载权重。下文为运行历史。

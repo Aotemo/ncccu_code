@@ -1,0 +1,47 @@
+{
+  "observed_at": 1793665952.5108395,
+  "round_id": "r195-small22k-seed20261029-scale085-pairsigmoid-decay8000-24k-p4-9010-20261102",
+  "site_binding_sha256": "5d5c56ab87fcf59d50c76eb0db51e92e337402d9fed86dd082b9779ba5614144",
+  "existing_observer_source_sha256": "c4ff39e91c47c9cfd69da05bd8df8fd8ee0125b29f17f72b1ba4dc1a2dc6f296",
+  "cards": {
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 100
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 100
+      }
+    ],
+    "readable": true,
+    "all_expected_cards_seen": true
+  },
+  "scope": "single existing sysfs observer snapshot; not continuous utilization",
+  "GPU_API_or_forward_or_model": false,
+  "runtime_changed": false
+}

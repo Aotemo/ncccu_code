@@ -1,5 +1,7 @@
 # R195：原 Small sigmoid 的固定 8000 次衰减跨度
 
+11-03 00:32:32.511 UTC的[既有监控单次快照](R195-DEVICE-POINT.json)八绑定PCI全部可读、busy均100%；这是瞬时观察，未测连续利用率。[CPU回执](R195-CPU-DEVICE-POINT.json)khkjd_93/`16beaff5f764a9347bc278d7622340af6292b7af4bb1af3ed93e1ea4e785f70e` exit0，0 GPU API/forward/模型构建，未改运行。
+
 [真实八rank初态及首自然25](R195-START.json)通过：345全训张量、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致；WORLD8/G64P8/448对、各rank8输入、有限loss `.931303858757019`。11-03 00:29最新475成功=尝试、0skip、eval0，八rank活跃；尚无完整selected或官方结果，raw `.999`未达。
 
 直接原R120 public fe6b/seed20261029/Small/512/FP32/ImageNet/sigmoid，恢复原骨干LR1e-4、head/age1e-3/default AdamW；仅`lr_decay_updates=8000`。原warmup1600后沿原余弦在下一成功计数7999到达尾倍率.01，此后保持；实际最多24000成功更新、每800评估、连续4次无提升早停、EMA1600与唯一内部dev AUROC选点保持。未叠R193半LR或后续gamma。首25日志列示下一步两骨干组LR `1.625e-6`、其余三组`1.625e-5`；首25位于原warmup，不能把它写成GPU已实测8000边界。
