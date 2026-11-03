@@ -45,7 +45,7 @@ Files：`configs/R206-SCIENCE.json`、`configs/R207-SCIENCE.json`、`runtime/bun
 ## Task 3：同步与原链接续
 
 - [x] 精简真实回执入records，Git78e80aa实际push/commit-tree回读，两个technical包guard均0，实际run_name均100/default12GiB；normal尚待前轮可行收尾完成。源/SCI与5目标4compile/两fresh证据逐项一致。
-- [ ] 完整双门及actualsafe决定唯一分支；原入口一次activation/direct launch，真实八rank初态及自然首25证实可运行。不重复旧safe/官方或改现役，不为文档空等。
+- [x] R205完整5600/c7/bad4、所选EMA2400内部.9860335632776274，两门false/官方未跑/同次actualsafe，R206不eligible。[独立R207](../../records/R207/README.md)沿原入口一次activation/direct launch0，真实八rank/345全训/5空Adam及自然首25有限已证，07:13实观375/0skip/eval0。旧safe/clock/token/grant保持，无GPU预演，不为文档空等。
 
 ## Ledger
 

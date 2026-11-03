@@ -1,5 +1,7 @@
 # R205：固定困难负例四分之一混合的独立 fresh
 
+11-03 07:07[完整终态](R205-RESULT.json)：5600 success=attempt/0skip、7次内部评估、bad4早停，唯一EMA c3@2400内部AUROC `.9860335632776274` / AP `.8187694114876976` / error_twice23198；两严格门false，固定negative-top14/mix05组合关闭、R206不eligible。官方不足.996未运行，freeze.status原null保留。[同次安全证据](R205-COMPLETION.json)核owner696335/start371417650为Z/非active、八rank missing、holders/device_users空、denied0和八PCI busy0；[guardtrjezllr](R205-CPU-COMPLETION.json) / `6172d0254d2935ab282187c4ab8cbfdb211ec5659c9d2bea43d13b781cffa08e` exit0，旧safe不重查。独立[R207真实接续](../R207/README.md)已证八rank及自然首25，原7ead冻结不改。下文为此前时点。
+
 11-03 07:01实观5075 success=attempt/0skip/eval6/bad3，八rank活跃，暂best EMA c3@2400内部AUROC `.9860335632776274` / AP `.8187694114876976`，尚无完整selected。06:38[既有sysfs单次快照](R205-DEVICE-POINT.json)八PCI busy均100%，不代表连续利用率；[guard0x0mb6oh](R205-CPU-DEVICE-POINT.json) / `4595fd04a2c5317178700ad9c1f9e8807847ee1f2190546e2e9a86f0c7431acc` exit0，无新GPU API或forward。后备[R207 normal18/18及精确部署](../preparation/squared-hinge-20261103/NORMAL-R207.json)已在训练期间完成，未新clock/activation/GPU；R206仍仅technical。原7ead冻结不变，下文为初态时点。
 
 11-03 06:22[真实初态和自然首25](R205-START.json)已证八rank、345全训、5空原生AdamW、whole50c6与formal一致；WORLD8/G64P8/448对、每rank8图，首25 loss `.7473738193511963`有限、0skip。06:24实观425 success=attempt/0skip/eval0，八rank活跃。当前链路可运行，完整AUROC收益仍待本轮终态，raw .999未达。
