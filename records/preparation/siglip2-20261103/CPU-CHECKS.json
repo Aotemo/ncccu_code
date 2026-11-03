@@ -1,8 +1,8 @@
 {
   "scope": "R214_R215_native_EfficientNet_confirmation_and_full_SigLIP2_public_MAP_affected_CPU",
-  "at": 1793705089.1889448,
-  "passed_targets": 7,
-  "compiled_sources": 12,
+  "at": 1793705517.2666538,
+  "passed_targets": 8,
+  "compiled_sources": 13,
   "compiled_source_names": [
     "runtime/bundle/retrain/siglip2_model.py",
     "runtime/bundle/retrain/models.py",
@@ -15,7 +15,8 @@
     "tests/test_candidate_binding.py",
     "tests/test_official_gate.py",
     "tests/test_round_storage_policy.py",
-    "tools/pretraining/siglip2_source.py"
+    "tools/pretraining/siglip2_source.py",
+    "runtime/bundle/retrain/fresh.py"
   ],
   "source_files": {
     "runtime/bundle/retrain/siglip2_model.py": "b9e24f1a768922ea68db667794a4ba62b625938e5b3fbfe995f240d5b24af908",
@@ -25,7 +26,7 @@
     "runtime/bundle/retrain/single91.py": "5f1a15bfe09510419c16447f63a5e946e6e51a7b52f397c836c415390cdb03ba",
     "runtime/bundle/retrain/experiment91.py": "b0337b3e4ea94d198d4c47232f2c9cf66a3a236a7aa18de95e94201dc83aa440",
     "tools/validation/check_candidate.py": "b189e83c06fdb6d57de47ec776150f94e529c097bc5423cc1c66be755583c9b4",
-    "tests/test_siglip2_model.py": "b8a4edd46889e55ad9718b7f51cc513b8c461474a1657b358742595d5ea9b918",
+    "tests/test_siglip2_model.py": "9b50ea1d572003da48355d0ec5c9a885a6603f62d828ba2430b60db979c47e6b",
     "tests/test_candidate_binding.py": "04b8080a80fb6e92ae0db3560991b4d9896278345fc1ac7b48e6b578e5b806d7",
     "tests/test_official_gate.py": "b453e903ab8453f07ef336a7b71627f735ccd4599e7f0d276075a4f06a3320be",
     "tests/test_round_storage_policy.py": "9325c2253ee4242e707e9d85a3ca1cb1866099a475d7b31b7694c400a04dbbaf",
@@ -33,7 +34,7 @@
     "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
     "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
     "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
-    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/fresh.py": "50e431a3a6e9c716051f34acf4bf81beecddcd8d29e932f4f7130231374be88c",
     "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
     "runtime/bundle/retrain/precision.py": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
     "runtime/bundle/retrain/finite.py": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
@@ -58,7 +59,6 @@
     "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
     "data": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
     "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
-    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
     "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
     "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
     "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
@@ -183,6 +183,27 @@
       "sha256": "5b2d3bfd8d01a16f5c0041a16196abea865d4d7773ac610785e97551e435c66b",
       "exit_code": 1,
       "output_sha256": "1855dfc8fff3dac0f38da8ef65e01db78bd47958f2ae842b2df4a7ef540ee038"
+    },
+    {
+      "label": "NORMAL-KIND-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-cokbsqk1/CPU-RECEIPT.json",
+      "sha256": "749bfad165bd4e02295861351c04313b0695ca98e69859aa1e9aed28463fa078",
+      "exit_code": 1,
+      "output_sha256": "9d77a1af2f644f4b25afb97cad6329e53678c9cee4ab89b4ffb3f86251812db9"
+    },
+    {
+      "label": "FRESH-KIND-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-yugggfiy/CPU-RECEIPT.json",
+      "sha256": "5a1c7cb7ece31b0f874873a4d2505fd637580c09176a7104a64a13723d9fb2c8",
+      "exit_code": 1,
+      "output_sha256": "8a332dc7fe1aea155ab987e51683bbf7b8e9f11f75ce7530d61178790d544569"
+    },
+    {
+      "label": "FRESH-KIND-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-laeb8wz8/CPU-RECEIPT.json",
+      "sha256": "d8b922d81ba99ab8ed3106f4f0e0f86554529c28cb47ed9b0171b5dfa6fe2635",
+      "exit_code": 0,
+      "output_sha256": "1f595a73b2ed09c1daaeb8becdd5972805c2e54d319d1d1379fd724d863b04e4"
     }
   ],
   "targets": {
@@ -191,7 +212,8 @@
     "two_candidate_config_bindings": 1,
     "freeze_unit_and_imagenet_binding": 1,
     "storage_exact_round_and_free_floor": 1,
-    "two_actual_public_fresh_initials": 2
+    "two_actual_public_fresh_initials": 2,
+    "fresh_natural_kind_accept_and_wrong_kind_reject": 1
   },
   "scope_notes": [
     "First combined model invocation passed the native oracle but the P8 fixture omitted the required EMA rule. The fixture alone was corrected; P8 then passed, and the unchanged native oracle obtained a separate clean final receipt. Generic fixture uses R8_RULE copy step1; actual fresh/formal CPU consumes frozen EMA1600 policy.",
@@ -199,15 +221,16 @@
     "Unit uses the unchanged existing .5/.5 RGB transform; source crop/bicubic metadata is not claimed as contest preprocessing. Only freeze normalization field and registered job normalization now consume frozen science.",
     "Storage24GiB applies only exact R215 name. Tensor storage scenarios exclude serialization, metadata, workspace and concurrent writes, and are not peak bounds.",
     "No real images, official5849, old checkpoints, training signals, GPU preview or additional resources. Current R213 remains frozen.",
-    "Actual formal CPU caught one remaining final-LN selector omission before GPU. Only check_candidate selector was changed and recompiled; other exact-source7 targets reused. Formal19 must run in a new unstarted normfix stage; old partial formal/grant unchanged. Registration is not a formal pass."
+    "Actual formal CPU caught one remaining final-LN selector omission before GPU. Only check_candidate selector was changed and recompiled; other exact-source7 targets reused. Formal19 must run in a new unstarted normfix stage; old partial formal/grant unchanged. Registration is not a formal pass.",
+    "Second actual normal rejected legacy fresh expected_kind default imagenet. Only SigLIP2 mapping and one lightweight fresh-contract target added, RED/GREEN. Core model test methods AST unchanged and reused; source producer/SCI/tensors unchanged. New formal CPU still required, no old clock/grant change."
   ],
   "producer": {
-    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/REFRESH-SIGLIP2-NORMAL-FIX.py",
-    "sha256": "6c9eab1ed3427ae8ff206da8d1de8dd78aa15f5efcef1a105f8cf75e41c0c1b0"
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/REFRESH-SIGLIP2-FRESH-FIX.py",
+    "sha256": "426713a0475cf1d4111b6334cff7e721bbd3d225009493039631c845cec42779"
   },
   "prior_snapshot": {
-    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/source-cpu/records/preparation/siglip2-20261103/CPU-CHECKS-PRE-NORMAL-FIX.json",
-    "sha256": "04bb5d0167b11698cd164f2260745b1123f22da7cae0d69e0436d03bffe233a0"
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/source-cpu/records/preparation/siglip2-20261103/CPU-CHECKS-PRE-FRESH-FIX.json",
+    "sha256": "ed28b41c4e943388245f58586bbdc5950759608658066f1ee76c6b30d0f63c5a"
   },
   "normal_selector_fix": {
     "source": "tools/validation/check_candidate.py",
@@ -217,5 +240,13 @@
     "prior_7_targets_reused": true,
     "new_formal19_passed": false,
     "failed_unstarted_stage_preserved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready"
+  },
+  "fresh_kind_fix": {
+    "only_delta": "fixed model-to-public-source kind mapping",
+    "unchanged_model_methods_AST_exact": true,
+    "prior_7_targets_reused": true,
+    "new_light_target_passed": true,
+    "new_formal_passed": false,
+    "old_partial_stages_preserved": true
   }
 }

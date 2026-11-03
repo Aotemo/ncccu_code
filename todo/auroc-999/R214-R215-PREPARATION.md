@@ -1,5 +1,7 @@
 # R214/R215：原生 SigLIP2 图像塔准备
 
+11:32新8目标/13compile 5e4adcfe/guardqtg8vohq0：补fresh模型来源类型映射及一项轻量RED/GREEN，原模型方法AST相同、其余7目标/两fresh按SHA复用。第二次normal cokbsqk1/749bfad1原件保留，新ready-freshfix/实际formal待完成；不改两旧partial/grant、SCI或原结果。R213已唯一安全终态8000/c10/bad4/0skip、EMA c6`.9830353369271913`，严格双门false/R214不eligible/官方未跑，旧safe不重查。当前DCU空闲原因是两处必要接入适配和独立源码物化；不跳过检查或虚报可启动。后续只传本轮实际Git源码和必要CPU记录，避免历史records复制耗时。
+
 11:25当前R213最后有效快照7750/0skip/eval9/bad3，冻结不动；一次准备guard占用期间的观测被CPU锁拒绝，记unknown，无训练信号/重启。R215原341 technical已成，normal实拒绝53bxb8v_/5b2d3bfd：验收末端LN选择器少is_siglip2。仅补该条件，原7目标按精确身份复用，旧04bb快照及partial formal/grant保留；新未启动ready-normfix绑定及实际formal19仍待，尚无新clock/GPU，后续按实际结果推进。
 
 11:19实际[7目标/12唯一源码compile](../../records/preparation/siglip2-20261103/CPU-CHECKS.json)通过，guard48enz91b/452c44c0，最终04bb5d01。原件完整SHA/strict与许可、两actual fresh已完成；R214 wholef1144444、SCI519ba8d8，R215 whole13e6317f、SCI68703241。原生MAP/单age与P8全梯度/五组/EMA/coldexact、配置/封存归一化和精确24GiB全部GREEN；最小实现已落盘，待Git/technical/后备normal，尚无新clock/GPU。当前R2136450/0skip/eval8/bad2；公开预训练/归一化组合假设未有AUROC收益证据。

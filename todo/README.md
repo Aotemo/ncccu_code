@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**11-03 11:32 R213已完整且唯一actualsafe：8000/c10/bad4/0skip，EMA c6@4800内部`.9830353369271913`，双门false/R214不eligible/官方未跑。** 原safe cont7/guardg3i17om6保留不重查。DCU当前空闲等待R215两处接入修复后的新ready-freshfix完整CPU验收；末端LN选择器与fresh来源kind映射已最小修，旧两partial包/grant未改，无新clock/GPU。[8目标/13compile](../records/preparation/siglip2-20261103/CPU-CHECKS.json)5e4adcfe/qtg8vohq0，模型/来源/SCI/tensor不变、原7目标及两fresh复用，尚不得写成formal通过。source当前待同步，既有SigLIP2独立假设不增科学扫描；32e3唯一Git/GPU，d8370–11/保留12–23与训练24–119互斥，不恢复/派生/发消息。raw .999未达，下文历史。
+
 **11-03 11:25唯一GPU仍R213，最后有效快照7750 success=attempt/0skip/eval9/bad3，八rank活跃、暂best EMA`.9830353369271913`；后一次CPU准备锁拒绝观测记unknown。** R215 source341已push/API回读、technical已成；原normal被末端LN选择器遗漏SigLIP2拦截，无clock/activation/GPU。只补check_candidate一个条件并为新未启动ready-normfix准备，7目标身份复用/原失败包与grant保留；必须真实normal通过后接续，不把登记当可启动。原R213936/SCI7f6/SITE52d不动，当前r213 env/lease2/start2；32e3唯一Git/GPU，11:22只读实核peer closed未恢复/派生/发消息。d837准备0–11/保留12–23与训练24–119互斥，raw .999未达；下文历史。
 
 **11-03 11:18唯一GPU R213/order126，6450 success=attempt/0skip/eval8/bad2，八rank活跃，暂best EMA c6@4800内部`.9830353369271913`。** 原936/SCI7f6/actual SITE52d冻结，当前r213 env/lease2/start2；[R214条件复核/R215独立SigLIP2原生公开MAP](auroc-999/R214-R215-PREPARATION.md)已[7必要目标/12compile/两actual public fresh](../records/preparation/siglip2-20261103/README.md)，guard48enz91b0/04bb5d01，whole f114/13e631，尚待Git同步/technical/后备normal，无新clock/GPU。仅必要新模型注册/SCI和封存归一化读取冻结配置、精确R215 24GiB，默认12/free16及原data/loss/optimizer/EMA机制保持；当前训练冻结不改。R211完整阴性ea18c58已push，后续难组/清理待。d837准备0–11/12–23与训练24–119互斥，32e3唯一Git/GPU，不恢复/派生/发消息；raw .999未达，下文历史。

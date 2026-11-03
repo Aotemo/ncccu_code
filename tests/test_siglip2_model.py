@@ -19,6 +19,25 @@ def job():
 
 
 class SigLIP2Test(unittest.TestCase):
+    def test_fresh_accepts_exact_natural_image_source_and_rejects_imagenet(self):
+        from retrain import fresh,precision
+        from retrain.siglip2_model import FORMAT,WEIGHT_SHA
+        value=config.default_job('siglip2-fresh','siglip2_vitb16','random');value.update(job())
+        value['initialization']={'kind':'natural_vision_language','format':FORMAT,'sha256':WEIGHT_SHA,
+            'path':'/synthetic/public.bin','provenance':'/synthetic/provenance.json'}
+        config.validate_job(value);topology={'stop_after_updates':24000}
+        initialization={'kind':'natural_vision_language','weights_sha256':WEIGHT_SHA}
+        spec={'format':'glaucoma-fresh-init-v1','purpose':'train','plan_version':'synthetic-source-contract',
+            'plan_sha256':'1'*64,'source_digest':'2'*64,'job':config.job_contract(value),
+            'initialization':initialization,'amp_initial_scale':1.,'precision_protocol':copy.deepcopy(precision.RULE),
+            'schedule':{'steps_per_cycle':800,'total_updates':24000,'warmup_updates':1600,'stop_after_updates':24000}}
+        identity={'fresh':spec,'phase_parent_sha256':None,'source_digest':spec['source_digest'],
+            'job':config.job_contract(value),'distributed':topology,'initialization':initialization}
+        fresh.validate_fresh(spec,identity,value,topology,800,mode='train')
+        bad_spec,bad_identity=copy.deepcopy((spec,identity))
+        bad_spec['initialization']['kind']=bad_identity['initialization']['kind']='imagenet'
+        with self.assertRaises(ValueError):fresh.validate_fresh(bad_spec,bad_identity,value,topology,800,mode='train')
+
     def test_native_MAP_factory_RNG_full_state_and_single_age_oracle(self):
         self.assertIn('siglip2_vitb16',config.MODELS)
         from retrain.age import residual
