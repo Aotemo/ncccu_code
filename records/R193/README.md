@@ -1,5 +1,9 @@
 # R193：Small sigmoid 骨干学习率减半
 
+已完整结束并安全收口：[最终结果](R193-RESULT.json)为6400 success=attempt、0skip、8次内部评估、连续4次无提升早停。唯一EMA c4@3200内部AUROC `.9838854364466322`、AP `.8086886177323231`、error_twice26766；严格胜R107/R120两门均false，R194不eligible。官方5849未达`.996`门而未运行，raw `.999`未达；freeze.status原值null保持。
+
+[安全终态](R193-COMPLETION.json)于11-03 00:22:38.256 UTC确认owner同birth为Z、八rank缺席、锁holders与设备users空、denied0、八PCI busy0；[CPU回执](R193-CPU-COMPLETION.json)wf2703qi/5e04046f…93f7b exit0。selected tensor `96e03c5c584e76d56da26d1c720e789f45b0a20b63b4c064c4fa7da487cdefca`、blob `07df6f1b3581130748963ad8a8b6ef8ae6b7e64391bca09344a577c093aea205`，CSV/precision身份存最终结果。此后独立接续[R195](../R195/README.md)；不重复查旧safe、forward或加载权重。下文为运行历史。
+
 23:39:13.007 UTC的[既有监控单次快照](R193-DEVICE-POINT.json)中，八个绑定PCI全部可读、busy均99%–100%；这是瞬时资源观察，未测连续利用率。[CPU回执](R193-CPU-DEVICE-POINT.json)45w5_4x5/`04d1f06c4fbd0e1b8b09ad0624995689634cd2d2d3033c9b96ea66ee5c27180c` exit0，未调用GPU API、forward或构建模型，未改运行。
 
 [真实八rank初态与首自然25](R193-START.json)已证345全训张量、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`；首25成功=尝试、有限loss `.9362108111381531`、WORLD8/G64P8/448对、各rank8输入。23:35最新700成功/零跳步/eval0，八rank活跃；尚无完整selected或官方结果，raw `.999`未达。
