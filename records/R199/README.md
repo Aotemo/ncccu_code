@@ -1,5 +1,7 @@
 # R199：原 Small sigmoid 的固定 weight decay .05
 
+提取完整指标与固定难组后，[8个冗余权重清理](../storage/closed-r199-20261103/README.md)完成，约5.94GB，0跳过/错误；三KEEP及当前R201依赖保护快照保持，原CSV/precision/sidecar/index/freeze/metrics不删。未加载或重哈希大权重、不取训练锁或发信号，最后guarddlyg5fgz exit0；原始清单与回执保留。
+
 原四anchor定义的[固定难组补充](../analysis/20261102-persistent-errors/R199-FIXED20-SUMMARY.json)复算通过：20正例错序对质量8101、其余147组3642、总11743；比R107分别多1478/665，固定组占68.99%，两组均未改善。只读本轮既有selected CSV/precision各一次，不重分组、不重读旧14CSV、无模型/图像/新forward/官方；不以局部组替代完整AUROC或推临床机制。[guard65e7p1n_](../analysis/20261102-persistent-errors/R199-FIXED20-CPU.json) exit0，ec5准备池与R201训练互斥。
 
 11-03 04:13已[完整结束](R199-RESULT.json)：10400 success=attempt/0skip、13次评估、连续4次未提升早停，唯一EMA c9@7200内部AUROC `.9858601718742286` / AP `.8194274652755267` / error_twice23486；低于R107与R120，条件R200不eligible。官方未达到`.996`门而未跑，freeze.status原null保留。封存[同次终态安全证据](R199-COMPLETION.json)证明owner670112/start370141971为Z/非active、八rank missing、锁holders与device_users空、扫描denied0、八PCI busy0；[guardz4r7zpq6](R199-CPU-COMPLETION.json) / `66123654e643d8416e7b50eb9a2aed682075cfc7689efb889b9970c7d853be93` exit0。旧safe此后不重查，未恢复/重启此轮。独立[R201实际接续](../R201/README.md)已证真实八rank及首25成功，原82冻结不改；下文为初态历史。

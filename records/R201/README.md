@@ -1,5 +1,7 @@
 # R201：固定较宽 sigmoid 的独立 fresh
 
+04:27[既有监控单次快照](R201-DEVICE-POINT.json)八绑定PCI busy均100%，[guard964izxpj](R201-CPU-DEVICE-POINT.json) / `8db676dffc99254fe65db3a7b1810118c448e4a58e3da1c042545f7a6864e05f` exit0；这是sysfs时点观测，不是连续利用率。最近1500 success=attempt/0skip/eval1/bad0，首次内部AUROC `.976776388907285`，无完整selected。04:28 Paseo实核仅32e3 running、peer a4 idle且activeTurn null，未恢复/派生或发消息；ec5两CPU池继续互斥。
+
 11-03 04:17[真实初态及首自然25](R201-START.json)已证八rank、345全训、5空原生AdamW、whole50c6与formal一致，WORLD8/G64P8/448对、每rank8图，首25 loss `1.92756986618042`有限、0skip；当次已50 success=attempt、尚未内部评估。这里只确认当前路径能运行，完整AUROC收益尚待终态，raw .999未达。
 
 直接R120 Small/public fe6/seed20261029/512/FP32/ImageNet/default AdamW/原LR/WD1e-4/24000余弦，只改固定`mean(4*sigmoid((n-p)/2))`；同448对、同模型及forward数，不叠R199的WD.05或其他policy。温度2和乘4固定，同d=0峰值导数不代表全部梯度或轨迹相同，极端尾部仍饱和，不跨目标比较loss数值。最多24k成功更新/每800内部评估/p4早停/EMA1600、完整内部AUROC唯一选点、selected>=.996才一次官方保持。
