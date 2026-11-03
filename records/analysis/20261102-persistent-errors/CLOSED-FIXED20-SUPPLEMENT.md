@@ -1,5 +1,7 @@
 # 已结束模型的固定难组补充
 
+R217完整收口后的[同组复算](R217-FIXED20-SUMMARY.json)SHA `967a8948417b291b61ba27c9f97594e313a99881434b2ad66c2a36ef2ff2d080`仍沿原四anchor定义，不按R217重新分组。本轮selected CSV/precision各读一次，已归档SHA、manifest/5140行序标签、EMA10400/tensor46e343fa均一致；原函数复算AUROC/AP/error_twice及两类贡献守恒。固定20正例7048、其余147组3297、总10345，比R107分别多425/320、合计多745；该较长EMA配方未改善完整AUROC或这两组，不外推所有EMA方法或临床/优化机制。[CPU回执](R217-FIXED20-CPU.json)fdo5t31b/4250f32a exit0，7c/root0–11/nice19/隐藏GPU，与R219训练24–119互斥。无旧14CSV重读、图像/模型/checkpoint/forward/官方，私有CSV随退出清除。原件在`exp-v3/technical-prep/r217-fixed20-20261103-32e3`；原标签与活跃冻结保持。
+
 [实际汇总](CLOSED-FIXED20-SUMMARY.json)SHA `4a0166433bd49ac577a4a7fe21f1a511d788eb7746a41982bfa32c56ca62fdc3`，复用原4锚点封存的20正例，未用新轮重新分组。原PRIVATE-SELECTION SHA702680…0a3b及诊断源码a93ead…3bc5相符；4锚点组质量逐一吻合。不重读原14个CSV，各新轮原selected CSV/precision只读一次并核已归档SHA、行序/标签、EMA步数/tensor身份，原函数复算AUROC/AP/error_twice及两类贡献守恒均一致。
 
 | 完整唯一选点 | 内部 AUROC | 固定20正例错序质量 | 其余147正例 | 总错序质量 |
