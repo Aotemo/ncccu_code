@@ -1,0 +1,16 @@
+{
+  "status": "actual_first_SSL_and_prior_selected_evidence_exported",
+  "at": 1793740763.2490714,
+  "files": {
+    "records/R226/ARCHIVE-RECEIPT.json": "5137b78671f4454039cdf3f79d849a872646e7eea8c92f10c28e7d4965dda53d",
+    "records/R226/PAIRED-REPORT.json": "41f84996187db5d5939139c95066b0c8540dff755c41424ea06aea3e7dfffee9",
+    "records/R226/R226-COMPLETION.json": "ac9cbc91fc984766e81dd56836df0c3c7fbd081fc6f1336f7b833ea4e9df4b8f",
+    "records/R226/R226-RESULT.json": "eb250376b8a53818080a866a7ae48ac97ac8608a197a622d5a129d9b9dff47af",
+    "records/R228/R228-HANDOFF-GAP.json": "65ca8048299e6b15d70ca9f8bc78504d2f98fd0c6efc8862789f37bd3aedb96b",
+    "records/R228/R228-PREPARATION.json": "11fc2d297aec946cc4fff6c42256a385b414e740d0e9feb1cc1e6c82e556b30d",
+    "records/R228/R228-REMOTE-COMMIT.json": "418db1759589ae6a5fc062a957a4e2f9632ab5702ce82e6352ca75f964d91dbb",
+    "records/R228/R228-SSL-INITIAL-GATE.json": "13cd0355b42b1fb9228ce9505eec846c56e753ef16f5295d1c99070c34a6c41d",
+    "records/R228/R228-START.json": "21356d414a7cc99459827bd091c717e0878946da39876eb688949fec7e9d2030"
+  },
+  "raw_samples_or_images_or_weights_exported": false
+}

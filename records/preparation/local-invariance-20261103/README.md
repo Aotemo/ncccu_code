@@ -13,3 +13,5 @@ Gitbe5b5fa8/tree60d7432b已push/API回读，Pod[2622文件全树bytes/mode核验
 同时将原21db HOG的条件seed27 [R227正式18/18](R227-FORMAL-READY.json)预先准备，91507a65/actual SITE9a890d5b/部署106a40e9、guard30d9f4b5；ready=`r227-20261103-4e0c-ready`。两分支均无activation/clock/dispatch，full clock+60秒窗口在[汇总](READY-VERIFICATION.json)时间点均足额，真实启动前重核，旧grant不改。R229仅technical，不能因CPU准备等同于晋级。
 
 准备检查不构成收益。R229仅R228完整selected严格超过R107和R120后才可激活；R226双门通过时优先原R227。当前活跃冻结21db源码不改，没有额外任务图片、teacher或新资源。完整CPU P8 task128.253秒，最终峰值24 runnable/24核、亲和性无越界；首失败与v2拒绝原件保留。
+
+后续实际：R226完整未过双门，R227不eligible/未激活；[R228已实际首25并到675适配更新](../../R228/README.md)，冻结be5b5fa8不热改。一次activation、首次CLI派发前mask拒绝、修正后唯一实际dispatch；完整入口失败/357.314秒到首SSL的间隙保留，旧clock/token/grant保持。21:21 [R229正式18/18/精确部署](R229-FORMAL-READY.json)也通过，公开91507a65、actual SITEfea174de、部署4f1fc7e9、[guard353905d3](R229-FORMAL-CPU-GUARD.json)，无activation/clock/dispatch。此前READY-VERIFICATION只代表20:25原两分支快照，不改历史回执；R229仍须R228完整晋级及启动前新窗口核验。

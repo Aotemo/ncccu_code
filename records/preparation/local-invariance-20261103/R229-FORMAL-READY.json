@@ -1,0 +1,15 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r229-small-fitlocal1600-seed27-pairlog-24k-p4-9010-20261103",
+  "git_commit": "be5b5fa82869f3b34c8dfaf3fabe552274b1eafc",
+  "tree_sha": "60d7432b4b40ebdbbb0d69298c8d673a0fcae981",
+  "science_sha256": "e8e58eb014b48012618c8f65fce68986a2fa794752538bcfb29415665b6bb0ab",
+  "checks": 18,
+  "actual_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+  "trainable_tensors": 345,
+  "site_sha256": "fea174decedd8b7828ea45855f6f4eb56cc7700e96f11918d6930359bd4bae92",
+  "deployment_sha256": "4f1fc7e9782aa978f1aad252905c502d3308bfe44ad122e13236da59d15c3992",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793740869.1122332
+}

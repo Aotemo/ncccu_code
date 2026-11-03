@@ -1,0 +1,46 @@
+{
+  "status": "observed_event_intervals",
+  "previous_round": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+  "next_round": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+  "previous_whole_round_ended_at": 1793740193.2283914,
+  "previous_last_successful_update_at": 1793740080.8593354,
+  "next_dispatch_at": 1793740451.4028656,
+  "next_first_SSL_success_at": 1793740550.5422058,
+  "next_natural_SSL25_at": 1793740567.4834967,
+  "seconds_end_to_dispatch": 258.17447423934937,
+  "seconds_end_to_first_SSL_success": 357.3138144016266,
+  "seconds_end_to_SSL25": 374.2551052570343,
+  "seconds_last_training_update_to_first_SSL_success": 469.682870388031,
+  "end_to_first_SSL_success_within_300": false,
+  "end_to_SSL25_within_300": false,
+  "continuous_GPU_utilization_measured": false,
+  "previous_safe_proof_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/COMPLETION-goal4-2.json",
+    "sha256": "ac9cbc91fc984766e81dd56836df0c3c7fbd081fc6f1336f7b833ea4e9df4b8f"
+  },
+  "first_success_proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "21356d414a7cc99459827bd091c717e0878946da39876eb688949fec7e9d2030"
+  },
+  "previous_clock_token_grant_modified": false,
+  "source_CPU_and_formal_packages_ready_during_previous_training": true,
+  "caller_entry_rejection": {
+    "entry_invocations": 2,
+    "activation_calls": 1,
+    "actual_dispatches": 1,
+    "first_entry_failed_before_admission": true,
+    "cause": "Caller precontracted CPU affinity to24-119 before canonical first-entry validation of the original uncontracted resources.",
+    "error": "ValueError: first GPU entry must verify the original uncontracted live CPU resources",
+    "dispatch_admission_controller_owner_absent_verified_before_canonical_entry": true,
+    "fix": "Remove external taskset wrapper; unchanged canonical entry verifies original resources, then binds the admitted96-CPU pool.",
+    "fresh_launch_only_snapshot": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/POD-LIVE-LAUNCH-CANONICAL.json",
+      "sha256": "154f0220b130ba7a7add9f00710034ba2b0eba8483407be98cb3f62787ab8ddb"
+    },
+    "original_activation_clock_token_grant_preserved": true,
+    "failure_evidence_source": "Original tool response stack trace and four-marker absence response; original stdout-only LIVE-LAUNCH.log did not capture stderr."
+  },
+  "reasons_if_over_300": [
+    "Avoidable precontracted caller affinity rejected before dispatch; fresh launch-only snapshot and corrected canonical entry took additional transport/observation time."
+  ]
+}

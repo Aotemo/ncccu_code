@@ -1,19 +1,23 @@
-# R226 fit-only 局部梯度目标实际启动
+# R226 fit-only 局部梯度目标完整结果
 
-20:43 [真实观测](R226-PROGRESS-goal3-3.json)：8050 success=attempt/0skip/c10/bad0，原owner798693/start376131227及八rank均active且出生身份匹配。暂EMA best c10@8000 AUROC .9858902745484298/AP .8162271393888747/error_twice23436；第9/10次评估的AUROC连续改善令原早停计数归零，继续完整24k上限/800/patience4，无完整selected或双门资格。暂best的AP低于先前c6，按原AUROC主判保留并最终报告代价，不改选点规则。
+R226完整完成1600次fit-only HOG适配及11200次监督更新，attempt=success、0skip，c14连续4轮无提升早停。唯一所选为EMA c10@8000：内部AUROC **0.9858902745484298**、AP **0.8162271393888747**、error_twice23436；未严格超过R107 .9884405731067525或R120 .9894773092062407，条件R227不eligible且未激活。官方按原≥.996门保持not_run_by_policy。固定HOG配方关闭，不延长或扫描参数；.995/AP>.9及raw.999未达。[结果](R226-RESULT.json)、[唯一安全终态](R226-COMPLETION.json)、[配对分析](PAIRED-REPORT.json)及[归档来源](ARCHIVE-RECEIPT.json)已封存。
 
-20:34 [只读存储点](R226-STORAGE-before-close.json)：free26,020,413,440B，活跃权重10文件/6,931,286,518逻辑字节均保护；只stat未读取/加载大文件，无删除/锁/训练信号。清理须等唯一actualsafe、完整结果提交及新轮实际启动后，按已复用的manifest程序执行；当前只准备了三临时脚本并做语法检查（guard741f7f2a），尚无R226删除清单或清理操作。R228/条件R227的正式包保持20:25准备事实，不激活或重置旧clock/grant。
+相对R107的加权错序对如下；这是原封存20例及其余147个正例，未改组、标签或所选点。
 
-完整1600次适配及八rank监督交接已实证：监督初态db052095、345全训/5组空AdamW、原head/age及监督RNG恢复一致，首25 loss .667283773有限、G64/P8/448对；20:19实观5150 success=attempt/0skip/c6/bad0，暂EMA best .9851316871585604/AP .8259593960563496。[当前快照](R226-PROGRESS-local-prep-3.json)不是完整selected。实际sampler记录与消费均为14997478083172343433，原误登记问题未复现。[监督首成功](R226-SUPERVISED-START.json)及[来源](R226-SUPERVISED-RECEIPT.json)保留，观察者没有创建模型、加载权重或执行前向。完整dev结果尚待产生。
+| 组别 | R107 | R226 | 修复 | 新增 | 净新增 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 固定20 | 6623 | 8000 | 1694 | 3071 | +1377 |
+| 其余147 | 2977 | 3718 | 1051 | 1792 | +741 |
+| 全部 | 9600 | 11718 | 2745 | 4863 | +2118 |
 
-11-03 19:27:03 UTC实际首SSL更新成功，19:28:21实观200次，八rank活跃、loss/梯度有限。首1 loss .315540105、200 loss .027693853，G64/P8、每图154个32px块、单视图fit-only。实际公开模型50c6及encoder/public张量、空优化器、768→432/PixelShuffle4空间头均匹配正式CPU。[实际首成功](R226-START.json)、[公开初态门](R226-SSL-INITIAL-GATE.json)和[准备及各guard](R226-PREPARATION.json)保留，没有重做activation/launch。
+相对R115，全体净增408，固定20净增640、其余147减少232；相对R224 RGB重建，全体净增52，固定20净增280、其余147减少228。局部组改善未抵消整体代价。相对R107/R120的AUROC点差分别−.0025502986/−.0035870347；同一PCG64 seed20261103、2000次分层图像paired bootstrap的95%区间分别[−.0062893216,+.0002314294]、[−.0089817951,+.0000907596]，均跨0。相对R115和R224的区间也跨0，不声称统计显著退步或因果解释；按原完整AUROC晋级规则判未通过。区间只条件于这些已训练/选定模型，不包含seed变异、选择偏差修正、患者层级或多重比较修正。
 
-冻结Git21dbb113/tree5c975e67、SCI43964fcf、actual SITE1c4e2d58；12必要CPU目标/5编译、真实公开Small-P8及冷derived79.156秒、正式18/18、2585文件精确部署均在R224训练期间完成。启动前重新核完整clock+60秒窗口，一次activation/唯一实际launch均0，无GPU预演。owner798693/start376131227与八rank出生身份已核，4e0c唯一Git/串行GPU监督；准备0–23/24核与训练24–119/96核互斥，实际私有入口`goal-20261103-4e0c/r226-pod-context.env`/ACTUAL-START-2，旧r224 env仅历史。
+实际成本：SSL102400 primary/view输入，首至末日志632.491秒；joint训练组件6197.553秒，组件开始至SSL完成725.494秒、SSL完成至监督结束5472.059秒。R224对应joint3477.021秒/监督5600次，R226监督11200次；两轮同1600/单视图适配和同监督上限/早停合同，实际停止点及计算成本不同，不能称等算力比较。AP从R224 .8027262717升至.8162271394，但完整AUROC略低，不能升级基线。
 
-[R224完整所选](../R224/R224-RESULT.json) .9859528881未过R107/R120双门，R225不eligible且未激活，R226按预定后备问题接续。相同fit图、首视图、mask/学习随机流及1600预算下，以局部归一化梯度替换RGB重建；Sobel/9方向/8px cell、逐cell L2归一化、只hidden HOG cell的MSE。临时decoder丢弃，随后完整R107监督合同保持。没有额外任务图、标签/age用于SSL或旧teacher；HOG不等于真实视盘定位，不能恢复512外信息。依据、固定合同和必要实现边界见[准备记录](../preparation/hog-reconstruction-20261103/README.md)。
+冻结Git21dbb113/tree5c975e67、SCI43964fcf、actual SITE1c4e2d58。原公开Small/fe6 fresh，均匀fit G64/P8、512/ImageNet、每图154个32px块；逐RGB Sobel/9方向/8px cell及逐cell L2归一化，只hidden HOG cell的MSE，临时decoder丢弃，完整R107监督24k/800/patience4保持。[准备与真实CPU](../preparation/hog-reconstruction-20261103/README.md)含12必要目标/5编译、真实公开Small-P8和冷derived；18/18正式CPU及2585文件精确Git部署通过。公开50c6、监督初态db052095/345全训/5空AdamW、原head-age及监督RNG恢复、自然首25已实证：[首SSL](R226-START.json)、[完整1600到监督首成功](R226-SUPERVISED-START.json)、[交接来源](R226-SUPERVISED-RECEIPT.json)。实际与登记sampler seed均14997478083172343433，旧R224误登记未复现。没有额外任务图、旧teacher或label/age进入SSL。
 
-完整内部AUROC主判，附AP及相对R107/R120/R115/R224的原固定20/其余147修复和新增错序；仅严格双门后做固定seed27的R227。R227于20:24完成[正式18/18及精确部署](../preparation/local-invariance-20261103/R227-FORMAL-READY.json)，原21db/SCIcdc9822a、actual SITE9a890d5b/91507a65，无activation/clock/dispatch。官方保持≥.996完整selected后一次，当前未运行。
+唯一actualsafe为COMPLETION-goal4-2/ac9cbc91、guardc7d6e876：原owner798693/start376131227已Z，八rank消失、锁无持有者、无device user、八卡busy0；已封存不重查。所选tensor d4c0d126、CSV be638a1e、precision37e3d0bc，完整归档eb250376/guardb030daca只读原内部CSV和小回执，没有模型/权重加载、新前向或官方读取。当前权重尚未按新清单清理；归档和Git同步后，仅清理已解除未来forward依赖的冗余checkpoint，三KEEP、CSV、元数据、数据缓存及当前R228保护。
 
-清理R224后的历史快照为2250 success=attempt/0skip/c2、暂best .9796662456305968/AP .7752608467207747。原R2248权重已释放5.941GB逻辑字节，当前R226及三KEEP/CSV/数据缓存保护。20:25 [最新观测](R226-PROGRESS-local-formal-ready.json)为5850 success=attempt/0skip/c7/bad1，暂EMA best仍.9851316872；预登记[局部一致性后备](../../todo/auroc-999/R228-R229-FIT-LOCAL-20261103.md)已14必要目标/真实Small-P8冷derived/资源guard、be5b5fa8同步/2622全树及正式18/18/精确部署。R228actual SITE84b5108e，无activation/clock/新GPU，不改变现役21db。
+后续按预登记分支接[R228局部光度一致性](../R228/README.md)，它约束同位置16×16特征而非R115全局池化向量；参数在R226完整结果前已固定，监督合同保持。[R228实际首25及接续间隙](../R228/R228-HANDOFF-GAP.json)为一次activation、两次入口调用（第一次在派发前被资源检查拒绝）、一次实际dispatch；旧clock/token/grant不改。R226整轮结束到新dispatch258.174秒、首SSL357.314秒、自然首25为374.255秒。首更新区间超过300秒，原因含调用方提前收紧CPU mask的可避免错误；实际连续GPU利用率未测，不能把整个区间都称作设备空闲。
 
-[接续间隙](R226-HANDOFF-GAP.json)：R224整轮结束至dispatch178.326秒、首SSL272.288秒、自然首25记录281.744秒，均≤300。末监督更新至首SSL369.896秒包含旧轮评估/收尾，不能称GPU空闲。连续利用率未测，旧safe仅复用、clock/token/grant均未改。当前回执只证明新GPU链实际跑通，.995/AP>.9及raw.999均未达。
+36例原图/512 AI辅助盲态结构审阅已先封存后揭盲，标签判读仍uncertain；不是原标注标准的人类临床复审。本轮图像排序结果不识别标签错误或性能上限，也不构成原生裁剪/定位的证据。
