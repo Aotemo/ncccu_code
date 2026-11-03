@@ -1,0 +1,151 @@
+{
+  "status": "engineering_failed",
+  "scientific_outcome": null,
+  "selected": null,
+  "official_evaluated": false,
+  "round": "r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+  "source_commit": "f64f1667e0d051ac4928bdfee0c3d3d26ef14cee",
+  "science_sha256": "3a205228fbf3ff814607261d0f629968714d90beaf7a4bda505dc8e3d49f3f78",
+  "actual_initial_all_eight_passed": true,
+  "initial_model_tensor_sha256": "51592a3d590810370695f69ec78cd7556efce18cbff60ba58d189812640fe3ea",
+  "last_recorded_successful_updates": 0,
+  "optimizer_step_may_precede_failed_EMA": true,
+  "failures": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-0-failure-1793721340426398365.json",
+      "sha256": "51043067c00dc21f1e518439f6926c2438dc85dbfd77ba65ebcc795401c489ed",
+      "rank": 0,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.426415
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-1-failure-1793721340417228686.json",
+      "sha256": "a7e6ab7fbd705289d2c82aa6850a7744340e2b962d80b7dc5237fba0cad83b19",
+      "rank": 1,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.417245
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-2-failure-1793721340417578433.json",
+      "sha256": "36eb1b595dfa2868c6e9d2c2843e22dd134df51bdea7cf931b49bc13385ec174",
+      "rank": 2,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.41761
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-3-failure-1793721340462224114.json",
+      "sha256": "51c9d004169d39652329eecccd51633053995eaa014a17c298fd11b47562003b",
+      "rank": 3,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.4622474
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-4-failure-1793721340367537932.json",
+      "sha256": "88bc382f3c0b73371982f4225f392c45a95094bfceb1a685266ee2e86603b544",
+      "rank": 4,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.367554
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-5-failure-1793721340385178147.json",
+      "sha256": "6497e02eb411d2a5d60abbb7751c2b04262304095a4221c63a73e6caccb30eb5",
+      "rank": 5,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.3851938
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-6-failure-1793721340400897265.json",
+      "sha256": "b2692b398182e5ece73bcd567fb8e305afda742c5c8dd00bb59390d2358745f8",
+      "rank": 6,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.4009147
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/rank-7-failure-1793721340390218939.json",
+      "sha256": "3cb3cc2b797d6250c4a5502bc9f7e79a3be2f3624270563ab195f54daef2fb53",
+      "rank": 7,
+      "error": "Tiny noBN EMA live buffers differ",
+      "error_type": "ValueError",
+      "at": 1793721340.390243
+    }
+  ],
+  "component": {
+    "component_wall_seconds": 111.3880729675293,
+    "deadline_at": 1793749136.1865687,
+    "end_at": 1793721347.5857952,
+    "exit_code": 1,
+    "hard_deadline_met": true,
+    "launch_sha256": "6c30bb5b8eac5a5bb6beed4d4e8fc6e5b54ad4393af73388060584a6cf67fb18",
+    "live_owned_ranks": [],
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "phase": "train",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793721236.1977222,
+    "status": "timeout"
+  },
+  "done": {
+    "at": 1793721235.8902645,
+    "cards": [
+      {
+        "busy_percent": 0,
+        "pci": "0000:09:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:36:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:55:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:77:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:85:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:b5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:d5:00.0",
+        "vram_used_bytes": 2207744
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:f5:00.0",
+        "vram_used_bytes": 2207744
+      }
+    ],
+    "ended_at": 1793721347.59942,
+    "error": "RuntimeError(\"component not completed: {'status': 'timeout', 'exit_code': 1, 'reason': None}\")",
+    "live_owned_ranks": [],
+    "status": "failed",
+    "token": "33b77a6ec9b44811ac0eaf6c58050a87"
+  },
+  "unique_actualsafe": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r221-20261103-32e3-ready/PROGRESS-terminal-1.json",
+    "sha256": "3670bea63bed9848722692221f3bc7158df3eb672e29466d957e04e4d18dec91",
+    "observed_at": 1793721527.423761
+  },
+  "root_cause": "Production noBN EMA check only allowed DINOv3 periods and rejected EVA02 static nonpersistent pos_embed; outer timeout was generic exit1, not elapsed clock.",
+  "retry": "R221R1 independent fresh, no scientific delta, no old clock/token/grant reset or archived task state reused"
+}

@@ -1,0 +1,17 @@
+{
+  "actual_initial_receipt_sha256": "cc7964f2deb9c41165820ca032001c3d3e2610f442d82bf653d7ba33ac917440",
+  "all_initials_passed": true,
+  "initial_rank_count": 8,
+  "initials_sha256": {
+    "r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32": "eba4d1a77363ef7cff06455d99b3729cbfa1507a6eab54299f60c8ae1d6492b6"
+  },
+  "plan_sha256": "71c871c43561856ee9cc86b936666f0003fbca765540bceceb12e1ed0d50720d",
+  "purpose": "train",
+  "rank_initial_proof_sha256": "eba4d1a77363ef7cff06455d99b3729cbfa1507a6eab54299f60c8ae1d6492b6",
+  "round_id": "r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+  "run_ids": [
+    "r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32"
+  ],
+  "source_digest": "43f8d57ca4524b24e52175a5c9ae2896c17d3df64266d6c9b689777c67ae9b5f",
+  "world_size": 8
+}

@@ -1,0 +1,15 @@
+{
+  "component_wall_seconds": 111.3880729675293,
+  "deadline_at": 1793749136.1865687,
+  "end_at": 1793721347.5857952,
+  "exit_code": 1,
+  "hard_deadline_met": true,
+  "launch_sha256": "6c30bb5b8eac5a5bb6beed4d4e8fc6e5b54ad4393af73388060584a6cf67fb18",
+  "live_owned_ranks": [],
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "phase": "train",
+  "reason": null,
+  "signals": [],
+  "start_at": 1793721236.1977222,
+  "status": "timeout"
+}

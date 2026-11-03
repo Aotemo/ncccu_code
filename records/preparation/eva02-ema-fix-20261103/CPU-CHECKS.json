@@ -1,0 +1,216 @@
+{
+  "at": 1793721951.7418113,
+  "scope": "R221R1 production EMA static nonpersistent RoPE guard repair only; fresh scientific delta0",
+  "passed_targets": 5,
+  "targets": [
+    {
+      "label": "PRODUCTION-EMA",
+      "exit_code": 0,
+      "targets": 1,
+      "wall_seconds": 9.934787511825562,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/R221R1-PRODUCTION-EMA.log",
+      "log_sha256": "7d9a6fa86ea32db2a82ad1cc561c16e949580ec40fcabf44d37ae97d984d7630",
+      "reused_from_guard": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ehrgw7n1/CPU-RECEIPT.json"
+    },
+    {
+      "label": "CANDIDATE",
+      "exit_code": 0,
+      "targets": 2,
+      "wall_seconds": 5.2661144733428955,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/R221R1-CANDIDATE.log",
+      "log_sha256": "d8f3becbd920c45fc0f867e5c2b25c0b3ace420b9c6b1f14e00ca0395d54c43b",
+      "reused_from_guard": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ehrgw7n1/CPU-RECEIPT.json"
+    },
+    {
+      "label": "STORAGE",
+      "exit_code": 0,
+      "targets": 1,
+      "wall_seconds": 0.22086477279663086,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/R221R1-STORAGE.log",
+      "log_sha256": "3230caf5bcf7b75210d6ff84024c594754689765ada21013297a85b6f4fb1f1f",
+      "reused_from_guard": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ehrgw7n1/CPU-RECEIPT.json"
+    },
+    {
+      "label": "LEGACY-EMA",
+      "exit_code": 0,
+      "targets": 1,
+      "wall_seconds": 4.627712726593018,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/R221R1-LEGACY-EMA-v2.log",
+      "log_sha256": "981b0eec6da065d3a6f02519f5c2da6470af7a169557d9b0b7907044e0e044f0"
+    }
+  ],
+  "compiled_sources": 15,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/eva02_model.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/data.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/single91.py",
+    "runtime/r92_initial_gate.py",
+    "tools/validation/check_candidate.py",
+    "tools/pretraining/eva02_source.py",
+    "tests/test_eva02_model.py",
+    "tests/test_eva02_candidate.py",
+    "tests/test_round_storage_policy.py",
+    "runtime/bundle/retrain/ema.py",
+    "tests/test_long_ema.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/eva02_model.py": "7cc6d2a61f7c2b9b5d6f1c38000242c21b8c6f42f209d89efb310ee65e8ff3ba",
+    "runtime/bundle/retrain/models.py": "b03d614d68c6231eb88b8b1b824ee8997bd610cd8b68f6a75fc1beffcc2aba6f",
+    "runtime/bundle/retrain/config.py": "b7ed610e55cc3ea5933e021e296e793f909ff346638cc64939aa9337130c8992",
+    "runtime/bundle/retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "runtime/bundle/retrain/inference.py": "369bf4c09dacda028ea123fe1c332ed03ff22d1d21590c1182c4cc377fc21f6c",
+    "runtime/bundle/retrain/experiment91.py": "f516610bf5e49125510e04249e23de71037dc2eafba7260f3de4766c7583275b",
+    "runtime/bundle/retrain/single91.py": "edac014b424e0ef127602ed4d038a74af51b0f796426e20996ca9fae07482a79",
+    "runtime/r92_initial_gate.py": "704b0fc29f441a47eec7e87aa54e044634904dd76da88d71c2a0939524bef3a3",
+    "tools/validation/check_candidate.py": "884dfe0b5d5e916cd12c8cdd83f3c0e1f63ce247d3f6fe8cbdff17bee4bf23d0",
+    "tools/pretraining/eva02_source.py": "5804bcb0a9b5870edd7159aaddf2468697e6dba65ad69c38319f2763aaeb3c4e",
+    "tests/test_eva02_model.py": "c63c2855ca954e2f0d2b3f325bf941ba93b54ae778193b0ccf98e3f9698c8126",
+    "tests/test_eva02_candidate.py": "f8d5bfeef0a3204eb3107aa76e76b5bf6abcde59ea921371f8991e4afc1e426d",
+    "tests/test_round_storage_policy.py": "2df6426c7dad18cba00cfc496171b28230d45b8aac196ff90c962ee6a5e64fed",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "tests/test_long_ema.py": "0929c2cb656af4163acd52dedbeb89f619bbaaad51f13ea2f2e98dd987909f26"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "4c89295832b26e6a132e087592cf12ae9216b11958a528e2a8cd7f0b0946b7f2",
+    "configs/RESOURCE-POLICY.json": "0b1a5f9509251c383c0b0103419d0ab673f92dc2a8269bfa5971d3c5123ea063",
+    "configs/R221R1-SCIENCE.json": "849cfb4e62f273d515c7d44a1f23414e6adfc5e65a52f75889f021aaf310fdd1"
+  },
+  "unchanged_implementation_files": {
+    "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "distributed_engine": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b"
+  },
+  "science_sha256": {
+    "R220-SCIENCE.json": "e85321fb85a071a62cb4d3f58e5bf16c25da1b76d1016d33028025a75a6e964a",
+    "R221-SCIENCE.json": "3a205228fbf3ff814607261d0f629968714d90beaf7a4bda505dc8e3d49f3f78",
+    "R221R1-SCIENCE.json": "849cfb4e62f273d515c7d44a1f23414e6adfc5e65a52f75889f021aaf310fdd1"
+  },
+  "evidence": [
+    {
+      "label": "MODEL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-3e3im534/CPU-RECEIPT.json",
+      "sha256": "a1e98d3b31ddb960ba05d5c8bfa9e99e449aca6b1ba05030dad1a8baa8857d6f",
+      "exit_code": 1,
+      "output_sha256": "3095ef8ec2f0593f41b0dbedadf39e49e7ab39f6357993bc202898056f37d7ba"
+    },
+    {
+      "label": "MODEL-THREE-TESTS",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-9jdt1c1b/CPU-RECEIPT.json",
+      "sha256": "3b27a869c15e746798b1b4c2cdce39106b3661a420e0aae8a4b4a8e8c2672c03",
+      "exit_code": 0,
+      "output_sha256": "688be5e60876c906818a1c851e655424b051ded2e2326f63430d932b8b4a0158"
+    },
+    {
+      "label": "LEGACY-BINDING",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-3uiexg9m/CPU-RECEIPT.json",
+      "sha256": "3a73bc672b78abb7e39c0221046736728b61d373042ec2e45101074b2d21066a",
+      "exit_code": 0,
+      "output_sha256": "18731fe8ce31897f76889bbe25e384f1c880cc218499e893c20a205beda804ba"
+    },
+    {
+      "label": "STORAGE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-oaheijrx/CPU-RECEIPT.json",
+      "sha256": "44e79ad9ba129342ea5a2df04c95d4eff3502569112bfe8064d07b38a58c75b3",
+      "exit_code": 0,
+      "output_sha256": "c815cecbea7ebc22732de641a210a053dd38b5c32415ef8071fc4a7ba84c9ad6"
+    },
+    {
+      "label": "TRANSPORT-ASSEMBLY",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-tkrohit6/CPU-RECEIPT.json",
+      "sha256": "03cb26c8ae4ae012e736909c430d5f0af916b2d98905dd988538f8fdab0afe60",
+      "exit_code": 0,
+      "output_sha256": "d47dcfbac550e4400d8716a67db90b07e5c088d2a5f8ddeddf3817f19c30d4b1"
+    },
+    {
+      "label": "PUBLIC-STRICT",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gmt32pgw/CPU-RECEIPT.json",
+      "sha256": "44be7cf4457fa30c22d1cea4daacded60bda2ca44bd41da8840941d454f431d2",
+      "exit_code": 0,
+      "output_sha256": "133e671bd779e080f41f2782d4f67c8c790f950f102bf1a9403eacc4b4d97dca"
+    },
+    {
+      "label": "R220-METADATA-FAILURE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-yl_4694z/CPU-RECEIPT.json",
+      "sha256": "ce4268bbb4e9f31487b0961305c42e1b95b00f67332c6dad9ed59d93846b8fcd",
+      "exit_code": 1,
+      "output_sha256": "6c834af37061fae1bd01e6390b127e66a0d758e5564a68e5600706cc9df2b7b5"
+    },
+    {
+      "label": "R220-PUBLIC-INITIAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-38fl3xjn/CPU-RECEIPT.json",
+      "sha256": "d4603b4d07fec64b419ab446b5d89a466ca0637f3fb20e3e56ac1b5587b5e329",
+      "exit_code": 0,
+      "output_sha256": "557bd990eb4686df1784db26d19bf1725e7b315b2bf617d54549fbd4181a58aa"
+    },
+    {
+      "label": "CANDIDATE-FIXTURE-MISSING-SCIENCE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gpb6t0mo/CPU-RECEIPT.json",
+      "sha256": "e1093a2f22c6a361e6f5a21ab1f2594591a75dbc7f0f599d760ad16c100794f7",
+      "exit_code": 1,
+      "output_sha256": "a99d98a6ce70aa6059433b6908971afc1434be21221eee603b25b70a46931684"
+    },
+    {
+      "label": "SOURCE-REGISTRATION",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-n9km7cld/CPU-RECEIPT.json",
+      "sha256": "775fe121f8d48b75e40d3e5f9f617293232d162800fb9a914610ffbf64ff5581",
+      "exit_code": 0,
+      "output_sha256": "06bb6a8ee1aadb308621de0641cb2e67d6400118d979f7f75a3f670f43cfad66"
+    },
+    {
+      "label": "R221-PUBLIC-INITIAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-botpi11i/CPU-RECEIPT.json",
+      "sha256": "2fc5f9781a1074d1c3a0a251d239730cdc808b38fc08aede40c51247f7e92ab7",
+      "exit_code": 0,
+      "output_sha256": "e0308ccaf727fe589f6e5ddc5a16b87ddff7223153a9dd6357e92e39b437744e"
+    },
+    {
+      "label": "NEW-CANDIDATE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-vgjkl_6z/CPU-RECEIPT.json",
+      "sha256": "64c070ee9bcbead64b8efaf8472b89589a94c605d1ab56b46fc0b352adfec63c",
+      "exit_code": 0,
+      "output_sha256": "5c9e5a1f091972959ef3337cacb97052cd072f9b1722434fc03ec98b51b82cf9"
+    },
+    {
+      "label": "THREE-GREEN-LEGACY-FILE-MISSING",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ehrgw7n1/CPU-RECEIPT.json",
+      "sha256": "41d81826e2a3c5d0abe57f24e74eb2ba43aa29119f6c98f6419cd752a932b95d",
+      "exit_code": 2,
+      "output_sha256": "a92a8dcda84a99e5c4f29b77c349012edba2a44ab2b18ca48a143fcfc01136a1"
+    },
+    {
+      "label": "PRODUCTION-EMA-FINAL-GREEN-AND-COMPILES",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-a8hbhnuk/CPU-RECEIPT.json",
+      "sha256": "bff5005174e53ee77336914f6c3973e2db9302a5f57484a2b6fc01a7341c1320",
+      "exit_code": 0,
+      "output_sha256": "716291df2a59984418ad68d2eb1b10fa4a480ae602559936b264fbffa70440d9"
+    }
+  ],
+  "reused_preparation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git/records/preparation/eva02-20261103/CPU-CHECKS.json",
+    "sha256": "28bfe302de427f04751053e55ba2ac83d166da1057e6ad98404b76f5dffeba78",
+    "passed_targets": 10,
+    "three_model_test_methods_AST_identical": true,
+    "native_graph_source_unchanged": true,
+    "public_initial_tensor_identity_unchanged": true
+  },
+  "prepare_helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/PREPARE-EVA02-R1-NEXT.py",
+    "sha256": "286c68eb51fa50cc3fd7683195edc7bf781c9d1359d159e2e6aa6420e92d7441"
+  },
+  "notes": [
+    "Five actual affected CPU targets passed; old ten targets are reused with unchanged graph, public originals, and original model-test method ASTs.",
+    "Production EMA1600/.999 noBN branch is tested for warmcopy and blend, unchanged nonpersistent RoPE, and tamper rejection. Previous generic R8_RULE test did not cover this branch.",
+    "No change to model parameters, stochastic forward, loss, optimizer, scientific EMA averaging rule, data, official policy or resource fractions.",
+    "R221 first recorded progress was0; optimizer.step precedes the failed EMA update in source, so this is not a claim that no optimizer instruction ran. No successful-update receipt/selected checkpoint/official result exists.",
+    "CPU verification is not a DCU throughput/memory guarantee; formal admission and actual eight-rank/first success remain required."
+  ],
+  "producer_sha256": "3dec25b6142cfd632c860acad5844dc5bcfb47f81b237586b5dc5c15bc3e8a2c"
+}

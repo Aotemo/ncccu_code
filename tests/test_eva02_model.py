@@ -18,6 +18,39 @@ def job():
     return value
 
 class EVA02Test(unittest.TestCase):
+    def test_production_noBN_EMA_preserves_static_RoPE(self):
+        from retrain import ema,experiment91 as ex
+        from retrain.eva02_model import describe
+        science=json.loads((ROOT/'configs/R221-SCIENCE.json').read_text())
+        rule={'version':'ema-warmcopy1600-decay0999-nobn-v1','warmcopy_updates':1600,
+            'decay':.999,'dtype':'torch.float32','floating_buffers':'same_as_parameters',
+            'integer_buffers':'copy','batch_norm_buffers':0}
+        self.assertEqual(rule,json.loads((ROOT/'runtime/EMA-TINY.json').read_text()))
+        model=models.create_model(job(),initialize=False)
+        buffer=model.network.rope.pos_embed.clone()
+        self.assertEqual(ema.tensor_digest(dict(model.named_buffers())),science['initial_buffer_sha256'])
+        with patch.object(ex,'ema_rule',return_value=rule),patch.object(ex,'candidate',return_value=science['candidate']), \
+                patch.object(ex,'science_configuration',return_value=science):
+            shadow=ema.EMA(model,rule)
+            with torch.no_grad():model.classifier[-1].weight.add_(.125)
+            shadow.update(model,1)
+            self.assertTrue(torch.equal(model.classifier[-1].weight,shadow.model.classifier[-1].weight))
+            saved=shadow.state_dict()
+            saved.update(update_count=1600,copy_count=1600,blend_count=0,last_update_success=1600)
+            blended=ema.EMA(model,rule,state=saved,successful=1600)
+            old=blended.model.classifier[-1].weight.clone()
+            with torch.no_grad():model.classifier[-1].weight.add_(.25)
+            expected=old.mul(.999).add(model.classifier[-1].weight,alpha=1-.999)
+            blended.update(model,1601)
+            torch.testing.assert_close(blended.model.classifier[-1].weight,expected,rtol=0,atol=0)
+            for value in(model,shadow.model,blended.model):
+                self.assertTrue(torch.equal(value.network.rope.pos_embed,buffer))
+                self.assertNotIn('network.rope.pos_embed',value.state_dict())
+                self.assertEqual(describe(value)['persistent_buffer_count'],0)
+            with torch.no_grad():blended.model.network.rope.pos_embed[0,0].add_(1)
+            with self.assertRaises(ValueError):blended.update(model,1602)
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_clip_input_and_fixed_config(self):
         from PIL import Image
         from retrain.data import ImageDataset

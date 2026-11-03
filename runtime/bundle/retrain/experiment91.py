@@ -89,7 +89,8 @@ SMALL_12K_BINDING = 'single-convnext-small-e9f96b3e-in12k-fixed-9010-24k-earlyst
 SMALL_12K_SEED27_BINDING = 'single-convnext-small-e9f96b3e-in12k-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 SMALL_12K_BINDINGS = (SMALL_12K_BINDING,SMALL_12K_SEED27_BINDING)
 EVA02_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
-EVA02_BINDINGS = (EVA02_BINDING,)
+EVA02_R1_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-r221r1-v1'
+EVA02_BINDINGS = (EVA02_BINDING,EVA02_R1_BINDING)
 LONG_EMA_RULE = {'version':'ema-warmcopy1600-decay09999-nobn-v1','warmcopy_updates':1600,
     'decay':.9999,'dtype':'torch.float32','floating_buffers':'same_as_parameters',
     'integer_buffers':'copy','batch_norm_buffers':0}
@@ -1000,6 +1001,8 @@ def candidate_from_configuration(value):
             'experiment_order':134,'model':MODEL,'public_revision':REVISION,'readout':'native_patchmean_fcLN_dropout_linear_plus_age',
             'features':768,'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
             'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if value['candidate_profile']==EVA02_R1_BINDING:
+            expected.update(id='r221r1-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=135)
         if (source.get('kind')!='imagenet' or source.get('model')!=VARIANT or source.get('format')!=FORMAT
                 or source.get('revision')!=REVISION or source.get('native_library')!=LIBRARY
                 or source.get('sha256')!=WEIGHT_SHA or source.get('original_sha256')!=WEIGHT_SHA

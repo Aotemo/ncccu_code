@@ -1,0 +1,5 @@
+# R221R1生产EMA最小修复
+
+实际计算Pod/7c准备池root0–11/nice19/隐藏GPU：5必要目标和15项目源码编译通过。生产EMA warmcopy/blend/静态非持久RoPE不变与篡改拒绝、两个候选合同目标、精确16GiB/free16存储函数及旧长EMA标量目标均有真实日志；CPU-GREEN为a8hbhnuk/bff50051、原件及日志SHA已回读校验。首次生产规则测试a3y8twu4/a4aa954a正确复现旧拒绝；首次汇总ehrgw7n1/41d81826的前三目标已通过，随后因漏传旧测试文件退出2，补传后只补缺项，原失败保持。最终归档nzf4hntw/e7b0161b exit0。
+
+原10目标准备证据保留：原生模型/数据/保存冷图实现不变，原三个模型测试方法AST逐项相同，公开full1000原件与初始51592a3d身份保持。新SCI849cfb4e/order135只独立身份/id/order/comparison_note不同，测试逐字段核科学delta0；新增EMA代码只校验静态缓存，与原SCI固定SHA一致，缓存不写入state_dict或参数EMA。正常正式CPU/精确部署及真实八rank首成功另列，当前汇总不冒充GPU证据。

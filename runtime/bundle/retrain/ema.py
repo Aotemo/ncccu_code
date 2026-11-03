@@ -105,10 +105,17 @@ class EMA:
    fixed.update(source_indices)
   elif self.rule.get('batch_norm_buffers')==0 and (dict(online.named_buffers()) or dict(self.model.named_buffers())):
    from .experiment91 import candidate
-   if (candidate()['model']not in ('vit_dino3_small','vit_dino3_base') or set(dict(online.named_buffers()))!={'network.rope.periods'}
-       or set(dict(self.model.named_buffers()))!={'network.rope.periods'}):raise ValueError('Tiny noBN EMA live buffers differ')
-   from .models import describe_vit_dino3
-   describe_vit_dino3(online);describe_vit_dino3(self.model)
+   if candidate()['model']=='eva02_base':
+    from .eva02_model import describe
+    from .experiment91 import science_configuration
+    expected=science_configuration()['initial_buffer_sha256']
+    if any(describe(model)['rope_buffer_sha256']!=expected for model in(online,self.model)):
+     raise ValueError('EVA02 static EMA RoPE buffer changed')
+   else:
+    if (candidate()['model']not in ('vit_dino3_small','vit_dino3_base') or set(dict(online.named_buffers()))!={'network.rope.periods'}
+        or set(dict(self.model.named_buffers()))!={'network.rope.periods'}):raise ValueError('Tiny noBN EMA live buffers differ')
+    from .models import describe_vit_dino3
+    describe_vit_dino3(online);describe_vit_dino3(self.model)
   if self.rule.get('frozen_bn_buffers')=='copy':
    from .imagenet_resnet import ImageNetResnetBinary
    from .efficientnet_model import EfficientNetBinary
