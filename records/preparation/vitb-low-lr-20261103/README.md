@@ -1,6 +1,8 @@
 # 原生 ViT-B 骨干低学习率对照准备
 
-[当前CPU汇总](CPU-CHECKS.json) SHA `8a3e7f62821062d59f2ab80a81b5a33d3cd1cbcf41da750259504dacd730ba65`仍覆盖4必要目标、3份源码编译与两actual public fresh。原3906410/46db60d1的4目标/3编译均实际通过，[guard6g4cx0gz](CPU-FINAL.json)为0；本次短名修正仅重跑并重新编译[一个受影响存储测试](NAME-STORAGE-GREEN.json)，三个候选目标、两份未变编译及两fresh按SHA复用。[修正汇总guarda9gsa_y1](CPU-NAME-FIX-FINAL.json) / `c75a15e4cf5d9ab310fbcb372dd7e87e0e716ed340a77e7a1d86eae48df50d78` exit0。R202已按3906410完成technical包；R203修正尚待新Git冻结及新未启动stage技术打包，无normal/新clock/GPU。现役R199/82与既定R200/R201/8635冻结不改。
+11-03 03:08[两actual technical包](TECHNICAL-PACKAGES.json)均已通过：R202冻结3906410/treebc7eeb87、SITE055282f9、原46db60d1证据及[guardp0p3xjmm](CPU-TECHNICAL-R202.json)；R203新未启动namefix冻结57348fb/tree2c55ee69、SITE228a837b、修正8a3e7f62证据及[guardulzh_ha2](CPU-TECHNICAL-R203.json)。实际生成run_name分别123/118字符。两guard均0，归档[guarduadsdh5c](CPU-TECHNICAL-ARCHIVE.json) / `7e4537b048e9855cbeebc0f91dfdcab00bef2615dba9585ed9e4241c15438cc2` exit0；原failed stage与R202包不回写，均无normal/formal-clock/GPU。只扩原准备助手必要身份/证据参数，[精确patch](NEXT-PREPARE-IDENTITIES.patch)与实际SHA13b8928a已归档，原7fc助手及其storage修复段保持，不改现役冻结包或新增运行链。
+
+[当前CPU汇总](CPU-CHECKS.json) SHA `8a3e7f62821062d59f2ab80a81b5a33d3cd1cbcf41da750259504dacd730ba65`仍覆盖4必要目标、3份源码编译与两actual public fresh。原3906410/46db60d1的4目标/3编译均实际通过，[guard6g4cx0gz](CPU-FINAL.json)为0；本次短名修正仅重跑并重新编译[一个受影响存储测试](NAME-STORAGE-GREEN.json)，三个候选目标、两份未变编译及两fresh按SHA复用。[修正汇总guarda9gsa_y1](CPU-NAME-FIX-FINAL.json) / `c75a15e4cf5d9ab310fbcb372dd7e87e0e716ed340a77e7a1d86eae48df50d78` exit0。现役R199/82与既定R200/R201/8635冻结不改。
 
 R203原[技术失败guardehsrg7o5](CPU-FAILED-TECHNICAL-R203.json) / `25498412e8d8f9ede71a6c6a7b7e9208b70ee586145e8565e09ce312ba08dbe6`保留。[实际生成配置诊断](ROUND-NAME-CAUSE.json)确认run_name为135字符，超原128限制；短round `r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103`生成118字符，原校验器接受。只改存储精确键及fixture名，不改SCI、模型、训练值或校验器，不放宽限制。失败包无formal、GPU allocation、clock或真实round，保持原样；修正使用新未启动prep，不能把原失败当科学阴性。R202原技术包/source390及其46db证据不回写。
 
