@@ -8,8 +8,8 @@
 
 [R224完整所选](../R224/R224-RESULT.json) .9859528881未过R107/R120双门，R225不eligible且未激活，R226按预定后备问题接续。相同fit图、首视图、mask/学习随机流及1600预算下，以局部归一化梯度替换RGB重建；Sobel/9方向/8px cell、逐cell L2归一化、只hidden HOG cell的MSE。临时decoder丢弃，随后完整R107监督合同保持。没有额外任务图、标签/age用于SSL或旧teacher；HOG不等于真实视盘定位，不能恢复512外信息。依据、固定合同和必要实现边界见[准备记录](../preparation/hog-reconstruction-20261103/README.md)。
 
-完整内部AUROC主判，附AP及相对R107/R120/R115/R224的原固定20/其余147修复和新增错序；仅严格双门后做固定seed27的R227。R227当前仅technical，官方保持≥.996完整selected后一次，当前未运行。
+完整内部AUROC主判，附AP及相对R107/R120/R115/R224的原固定20/其余147修复和新增错序；仅严格双门后做固定seed27的R227。R227于20:24完成[正式18/18及精确部署](../preparation/local-invariance-20261103/R227-FORMAL-READY.json)，原21db/SCIcdc9822a、actual SITE9a890d5b/91507a65，无activation/clock/dispatch。官方保持≥.996完整selected后一次，当前未运行。
 
-清理R224后的历史快照为2250 success=attempt/0skip/c2、暂best .9796662456305968/AP .7752608467207747。原R2248权重已释放5.941GB逻辑字节，当前R226及三KEEP/CSV/数据缓存保护。20:19准备池预登记的[局部一致性后备](../../todo/auroc-999/R228-R229-FIT-LOCAL-20261103.md)已14必要目标/真实公开Small-P8及冷derived/资源guard通过，尚待新Git冻结和正式包，无新GPU，不改变现役21db。
+清理R224后的历史快照为2250 success=attempt/0skip/c2、暂best .9796662456305968/AP .7752608467207747。原R2248权重已释放5.941GB逻辑字节，当前R226及三KEEP/CSV/数据缓存保护。20:25 [最新观测](R226-PROGRESS-local-formal-ready.json)为5850 success=attempt/0skip/c7/bad1，暂EMA best仍.9851316872；预登记[局部一致性后备](../../todo/auroc-999/R228-R229-FIT-LOCAL-20261103.md)已14必要目标/真实Small-P8冷derived/资源guard、be5b5fa8同步/2622全树及正式18/18/精确部署。R228actual SITE84b5108e，无activation/clock/新GPU，不改变现役21db。
 
 [接续间隙](R226-HANDOFF-GAP.json)：R224整轮结束至dispatch178.326秒、首SSL272.288秒、自然首25记录281.744秒，均≤300。末监督更新至首SSL369.896秒包含旧轮评估/收尾，不能称GPU空闲。连续利用率未测，旧safe仅复用、clock/token/grant均未改。当前回执只证明新GPU链实际跑通，.995/AP>.9及raw.999均未达。

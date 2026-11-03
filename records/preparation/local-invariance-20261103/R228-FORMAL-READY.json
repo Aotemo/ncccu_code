@@ -1,0 +1,41 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+  "git_commit": "be5b5fa82869f3b34c8dfaf3fabe552274b1eafc",
+  "tree_sha": "60d7432b4b40ebdbbb0d69298c8d673a0fcae981",
+  "science_sha256": "087564fa826c0dbb6e35d6ba5a1e9b59906691a62f88710726979dfdafc246bb",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "84b5108e54f790be241252cc419ca2637f92980236a8174cc5f502e08375a601",
+  "deployment_sha256": "81c0b276ef034d9f8333d06c19c6d8d58156ffccbfdad3face4de235e497ba27",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793737402.7546406,
+  "evidence": {
+    "formal_CPU_guard": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-pli5n3kc/CPU-RECEIPT.json",
+      "sha256": "8fd5045eb9f7eacf560d8ce0f823a7065c83d57ea896e7afcf6240238d229980"
+    },
+    "source_checks": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/REUSED-CPU-CHECKS.json",
+      "sha256": "6138f8b49e05da08a37ace7237ced07bd886816282998cf70203a30a95507be7"
+    },
+    "deployment": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/DEPLOYMENT.json",
+      "sha256": "81c0b276ef034d9f8333d06c19c6d8d58156ffccbfdad3face4de235e497ba27"
+    }
+  },
+  "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready",
+  "site_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+  "full_clock_window": {
+    "at": 1793737514.413121,
+    "remaining_seconds": 43055.948006391525,
+    "required_seconds": 31560,
+    "latest_activation_preserving_60s": 1793749010.3600693
+  },
+  "activation_called": false,
+  "dispatch_called": false,
+  "independent_GPU_rehearsal_run": false,
+  "branch_qualification_not_yet_proven": true
+}

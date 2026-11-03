@@ -1,0 +1,55 @@
+{
+  "status": "two_conditional_branches_formal_ready_without_activation",
+  "at": 1793737514.4817991,
+  "prepared": {
+    "R228": {
+      "file": "records/preparation/local-invariance-20261103/R228-FORMAL-READY.json",
+      "sha256": "5a4b94548405470ea590ebf355a4ee6d2c18b1688540e3a15eeb8a43f36eb738",
+      "site_sha256": "84b5108e54f790be241252cc419ca2637f92980236a8174cc5f502e08375a601",
+      "git_commit": "be5b5fa82869f3b34c8dfaf3fabe552274b1eafc"
+    },
+    "R227": {
+      "file": "records/preparation/local-invariance-20261103/R227-FORMAL-READY.json",
+      "sha256": "0fe0a048364e08a9abff40decc9ca07d98931d48576059ef1f23b3ce3a576e50",
+      "site_sha256": "9a890d5b4d4c79c2c5ec7e41c93d6b5f8fcc9351ed510cc84ae295f1a296de81",
+      "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89"
+    }
+  },
+  "source_verification": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/TRANSFER-VERIFICATION.json",
+    "sha256": "9d998319b917dadd6b66913443dbb4f789c5bcd620d34cc4fc6411bacae5c414"
+  },
+  "R226_progress": {
+    "status": "running",
+    "phase": null,
+    "successful_updates": 5850,
+    "attempted_updates": 5850,
+    "skipped_updates": 0,
+    "evaluated_cycle": 7,
+    "stop_reason": null,
+    "termination_reason": null,
+    "early_bad_cycles": 1
+  },
+  "R226_status_best": {
+    "best_metrics": {
+      "auroc": 0.984604288306556,
+      "ap": 0.8222901617269261,
+      "variant": "online",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 25572
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9851316871585604,
+      "ap": 0.8259593960563496,
+      "variant": "ema",
+      "cycle": 6,
+      "successful_updates": 4800,
+      "error_twice": 24696
+    },
+    "lineage_best": {}
+  },
+  "current_GPU_R226_unchanged": true,
+  "branch_not_chosen": true,
+  "old_actualsafe_repolled": false
+}

@@ -8,4 +8,8 @@
 
 首P8数学项成功但资源守卫返回2，峰值47 runnable>24（亲和性仍0–23）；随后v2在模型前被原CPU channel的env一致性校验拒绝。两失败回执保留为CPU-FIRST-P8-RESOURCE-FAILED/CPU-RETRY-BOOTSTRAP-FAILED。最终只对CPU数值计算采用12线程池及passive等待，仍在原24核mask/配额内通过原guard，无规则放松、训练资源改动或信号。
 
-Git同步、正式包和实际GPU证据分别记录；准备检查不构成收益。R229仅R228完整selected严格超过R107和R120后才可激活；R226双门通过时优先原R227。当前活跃冻结21db源码不改，没有额外任务图片、teacher或新资源。
+Gitbe5b5fa8/tree60d7432b已push/API回读，Pod[2622文件全树bytes/mode核验](TRANSFER-VERIFICATION.json)及[R228/R229两技术包](TECHNICAL-PACKAGES.json)通过，源码按已通过14目标SHA复用。R228[正式18/18及精确部署](R228-FORMAL-READY.json)通过，actual SITE84b5108e、部署81c0b276，正式guard8fd5045e；ready=`r228-20261103-4e0c-ready`。公开初态50c6、345全训/5空组；无GPU预演或正式clock。实际分布式几何和首成功仍待未来自然更新证明。
+
+同时将原21db HOG的条件seed27 [R227正式18/18](R227-FORMAL-READY.json)预先准备，91507a65/actual SITE9a890d5b/部署106a40e9、guard30d9f4b5；ready=`r227-20261103-4e0c-ready`。两分支均无activation/clock/dispatch，full clock+60秒窗口在[汇总](READY-VERIFICATION.json)时间点均足额，真实启动前重核，旧grant不改。R229仅technical，不能因CPU准备等同于晋级。
+
+准备检查不构成收益。R229仅R228完整selected严格超过R107和R120后才可激活；R226双门通过时优先原R227。当前活跃冻结21db源码不改，没有额外任务图片、teacher或新资源。完整CPU P8 task128.253秒，最终峰值24 runnable/24核、亲和性无越界；首失败与v2拒绝原件保留。

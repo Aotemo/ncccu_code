@@ -1,0 +1,13 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "at": 1793737350.8747303,
+  "git_commit": "be5b5fa82869f3b34c8dfaf3fabe552274b1eafc",
+  "tree_sha": "60d7432b4b40ebdbbb0d69298c8d673a0fcae981",
+  "source_files": 2622,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/source-git",
+  "remote_commit_sha256": "418db1759589ae6a5fc062a957a4e2f9632ab5702ce82e6352ca75f964d91dbb",
+  "remote_tree_sha256": "2492774032a69de91c01e76f0f599270d0cad53868cc2d515a64884b658f4476",
+  "affected_checks_reused": 14,
+  "checks_sha256": "828f37f56580cd5464ef587c9f03897ec09fe5ad4f8386782a7628b9943e5580",
+  "new_forward_or_GPU": false
+}
