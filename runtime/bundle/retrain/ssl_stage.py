@@ -21,6 +21,19 @@ from .vicreg import gather_embeddings, vicreg_loss
 from . import engine as single
 
 
+LOCAL_RECIPE = {'version': 'fit-local-photometric-1600-v1', 'updates': 1600,
+    'global_batch': 64, 'per_rank_batch': 8, 'training_views': 2,
+    'image_size': 512, 'training_scale': [0.85, 1.0],
+    'projector': [768, 1024, 256], 'backbone_lr': 1e-4,
+    'projector_lr': 1e-3, 'weight_decay': 1e-4,
+    'warmup_updates': 160, 'final_lr_factor': 0.01,
+    'gradient_clip': 1.0, 'precision': 'fp32',
+    'shared_view_geometry': True, 'local_grid': [16, 16],
+    'target': 'same_position_independent_photometry', 'loss': 'local_token_vicreg',
+    'learning_rng_domain': 'r115-fit-vicreg-1600-v1',
+    'sampling_rng_domain': 'r115-fit-vicreg-1600-v1'}
+
+
 def validate_recipe(recipe, job, manifest, world):
     """The science file fixes this one recipe; labels and dev never enter the phase."""
     expected = {'version': 'r115-fit-vicreg-1600-v1', 'updates': 1600,
@@ -36,6 +49,8 @@ def validate_recipe(recipe, job, manifest, world):
     if recipe.get('version') == 'fit-masked-hog8-1600-v1':
         from .masked_reconstruction import HOG_RECIPE
         expected = HOG_RECIPE
+    if recipe.get('version') == LOCAL_RECIPE['version']:
+        expected = LOCAL_RECIPE
     if recipe != expected or world != 8 or job['model'] != 'convnext_small' or job['image_size'] != 512:
         raise ValueError('registered fixed fit-only SSL recipe/topology differs')
     indices = manifest['fit_indices']
@@ -103,6 +118,14 @@ class SSLModel(nn.Module):
     def forward(self, images):
         value = self.avgpool(self.features(images))
         return self.projector(self.final_norm(value).flatten(1))
+
+
+class LocalSSLModel(SSLModel):
+    def forward(self, images):
+        value = self.features(images).permute(0, 2, 3, 1)
+        value = torch.nn.functional.layer_norm(value, (768,),
+            self.final_norm.weight.reshape(768), self.final_norm.bias.reshape(768), self.final_norm.eps)
+        return self.projector(value)
 
 
 def _derived_state(binary):
@@ -174,6 +197,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     domain = recipe['version']
     masked = domain in ('fit-masked-rgb32-1600-v1', 'fit-masked-hog8-1600-v1')
     hog = domain == 'fit-masked-hog8-1600-v1'
+    local = domain == LOCAL_RECIPE['version']
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -182,7 +206,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
         from .masked_reconstruction import MaskedReconstructionModel, spatial_mask, masked_l1, hog_target, masked_hog_mse
         model = MaskedReconstructionModel(binary, projector_seed=rng['projector_seed'], target='hog' if hog else 'rgb')
     else:
-        model = SSLModel(binary, projector_seed=rng['projector_seed'])
+        model = (LocalSSLModel if local else SSLModel)(binary, projector_seed=rng['projector_seed'])
     model = model.to(ctx.device)
     wrapped = ctx.wrap(model)
     public_digest = tensor_digest(binary.state_dict())
@@ -213,7 +237,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     optimizer = _optimizer(model)
     dataset = ImageDataset(data_root, manifest['rows'], 512, training=True,
         normalization='imagenet', prepared_size=512, age=None,
-        training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False)
+        training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False,
+        shared_view_geometry=local)
     sampler = UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
         updates=1600, rank=ctx.rank, world=ctx.world_size)
     loader = DataLoader(dataset, batch_sampler=sampler,
@@ -237,10 +262,15 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                 loss = (masked_hog_mse(prediction.float(), hog_target(images), mask[:, :, ::8, ::8]) if hog
                         else masked_l1(prediction.float(), images.float(), mask))
             else:
-                embeddings = wrapped(images.reshape(16, 3, 512, 512)).reshape(8, 2, 256)
-                z1 = gather_embeddings(embeddings[:, 0])
-                z2 = gather_embeddings(embeddings[:, 1])
-                if z1.shape != (64, 256) or z2.shape != (64, 256):
+                embeddings = wrapped(images.reshape(16, 3, 512, 512))
+                expected_embedding_shape = (16, 16, 16, 256) if local else (16, 256)
+                if embeddings.shape != expected_embedding_shape:
+                    raise ValueError('SSL actual per-view embedding geometry differs')
+                embeddings = embeddings.reshape(8, 2, *expected_embedding_shape[1:])
+                z1 = gather_embeddings(embeddings[:, 0].reshape(-1, 256))
+                z2 = gather_embeddings(embeddings[:, 1].reshape(-1, 256))
+                expected_global_shape = (16384, 256) if local else (64, 256)
+                if z1.shape != expected_global_shape or z2.shape != expected_global_shape:
                     raise ValueError('SSL actual global two-view embedding geometry differs')
                 loss = vicreg_loss(z1.float(), z2.float())
             if ctx.any(not bool(torch.isfinite(loss))):
@@ -260,8 +290,9 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                 with (folder / 'metrics.jsonl').open('a') as stream:
                     stream.write(json.dumps({'phase': 'fit_only_ssl', 'successful_updates': update,
                         'primary_inputs': 64, 'view_inputs': 64 if masked else 128,
-                        'global_embedding_shape': None if masked else [64, 256],
+                        'global_embedding_shape': None if masked else list(z1.shape),
                         'spatial_masked_blocks_per_image': 154 if masked else None,
+                        'spatial_tokens_per_primary': 256 if local else None,
                         'finite_loss_and_gradient': True,
                         'loss': float(loss.detach()), 'lr_factor': factor, 'at': time.time()}) + '\n')
                 atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',

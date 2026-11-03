@@ -379,7 +379,7 @@ class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
     def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
                  training_scale=None, training_views=None, include_labels=True, training_photometric=None,
-                 training_rotation=None, input_preprocessing=None):
+                 training_rotation=None, input_preprocessing=None, shared_view_geometry=False):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01', 'clip'):
@@ -413,6 +413,12 @@ class ImageDataset:
         self.include_labels = bool(include_labels)
         self.training_photometric = training_photometric
         self.training_rotation = training_rotation
+        if type(shared_view_geometry) is not bool or (shared_view_geometry and (
+                not training or self.training_views != 2 or include_labels or age is not None
+                or normalization != 'imagenet' or training_photometric is not None
+                or training_rotation is not None or input_preprocessing is not None)):
+            raise ValueError('shared geometry requires label-free default two-view training')
+        self.shared_view_geometry = shared_view_geometry
         self.age = age
         if age is not None:
             from .age import validate_spec
@@ -461,8 +467,11 @@ class ImageDataset:
         if self.training and self.training_views == 2:
             # Each view starts from the same unaugmented image. The first view
             # keeps the original sample-key seed and its exact augmentation flow.
-            tensor = torch.stack((self._image_tensor(image.copy(), augmentation_seed),
-                                  self._image_tensor(image.copy(), _seed(augmentation_seed, 'training-view', 1))))
+            first = self._image_tensor(image.copy(), augmentation_seed)
+            second_seed = _seed(augmentation_seed, 'training-view', 1)
+            second = (self._image_tensor(image.copy(), augmentation_seed, photometric_seed=second_seed)
+                      if self.shared_view_geometry else self._image_tensor(image.copy(), second_seed))
+            tensor = torch.stack((first, second))
         else:
             tensor = self._image_tensor(image, augmentation_seed)
         if not self.include_labels:
@@ -475,7 +484,7 @@ class ImageDataset:
             return (*result, torch.tensor(features(row,self.age),dtype=torch.float32))
         return result
 
-    def _image_tensor(self, image, augmentation_seed):
+    def _image_tensor(self, image, augmentation_seed, photometric_seed=None):
         from PIL import Image, ImageEnhance, ImageOps
         import numpy as np
         import torch
@@ -503,15 +512,17 @@ class ImageDataset:
             rng = random.Random(int(augmentation_seed))
             if rng.random() < .5:
                 image = ImageOps.mirror(image)
-            if self.training_photometric == 'identity-v1':
-                # Keep the historical draw count and positions so geometry and the
-                # sample-key random stream are unchanged; the factors are unused.
-                for _ in range(3):
-                    rng.uniform(.9, 1.1)
-            else:
-                image = ImageEnhance.Brightness(image).enhance(rng.uniform(.9, 1.1))
-                image = ImageEnhance.Contrast(image).enhance(rng.uniform(.9, 1.1))
-                image = ImageEnhance.Color(image).enhance(rng.uniform(.9, 1.1))
+            factors = [rng.uniform(.9, 1.1) for _ in range(3)]
+            if photometric_seed is not None:
+                # Preserve both original streams: geometry replays view zero,
+                # photometry uses view one's three factors after its mirror draw.
+                photo_rng = random.Random(int(photometric_seed))
+                photo_rng.random()
+                factors = [photo_rng.uniform(.9, 1.1) for _ in range(3)]
+            if self.training_photometric != 'identity-v1':
+                image = ImageEnhance.Brightness(image).enhance(factors[0])
+                image = ImageEnhance.Contrast(image).enhance(factors[1])
+                image = ImageEnhance.Color(image).enhance(factors[2])
             angle = rng.uniform(-15, 15)
             if self.training_rotation != 'identity-v1':
                 image = image.rotate(angle, resample=Image.Resampling.BILINEAR,

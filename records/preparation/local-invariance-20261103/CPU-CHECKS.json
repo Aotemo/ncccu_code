@@ -1,0 +1,84 @@
+{
+  "status": "fourteen_affected_targets_passed",
+  "targets": 14,
+  "compiled_sources": 5,
+  "reports": [
+    {
+      "name": "VIEWS-GREEN",
+      "targets": 5,
+      "wall_seconds": 4.378826141357422,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/VIEWS-GREEN.log",
+      "log_sha256": "9f8881a8b7e1e3b3cf713501f5abba2505dc651e8f709d91475e982b80dca648"
+    },
+    {
+      "name": "SSL-GREEN",
+      "targets": 4,
+      "wall_seconds": 7.600290060043335,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/SSL-GREEN.log",
+      "log_sha256": "c15a6e6555890d0cfc6c05dab56c45842ac1387c602619f9fbd41a5818117269"
+    },
+    {
+      "name": "PHOTOMETRIC-GREEN",
+      "targets": 3,
+      "wall_seconds": 4.226466417312622,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/PHOTOMETRIC-GREEN.log",
+      "log_sha256": "ab33ef04d2315aaa6712bb8270ffb1286b897a910ca9f79ee4b9611309da7cf8"
+    },
+    {
+      "name": "MASKED-COMPAT-GREEN",
+      "targets": 2,
+      "wall_seconds": 5.430357217788696,
+      "log": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/MASKED-COMPAT-GREEN.log",
+      "log_sha256": "ce076d08d7f970cace177903d5c785edaf24ffc7db6c7db51925b475e569a396"
+    }
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a",
+    "runtime/bundle/retrain/ssl_stage.py": "7b7f1a125c781e6634f801aa7ff07d7a40d8b91ca71b71cef592c00cf1595244",
+    "runtime/bundle/retrain/experiment91.py": "64d3f5380e6f768e49c3091e93f9a1e899b3066b5680d85d841412dbe61fc1c8",
+    "tests/test_training_views.py": "9929441988447c5fec8a45b8f8a45e3c185fb146db6a8db5931fc576d2b6fba2",
+    "tests/test_ssl_stage.py": "28905cdf987278b7474b61b68616511c3fc52b82a1d3b61e7a936d0c553e2655"
+  },
+  "configuration_files": {
+    "configs/R228-SCIENCE.json": "087564fa826c0dbb6e35d6ba5a1e9b59906691a62f88710726979dfdafc246bb",
+    "configs/R229-SCIENCE.json": "e8e58eb014b48012618c8f65fce68986a2fa794752538bcfb29415665b6bb0ab"
+  },
+  "active_frozen_files_modified": false,
+  "GPU_started": false,
+  "at": 1793737175.1698127,
+  "actual_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/ACTUAL-P8-CPU-v3.json",
+    "sha256": "8ea529cf8a9367d7c1ab9ef70caed34878f2698b9a3bbfbfd04fff97b281b559"
+  },
+  "actual_P8_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-w5n7yu2s/CPU-RECEIPT.json",
+    "sha256": "d3617a1ab87963c4d2f322eac869b3ec22f80af98c203a197c57071f4e83e0c5"
+  },
+  "red_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/RED.json",
+    "sha256": "048df391058d66143449d5ad9980ac86910767984e1026d3d7fb665debcc4b20",
+    "cpu_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-5ht9chr_/CPU-RECEIPT.json",
+    "cpu_receipt_sha256": "00883c0b4a390c89bab39136908e22a1d5ebef15c05cf39acc8bc96f25b5b23a"
+  },
+  "green_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/local-invariance-20261103-4e0c/GREEN-SUMMARY.json",
+    "sha256": "5a423dad95db3b80ba9bb2f6a6dfb6179e69e71d33d1c447e66c5653b6b1c8f5",
+    "cpu_receipt_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-tkae__oz/CPU-RECEIPT.json",
+    "cpu_receipt_sha256": "2f7045cd1b722ce13f27ac30a61de67e987297233aefaf1762026409f21c5f1d"
+  },
+  "unchanged_implementation_files": {
+    "runtime/bundle/retrain/vicreg.py": "018907a9643d852ad24f83acbb7f3e53021ab1539b868b08422cfd5665b5cb01",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/distributed_engine.py": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "runtime/bundle/retrain/parallel_evaluation.py": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "runtime/r115_ssl_gate.py": "a7bf8ef2faf50281da3bada1c52894dfa504a61aa64315c79f35f979288aea31",
+    "runtime/r92_initial_gate.py": "704b0fc29f441a47eec7e87aa54e044634904dd76da88d71c2a0939524bef3a3",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "tools/validation/check_candidate.py": "fa47a07f21376bddf9692b48ca53068c9783c587b7d37d176a1c9e57d00756be",
+    "tools/observer/observe_round_once.py": "c4ff39e91c47c9cfd69da05bd8df8fd8ee0125b29f17f72b1ba4dc1a2dc6f296",
+    "configs/RESOURCE-POLICY.json": "0b1a5f9509251c383c0b0103419d0ab673f92dc2a8269bfa5971d3c5123ea063"
+  }
+}

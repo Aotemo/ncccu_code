@@ -37,6 +37,56 @@ class TrainingViewsTest(unittest.TestCase):
         self.row = {'name': 'synthetic.png', 'relative_path': 'train/synthetic.png',
                     'sha256': 'a' * 64, 'label': 1, 'age': 51}
 
+    def test_label_free_shared_geometry_preserves_first_view_and_independent_photometry(self):
+        import torch
+        from PIL import ImageEnhance
+        from types import SimpleNamespace
+        seed = 20261029
+        # Accessing either field would violate the label-free boundary.
+        class ImageOnlyRow(dict):
+            def get(self, key, default=None):
+                if key in ('label', 'age'):
+                    raise AssertionError('SSL accessed label or age')
+                return super().get(key, default)
+        row = ImageOnlyRow({key: value for key, value in self.row.items() if key not in ('label', 'age')})
+        with patch.object(data, 'configured_cache', return_value=None):
+            single = data.ImageDataset(self.root, [row], 64, True, include_labels=False)
+            paired = data.ImageDataset(self.root, [row], 64, True, include_labels=False,
+                                       training_views=2, shared_view_geometry=True)
+        first, index = single[(0, seed)]
+        views, paired_index = paired[(0, seed)]
+        self.assertEqual((index, paired_index), (0, 0))
+        self.assertTrue(torch.equal(first, views[0]))
+        self.assertFalse(torch.equal(views[0], views[1]))
+        self.assertTrue(torch.equal(views, paired[(0, seed)][0]))
+        factors = []
+        def identity_photo(image):
+            def enhance(factor):
+                factors.append(factor)
+                return image
+            return SimpleNamespace(enhance=enhance)
+        with patch.object(ImageEnhance, 'Brightness', side_effect=identity_photo), \
+                patch.object(ImageEnhance, 'Contrast', side_effect=identity_photo), \
+                patch.object(ImageEnhance, 'Color', side_effect=identity_photo):
+            geometry_only, _ = paired[(0, seed)]
+        self.assertTrue(torch.equal(geometry_only[0], geometry_only[1]))
+        expected = []
+        for photo_seed in (seed, data._seed(seed, 'training-view', 1)):
+            rng = BaseRandom(photo_seed)
+            rng.random()
+            expected.extend(rng.uniform(.9, 1.1) for _ in range(3))
+        self.assertEqual(factors, expected)
+
+    def test_shared_geometry_is_limited_to_label_free_default_two_view_training(self):
+        options = {'training_views': 2, 'include_labels': False, 'shared_view_geometry': True}
+        for changed in ({'training_views': 1}, {'include_labels': True}, {'training_photometric': 'identity-v1'},
+                        {'training_rotation': 'identity-v1'}, {'normalization': 'unit'}, {'age': {'enabled': False}}):
+            with self.subTest(changed=changed), patch.object(data, 'configured_cache', return_value=None), \
+                    self.assertRaises(ValueError):
+                data.ImageDataset(self.root, [self.row], 64, True, **(options | changed))
+        with patch.object(data, 'configured_cache', return_value=None), self.assertRaises(ValueError):
+            data.ImageDataset(self.root, [self.row], 64, False, **options)
+
     def render(self, views=None, *, seed=20261029, training=True, cached=False, with_age=False):
         from retrain import age
         traces = []
