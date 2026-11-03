@@ -1,5 +1,7 @@
 # 未启动准入授权留足准备窗口
 
+14:13新源码87cc919实际push/API回读，独立ready-headroom两technical及[R218/R219各normal18/18和精确部署](../../records/preparation/gpu-allocation-headroom-20261103/READY-VERIFICATION.json)均0，实际新grant各43200秒、clock仍31500，无formal clock/GPU；2369源文件已按远端完整tree核到bytes/mode。两SCI/345全训/五空组/初态91507a65与568263ab均相符，7目标5compile原证据复用，归档guardk_dml2hc/b831811f0。当前R217冻结不改；原b8 technical目录保留，尚未执行后备四调用。
+
 14:03[CPU实际核验](../../records/preparation/gpu-allocation-headroom-20261103/README.md)已通过，policy仅该字段变化、原native guard复用/实时120核两池完全一致、4现有unit方法通过，guardj5ymtrey/9dde8d2d exit0；新policy SHA0b1a5f95。原7目标5compile/两fresh与SCI/CLOCK原SHA保持。尚待Git同步/新未启动绑定和实际43200秒formal消费，无clock/GPU；以下为14:01设计时状态。
 
 14:01基于R213/R217旧未启动阶段因窗口不足而另绑的实际记录，最小修复仅`configs/RESOURCE-POLICY.json`的`gpu_allocation_max_seconds`从32400改43200。原完整clock31500+预检60只给840秒提前准备余量；新固定上限给11640秒（3小时14分）。这是同一既有实例的软件准入有效期，不增加计算资源或运行时钟；24k/800/patience4、SCI/模型/优化器/EMA/数据/官方不变，不改活跃R217、任何旧grant/clock/token/冻结包。

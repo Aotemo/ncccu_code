@@ -1,5 +1,7 @@
 # R218/R219：条件 EMA 复核与 Small12k 公开初始化
 
+14:16当前接续源改为已push/API回读的87cc919（仅未来resource-policy准入上限12小时；两SCI/生产Python不变）。[两新ready-headroom正式CPU各18/18及精确部署](../../records/preparation/gpu-allocation-headroom-20261103/READY-VERIFICATION.json)全部通过，actual SITE分别37a6d4ae/5c4672b8、native CPU cc8974da/05e8ffbd，原7目标5compile/两fresh精确复用。两actual grant各43200秒、CLOCK31500不变，2369源文件bytes/mode核对完整，原b8包不改。原四调用仅替换实测参数，尚未执行，无formal clock/GPU；完整R217双门决定R218，否则R219，actualsafe后一次串行接续。R217最新10300 success=attempt/0skip/c12/bad0，暂EMA .987524247704069，未selected；当前冻结不改。
+
 14:04[准备授权窗口修复](GPU-ALLOCATION-HEADROOM-20261103.md)CPU已通过：仅资源配置未来GPU准入上限9→12小时，原训练clock31500/两SCI/原7目标5compile身份完全不变。将使用独立ready-headroom未启动阶段提前完成两normal与精确部署，原b8 technical包及当前R217不热改；当前尚待新Git同步/绑定/实际新grant，无新clock/GPU。
 
 13:35[现有Git源树核验函数](../../records/preparation/small12k-20261103/TRANSFER-VERIFICATION.json)已对2337文件的清单/bytes/mode逐项核到b8完整远端tree，guardu9t5mhon/08a1bb38 exit0；无新formal allocation/clock/GPU。两technical/原7目标5compile保持，normal及包级精确部署仍临近当前轮收尾时完成，避免旧漏文件失败重现。当前R21713:33实观4900 success=attempt/0skip/c6/bad0，暂EMA .985093155735583，尚无完整selected，原冻结不改。

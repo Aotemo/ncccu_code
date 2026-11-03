@@ -1,5 +1,7 @@
 # R218/R219：Small12k 来源和绑定 CPU 证据
 
+14:16[新未启动headroom阶段](../gpu-allocation-headroom-20261103/READY-VERIFICATION.json)已经87cc919 push/API回读、两normal各18/18及精确Git部署；仅未来准入授权9→12小时，当前训练clock、SCI、模型/来源/生产Python保持。原本页7目标5compile/两public fresh按SHA直接复用，未重跑模型、未改原b8技术包。实际新SITE分别37a6d4ae/5c4672b8，新grant均43200秒；无formal clock/GPU。以下为原来源/模型证据。
+
 [CPU-CHECKS.json](CPU-CHECKS.json) SHA `98ae50cd1c8cfe4b6e2c171c24be526543454e16750cd761a378d81686fde15b`：7个受影响目标、5源码编译及两完整public fresh通过；[最终guard](CPU-FINAL-GUARD.json) tt0qtfwv/b890d1c3 exit0。原件`exp-v3/technical-prep/small12k-source-screen-20261103-32e3`，d837/root0–11/nice19/隐藏GPU，与当前R217训练24–119互斥。
 
 固定`timm/convnext_small.in12k_ft_in1k_384` / revision e9f96b3e，public/non-gated/Apache2；fixed API/config/card的Git blob逐字节匹配，完整许可SHAcfc7749b。原bin201017809 B/SHA0a127fb2已Pod完整核验。实际生产download新profile先RED（未登记，exit2），最小扩展后GREEN；旧small224 API/CLI默认、旧常量和旧源分支保持。没有用mock替代下载或来源证明。
