@@ -1,5 +1,7 @@
 # R193 后续固定日程假设实施计划
 
+R195已完整6400/c8/bad4，唯一EMA c4@3200内部AUROC `.9861756478998568` / AP `.8220377066729916`，两门false/官方未跑/[actualsafe](../../records/R195/R195-COMPLETION.json)。R196不eligible；独立fresh[R197已真实八rank/首25通过](../../records/R197/README.md)，冻结436/SCI6000c2a8，R195旧safe不重查。整轮结束→设备169.297秒/首25为245.468秒；末次训练日志→设备244.331秒/首25为320.502秒，末项超300、连续空闲未测，如实记录。原693及clock/grant/原freeze不改，下文为历史时点。
+
 R193已完整6400/c8/bad4、唯一EMA c4@3200内部AUROC `.9838854364466322`，两门false/官方未跑/actualsafe，[终态](../../records/R193/R193-RESULT.json)已取得；R194不eligible。独立R195已一次窗口核验、activation/direct launch，真实八rank345全训/5空Adam/whole50c及首自然25有限通过；11-03 00:29最新475成功/0skip/eval0，见[实际接续](../../records/R195/README.md)。当前唯一GPU为R195，原693/SCI57c1d89a冻结保持；下一R196/R197仍仅436技术包。整轮结束至首25为270.654秒、末次训练日志至最晚设备266.622秒/至首25为342.405秒，最后一项超300如实分列，连续空闲未测。当前r195-pod-context.env/start-3，53ab互斥池，32e3唯一Git/GPU；下文为准备历史。
 
 11-03 00:16后备R195已在R193训练期间正常CPU18/18与精确Git部署通过，guardysz2jcsg SHA `047b6346b69305cdb97054f5fb2cea0549f029b0a66359ac1b461e1776deb76a` exit0。固定693d48c/tree6a0f3392、SCI57c1d89a、whole50c6/345全训/5空Adam；实际formal SITE `5d5c56ab87fcf59d50c76eb0db51e92e337402d9fed86dd082b9779ba5614144`、manifestd3eb0094、CPU-prep20b1503b、deployment282452c1、复用2d908969。新LR边界块已随本R195完整producer实际通过，不再只称静态编译；这不等于GPU已观测到8000边界。默认12GiB/free16GiB保持，未新clock/activation/GPU。当前R1935850成功/0skip/eval7/bad3，原2a冻结保持；完整严格双门才R194，否则独立R195，actualsafe后一次窗口/activation/direct launch，不重复normal或等待文档。

@@ -1,0 +1,33 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/gamma-20261102-32e3/source-git/records/preparation/gamma-20261102/CPU-CHECKS.json",
+    "sha256": "24b6ead934fffbb8079db96ebdc2efb1b4a351500dd76cc08a4d8cf9f59ae1a7"
+  },
+  "source_files": {
+    "tests/test_round_storage_policy.py": "cb59982cfbe949595b1f37063789b52c4be17dfd3ea3d9956e1ca37702ad0bb6",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "tests/test_candidate_binding.py": "66253a665690f5231f45da68fce7fd59aefba8c24117e22ad2f73aef7471fc63",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tools/validation/check_candidate.py": "06fe5fa5b69a1051b91260af7765b91e820b380e3727d663dd53718fd2c2a46f",
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "runtime/bundle/retrain/experiment91.py": "a85bc85c11fbc40d9a6d3a9b33c6e2a06290a1958e6c02244bb68ad6c46bcc3a",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881"
+  },
+  "science_sha256": "6000c2a8366ce1464032e1bc0e5801075dead535b6f868cd3c969ee4344f892c",
+  "targets_reused": 5,
+  "unchanged_implementation_files": 12,
+  "tests_rerun": false,
+  "at": 1793668270.5330212
+}

@@ -1,5 +1,11 @@
 # R195：原 Small sigmoid 的固定 8000 次衰减跨度
 
+**已完整早停结束，未达目标。** [完整结果](R195-RESULT.json)6400成功=尝试/0skip、8次评估、bad4；唯一内部选点EMA c4@3200，AUROC `.9861756478998568` / AP `.8220377066729916` / error_twice22962，严格双门均false，R196不eligible。未达内部.996，官方未运行；原freeze.status缺省null保留。实际6400结束，没有自然走到8000衰减尾点。
+
+[安全终态](R195-COMPLETION.json)于11-03 01:18:45.481实核owner Z、八rank missing、锁holders/device_users空、denied0、8PCI全部busy0；[guardvjjjmd7h](R195-CPU-COMPLETION.json) / `eba272374205ec59c018f766dd1324af46030922915daa4a805ca6f156031c32` exit0，封存后不重查safe。selected tensor `ef345d24e69aa9c9c921a740e11d71628e1344b9dfbd30e1c8a7e8e598e0c8d7`、blob `799ed0f03eadbe597e325f23a51b061574a0d889f16a7609fc8f29a816c2ea28`；CSV05c9dc29 / precisionc4583d81均由原freeze登记。
+
+已独立fresh[接续R197](../R197/README.md)，正常CPU/部署在本轮训练期间完成，新八rank/首25已实证。该较早衰减配方未胜R107/R120，不外推其他日程；无官方或逐样本标签改动。下文“尚无selected”等为初始运行时点。
+
 11-03 00:32:32.511 UTC的[既有监控单次快照](R195-DEVICE-POINT.json)八绑定PCI全部可读、busy均100%；这是瞬时观察，未测连续利用率。[CPU回执](R195-CPU-DEVICE-POINT.json)khkjd_93/`16beaff5f764a9347bc278d7622340af6292b7af4bb1af3ed93e1ea4e785f70e` exit0，0 GPU API/forward/模型构建，未改运行。
 
 [真实八rank初态及首自然25](R195-START.json)通过：345全训张量、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致；WORLD8/G64P8/448对、各rank8输入、有限loss `.931303858757019`。11-03 00:29最新475成功=尝试、0skip、eval0，八rank活跃；尚无完整selected或官方结果，raw `.999`未达。

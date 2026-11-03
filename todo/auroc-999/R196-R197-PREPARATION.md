@@ -1,5 +1,7 @@
 # R195 之后固定曝光增强假设施工计划
 
+11-03 01:23当前唯一GPU已为独立fresh[R197](../../records/R197/README.md)：正常CPU18/18/部署后窗口、一次activation/direct launch均0，八rank345全训/5空Adam/whole50c与自然首25有限、WORLD8/G64P8/448实际通过，最近175success/0skip/eval0；新r197-pod-context.env/start-2绑定当次UID/53ab。R195完整6400/c8/bad4、EMA c4 `.9861756478998568`、双门false/官方未跑/actualsafe，R196不eligible；不重查旧safe或改693冻结。当前436保持，后续R198/R199只82add93技术包；末次训练日志→首25为320.502秒仍>300，连续空闲未测。下文未启动描述为历史时点。
+
 11-03 01:11后备R197已在R195/bad3训练期间完成[正常CPU18/18与精确部署](../../records/preparation/gamma-20261102/NORMAL-R197.json)：436ae5b/tree3613123a、SCI6000c2a8、原whole50c6/345全训/5空Adam、SITE8bbbdd43，guardok8kthh7 / `5f75d9af5c3c2cdf12a6b204b66ff60b47fd8ae3640e15377fe72f0dd136ae0a` exit0。尚未clock/activation/GPU；完整R195严格双门才R196，否则独立R197，actualsafe后只核窗口/一次接续，不重复normal。01:07实核peer idle/无activeTurn，32e3唯一Git/GPU；不唤醒或派生Agent。
 
 23:57两[实际technical包](../../records/preparation/gamma-20261102/TECHNICAL-PACKAGES.json)已固定436ae5b/tree3613123a，R196 SITE737d93b7/guard6429n469与R197 SITEd26295ea/guardm026ckp2均0；归档s8jndylw/f25e2958…30c5 exit0。无normalformal/新GPU allocation/clock/GPU；只在既定R195之后接续，不混入当前R193/2a或先行693。下文23:55“尚未Git冻结/technical包”为当时状态。

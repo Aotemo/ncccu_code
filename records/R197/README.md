@@ -1,0 +1,11 @@
+# R197：原 Small sigmoid 的独立 fit gamma 增强
+
+[真实八rank初态与首自然25](R197-START.json)已通过：345全训、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致，WORLD8/G64P8/448对、各rank8图，有限loss `.9216874241828918`。11-03 01:23最近175 success=attempt/0skip/eval0，八rank活跃，尚无完整selected或官方结果；raw `.999`未达。
+
+仅直接R120原Small/public fe6/seed20261029/512/FP32/ImageNet/sigmoid新增fit `gamma-reciprocal075-v1`。原八次sample-key几何/光度抽样后，以独立流等概率选`.75,1,4/3`，同RGB查表`round(255*(i/255)**gamma)`，转张量/原normalization前应用；eval不变。原backbone1e-4/head-age1e-3/default AdamW/WD1e-4与原24000余弦保持，不叠半LR、8000跨度或后续WD=.05。最多24000成功更新/每800内部评估/p4早停/EMA1600与唯一内部AUROC选择保持；固定曝光鲁棒性是假设，未证明临床机制或收益。
+
+冻结commit `436ae5b72dd51bbd567e7e5df60762e44ccb70bf` / tree `3613123ab20606aa68e427026de1fc5bcb2f1c64`、SCI `6000c2a8366ce1464032e1bc0e5801075dead535b6f868cd3c969ee4344f892c`、actual SITE `8bbbdd4394aeba44933d6151a804cfe632322cfcda6eb19c328072a0c8fb9298`。完整344张量公开fe6来源与原R120相同，未用本任务checkpoint/teacher/医学初始化。[正常CPU18/18与精确部署](R197-PREPARATION.json)在R195/bad3仍训练时一次完成，[五受影响目标/五编译](../preparation/gamma-20261102/README.md)按[精确SHA复用](R197-CPU-REUSE.json)，原像素/独立RNG/配置/schema及两actual fresh有CPU证据；未重跑未变模型/P8/EMA/cold/WORLD或独立GPU预演。[准备](R197-CPU-PREPARE.json)、[一次activation](R197-CPU-ACTIVATION.json)、[自然首成功观测](R197-CPU-FIRST-SUCCESS.json)guard均0。默认12GiB/free16GiB保持。
+
+R195完整6400/c8/bad4、EMA c4 AUROC `.9861756478998568`，严格两门false/官方未跑/actualsafe后，R196不eligible，独立本轮。[实际交接](R197-HANDOFF-GAP.json)：整轮结束→dispatch107.931秒/最晚八卡设备初始化169.297秒/首25记录245.468秒，均≤300；从末次训练日志起分别182.964/244.331/320.502秒，最后一项仍>300。整轮结束→安全观测36.680秒，安全观测→dispatch71.251秒；未独立分解owner收尾与观测处理，连续DCU空闲未测，不声称全部5分钟要求已证。后续进一步缩短终态发现和临界段处理，不改旧clock/token/grant或跳过必要检查。
+
+唯一Git/GPU owner32e3；01:07实核peer idle/无activeTurn，未恢复/派生Agent。准备53ab/root0–11、peer12–23保留，与训练24–119/96核互斥。新只读`work/r137-20261101-a/r197-pod-context.env`由实际start-2/当次allocation和UID生成，不source旧绑定。归档[guardjda0hmwn](R197-CPU-HANDOFF-ARCHIVE.json) / `357343d478870107d9f5666bc42d6c44da5baf5040dedb5676f9821f20e7aa5e` exit0，无新forward/模型/官方。后续R198条件gamma seed27/R199独立原R120 WD=.05仅82add93两technical包，R200/R201仅预登记；当前436冻结不改。
