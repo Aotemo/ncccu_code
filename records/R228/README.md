@@ -1,5 +1,9 @@
 # R228 fit-only 局部光度一致性实际启动
 
+完整1600次适配与八rank监督交接已实证：[完整SSL结果](R228-SSL-RESULT.json)ddbcfa0a、[监督初态及自然首成功](R228-SUPERVISED-START.json)a2a293b6、[来源回执](R228-SUPERVISED-RECEIPT.json)800c9f36/guardac89d69d。derived encoder df1d4c53，监督完整模型6126df96；345全训/5组空AdamW、原head-age及监督factory RNG恢复一致。首自然25 loss.769871175有限，G64/P8/448对/WORLD8；21:37 [当前快照](R228-PROGRESS-supervised-after-cleanup.json)为325 success=attempt/0skip/eval0，原owner及八rank保持，无完整selected或收益。
+
+sampler实际消费与记录均14997478083172343433，learning/sampling域沿R115，未复现旧R224误登记。完整SSL只用fit图、1600 success=attempt/0skip/0dev、head-age不变；观察者复用现有门及元数据，没有构建模型、加载checkpoint或执行前向。当前私有r228 env的first receipt已更新为START-OBSERVATION-supervised-1，后续用原canonical observer，原activation/clock/token/grant及冻结源码保持。下方为有时间点的准备和启动历史。
+
 21:32 [1450次适配观测](R228-PROGRESS-SSL-2.json)：owner808714及8rank同出生身份活跃，原64图/128视图/16384×256矩阵及finite loss/gradient保持，完整1600→监督交接仍待。同期R226已按Git提交及精确清单清理9个checkpoint/6.733GB逻辑字节，free实观32.320GB，三KEEP及当前R228保护不变；没有新GPU预演、训练信号、锁或clock重置。
 
 21:23 [最新真实观测](R228-PROGRESS-SSL-1.json)：675次fit适配，原owner和8rank同出生身份活跃；global64图/128视图、16384×256相关token矩阵、loss/梯度有限，监督交接尚未证明。条件[R229正式18/18/精确部署](../preparation/local-invariance-20261103/R229-FORMAL-READY.json)也已在准备池完成，actual SITEfea174de/公开91507a65，guard353905d3；未激活/无clock/dispatch，不能等同于晋级。

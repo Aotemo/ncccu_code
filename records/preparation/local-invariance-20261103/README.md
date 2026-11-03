@@ -15,3 +15,5 @@ Gitbe5b5fa8/tree60d7432b已push/API回读，Pod[2622文件全树bytes/mode核验
 准备检查不构成收益。R229仅R228完整selected严格超过R107和R120后才可激活；R226双门通过时优先原R227。当前活跃冻结21db源码不改，没有额外任务图片、teacher或新资源。完整CPU P8 task128.253秒，最终峰值24 runnable/24核、亲和性无越界；首失败与v2拒绝原件保留。
 
 后续实际：R226完整未过双门，R227不eligible/未激活；[R228已实际首25并到675适配更新](../../R228/README.md)，冻结be5b5fa8不热改。一次activation、首次CLI派发前mask拒绝、修正后唯一实际dispatch；完整入口失败/357.314秒到首SSL的间隙保留，旧clock/token/grant保持。21:21 [R229正式18/18/精确部署](R229-FORMAL-READY.json)也通过，公开91507a65、actual SITEfea174de、部署4f1fc7e9、[guard353905d3](R229-FORMAL-CPU-GUARD.json)，无activation/clock/dispatch。此前READY-VERIFICATION只代表20:25原两分支快照，不改历史回执；R229仍须R228完整晋级及启动前新窗口核验。
+
+21:37实际链路已经跨过完整1600到监督：R228 derived df1d4c53、监督初态6126df96，8rank/345全训/5空AdamW/head-age及RNG恢复、自然首25有限/G64P8/448对，实观325/0skip，见[监督回执](../../R228/R228-SUPERVISED-RECEIPT.json)。这些证明代码运行与初始化边界，不证明完整dev收益；R229资格仍未产生。
