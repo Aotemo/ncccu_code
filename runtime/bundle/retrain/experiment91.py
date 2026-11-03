@@ -28,7 +28,10 @@ FIT_LOCAL_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-
 FIT_LOCAL_BINDINGS = (FIT_LOCAL_SMALL_BINDING, FIT_LOCAL_SMALL_SEED27_BINDING)
 FIT_EMA_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitassign1600-v1'
 FIT_EMA_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fitassign1600-v1'
-FIT_EMA_BINDINGS = (FIT_EMA_SMALL_BINDING, FIT_EMA_SMALL_SEED27_BINDING)
+FIT_EMA_HORIZON_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitassign9600-v1'
+FIT_EMA_HORIZON_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fitassign9600-v1'
+FIT_EMA_HORIZON_BINDINGS = (FIT_EMA_HORIZON_SMALL_BINDING, FIT_EMA_HORIZON_SMALL_SEED27_BINDING)
+FIT_EMA_BINDINGS = (FIT_EMA_SMALL_BINDING, FIT_EMA_SMALL_SEED27_BINDING, *FIT_EMA_HORIZON_BINDINGS)
 FIT_REPRESENTATION_BINDINGS = (*FIT_MASKED_BINDINGS, *FIT_LOCAL_BINDINGS, *FIT_EMA_BINDINGS)
 FIT_SSL_BINDINGS = (FIT_SSL_SMALL_BINDING, *FIT_REPRESENTATION_BINDINGS)
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
@@ -660,18 +663,19 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] in FIT_REPRESENTATION_BINDINGS:
             from .masked_reconstruction import MASKED_RECIPE, HOG_RECIPE
             from .ssl_stage import LOCAL_RECIPE
-            from .ema_assignment import EMA_RECIPE
+            from .ema_assignment import EMA_RECIPE, EMA_HORIZON_RECIPE
             hog = value['candidate_profile'] in FIT_HOG_BINDINGS
             local = value['candidate_profile'] in FIT_LOCAL_BINDINGS
             assignment = value['candidate_profile'] in FIT_EMA_BINDINGS
-            seed27 = value['candidate_profile'] in (FIT_MIM_SMALL_SEED27_BINDING, FIT_HOG_SMALL_SEED27_BINDING, FIT_LOCAL_SMALL_SEED27_BINDING, FIT_EMA_SMALL_SEED27_BINDING)
-            number = ((231 if seed27 else 230) if assignment else
+            horizon = value['candidate_profile'] in FIT_EMA_HORIZON_BINDINGS
+            seed27 = value['candidate_profile'] in (FIT_MIM_SMALL_SEED27_BINDING, FIT_HOG_SMALL_SEED27_BINDING, FIT_LOCAL_SMALL_SEED27_BINDING, FIT_EMA_SMALL_SEED27_BINDING, FIT_EMA_HORIZON_SMALL_SEED27_BINDING)
+            number = (233 if seed27 else 232) if horizon else ((231 if seed27 else 230) if assignment else
                 ((229 if seed27 else 228) if local else ((227 if seed27 else 226) if hog else (225 if seed27 else 224))))
             seed = 20261027 if seed27 else 20261029
-            target = 'fitassign1600' if assignment else ('fitlocal1600' if local else ('fithog1600' if hog else 'fitmim1600'))
+            target = 'fitassign9600' if horizon else ('fitassign1600' if assignment else ('fitlocal1600' if local else ('fithog1600' if hog else 'fitmim1600')))
             expected.update(id=f'r{number}-convnext-small-imagenet22k-to-1k-24k-p4-seed{seed}-scale085-pairlog-{target}-9010',
                             experiment_order=number - 85)
-            if (value.get('ssl_recipe') != (EMA_RECIPE if assignment else (LOCAL_RECIPE if local else (HOG_RECIPE if hog else MASKED_RECIPE))) or value.get('official_evaluation') != OFFICIAL_GATE_0996
+            if (value.get('ssl_recipe') != (EMA_HORIZON_RECIPE if horizon else (EMA_RECIPE if assignment else (LOCAL_RECIPE if local else (HOG_RECIPE if hog else MASKED_RECIPE)))) or value.get('official_evaluation') != OFFICIAL_GATE_0996
                     or value['job'].get('loss') != PAIR_LOGISTIC_LOSS
                     or (value['job'].get('seed'), value['job'].get('image_size'), value['job'].get('prepared_size'),
                         value['job'].get('normalization'), value['job'].get('effective_batch'), value['job'].get('positive_per_batch'),
@@ -2204,8 +2208,10 @@ def validate_checkpoint(payload):
     validate_runtime(payload['identity'], job, fresh=payload.get('fresh'))
     derived=payload.get('ssl_derived')
     recipe=payload['fresh'].get('ssl_recipe')
+    if derived is not None:
+        from .ssl_stage import ssl_phase_completed
     if bool(derived)!=bool(recipe and not payload.get('cpu_fixture_only')) or (derived is not None and (
-            derived.get('recipe')!=recipe or derived.get('successful_updates')!=1600
+            derived.get('recipe')!=recipe or not ssl_phase_completed(derived, recipe)
             or derived.get('status')!='completed' or derived.get('dev_evaluations')!=0)):
         raise ValueError('R115 fixed fit-only derived initialization lineage absent or incompatible')
     validate_age(payload, job)

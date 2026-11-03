@@ -93,6 +93,7 @@ def maybe_release(root, atomic, sha):
     expected = copy.deepcopy(read(evidence / 'MODEL_CPU_ADMISSION.json')['initial_state_control'])
     ssl = None
     if fresh.get('ssl_recipe') is not None:
+        from retrain.ssl_stage import ssl_phase_completed
         ssl_path = folder / 'ssl-stage/SSL-RESULT.json'
         public = read(evidence / 'SSL-PUBLIC-INITIAL.json')
         ssl = read(ssl_path)
@@ -105,7 +106,7 @@ def maybe_release(root, atomic, sha):
                 and public['public_tensor_sha256'] == expected['public_tensor_sha256']
                 and public['public_encoder_tensor_sha256'] == expected['public_encoder_tensor_sha256']
                 and ssl['status'] == 'completed' and ssl['recipe'] == fresh['ssl_recipe']
-                and ssl['successful_updates'] == 1600 and ssl['dev_evaluations'] == 0
+                and ssl_phase_completed(ssl, fresh['ssl_recipe'])
                 and ssl['public_tensor_sha256'] == public['public_tensor_sha256']
                 and ssl['public_encoder_tensor_sha256'] == public['public_encoder_tensor_sha256']
                 and ssl['ssl_rank0_non_encoder_sha256'] == public['ssl_rank0_non_encoder_sha256']
@@ -116,7 +117,7 @@ def maybe_release(root, atomic, sha):
                 and ssl['source_digest'] == fresh['source_digest']
                 and ssl['manifest_digest'] == fresh['experiment91']['manifest_digest']
                 and ssl['public_weight_sha256'] == fresh['initialization']['weights_sha256']
-                and ssl['world_size'] == world and ssl['attempted_updates'] == 1600
+                and ssl['world_size'] == world and ssl['attempted_updates'] == fresh['ssl_recipe']['updates']
                 and ssl['skipped_updates'] == 0
                 and len(ssl['rank_proofs']) == world
                 and {item['rank'] for item in ssl['rank_proofs']} == set(range(world))

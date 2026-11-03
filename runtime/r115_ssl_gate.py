@@ -52,7 +52,7 @@ def maybe_release(root, atomic, sha):
                    or not isinstance(item.get('non_encoder_sha256'), str)
                    or len(item['non_encoder_sha256']) != 64 for item in proof)):
         raise ValueError('R115 eight-rank public source/empty Adam/projector identity differs')
-    if recipe['version'] == 'fit-ema-assignment-1600-v1':
+    if recipe['version'] in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1'):
         verify_teacher_initial(proof, world)
     fresh = json.loads((root / 'control/train-fresh-spec.json').read_text())
     if (fresh.get('ssl_recipe') != recipe

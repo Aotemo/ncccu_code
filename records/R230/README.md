@@ -1,5 +1,7 @@
 # R230 fit-only EMA跨视图分布实际启动
 
+完整1600与真实监督交接已经核实：[完整SSL](R230-SSL-RESULT.json)a310ec77、[监督首成功](R230-SUPERVISED-START.json)3bf2e886/guard92c9d469、[交接来源](R230-SUPERVISED-RECEIPT.json)4955f23e。derived encoder91692404→监督完整初态e9672ee7，345全训/5组空AdamW、原head-age及监督RNG恢复匹配；首自然25 loss.635355473有限/G64P8/448对，观测125 success=attempt/0skip/eval0。教师最终81d42d54与center4f353f97八rank一致且无梯度，临时教师/头/center未持久化，只有学生encoder进入监督。sampler实际=登记14997478083172343433。此处仅交接证据，没有完整dev selected或收益；current r230 env的first receipt已更新为START-OBSERVATION-supervised-1，后续沿原canonical observer，原clock/token/grant及冻结代码保持。
+
 22:44 [实际进度](R230-PROGRESS-after-r228-cleanup.json)为900次fit适配，原owner和八rank活跃；已越722步原型冻结边界，prototype_frozen=false，loss/gradient仍有限。完整1600及监督交接仍待。原R228的9 checkpoint/6.733GB已按[真实清单](../storage/closed-r228-20261103/README.md)清理，保护stat/小SHA前后一致、共享free31.241GB；当前冻结、clock/token/grant不改。后备[9600时长问题](../../todo/auroc-999/R232-R233-EMA-HORIZON-20261103.md)仅在当前无完整dev时预登记，未实现/未激活，不改变本轮1600合同。
 
 实际八rank公开初态、教师初态及自然首成功已经核实：[首75观测](R230-START.json)60a79c5a/guard316efefc；公开模型50c6f55c、全部344公开张量及空初态匹配18/18正式CPU。[教师/学生初态](R230-SSL-INITIAL-RANKS.json)八rank一致、无梯度/无参数共享，完整教师摘要1a1d51c8与真实P8 CPU一致；[原公开初态门](R230-SSL-INITIAL-GATE.json)已释放。实际全局64图/128唯一视图、输出64×65536，学生与教师合计256 encoder-view forward；首1 loss10.446009、首75 loss10.965660、loss/梯度有限，原型在722步内冻结。目标熵与平均目标熵只作fit诊断，不用来选SSL checkpoint或宣称收益。

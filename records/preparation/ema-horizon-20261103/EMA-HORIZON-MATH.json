@@ -1,0 +1,32 @@
+{
+  "status": "prospective_EMA_horizon_arithmetic_before_full_R230_dev_result",
+  "at": 1793746193.1256604,
+  "source_sha256": "1f9dda4323103e3181a3017222420be6a289825ea65a899779d6ecebdba34a78",
+  "source_registered1600_formula_exact_for_all1600_updates": true,
+  "future_budget_fixed_not_grid_search": 9600,
+  "budgets": {
+    "1600": {
+      "updates": 1600,
+      "direct_initial_teacher_coefficient": 0.6702697494707336,
+      "initial_prototype_coefficient_after_first722_frozen_student_updates": 0.9106193114518726,
+      "primary_inputs": 102400,
+      "unique_augmented_views": 204800,
+      "encoder_view_forwards": 409600
+    },
+    "9600": {
+      "updates": 9600,
+      "direct_initial_teacher_coefficient": 0.09067712663839463,
+      "initial_prototype_coefficient_after_first722_frozen_student_updates": 0.12989455133174732,
+      "primary_inputs": 614400,
+      "unique_augmented_views": 1228800,
+      "encoder_view_forwards": 2457600
+    }
+  },
+  "limits": [
+    "Direct algebraic coefficients only; student states themselves may retain initialization, and FP32 rounding is ignored.",
+    "Prototype formula accounts for the first722 frozen student updates but does not measure retained semantic information.",
+    "No claim of convergence, retinal benefit, optimal budget, or wall-time guarantee."
+  ],
+  "model_forward_or_GPU": false,
+  "labels_dev_official_or_predictions_read": false
+}

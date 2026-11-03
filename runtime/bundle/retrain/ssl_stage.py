@@ -55,6 +55,9 @@ def validate_recipe(recipe, job, manifest, world):
     if recipe.get('version') == 'fit-ema-assignment-1600-v1':
         from .ema_assignment import EMA_RECIPE
         expected = EMA_RECIPE
+    if recipe.get('version') == 'fit-ema-assignment-9600-v1':
+        from .ema_assignment import EMA_HORIZON_RECIPE
+        expected = EMA_HORIZON_RECIPE
     if recipe != expected or world != 8 or job['model'] != 'convnext_small' or job['image_size'] != 512:
         raise ValueError('registered fixed fit-only SSL recipe/topology differs')
     indices = manifest['fit_indices']
@@ -62,6 +65,15 @@ def validate_recipe(recipe, job, manifest, world):
             or set(indices) & set(manifest['dev_indices']) or manifest.get('audit_indices')):
         raise ValueError('SSL requires unique fit-only indices and no dev/audit overlap')
     return recipe
+
+
+def ssl_phase_completed(receipt, recipe):
+    """Check completion counters against an already validated registered recipe."""
+    return bool(isinstance(receipt, dict) and isinstance(recipe, dict)
+        and type(recipe.get('updates')) is int and recipe['updates'] > 0
+        and receipt.get('status') == 'completed' and receipt.get('recipe') == recipe
+        and receipt.get('successful_updates') == receipt.get('attempted_updates') == recipe['updates']
+        and receipt.get('skipped_updates') == receipt.get('dev_evaluations') == 0)
 
 
 def ssl_head_shape(recipe):
@@ -143,12 +155,12 @@ def _non_encoder_state(binary):
         if not name.startswith('network.features.') and not name.startswith('network.classifier.0.')}
 
 
-def _factor(update):
-    if not 1 <= update <= 1600:
+def _factor(update, *, total_updates=1600):
+    if total_updates not in (1600, 9600) or not 1 <= update <= total_updates:
         raise ValueError('SSL LR update outside fixed budget')
     if update <= 160:
         return update / 160
-    return 0.01 + 0.99 * (1 + math.cos(math.pi * (update - 160) / 1440)) / 2
+    return 0.01 + 0.99 * (1 + math.cos(math.pi * (update - 160) / (total_updates - 160))) / 2
 
 
 def _optimizer(model):
@@ -186,6 +198,7 @@ def _wait_barrier(path, recipe, ctx, deadline_at, stop_event):
 def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, deadline_at,
             identity, site, precision_protocol, stop_event=None):
     validate_recipe(recipe, job, manifest, ctx.world_size)
+    updates = recipe['updates']
     from .precision import configure, runtime_proof
     configure(precision_protocol)
     runtime_proof(precision_protocol, device=ctx.device)
@@ -202,7 +215,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     masked = domain in ('fit-masked-rgb32-1600-v1', 'fit-masked-hog8-1600-v1')
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
-    assignment = domain == 'fit-ema-assignment-1600-v1'
+    assignment = domain in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1')
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -241,26 +254,26 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     if ctx.primary:
         atomic_json(folder / 'public-initial-ranks.json', publics)
         atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'waiting_public_initial',
-            'successful_updates': 0, 'target_updates': 1600, 'recipe': recipe})
+            'successful_updates': 0, 'target_updates': updates, 'recipe': recipe})
     ctx.barrier()
     _wait_barrier(barrier_path, recipe, ctx, deadline_at, stop_event)
     single._seed(rng['model_seeds'][ctx.rank], ctx.device)
     if ctx.primary:
         atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
-            'successful_updates': 0, 'target_updates': 1600, 'recipe': recipe})
+            'successful_updates': 0, 'target_updates': updates, 'recipe': recipe})
     optimizer = _optimizer(model)
     dataset = ImageDataset(data_root, manifest['rows'], 512, training=True,
         normalization='imagenet', prepared_size=512, age=None,
         training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False,
         shared_view_geometry=local)
     sampler = UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
-        updates=1600, rank=ctx.rank, world=ctx.world_size)
+        updates=updates, rank=ctx.rank, world=ctx.world_size)
     loader = DataLoader(dataset, batch_sampler=sampler,
         **single._loader_options(job['workers'], job, persistent=True,
                                  seed=rng['loader_seeds'][ctx.rank]))
     iterator = iter(loader)
     try:
-        for update in range(1, 1601):
+        for update in range(1, updates + 1):
             if ctx.any(time.time() >= deadline_at or (stop_event is not None and stop_event.is_set())):
                 raise TimeoutError('R115 joint training deadline or owner stop during SSL')
             optimizer.zero_grad(set_to_none=True)
@@ -304,14 +317,14 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             if ctx.any(not bool(torch.isfinite(norm))):
                 raise FloatingPointError('nonfinite R115 VICReg gradient')
-            factor = _factor(update)
+            factor = _factor(update, total_updates=updates)
             for group in optimizer.param_groups:
                 group['lr'] = group['initial_lr'] * factor
             if assignment:
                 prototype_frozen = freeze_prototypes(model, update=update, fit_epoch_updates=fit_epoch_updates)
             optimizer.step()
             if assignment:
-                momentum = update_teacher(teacher, model, center, torch.cat((t1, t2)), update=update)
+                momentum = update_teacher(teacher, model, center, torch.cat((t1, t2)), update=update, total_updates=updates)
                 if ctx.any(not all_floating_finite(teacher.parameters()) or not bool(torch.isfinite(center).all())):
                     raise FloatingPointError('nonfinite EMA teacher or center')
             if ctx.any(not all_floating_finite(model.parameters())
@@ -333,7 +346,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                             'teacher_forward_inputs': 128, 'encoder_view_forwards': 256}
                            if assignment else {})}) + '\n')
                 atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
-                    'successful_updates': update, 'target_updates': 1600,
+                    'successful_updates': update, 'target_updates': updates,
                     'last_loss': float(loss.detach()), 'at': time.time()})
     finally:
         if hasattr(iterator, '_shutdown_workers'):
@@ -376,8 +389,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'source_digest': identity['source_digest'],
             'manifest_digest': identity['manifest_digest'],
             'public_weight_sha256': job['initialization']['sha256'],
-            'world_size': ctx.world_size, 'successful_updates': 1600,
-            'attempted_updates': 1600, 'skipped_updates': 0,
+            'world_size': ctx.world_size, 'successful_updates': updates,
+            'attempted_updates': updates, 'skipped_updates': 0,
             'fit_indices_only': True, 'dev_evaluations': 0,
             'labels_or_age_used_for_loss': False,
             'public_model_tensor_sha256': public_digest,
@@ -394,7 +407,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)
         atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'completed',
-            'successful_updates': 1600, 'target_updates': 1600,
+            'successful_updates': updates, 'target_updates': updates,
             'derived_tensor_sha256': digest, 'at': time.time()})
     receipt = ctx.broadcast(receipt)
     ctx.barrier()

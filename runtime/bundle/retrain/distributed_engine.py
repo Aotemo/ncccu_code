@@ -178,9 +178,10 @@ def run_distributed(job,manifest,data_root,run_dir,identity,ctx,*,resume=False,m
 def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,model_factory,stop_event,limit_updates,stage_spec,fresh_spec,deadline_at,derived_receipt):
     if bool(derived_receipt) != bool(fresh_spec and fresh_spec.get('ssl_recipe')):
         raise ValueError('R115 derived asset requires the frozen joint SSL recipe')
-    if derived_receipt and (mode!='train' or resume or derived_receipt.get('recipe')!=fresh_spec['ssl_recipe']
-            or derived_receipt.get('successful_updates')!=1600):
-        raise ValueError('R115 derived asset/phase identity differs')
+    if derived_receipt:
+        from .ssl_stage import ssl_phase_completed
+        if mode!='train' or resume or not ssl_phase_completed(derived_receipt, fresh_spec['ssl_recipe']):
+            raise ValueError('R115 derived asset/phase identity differs')
     if job.get('experiment91') is not None:
         from .experiment91 import validate_runtime
         validate_runtime(identity,job,manifest,fresh_spec)

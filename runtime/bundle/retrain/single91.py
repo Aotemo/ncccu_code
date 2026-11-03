@@ -186,9 +186,10 @@ def validate_freeze(path, *, allow_fixture=False):
             or value.get('normalization') != ex.science_configuration()['job']['normalization']):
         raise ValueError('unique single-model freeze differs')
     if value['fresh'].get('ssl_recipe') is not None:
+        from .ssl_stage import ssl_phase_completed
         derived=value.get('ssl_derived')
         if (not isinstance(derived,dict) or derived.get('recipe')!=value['fresh']['ssl_recipe']
-                or derived.get('successful_updates')!=1600
+                or not ssl_phase_completed(derived, value['fresh']['ssl_recipe'])
                 or derived!=value['training_completion'].get('ssl_derived')
                 or sha256_file(derived['asset_path'])!=derived['asset_sha256']):
             raise ValueError('R115 frozen SSL derived asset/receipt differs')

@@ -1,0 +1,118 @@
+{
+  "status": "full1600_derived_lineage_and_eight_rank_supervised_first25_verified",
+  "at": 1793746799.8177743,
+  "first_success": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r230-20261103-4e0c-ready/START-OBSERVATION-supervised-1.json",
+    "sha256": "3bf2e8868d4ceb1a9fcdb9dc723eb3e46da906eb5ef413951277de9a6bb0e270"
+  },
+  "CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-5021g7x3/CPU-RECEIPT.json",
+    "sha256": "92c9d469fc8482a73e1b551d126d55aa5c0ee42c2b77abfe50407ebf12aaa6d2"
+  },
+  "actual_initial_gate": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103/evidence/ACTUAL_FRESH_INITIAL.json",
+    "sha256": "18b308184e17562761a931db851985685e92a02ee2e0980a61b6ffd5a84b3451"
+  },
+  "SSL_result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+    "sha256": "a310ec771989602fedaa84c2bb2ee7c28b98ca06f660bc8652f20904c62127ee"
+  },
+  "sampler_actual_matches_recorded": true,
+  "progress": {
+    "status": "running",
+    "successful_updates": 125,
+    "attempted_updates": 125,
+    "skipped_updates": 0,
+    "evaluated_cycle": 0,
+    "stop_reason": null
+  },
+  "model_tensor_sha256": "e9672ee76159f06a077cb3c20d8e9ed5baee9ef68f0fb591a4bcf1ff1f28df71",
+  "derived_encoder_tensor_sha256": "91692404cc54be629699b746584a53481aaa0e53adac0f14944e283809f3ef0e",
+  "initial_optimizer_entries": 0,
+  "initial_optimizer_groups": 5,
+  "first_supervised_update": {
+    "event": "update",
+    "successful_updates": 25,
+    "attempted_updates": 25,
+    "cycle": 0,
+    "loss": 0.6353554725646973,
+    "skipped": false,
+    "scale": 1.0,
+    "learning_rates": [
+      1.6250000000000001e-06,
+      1.6250000000000001e-06,
+      1.6250000000000002e-05,
+      1.6250000000000002e-05,
+      1.6250000000000002e-05
+    ],
+    "unique_samples": 1600,
+    "mixup": null,
+    "primary_inputs": 64,
+    "view_inputs": 64,
+    "pairwise_global": {
+      "global_inputs": 64,
+      "positive_inputs": 8,
+      "negative_inputs": 56,
+      "pair_count": 448,
+      "world_size": 8
+    },
+    "global_loss": 0.6353554725646973,
+    "rank_inputs": [
+      {
+        "rank": 0,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 4
+      },
+      {
+        "rank": 1,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 2,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 3,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 4,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 4
+      },
+      {
+        "rank": 5,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 6,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 7,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      }
+    ],
+    "at": 1793746517.807922,
+    "sampler_attempted_updates": 25,
+    "purpose": "train"
+  },
+  "final_teacher_center_eight_rank_exact": true,
+  "teacher_projector_center_persisted": false,
+  "new_model_forward_or_checkpoint_load": false,
+  "frozen_deployment_modified": false
+}

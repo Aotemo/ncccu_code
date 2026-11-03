@@ -22,6 +22,8 @@ EMA_RECIPE = {'version': 'fit-ema-assignment-1600-v1', 'updates': 1600,
     'learning_rng_domain': 'r115-fit-vicreg-1600-v1',
     'sampling_rng_domain': 'r115-fit-vicreg-1600-v1'}
 
+EMA_HORIZON_RECIPE = dict(EMA_RECIPE, version='fit-ema-assignment-9600-v1', updates=9600)
+
 
 class AssignmentHead(nn.Module):
     def __init__(self):
@@ -78,18 +80,18 @@ def assignment_loss(s1, s2, t1, t2, center):
     return loss, stats
 
 
-def teacher_momentum(update):
-    if not 1 <= update <= 1600:
+def teacher_momentum(update, *, total_updates=1600):
+    if total_updates not in (1600, 9600) or not 1 <= update <= total_updates:
         raise ValueError('EMA teacher update outside fixed budget')
-    return .9995 + .0005 * (1 - math.cos(math.pi * (update - 1) / 1599)) / 2
+    return .9995 + .0005 * (1 - math.cos(math.pi * (update - 1) / (total_updates - 1))) / 2
 
 
 @torch.no_grad()
-def update_teacher(teacher, student, center, global_teacher_scores, *, update):
+def update_teacher(teacher, student, center, global_teacher_scores, *, update, total_updates=1600):
     source, target = dict(student.named_parameters()), dict(teacher.named_parameters())
     if source.keys() != target.keys() or dict(student.named_buffers()).keys() != dict(teacher.named_buffers()).keys():
         raise ValueError('EMA teacher/student parameter or buffer topology differs')
-    momentum = teacher_momentum(update)
+    momentum = teacher_momentum(update, total_updates=total_updates)
     for name, parameter in target.items():
         parameter.mul_(momentum).add_(source[name].detach(), alpha=1 - momentum)
     for name, buffer in teacher.named_buffers():
