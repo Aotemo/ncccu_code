@@ -21,6 +21,91 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R198_R199_gamma_confirmation_and_weight_decay_identity(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in (('R198','R197',111,20261027),('R199','R120',112,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed']),(order,seed))
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping',
+                       'data_split','official_evaluation'):
+                self.assertEqual(science[key],baseline[key])
+            expected=copy.deepcopy(baseline['job'])
+            if label=='R198':expected['seed']=seed
+            else:expected['weight_decay']=.05
+            self.assertEqual(science['job'],expected)
+            self.assertIsNone(science['job'].get('lr_decay_updates'))
+            self.assertEqual(science['candidate'].get('weight_decay'),.05 if label=='R199'else None)
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding), \
+                    patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                job=copy.deepcopy(science['job'])
+                job.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':'imagenet','format':science['public_source']['format'],
+                    'sha256':science['public_source']['sha256'],'path':site['public_weight'],
+                    'provenance':site['public_provenance']})
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual(experiment.candidate(),science['candidate'])
+                contract=config.job_contract(job)
+                self.assertEqual(contract['weight_decay'],.05 if label=='R199'else 1e-4)
+                self.assertEqual(contract.get('training_photometric'),'gamma-reciprocal075-v1'if label=='R198'else None)
+                for key,value in (('training_photometric',None if label=='R198'else 'gamma-reciprocal075-v1'),
+                                  ('lr_decay_updates',8000),('weight_decay',1e-4 if label=='R199'else .05)):
+                    wrong=copy.deepcopy(job);wrong[key]=value
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                wrong=copy.deepcopy(science);wrong['public_source']['revision']='0'*40
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
+    def test_R199_native_AdamW_role_decay_without_optimizer_changes(self):
+        import torch
+        from retrain import age
+        from retrain.engine import _optimizer
+        class Model(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.features=torch.nn.Sequential(torch.nn.Linear(3,4),torch.nn.LayerNorm(4))
+                self.classifier=torch.nn.Linear(4,1)
+                self.age_weight=torch.nn.Parameter(torch.ones(2))
+        job=copy.deepcopy(json.loads((ROOT/'configs/R199-SCIENCE.json').read_text())['job'])
+        job['age']=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        model=Model()
+        with torch.no_grad():
+            for ordinal,param in enumerate(model.parameters()):param.fill_(4.+ordinal)
+        backbone={id(p)for p in model.features.parameters()};head={id(p)for p in model.classifier.parameters()}
+        decay={id(model.features[0].weight),id(model.classifier.weight)};age_id=id(model.age_weight)
+        roles={id(p):'backbone'if id(p)in backbone else 'head'if id(p)in head else 'age'for p in model.parameters()}
+        rates={key:1e-4 if role=='backbone'else 1e-3 for key,role in roles.items()}
+        penalties={key:.05 if key in decay else 1e-4 if key==age_id else 0. for key in roles}
+        before_rng=torch.get_rng_state().clone();optimizer=_optimizer(model,job)
+        self.assertTrue(torch.equal(before_rng,torch.get_rng_state()))
+        self.assertIs(type(optimizer),torch.optim.AdamW)
+        self.assertEqual(len(optimizer.param_groups),5);self.assertFalse(optimizer.state)
+        observed=[]
+        for group in optimizer.param_groups:
+            self.assertEqual(group['betas'],(.9,.999));self.assertEqual(group['eps'],1e-8)
+            self.assertFalse(group['amsgrad'])
+            for param in group['params']:
+                key=id(param);observed.append(key)
+                self.assertEqual(group['role'],roles[key]);self.assertEqual(group['weight_decay'],penalties[key])
+                self.assertEqual((group['lr'],group['initial_lr']),(rates[key],rates[key]))
+        self.assertEqual(set(observed),set(roles));self.assertEqual(len(observed),len(roles))
+        before={id(p):p.detach().clone()for p in model.parameters()}
+        for param in model.parameters():param.grad=torch.zeros_like(param)
+        optimizer.step()
+        for param in model.parameters():
+            key=id(param);expected=before[key]*(1-rates[key]*penalties[key])
+            torch.testing.assert_close(param,expected,rtol=0,atol=0)
+        self.assertFalse(torch.cuda.is_initialized())
+
     def test_R196_R197_fixed_decay_confirmation_and_independent_gamma_identity(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}

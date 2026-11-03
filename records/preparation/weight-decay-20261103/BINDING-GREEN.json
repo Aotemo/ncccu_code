@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "targets_run": 3,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R198_R199_gamma_confirmation_and_weight_decay_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R199_native_AdamW_role_decay_without_optimizer_changes",
+    "test_candidate_binding.CandidateBindingTest.test_R196_R197_fixed_decay_confirmation_and_independent_gamma_identity"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "f291f441bbd886b1020b253b1b834a497ab412e4851d793ea77182eba4c8eb25",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "tests/test_candidate_binding.py": "318124cbba36271b5c0fd01995928c2a89287cc313f19d554e88a95a829072cd"
+  },
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "failures": 0,
+  "errors": 0,
+  "official_read": false
+}

@@ -1,0 +1,162 @@
+{
+  "scope": "R198_R199_existing_AdamW_weight_decay_identity_and_role_consumption_CPU",
+  "at": 1793667267.0325456,
+  "passed_targets": 3,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R198_R199_gamma_confirmation_and_weight_decay_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R199_native_AdamW_role_decay_without_optimizer_changes",
+    "test_candidate_binding.CandidateBindingTest.test_R196_R197_fixed_decay_confirmation_and_independent_gamma_identity"
+  ],
+  "compiled_sources": 3,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/experiment91.py",
+    "tools/validation/check_candidate.py",
+    "tests/test_candidate_binding.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "tools/validation/check_candidate.py": "eb502c8a04f717e1deaf2b4610e2c292682f3194448fe3227f56e62cefbb2cf8",
+    "tests/test_round_storage_policy.py": "cb59982cfbe949595b1f37063789b52c4be17dfd3ea3d9956e1ca37702ad0bb6",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "tests/test_candidate_binding.py": "318124cbba36271b5c0fd01995928c2a89287cc313f19d554e88a95a829072cd",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "runtime/bundle/retrain/experiment91.py": "f291f441bbd886b1020b253b1b834a497ab412e4851d793ea77182eba4c8eb25",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "d1e1926e3c3c938233e8871c50faa15765ec6b7fb4fe44b8f3435667689e718c"
+  },
+  "science_sha256": {
+    "R198-SCIENCE.json": "ed53707e91c1778aa7852110eb8d1bb385f6255a13f930bfcd1b0ca2035a93f8",
+    "R199-SCIENCE.json": "cc0e2703c30184cf31d09f9dfe040e2f3ef781b185e682ff67ccbff930a6dccc"
+  },
+  "public_fresh": {
+    "R198": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/weight-decay-20261103-32e3/fresh/R198-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "e5fa00a171ad147a7178a82117d8c6dec80bf9e107f338726c1126cafdda262d",
+      "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "parameter_tensors": 345,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "weight_decay_by_group": [
+        0.0,
+        0.0001,
+        0.0,
+        0.0001,
+        0.0001
+      ],
+      "image_forward_calls": 0,
+      "training_photometric": "gamma-reciprocal075-v1"
+    },
+    "R199": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/weight-decay-20261103-32e3/fresh/R199-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "f892898ec60535701962df63326a99aba5d0412bb59735f058ecd2b10e8ca2e3",
+      "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "parameter_tensors": 345,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "weight_decay_by_group": [
+        0.0,
+        0.05,
+        0.0,
+        0.05,
+        0.0001
+      ],
+      "image_forward_calls": 0,
+      "training_photometric": null
+    }
+  },
+  "evidence": [
+    {
+      "label": "new_candidate_unregistered_RED_transport255_recovered",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-aeuwxpt9/CPU-RECEIPT.json",
+      "sha256": "58e7dd4566bf89563464e27e12fba157dee1f27ab173f332cee5a9b06066efe9",
+      "exit_code": 1,
+      "output_sha256": "299a3082c27e9e1b4bb9a55160200d4467770fa28a8b05544590b8fcfe168bc1"
+    },
+    {
+      "label": "original_RED_recovery_no_test_repeat",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-4n50ggu2/CPU-RECEIPT.json",
+      "sha256": "9b29675bbe5253ddb65e40f05297156746579b564dfcf40b437a4e00dbbf25ef",
+      "exit_code": 0,
+      "output_sha256": "8aa666328f6f47736bf12d8bdc1144a30543038ec1b02d5d0d48d6988bf9053b"
+    },
+    {
+      "label": "three_affected_targets_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-52lqaj_l/CPU-RECEIPT.json",
+      "sha256": "f09ff1124ee80825141bcc9e7ce39116a5a0a16e5ceedb8e34aafbc62364accd",
+      "exit_code": 0,
+      "output_sha256": "b645b5599bf8a4479ba54a70a8d3f371f3ad3b985ec6be0c491745f0d6dc7b59"
+    },
+    {
+      "label": "both_actual_public_fresh",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-5srb0q2g/CPU-RECEIPT.json",
+      "sha256": "9e07a80f7af92a5abbce11aeb3a0672537298d11f0b82e949ae8b58725a5815e",
+      "exit_code": 0,
+      "output_sha256": "8c671adffb3d564899b00f87dddf0e15eb6e26abde4f22662b3afe7dd2ff9986"
+    },
+    {
+      "label": "archive_v1_wrong_expected_group_order_no_source_failure",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-51myri0x/CPU-RECEIPT.json",
+      "sha256": "0fdb989e7779e6028149644505326a9c6d0a5dbd5052fdd315234d638db47bc6",
+      "exit_code": 1,
+      "output_sha256": "7de29a21bd240c87443338c6073dba5f38813e3041f784b6d98cd11e64da0da1"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "models": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "engine": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "classification_loss": "3057420d21917885f7766d1f96848f352cd80cf120069d97eec3ebadf1859354",
+    "ema": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "single91": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "inference": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "parallel_evaluation": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "preprocessing": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456"
+  },
+  "prior_model_evidence": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/weight-decay-20261103-32e3/source-cpu/records/preparation/gamma-20261102/CPU-CHECKS.json",
+    "sha256": "24b6ead934fffbb8079db96ebdc2efb1b4a351500dd76cc08a4d8cf9f59ae1a7",
+    "model_loss_EMA_DDP_persistence_data_config_sources_exact": true,
+    "P8_model_EMA_cold_WORLD_or_gamma_pixel_targets_rerun": false
+  },
+  "transport_recovery": {
+    "initial_SSH_exit_code": 255,
+    "original_guard_exit_code": 1,
+    "original_RED_verified": true,
+    "tests_repeated_due_to_transport": false,
+    "recovery_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/weight-decay-20261103-32e3/RED-RECOVERED.json",
+    "recovery_sha256": "8a012a6a9cca8e9619af4acbcbf68a051c8e36b10442682a9b0251a6fccc5c10"
+  },
+  "new_numeric_scope": "actual native AdamW Toy five-group role and independent zero-gradient contraction; not production WORLD restore",
+  "archive_correction": "v1 summary assumed decay before no-decay; original engine uses False then True. Only summary expectation corrected; no test, fresh model or optimizer rerun or implementation change",
+  "checker_runtime_scope": "new native weight-decay condition compiled and statically reviewed; whole check_candidate only executes during normal preparation",
+  "budget_scenarios": {
+    "model_and_forward_count_per_update_unchanged": true,
+    "maximum_successful_updates": 24000,
+    "evaluation_every": 800,
+    "patience": 4,
+    "warmup_and_EMA_copy": 1600,
+    "early_stop_assumed": false,
+    "GPU_peak_or_throughput_benchmarked": false,
+    "active_clock_changed": false
+  },
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

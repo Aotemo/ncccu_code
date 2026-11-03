@@ -1,0 +1,13 @@
+{
+  "status": "original_CPU_task_complete_expected_registration_RED_recovered",
+  "transport_exit_code": 255,
+  "original_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-aeuwxpt9/CPU-RECEIPT.json",
+    "sha256": "58e7dd4566bf89563464e27e12fba157dee1f27ab173f332cee5a9b06066efe9",
+    "exit_code": 1,
+    "output_sha256": "299a3082c27e9e1b4bb9a55160200d4467770fa28a8b05544590b8fcfe168bc1"
+  },
+  "original_report_sha256": "1136e3af95bb0e0f248c14d66408f79d4b3f95ca14e0715e7a116c5faf4544c8",
+  "original_task_tree_exited": true,
+  "tests_rerun": false
+}

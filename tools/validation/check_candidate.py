@@ -352,7 +352,7 @@ def main(args):
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == ((job['age']['contract']['weight_decay'] if group['role']=='age' else
             job['weight_decay'] if any(named[row['name']].ndim>1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) if is_lion else
-            (1e-4 if group['role'] == 'age' or any(named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.)) for group in groups),
+            (1e-4 if group['role'] == 'age' else job['weight_decay'] if any(named[row['name']].ndim > 1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.)) for group in groups),
         {'all_parameter_tensors': len(named), 'trainable_tensors': len(trainable),
          'frozen_tensors': len(frozen), 'parameter_trainability': parameter_trainability,
          'elements_by_role': roles, 'group_count': len(groups)})
