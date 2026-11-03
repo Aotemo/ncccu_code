@@ -1,0 +1,41 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "b448a03e720d9873f76b1abcfcd7d814657167ca166fa537f3badf4b71983e40",
+  "inventory_sha256": "87ecf1d051bb2dde8bf5348be4a327f5b686a9772a7c0cf7707cf7dbcaff36c9",
+  "source_commit": "b2aa1bd94d983d37a26ce201f33d26d791eaa768",
+  "candidate_count": 9,
+  "skipped": [],
+  "logical_bytes": 6733279627,
+  "allocated_bytes": 6733282816,
+  "filesystem_free_now": 41209036800,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r195-small22k-seed20261029-scale085-pairsigmoid-decay8000-24k-p4-9010-20261102"
+  ],
+  "conclusions": {
+    "R195": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r195-closed-storage-20261103-32e3/source-git/records/R195/R195-RESULT.json",
+        "sha256": "545e4eb6381cffdea54b367345e7bf0dc5e8a4acb6c909723135e34fe94e3a4c",
+        "git_blob": "2997c12688f4508d84e552c41da9032e3f8c1e2b"
+      },
+      "selected": {
+        "auroc": 0.9861756478998568,
+        "ap": 0.8220377066729916,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 22962
+      },
+      "freeze_metadata_sha256": "21358b4b1dd636cfe39096e6ea26e1811a4ef74b4046818863af4a531c2244f8",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r195-closed-storage-20261103-32e3/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

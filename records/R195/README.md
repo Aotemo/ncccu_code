@@ -1,5 +1,7 @@
 # R195：原 Small sigmoid 的固定 8000 次衰减跨度
 
+完整结果同步b2aa1bd且R197真实运行后，[9个冗余checkpoint已清理](../storage/closed-r195-20261103/README.md)，逻辑6,733,279,627B；三KEEP/当前依赖保持，原CSV/precision/sidecar/index/freeze/锁均留。原selected张量与blob身份为历史证据，不再保留本轮权重。
+
 **已完整早停结束，未达目标。** [完整结果](R195-RESULT.json)6400成功=尝试/0skip、8次评估、bad4；唯一内部选点EMA c4@3200，AUROC `.9861756478998568` / AP `.8220377066729916` / error_twice22962，严格双门均false，R196不eligible。未达内部.996，官方未运行；原freeze.status缺省null保留。实际6400结束，没有自然走到8000衰减尾点。
 
 [安全终态](R195-COMPLETION.json)于11-03 01:18:45.481实核owner Z、八rank missing、锁holders/device_users空、denied0、8PCI全部busy0；[guardvjjjmd7h](R195-CPU-COMPLETION.json) / `eba272374205ec59c018f766dd1324af46030922915daa4a805ca6f156031c32` exit0，封存后不重查safe。selected tensor `ef345d24e69aa9c9c921a740e11d71628e1344b9dfbd30e1c8a7e8e598e0c8d7`、blob `799ed0f03eadbe597e325f23a51b061574a0d889f16a7609fc8f29a816c2ea28`；CSV05c9dc29 / precisionc4583d81均由原freeze登记。
