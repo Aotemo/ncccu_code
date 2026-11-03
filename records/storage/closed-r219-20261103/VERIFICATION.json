@@ -1,0 +1,22 @@
+{
+  "at": 1793724881.6333718,
+  "status": "applied_and_verified",
+  "deleted_count": 9,
+  "logical_bytes": 6733276939,
+  "delete_receipt_sha256": "9282f216298e593cb6c88b9835222cc314926215808231965b14907ffb40fec7",
+  "all_exact_candidates_absent": true,
+  "protected_small_hashes_and_stats_unchanged": true,
+  "historical_selected_not_loadable": true,
+  "predictions_and_metadata_preserved": true,
+  "model_or_GPU_work_executed": false,
+  "private_manifest": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r219-closed-storage-20261103-32e3/PLAN.json",
+    "sha256": "7a73296a14cf7abfc7e296c2bd2b887b2d17166d8c47799687fc51460714f3b8"
+  },
+  "limits": [
+    "Allocated bytes are pre-unlink st_blocks*512 of unique regular inodes, not a claim of backend physical reclaim.",
+    "Filesystem free delta is a point-in-time observation on a shared filesystem and may include concurrent activity.",
+    "Large checkpoint identity uses exact stat plus actual small sidecar SHA/advertised blob SHA; payload was not rehashed or loaded.",
+    "All manifest exclusions, unknown ownership, raw/shared caches and protected current dependencies remain."
+  ]
+}

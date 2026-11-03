@@ -1,0 +1,55 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "b73b1c7a65fa747c335301bb6478638f329ab5af33200ea17372ed2dd24f795f",
+  "inventory_sha256": "7a6c43b2a02003053678197ee7f0ac2c1955ccdc5926f19e202871be59868926",
+  "source_commit": "c7326677a1fb960533a00a37b2e970ec95529e43",
+  "candidate_count": 6,
+  "skipped": [],
+  "logical_bytes": 6239298611,
+  "allocated_bytes": 6239301120,
+  "filesystem_free_now": 29680992256,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103"
+  ],
+  "conclusions": {
+    "R221": {
+      "archived_failure": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git-r221r2/records/R221/R221-FAILURE.json",
+        "sha256": "fe905b6ee02ec2b3728d72a0c28423c5eec9f03c228c9c856aafa10228465a8b",
+        "git_blob": "cc93e9b7d6f74a093edce369e2a22b01b777342c"
+      },
+      "archived_completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git-r221r2/records/R221/R221-ACTUALSAFE.json",
+        "sha256": "3670bea63bed9848722692221f3bc7158df3eb672e29466d957e04e4d18dec91",
+        "git_blob": "67bec524e16d370269b0dc94b349a709b2b3ef64"
+      },
+      "selected": null,
+      "historical_actual_safe": true,
+      "no_remaining_model_forward_dependency": true
+    },
+    "R221R1": {
+      "archived_failure": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git-r221r2/records/R221R1/R221R1-FAILURE.json",
+        "sha256": "c3a195382879c8aef6dcb31e93a586c93a29021d09906f4391012f184d5b0cdb",
+        "git_blob": "a7e0d845e7f0f1da67c114ffe80876ea8f7fd637"
+      },
+      "archived_completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git-r221r2/records/R221R1/R221R1-COMPLETION.json",
+        "sha256": "59838b2bea88ee8e3e10b62afecb4ee8adc80a609322af6572c8d3beb4c8af5d",
+        "git_blob": "596277542d3fabb4c8215a92315db3be4a7b1a9e"
+      },
+      "selected": null,
+      "historical_actual_safe": true,
+      "no_remaining_model_forward_dependency": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git-r221r2/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

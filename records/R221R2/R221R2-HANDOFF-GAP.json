@@ -1,0 +1,22 @@
+{
+  "previous_round": "r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+  "previous_status": "engineering_failed",
+  "previous_whole_round_ended_at": 1793723314.590375,
+  "previous_safe_observed_at": 1793723683.6712785,
+  "new_dispatch_at": 1793724617.6446362,
+  "latest_device_at": 1793724698.3544369,
+  "first_recorded_update_at": 1793724749.7369556,
+  "round_end_to_dispatch_seconds": 1303.0542612075806,
+  "round_end_to_latest_device_seconds": 1383.7640619277954,
+  "round_end_to_first_recorded_update_seconds": 1435.146580696106,
+  "round_end_to_dispatch_within_300": false,
+  "round_end_to_device_within_300": false,
+  "round_end_to_first_recorded_update_within_300": false,
+  "continuous_DCU_utilization_measured": false,
+  "previous_clock_token_grant_changed": false,
+  "necessary_checks_skipped": false,
+  "scientific_negative_claimed": false,
+  "cause": "shared filesystem capacity recovery; exact closed-weight manifests, narrow budget-message diagnostics and independent fresh identity, Git sync, formal CPU and precise deployment",
+  "old_failing_invocation_exact_storage_bytes": "unknown; old exception omitted byte values",
+  "free_floor_or_round_storage_cap_changed": false
+}
