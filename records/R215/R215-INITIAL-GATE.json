@@ -1,0 +1,602 @@
+{
+  "CUDA_initialized": false,
+  "at": 1793706257.2808404,
+  "batch_norm_modules": 0,
+  "buffer_count": 0,
+  "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate": {
+    "attention_pool": null,
+    "batch_norm_buffers": 0,
+    "batch_norm_modules": 0,
+    "experiment_order": 128,
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "id": "r215-siglip2-vitb16-webli-publicmap-unit-24k-p4-seed20261029-scale085-pairlog-9010",
+    "internal_norm_eps": 1e-06,
+    "model": "siglip2_vitb16",
+    "provenance_sha256": "c93b8f3095d3bf047d50737c23caad391143100a0060820ef7f3c9a30ed827f5",
+    "public_revision": "3c4b2d3989d7cfae00a09fff172c0a6cf8cbb32a",
+    "readout": "native_public_MAP_LN_dropout_linear_plus_age",
+    "stochastic_depth": 0.1,
+    "weight_sha256": "e6cebc19e5531a0fbe55e3b8d03dbabb8f5c41a698fe01e7b27527ff946132e6"
+  },
+  "candidate_normalization": {
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate": {
+      "attention_pool": null,
+      "batch_norm_buffers": 0,
+      "batch_norm_modules": 0,
+      "experiment_order": 128,
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "id": "r215-siglip2-vitb16-webli-publicmap-unit-24k-p4-seed20261029-scale085-pairlog-9010",
+      "internal_norm_eps": 1e-06,
+      "model": "siglip2_vitb16",
+      "provenance_sha256": "c93b8f3095d3bf047d50737c23caad391143100a0060820ef7f3c9a30ed827f5",
+      "public_revision": "3c4b2d3989d7cfae00a09fff172c0a6cf8cbb32a",
+      "readout": "native_public_MAP_LN_dropout_linear_plus_age",
+      "stochastic_depth": 0.1,
+      "weight_sha256": "e6cebc19e5531a0fbe55e3b8d03dbabb8f5c41a698fe01e7b27527ff946132e6"
+    },
+    "dropout": 0.2,
+    "head_in_features": 768,
+    "head_out_features": 1,
+    "layer_norms": [
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.0.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.0.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.1.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.1.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.2.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.2.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.3.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.3.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.4.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.4.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.5.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.5.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.6.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.6.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.7.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.7.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.8.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.8.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.9.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.9.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.10.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.10.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.11.norm1",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.blocks.11.norm2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.norm",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.attn_pool.norm",
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "siglip2": {
+      "age_readouts": 1,
+      "binary_dropout": 0.2,
+      "buffer_count": 0,
+      "features": 768,
+      "image_size": [
+        512,
+        512
+      ],
+      "native_head_dropout": 0.0,
+      "native_library": {
+        "source_sha256": {
+          "layers/attention_pool.py": "8b7d0f493adafb01aa7fedca261df245bbd1a0813884d9bc13d0b24ac253b8c9",
+          "models/vision_transformer.py": "f0f453b75952698059a1e82fa283a7a9cf2cf2217c33fc2c9cb1efc06947f552"
+        },
+        "version": "1.0.27"
+      },
+      "native_variant": "vit_base_patch16_siglip_512.v2_webli",
+      "normalization_catalog": [
+        {
+          "eps": 1e-06,
+          "name": "blocks.0.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.0.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.1.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.1.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.2.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.2.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.3.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.3.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.4.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.4.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.5.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.5.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.6.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.6.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.7.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.7.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.8.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.8.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.9.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.9.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.10.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.10.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.11.norm1",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "blocks.11.norm2",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "norm",
+          "shape": [
+            768
+          ]
+        },
+        {
+          "eps": 1e-06,
+          "name": "attn_pool.norm",
+          "shape": [
+            768
+          ]
+        }
+      ],
+      "parameter_count": 93520899,
+      "parameter_tensor_count": 165,
+      "patch_size": [
+        16,
+        16
+      ],
+      "patch_tokens": 1024,
+      "position_shape": [
+        1,
+        1024,
+        768
+      ],
+      "prefix_tokens": 0,
+      "public_latent_shape": [
+        1,
+        1,
+        768
+      ],
+      "public_pool": "map",
+      "public_pool_MLP": true,
+      "public_pool_heads": 12,
+      "version": "siglip2-vitb16-native512-public-map-v1"
+    },
+    "stochastic_depth": [
+      {
+        "mode": "row",
+        "name": "network.blocks.0.drop_path1",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.0.drop_path2",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.drop_path1",
+        "p": 0.00909090880304575
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.drop_path2",
+        "p": 0.00909090880304575
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.drop_path1",
+        "p": 0.0181818176060915
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.drop_path2",
+        "p": 0.0181818176060915
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.drop_path1",
+        "p": 0.027272727340459824
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.drop_path2",
+        "p": 0.027272727340459824
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.drop_path1",
+        "p": 0.036363635212183
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.drop_path2",
+        "p": 0.036363635212183
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.drop_path1",
+        "p": 0.045454543083906174
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.drop_path2",
+        "p": 0.045454543083906174
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.6.drop_path1",
+        "p": 0.054545458406209946
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.6.drop_path2",
+        "p": 0.054545458406209946
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.7.drop_path1",
+        "p": 0.06363636255264282
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.7.drop_path2",
+        "p": 0.06363636255264282
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.8.drop_path1",
+        "p": 0.0727272778749466
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.8.drop_path2",
+        "p": 0.0727272778749466
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.9.drop_path1",
+        "p": 0.08181818574666977
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.9.drop_path2",
+        "p": 0.08181818574666977
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.10.drop_path1",
+        "p": 0.09090909361839294
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.10.drop_path2",
+        "p": 0.09090909361839294
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.11.drop_path1",
+        "p": 0.10000000149011612
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.11.drop_path2",
+        "p": 0.10000000149011612
+      }
+    ]
+  },
+  "initial_files_sha256": {
+    "outputs/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103-8c-siglip2_vitb16-s20261029-b64-p8-fp32/siglip2-vitb16-512/initial-checkpoint/index.json": "968dc7b7af1e5f6ce6023aff39bf6f20e66feacd9126c83db73bede1258ab41d",
+    "outputs/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103-8c-siglip2_vitb16-s20261029-b64-p8-fp32/siglip2-vitb16-512/initial-ranks.json": "ca34907a41436c9f240f99c1db90aa6a6a8bd2d5da7fec60c5752f9141044c6c",
+    "outputs/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103-8c-siglip2_vitb16-s20261029-b64-p8-fp32/siglip2-vitb16-512/parameter-groups.json": "b9f7543ab4ea633aa60fb7b39fc5c14dd67d13418f5d93395332761461395c39"
+  },
+  "model_tensor_sha256": "13e6317f0256e32e40f2fa3010c36fec8a140fda729f8cce744b86d57261f762",
+  "native_initial_blob": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103/outputs/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103-8c-siglip2_vitb16-s20261029-b64-p8-fp32/siglip2-vitb16-512/initial-checkpoint/checkpoint-5e191eab36e842cfbff608f031d1f567.pt",
+  "native_initial_blob_sha256": "47846a54306d4fca9d9877dafe5250944a63d7d092551916a76e35fd822a15f5",
+  "new_model_created_by_gate": false,
+  "optimizer_state_entries": 0,
+  "parameter_elements_by_role": {
+    "age": 2,
+    "backbone": 93520128,
+    "head": 769
+  },
+  "parameter_tensors": 165,
+  "public_weights_reloaded_by_gate": false,
+  "rank_count": 8,
+  "source_digest": "8d84162fb819488971a4783bd5a1f3de4401e36ea6bd49a6f5673bde19aa8e9b",
+  "status": "completed"
+}

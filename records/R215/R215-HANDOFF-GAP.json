@@ -1,0 +1,22 @@
+{
+  "previous_round": "R213",
+  "previous_status": "completed",
+  "previous_whole_round_ended_at": 1793705112.0929449,
+  "previous_safe_observed_at": 1793705258.2646487,
+  "new_dispatch_at": 1793706138.5319762,
+  "latest_device_at": 1793706214.2107584,
+  "first_recorded_update_at": 1793706267.3769193,
+  "round_end_to_dispatch_seconds": 1026.4390313625336,
+  "round_end_to_latest_device_seconds": 1102.1178135871887,
+  "round_end_to_first_recorded_update_seconds": 1155.2839744091034,
+  "round_end_to_dispatch_within_300": false,
+  "round_end_to_device_within_300": false,
+  "round_end_to_first_recorded_update_within_300": false,
+  "continuous_DCU_utilization_measured": false,
+  "previous_clock_token_grant_changed": false,
+  "necessary_checks_skipped": false,
+  "previous_last_training_event_at": 1793705088.1394763,
+  "last_event_to_dispatch_seconds": 1050.392499923706,
+  "last_event_to_device_seconds": 1126.0712821483612,
+  "last_event_to_first_recorded_update_seconds": 1179.2374429702759
+}

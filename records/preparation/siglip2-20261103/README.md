@@ -1,5 +1,7 @@
 # R214/R215 受影响 CPU 准备
 
+最新R215已按唯一ready-freshfix实际启动：[formal CPU19/19原件](FORMAL-CPU-R215.json)c4814972/exit0、完整2221文件Git部署0e46ef8b通过；[真实准备汇总](NORMAL-R215.json)和[分层归档](READY-VERIFICATION.json)2a345485保留全部外层失败，不把归档校验叫新模型验收。窗口/一次activation/direct launch均0，[真实8rank初态与首25](../../R215/R215-START.json)已证165全训/五组/空state/whole13e6317f，sourcec9bbde5/SCI68703241/SITEd155冻结。原7→8目标/12→13compile历史快照及formal_pending字段是当时状态，不改其原件；以下为准备过程记录。
+
 11:32补齐第二处接入：fresh.validate_fresh的模型→来源类型映射仍默认ImageNet，第二次normal cokbsqk1/749bfad1实拒绝。仅为SigLIP2登记natural_vision_language，新增一个轻量来源匹配/错误类型拒绝目标，RED/GREEN；[当前8目标/13唯一compile](CPU-CHECKS.json)5e4adcfe/guardqtg8vohq0，原两模型方法AST相同并复用，模型/来源/SCI/tensor不变。新ready-freshfix仍须实际formal通过，未启动GPU；原两partial阶段/grant保留。后续只物化Git中本轮配置/源码/测试和当前CPU记录，不再复制全部历史records，实际部署文件继续逐SHA对远端核验。
 
 11:23实际normal在R215首个未启动阶段被拦截：check_candidate.py末端LN选择器遗漏SigLIP2，误取network.classifier；[原失败53bxb8v_/5b2d3bfd](NORMAL-RED-CPU.json)保留，无clock/activation/GPU，不是科学阴性。仅该选择器加is_siglip2，旧341源码精确逆替换已核，其他源码/SCI/7目标身份复用；原[04bb快照](CPU-CHECKS-PRE-NORMAL-FIX.json)保留。[当前CPU身份](CPU-CHECKS.json)明确新formal19尚待，旧partial包/grant不改；新ready-normfix阶段须完成真实normal才可启动，不能将原7目标写成formal通过。

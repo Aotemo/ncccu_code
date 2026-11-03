@@ -1,0 +1,13 @@
+{
+  "status": "new_unstarted_stage_for_minimal_fresh_source_kind_fix",
+  "at": 1793705623.8343482,
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/siglip2-20261103-32e3/source-git-freshfix",
+  "git_commit": "c9bbde52240c458c577cd2c582f327bd31e18dec",
+  "tree_sha": "4180bcf3803aa98b9d8fb842acf00452a8f90b31",
+  "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready-freshfix",
+  "CPU_checks_sha256": "5e4adcfe490444297a09f041517b7aed553c38f45d7caa1b35f8476be1b0f037",
+  "source_materialization": "only actual Git configs/runtime/tools/tests/current CPU records; deployed manifests verify exact remote file SHA",
+  "old_partial_stages_and_allocations_untouched": true,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

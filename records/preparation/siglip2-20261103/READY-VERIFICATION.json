@@ -1,0 +1,96 @@
+{
+  "status": "actual_formal_CPU19_and_full_Git_deployment_verified",
+  "archived_at": 1793706344.049783,
+  "preparation_result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready-freshfix/PREPARATION-RESULT.json",
+    "sha256": "b3d3d8e10af62316d7b418a47517369aee3cf97108ea7ee1128878b93ccf26b9"
+  },
+  "formal_CPU": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready-freshfix/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "c4814972da656405cf2a7410b9627326afed75d22b5dab3e87c8fc53c8fa294f",
+    "exit_code": 0,
+    "checks_passed": 19
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready-freshfix/DEPLOYMENT.json",
+    "sha256": "0e46ef8b4da8a51990ce4f145944bd318d36b12ea7df599e142de8ef3126cf99",
+    "status": "frozen_from_remote_commit",
+    "source_files": 2221
+  },
+  "actual": {
+    "status": "formal_package_and_actual_Git_deployment_ready",
+    "round_id": "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103",
+    "git_commit": "c9bbde52240c458c577cd2c582f327bd31e18dec",
+    "tree_sha": "4180bcf3803aa98b9d8fb842acf00452a8f90b31",
+    "science_sha256": "687032413916fbf64689071f30c0bc1e850aa94bd677736d8d0910f35aa9081e",
+    "candidate": {
+      "id": "r215-siglip2-vitb16-webli-publicmap-unit-24k-p4-seed20261029-scale085-pairlog-9010",
+      "experiment_order": 128,
+      "model": "siglip2_vitb16",
+      "public_revision": "3c4b2d3989d7cfae00a09fff172c0a6cf8cbb32a",
+      "readout": "native_public_MAP_LN_dropout_linear_plus_age",
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "internal_norm_eps": 1e-06,
+      "batch_norm_modules": 0,
+      "batch_norm_buffers": 0,
+      "attention_pool": null,
+      "weight_sha256": "e6cebc19e5531a0fbe55e3b8d03dbabb8f5c41a698fe01e7b27527ff946132e6",
+      "provenance_sha256": "c93b8f3095d3bf047d50737c23caad391143100a0060820ef7f3c9a30ed827f5",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear"
+    },
+    "checks": 19,
+    "actual_model_tensor_sha256": "13e6317f0256e32e40f2fa3010c36fec8a140fda729f8cce744b86d57261f762",
+    "trainable_tensors": 165,
+    "group_count": 5,
+    "optimizer_policy": null,
+    "optimizer_state_entries": 0,
+    "reused_cpu_checks_sha256": "02ec623aeb176efb95305c32a2af39c65f21ddc8b830e64a400522b3d890ccff",
+    "package_manifest_sha256": "5a8273e82f2d0c5b9f0d0aadb131980316e3b9b97ebe36530aff56bd7da21cba",
+    "cpu_prep_sha256": "947d64558ef2725fe2fb8c5b422ee0c358886176eb219c320ba66618a516759f",
+    "deployment_sha256": "0e46ef8b4da8a51990ce4f145944bd318d36b12ea7df599e142de8ef3126cf99",
+    "site_sha256": "d155e13a60f52a056d566418f67bb194b6b32c05766eb734a9317c50e3da7988",
+    "formal_runs": 1,
+    "formal_clock_created": false,
+    "GPU_started": false,
+    "round_storage_limit_bytes": 25769803776,
+    "storage_policy_sha256": "a5329e3c205c1d06216199e6d9495b33320194a9e2da614cea8b667a105a4bbd",
+    "free_floor_bytes_unchanged": 17179869184
+  },
+  "outer_failed_receipts_preserved": [
+    {
+      "label": "FIRST_NORMAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-53bxb8v_/CPU-RECEIPT.json",
+      "sha256": "5b2d3bfd8d01a16f5c0041a16196abea865d4d7773ac610785e97551e435c66b",
+      "exit_code": 1,
+      "output_sha256": "1855dfc8fff3dac0f38da8ef65e01db78bd47958f2ae842b2df4a7ef540ee038"
+    },
+    {
+      "label": "NORMFIX_NORMAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-cokbsqk1/CPU-RECEIPT.json",
+      "sha256": "749bfad165bd4e02295861351c04313b0695ca98e69859aa1e9aed28463fa078",
+      "exit_code": 1,
+      "output_sha256": "9d77a1af2f644f4b25afb97cad6329e53678c9cee4ab89b4ffb3f86251812db9"
+    },
+    {
+      "label": "FRESHFIX_DEPLOYMENT_INCOMPLETE_TREE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-spw0rujp/CPU-RECEIPT.json",
+      "sha256": "086c6c5fea7383a4a45690ea46dd7ab31724fdc4ca2309143e54c8903db93baf",
+      "exit_code": 1,
+      "output_sha256": "3e5f81d8e817a6343ce67ab396523b69dd52ed1c7b83e6ed24a170420b56001b"
+    },
+    {
+      "label": "DEPLOYMENT_REPORT_PRINT_FAILURE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-pdu24_pe/CPU-RECEIPT.json",
+      "sha256": "839e51f7c8efcb3773af35ccc96463eec0eeee0df22dc549d6492c062e5ac073",
+      "exit_code": 1,
+      "output_sha256": "601bed6ec8eaff97a0bf971f4e86d3566d794242f591e02c1ff02b7b3f8a2d40"
+    }
+  ],
+  "reporting_failure_note": "Final deployment command exited0; unchanged post-deployment checks wrote PREPARATION-RESULT before a private exec scope lacked json during printing. That outer task remains exit1. This task only verifies and archives actual files; it reruns no deployment, model or tests.",
+  "new_model_or_test_or_forward": false,
+  "training_frozen_files_mutated": false,
+  "archive_task_starts_clock_or_GPU": false
+}
