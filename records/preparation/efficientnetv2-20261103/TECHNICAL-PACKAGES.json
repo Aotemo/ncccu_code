@@ -1,0 +1,64 @@
+{
+  "status": "two_technical_packages_no_formal_clock_or_GPU",
+  "at": 1793700380.688171,
+  "packages": [
+    {
+      "label": "R212",
+      "actual": {
+        "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+        "round_id": "r212-small22k-seed27-pairlog-nadam-24k-p4-9010-20261103",
+        "git_commit": "936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a",
+        "tree_sha": "06cc0c7cdab574f978f220e2163fbdc91cb8fbf1",
+        "science_sha256": "338c543337ff648b78a3f35d9a4d85085a3bbf7aaae4e8958d3fff74a2fd8f74",
+        "site_sha256": "473a7f0de7bff68764612e9a7b0690311610fe989396b7b6941cb6b59b3079fb",
+        "CPU_checks_sha256": "63d5d66275bd6d75c41c1bfebe0fb6c9c696906a98ffe970ac89063780e4e7bb",
+        "formal_clock_created": false,
+        "GPU_started": false
+      },
+      "result_sha256": "7fc9b66f99b96d4190ddf7bd98dcb7283ff32d7c39dedc52090e8519bf0782c9",
+      "generated_run_name_length": 95,
+      "round_storage_limit_bytes": 12884901888,
+      "guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-jg7qzezu/CPU-RECEIPT.json",
+        "sha256": "c4749baa3339f26669a8eeade71174ac30fc1add9a0436a7986c32587cfc0c96",
+        "exit_code": 0,
+        "output_sha256": "950d2f890484c510c0b664449059d38304bb4bfac0f0f9ffed8bf34d9f72b984"
+      }
+    },
+    {
+      "label": "R213",
+      "actual": {
+        "status": "technical_package_ready_no_formal_clock_or_GPU_allocation",
+        "round_id": "r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+        "git_commit": "936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a",
+        "tree_sha": "06cc0c7cdab574f978f220e2163fbdc91cb8fbf1",
+        "science_sha256": "7f6de4e13109a6e0262fd9dfa91d2a5247fc6df34e13d55eaf3cf08348c69420",
+        "site_sha256": "fd03a2ff37c9baa909e0d477e87ce78f3e0f39bc8aa8cfdfb5926bd8783ad250",
+        "CPU_checks_sha256": "63d5d66275bd6d75c41c1bfebe0fb6c9c696906a98ffe970ac89063780e4e7bb",
+        "formal_clock_created": false,
+        "GPU_started": false
+      },
+      "result_sha256": "cff49d06c9a9be08bbe648133307161c0d6219af22a096ba4f70a207569a0071",
+      "generated_run_name_length": 103,
+      "round_storage_limit_bytes": 12884901888,
+      "guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-fiwf8ds0/CPU-RECEIPT.json",
+        "sha256": "a34714f55ed927ecd51b01c1100ea273de6b329f3176edaa74f44d687f7d9391",
+        "exit_code": 0,
+        "output_sha256": "ffc2a8e8d8e7f2da71c24093683782875bac37da7fcb9c27731e840f26a7764a"
+      }
+    }
+  ],
+  "actual_pushed_commit_tree_and_source_pins_checked": true,
+  "transport_helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/PREPARE-LARGE-DINO3-NEXT-EFFICIENTNET-BN.py",
+    "sha256": "5c854f4235e68b26b87ef189a738ed32ffc8539360b440ae10020917b8aa4afd",
+    "original_prepare_admit_freeze_logic_preserved": true,
+    "only_identity_and_evidence_additions": true,
+    "existing_storage_policy_section_exact": true,
+    "compiled_by_prior_guard": true
+  },
+  "current_R211_and_earlier_frozen_packages_untouched": true,
+  "GPU_started": false,
+  "formal_clock_created": false
+}

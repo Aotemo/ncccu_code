@@ -1,0 +1,32 @@
+{
+  "status": "actual_pushed_source_and_two_unstarted_stage_arguments_bound",
+  "at": 1793700154.6972468,
+  "git_commit": "936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a",
+  "tree_sha": "06cc0c7cdab574f978f220e2163fbdc91cb8fbf1",
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/source-git",
+  "source_CPU_checks_sha256": "63d5d66275bd6d75c41c1bfebe0fb6c9c696906a98ffe970ac89063780e4e7bb",
+  "helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/PREPARE-LARGE-DINO3-NEXT-EFFICIENTNET-BN.py",
+    "sha256": "5c854f4235e68b26b87ef189a738ed32ffc8539360b440ae10020917b8aa4afd",
+    "original_prepare_admit_freeze_logic_preserved": true,
+    "only_identity_and_evidence_additions": true,
+    "existing_storage_policy_section_exact": true,
+    "compiled_by_prior_guard": true
+  },
+  "remote_commit_sha256": "b1c05586066c0023428331d6a6695418d2f1b8ead70f83bebcd3f972704b072a",
+  "remote_tree_sha256": "e46d0fc5f3fcabafac88f5776211db9ed5945d8dc917bf5b154bffec0ff5fa39",
+  "packages": [
+    {
+      "label": "R212",
+      "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r212-20261103-32e3-ready",
+      "science_sha256": "338c543337ff648b78a3f35d9a4d85085a3bbf7aaae4e8958d3fff74a2fd8f74"
+    },
+    {
+      "label": "R213",
+      "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r213-20261103-32e3-ready",
+      "science_sha256": "7f6de4e13109a6e0262fd9dfa91d2a5247fc6df34e13d55eaf3cf08348c69420"
+    }
+  ],
+  "GPU_started": false,
+  "formal_clock_created": false
+}

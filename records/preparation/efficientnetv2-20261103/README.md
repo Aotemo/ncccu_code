@@ -17,3 +17,7 @@ R212/order125仅完整有效R211严格胜R107及R120后才独立seed27复核，�
 复用原prepare/admit/freeze/保存/评估/监控链；private wrapper只补候选与7/12证据身份。startup observer只让参数/BN计数消费正式CPU冻结期望，旧345/noBN版本不改。历史Tiny专用gpu_admission/finalize脚本不在当前direct-launch调用链，无需修改。现有拓扑中的no-batchnorm字符串是既有逐样本规范名；新模型只使用eval固定统计，实际112/336另由SCI/模型/保存合同绑定。
 
 当前仅必要CPU准备；尚无新normal正式包/clock/activation/GPU或AUROC。CPU保存storage/数值不能证明DCU峰值或吞吐，WORLD8方法fixture不是实际八rank证明。下一正常CPU将沿既有入口核公开512保存/冷图数值，再以真实八rank初态和自然首更新证明GPU链。默认12GiB/free16GiB，无新存储例外；R211/158冻结完全不动。
+
+10:07后续实证：源码已实际push并在Pod核GitHub API commit `936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a`/tree `06cc0c7cdab574f978f220e2163fbdc91cb8fbf1`及source-git全部CPU检查SHA；[两technical包](TECHNICAL-PACKAGES.json) SHA `e7fb2277fb0f52429894aa6bb490776e6a2bac64513d23245ea77a3007fb222f`、R212 `jg7qzezu/c4749baa`与R213 `fiwf8ds0/a34714f5`、归档`vzbsyy9t/0eca0052`均0，run_name 95/103均<=128、默认12GiB，不含normal/正式clock/GPU。R211实观4925/0skip/eval6/bad2，继续冻结；后备normal在可行收尾前完成。
+
+接续只在工具编排层将原窗口核验、实时Pod snapshot、一次activation及显式设备direct launch串入同一SSH；各阶段非0立即停止，保留原四个调用与独立回执。[语法guard](HANDOFF-SYNTAX-CPU.json) `h63cwzxl/c97a1f21`0，template SHA `88c4329809e477135ddfd66bbcd885d86f5de125480b3e0053bfdbb9ea06e8f2`，仅bash -n，未执行任何阶段；实际SITE SHA只在正常formal完成后替换唯一hex占位。此证据不等同已activation/launch，也不是连续利用率或<=5分钟的实测保证。
