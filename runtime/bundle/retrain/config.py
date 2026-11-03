@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'dinov2_vitb14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 ADAMW_AMSGRAD_RULE = 'adamw-amsgrad-v1'
 NADAM_RULE = 'nadam-decoupled-native-v1'
@@ -416,6 +416,12 @@ def validate_job(job):
                     or not all(isinstance(init.get(k),str) and Path(init[k]).is_absolute()
                                and '://' not in init[k] for k in ('path','provenance'))):
                 raise ValueError('ConvNeXt DINOv3 requires its fixed local headless public format')
+        elif init.get('format') == 'dinov2-official-vitb14-512-pad6-state-dict-v1':
+            if (job['model'] != 'dinov2_vitb14' or job['normalization'] != 'imagenet'
+                    or init.get('sha256') != '0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73'
+                    or not all(isinstance(init.get(k),str) and Path(init[k]).is_absolute()
+                               and '://' not in init[k] for k in ('path','provenance'))):
+                raise ValueError('DINOv2 Base requires its explicit original public asset')
         elif (job['model'] != 'dinov2_vits14' or job['normalization'] != 'imagenet'
                 or init.get('format') != 'dinov2-official-backbone-state-dict-v1'
                 or init.get('sha256') != 'b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9'

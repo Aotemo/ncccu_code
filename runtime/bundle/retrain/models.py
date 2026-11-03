@@ -411,6 +411,15 @@ def validate_initialization(initialization):
                 'license_sha256':meta['license_sha256'],'model':'flair_resnet50','format':meta['format'],
                 'source_commit':meta['source_commit'],'original_sha256':meta['original_sha256'],
                 'source_url':meta['source_url'],'pretraining_overlap':'unknown'}
+    if (initialization['kind'] == 'self_supervised'
+            and initialization.get('format') == 'dinov2-official-vitb14-512-pad6-state-dict-v1'):
+        from .dinov2_model import base_provenance, BASE_PROVENANCE_SHA
+        meta = base_provenance(initialization,verify_weight=True)
+        return {'kind':'self_supervised','weights_sha256':initialization['sha256'],
+            'provenance_sha256':BASE_PROVENANCE_SHA,'license_sha256':meta['license_sha256'],
+            'model':meta['model'],'source_url':meta['source_url'],'training_data':meta['training_data'],
+            'format':initialization['format'],'source_commit':meta['revision'],
+            'final_norm_eps':1e-6,'internal_norm_eps':1e-6}
     if initialization['kind'] == 'self_supervised':
         if (initialization.get('format') != 'dinov2-official-backbone-state-dict-v1'
                 or initialization.get('sha256') != 'b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9'):
@@ -902,6 +911,9 @@ def create_model(job, initialize=True):
     if job['model'] == 'dinov2_vits14':
         from .dinov2_model import create_dinov2_binary
         return create_dinov2_binary(job, initialize=initialize)
+    if job['model'] == 'dinov2_vitb14':
+        from .dinov2_model import create_dinov2_base_binary
+        return create_dinov2_base_binary(job, initialize=initialize)
     if job['model'] in ('swin_base', 'swin_v2_small'):
         from .swin_model import create_swin_binary
         return create_swin_binary(job, initialize=initialize)

@@ -1,0 +1,577 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "c25a1a5c6433feea8a961fb48492b7be36776f32800b6ef2b135156d2dad7c22",
+  "candidate": {
+    "id": "r222-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261027-scale085-pairlog-9010",
+    "experiment_order": 137,
+    "model": "eva02_base",
+    "public_revision": "81063ecfe9c381a16a19d06f396d6c7011aa426a",
+    "readout": "native_patchmean_fcLN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "weight_sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+    "provenance_sha256": "9e4e701e4b44a5cf14eb176e25d1f97374f6aeb5091d792e64f137fe4f0d7f73"
+  },
+  "public_source": {
+    "model": "eva02_base_patch14_448.mim_in22k_ft_in22k_in1k",
+    "format": "timm-eva02-base-native448-full1000-pad512-state-dict-v1",
+    "revision": "81063ecfe9c381a16a19d06f396d6c7011aa426a",
+    "source_url": "https://huggingface.co/timm/eva02_base_patch14_448.mim_in22k_ft_in22k_in1k/resolve/81063ecfe9c381a16a19d06f396d6c7011aa426a/pytorch_model.bin",
+    "training_data": "ImageNet-22K masked-image pretraining -> ImageNet-22K -> ImageNet-1K fine-tuning",
+    "original_sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+    "sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+    "native_library": {
+      "version": "1.0.27",
+      "source_sha256": {
+        "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+        "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa",
+        "layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+        "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914"
+      }
+    },
+    "license_sha256": "80c5e100f36b0dc7dd87341705dc8a310fc7c2dcae2bff6831055bf205ee4d2e",
+    "kind": "imagenet",
+    "provenance_sha256": "9e4e701e4b44a5cf14eb176e25d1f97374f6aeb5091d792e64f137fe4f0d7f73",
+    "public_tensor_count": 236,
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "source_features": 768,
+    "structure": {
+      "layer_norm_catalog": [
+        {
+          "name": "blocks.0.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.0.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.0.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.1.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.1.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.1.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.2.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.2.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.2.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.3.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.3.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.3.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.4.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.4.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.4.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.5.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.5.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.5.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.6.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.6.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.6.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.7.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.7.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.7.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.8.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.8.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.8.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.9.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.9.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.9.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.10.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.10.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.10.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "blocks.11.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.11.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.11.mlp.norm",
+          "eps": 1e-06,
+          "shape": [
+            2048
+          ]
+        },
+        {
+          "name": "fc_norm",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        }
+      ]
+    },
+    "source_preprocessing": {
+      "tag": "mim_in22k_ft_in22k_in1k",
+      "custom_load": false,
+      "input_size": [
+        3,
+        448,
+        448
+      ],
+      "fixed_input_size": true,
+      "interpolation": "bicubic",
+      "crop_pct": 1.0,
+      "crop_mode": "squash",
+      "mean": [
+        0.48145466,
+        0.4578275,
+        0.40821073
+      ],
+      "std": [
+        0.26862954,
+        0.26130258,
+        0.27577711
+      ],
+      "num_classes": 1000,
+      "pool_size": null,
+      "first_conv": "patch_embed.proj",
+      "classifier": "head",
+      "license": "mit"
+    }
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/eva02-base-source-screen-20261103-32e3/assets/PUBLIC-HANDOFF.json",
+    "sha256": "e10600938365be45fc31df9eef60fe90af03e33b559bee2c394625bb5c746182"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 236,
+    "backbone_state_tensors": 234,
+    "backbone_parameter_tensors": 234,
+    "backbone_parameters": 86613504,
+    "layer_norms": 37,
+    "gelu_modules": 0,
+    "stochastic_depth_modules": 24,
+    "buffer_count": 1,
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "stochastic_depth": [
+      {
+        "name": "network.blocks.0.drop_path1",
+        "p": 0.0,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.0.drop_path2",
+        "p": 0.0,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.1.drop_path1",
+        "p": 0.00909090880304575,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.1.drop_path2",
+        "p": 0.00909090880304575,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.2.drop_path1",
+        "p": 0.0181818176060915,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.2.drop_path2",
+        "p": 0.0181818176060915,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.3.drop_path1",
+        "p": 0.027272727340459824,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.3.drop_path2",
+        "p": 0.027272727340459824,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.4.drop_path1",
+        "p": 0.036363635212183,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.4.drop_path2",
+        "p": 0.036363635212183,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.5.drop_path1",
+        "p": 0.045454543083906174,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.5.drop_path2",
+        "p": 0.045454543083906174,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.6.drop_path1",
+        "p": 0.054545458406209946,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.6.drop_path2",
+        "p": 0.054545458406209946,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.7.drop_path1",
+        "p": 0.06363636255264282,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.7.drop_path2",
+        "p": 0.06363636255264282,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.8.drop_path1",
+        "p": 0.0727272778749466,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.8.drop_path2",
+        "p": 0.0727272778749466,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.9.drop_path1",
+        "p": 0.08181818574666977,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.9.drop_path2",
+        "p": 0.08181818574666977,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.10.drop_path1",
+        "p": 0.09090909361839294,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.10.drop_path2",
+        "p": 0.09090909361839294,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.11.drop_path1",
+        "p": 0.10000000149011612,
+        "mode": "row"
+      },
+      {
+        "name": "network.blocks.11.drop_path2",
+        "p": 0.10000000149011612,
+        "mode": "row"
+      }
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/pytorch_model.bin",
+    "public_provenance": "technical-prep/eva02-base-source-screen-20261103-32e3/assets/PROVENANCE.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "eva02-base",
+    "model": "eva02_base",
+    "seed": 20261027,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "clip",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Conditional independent fresh seed27 of the complete R221R2 EVA02 original recipe. Eligible only if the final unique internal-dev selection strictly beats both R107 and R120. Source, native512pad6/CLIP, optimizer, loss, augmentation, EMA and schedule remain. No historical task initialization or official-error tuning.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  },
+  "initial_buffer_sha256": "afe090429ce2ef681cbc488c94ad42411e67a52012e5004bf33d9864e52ad83e"
+}

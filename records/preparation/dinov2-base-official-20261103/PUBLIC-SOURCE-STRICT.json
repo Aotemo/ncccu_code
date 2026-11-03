@@ -1,0 +1,323 @@
+{
+  "status": "original_public175_strict_exact_FP32_finite",
+  "at": 1793725029.4169474,
+  "model": "dinov2_vitb14",
+  "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "original": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/assets/original/dinov2_vitb14_pretrain.pth",
+    "sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73",
+    "bytes": 346378731
+  },
+  "native_tensor_sha256": "a1d6c0d7e89b576db6a71b9da31a7f07a6427aecf2bdcd68e312d5bbb04d30a5",
+  "parameter_tensors": 175,
+  "parameter_elements": 86580480,
+  "buffer_count": 0,
+  "layer_norm_catalog": [
+    {
+      "name": "blocks.0.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.0.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.1.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.1.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.2.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.2.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.3.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.3.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.4.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.4.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.5.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.5.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.6.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.6.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.7.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.7.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.8.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.8.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.9.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.9.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.10.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.10.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.11.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.11.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "norm",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    }
+  ],
+  "position_shape": [
+    1,
+    1370,
+    768
+  ],
+  "features": 768,
+  "public_tensor_count": 175,
+  "backbone_only": true,
+  "full_head_shape": null,
+  "all_public_tensors_exact": true,
+  "strict_missing_keys": [],
+  "strict_unexpected_keys": [],
+  "all_public_tensors_FP32_finite": true,
+  "image_forward_calls": 0,
+  "GPU_initialized": false,
+  "dataset_or_official_read": false,
+  "code_asset_provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/dinov2-vits14-7764ea0-complete1/PUBLIC_ASSET_PROVENANCE.json",
+    "sha256": "e76029ce54fcf519d4006d72ee23d8b35af52dde01d8afa3c21a9ed17beab9dc",
+    "code_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/dinov2-vits14-7764ea0-complete1/dinov2-source"
+  },
+  "license_sha256": "600cc67cc4cb2f5ea317dcfc687ad1c74dc4bec8782bbe9db0afd83513b935b7",
+  "transport_parts": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-00",
+      "bytes": 16777216,
+      "sha256": "1f5fa412aea63dc7d314ddbfd9aa01928c1de077caa18e574536de2134cf28ab"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-01",
+      "bytes": 16777216,
+      "sha256": "facf7293700d4055ff6713941cbf83b65d50565eb5a0558da67bc8de4eedfe07"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-02",
+      "bytes": 16777216,
+      "sha256": "83d1c6e679ca575204edf99643ab433d0de164034d1a4d4f301db8632d5d0cbe"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-03",
+      "bytes": 16777216,
+      "sha256": "3622a7a50a6b0b56bca638b636668885583282c2e4cbc4b7389c50100da60476"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-04",
+      "bytes": 16777216,
+      "sha256": "d647a4b86582e15501aa3c4d59410c3132258434dbe6c63871e6b38054400280"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-05",
+      "bytes": 16777216,
+      "sha256": "9546f4dbf358fb8f4dbfce024780e19a2dcabb4ec39dcc45982cfa7fc1858118"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-06",
+      "bytes": 16777216,
+      "sha256": "78ee42072c1d197b8452f700969e094e7513baf54a05bd9089bcc3d765bcee89"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-07",
+      "bytes": 16777216,
+      "sha256": "f0b826d5a01f7da07231daa7546fed33cd5b15170b0517f51bc91b3de4a858df"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/retry-part-08",
+      "bytes": 16777216,
+      "sha256": "f12cb45ae542812e608219bb5d06d034c115a7e26c76959f1f06946b5b595bd7"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/retry-part-09",
+      "bytes": 16777216,
+      "sha256": "3d6ee2dff7f50d6bac2695d6651540941be12000dfe79f3d11739e0bd1293484"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-10",
+      "bytes": 16777216,
+      "sha256": "eab23a979f1300ad7bab955c631fae42de049d9a3b4cf2e56a85fbae9c587dba"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/retry-part-11",
+      "bytes": 16777216,
+      "sha256": "b293a82c99080a4f87b500ecb1f018fb4e14b3ca58a0af7be85905344acd7ac1"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/retry-part-12",
+      "bytes": 16777216,
+      "sha256": "e506317e8c9d80d07141dcce3105a6cf446fc2e3771feda7480a993f0fd47e96"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-13",
+      "bytes": 16777216,
+      "sha256": "ae80790e71640b7e19ae01dc5b85db6031297f4246bbb20f26331240e4bc4a47"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-14",
+      "bytes": 16777216,
+      "sha256": "cf0c53ce614286ccd092294b665be0a702a0d03d58c96143fd539a7db7e8a571"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-15",
+      "bytes": 16777216,
+      "sha256": "5b3e9d6f6c6bbd7ead728826224ead7dd2af9e113c6cdd44bc09a270dbbf4580"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-16",
+      "bytes": 16777216,
+      "sha256": "31c8db581d686dad5b66234cde076d757b2b908aba33fa7b77f9649ef0602340"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-17",
+      "bytes": 16777216,
+      "sha256": "92d0787c43648614894f9435c1002f75eeada2724e393b1bb50c16fbc617a7fe"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-18",
+      "bytes": 16777216,
+      "sha256": "27e43f201c325e0d8ed1bd949139cf2209c476cab1b371024e0c6c1e824c0c03"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-19",
+      "bytes": 16777216,
+      "sha256": "f35392e2b8982bb6d754b57ffa14a2d868b96708c30cc1f551bfb885982fa66d"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/transport/parts/part-20",
+      "bytes": 10834411,
+      "sha256": "823353734fcca9f7759a9c3047f5027662cd6ba06ab20600362cfc6140741035"
+    }
+  ],
+  "provenance_sha256": "de08471a17c713fc8a91c6e95eca38f3bf010ddcf58f4d049c37a57ad0bfc82f",
+  "producer_sha256": "da6c8ce53ee71034f463168a638cda3a3d023ad243317050d38ffeb1fff6deaa"
+}

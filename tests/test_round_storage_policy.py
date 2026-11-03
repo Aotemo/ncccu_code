@@ -30,6 +30,8 @@ R205 = 'r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103'
 R221 = 'r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
 R221R1 = 'r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
 R221R2 = 'r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
+R222 = 'r222-eva02-base-seed27-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
+R223 = 'r223-dinov2-vitb14-seed29-native512pad6-pairlog-storage16-24k-p4-9010-20261103'
 GIB = 1024 ** 3
 
 
@@ -73,7 +75,7 @@ class RoundStoragePolicyTest(unittest.TestCase):
     def test_new_round_limit_and_old_default_keep_free_floor(self):
         with tempfile.TemporaryDirectory() as directory:
             policy = ROOT / 'configs/ROUND-STORAGE-POLICY.json'
-            for name in (R116, R117, R174, R175, R191, R192, R203, R204, R221, R221R1, R221R2):
+            for name in (R116, R117, R174, R175, R191, R192, R203, R204, R221, R221R1, R221R2, R222, R223):
                 with self.subTest(round_id=name):
                     root = Path(directory) / name
                     root.mkdir()

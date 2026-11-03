@@ -85,8 +85,8 @@ def main(args):
     is_effnet = job['model'] == 'efficientnetv2_rw_s'
     is_siglip2 = job['model'] == 'siglip2_vitb16'
     is_eva02 = job['model'] == 'eva02_base'
-    is_dinov2 = job['model'] == 'dinov2_vits14'
-    is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,*ex.VIT_DINO3_BINDINGS)
+    is_dinov2 = job['model'] in ('dinov2_vits14','dinov2_vitb14')
+    is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.DINOV2_BASE_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,*ex.VIT_DINO3_BINDINGS)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
     is_deit = job['model'] == 'deit3_small'
     is_vit_dino3 = job['model'] in ('vit_dino3_small','vit_dino3_base')

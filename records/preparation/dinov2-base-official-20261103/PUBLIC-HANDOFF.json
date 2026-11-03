@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "model": "dinov2_vitb14",
+  "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "execution": {
+    "at": "2026-11-03T17:06:55.261388+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/CPU-ALLOCATION.json",
+      "sha256": "7c7af22ca15c3b20cd4e88016dd11e73f842530d4330dba485599b2dcb791e7e",
+      "executor_id": "32e3b079-81b0-4f66-9604-b32491599f44",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "native_weights": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/assets/original/dinov2_vitb14_pretrain.pth",
+    "sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73"
+  },
+  "provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/assets/PROVENANCE.json",
+    "sha256": "de08471a17c713fc8a91c6e95eca38f3bf010ddcf58f4d049c37a57ad0bfc82f"
+  },
+  "public_tensor_count": 175,
+  "source_files_sha256": "ed5db7b07fdcd8d3ce92b1ce81bc2f509e6e7472756a348d0859351543acfed5",
+  "source_strict": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/assets/PUBLIC-SOURCE-STRICT.json",
+    "sha256": "91d62c19792866d1b9eef8e1d41747ee26611da6e2b09ed951573dba1ff363bc"
+  },
+  "strict_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-m5ii10ey/CPU-RECEIPT.json",
+    "sha256": "fe3e81212654255c8772ef7bf5a1c4d8bb94ac3c7085f5ccbd3664682aa246b3"
+  },
+  "backbone_only": true,
+  "full_head_shape": null,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "datasets_read": false,
+  "scope": "register original natural-image full175 source and pinned code; no model construction or forward"
+}

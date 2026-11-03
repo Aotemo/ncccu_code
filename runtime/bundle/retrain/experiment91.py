@@ -91,7 +91,9 @@ SMALL_12K_BINDINGS = (SMALL_12K_BINDING,SMALL_12K_SEED27_BINDING)
 EVA02_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 EVA02_R1_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-r221r1-v1'
 EVA02_R2_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-r221r2-v1'
-EVA02_BINDINGS = (EVA02_BINDING,EVA02_R1_BINDING,EVA02_R2_BINDING)
+EVA02_SEED27_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+EVA02_BINDINGS = (EVA02_BINDING,EVA02_R1_BINDING,EVA02_R2_BINDING,EVA02_SEED27_BINDING)
+DINOV2_BASE_BINDING = 'single-dinov2-vitb14-7764ea0-original-native512pad6-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 LONG_EMA_RULE = {'version':'ema-warmcopy1600-decay09999-nobn-v1','warmcopy_updates':1600,
     'decay':.9999,'dtype':'torch.float32','floating_buffers':'same_as_parameters',
     'integer_buffers':'copy','batch_norm_buffers':0}
@@ -169,7 +171,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,
+                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -276,7 +278,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -998,6 +1000,7 @@ def candidate_from_configuration(value):
             raise ValueError('fixed original Small longer EMA recipe differs')
     elif value['candidate_profile'] in EVA02_BINDINGS:
         from .eva02_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
+        seed27=value['candidate_profile']==EVA02_SEED27_BINDING
         expected={'id':'r221-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':134,'model':MODEL,'public_revision':REVISION,'readout':'native_patchmean_fcLN_dropout_linear_plus_age',
             'features':768,'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
@@ -1006,6 +1009,8 @@ def candidate_from_configuration(value):
             expected.update(id='r221r1-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=135)
         if value['candidate_profile']==EVA02_R2_BINDING:
             expected.update(id='r221r2-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261029-scale085-pairlog-9010',experiment_order=136)
+        if seed27:
+            expected.update(id='r222-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=137)
         if (source.get('kind')!='imagenet' or source.get('model')!=VARIANT or source.get('format')!=FORMAT
                 or source.get('revision')!=REVISION or source.get('native_library')!=LIBRARY
                 or source.get('sha256')!=WEIGHT_SHA or source.get('original_sha256')!=WEIGHT_SHA
@@ -1016,7 +1021,7 @@ def candidate_from_configuration(value):
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
                     value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
-                    (MODEL,20261029,'clip',512,512,64,8,False,1e-4,1e-3,1e-4)
+                    (MODEL,20261027 if seed27 else 20261029,'clip',512,512,64,8,False,1e-4,1e-3,1e-4)
                 or any(value['job'].get(k)is not None for k in('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
                     'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
                     'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
@@ -1257,6 +1262,31 @@ def candidate_from_configuration(value):
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or value['job'].get('image_size')!=512 or value['job'].get('prepared_size')!=512):
                 raise ValueError('fixed Swin V2 Small public/geometry/objective differs')
+    elif value['candidate_profile']==DINOV2_BASE_BINDING:
+        from .dinov2_model import BASE_FORMAT,BASE_WEIGHT_SHA,BASE_PROVENANCE_SHA
+        expected={'id':'r223-dinov2-vitb14-original-lvd142m-native512pad6-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order':138,'model':'dinov2_vitb14','public_revision':'7764ea0f912e53c92e82eb78a2a1631e92725fc8',
+            'readout':'native_LN_CLS_concat_meanpatch_dropout_linear_plus_age','features':1536,
+            'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
+            'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if (source.get('kind')!='self_supervised' or source.get('model')!='dinov2_vitb14'
+                or source.get('training_data')!='LVD-142M' or source.get('format')!=BASE_FORMAT
+                or source.get('sha256')!=BASE_WEIGHT_SHA or source.get('original_sha256')!=BASE_WEIGHT_SHA
+                or source.get('provenance_sha256')!=BASE_PROVENANCE_SHA
+                or source.get('source_files_sha256')!='ed5db7b07fdcd8d3ce92b1ce81bc2f509e6e7472756a348d0859351543acfed5'
+                or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
+                    value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
+                    ('dinov2_vitb14',20261029,'imagenet',512,512,64,8,False,1e-4,1e-3,1e-4)
+                or any(value['job'].get(k)is not None for k in('head_seed','nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
+                    'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
+                    'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                    'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                    'training_views','training_rotation','training_photometric','lr_decay_updates','bn_statistics'))):
+            raise ValueError('fixed original DINOv2 Base512 pad6 natural-image recipe differs')
     elif value['candidate_profile'] in (DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING):
         expected={'id':'r141-dinov2-vits14-lvd142m-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':53,'model':'dinov2_vits14','public_revision':'7764ea0f912e53c92e82eb78a2a1631e92725fc8',
@@ -1301,7 +1331,7 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base'):
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base', 'dinov2_vitb14'):
             raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
@@ -1313,12 +1343,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*EVA02_BINDINGS):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*EVA02_BINDINGS,DINOV2_BASE_BINDING):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=(236 if science['candidate_profile']in EVA02_BINDINGS else 794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,*SIGLIP2_BINDINGS) else 176) or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(175 if science['candidate_profile']==DINOV2_BASE_BINDING else 236 if science['candidate_profile']in EVA02_BINDINGS else 794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,*SIGLIP2_BINDINGS) else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt
@@ -1617,9 +1647,10 @@ def describe_model(model):
             'stochastic_depth':[{'name':f'network.blocks.{i}.drop_path{j}','p':getattr(getattr(b,f'drop_path{j}'),'drop_prob',0.),'mode':'row'}
                 for i,b in enumerate(model.network.blocks)for j in (1,2)],'deit3':describe_deit3(model)}
         validate_normalization(value);return value
-    if candidate()['model']=='dinov2_vits14':
-        from .dinov2_model import DINOv2Binary
-        if not isinstance(model,DINOv2Binary):raise ValueError('original DINOv2 binary wrapper required')
+    if candidate()['model']in ('dinov2_vits14','dinov2_vitb14'):
+        from .dinov2_model import DINOv2Binary,DINOv2BaseBinary
+        wrapper=DINOv2BaseBinary if candidate()['model']=='dinov2_vitb14' else DINOv2Binary
+        if not isinstance(model,wrapper):raise ValueError('original DINOv2 binary wrapper required')
         base=model.backbone;buffers=dict(model.named_buffers());final=model.classifier[-1]
         value={'candidate':candidate(),'batch_norm_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm) for m in model.modules()),
             'buffer_count':len(buffers),'buffer_sha256':tensor_digest(buffers),
@@ -1897,17 +1928,18 @@ def validate_normalization(value):
                 or len(native.get('blocks',[]))!=12 or any(b['heads']!=6 or b['qkv_shape']!=[1152,384]or not b['fused_attn']for b in native['blocks'])):
             raise ValueError('actual native DeiT3 CLS/positions/normalization differs')
         return True
-    if candidate()['model']=='dinov2_vits14':
+    if candidate()['model']in ('dinov2_vits14','dinov2_vitb14'):
+        width=768 if candidate()['model']=='dinov2_vitb14' else 384
         norms=value.get('layer_norms',[]);depth=value.get('stochastic_depth',[])
-        expected={'patch_weight_shape':[384,3,14,14],'patch_size':14,'embed_dim':384,'num_register_tokens':0,
-            'pos_embed_shape':[1,1370,384],'cls_shape':[1,1,384],'interpolate_antialias':False,'interpolate_offset':.1,
-            'heads':[6]*12,'qkv_shapes':[[1152,384]]*12,'frozen_unused_token':'backbone.mask_token','mask_token_shape':[1,384]}
+        expected={'patch_weight_shape':[width,3,14,14],'patch_size':14,'embed_dim':width,'num_register_tokens':0,
+            'pos_embed_shape':[1,1370,width],'cls_shape':[1,1,width],'interpolate_antialias':False,'interpolate_offset':.1,
+            'heads':[width//64]*12,'qkv_shapes':[[3*width,width]]*12,'frozen_unused_token':'backbone.mask_token','mask_token_shape':[1,width]}
         if (value.get('candidate')!=candidate() or value.get('batch_norm_modules')!=0
                 or value.get('buffer_count')!=0 or value.get('buffer_sha256')!=hashlib.sha256(b'').hexdigest()
-                or value.get('head_in_features')!=768 or value.get('head_out_features')!=1 or value.get('dropout')!=.2
+                or value.get('head_in_features')!=2*width or value.get('head_out_features')!=1 or value.get('dropout')!=.2
                 or len(norms)!=25 or len({n['name'] for n in norms})!=25
                 or not any(n['name']=='backbone.norm' for n in norms)
-                or any(n['eps']!=1e-6 or n['normalized_shape']!=[384] for n in norms)
+                or any(n['eps']!=1e-6 or n['normalized_shape']!=[width] for n in norms)
                 or depth!=[{'name':'backbone.blocks.'+str(i),'p':.1 if i==11 else (.1/11)*i,'mode':'row'} for i in range(12)]
                 or value.get('dino')!=expected):
             raise ValueError('original DINOv2 no-register/LN/CLS/patch/head graph differs')

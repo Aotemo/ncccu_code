@@ -120,7 +120,7 @@ def _load_model(source, device='cpu', checkpoint='best', model_factory=None, var
                       successful_updates=payload.get('successful_updates'))
         metadata = {'job': job, 'inference': {'threshold': .5, 'precision': job.get('precision', 'fp32')}}
     origin['age_contract_sha256'] = (job.get('age') or {}).get('contract_sha256')
-    if job.get('model') not in ('efficientnet_v2_s', 'convnext_tiny', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base'):
+    if job.get('model') not in ('efficientnet_v2_s', 'convnext_tiny', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'dinov2_vits14', 'dinov2_vitb14', 'flair_resnet50', 'resnet50_imagenet', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base'):
         raise ValueError('unsupported inference model architecture')
     selected_device = _device(device)
     protocol = origin.get('identity', {}).get('fresh', {}).get('precision_protocol')

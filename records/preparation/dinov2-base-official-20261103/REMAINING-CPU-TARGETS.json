@@ -1,0 +1,26 @@
+[
+  {
+    "label": "SMALL-LEGACY",
+    "exit_code": 0,
+    "wall_seconds": 4.825096130371094,
+    "test_methods": 1,
+    "output_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/SMALL-LEGACY-AFFECTED.log",
+    "output_sha256": "b8a739e78d3332e261da7800c58843369db0f184fabef243a217e4efc7f69051"
+  },
+  {
+    "label": "EVA02-LEGACY",
+    "exit_code": 0,
+    "wall_seconds": 4.378176212310791,
+    "test_methods": 2,
+    "output_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/EVA02-LEGACY-AFFECTED.log",
+    "output_sha256": "c9b655781489400a954efcdfb29bddde59ec746d5861f2254ddeb62ba1a098cc"
+  },
+  {
+    "label": "STORAGE",
+    "exit_code": 0,
+    "wall_seconds": 0.22014832496643066,
+    "test_methods": 1,
+    "output_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/STORAGE-AFFECTED.log",
+    "output_sha256": "e4e546ca7b81002d7c075340176048edded67482ed6cfb9c74f3b7c0e8b43862"
+  }
+]

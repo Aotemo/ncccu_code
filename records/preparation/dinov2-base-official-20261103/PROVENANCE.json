@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "model": "dinov2_vitb14",
+  "format": "dinov2-official-vitb14-512-pad6-state-dict-v1",
+  "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "source_url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitb14/dinov2_vitb14_pretrain.pth",
+  "download_url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitb14/dinov2_vitb14_pretrain.pth?versionId=UgXoSvH_JJMe1OVbpL.ucwhEuZ6APOrb",
+  "training_data": "LVD-142M",
+  "source_recipe": "original natural-image DINOv2 distilled backbone; no task teacher",
+  "sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73",
+  "original_sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73",
+  "bytes": 346378731,
+  "official_object_version_id": "UgXoSvH_JJMe1OVbpL.ucwhEuZ6APOrb",
+  "official_object_etag": "\"f1eac11803a0452f9cb34a7a98c4c002-42\"",
+  "declared_license": "Apache-2.0",
+  "redistribution_confirmed": true,
+  "license_file": "LICENSE-APACHE2",
+  "license_sha256": "600cc67cc4cb2f5ea317dcfc687ad1c74dc4bec8782bbe9db0afd83513b935b7",
+  "source_files_sha256": "ed5db7b07fdcd8d3ce92b1ce81bc2f509e6e7472756a348d0859351543acfed5",
+  "code_asset_provenance": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/dinov2-vits14-7764ea0-complete1/PUBLIC_ASSET_PROVENANCE.json",
+    "sha256": "e76029ce54fcf519d4006d72ee23d8b35af52dde01d8afa3c21a9ed17beab9dc",
+    "code_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/dinov2-vits14-7764ea0-complete1/dinov2-source"
+  },
+  "source_preprocessing": {
+    "normalization": "imagenet",
+    "native_image_size": [
+      518,
+      518
+    ]
+  },
+  "notes": [
+    "Weight SHA measured on the compute Pod after byte transport, not claimed as an author-published SHA.",
+    "Fixed official object version/HTTPS headers and full175 strict/exact/FP32/finite were checked. No Small or task training weight was loaded.",
+    "Native source shape only; proposed512 pad6 and task head are unimplemented and have no forward evidence yet.",
+    "First transport attempt exceeded its intended8-stream bound because session creation was mistaken for completion; four lost connections were preserved and separately retried successfully. No GPU or model work ran during transport."
+  ]
+}

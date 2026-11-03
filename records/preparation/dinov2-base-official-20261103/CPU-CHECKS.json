@@ -1,0 +1,159 @@
+{
+  "at": 1793725997.4812746,
+  "scope": "R222 conditional EVA02 seed27 / R223 original natural-image DINOv2 Base",
+  "passed_targets": 13,
+  "targets": {
+    "original_public175_strict": 1,
+    "source_registration": 1,
+    "native_model_P8_EMA_cold_tests": 3,
+    "old_Small_factory_RNG_normalization": 1,
+    "new_candidate_binding": 2,
+    "affected_EVA02_binding": 2,
+    "exact_storage_function": 1,
+    "two_public_factory_initials": 2
+  },
+  "compiled_sources": 12,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/dinov2_model.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/fresh.py",
+    "tools/validation/check_candidate.py",
+    "tools/pretraining/dinov2_base_source.py",
+    "tests/test_dinov2_base.py",
+    "tests/test_dinov2_base_candidate.py",
+    "tests/test_eva02_candidate.py",
+    "tests/test_round_storage_policy.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/dinov2_model.py": "f7fe25769da4f5f90f24562eab39c3e40f5ead46deb76015081efa1bdbd1e98e",
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/config.py": "a79b02336db57c50d85bbfe649f1d6d1f33b89344f56e579f9b013c99d40c4d8",
+    "runtime/bundle/retrain/inference.py": "1a00f003fe5db81627934b2afba2e71af68dafed76810d9ba6fa26835fcb7833",
+    "runtime/bundle/retrain/experiment91.py": "5dabdda651b37ae99673ef7237f2c9c9110207259f43b38b96c3e729b9e2e3fd",
+    "runtime/bundle/retrain/fresh.py": "0b9cd7c546859b0994878b27cc2e59507e7fd88e63bf4bcd67c42f7d4c8f58ea",
+    "tools/validation/check_candidate.py": "fa47a07f21376bddf9692b48ca53068c9783c587b7d37d176a1c9e57d00756be",
+    "tools/pretraining/dinov2_base_source.py": "65fc0741495b59ac4766816a102b891ca3320fd57ea1ba622b0b74cdb73c2936",
+    "tests/test_dinov2_base.py": "2d1e1997f6a6d4580679972b06811da8725efdd55628770ee59cbef3c9c491d7",
+    "tests/test_dinov2_base_candidate.py": "d40bdc7aedccbf27dcb592da722cfd1af243e656f4bf40e009784632fe025af4",
+    "tests/test_eva02_candidate.py": "547cdbed6f2c39eaed3dd361fbd350516b73e1713c689e268346ccb6d71d9fa8",
+    "tests/test_round_storage_policy.py": "890c7df3aad680ef7834561b1154a63e6b3d75ec26ca6aa17f0dca5bb5556928",
+    "runtime/bundle/retrain/eva02_model.py": "7cc6d2a61f7c2b9b5d6f1c38000242c21b8c6f42f209d89efb310ee65e8ff3ba",
+    "runtime/bundle/retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "runtime/bundle/retrain/single91.py": "edac014b424e0ef127602ed4d038a74af51b0f796426e20996ca9fae07482a79",
+    "runtime/r92_initial_gate.py": "704b0fc29f441a47eec7e87aa54e044634904dd76da88d71c2a0939524bef3a3",
+    "runtime/run_round.py": "26c9652517af0078e0cfe7b54ff6de8de1e31eab5fec2c5e4ff99c745423bade"
+  },
+  "configuration_files": {
+    "configs/RESOURCE-POLICY.json": "0b1a5f9509251c383c0b0103419d0ab673f92dc2a8269bfa5971d3c5123ea063",
+    "configs/ROUND-STORAGE-POLICY.json": "e16c99a52622b23fe8b69f88e6e1682e0cec66f9fa9dabee64a1659345322919",
+    "runtime/EMA-TINY.json": "4b3c23e56d5f14caee359d8f6c6878f5751e8b3ca0b562a4601383cfccc364e9"
+  },
+  "unchanged_implementation_files": {
+    "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "distributed_engine": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "ema": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530"
+  },
+  "science_sha256": {
+    "R222-SCIENCE.json": "d16edef57a4eb262c466a8f22fdb8ed41cd0257a99804504e5160ba2eb2ecf94",
+    "R223-SCIENCE.json": "c1b0fad31b7ece51f4056085f6377c531c840c903fad587dc13fe8209981e41a"
+  },
+  "evidence": [
+    {
+      "label": "MODEL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-vx8r3zah/CPU-RECEIPT.json",
+      "sha256": "ab8d64dac3f1f2edb966950c0032aaaded002fa7abb5aa231910df5214d24aa3",
+      "exit_code": 1,
+      "output_sha256": "722eec353d682cc70c1813cce472299359f67dc8bd72c1cd70d4c02dfb8786d4"
+    },
+    {
+      "label": "MODEL-THREE-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-mq7e56d2/CPU-RECEIPT.json",
+      "sha256": "99948cf0281aa29ad417774c264accfd649fb4d7cdb637317284dc82f8fc4715",
+      "exit_code": 0,
+      "output_sha256": "98d197787cf0b6742a05d662d20248fdfff4dac6a4f92f80dd0bae71f9a52de9"
+    },
+    {
+      "label": "CANDIDATE-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-4pi43s32/CPU-RECEIPT.json",
+      "sha256": "9ea2b8cb7eb90e5239375394de33b8084e23e75f2f11568968c397bec24d29eb",
+      "exit_code": 1,
+      "output_sha256": "652faaa4835953a1366861456bde81728661fc0fcb5a5bb1be073e84880c6392"
+    },
+    {
+      "label": "CANDIDATE-TWO-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gyfb9yox/CPU-RECEIPT.json",
+      "sha256": "b0a9634bb59c4473970b5cc4f3bebb0df996053498433143dcdc5a7599ee5612",
+      "exit_code": 0,
+      "output_sha256": "e44666248a07be616f68ef4184e94e914f65a375bafd16f891df1da3383cde6f"
+    },
+    {
+      "label": "PUBLIC-STRICT",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-m5ii10ey/CPU-RECEIPT.json",
+      "sha256": "fe3e81212654255c8772ef7bf5a1c4d8bb94ac3c7085f5ccbd3664682aa246b3",
+      "exit_code": 0,
+      "output_sha256": "45d07977a55b45a709b3e276be4e0a84156e66bb68d54e72473fe638c401ecac"
+    },
+    {
+      "label": "SOURCE-REGISTRATION",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-8tdii6ky/CPU-RECEIPT.json",
+      "sha256": "42ed4e5d6cf7fa1d082482a4a1bfa52e76e01203e7a87551913f3c7b2d38bf25",
+      "exit_code": 0,
+      "output_sha256": "fa49f6f869cd3febd8214c9c61698aa1cf929183f1d54cf1a01787fe789dedbc"
+    },
+    {
+      "label": "PUBLIC-TWO-FRESH",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-xzxy5_o_/CPU-RECEIPT.json",
+      "sha256": "ffa52bb8d4b71516ae93b5ca47a3417d9de3a93546b077a2c85e826f43bb7e45",
+      "exit_code": 0,
+      "output_sha256": "f8b38226d2488d4dd76bbcf17a1b56301a3c81ec14e2b2c65c7e7506ba514ef1"
+    },
+    {
+      "label": "STORAGE-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-y8tx0m7y/CPU-RECEIPT.json",
+      "sha256": "bf0026e16abef13c9c0049bdc0904c7757b0b37ee5aeace88cee456086445d8e",
+      "exit_code": 1,
+      "output_sha256": "5d1328642e2e9b9500649b4d17f9beb5975d59b3b98339872ed7c0311bb4d93c"
+    },
+    {
+      "label": "SMALL-EVA02-STORAGE-GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-zlekpo4n/CPU-RECEIPT.json",
+      "sha256": "f0cee2f2e49f0c233362a86ad0614cc6e17877bf5f541d6572627f772d1ff096",
+      "exit_code": 0,
+      "output_sha256": "86eea9ea10a8ea3b4e356ce09fe6b182c5e57b724baeb1d2c2e8dc9b208766eb"
+    },
+    {
+      "label": "FINAL-COMPILE-AND-ARCHIVE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-kl4maxey/CPU-RECEIPT.json",
+      "sha256": "10524e651e2f05f371047d6d9f22703e4edd9747d51bcf15d3f759808c449114",
+      "exit_code": 0,
+      "output_sha256": "076c52b4d79fb0f019cbe953097407be75d14c0fc81963b3cb72ef3a1fd5569d"
+    }
+  ],
+  "prepare_helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/PREPARE-DINOV2B-NEXT.py",
+    "sha256": "59b3c234d03b735df4bef9b7ddfb34fb2bdc8d30116204c549e0cc207c85b0a7",
+    "existing_chain_reused": true,
+    "changes": "explicit identity/evidence references, XFORMERS Base selection and subtract explicitly frozen unused token from expected trainable count"
+  },
+  "scope_notes": [
+    "Three native-model CPU tests passed in117.907s before adding only the separate legacy Small test. Their model/initialization/forward/EMA/cold implementations were not changed afterward; the three methods are reused, not rerun.",
+    "Old Small public code factory, original fixed head values/RNG and measured normalization were actually tested without loading old Small or task training weights. Other unchanged Small wrapper functions remain literal original implementations.",
+    "Real P8 gradients and native oracle use synthetic inputs on CPU. The production EMA rule is tested with warmcopy1 and a declared synthetic1600 counter state leading to blend1601, not1600 actual steps.",
+    "No image/official/dataset forward occurred during original public full175 strict, source registration or the two fresh factories. Complete source uses measured original bytes and177 fixed original code files; the conflicting-license timm mirror remains unadopted.",
+    "First transfer attempt exceeded intended8 streams due to treating session allocation as completion; four disconnects were retained and separately retried. Accepted source is based on complete original SHA/strict, not partials.",
+    "Full512 normalized-zero pad6/native518 CLS+mean1536 and native binary head are a fixed joint source/capacity/readout hypothesis. No clinical mechanism, AUROC benefit or DCU peak/throughput claim is established.",
+    "Active R221R2 frozen package and its clock/token/grant are unchanged; no extra GPU or resource was requested."
+  ],
+  "producer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dinov2-base-official-20261103-32e3/FINAL-DINOV2B-CHECKS.py",
+    "sha256": "fc7e930337293f4b76132b64764041669ea48621935018e182d83d0201065b1a"
+  }
+}

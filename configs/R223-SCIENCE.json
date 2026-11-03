@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-dinov2-vitb14-7764ea0-original-native512pad6-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "02cfd3b528ae07177429c8910993571b3bc01e4303751c7245568fa5fd1bf2ef",
+  "candidate": {
+    "id": "r223-dinov2-vitb14-original-lvd142m-native512pad6-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 138,
+    "model": "dinov2_vitb14",
+    "public_revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+    "readout": "native_LN_CLS_concat_meanpatch_dropout_linear_plus_age",
+    "features": 1536,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "weight_sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73",
+    "provenance_sha256": "de08471a17c713fc8a91c6e95eca38f3bf010ddcf58f4d049c37a57ad0bfc82f"
+  },
+  "public_source": {
+    "model": "dinov2_vitb14",
+    "format": "dinov2-official-vitb14-512-pad6-state-dict-v1",
+    "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+    "source_url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitb14/dinov2_vitb14_pretrain.pth",
+    "training_data": "LVD-142M",
+    "original_sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73",
+    "sha256": "0b8b82f85de91b424aded121c7e1dcc2b7bc6d0adeea651bf73a13307fad8c73",
+    "license_file": "LICENSE-APACHE2",
+    "license_sha256": "600cc67cc4cb2f5ea317dcfc687ad1c74dc4bec8782bbe9db0afd83513b935b7",
+    "source_files_sha256": "ed5db7b07fdcd8d3ce92b1ce81bc2f509e6e7472756a348d0859351543acfed5",
+    "kind": "self_supervised",
+    "provenance_sha256": "de08471a17c713fc8a91c6e95eca38f3bf010ddcf58f4d049c37a57ad0bfc82f",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "public_tensor_count": 175,
+    "full_head_shape": null,
+    "source_features": 768,
+    "code_asset_provenance": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/dinov2-vits14-7764ea0-complete1/PUBLIC_ASSET_PROVENANCE.json",
+      "sha256": "e76029ce54fcf519d4006d72ee23d8b35af52dde01d8afa3c21a9ed17beab9dc",
+      "code_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/dinov2-vits14-7764ea0-complete1/dinov2-source"
+    },
+    "structure": {
+      "layer_norm_catalog": [
+        {
+          "name": "blocks.0.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.0.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.1.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.1.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.2.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.2.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.3.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.3.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.4.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.4.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.5.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.5.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.6.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.6.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.7.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.7.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.8.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.8.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.9.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.9.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.10.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.10.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.11.norm1",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "blocks.11.norm2",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        },
+        {
+          "name": "norm",
+          "eps": 1e-06,
+          "shape": [
+            768
+          ]
+        }
+      ]
+    },
+    "source_preprocessing": {
+      "normalization": "imagenet",
+      "native_image_size": [
+        518,
+        518
+      ]
+    }
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/dinov2-base-official-20261103-32e3/assets/PUBLIC-HANDOFF.json",
+    "sha256": "dccceb61c8570446e333156868ed10dbbc353d645e5501ff11ed64d5027d0a65"
+  },
+  "structure": {
+    "features": 1536,
+    "public_state_tensors": 175,
+    "backbone_state_tensors": 175,
+    "backbone_parameter_tensors": 175,
+    "backbone_parameters": 86580480,
+    "layer_norms": 25,
+    "gelu_modules": 12,
+    "stochastic_depth_modules": 12,
+    "buffer_count": 0,
+    "frozen_parameter_names": [
+      "backbone.mask_token"
+    ],
+    "frozen_parameter_elements": 768,
+    "full_head_shape": null
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "technical-prep/dinov2-base-official-20261103-32e3/assets/original/dinov2_vitb14_pretrain.pth",
+    "public_provenance": "technical-prep/dinov2-base-official-20261103-32e3/assets/PROVENANCE.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "dinov2-base",
+    "model": "dinov2_vitb14",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent original natural-image DINOv2 Base/14 no-register LVD142M source. Original native518 geometry is reached only by right/bottom normalized-zero pad6 of the unchanged prepared512/augmentation/ImageNet input, no crop/resize or positional-grid resampling. Native final-LN CLS+mean-patch1536, Dropout.2, native Linear and age once. Public source/capacity and required input/readout form a joint fixed hypothesis, not a pure mechanism claim. R141 Small504/fixed old head and the conflicting-license timm mirror stay closed/unadopted. Other science directly R107 seed29/G64P8/448 logistic/default AdamW/LR/WD/globalclip/EMA1600-.999/24k-800-p4. No medical pretraining, old task weights, added teacher, ROI/photometry/head/padding scan or official-error tuning. Source author distillation is only public pretraining provenance. No gain is promised.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

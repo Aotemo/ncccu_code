@@ -2,7 +2,7 @@
 
 16:23预声明；17:06工程恢复后接续对象明确为当前唯一GPU R221R2/c732667，最近1425成功/0跳步/八rank活跃，超过R1失败点。R221/R1均工程failed，不作科学阴性。R219同封存256图fit已完成；仍仅既有7c/root0–11准备池与训练24–119互斥。R222/order137，R223/order138，不派发第二CPU任务或GPU。
 
-R221R2完整唯一内部dev所选必须严格超过R107 .9884405731067525及R120 .9894773092062407，才允许R222同EVA02配方seed20261027独立fresh复核；否则不启动R222，接准备完备的R223。该条件不恢复已因R219阴性而不eligible的R220。当前R222/R223都无最终SCI/公开fresh/正式CPU/clock/activation/启动资格。
+R221R2完整唯一内部dev所选必须严格超过R107 .9884405731067525及R120 .9894773092062407，才允许R222同EVA02配方seed20261027独立fresh复核；否则不启动R222，接准备完备的R223。该条件不恢复已因R219阴性而不eligible的R220。17:14已完成两实际public fresh和13必要目标/12编译，SCI分别d16edef5/c1b0fad3、初态c25a1a5c/02cfd3b5；[真实CPU证据](../../records/preparation/dinov2-base-official-20261103/README.md)已归档，Git冻结/正式CPU/精确部署仍待执行，尚无clock/activation/GPU启动资格。
 
 R223候选仅原始官方自然图像`dinov2_vitb14`无register骨干/LVD142M，代码固定7764ea0f912e53c92e82eb78a2a1631e92725fc8；[官方说明](https://github.com/facebookresearch/dinov2/blob/7764ea0f912e53c92e82eb78a2a1631e92725fc8/README.md)列出普通DINOv2代码及权重Apache2、ViT-B/14下载，和另行许可的医学分支分开。本轮仅考虑普通自然源。原[timm镜像筛查](DINOV2-BASE-SOURCE-SCREEN-20261103.md)的许可不一致身份继续未采用，不改其原metadata或用新解释覆盖。原[R141 Small合同](../../records/R141/README.md)完整.9418572868阴性保持，不重开Small/504/固定旧头初始化。
 
@@ -15,6 +15,6 @@ R223候选仅原始官方自然图像`dinov2_vitb14`无register骨干/LVD142M，
 必要文件边界：优先小改现有`dinov2_model.py`的显式Base工厂/读出，保留旧Small默认；`models.py/config.py/inference.py/experiment91.py/fresh.py`和既有`validation/check_candidate.py`只补不可缺注册/身份/冷加载消费点。`activation/prepare.py`原通用kind消费可复用，无需改动。新`tools/pretraining/dinov2_base_source.py`仅来源核验/登记，复用source_chain，不另建训练/启动/保存/评估/监控链；新`tests/test_dinov2_base.py`和`tests/test_dinov2_base_candidate.py`、两SCI及原精确存储测试/配置，真实小回执归`records/preparation/dinov2-base-official-20261103/`。若实核发现额外必需文件，先在此更新精确范围。
 
 - [x] 完整官方原件字节/固定177代码资产与许可SHA、原175张量FP32 finite/strict exact，零图像forward；不将网页或下载头作该证据。
-- [ ] 新模型/候选先真实RED，再最小实现；CPU native oracle核pad6/37网格/CLS+mean/旧Small默认与RNG，P8实际反传/177可训参数及五空组、生产EMA warmcopy/blend、真实CheckpointStore→inference冷图exact。masked参数不纳入optimizer，不把CPU storage当DCU峰值。
-- [ ] 两实际public-fresh初态/必要窄目标与源码编译、按SHA复用旧实现证据；本机/登录节点不执行Python/哈希/解析/测试，不与当前fit准备任务争用owner lease。
+- [x] 新模型/候选先真实RED，再最小实现；CPU native oracle核pad6/37网格/CLS+mean/旧Small默认与RNG，P8实际反传/177可训参数及五空组、生产EMA warmcopy/blend、真实CheckpointStore→inference冷图exact。masked参数不纳入optimizer，不把CPU storage当DCU峰值。
+- [x] 两实际public-fresh初态/必要窄目标与源码编译、按SHA复用旧实现证据；本机/登录节点不执行Python/哈希/解析/测试，不与当前fit准备任务争用owner lease。
 - [ ] Git同步/完整commit-tree回读/精确部署及既有正式CPU在当前训练期间完成。完整所选双门与actualsafe决定分支，只沿既有入口串行接续，真实八rank初态/首成功证明可跑，无GPU预演、新资源、审批、Agent或旧clock/token/grant重置。
