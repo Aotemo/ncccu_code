@@ -1,5 +1,7 @@
 # R197：原 Small sigmoid 的独立 fit gamma 增强
 
+[原封存难组补充](../analysis/20261102-persistent-errors/R197-FIXED20-SUMMARY.json)复算与完整指标一致：固定20正例错序质量6334、其余147为3241、总9575；比R107难组少289却其余多264，净少25，两组仍均高于R120。无新forward/官方或分组/标签改变，不据局部结果改采用门。
+
 11-03 02:45完整[终态](R197-RESULT.json)：10400 success=attempt、0skip、13次评估、bad4正常早停，唯一EMA c9@7200内部AUROC `.9884706757809537` / AP `.8262997760790266` / error_twice19150。严格胜R107但未胜R120，R198条件复核不eligible；官方不足.996未跑，freeze原status=null保留，raw .999未达。固定gamma配方本轮未达采用双门，不外推全部光度方法。选中tensor6251937d、blobbe7c5591、CSV76554b38、precisionafc4acea；没有新增forward/改标签。[实际安全观测](R197-COMPLETION.json)与[guardm1jbs9bo](R197-CPU-COMPLETION.json)均完整：owner Z/nonactive、八rank缺席、锁holders/device users空、denied0及八卡busy0，封存后不重查旧safe。已沿原入口串行接续[R199](../R199/README.md)，本段覆盖下文早期running状态。
 
 11-03 01:35:40.963 UTC[既有监控单次快照](R197-DEVICE-POINT.json)八绑定PCI全部busy100%，非连续利用率；[guardi9s5j806](R197-CPU-DEVICE-POINT.json) / `2ab3c4f81f69c14927d117066fc4dab3b4338020eb2eeaa6bbafefec763dce56` exit0，0 GPU API/模型/forward、未改runtime。01:42最近2525 success=attempt/0skip/eval3/bad0，暂best EMA c3@2400内部AUROC `.9863695091217123` / AP `.8258739741425536`，尚无完整selected。
