@@ -1,5 +1,9 @@
 # R217：原 Small 较长 EMA 窗口
 
+14:43已[完整结束](R217-RESULT.json)：13600成功更新、17次dev、连续4次无提升、0跳过；唯一所选EMA c13@10400，内部AUROC **.9875435134155578**、AP .8211863371259488、error_twice20690。未严格超过R107或R120，R218不eligible；官方未跑，raw .999未达。较长EMA固定配方本轮阴性，不据此证明所有EMA方法无效。
+
+[唯一安全终态](R217-COMPLETION.json)及[实际guard](R217-CPU-COMPLETION.json)已核：原owner同birth为Z、八rank退出、无锁持有者或设备用户、八PCI busy0；原件封存后不重查旧safe。R219实际首成功后已[归档](R217-CPU-FINAL-ARCHIVE.json)，所选权重临时保护，供13:43预声明的同256张fit子集CPU诊断及固定组汇总，完成后按真实manifest清理。当前GPU已为R219，原R217冻结/clock/token/grant不改。以下为历史启动与训练时点。
+
 13:33实观4900 success=attempt/0skip/c6/bad0、八rank活跃，暂EMA c6@4800内部AUROC .985093155735583 / AP .8024036697244497，尚无完整selected。13:33:18[原sysfs单次快照](R217-DEVICE-POINT.json)八绑定PCI均busy100%，[guard](R217-CPU-DEVICE.json)xiylcuee/5e7b17a5 exit0；非连续利用率测量。当前冻结部署保持，以下12:56为实际启动时点。
 
 12:56[真实八rank与自然首25](R217-START.json)已证可运行，最近150 success=attempt/0skip/eval0。345全训、五组/各rank空优化器state、初态50c6f55c与正式CPU一致；首25 loss .6513809561729431有限，WORLD8/G64P8/448pairs，每rank8主图/8视图。尚无完整selected或收益声称，raw .999未达。
