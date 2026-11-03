@@ -1,5 +1,7 @@
 # R197 之后固定 AdamW 参数收缩对照计划
 
+11-03接续已实际完成：[R197完整selected](../../records/R197/R197-RESULT.json)严格R107门true/R120门false，R198不eligible，仅技术包。R199正常CPU18/18、精确部署在R197训练期间一次通过，actualsafe后一次activation/direct launch；[真实八rank与首自然25](../../records/R199/README.md)已证345全训/5空Adam/whole50c6、有限loss/WORLD8/G64P8/448及0skip。当前82冻结不改，无完整R199指标或官方结果；本段覆盖下文早期尚未normal/GPU状态。
+
 使用 brainstorming / writing-plans / TDD / executing-plans，32e3本人继续既有20%准备池；用户已授权最小修改，无审批或新Agent。当前R195/693与先行R196/R197/436保持冻结，本组仅更后续准备。
 
 目标：复用原生AdamW及既有训练/保存/评估/启动链，检验较强参数收缩这一固定假设。备选是继续改公开架构、延伸日程或改变参数收缩；前两类已有独立实验，选第三项且仅改原有weight_decay字段。现有R*-SCIENCE未查到.05/.01/.1/.0005值，不将其视为任意历史任务均未试过的证明。作者[main.py](https://github.com/facebookresearch/ConvNeXt/blob/main/main.py)通用默认weight_decay=.05；[TRAINING.md](https://github.com/facebookresearch/ConvNeXt/blob/main/TRAINING.md)ImageNet微调示例明确1e-8。本实验独立固定.05，其他超参数仍本任务R120原合同；不是作者微调配方复现，也没有过拟合或临床机制证明，不扫描衰减值。

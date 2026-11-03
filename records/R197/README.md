@@ -1,5 +1,7 @@
 # R197：原 Small sigmoid 的独立 fit gamma 增强
 
+11-03 02:45完整[终态](R197-RESULT.json)：10400 success=attempt、0skip、13次评估、bad4正常早停，唯一EMA c9@7200内部AUROC `.9884706757809537` / AP `.8262997760790266` / error_twice19150。严格胜R107但未胜R120，R198条件复核不eligible；官方不足.996未跑，freeze原status=null保留，raw .999未达。固定gamma配方本轮未达采用双门，不外推全部光度方法。选中tensor6251937d、blobbe7c5591、CSV76554b38、precisionafc4acea；没有新增forward/改标签。[实际安全观测](R197-COMPLETION.json)与[guardm1jbs9bo](R197-CPU-COMPLETION.json)均完整：owner Z/nonactive、八rank缺席、锁holders/device users空、denied0及八卡busy0，封存后不重查旧safe。已沿原入口串行接续[R199](../R199/README.md)，本段覆盖下文早期running状态。
+
 11-03 01:35:40.963 UTC[既有监控单次快照](R197-DEVICE-POINT.json)八绑定PCI全部busy100%，非连续利用率；[guardi9s5j806](R197-CPU-DEVICE-POINT.json) / `2ab3c4f81f69c14927d117066fc4dab3b4338020eb2eeaa6bbafefec763dce56` exit0，0 GPU API/模型/forward、未改runtime。01:42最近2525 success=attempt/0skip/eval3/bad0，暂best EMA c3@2400内部AUROC `.9863695091217123` / AP `.8258739741425536`，尚无完整selected。
 
 [真实八rank初态与首自然25](R197-START.json)已通过：345全训、5组空原生AdamW、whole `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`与formal一致，WORLD8/G64P8/448对、各rank8图，有限loss `.9216874241828918`。11-03 01:23最近175 success=attempt/0skip/eval0，八rank活跃，尚无完整selected或官方结果；raw `.999`未达。

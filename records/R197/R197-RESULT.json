@@ -1,0 +1,107 @@
+{
+  "status": "completed",
+  "round_id": "r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102",
+  "git_commit": "436ae5b72dd51bbd567e7e5df60762e44ccb70bf",
+  "science_sha256": "6000c2a8366ce1464032e1bc0e5801075dead535b6f868cd3c969ee4344f892c",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 10400,
+    "attempted_updates": 10400,
+    "skipped_updates": 0,
+    "evaluated_cycle": 13,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.9884706757809537,
+    "ap": 0.8262997760790266,
+    "variant": "ema",
+    "cycle": 9,
+    "successful_updates": 7200,
+    "error_twice": 19150
+  },
+  "strictly_beats_R107": true,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "official": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 10400,
+      "cycles": 13,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9884706757809537,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 9,
+        "variant": "ema",
+        "successful_updates": 7200,
+        "error_twice": 19150,
+        "ap": 0.8262997760790266,
+        "auroc": 0.9884706757809537,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102/outputs/r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0009.csv",
+        "prediction_sha256": "76554b387476ce9fc90a47f0bedd27307b886a86582fb42b84cfda6ef8f377a8",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102/outputs/r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0009.csv.precision.json",
+        "precision_sha256": "afc4acea397f94a3c06a10d20cd7d34e1d764a79db276ee416e34d2d7bc86f87",
+        "tensor_sha256": "6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 10400,
+      "cycles": 13,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9884706757809537,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793673957.2196186,
+  "whole_round_ended_at": 1793673946.1517384,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r197-20261102-32e3-ready/PROGRESS-cont-41.json",
+    "sha256": "772379bd9c5aac240c3df53b137383619a4664966ee1aaee0bbf5a8e9629cd7e"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-m1jbs9bo/CPU-RECEIPT.json",
+    "sha256": "3927210b19b39c29e15be6cd2acd76cab78dd6a18d20f76df772ab53b91dffbf"
+  },
+  "freeze_status_original": null,
+  "selected_tensor_sha256": "6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73",
+  "selected_blob_sha256": "be7c559142a33e48bfa4e62e3a07b046335925861ad8aaa6f41d1493f6d264b0",
+  "selected_prediction_sha256": "76554b387476ce9fc90a47f0bedd27307b886a86582fb42b84cfda6ef8f377a8",
+  "selected_precision_sha256": "afc4acea397f94a3c06a10d20cd7d34e1d764a79db276ee416e34d2d7bc86f87",
+  "new_forward_or_model_or_checkpoint_load": false,
+  "raw_AUROC_0_999_achieved": false
+}

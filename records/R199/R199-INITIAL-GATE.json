@@ -1,0 +1,544 @@
+{
+  "CUDA_initialized": false,
+  "at": 1793674163.7889576,
+  "batch_norm_modules": 0,
+  "buffer_count": 0,
+  "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate": {
+    "attention_pool": null,
+    "batch_norm_buffers": 0,
+    "batch_norm_modules": 0,
+    "experiment_order": 112,
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "id": "r199-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-wd005-9010",
+    "internal_norm_eps": 1e-06,
+    "model": "convnext_small",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "stochastic_depth": 0.1,
+    "weight_decay": 0.05,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+  },
+  "candidate_normalization": {
+    "batch_norm_modules": 0,
+    "buffer_count": 0,
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate": {
+      "attention_pool": null,
+      "batch_norm_buffers": 0,
+      "batch_norm_modules": 0,
+      "experiment_order": 112,
+      "features": 768,
+      "final_norm_eps": 1e-06,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "id": "r199-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-wd005-9010",
+      "internal_norm_eps": 1e-06,
+      "model": "convnext_small",
+      "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+      "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+      "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+      "stochastic_depth": 0.1,
+      "weight_decay": 0.05,
+      "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    "dropout": 0.2,
+    "head_in_features": 768,
+    "head_out_features": 1,
+    "layer_norms": [
+      {
+        "eps": 1e-06,
+        "name": "network.features.0.1",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.1.0.block.2",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.1.1.block.2",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.1.2.block.2",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.2.0",
+        "normalized_shape": [
+          96
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.3.0.block.2",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.3.1.block.2",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.3.2.block.2",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.4.0",
+        "normalized_shape": [
+          192
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.0.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.1.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.2.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.3.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.4.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.5.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.6.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.7.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.8.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.9.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.10.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.11.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.12.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.13.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.14.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.15.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.16.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.17.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.18.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.19.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.20.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.21.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.22.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.23.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.24.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.25.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.5.26.block.2",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.6.0",
+        "normalized_shape": [
+          384
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.7.0.block.2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.7.1.block.2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.features.7.2.block.2",
+        "normalized_shape": [
+          768
+        ]
+      },
+      {
+        "eps": 1e-06,
+        "name": "network.classifier.0",
+        "normalized_shape": [
+          768
+        ]
+      }
+    ],
+    "stochastic_depth": [
+      {
+        "mode": "row",
+        "name": "network.features.1.0.stochastic_depth",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.features.1.1.stochastic_depth",
+        "p": 0.002857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.1.2.stochastic_depth",
+        "p": 0.005714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.3.0.stochastic_depth",
+        "p": 0.008571428571428572
+      },
+      {
+        "mode": "row",
+        "name": "network.features.3.1.stochastic_depth",
+        "p": 0.011428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.3.2.stochastic_depth",
+        "p": 0.014285714285714285
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.0.stochastic_depth",
+        "p": 0.017142857142857144
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.1.stochastic_depth",
+        "p": 0.02
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.2.stochastic_depth",
+        "p": 0.022857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.3.stochastic_depth",
+        "p": 0.025714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.4.stochastic_depth",
+        "p": 0.02857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.5.stochastic_depth",
+        "p": 0.03142857142857143
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.6.stochastic_depth",
+        "p": 0.03428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.7.stochastic_depth",
+        "p": 0.037142857142857144
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.8.stochastic_depth",
+        "p": 0.04
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.9.stochastic_depth",
+        "p": 0.04285714285714286
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.10.stochastic_depth",
+        "p": 0.045714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.11.stochastic_depth",
+        "p": 0.04857142857142858
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.12.stochastic_depth",
+        "p": 0.05142857142857143
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.13.stochastic_depth",
+        "p": 0.05428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.14.stochastic_depth",
+        "p": 0.05714285714285714
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.15.stochastic_depth",
+        "p": 0.060000000000000005
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.16.stochastic_depth",
+        "p": 0.06285714285714286
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.17.stochastic_depth",
+        "p": 0.06571428571428573
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.18.stochastic_depth",
+        "p": 0.06857142857142857
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.19.stochastic_depth",
+        "p": 0.07142857142857142
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.20.stochastic_depth",
+        "p": 0.07428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.21.stochastic_depth",
+        "p": 0.07714285714285715
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.22.stochastic_depth",
+        "p": 0.08
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.23.stochastic_depth",
+        "p": 0.08285714285714287
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.24.stochastic_depth",
+        "p": 0.08571428571428572
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.25.stochastic_depth",
+        "p": 0.08857142857142858
+      },
+      {
+        "mode": "row",
+        "name": "network.features.5.26.stochastic_depth",
+        "p": 0.09142857142857143
+      },
+      {
+        "mode": "row",
+        "name": "network.features.7.0.stochastic_depth",
+        "p": 0.09428571428571429
+      },
+      {
+        "mode": "row",
+        "name": "network.features.7.1.stochastic_depth",
+        "p": 0.09714285714285716
+      },
+      {
+        "mode": "row",
+        "name": "network.features.7.2.stochastic_depth",
+        "p": 0.1
+      }
+    ]
+  },
+  "initial_files_sha256": {
+    "outputs/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/index.json": "f3d2bc0998fe7a359d4aa6329fa6b50f0114d0a479095c3d1b68e94b4a18f383",
+    "outputs/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-ranks.json": "6a109de323efdf1dbbd8b22d40414c5c27032425b5014ae40ef71cae538a8cf8",
+    "outputs/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/parameter-groups.json": "0b14cbd8f3779094da1fc7bb047e4e06af0fa02fccaa6b6a6a2b359cde92ab11"
+  },
+  "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "native_initial_blob": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103/outputs/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-12afb5f2fd024c34bb93bb6e83db5800.pt",
+  "native_initial_blob_sha256": "6e08d9ee89cffe8e8c1052c5355d641eb97e2eac4594ded5ca6fabb2ad7e0ae9",
+  "new_model_created_by_gate": false,
+  "optimizer_state_entries": 0,
+  "parameter_elements_by_role": {
+    "age": 2,
+    "backbone": 49454688,
+    "head": 769
+  },
+  "parameter_tensors": 345,
+  "public_weights_reloaded_by_gate": false,
+  "rank_count": 8,
+  "source_digest": "d38276aa80bfd92dffbd455e4d9812e1640cfe387b40bc6841dc90ca45ce25a3",
+  "status": "completed"
+}
