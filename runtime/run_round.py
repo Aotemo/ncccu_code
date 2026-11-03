@@ -119,7 +119,9 @@ def round_storage_limit():
 def budget(deadline,minimum_free=17179869184):
  if time.time()>=deadline:raise TimeoutError('round absolute deadline reached')
  free=shutil.disk_usage(ROOT).free;size=tree_bytes()
- if free<minimum_free or size>round_storage_limit():raise RuntimeError('round storage limit reached')
+ limit=round_storage_limit()
+ if free<minimum_free or size>limit:
+  raise RuntimeError('round storage limit reached: free_bytes=%d minimum_free_bytes=%d round_bytes=%d round_limit_bytes=%d'%(free,minimum_free,size,limit))
  unknown=SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']
  return {'free_bytes':free,'new_round_bytes':size,'new_round_bytes_exact':unknown==0,
          'scan_unknown_leaves':unknown,'scan_unknown_samples':SCAN_DIAGNOSTICS['sample_relative_paths'][:8]}

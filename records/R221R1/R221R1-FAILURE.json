@@ -1,0 +1,230 @@
+{
+  "status": "engineering_failed",
+  "scientific_outcome": null,
+  "selected": null,
+  "official_evaluated": false,
+  "progress": {
+    "status": "interrupted",
+    "phase": null,
+    "successful_updates": 1382,
+    "attempted_updates": 1382,
+    "skipped_updates": 0,
+    "evaluated_cycle": 1,
+    "stop_reason": "owner_stop_requested",
+    "termination_reason": null,
+    "early_bad_cycles": 0
+  },
+  "partial_status_best_not_final_selected": {
+    "best_metrics": {
+      "auroc": 0.9616853162767568,
+      "ap": 0.6337486757017341,
+      "variant": "online",
+      "cycle": 1,
+      "successful_updates": 800,
+      "error_twice": 63640
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9616853162767568,
+      "ap": 0.6337486757017341,
+      "variant": "ema",
+      "cycle": 1,
+      "successful_updates": 800,
+      "error_twice": 63640
+    },
+    "lineage_best": {}
+  },
+  "component": {
+    "component_wall_seconds": 892.8143346309662,
+    "deadline_at": 1793750321.6297843,
+    "end_at": 1793723314.5740457,
+    "exit_code": 130,
+    "hard_deadline_met": true,
+    "launch_sha256": "eaf644fc68c45fbbdafa0447cd213b72ef6f8e00ca9c15069d23888655aff808",
+    "live_owned_ranks": [],
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "phase": "train",
+    "reason": "resource_guard:budget:RuntimeError('round storage limit reached'):Traceback (most recent call last): |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/run_training.py\", line 120, in run_component |     resources.update(guard.budget(deadline)) |                      ^^^^^^^^^^^^^^^^^^^^^^ |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/run_round.py\", line 122, in budget |     if free<minimum_free or size>round_storage_limit():raise RuntimeError('round storage limit reached') |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | RuntimeError: round storage limit reached | ",
+    "signals": [
+      {
+        "pid": 773418,
+        "sig": "TERM"
+      }
+    ],
+    "start_at": 1793722421.759711,
+    "status": "timeout"
+  },
+  "resources_last_receipt": {
+    "at": 1793723312.0052943,
+    "cards": [
+      {
+        "busy_percent": 0,
+        "pci": "0000:09:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:36:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:55:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:77:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:85:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:b5:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:d5:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      },
+      {
+        "busy_percent": 0,
+        "pci": "0000:f5:00.0",
+        "vram_total_bytes": 68702699520,
+        "vram_used_bytes": 2748416
+      }
+    ],
+    "cgroup_memory_current": 169652543488,
+    "cgroup_memory_limit": 506806140928,
+    "cpu_tree": {
+      "affinity_violations": [],
+      "allocation_sha256": "59c7769885f12869dc75b1c6f3dbc332919383427124a94813ab775ed2ed6976",
+      "live_pids": [
+        773410,
+        773418
+      ],
+      "owner_mask": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119
+      ],
+      "threads": 4
+    },
+    "free_bytes": 18384683008,
+    "new_round_bytes": 4884404429,
+    "new_round_bytes_exact": true,
+    "scan_unknown_leaves": 0,
+    "scan_unknown_samples": []
+  },
+  "unique_actualsafe": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r221r1-20261103-32e3-ready/PROGRESS-terminal-2.json",
+    "sha256": "59838b2bea88ee8e3e10b62afecb4ee8adc80a609322af6572c8d3beb4c8af5d",
+    "observed_at": 1793723683.6712785
+  },
+  "note": "Budget failed; post-stop footprint4.884GB was below16GiB round cap. Later read-only closed-storage inventory observed shared free16912482304 below17179869184 free floor. Failed budget invocation did not record exact byte values; no unobserved transient peak is claimed.",
+  "retry": "R221R2 independent fresh, scientific delta0 after manifest cleanup; no old state/clock/token/grant reused"
+}

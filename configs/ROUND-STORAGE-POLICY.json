@@ -17,6 +17,7 @@
     "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103": 25769803776,
     "r216-siglip2-vitb16-seed27-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103": 25769803776,
     "r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103": 17179869184,
-    "r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103": 17179869184
+    "r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103": 17179869184,
+    "r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103": 17179869184
   }
 }

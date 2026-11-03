@@ -1,0 +1,391 @@
+{
+  "tool": "observe_round_once",
+  "tag": "terminal-2",
+  "mode": "progress",
+  "observed_at": 1793723683.6712785,
+  "observed_at_beijing": "2026-11-04T00:34:43.671278+08:00",
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+  "signals_sent": false,
+  "model_forward_executed": false,
+  "official_read": false,
+  "done": {
+    "present": true,
+    "status": "failed"
+  },
+  "round": "r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32",
+  "phase": "terminal",
+  "first_success_receipt_read": true,
+  "identity": {
+    "owner_expected": {
+      "pid": 773410,
+      "start_ticks": "374979298"
+    },
+    "owner": {
+      "pid": 773410,
+      "present": true,
+      "readable": true,
+      "state": "Z",
+      "start_ticks": "374979298",
+      "active": false
+    },
+    "owner_status": "exited",
+    "owner_match": true,
+    "ranks_expected": [
+      {
+        "pid": 773442,
+        "start_ticks": "374984771"
+      },
+      {
+        "pid": 773443,
+        "start_ticks": "374984773"
+      },
+      {
+        "pid": 773444,
+        "start_ticks": "374984774"
+      },
+      {
+        "pid": 773445,
+        "start_ticks": "374984775"
+      },
+      {
+        "pid": 773446,
+        "start_ticks": "374984776"
+      },
+      {
+        "pid": 773447,
+        "start_ticks": "374984777"
+      },
+      {
+        "pid": 773448,
+        "start_ticks": "374984779"
+      },
+      {
+        "pid": 773449,
+        "start_ticks": "374984780"
+      }
+    ],
+    "ranks": [
+      {
+        "pid": 773442,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773443,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773444,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773445,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773446,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773447,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773448,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      },
+      {
+        "pid": 773449,
+        "present": false,
+        "readable": true,
+        "state": null,
+        "start_ticks": null,
+        "active": false
+      }
+    ],
+    "rank_status": [
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing",
+      "missing"
+    ],
+    "rank_matches": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "rank_count": 8
+  },
+  "progress": {
+    "status": "interrupted",
+    "phase": null,
+    "successful_updates": 1382,
+    "attempted_updates": 1382,
+    "skipped_updates": 0,
+    "evaluated_cycle": 1,
+    "stop_reason": "owner_stop_requested",
+    "termination_reason": null,
+    "early_bad_cycles": 0
+  },
+  "metrics": {
+    "event": "interrupted",
+    "at": 1793723306.2431033,
+    "successful_updates": 1382,
+    "attempted_updates": 1382,
+    "cycle": 1,
+    "loss": null
+  },
+  "status_best": {
+    "best_metrics": {
+      "auroc": 0.9616853162767568,
+      "ap": 0.6337486757017341,
+      "variant": "online",
+      "cycle": 1,
+      "successful_updates": 800,
+      "error_twice": 63640
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9616853162767568,
+      "ap": 0.6337486757017341,
+      "variant": "ema",
+      "cycle": 1,
+      "successful_updates": 800,
+      "error_twice": 63640
+    },
+    "lineage_best": {}
+  },
+  "head_warmup_phase_proofs": {},
+  "selected": null,
+  "terminal": {
+    "done": {
+      "status": "failed",
+      "phase": null,
+      "error": "RuntimeError('component not completed: {\\'status\\': \\'timeout\\', \\'exit_code\\': 130, \\'reason\\': \\'resource_guard:budget:RuntimeError(\\\\\\'round storage limit reached\\\\\\'):Traceback (most recent call last): |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/run_training.py\", line 120, in run_component |     resources.update(guard.budget(deadline)) |                      ^^^^^^^^^^^^^^^^^^^^^^ |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/run_round.py\", line 122, in budget |     if free<minimum_free or size>round_storage_limit():raise RuntimeError(\\\\\\'round storage limit reached\\\\\\') |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | RuntimeError: round storage limit reached | \\'}')",
+      "live_owned_ranks": []
+    },
+    "train": null,
+    "train_component": null,
+    "freeze": null,
+    "round": null,
+    "official": null
+  },
+  "safety": {
+    "safe": true,
+    "reason": "terminal_idle",
+    "identity": {
+      "owner_expected": {
+        "pid": 773410,
+        "start_ticks": "374979298"
+      },
+      "owner": {
+        "pid": 773410,
+        "present": true,
+        "readable": true,
+        "state": "Z",
+        "start_ticks": "374979298",
+        "active": false
+      },
+      "owner_status": "exited",
+      "owner_match": true,
+      "ranks_expected": [
+        {
+          "pid": 773442,
+          "start_ticks": "374984771"
+        },
+        {
+          "pid": 773443,
+          "start_ticks": "374984773"
+        },
+        {
+          "pid": 773444,
+          "start_ticks": "374984774"
+        },
+        {
+          "pid": 773445,
+          "start_ticks": "374984775"
+        },
+        {
+          "pid": 773446,
+          "start_ticks": "374984776"
+        },
+        {
+          "pid": 773447,
+          "start_ticks": "374984777"
+        },
+        {
+          "pid": 773448,
+          "start_ticks": "374984779"
+        },
+        {
+          "pid": 773449,
+          "start_ticks": "374984780"
+        }
+      ],
+      "ranks": [
+        {
+          "pid": 773442,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773443,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773444,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773445,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773446,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773447,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773448,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        },
+        {
+          "pid": 773449,
+          "present": false,
+          "readable": true,
+          "state": null,
+          "start_ticks": null,
+          "active": false
+        }
+      ],
+      "rank_status": [
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing",
+        "missing"
+      ],
+      "rank_matches": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "rank_count": 8
+    },
+    "lock": {
+      "present": true,
+      "readable": true,
+      "holders": []
+    },
+    "device_users": [],
+    "device_scan_denied": 0,
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 0
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 0
+      }
+    ],
+    "all_expected_cards_seen": true
+  }
+}

@@ -29,6 +29,7 @@ R204 = 'r204-vitb-dinov3-seed27-lr1e5-cls-storage16-24k-p4-9010-20261103'
 R205 = 'r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103'
 R221 = 'r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
 R221R1 = 'r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
+R221R2 = 'r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103'
 GIB = 1024 ** 3
 
 
@@ -72,7 +73,7 @@ class RoundStoragePolicyTest(unittest.TestCase):
     def test_new_round_limit_and_old_default_keep_free_floor(self):
         with tempfile.TemporaryDirectory() as directory:
             policy = ROOT / 'configs/ROUND-STORAGE-POLICY.json'
-            for name in (R116, R117, R174, R175, R191, R192, R203, R204, R221, R221R1):
+            for name in (R116, R117, R174, R175, R191, R192, R203, R204, R221, R221R1, R221R2):
                 with self.subTest(round_id=name):
                     root = Path(directory) / name
                     root.mkdir()
@@ -85,8 +86,11 @@ class RoundStoragePolicyTest(unittest.TestCase):
                         with patch.object(guard, 'tree_bytes', return_value=17 * GIB), self.assertRaises(RuntimeError):
                             guard.budget(guard.time.time() + 10)
                         usage.free = 15 * GIB
-                        with self.assertRaises(RuntimeError):
+                        with self.assertRaises(RuntimeError)as caught:
                             guard.budget(guard.time.time() + 10)
+                        self.assertIn('free_bytes='+str(15*GIB),str(caught.exception))
+                        self.assertIn('minimum_free_bytes='+str(16*GIB),str(caught.exception))
+                        self.assertIn('round_limit_bytes='+str(16*GIB),str(caught.exception))
             for name in (R202, R205, 'older-round',
                          'r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103',
                          'r220-small12k-seed27-public384-pairlog-24k-p4-9010-20261103',

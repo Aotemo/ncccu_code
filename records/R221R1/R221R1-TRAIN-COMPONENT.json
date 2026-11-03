@@ -1,0 +1,20 @@
+{
+  "component_wall_seconds": 892.8143346309662,
+  "deadline_at": 1793750321.6297843,
+  "end_at": 1793723314.5740457,
+  "exit_code": 130,
+  "hard_deadline_met": true,
+  "launch_sha256": "eaf644fc68c45fbbdafa0447cd213b72ef6f8e00ca9c15069d23888655aff808",
+  "live_owned_ranks": [],
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "phase": "train",
+  "reason": "resource_guard:budget:RuntimeError('round storage limit reached'):Traceback (most recent call last): |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/run_training.py\", line 120, in run_component |     resources.update(guard.budget(deadline)) |                      ^^^^^^^^^^^^^^^^^^^^^^ |   File \"/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/run_round.py\", line 122, in budget |     if free<minimum_free or size>round_storage_limit():raise RuntimeError('round storage limit reached') |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | RuntimeError: round storage limit reached | ",
+  "signals": [
+    {
+      "pid": 773418,
+      "sig": "TERM"
+    }
+  ],
+  "start_at": 1793722421.759711,
+  "status": "timeout"
+}

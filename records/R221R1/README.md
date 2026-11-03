@@ -1,5 +1,7 @@
 # R221R1真实八rank初态及首成功
 
+**当前为工程failed，不是完整科学结果。** 11-03于1382成功/0跳步/c1处被owner存储budget保护TERM/exit130中断，selected null/官方未跑；唯一actualsafe terminal-2/_73sosa7已封存。后续manifest实核共享free16,912,482,304B低于16GiB free floor；失败调用瞬时具体字节值未被旧消息记录，不虚构峰值。R217/R219共18旧权重已按清单清理约13.47GB，保护对象未变。后续R221R2仅独立fresh身份和错误文字，科学值/free floor/cap不变；原clock/token/grant和以下首成功证据保持，不重启此轮。原缺observer私有路径的64cmja85失败回执也保留。下文为启动历史。
+
 冻结7d744e2b/tree699c80bd、SCI849cfb4e、actual SITE42d45f0f，正式CPU20/20和精确Git树部署通过，guardhpwkhnko/7b350161 exit0。实际5窄目标15编译及原10目标按未变身份复用；窗口2pv86_35、一次activation x3kupvdf、direct launch均0，无独立GPU预演。
 
 11-03 16:16实观自然首25成功更新，loss .5590348839759827有限、scale1/WORLD8/G64P8/8正56负448对，最近100 success=attempt/0skip/eval0。八rank/237全训参数/五空AdamW/初始tensor51592a3d均匹配正式证据，静态非持久RoPE检查修复已通过实际生产更新。唯一首成功start5/e795bfd5，guardplqgmuac/d7e724fe exit0。当前训练进行中，无完整所选指标或科学收益结论，raw .999未达。

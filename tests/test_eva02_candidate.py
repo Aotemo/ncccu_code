@@ -8,20 +8,21 @@ from retrain import experiment91 as ex,config,age
 class EVA02CandidateTest(unittest.TestCase):
     def test_R221R1_is_scientifically_identical_independent_identity(self):
         original=json.loads((ROOT/'configs/R221-SCIENCE.json').read_text())
-        retry=json.loads((ROOT/'configs/R221R1-SCIENCE.json').read_text())
-        self.assertEqual(retry['candidate_profile'],ex.EVA02_R1_BINDING)
-        self.assertEqual(retry['candidate']['experiment_order'],135)
-        self.assertTrue(retry['candidate']['id'].startswith('r221r1-'))
-        self.assertEqual(ex.candidate_from_configuration(retry),retry['candidate'])
-        retry['candidate_profile']=original['candidate_profile']
-        retry['candidate']['id']=original['candidate']['id']
-        retry['candidate']['experiment_order']=original['candidate']['experiment_order']
-        retry['comparison_note']=original['comparison_note']
-        self.assertEqual(retry,original)
+        for name,binding,order in(('R221R1',ex.EVA02_R1_BINDING,135),('R221R2',ex.EVA02_R2_BINDING,136)):
+            retry=json.loads((ROOT/'configs'/(name+'-SCIENCE.json')).read_text())
+            self.assertEqual(retry['candidate_profile'],binding)
+            self.assertEqual(retry['candidate']['experiment_order'],order)
+            self.assertTrue(retry['candidate']['id'].startswith(name.lower()+'-'))
+            self.assertEqual(ex.candidate_from_configuration(retry),retry['candidate'])
+            retry['candidate_profile']=original['candidate_profile']
+            retry['candidate']['id']=original['candidate']['id']
+            retry['candidate']['experiment_order']=original['candidate']['experiment_order']
+            retry['comparison_note']=original['comparison_note']
+            self.assertEqual(retry,original)
 
     def test_R220_same_small12k_seed27_and_R221_independent_recipe(self):
         synthetic=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}for i in range(4)],'fit_indices':[0,1,2,3]})
-        for label,prior,order in(('R220','R219',133),('R221','R107',134),('R221R1','R107',135)):
+        for label,prior,order in(('R220','R219',133),('R221','R107',134),('R221R1','R107',135),('R221R2','R107',136)):
             science=json.loads((ROOT/'configs'/(label+'-SCIENCE.json')).read_text())
             baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
             expected=copy.deepcopy(baseline['job'])
