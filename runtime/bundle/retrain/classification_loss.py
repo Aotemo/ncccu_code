@@ -35,16 +35,22 @@ PAIR_HARD_NEGATIVE_LOSS = {
     'top_negative_count': 14, 'hard_negative_weight': .5,
     'tie_break': 'WORLD_negative_order_stable',
 }
+PAIR_SQUARED_HINGE_LOSS = {
+    'version': 'binary-pairwise-squared-hinge-margin1-quarter-v1',
+    'kind': 'binary_pairwise_squared_hinge', 'temperature': 1.0,
+    'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
+}
 PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid',
                        PAIR_HARD_POSITIVE_LOSS['kind'], PAIR_AUC_MARGIN_LOSS['kind'], PAIR_BCE_MIX_LOSS['kind'],
-                       PAIR_WIDE_SIGMOID_LOSS['kind'], PAIR_HARD_NEGATIVE_LOSS['kind'])
+                       PAIR_WIDE_SIGMOID_LOSS['kind'], PAIR_HARD_NEGATIVE_LOSS['kind'], PAIR_SQUARED_HINGE_LOSS['kind'])
 _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
                           'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1',
                           PAIR_HARD_POSITIVE_LOSS['kind']: PAIR_HARD_POSITIVE_LOSS['version'],
                           PAIR_AUC_MARGIN_LOSS['kind']: PAIR_AUC_MARGIN_LOSS['version'],
                           PAIR_BCE_MIX_LOSS['kind']: PAIR_BCE_MIX_LOSS['version'],
                           PAIR_WIDE_SIGMOID_LOSS['kind']: PAIR_WIDE_SIGMOID_LOSS['version'],
-                          PAIR_HARD_NEGATIVE_LOSS['kind']: PAIR_HARD_NEGATIVE_LOSS['version']}
+                          PAIR_HARD_NEGATIVE_LOSS['kind']: PAIR_HARD_NEGATIVE_LOSS['version'],
+                          PAIR_SQUARED_HINGE_LOSS['kind']: PAIR_SQUARED_HINGE_LOSS['version']}
 
 
 def validate_loss(specification):
@@ -130,6 +136,8 @@ def classification_loss(logits, targets, specification=None):
             raise ValueError('pairwise loss needs binary targets with both classes in the complete batch')
         differences = negatives[None, :] - positives[:, None]
         scaled = differences / specification['temperature']
+        if specification['kind'] == PAIR_SQUARED_HINGE_LOSS['kind']:
+            return .25 * F.relu(1. + scaled).square().mean()
         if specification['kind'] == PAIR_AUC_MARGIN_LOSS['kind']:
             # Empirical class variances plus the fixed raw mean-gap margin.
             mean = scaled.mean()

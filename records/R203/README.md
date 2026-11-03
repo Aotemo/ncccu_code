@@ -1,5 +1,7 @@
 # R203：原生 ViT-B/CLS 的固定较低骨干学习率
 
+11-03 05:40实观3050 success=attempt/0skip/eval3/bad0，八rank活跃，暂best EMA c3@2400内部AUROC `.9771051101095617`，无完整selected。05:37[既有监控单次sysfs快照](R203-DEVICE-POINT.json)八绑定PCI busy为99/99/99/99/99/96/69/79%，不代表连续利用率；[guardnr_gz1gw](R203-CPU-DEVICE-POINT.json) / `c27c31aef1e763ecd6510fd5413f4a49b656cf1cf82af75cf5dbe947350a9db2` exit0，无新GPU API或forward。原573冻结不改，下文为初态时点。
+
 11-03 05:18[真实初态与自然首25](R203-START.json)已证八rank、165可训练张量、5空原生AdamW、wholec3495f5a与formal一致，WORLD8/G64P8/448对、每rank8图，首25 loss `.7028408646583557`有限、0skip；05:19实观200成功0跳过，尚无内部评估。这里证明当前链路能运行，不是AUROC收益；raw .999未达。
 
 独立直接R191原native ViT-B/DINOv3 publicc6a/seed20261029/512/FP32/ImageNet/原生最终LN后CLS/原logistic/G64P8/default AdamW，只将backbone_lr从1e-4固定降为1e-5。head/age1e-3、WD1e-4、原24000余弦/800评估/p4/EMA1600与全部165参数训练保持；原RoPE非持久buffer及5个prefix在注意力中保留，不叠wide2、hard-negative、强WD或其他policy。较低LR是独立固定假设，不证明特征漂移、临床机制或收益，也不是冻结骨干/发布者微调配方复现。

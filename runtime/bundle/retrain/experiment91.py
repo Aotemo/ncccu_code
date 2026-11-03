@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
-from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS, PAIR_BCE_MIX_LOSS, PAIR_WIDE_SIGMOID_LOSS, PAIR_HARD_NEGATIVE_LOSS
+from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS, PAIR_BCE_MIX_LOSS, PAIR_WIDE_SIGMOID_LOSS, PAIR_HARD_NEGATIVE_LOSS, PAIR_SQUARED_HINGE_LOSS
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
@@ -69,6 +69,8 @@ SWIN_V2_SMALL_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-
 SWIN_V2_SMALL_SEED27_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 HARD_POSITIVE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-positive-top2-mix05-v1'
 HARD_NEGATIVE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-negative-top14-mix05-v1'
+HARD_NEGATIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-negative-top14-mix05-v1'
+PAIR_SQUARED_HINGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsqhinge-margin1-quarter-v1'
 HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-positive-top2-mix05-v1'
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
@@ -141,6 +143,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
+                      HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -245,6 +248,7 @@ def science_configuration():
                                                        GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
                                                        GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
+                                                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -262,8 +266,10 @@ def science_configuration():
                     != (value.get('job',{}).get('training_photometric')=='gamma-reciprocal075-v1'))
                 or ((value.get('candidate_profile')in(PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_WIDE_SIGMOID_LOSS))
-                or ((value.get('candidate_profile')==HARD_NEGATIVE_SMALL_BINDING)
+                or ((value.get('candidate_profile')in(HARD_NEGATIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_HARD_NEGATIVE_LOSS))
+                or ((value.get('candidate_profile')==PAIR_SQUARED_HINGE_SMALL_BINDING)
+                    != (value.get('job',{}).get('loss')==PAIR_SQUARED_HINGE_LOSS))
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('quadrant_mil_policy')is not None
                          or value.get('candidate',{}).get('quadrant_mil_policy')is not None))
@@ -568,6 +574,7 @@ def candidate_from_configuration(value):
                                         NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                                         GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
                                         GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
+                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                         HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
@@ -629,23 +636,29 @@ def candidate_from_configuration(value):
                         'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation'))):
                 raise ValueError('fixed Small sigmoid LR, decay, gamma or weight decay recipe differs')
-        if value['candidate_profile'] == HARD_NEGATIVE_SMALL_BINDING:
+        if value['candidate_profile'] in (HARD_NEGATIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING):
             from .classification_loss import validate_loss
             validate_loss(value['job'].get('loss'))
+            seed27=value['candidate_profile']==HARD_NEGATIVE_SMALL_SEED27_BINDING
+            squared_hinge=value['candidate_profile']==PAIR_SQUARED_HINGE_SMALL_BINDING
             expected.update(id='r205-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-negative-top14-mix05-9010',experiment_order=118)
+            if seed27:
+                expected.update(id='r206-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-negative-top14-mix05-9010',experiment_order=119)
+            if squared_hinge:
+                expected.update(id='r207-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsqhinge-margin1-quarter-9010',experiment_order=120)
             if ((value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('backbone_lr'),value['job'].get('head_lr'),
                     value['job'].get('weight_decay'),value['job'].get('lr_decay_updates'))!=
-                    ('convnext_small',20261029,'imagenet',512,512,64,8,1e-4,1e-3,1e-4,None)
-                    or value['job'].get('loss')!=PAIR_HARD_NEGATIVE_LOSS
+                    ('convnext_small',20261027 if seed27 else 20261029,'imagenet',512,512,64,8,1e-4,1e-3,1e-4,None)
+                    or value['job'].get('loss')!=(PAIR_SQUARED_HINGE_LOSS if squared_hinge else PAIR_HARD_NEGATIVE_LOSS)
                     or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','vit_dino3_pool_policy',
                         'cosine_head_policy','quadrant_mil_policy','input_preprocessing','optimizer_policy',
                         'gradient_centralization_policy','gradient_clip_policy','head_warmup_policy','layerwise_lr_policy',
                         'low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy','output_regularization',
                         'attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
-                raise ValueError('fixed Small hard-negative top14/mix05 original recipe differs')
+                raise ValueError('fixed Small hard-negative or squared-hinge original recipe differs')
         if value['candidate_profile'] == PHOTO_IDENTITY_SMALL_BINDING:
             expected.update(id='r122-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-photoidentity-9010',
                             experiment_order=32)

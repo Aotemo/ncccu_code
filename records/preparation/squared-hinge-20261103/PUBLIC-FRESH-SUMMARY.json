@@ -1,0 +1,67 @@
+{
+  "R206": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/squared-hinge-20261103-32e3/fresh/R206-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "d4b82e9aca17071aa2c7204d7760220b6a8ee552e0e1225061592f977df43d04",
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "lr_by_group": [
+      0.0001,
+      0.0001,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-negative-top14-mix05-v1",
+      "kind": "binary_pairwise_logistic_hard_negative",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch",
+      "top_negative_count": 14,
+      "hard_negative_weight": 0.5,
+      "tie_break": "WORLD_negative_order_stable"
+    },
+    "image_forward_calls": 0
+  },
+  "R207": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/squared-hinge-20261103-32e3/fresh/R207-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "f56c0e48a73457ac830daed26285333b314fe8bf36fda2b6820734c769f3ae44",
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "lr_by_group": [
+      0.0001,
+      0.0001,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "loss": {
+      "version": "binary-pairwise-squared-hinge-margin1-quarter-v1",
+      "kind": "binary_pairwise_squared_hinge",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_forward_calls": 0
+  }
+}

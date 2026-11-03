@@ -21,6 +21,56 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R206_R207_negative_confirmation_and_independent_pair_squared_hinge(self):
+        from retrain import age,config
+        hinge={'version':'binary-pairwise-squared-hinge-margin1-quarter-v1',
+            'kind':'binary_pairwise_squared_hinge','temperature':1.,'reduction':'mean',
+            'dtype':'float32','scope':'global_batch'}
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in(('R206','R205',119,20261027),('R207','R107',120,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            self.assertIn(science['candidate_profile'],experiment.SUPPORTED_BINDINGS)
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed']),(order,seed))
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping',
+                       'data_split'):self.assertEqual(science[key],baseline[key])
+            self.assertEqual(science['official_evaluation'],
+                json.loads((ROOT/'configs/R120-SCIENCE.json').read_text())['official_evaluation'])
+            expected=copy.deepcopy(baseline['job'])
+            if label=='R206':expected['seed']=seed
+            else:expected['loss']=hinge
+            self.assertEqual(science['job'],expected)
+            candidate=copy.deepcopy(baseline['candidate']);candidate.update(id=science['candidate']['id'],experiment_order=order)
+            self.assertEqual(science['candidate'],candidate)
+            self.assertEqual(science['initial_model_tensor_sha256'],
+                json.loads((ROOT/'configs'/('R202-SCIENCE.json'if label=='R206'else'R107-SCIENCE.json')).read_text())['initial_model_tensor_sha256'])
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding), \
+                    patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                initialization={'kind':'imagenet','format':science['public_source']['format'],
+                    'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']}
+                job=copy.deepcopy(science['job']);job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization=initialization)
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual(experiment.candidate(),science['candidate'])
+                self.assertEqual(config.job_contract(job)['loss'],science['job']['loss'])
+                for key,value in(('seed',20261029 if seed==20261027 else 20261027),('backbone_lr',1e-5),
+                        ('weight_decay',.05),('training_photometric','gamma-reciprocal075-v1'),
+                        ('lr_decay_updates',8000),('loss',experiment.PAIR_LOGISTIC_LOSS)):
+                    wrong=copy.deepcopy(job);wrong[key]=value
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                for key in('revision','sha256'):
+                    wrong=copy.deepcopy(science);wrong['public_source'][key]='0'*len(wrong['public_source'][key])
+                    with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+                wrong=copy.deepcopy(science);wrong['job']['loss']=experiment.PAIR_SIGMOID_LOSS
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
     def test_R204_R205_lower_LR_confirmation_and_independent_negative_quarter_loss(self):
         from retrain import age,config
         hard={'version':'binary-pairwise-logistic-negative-top14-mix05-v1',

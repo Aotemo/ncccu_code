@@ -1,0 +1,47 @@
+{
+  "observed_at": 1793684238.40886,
+  "round_id": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+  "site_binding_sha256": "fac19be4c8cae375bc6f68f5e2d53e897ce985138320141f1ec1a887d1dae0e6",
+  "existing_observer_source_sha256": "c4ff39e91c47c9cfd69da05bd8df8fd8ee0125b29f17f72b1ba4dc1a2dc6f296",
+  "cards": {
+    "cards": [
+      {
+        "pci": "0000:09:00.0",
+        "busy_percent": 99
+      },
+      {
+        "pci": "0000:36:00.0",
+        "busy_percent": 99
+      },
+      {
+        "pci": "0000:55:00.0",
+        "busy_percent": 99
+      },
+      {
+        "pci": "0000:77:00.0",
+        "busy_percent": 99
+      },
+      {
+        "pci": "0000:85:00.0",
+        "busy_percent": 99
+      },
+      {
+        "pci": "0000:b5:00.0",
+        "busy_percent": 96
+      },
+      {
+        "pci": "0000:d5:00.0",
+        "busy_percent": 69
+      },
+      {
+        "pci": "0000:f5:00.0",
+        "busy_percent": 79
+      }
+    ],
+    "readable": true,
+    "all_expected_cards_seen": true
+  },
+  "scope": "single existing sysfs observer snapshot; not continuous utilization",
+  "GPU_API_or_forward_or_model": false,
+  "runtime_changed": false
+}
