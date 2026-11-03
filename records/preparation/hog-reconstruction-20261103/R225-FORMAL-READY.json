@@ -1,0 +1,45 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r225-small-fitmim1600-seed27-pairlog-24k-p4-9010-20261103",
+  "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+  "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+  "science_sha256": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede",
+  "checks": 18,
+  "actual_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+  "trainable_tensors": 345,
+  "site_sha256": "592d397e579d96f9b41534f27762d07b331fce58ff4095d6320378ba0e921806",
+  "deployment_sha256": "20a133bfc2afa9ff9e7015ae8d2d8abb9956b9959838a98ae500fdb65c6b85c1",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793732271.3678195,
+  "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready",
+  "formal_package_site": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+    "sha256": "592d397e579d96f9b41534f27762d07b331fce58ff4095d6320378ba0e921806"
+  },
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r225-small-fitmim1600-seed27-pairlog-24k-p4-9010-20261103",
+  "formal_CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "6df95111e2b106c9fd0f038af8aca907daa083233c4e013f80ab0ee52d979068"
+  },
+  "CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-anfpt3w4/CPU-RECEIPT.json",
+    "sha256": "44ee923cdbc056ba8b14b5a6f240724d55bc0ed4742939b6760fc87ad51f45eb"
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/DEPLOYMENT.json",
+    "sha256": "20a133bfc2afa9ff9e7015ae8d2d8abb9956b9959838a98ae500fdb65c6b85c1"
+  },
+  "allocation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/gpu-inputs/GPU-CPU-ALLOCATION.json",
+    "sha256": "94b1cd3a7eea2c8166a5191a8644529ae84ae49a4409bbd2e163bc734480be0e"
+  },
+  "allocation_valid_until": 1793775440.0017996,
+  "clock_total_seconds": 31500,
+  "latest_activation_at_with_60s_reserve": 1793743880.0017996,
+  "latest_activation_UTC": "2026-11-03T22:11:20.001800+00:00",
+  "current_full_clock_headroom_seconds": 11544.478419303894,
+  "activation_or_dispatch_observed": false,
+  "qualification_requires_complete_R224_selected": true,
+  "before_activation_recheck_window_and_unique_actualsafe": true
+}

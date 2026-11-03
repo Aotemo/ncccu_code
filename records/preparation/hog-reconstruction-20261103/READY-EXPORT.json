@@ -1,0 +1,11 @@
+{
+  "status": "verified_small_formal_readiness_export",
+  "files": {
+    "records/R224/R224-PROGRESS-future-formal.json": "2117a29f4ebc994c7d18c54230e7c94bc27536d1e1ea5e129ab8c0fed2feb2c0",
+    "records/preparation/hog-reconstruction-20261103/R225-FORMAL-READY.json": "963b4cbb0300edf81d710bab29909ae757dda6791179b6fca555d796f09c12f2",
+    "records/preparation/hog-reconstruction-20261103/R226-FORMAL-READY.json": "90a6260853aef318980dfe7c96e6c027354210d5d854ce2c54ca0b4edeaeb9bc",
+    "records/preparation/hog-reconstruction-20261103/READY-VERIFICATION.json": "e801fbfa902457a25f9339948cb4e6a03cff898a37a6a3e74b5b49dee730f23f"
+  },
+  "at": 1793732395.6007478,
+  "weights_images_sample_predictions_exported": false
+}

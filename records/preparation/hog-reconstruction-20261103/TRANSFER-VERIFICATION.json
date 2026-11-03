@@ -1,0 +1,19 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "at": 1793731871.2918005,
+  "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+  "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+  "source_files": 2585,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/source-git",
+  "remote_commit_sha256": "aa804b0066ca38ffd169d7eed031265a748ef80c04ad21e2eee2e13ec3831fa0",
+  "remote_tree_sha256": "76f59e6c02330a333d1d0694ac33ae1f3cf745a901a5950905f789a7163f0a87",
+  "affected_checks_reused": 12,
+  "checks_sha256": "c65bd8af70d11e9e36b481cb25578fbb94a4c9c631cbdffcf55b27b2ad236859",
+  "science_controls": {
+    "R224": "79afb5e1827931880097140377da3e90bdd1f25b4825a3ad2e1f3f3a30141148",
+    "R225": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede",
+    "R226": "43964fcfb495690e910bed77995bc3a1801f6de61bd04a5ac4c2b6bb2d9248f2",
+    "R227": "cdc9822a86fe0ff8729206c5ff47a64f957442758a10ba6c9e4330e5693d39ec"
+  },
+  "new_model_or_forward_or_GPU": false
+}

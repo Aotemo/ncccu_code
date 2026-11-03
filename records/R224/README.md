@@ -1,6 +1,6 @@
 # R224 fit-only 遮挡空间重建
 
-1600次适配已完整成功，随后监督八rank derived初态、345全训参数、五组空AdamW及自然首25均实证通过：[交接](R224-SUPERVISED-START.json) / [来源与erratum](R224-SUPERVISED-RECEIPT.json)。首监督25 loss .66771358有限、0skip、WORLD8/G64P8/448对，监督完整模型tensor09faaf77、derived encoder14246e63；head/age和监督RNG恢复匹配原公开工厂。18:44实观925 success=attempt/0skip/c1、八rank活跃，暂内部AUROC .9574059201123191/AP .6830841545434001，尚非完整selected，无收益或达标结论。
+1600次适配已完整成功，随后监督八rank derived初态、345全训参数、五组空AdamW及自然首25均实证通过：[交接](R224-SUPERVISED-START.json) / [来源与erratum](R224-SUPERVISED-RECEIPT.json)。首监督25 loss .66771358有限、0skip、WORLD8/G64P8/448对，监督完整模型tensor09faaf77、derived encoder14246e63；head/age和监督RNG恢复匹配原公开工厂。19:00实观2975 success=attempt/0skip/c3、八rank活跃，暂EMA内部AUROC .9859528881107682/AP .8027262717495176，尚非完整selected，无收益或达标结论。
 
 11-03 18:25 UTC，实际八rank公开初态及自然首25次适配更新通过。首1 loss1.66234958、25 loss1.10275948，loss与梯度均有限，G64/P8、每图154个32像素块遮挡、单视图fit-only。公开模型50c6、encoder/public张量、空优化器及临时空间头768→3072/PixelShuffle32均与正式CPU匹配。原适配到监督已自然接续，没有重新activation/launch。
 

@@ -1,0 +1,104 @@
+{
+  "status": "two_formal_packages_18_of_18_and_exact_remote_deployment_ready",
+  "at": 1793732395.5409586,
+  "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+  "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+  "formal_helper_sha256": "fd89e48c02d840b7a10a2e8aa9c338e8e3c97e928ec3448beb4e4d8f2f579a5b",
+  "packages": {
+    "R225": {
+      "status": "formal_package_and_actual_Git_deployment_ready",
+      "round_id": "r225-small-fitmim1600-seed27-pairlog-24k-p4-9010-20261103",
+      "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+      "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+      "science_sha256": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede",
+      "checks": 18,
+      "actual_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "trainable_tensors": 345,
+      "site_sha256": "592d397e579d96f9b41534f27762d07b331fce58ff4095d6320378ba0e921806",
+      "deployment_sha256": "20a133bfc2afa9ff9e7015ae8d2d8abb9956b9959838a98ae500fdb65c6b85c1",
+      "formal_clock_created": false,
+      "GPU_started": false,
+      "at": 1793732271.3678195,
+      "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready",
+      "formal_package_site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+        "sha256": "592d397e579d96f9b41534f27762d07b331fce58ff4095d6320378ba0e921806"
+      },
+      "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r225-small-fitmim1600-seed27-pairlog-24k-p4-9010-20261103",
+      "formal_CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "6df95111e2b106c9fd0f038af8aca907daa083233c4e013f80ab0ee52d979068"
+      },
+      "CPU_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-anfpt3w4/CPU-RECEIPT.json",
+        "sha256": "44ee923cdbc056ba8b14b5a6f240724d55bc0ed4742939b6760fc87ad51f45eb"
+      },
+      "deployment": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/DEPLOYMENT.json",
+        "sha256": "20a133bfc2afa9ff9e7015ae8d2d8abb9956b9959838a98ae500fdb65c6b85c1"
+      },
+      "allocation": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/gpu-inputs/GPU-CPU-ALLOCATION.json",
+        "sha256": "94b1cd3a7eea2c8166a5191a8644529ae84ae49a4409bbd2e163bc734480be0e"
+      },
+      "allocation_valid_until": 1793775440.0017996,
+      "clock_total_seconds": 31500,
+      "latest_activation_at_with_60s_reserve": 1793743880.0017996,
+      "latest_activation_UTC": "2026-11-03T22:11:20.001800+00:00",
+      "current_full_clock_headroom_seconds": 11544.478419303894,
+      "activation_or_dispatch_observed": false,
+      "qualification_requires_complete_R224_selected": true,
+      "before_activation_recheck_window_and_unique_actualsafe": true
+    },
+    "R226": {
+      "status": "formal_package_and_actual_Git_deployment_ready",
+      "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+      "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+      "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+      "science_sha256": "43964fcfb495690e910bed77995bc3a1801f6de61bd04a5ac4c2b6bb2d9248f2",
+      "checks": 18,
+      "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "trainable_tensors": 345,
+      "site_sha256": "1c4e2d58e7ec177ee56170499c0c34c618b8ad1abd967fc950eff98e132a7a41",
+      "deployment_sha256": "004b0feef39e48dc296c2cc048bc3042cb656492b45e5d0291f0da65349007d0",
+      "formal_clock_created": false,
+      "GPU_started": false,
+      "at": 1793732192.7033513,
+      "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready",
+      "formal_package_site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+        "sha256": "1c4e2d58e7ec177ee56170499c0c34c618b8ad1abd967fc950eff98e132a7a41"
+      },
+      "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+      "formal_CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "ce2b9681227b962c5a639dcbdf494969af76e48cda0b94df685f6cbd1712aaf6"
+      },
+      "CPU_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-wsg7ff24/CPU-RECEIPT.json",
+        "sha256": "64765316e71b3470c354e54507352aa0517183af1fff784ba2aa09464de16be0"
+      },
+      "deployment": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/DEPLOYMENT.json",
+        "sha256": "004b0feef39e48dc296c2cc048bc3042cb656492b45e5d0291f0da65349007d0"
+      },
+      "allocation": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/gpu-inputs/GPU-CPU-ALLOCATION.json",
+        "sha256": "663d8a702a2be4a2089bfc0ff32482353ba1f29bccdca067a0c752da104765b3"
+      },
+      "allocation_valid_until": 1793775361.082534,
+      "clock_total_seconds": 31500,
+      "latest_activation_at_with_60s_reserve": 1793743801.082534,
+      "latest_activation_UTC": "2026-11-03T22:10:01.082534+00:00",
+      "current_full_clock_headroom_seconds": 11465.547394037247,
+      "activation_or_dispatch_observed": false,
+      "qualification_requires_complete_R224_selected": true,
+      "before_activation_recheck_window_and_unique_actualsafe": true
+    }
+  },
+  "new_formal_clock_or_GPU": false,
+  "R225_training_requires_R224_strictly_better_than_R107_and_R120": true,
+  "R226_fallback_only_after_R224_selected_and_safe": true,
+  "R227_technical_only_no_formal_package": true,
+  "free_bytes": 29478617088
+}

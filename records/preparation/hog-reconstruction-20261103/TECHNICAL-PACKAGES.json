@@ -1,0 +1,49 @@
+{
+  "status": "three_committed_technical_packages_ready",
+  "at": 1793731889.7423658,
+  "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+  "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/source-git",
+  "transfer_verification_sha256": "f2b2a97b3523d2cfba21edc7a0290c3e62a2b197aa4bd756bef5b7e4a4a8935f",
+  "packages": {
+    "R225": {
+      "round_id": "r225-small-fitmim1600-seed27-pairlog-24k-p4-9010-20261103",
+      "site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/candidate-packages/R225/package/SITE_BINDING.json",
+        "sha256": "2591597901c4f6f3b69d23c37684d46179f0e29da295b4f535610a31156e062f"
+      },
+      "science_sha256": "4a49e929f2ecfe6e049784c0ae71341cfb6e926e8d7050aed4acb10eaa003ede",
+      "initial_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "log_sha256": "607d1200fead36a7807232c8d4b2a1cb30b0548d52739bddf3a06d0357679754",
+      "formal_clock_created": false,
+      "GPU_started": false
+    },
+    "R226": {
+      "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+      "site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/candidate-packages/R226/package/SITE_BINDING.json",
+        "sha256": "274beb810b50e9cf5dad4dc7306d848deaad171e5428f7acf2747c7593b87e94"
+      },
+      "science_sha256": "43964fcfb495690e910bed77995bc3a1801f6de61bd04a5ac4c2b6bb2d9248f2",
+      "initial_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "log_sha256": "535f1fff786092d8c51fa530c83159ea4d22de2c8788e9f61afe3ee94464d3c5",
+      "formal_clock_created": false,
+      "GPU_started": false
+    },
+    "R227": {
+      "round_id": "r227-small-fithog1600-seed27-pairlog-24k-p4-9010-20261103",
+      "site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hog-reconstruction-20261103-4e0c/candidate-packages/R227/package/SITE_BINDING.json",
+        "sha256": "efaf741339e2b3ada09051cdfcfac00bd5c771036007e47e07ff203f2290f63b"
+      },
+      "science_sha256": "cdc9822a86fe0ff8729206c5ff47a64f957442758a10ba6c9e4330e5693d39ec",
+      "initial_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "log_sha256": "dd3d149ad2fc5e9284f5c168cdbc53f1388e63d6f44f4d6359c7857448a4ca7d",
+      "formal_clock_created": false,
+      "GPU_started": false
+    }
+  },
+  "formal_CPU_and_deployment_pending": true,
+  "seed27_qualification_not_yet_proven": true,
+  "active_R224_unchanged": true
+}
