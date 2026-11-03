@@ -1,5 +1,7 @@
 # R207：固定逐配对平方 hinge 的独立 fresh
 
+11-03 07:56实观5825 success=attempt/0skip/eval7/bad3，八rank活跃，暂best EMA c4@3200内部AUROC `.9865633703435679` / AP `.8282748154536138`，无完整selected。07:25[既有sysfs单次快照](R207-DEVICE-POINT.json)八PCI busy为99/99/99/99/99/96/85/54%，不代表连续利用率；[guard8z6biegt](R207-CPU-DEVICE-POINT.json) / `61967962a2b126190d228db39e68cb1b3572108e31c69d329724af25a4913ae8` exit0，无GPU API或forward。后备[R209 normal19/19及精确部署](../preparation/amsgrad-20261103/NORMAL-R209.json)已在本轮训练期间完成，未新clock/activation/GPU；R208仍仅technical，原78冻结不变。下文为初态时点。
+
 11-03 07:11[真实初态及自然首25](R207-START.json)已证八rank、345全训、5空原生AdamW、whole50c6与formal一致；WORLD8/G64P8/448对、每rank8图，首25日志loss `.2398408204317093`有限、0skip。07:13实观375 success=attempt/0skip/eval0，八rank活跃。证明当前链路可运行，完整AUROC收益仍待本轮终态，raw .999未达。
 
 独立直接R107 Small/publicfe6/seed20261029/RGB512/FP32/ImageNet/原AdamW、LR/WD及24k余弦，仅loss改固定`mean(relu(1+n-p)^2)/4`；完整448配对，无额外forward、参数、状态或历史分数。margin1与系数1/4不扫描；仅在d=0处匹配原softplus导数0.5，不声称完整梯度/优化轨迹相同。原采样、增强、age、最多24000成功更新/每800内部评估/p4/EMA1600及唯一内部AUROC选点保持；官方>=.996才一次的门沿现R120，历史R107不改。不叠hard-negative、AMSGrad、WD.05、低LR或其他policy，也无临床机制或收益证明。
