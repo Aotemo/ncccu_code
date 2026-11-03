@@ -1,5 +1,7 @@
 # R205：固定困难负例四分之一混合的独立 fresh
 
+11-03 07:01实观5075 success=attempt/0skip/eval6/bad3，八rank活跃，暂best EMA c3@2400内部AUROC `.9860335632776274` / AP `.8187694114876976`，尚无完整selected。06:38[既有sysfs单次快照](R205-DEVICE-POINT.json)八PCI busy均100%，不代表连续利用率；[guard0x0mb6oh](R205-CPU-DEVICE-POINT.json) / `4595fd04a2c5317178700ad9c1f9e8807847ee1f2190546e2e9a86f0c7431acc` exit0，无新GPU API或forward。后备[R207 normal18/18及精确部署](../preparation/squared-hinge-20261103/NORMAL-R207.json)已在训练期间完成，未新clock/activation/GPU；R206仍仅technical。原7ead冻结不变，下文为初态时点。
+
 11-03 06:22[真实初态和自然首25](R205-START.json)已证八rank、345全训、5空原生AdamW、whole50c6与formal一致；WORLD8/G64P8/448对、每rank8图，首25 loss `.7473738193511963`有限、0skip。06:24实观425 success=attempt/0skip/eval0，八rank活跃。当前链路可运行，完整AUROC收益仍待本轮终态，raw .999未达。
 
 独立直接R107 Small/publicfe6/seed29/RGB512/FP32/ImageNet/原AdamW与LR/WD/24k余弦，仅loss改固定`.5*mean_all_negative+.5*mean_stable_top14_negative`，逐负例项是8正例softplus均值，按WORLD负例原序稳定破同分。全部448对保留base梯度、112对多获梯度，无额外forward/teacher/dev名单。最多24k成功更新/每800内部评估/p4/EMA1600，完整内部AUROC唯一选点；显式官方>=.996门沿现R120，历史R107不改，不叠R203低LR或其他policy。

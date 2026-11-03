@@ -1,5 +1,7 @@
 # R206/R207：固定逐配对平方 hinge CPU 证据
 
+07:00 R205实观4850/0skip/eval6/bad3且八rank活跃时，后备R207的[normal18/18和精确部署](NORMAL-R207.json)已完成；[guard6to2lglz](NORMAL-R207-CPU.json) / `e3cb8c8d13cc7a4d38221ff7758f181e5b3f4c864c450c96a97f49dd99d7d957` exit0。[原5目标4compile按SHA复用](NORMAL-R207-REUSE.json)，345全训/5空原生AdamW、whole50c6一致。actual SITE `1718c7f3c2114d1209a2e2c09b5a184805525fcd073c30a4567958f9b068e000`、manifest4ad852b1/cpu-prepc0ce027c/deployment859dc9f9；原78e80aa/SCIa146cfe2及默认12GiB/free16GiB保持。无clock/activation/GPU；完整R205双门与actualsafe后决定唯一接续，R206仍仅technical。ec5准备0–11与训练24–119互斥，不重复normal或重查旧safe。下文为早期时点。
+
 05:43已按GitHub实际回读commit `78e80aa25701888b482e96de3066511de63f2def` / tree `f6bd57161068be6d658ca23af4471f4ebd2cf2aa`构建[两technical包](TECHNICAL-PACKAGES.json)，真实source/SCI与CPU证据逐项相符。R206 SITEee3210f8、R207 SITEdd296d6d，实际run_name均100字符、默认12GiB；[R206 guardfk2ca9_y](CPU-TECHNICAL-R206.json) / [R207 guardyvd374om](CPU-TECHNICAL-R207.json)均0。无formal-cpu/gpu-inputs/真实round，无新allocation/clock/GPU。[归档guardk9rxoipf](CPU-TECHNICAL-ARCHIVE.json) / `99b9859643693af5f6e6fdf4029e692250ce8646b840313c6f7a06398f43632e` exit0，汇总SHA be989789。原R203/573和既定R204/R205/7ead不改。下文待Git/technical包为CPU完成时点。
 
 [CPU汇总](CPU-CHECKS.json) SHA `4799663278c0b1ecfda413241f48ea9a29903b9fdf247e874ed57171e8007ee0`：5个受影响目标通过、4份源码实际编译、两次实际公开fresh；[最终guardkksy1dne](CPU-FINAL-GUARD.json) / `b8b655dab855c5792375bf48474c3846a79a96addab3f34d62bb841469fa6cbd` exit0。Pod实核ec5/root0–11/nice19/隐藏CUDA-HIP-ROCR，与R203训练24–119互斥。尚待本次Git冻结/实际回读及两technical包，没有新normal、allocation、clock或GPU。
