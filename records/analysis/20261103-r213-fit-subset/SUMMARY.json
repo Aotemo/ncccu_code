@@ -1,0 +1,91 @@
+{
+  "status": "completed_predeclared_partial_fit_only",
+  "at": 1793708681.651223,
+  "population": {
+    "fit_total": 46256,
+    "sample_total": 256,
+    "positive": 128,
+    "negative": 128
+  },
+  "seed": 20261103,
+  "generator": "PCG64",
+  "sealed_before_forward": true,
+  "seal_sha256": "f5f774b41069d3ede4f5bb8c5d0d326b18fdb1993aac2eea22da4cfddf167088",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "selected": {
+    "variant": "ema",
+    "cycle": 6,
+    "successful_updates": 4800,
+    "tensor_sha256": "2d3e2466fb89b5ab4f2f5090a5d71f94b9380aeb780522e6be3cf0d1f064093d",
+    "blob_sha256": "dc3ca40d4638e05b28bfb6284453489fe42432f1d33d1b5d597eeaee7e835d26"
+  },
+  "metrics": {
+    "error_twice": 92,
+    "ap": 0.9971162641950044,
+    "auroc": 0.9971923828125
+  },
+  "conditional_image_bootstrap_AUROC_interval": [
+    0.99298095703125,
+    0.9996963500976562
+  ],
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20261103,
+    "confidence": 0.95,
+    "method": "stratified_image_percentile",
+    "implementation": "paired_evidence.paired_bootstrap with constant-zero reference; add .5 to delta interval",
+    "sampling_not_seed_or_selection_uncertainty": true
+  },
+  "original_complete_dev": {
+    "auroc": 0.9830353369271913,
+    "ap": 0.7949732693925452,
+    "variant": "ema",
+    "cycle": 6,
+    "successful_updates": 4800,
+    "error_twice": 28178
+  },
+  "point_fit_subset_minus_dev_auroc": 0.01415704588530875,
+  "source_commit": "936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a",
+  "source_files": {
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/inference.py": "33944f94cc76c730d646f48574f3a927150af126fa4b5837d864429cafd21cc8",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/experiment91.py": "f784b3f7f816d7515ae668bd10c1fef5e43a8ec8673f648b2e7d493beed667e5"
+  },
+  "site_sha256": "52d85df16fdbdf387d8aa97b1ee6aaf026d567128c42aec24fe032f228f3faf9",
+  "producer_sha256": "96e55bc901ae785b927ad49fdcf1de207196c5e4bd1b952debca0046a8f90e45",
+  "private_summary_sha256": "8bbe5c18738441392f68315576846619fdbad1a3c288d1e6553947b75dae1110",
+  "prediction_sha256": "dde9c5b2309dff3719a806952ece0ff898c8de6e45affbed491ddf9dc0442b62",
+  "wall_seconds": 182.03249382972717,
+  "execution_overrides": {
+    "physical_batch": 4,
+    "eval_workers": 0,
+    "torch_threads": 5
+  },
+  "model_tensor_unchanged": true,
+  "GPU_initialized": false,
+  "official_read": false,
+  "complete_fit_measured": false,
+  "mechanism_identified": false,
+  "training_or_checkpoint_selection_changed": false,
+  "CPU_evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-wd68lha6/CPU-RECEIPT.json",
+      "sha256": "a573e8341a665e291b4808d9e1a363dcebd15b7c0c35fd8b647846635e6bd1d3"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-3y2nv7tt/CPU-RECEIPT.json",
+      "sha256": "920ce37424a53a60673190bad3e90497955ccae6936153b3da87f76429752372"
+    }
+  ],
+  "limitations": [
+    "Balanced256 subset is not full46256 fit. AP/threshold metrics do not share dev prevalence.",
+    "Fit/dev AUC gap includes sampling and dev model selection bias, and does not identify a mechanism or ceiling.",
+    "CPU FP32 inference is not a new byte-exact comparison with the original DCU forward.",
+    "An error-free or nearly error-free subset does not establish the full-fit error rate or an achievable dev ceiling. The bootstrap interval conditions on the selected model and this sample and excludes adaptive selection/seed/patient uncertainty."
+  ],
+  "producer_archive": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/long-ema-20261103-32e3/ARCHIVE-R213-FIT-SUBSET.py",
+    "sha256": "cf8685e7ffcb6145838f137e4fc29b4af9b40b513a28b40c0c67581025d2362d"
+  }
+}
