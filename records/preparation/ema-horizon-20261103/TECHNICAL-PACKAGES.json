@@ -1,0 +1,46 @@
+{
+  "status": "two_committed_technical_packages_ready",
+  "at": 1793747885.9539285,
+  "git_commit": "4fea64d316a4ae22734fe81faff68ea3ccaa1f69",
+  "tree_sha": "dfe968eca980c69734a0c88aac942fe4f9621218",
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-horizon-20261103-4e0c/source-git",
+  "packages": {
+    "R232": {
+      "round_id": "r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+      "site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-horizon-20261103-4e0c/candidate-packages/R232/package/SITE_BINDING.json",
+        "sha256": "8994c4f1ab608e94cc4c7da006fd3ab1c4a449c413e26a41e4c6ee8bfde4618f"
+      },
+      "science_sha256": "776a37be84889ae42b30294ffac70a1c2aa7c6c9b9b7d101a776b91c33b654f5",
+      "initial_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "formal_clock_created": false,
+      "GPU_started": false
+    },
+    "R233": {
+      "round_id": "r233-small-fitassign9600-seed27-pairlog-24k-p4-9010-20261103",
+      "site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-horizon-20261103-4e0c/candidate-packages/R233/package/SITE_BINDING.json",
+        "sha256": "455bb2badcfcab3882beeb6ac0125056291a7e51933a15cf6428a8323b7910c1"
+      },
+      "science_sha256": "918a5527347eeafd47820b03f44d814aa68b81953a644c6b111e3d6fb79eb5a9",
+      "initial_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "formal_clock_created": false,
+      "GPU_started": false
+    }
+  },
+  "technical_CPU_guards": {
+    "R232": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-_mnmgm1t/CPU-RECEIPT.json",
+      "sha256": "461a377f008648d975de9c75264021c63a271d1825f944f6170faa75853cd7e5"
+    },
+    "R233": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-b506lmlt/CPU-RECEIPT.json",
+      "sha256": "0a4f30f38e0a343de0b7a7f64add152680f09931f0795c0d56ec4e711956b9db"
+    }
+  },
+  "source_transfer_verification_sha256": "4c91d22be99e52030b2f43bfc32ab1eb15645e4c6f873ce243aa7a24778b517b",
+  "private_direct_exec_prepare_sha256": "8e868c010e9fe76df083eb299fbc7b7f013eca54db0bad93c833b63b21b275ec",
+  "formal_CPU_and_deployment_pending": true,
+  "seed27_qualification_not_yet_proven": true,
+  "active_R230_unchanged": true
+}

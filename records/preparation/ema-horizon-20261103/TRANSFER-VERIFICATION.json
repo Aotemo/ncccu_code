@@ -1,0 +1,14 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "at": 1793747585.5967677,
+  "git_commit": "4fea64d316a4ae22734fe81faff68ea3ccaa1f69",
+  "tree_sha": "dfe968eca980c69734a0c88aac942fe4f9621218",
+  "source_files": 2699,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-horizon-20261103-4e0c/source-git",
+  "remote_commit_sha256": "7c0054ddb0554175ffb3a895a43afc5e43e67b5e3a2e4a938a86c4153477ea79",
+  "remote_tree_sha256": "5437d9ccf63b1f4748e2ace72e860f1e8e871a0a1d75baa5e35f0f1f70734f44",
+  "affected_checks_reused": 10,
+  "checks_sha256": "1bfbb256952c0c30ebcebe4222fd3d01088a8a5b07ca3c8c253f86b734c6e748",
+  "P8_scopes_reused": 62,
+  "new_forward_or_GPU": false
+}

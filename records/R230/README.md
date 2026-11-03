@@ -1,5 +1,7 @@
 # R230 fit-only EMA跨视图分布实际启动
 
+后备正式准备完成时的[只读快照](R230-PROGRESS-horizon-formal-ready.json)：3625 success=attempt/0skip/c4/bad0，原owner及8rank活跃，暂EMA best c4 .9864369391/AP .8180667558，无完整selected，不据此宣称收益或晋级。R232/R233已按[事前9600问题](../preparation/ema-horizon-20261103/README.md)完成4fea64d/2699整树/各18/18和部署，均未激活；完整本轮双门过仍优先原R231，否则唯一actualsafe后R232。准备份额续建为独立b3a7bb69/24核且probe通过，原7588及当前GPU96核/clock/token/grant不变。
+
 完整1600与真实监督交接已经核实：[完整SSL](R230-SSL-RESULT.json)a310ec77、[监督首成功](R230-SUPERVISED-START.json)3bf2e886/guard92c9d469、[交接来源](R230-SUPERVISED-RECEIPT.json)4955f23e。derived encoder91692404→监督完整初态e9672ee7，345全训/5组空AdamW、原head-age及监督RNG恢复匹配；首自然25 loss.635355473有限/G64P8/448对，观测125 success=attempt/0skip/eval0。教师最终81d42d54与center4f353f97八rank一致且无梯度，临时教师/头/center未持久化，只有学生encoder进入监督。sampler实际=登记14997478083172343433。此处仅交接证据，没有完整dev selected或收益；current r230 env的first receipt已更新为START-OBSERVATION-supervised-1，后续沿原canonical observer，原clock/token/grant及冻结代码保持。
 
 22:44 [实际进度](R230-PROGRESS-after-r228-cleanup.json)为900次fit适配，原owner和八rank活跃；已越722步原型冻结边界，prototype_frozen=false，loss/gradient仍有限。完整1600及监督交接仍待。原R228的9 checkpoint/6.733GB已按[真实清单](../storage/closed-r228-20261103/README.md)清理，保护stat/小SHA前后一致、共享free31.241GB；当前冻结、clock/token/grant不改。后备[9600时长问题](../../todo/auroc-999/R232-R233-EMA-HORIZON-20261103.md)仅在当前无完整dev时预登记，未实现/未激活，不改变本轮1600合同。

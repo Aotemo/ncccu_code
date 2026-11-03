@@ -1,0 +1,203 @@
+{
+  "status": "two_horizon_branches_formal_ready_without_activation",
+  "at": 1793748212.2640326,
+  "prepared": {
+    "R232": {
+      "file": "records/preparation/ema-horizon-20261103/R232-FORMAL-READY.json",
+      "sha256": "36a9786e4fe78414f2d6f5678f755bde54bdf8896c930119e9542a99c8a08de1",
+      "site_sha256": "b642d573b7e79ac9851504dd676081051a8b981e452c89b9406f6f29a3377ba3",
+      "git_commit": "4fea64d316a4ae22734fe81faff68ea3ccaa1f69"
+    },
+    "R233": {
+      "file": "records/preparation/ema-horizon-20261103/R233-FORMAL-READY.json",
+      "sha256": "354ead1b8207b06abea0257813dcd0875184c2a719a6b96fbd2d262d04269f7d",
+      "site_sha256": "36406c3db587555785130cfe2265ef2e2e66f193760a1b3353f819bad57004c2",
+      "git_commit": "4fea64d316a4ae22734fe81faff68ea3ccaa1f69"
+    }
+  },
+  "source_verification": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-horizon-20261103-4e0c/TRANSFER-VERIFICATION.json",
+    "sha256": "4c91d22be99e52030b2f43bfc32ab1eb15645e4c6f873ce243aa7a24778b517b"
+  },
+  "CPU_allocation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/CPU-ALLOCATION-EXCLUSIVE-2.json",
+    "sha256": "b3a7bb69656e3d0d3ebb3731d60f5271ee74c5bbee906bcf9780ec9b88a1ab25"
+  },
+  "CPU_probe": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-pp604lra/CPU-RECEIPT.json",
+    "sha256": "1a4a15218ceea93dc3cdf5b001e864e66f127d8632a0d6b2692040b4fc93f8e8"
+  },
+  "R230_progress": {
+    "status": "running",
+    "phase": null,
+    "successful_updates": 3625,
+    "attempted_updates": 3625,
+    "skipped_updates": 0,
+    "evaluated_cycle": 4,
+    "stop_reason": null,
+    "termination_reason": null,
+    "early_bad_cycles": 0
+  },
+  "R230_status_best": {
+    "best_metrics": {
+      "auroc": 0.9814940800080916,
+      "ap": 0.7826625829068529,
+      "variant": "online",
+      "cycle": 3,
+      "successful_updates": 2400,
+      "error_twice": 30738
+    },
+    "ema_best_metrics": {
+      "auroc": 0.986436939111923,
+      "ap": 0.8180667558262131,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 22528
+    },
+    "lineage_best": {}
+  },
+  "R230_identity": {
+    "owner_expected": {
+      "pid": 817444,
+      "start_ticks": "377243020"
+    },
+    "owner": {
+      "pid": 817444,
+      "present": true,
+      "readable": true,
+      "state": "S",
+      "start_ticks": "377243020",
+      "active": true
+    },
+    "owner_status": "active",
+    "owner_match": true,
+    "ranks_expected": [
+      {
+        "pid": 817456,
+        "start_ticks": "377246797"
+      },
+      {
+        "pid": 817457,
+        "start_ticks": "377246799"
+      },
+      {
+        "pid": 817458,
+        "start_ticks": "377246801"
+      },
+      {
+        "pid": 817459,
+        "start_ticks": "377246802"
+      },
+      {
+        "pid": 817460,
+        "start_ticks": "377246804"
+      },
+      {
+        "pid": 817461,
+        "start_ticks": "377246805"
+      },
+      {
+        "pid": 817462,
+        "start_ticks": "377246807"
+      },
+      {
+        "pid": 817463,
+        "start_ticks": "377246808"
+      }
+    ],
+    "ranks": [
+      {
+        "pid": 817456,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246797",
+        "active": true
+      },
+      {
+        "pid": 817457,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246799",
+        "active": true
+      },
+      {
+        "pid": 817458,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246801",
+        "active": true
+      },
+      {
+        "pid": 817459,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246802",
+        "active": true
+      },
+      {
+        "pid": 817460,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246804",
+        "active": true
+      },
+      {
+        "pid": 817461,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246805",
+        "active": true
+      },
+      {
+        "pid": 817462,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246807",
+        "active": true
+      },
+      {
+        "pid": 817463,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "377246808",
+        "active": true
+      }
+    ],
+    "rank_status": [
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active"
+    ],
+    "rank_matches": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "rank_count": 8
+  },
+  "R230_phase": "running",
+  "R230_safety_if_terminal": null,
+  "current_GPU_R230_unchanged": true,
+  "branch_not_chosen": true,
+  "old_R228_actualsafe_repolled": false,
+  "private_metadata_observers_compiled": 2
+}
