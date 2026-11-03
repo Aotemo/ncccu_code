@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cls-backbonelr1e5-v1",
+  "initial_model_tensor_sha256": "c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325",
+  "candidate": {
+    "id": "r203-vitb16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-backbonelr1e5-9010",
+    "experiment_order": 116,
+    "model": "vit_dino3_base",
+    "public_revision": "c6a5fb7d12bbd3cf3b0079253141c3332aaed7da",
+    "readout": "native_final_LN_CLS_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "weight_sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+    "provenance_sha256": "36847019b4a3e679749471376944fa45e59c75768fdcf39e9c40458194f52f0e",
+    "vit_dino3_pool_policy": {
+      "version": "vit-dinov3-final-ln-cls-v1",
+      "pool": "token",
+      "token_index": 0,
+      "prefix_tokens_retained_in_attention": 5,
+      "position": "after_native_final_LN_before_original_dropout_linear"
+    }
+  },
+  "public_source": {
+    "model": "vit_base_patch16_dinov3",
+    "format": "timm-vitb16-dinov3-native-state-dict-v1",
+    "revision": "c6a5fb7d12bbd3cf3b0079253141c3332aaed7da",
+    "source_url": "https://huggingface.co/timm/vit_base_patch16_dinov3.lvd1689m/resolve/c6a5fb7d12bbd3cf3b0079253141c3332aaed7da/pytorch_model.bin",
+    "training_data": "LVD-1689M self-supervised DINOv3 distilled from DINOv3 ViT-7B",
+    "sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+    "original_sha256": "ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1",
+    "native_library": {
+      "version": "1.0.27",
+      "source_sha256": {
+        "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+        "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914",
+        "layers/attention.py": "608f054b8407806016cd17e6f97b0d018716519d0384dbfe375997144ab6a947",
+        "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa"
+      }
+    },
+    "license_file": "original/LICENSE.md",
+    "license_sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+    "redistribution_confirmed": true,
+    "public_tensor_count": 162,
+    "public_tensor_sha256": "708e2c914b8291f4d834bde8e58678099770b0d0e0a402eb89cb3b574dbb8141",
+    "full_head_shape": null,
+    "final_norm_eps": 1e-05,
+    "internal_norm_eps": 1e-05,
+    "converted": false,
+    "kind": "self_supervised",
+    "repo": "timm/vit_base_patch16_dinov3.lvd1689m",
+    "nonpersistent_buffers_sha256": "192c9d930503ff35978eb9b56054e453d1655e762606e7c8041579141537a5b3",
+    "provenance_sha256": "36847019b4a3e679749471376944fa45e59c75768fdcf39e9c40458194f52f0e"
+  },
+  "public_asset_receipt": {
+    "path": "assets/public/vit-base-dino3-c6a5fb7d/PUBLIC-HANDOFF.json",
+    "sha256": "f0dbbd7ec8392a5066a4dc8eeb26dafb28946f9f36b3492ff317c571a4b1c088"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 162,
+    "backbone_state_tensors": 162,
+    "backbone_parameter_tensors": 162,
+    "backbone_parameters": 85641216,
+    "layer_norms": 25,
+    "gelu_modules": 12,
+    "stochastic_depth_modules": 22,
+    "full_head_shape": null,
+    "buffer_count": 1
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/vit-base-dino3-c6a5fb7d/original/pytorch_model.bin",
+    "public_provenance": "assets/public/vit-base-dino3-c6a5fb7d/PROVENANCE.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "vit-dino3-base",
+    "model": "vit_dino3_base",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 1e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-05,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {},
+    "vit_dino3_pool_policy": {
+      "version": "vit-dinov3-final-ln-cls-v1",
+      "pool": "token",
+      "token_index": 0,
+      "prefix_tokens_retained_in_attention": 5,
+      "position": "after_native_final_LN_before_original_dropout_linear"
+    }
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent direct R191 native ViT-B/DINOv3 publicc6a/seed29/512/FP32/ImageNet/native CLS/logistic/G64P8/default AdamW. Only backbone LR1e-4 to1e-5; all165 parameters trainable, head/age1e-3,WD1e-4,original24000cosine/warmup1600/EMA remain. No wide sigmoid,WD.05,gamma,short decay,other pool or policy,old checkpoint,teacher or clinical/dev-list weights. Fixed decade-lower backbone LR is our hypothesis, not publisher fine-tune recipe or proof of feature drift/clinical cause/benefit; no LR scan or frozen feature training. Exact new round16GiB engineering headroom equals R191; default12/old overrides/free16 stay. Original fixed9:1/800/p4/unique internal selector/official isolation remain.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  },
+  "initial_buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6"
+}

@@ -21,6 +21,63 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R202_R203_wide_confirmation_and_independent_vitb_lower_backbone_LR(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in(('R202','R201',115,20261027),('R203','R191',116,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed']),(order,seed))
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping',
+                       'data_split','official_evaluation'):
+                self.assertEqual(science[key],baseline[key])
+            expected=copy.deepcopy(baseline['job'])
+            if label=='R202':expected['seed']=seed
+            else:expected['backbone_lr']=1e-5
+            self.assertEqual(science['job'],expected)
+            expected_candidate=copy.deepcopy(baseline['candidate'])
+            expected_candidate.update(id=science['candidate']['id'],experiment_order=order)
+            self.assertEqual(science['candidate'],expected_candidate)
+            initial_prior='R200'if label=='R202'else prior
+            self.assertEqual(science['initial_model_tensor_sha256'],
+                json.loads((ROOT/'configs'/(initial_prior+'-SCIENCE.json')).read_text())['initial_model_tensor_sha256'])
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding), \
+                    patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                initialization={'kind':science['public_source'].get('kind','imagenet'),
+                    'format':science['public_source']['format'],'sha256':science['public_source']['sha256'],
+                    'path':site['public_weight'],'provenance':site['public_provenance']}
+                if label=='R203':initialization['expected_backbone_state_keys']=162
+                job=copy.deepcopy(science['job'])
+                job.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization=initialization)
+                config.validate_job(job);self.assertEqual(experiment.validate_job(job),job)
+                self.assertEqual(experiment.candidate(),science['candidate'])
+                contract=config.job_contract(job)
+                self.assertEqual(contract['backbone_lr'],1e-5 if label=='R203'else 1e-4)
+                self.assertEqual(contract['head_lr'],1e-3)
+                self.assertEqual(contract['loss'],baseline['job']['loss'])
+                for key,value in(('seed',20261029 if seed==20261027 else 20261027),
+                        ('backbone_lr',1e-4 if label=='R203'else 1e-5),('head_lr',1e-4),
+                        ('weight_decay',.05),('training_photometric','gamma-reciprocal075-v1'),
+                        ('lr_decay_updates',8000),('loss',experiment.PAIR_SIGMOID_LOSS)):
+                    wrong=copy.deepcopy(job);wrong[key]=value
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                wrong=copy.deepcopy(job);wrong['vit_dino3_pool_policy']=None if label=='R203'else {'unexpected':True}
+                with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                wrong=copy.deepcopy(science);wrong['public_source']['revision']='0'*40
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+                wrong=copy.deepcopy(science)
+                if label=='R203':wrong['job']['backbone_lr']=1e-4
+                else:wrong['job']['seed']=20261029
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
     def test_R200_R201_weight_decay_confirmation_and_independent_wide_sigmoid_identity(self):
         from retrain import age,config
         wide={'version':'binary-pairwise-sigmoid-wide2-peakgrad-v1','kind':'binary_pairwise_sigmoid_wide',

@@ -23,6 +23,8 @@ R183 = 'r183-large-dinov3-seed20261027-scale085-pairlog-storage32-24k-p4-9010-20
 R184 = 'r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102'
 R191 = 'r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102'
 R192 = 'r192-vitb-dinov3-seed20261027-scale085-pairlog-cls-storage16-24k-p4-9010-20261102'
+R202 = 'r202-small22k-seed20261027-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103'
+R203 = 'r203-vitb-dinov3-seed20261029-scale085-pairlog-cls-backbonelr1e5-storage16-24k-p4-9010-20261103'
 GIB = 1024 ** 3
 
 
@@ -48,7 +50,7 @@ class RoundStoragePolicyTest(unittest.TestCase):
     def test_new_round_limit_and_old_default_keep_free_floor(self):
         with tempfile.TemporaryDirectory() as directory:
             policy = ROOT / 'configs/ROUND-STORAGE-POLICY.json'
-            for name in (R116, R117, R174, R175, R191, R192):
+            for name in (R116, R117, R174, R175, R191, R192, R203):
                 with self.subTest(round_id=name):
                     root = Path(directory) / name
                     root.mkdir()
@@ -63,7 +65,7 @@ class RoundStoragePolicyTest(unittest.TestCase):
                         usage.free = 15 * GIB
                         with self.assertRaises(RuntimeError):
                             guard.budget(guard.time.time() + 10)
-            for name in ('older-round', 'r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102',
+            for name in (R202, 'older-round', 'r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102',
                          'r193-small22k-seed20261029-scale085-pairsigmoid-backbonelr5e5-24k-p4-9010-20261102',
                          'r189-vits-dinov3-seed20261029-scale085-pairlog-cls-24k-p4-9010-20261102',
                          'r190-vits-dinov3-seed20261027-scale085-pairlog-cls-24k-p4-9010-20261102',

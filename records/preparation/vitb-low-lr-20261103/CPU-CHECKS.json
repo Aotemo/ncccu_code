@@ -1,0 +1,199 @@
+{
+  "scope": "R202_R203_fixed_wide_confirmation_and_native_ViTB_lower_backbone_LR_affected_CPU",
+  "at": 1793674632.069561,
+  "passed_targets": 4,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R202_R203_wide_confirmation_and_independent_vitb_lower_backbone_LR",
+    "test_round_storage_policy.RoundStoragePolicyTest.test_new_round_limit_and_old_default_keep_free_floor",
+    "test_candidate_binding.CandidateBindingTest.test_R200_R201_weight_decay_confirmation_and_independent_wide_sigmoid_identity",
+    "test_candidate_binding.CandidateBindingTest.test_R192_R193_fixed_source_and_single_backbone_LR_delta"
+  ],
+  "compiled_sources": 3,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/experiment91.py",
+    "tests/test_candidate_binding.py",
+    "tests/test_round_storage_policy.py"
+  ],
+  "source_files": {
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "tests/test_candidate_binding.py": "c535b3800c5baf1fe0acf3c53d77c6097e983916f60b1004d1cdb04540d608a1",
+    "tools/validation/check_candidate.py": "eb502c8a04f717e1deaf2b4610e2c292682f3194448fe3227f56e62cefbb2cf8",
+    "configs/ROUND-STORAGE-POLICY.json": "2ffdd0858ce65c2c05073b3c5bd8242efdc336b687b5a8d23b0df8fdc84f6be9",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tests/test_pairwise_sigmoid_wide_loss.py": "6e794704b84312f7818584a4b417e1c5e39f55b10d14275f988fa57dfc2b5639",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "tests/test_round_storage_policy.py": "370c204d220e5b8f7c091687492d32d3a2fa27da06e483ff0553c7ec18b4e779",
+    "runtime/bundle/retrain/experiment91.py": "9c36284c0707beebf2eca829ac7eb0dc8aab169f125077c04c46725540114cef",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "runtime/bundle/retrain/classification_loss.py": "7fd8c903b6650577a0515e1e9328d5918395c6707d54e404f661336e295b9aa6",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "2ffdd0858ce65c2c05073b3c5bd8242efdc336b687b5a8d23b0df8fdc84f6be9"
+  },
+  "science_sha256": {
+    "R202-SCIENCE.json": "c553710a847697d6bf68ce971e98457c81652a3e2f92c1af3924562cca326f25",
+    "R203-SCIENCE.json": "33054ab03a6e88a3999e348359bcfff8516a816d8489fec2128e9ca1055e14c8"
+  },
+  "public_fresh": {
+    "R202": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/fresh/R202-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "666ba013ef2eb3434632879bfbd5420ea2740641a10f7635a9002484b8904065",
+      "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+      "parameter_tensors": 345,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "weight_decay_by_group": [
+        0.0,
+        0.0001,
+        0.0,
+        0.0001,
+        0.0001
+      ],
+      "lr_by_group": [
+        0.0001,
+        0.0001,
+        0.001,
+        0.001,
+        0.001
+      ],
+      "image_forward_calls": 0,
+      "loss": {
+        "version": "binary-pairwise-sigmoid-wide2-peakgrad-v1",
+        "kind": "binary_pairwise_sigmoid_wide",
+        "temperature": 2.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch"
+      },
+      "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "R203": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/fresh/R203-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "7deb8eb9098f3519d5f9df1ef517fee7bf8af9782dc27d717029d1a45501d0e1",
+      "model_tensor_sha256": "c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325",
+      "parameter_tensors": 165,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "weight_decay_by_group": [
+        0.0,
+        0.0001,
+        0.0,
+        0.0001,
+        0.0001
+      ],
+      "lr_by_group": [
+        1e-05,
+        1e-05,
+        0.001,
+        0.001,
+        0.001
+      ],
+      "image_forward_calls": 0,
+      "loss": {
+        "version": "binary-pairwise-logistic-v1",
+        "kind": "binary_pairwise_logistic",
+        "temperature": 1.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch"
+      },
+      "buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6"
+    }
+  },
+  "evidence": [
+    {
+      "label": "candidate_and_new_storage_RED_two_old_targets_PASS",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-h73e8i78/CPU-RECEIPT.json",
+      "sha256": "a35d75e6938512dfc31f06cf288a8b5c69ae7c3254c4a5260576d050c2d9ac26",
+      "exit_code": 1,
+      "output_sha256": "ef92a590496045ec6a69394104a9cb7a54b9c5709bac24ae68ba118ef49b4636"
+    },
+    {
+      "label": "four_affected_targets_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-qygz3imx/CPU-RECEIPT.json",
+      "sha256": "a2cfeeba85f6263017bfb45c1943578137fdccf4116f7a206a70214997e2ed08",
+      "exit_code": 0,
+      "output_sha256": "d7c1f8f002c1a9ec451d9dd55d637571a10ed66f319c3260c4672ab5222e849b"
+    },
+    {
+      "label": "two_actual_public_fresh_no_image_forward",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-poamgn1y/CPU-RECEIPT.json",
+      "sha256": "c61b7c8dac8f88dd81a84f7de7612126b729ab5134a900b6baf8e828694a36ac",
+      "exit_code": 0,
+      "output_sha256": "85dc0eb615f2ec492f43fcd643970fc0b3505fbffee91a956ffc0a572bbe3dd4"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "models": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "engine": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "ema": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "single91": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "inference": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "parallel_evaluation": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "preprocessing": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456"
+  },
+  "prior_model_evidence": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/source-cpu/records/preparation/vit-base-20261102/CPU-CHECKS.json",
+    "sha256": "7161c2ffc842fa28a292a1b5a1c8303008b0e9bcda30de28d26604a045fa3bc4",
+    "exact_source_files": {
+      "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+      "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+      "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+      "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+      "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+      "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+      "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+      "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+      "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27"
+    },
+    "new_P8_EMA_cold_targets_rerun": false,
+    "note": "native model/EMA/fresh/inference and existing nonpersistent-buffer tests match; config/engine/checker use later pinned evidence, not asserted identical to R191"
+  },
+  "prior_recent_evidence": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/source-cpu/records/preparation/wide-sigmoid-20261103/CPU-CHECKS.json",
+    "sha256": "34706b04cdfda1197191e44dd3d35b7ad8dbb07a794b9c7dd0f276d91450111b",
+    "loss_config_engine_data_models_distributed_EMA_persistence_inference_exact": true,
+    "wide_math_legacy_and_actual_two_rank_Gloo_reused_without_rerun": true
+  },
+  "storage_scope": {
+    "only_new_exact_round": "r203-vitb-dinov3-seed20261029-scale085-pairlog-cls-backbonelr1e5-storage16-24k-p4-9010-20261103",
+    "new_limit_bytes": 17179869184,
+    "default_bytes": 12884901888,
+    "old_overrides_unchanged": true,
+    "runtime_budget_function_unchanged": true,
+    "native_guard_mock_size_and_free_fixture": true,
+    "real_large_file_write": false
+  },
+  "numeric_scope": {
+    "production_image_forward_calls": 0,
+    "GPU_eight_rank_proof": false,
+    "fresh_R203_all_165_parameter_tensors_trainable": true,
+    "fresh_R203_live_nonpersistent_RoPE_buffer_checked": true,
+    "all_five_optimizer_groups_actual_LR_WD_betas_eps_empty_state_checked": true
+  },
+  "scientific_limits": [
+    "fixed lower backbone LR is a hypothesis, not proof of feature drift or benefit",
+    "not publisher fine-tuning recipe or frozen-feature training",
+    "CPU evidence does not measure DCU peak or throughput"
+  ],
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

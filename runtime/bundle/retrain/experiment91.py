@@ -30,6 +30,7 @@ PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-
 PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-wd005-v1'
 PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-wd005-v1'
 PAIR_SIGMOID_WIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-wide2-peakgrad-v1'
+PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-wide2-peakgrad-v1'
 PHOTO_IDENTITY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-photoidentity-v1'
 NO_AGE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-noage-v1'
 CONTENT_POOL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-contentpool-v1'
@@ -86,7 +87,8 @@ VIT_DINO3_CLS_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlyst
 VIT_DINO3_CLS_SEED27_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-cls-v1'
 VIT_DINO3_BASE_CLS_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cls-v1'
 VIT_DINO3_BASE_CLS_SEED27_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-cls-v1'
-VIT_DINO3_CLS_BINDINGS = (VIT_DINO3_CLS_BINDING,VIT_DINO3_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING)
+VIT_DINO3_BASE_CLS_LOWLR_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cls-backbonelr1e5-v1'
+VIT_DINO3_CLS_BINDINGS = (VIT_DINO3_CLS_BINDING,VIT_DINO3_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_LOWLR_BINDING)
 VIT_DINO3_BINDINGS = (VIT_DINO3_BINDING,VIT_DINO3_SEED27_BINDING,VIT_DINO3_R1_BINDING,VIT_DINO3_R1_SEED27_BINDING,*VIT_DINO3_CLS_BINDINGS)
 CAFORMER_BINDING = 'single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 CAFORMER_SEED27_BINDING = 'single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
@@ -121,7 +123,8 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING, PAIR_SIGMOID_DECAY_SMALL_BINDING,
                       PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING, PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                       PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING, PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
-                      PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING, PAIR_SIGMOID_WIDE_SMALL_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
+                      PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING, PAIR_SIGMOID_WIDE_SMALL_BINDING,
+                      PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
                       ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
                       HEAD_WARMUP_SMALL_BINDING, SMALL_22K_ONLY_BINDING,
@@ -218,7 +221,7 @@ def science_configuration():
                                                        PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                                                        PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
-                                                       PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,
+                                                       PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,
                                                        PHOTO_IDENTITY_SMALL_BINDING,
                                                        NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING,
                                                        STAGE3_RESIDUAL_SMALL_BINDING,
@@ -255,7 +258,7 @@ def science_configuration():
                     != (value.get('job',{}).get('lr_decay_updates')is not None))
                 or ((value.get('candidate_profile')in(PAIR_SIGMOID_GAMMA_SMALL_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('training_photometric')=='gamma-reciprocal075-v1'))
-                or ((value.get('candidate_profile')==PAIR_SIGMOID_WIDE_SMALL_BINDING)
+                or ((value.get('candidate_profile')in(PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_WIDE_SIGMOID_LOSS))
                 or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('quadrant_mil_policy')is not None
@@ -546,7 +549,7 @@ def candidate_from_configuration(value):
                                         PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                         PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                                         PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
-                                        PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,
+                                        PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,
                                         PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
                                         CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
                                         ROLEWISE_CLIP_SMALL_BINDING, ROTATION_IDENTITY_SMALL_BINDING,
@@ -590,20 +593,21 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] in (PAIR_SIGMOID_LOWLR_SMALL_BINDING,PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,
                 PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                 PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
-                PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING):
-            seed27=value['candidate_profile']in(PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING)
+                PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING):
+            seed27=value['candidate_profile']in(PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING)
             short_decay=value['candidate_profile']in(PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING)
             gamma=value['candidate_profile']in(PAIR_SIGMOID_GAMMA_SMALL_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING)
             strong_decay=value['candidate_profile']in(PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING)
-            wide=value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_BINDING
-            expected.update(id='r201-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-wide2-peakgrad-9010' if wide else
+            wide=value['candidate_profile']in(PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING)
+            expected.update(id='r202-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-wide2-peakgrad-9010' if wide and seed27 else
+                'r201-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-wide2-peakgrad-9010' if wide else
                 'r198-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-gamma075-9010' if gamma and seed27 else
                 'r197-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-gamma075-9010' if gamma else
                 'r196-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-decay8000-9010' if short_decay and seed27 else
                 'r195-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-decay8000-9010' if short_decay else
                 'r194-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-backbonelr5e5-9010' if seed27 else
                 'r193-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-backbonelr5e5-9010',
-                experiment_order=114 if wide else 111 if gamma and seed27 else 110 if gamma else 109 if short_decay and seed27 else 108 if short_decay else 107 if seed27 else 106)
+                experiment_order=115 if wide and seed27 else 114 if wide else 111 if gamma and seed27 else 110 if gamma else 109 if short_decay and seed27 else 108 if short_decay else 107 if seed27 else 106)
             if short_decay:expected['lr_decay_updates']=8000
             if strong_decay:expected.update(id='r200-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-wd005-9010' if seed27 else 'r199-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-wd005-9010',experiment_order=113 if seed27 else 112,weight_decay=.05)
             if ((value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
@@ -856,7 +860,8 @@ def candidate_from_configuration(value):
         from .models import VIT_DINO3_FORMAT,VIT_DINO3_BASE_FORMAT,VIT_DINO3_LIBRARY
         from .config import VIT_DINO3_CLS_RULE
         seed27=value['candidate_profile'] in (VIT_DINO3_SEED27_BINDING,VIT_DINO3_R1_SEED27_BINDING,VIT_DINO3_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING)
-        base=value['candidate_profile'] in (VIT_DINO3_BASE_CLS_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING)
+        low_lr=value['candidate_profile']==VIT_DINO3_BASE_CLS_LOWLR_BINDING
+        base=value['candidate_profile'] in (VIT_DINO3_BASE_CLS_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_LOWLR_BINDING)
         model_name='vit_dino3_base' if base else 'vit_dino3_small'
         revision='c6a5fb7d12bbd3cf3b0079253141c3332aaed7da' if base else '3bf4720a82ec2066db88137180ff1f83a675cef0'
         weight_sha='ed8a1265847086c913535fe7d84c0156a68dc98c0edd52298b8bb4bb7bdcbbb1' if base else 'b7e7b7d1518a4dad2d92304ff47967c3dfee806f863552a06870de1e7498e7a2'
@@ -877,6 +882,11 @@ def candidate_from_configuration(value):
         if base:
             expected.update(id='r192-vitb16-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-cls-9010' if seed27 else 'r191-vitb16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-9010',
                 experiment_order=105 if seed27 else 104,model=model_name,public_revision=revision,features=768)
+        if low_lr:
+            expected.update(id='r203-vitb16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-backbonelr1e5-9010',experiment_order=116)
+            if (value['job'].get('backbone_lr'),value['job'].get('head_lr'),value['job'].get('weight_decay'),
+                    value['job'].get('lr_decay_updates'))!=(1e-5,1e-3,1e-4,None):
+                raise ValueError('fixed native ViT-B lower backbone LR recipe differs')
         if (source.get('kind')!='self_supervised' or source.get('model')!=('vit_base_patch16_dinov3' if base else 'vit_small_patch16_dinov3')
                 or source.get('format')!=(VIT_DINO3_BASE_FORMAT if base else VIT_DINO3_FORMAT) or source.get('native_library')!=VIT_DINO3_LIBRARY
                 or source.get('revision')!=revision

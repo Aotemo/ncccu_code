@@ -1,0 +1,66 @@
+{
+  "R202": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/fresh/R202-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "666ba013ef2eb3434632879bfbd5420ea2740641a10f7635a9002484b8904065",
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "lr_by_group": [
+      0.0001,
+      0.0001,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-sigmoid-wide2-peakgrad-v1",
+      "kind": "binary_pairwise_sigmoid_wide",
+      "temperature": 2.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "R203": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/fresh/R203-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "7deb8eb9098f3519d5f9df1ef517fee7bf8af9782dc27d717029d1a45501d0e1",
+    "model_tensor_sha256": "c3495f5af134d01496fee241554a8e6113972f554bccb899eb6184cb92c09325",
+    "parameter_tensors": 165,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "lr_by_group": [
+      1e-05,
+      1e-05,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6"
+  }
+}
