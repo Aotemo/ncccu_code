@@ -1,5 +1,9 @@
 # R201：固定较宽 sigmoid 的独立 fresh
 
+已提取完整结果及固定组汇总后，[9个冗余权重实际清理](../storage/closed-r201-20261103/README.md)完成，0跳过/0错误、逻辑6,733,279,947字节；三KEEP及当前R203依赖保护前后相同，原CSV/precision和全部小型元数据保留。最终guard9rvz3rue exit0，未重查旧safe或改动现役。
+
+同一原四anchor定义的[固定难组补充](../analysis/20261102-persistent-errors/R201-FIXED20-SUMMARY.json)复算通过：20正例错序对质量6092、其余147组3082、总9174；比R107少531/多105、合计少426，仍未通过完整R120门。只读本轮selected CSV/precision各一次，不重新分组或重读旧14CSV，无新forward/图像/模型/官方；局部减少不替代完整双门或证明机制。[guard3gqaqcfn](../analysis/20261102-persistent-errors/R201-FIXED20-CPU.json) exit0，ec5准备池与R203训练互斥。
+
 11-03 05:15[完整结束](R201-RESULT.json)：7200 success=attempt/0skip、9次评估、连续4次未提升早停，唯一EMA c5@4000内部AUROC `.9889535226751404` / AP `.8363466610846791` / error_twice18348；严格R107门true/R120门false，条件R202不eligible，固定wide2组合关闭。官方不足`.996`未跑，freeze.status原null保留。同次[终态安全证据](R201-COMPLETION.json)证明owner679171/start370666628为Z/非active、八rank missing、锁holders/device_users空、扫描denied0及八PCI busy0；[guardekweron4](R201-CPU-COMPLETION.json) / `4587399e901082b9c90f879ca4bccd3973ca1d845a0d334d8877224557633fe1` exit0，旧safe此后不重查，不重启本轮。独立[R203实际接续](../R203/README.md)已证八rank/165全训/5空组/首自然25有限；原8635冻结不改，下文为历史。
 
 04:27[既有监控单次快照](R201-DEVICE-POINT.json)八绑定PCI busy均100%，[guard964izxpj](R201-CPU-DEVICE-POINT.json) / `8db676dffc99254fe65db3a7b1810118c448e4a58e3da1c042545f7a6864e05f` exit0；这是sysfs时点观测，不是连续利用率。最近1500 success=attempt/0skip/eval1/bad0，首次内部AUROC `.976776388907285`，无完整selected。04:28 Paseo实核仅32e3 running、peer a4 idle且activeTurn null，未恢复/派生或发消息；ec5两CPU池继续互斥。
