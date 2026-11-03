@@ -1,0 +1,29 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/source-git-r221r1/records/preparation/eva02-ema-fix-20261103/CPU-CHECKS.json",
+    "sha256": "211d5a780bdeda7363cbd2201e510329ba7ba565a115c7ac3cdcc4801dfefe3d"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/eva02_model.py": "7cc6d2a61f7c2b9b5d6f1c38000242c21b8c6f42f209d89efb310ee65e8ff3ba",
+    "runtime/bundle/retrain/models.py": "b03d614d68c6231eb88b8b1b824ee8997bd610cd8b68f6a75fc1beffcc2aba6f",
+    "runtime/bundle/retrain/config.py": "b7ed610e55cc3ea5933e021e296e793f909ff346638cc64939aa9337130c8992",
+    "runtime/bundle/retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "runtime/bundle/retrain/inference.py": "369bf4c09dacda028ea123fe1c332ed03ff22d1d21590c1182c4cc377fc21f6c",
+    "runtime/bundle/retrain/experiment91.py": "f516610bf5e49125510e04249e23de71037dc2eafba7260f3de4766c7583275b",
+    "runtime/bundle/retrain/single91.py": "edac014b424e0ef127602ed4d038a74af51b0f796426e20996ca9fae07482a79",
+    "runtime/r92_initial_gate.py": "704b0fc29f441a47eec7e87aa54e044634904dd76da88d71c2a0939524bef3a3",
+    "tools/validation/check_candidate.py": "884dfe0b5d5e916cd12c8cdd83f3c0e1f63ce247d3f6fe8cbdff17bee4bf23d0",
+    "tools/pretraining/eva02_source.py": "5804bcb0a9b5870edd7159aaddf2468697e6dba65ad69c38319f2763aaeb3c4e",
+    "tests/test_eva02_model.py": "c63c2855ca954e2f0d2b3f325bf941ba93b54ae778193b0ccf98e3f9698c8126",
+    "tests/test_eva02_candidate.py": "f8d5bfeef0a3204eb3107aa76e76b5bf6abcde59ea921371f8991e4afc1e426d",
+    "tests/test_round_storage_policy.py": "2df6426c7dad18cba00cfc496171b28230d45b8aac196ff90c962ee6a5e64fed",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "tests/test_long_ema.py": "0929c2cb656af4163acd52dedbeb89f619bbaaad51f13ea2f2e98dd987909f26"
+  },
+  "science_sha256": "849cfb4e62f273d515c7d44a1f23414e6adfc5e65a52f75889f021aaf310fdd1",
+  "targets_reused": 5,
+  "unchanged_implementation_files": 7,
+  "tests_rerun": false,
+  "at": 1793722226.0519593
+}

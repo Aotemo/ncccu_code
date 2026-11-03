@@ -1,0 +1,107 @@
+{
+  "status": "completed",
+  "round_id": "r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103",
+  "git_commit": "87cc9198faa392c5cb9ed8346e3d14dd19f72516",
+  "science_sha256": "ca352c2eef8d7ed1e4fb2e57bba0d55071950c0f848e9639099d5b2fc291b866",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 8000,
+    "attempted_updates": 8000,
+    "skipped_updates": 0,
+    "evaluated_cycle": 10,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.9877759060603908,
+    "ap": 0.8358105199595313,
+    "variant": "ema",
+    "cycle": 6,
+    "successful_updates": 4800,
+    "error_twice": 20304
+  },
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "official": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 8000,
+      "cycles": 10,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9877759060603908,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 6,
+        "variant": "ema",
+        "successful_updates": 4800,
+        "error_twice": 20304,
+        "ap": 0.8358105199595313,
+        "auroc": 0.9877759060603908,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103/outputs/r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+        "prediction_sha256": "8ab009fd907df611fcc7b9d1a163a53bfbb22a490030569caa32871f3d8d55d2",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103/outputs/r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+        "precision_sha256": "42eceda7bb023066fa695f2ddb7c5ccc7e69838fb9f68d5807c47a4b6a175a3d",
+        "tensor_sha256": "677606c3efe813469c73f91212719a61c3f1bb03421d13239723799827ea9444"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 8000,
+      "cycles": 10,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9877759060603908,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793721115.1321785,
+  "whole_round_ended_at": 1793721079.4773827,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r219-20261103-32e3-ready-headroom/PROGRESS-cont-11.json",
+    "sha256": "e6acb621af4ebef3ba6c1c1a6a048122fc0a94729ab823d386e52aee4b50871d"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-s8gaeoeg/CPU-RECEIPT.json",
+    "sha256": "6abd0dc9e77ed4b229601595fdced2bedb22503e463028444b2004480bffbdee"
+  },
+  "freeze_status_original": null,
+  "selected_tensor_sha256": "677606c3efe813469c73f91212719a61c3f1bb03421d13239723799827ea9444",
+  "selected_blob_sha256": "ade2ad0191aca813048d0187d14bda8043833cac38493ca533c0b59cf6cedf36",
+  "selected_prediction_sha256": "8ab009fd907df611fcc7b9d1a163a53bfbb22a490030569caa32871f3d8d55d2",
+  "selected_precision_sha256": "42eceda7bb023066fa695f2ddb7c5ccc7e69838fb9f68d5807c47a4b6a175a3d",
+  "new_forward_or_model_or_checkpoint_load": false,
+  "raw_AUROC_0_999_achieved": false
+}

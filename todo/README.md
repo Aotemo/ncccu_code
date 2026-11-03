@@ -1,5 +1,9 @@
 # 当前任务与接续
 
+**11-03 16:16当前唯一GPU R221R1/order135已实证跑通，100 success=attempt/0skip/eval0，八rank活跃。** 首自然25 loss .5590348839759827有限/WORLD8/G64P8/448对，实际初态8rank/237参数/51592a3d/五空AdamW均匹配；start5/e795bfd5/guardplqgmuac0。冻结7d744e2/SCI849cfb4e/actual SITE42d45f0f/ready-r221r1不热改，正式20/20/精确Git树部署及5窄目标15编译已通过，科学delta0的EMA静态RoPE修复已在真实生产更新中验证。旧R221工程失败不判科学阴性，旧safe不重查；R219完整8000/c10 EMA c6@4800 .9877759060603908，双门false/R220不eligible/官方未跑，其结果与失败间隙正在原证据归档，所选继续暂保护供已声明256 fit诊断。当前观测显式R221R1 prep/source/start5，旧r219 env仅历史；7c准备0–11/保留12–23与训练24–119互斥，peer closed、32e3唯一Git/GPU，不恢复派生发消息。R221失败到恢复超过300秒将如实按实际时刻归档，raw .999未达。下方历史。
+
+**11-03 16:12 R221R1/order135已完成7d744e2 push/远端回读、正式20/20及整树精确部署，既有四调用已派发一次，exit/八rank初态/首成功仍待核。** SCI849cfb4e/actual SITE42d45f0f/原初态51592a3d，normal guardhpwkhnko/7b350161 exit0，ready=`r221r1-20261103-32e3-ready`；仅生产EMA静态RoPE检查与独立工程身份，科学delta0。旧R221失败及唯一safe不重查/clock-token-grant不改，R219完整结果与R220不eligible保持。当前只读观测必须显式R221R1 prep及新source-git-r221r1，旧r219 env仅历史；7c准备0–11/保留12–23与训练24–119互斥，peer closed、32e3唯一Git/GPU，无Agent恢复/派生/发消息。失败后空闲已超300秒，将按真实恢复时刻归档，raw .999未达。下方历史。
+
 **11-03 16:06 R221R1最小工程修复已完成5必要CPU目标/15编译，当前待Git同步/新包正式部署，DCU因R221失败仍空闲。** 根因为生产EMA无BN检查遗漏EVA02非持久静态RoPE，并非clock不足；新增生产规则先复现同错，再覆盖warmcopy/blend/缓存不变与篡改拒绝。R221R1/order135仅独立身份，科学delta0/原初态51592a3d，SCI849cfb4e；原10目标按未变原生源码和三个模型测试方法AST复用，实际checks211d5a78/guard a8hbhnuk0、缺测试文件的首次汇总失败原件保留。R221原始失败及唯一safe terminal-1/pa54nc67已封存，最后记录进度0但optimizer.step可能先于EMA失败，不宣称优化器未运行；无科学结论或官方。16:05只读实核peer closed，32e3唯一Git/GPU，不恢复/派生/发消息。R219结果与R220不eligible保持、所选暂保护；7c准备/训练80%互斥池不变，raw .999未达。下方历史。
 
 **11-03 16:01 R221工程启动失败，当前DCU空闲，唯一Git/GPU owner仍32e3。** 实际八rank初态全部匹配237参数/51592a3d/五空AdamW，但训练组件timeout，成功更新0、无selected，不判科学阴性；terminal-1于15:58:47实核owner退出、八rank消失、锁无持有者/设备无人占用/八卡busy0，唯一safe保留不重查。正核原启动屏障及组件日志，最小修复后独立fresh身份接续，不重启R221或重置旧clock/token/grant。空闲已超300秒，真实原因和时长后续归档，不以时限跳过必要CPU/Git/部署。R219完整结果及R220不eligible保持，所选暂保护供预声明fit诊断；7c准备池至20:34、root0–11/保留12–23与训练24–119互斥。raw .999未达，下方历史。

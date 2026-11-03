@@ -1,5 +1,7 @@
 # R220条件Small12k复核 / R221独立EVA02 Base
 
+16:16结果更新：R219完整所选.9877759060603908、双门false，R220不eligible，虽正式18/18准备完毕也未启动。R221原20/20 CPU和八rank初态通过，但生产EMA静态RoPE检查遗漏导致工程失败，无首成功回执/科学结论；原件保留。科学delta0的[R221R1最小修复](R221R1-ENGINEERING-RETRY.md)已7d744e2同步、5目标15编译/正式20/20/精确部署及真实八rank首自然25通过，当前唯一GPU为R221R1。下方15:36等状态仅历史，不把旧注册当新GPU证据。
+
 15:36[实际10目标/13项目源码编译](../../records/preparation/eva02-20261103/README.md)全部通过，guardypf1q_2x/41d1191c0。公开完整bin LFS/236张量full1000 strict、许可/来源登记、三项模型测试、新旧绑定/精确存储及两公开工厂初态均有真实CPU回执；SCI R220 e85321fb/whole55fcad7c，R221 3a205228/whole51592a3d/liveRoPE afe09042。原件仅传输分块合并，完整原始SHA保持，所有失败原件保留。当前待Git冻结/technical/normal/精确部署，无新clock/GPU；原先尚未验证的描述仅为历史时点。R221仅其精确round新增16GiB上限，默认12/free16保持；容量情景不证明故障瞬间最大峰值。
 
 15:13当前EVA02模型三项CPU测试113.012秒PASS：实际原生448→518位置及512补边oracle、RNG/age一次、合成P8全237参数有限梯度、五空AdamW组、EMA与真实CheckpointStore→inference冷图exact；guard9jdt1c1b/3b27a869 exit0。初次配置测试先因未注册模型RED，原回执保留。完整公开大权重传输仍慢，尚未strict/公开fresh/最终SCI/normal/GPU；不得把此随机初始化合成fixture写成公开源或DCU证据。
