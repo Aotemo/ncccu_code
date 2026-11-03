@@ -45,7 +45,7 @@ Files：`configs/R208-SCIENCE.json`、`configs/R209-SCIENCE.json`、`runtime/bun
 ## Task 3：同步与原链接续
 
 - [x] 精简真实回执入records，Gitd6fe92f实际push/commit-tree回读后原入口两technical包，实际run_name100/97、默认12GiB，两个guard和归档均0。normal尚待前轮可行收尾完成，无clock/GPU。
-- [ ] 完整双门及actualsafe决定唯一分支，一次activation/direct launch，以真实八rank初态/自然首25证明GPU能跑；不重复官方/旧safe。
+- [x] R207完整6400/c8/bad4、唯一EMA3200内部.9865633703435679，两门false/官方未跑/同次actualsafe，R208不eligible。[独立R209](../../records/R209/README.md)一次activation/direct launch0，真实八rank/345全训/各rank空state及自然首25有限已证，08:09实观325/0skip/eval0。AMSGrad逐组kwargs证据来自正式CPU/source绑定，不冒充八rank逐组遥测；旧safe/clock/token/grant保持，无GPU预演。
 
 ## Ledger
 
