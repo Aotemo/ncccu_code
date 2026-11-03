@@ -14,6 +14,7 @@
     "r192-vitb-dinov3-seed20261027-scale085-pairlog-cls-storage16-24k-p4-9010-20261102": 17179869184,
     "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103": 17179869184,
     "r204-vitb-dinov3-seed27-lr1e5-cls-storage16-24k-p4-9010-20261103": 17179869184,
-    "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103": 25769803776
+    "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103": 25769803776,
+    "r216-siglip2-vitb16-seed27-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103": 25769803776
   }
 }

@@ -10,4 +10,4 @@ R217/order130为直接原R107 Small/public fe6/seed29的一项独立假设：原
 
 范围：仅`experiment91.py`的精确候选/来源/metadata EMA绑定、`tests/test_candidate_binding.py`、新增`tests/test_long_ema.py`、精确R216存储例外和既有storage函数目标，以及R216/R217 SCI。无需改模型、data、loss/gather、optimizer、EMA数学实现、启动、保存、评估、监控或fresh来源映射。先候选绑定与生产EMA边界/解析数值目标RED，再最小GREEN；两actual public fresh、必要compile、Git同步回读、technical及后备normal在R215训练期间完成。源树按现有部署器要求完整传输，可压缩I/O，不再用不完整树绕过核验；真实8rank首更新接管GPU证明。
 
-11:55计划固定，以上新增源码/SCI尚未实现/训练，未声称收益。R215最近有效800/0skip/eval1/bad0暂内部`.9534745108616469`；当前d837/root0–11与训练24–119、保留peer12–23互斥。R211清理正在现有manifest/deleter边界内准备，不涉及R213所选临时诊断依赖或R215任何产物。
+12:13最小实现和[5受影响目标/4源码编译及两actual public fresh](../../records/preparation/long-ema-20261103/README.md)完成，guard4soj0gxm exit0；尚待Git同步回读、technical与后备normal，无新clock/GPU或收益声称。R215实观4450/0skip/eval5/bad0、八rank活跃，暂EMA`.9650471829315429`；当前d837/root0–11与训练24–119、保留peer12–23互斥。R211已按真实manifest删除9冗余权重，最终保护校验通过待归档；R213所选仍是拟做fit诊断的保护依赖，未开始该forward。

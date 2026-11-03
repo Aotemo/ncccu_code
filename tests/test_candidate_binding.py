@@ -21,6 +21,31 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R216_R217_conditional_SigLIP2_and_long_EMA_original_job(self):
+        for label,prior,seed,order in(('R216','R215',20261027,129),('R217','R107',20261029,130)):
+            science=json.loads((ROOT/'configs'/(label+'-SCIENCE.json')).read_text())
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertIn(science['candidate_profile'],experiment.SUPPORTED_BINDINGS)
+            expected=copy.deepcopy(baseline['job']);expected['seed']=seed
+            self.assertEqual(science['job'],expected)
+            for key in('structure','public_source','paths','data_split','schedule','early_stopping'):
+                self.assertEqual(science[key],baseline[key])
+            self.assertEqual(science['candidate']['experiment_order'],order)
+            self.assertEqual(science['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+            self.assertEqual(experiment.candidate_from_configuration(science),science['candidate'])
+            if label=='R217':
+                self.assertEqual(science['ema_policy'],experiment.LONG_EMA_RULE)
+                self.assertEqual(science['candidate']['ema_policy'],experiment.LONG_EMA_RULE)
+                self.assertEqual(science['initial_model_tensor_sha256'],baseline['initial_model_tensor_sha256'])
+                bad=copy.deepcopy(science);bad['ema_policy']['decay']=.999
+                bad['candidate']['ema_policy']['decay']=.999
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(bad)
+                unregistered=copy.deepcopy(baseline);unregistered['ema_policy']=copy.deepcopy(experiment.LONG_EMA_RULE)
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(unregistered)
+            for key,value in(('seed',20261029 if seed==20261027 else 20261027),('backbone_lr',1e-5)):
+                bad=copy.deepcopy(science);bad['job'][key]=value
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(bad)
+
     def test_R214_R215_native_EfficientNet_confirmation_and_public_SigLIP2(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}

@@ -34,7 +34,8 @@ class RoundStoragePolicyTest(unittest.TestCase):
     def test_R215_exact_24GiB_preserves_default_and_free_floor(self):
         name='r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103'
         with tempfile.TemporaryDirectory()as directory:
-            for round_id,limit in((name,24),('r214-effv2rws-seed27-publicbn-pairlog-24k-p4-9010-20261103',12),
+            for round_id,limit in((name,24),('r216-siglip2-vitb16-seed27-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103',24),
+                                 ('r214-effv2rws-seed27-publicbn-pairlog-24k-p4-9010-20261103',12),
                                  ('r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103',12)):
                 root=Path(directory)/round_id;root.mkdir()
                 (root/'STORAGE_POLICY.json').write_bytes((ROOT/'configs/ROUND-STORAGE-POLICY.json').read_bytes())

@@ -80,6 +80,12 @@ EFFICIENTNET_BINDING = 'single-efficientnetv2-rws-ee38fe1c-publicbn-fixed-9010-2
 EFFICIENTNET_SEED27_BINDING = 'single-efficientnetv2-rws-ee38fe1c-publicbn-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 EFFICIENTNET_BINDINGS = (EFFICIENTNET_BINDING,EFFICIENTNET_SEED27_BINDING)
 SIGLIP2_BINDING = 'single-siglip2-vitb16-3c4b2d39-native512-publicmap-unit-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+SIGLIP2_SEED27_BINDING = 'single-siglip2-vitb16-3c4b2d39-native512-publicmap-unit-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+SIGLIP2_BINDINGS = (SIGLIP2_BINDING,SIGLIP2_SEED27_BINDING)
+LONG_EMA_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-ema09999-v1'
+LONG_EMA_RULE = {'version':'ema-warmcopy1600-decay09999-nobn-v1','warmcopy_updates':1600,
+    'decay':.9999,'dtype':'torch.float32','floating_buffers':'same_as_parameters',
+    'integer_buffers':'copy','batch_norm_buffers':0}
 HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-positive-top2-mix05-v1'
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
@@ -154,7 +160,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,SIGLIP2_BINDING,
+                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,LONG_EMA_SMALL_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -261,7 +267,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,SIGLIP2_BINDING,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,LONG_EMA_SMALL_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -567,6 +573,9 @@ def science_configuration():
 
 
 def candidate_from_configuration(value):
+    if (value.get('candidate_profile')!=LONG_EMA_SMALL_BINDING
+            and (value.get('ema_policy')is not None or value.get('candidate',{}).get('ema_policy')is not None)):
+        raise ValueError('unregistered longer EMA policy')
     actual = value['candidate']
     source = value['public_source']
     expected = {**CANDIDATE, 'stochastic_depth': value['job']['stochastic_depth']}
@@ -932,14 +941,41 @@ def candidate_from_configuration(value):
                         'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed original Small AdamW beta2 recipe differs')
-    elif value['candidate_profile'] == SIGLIP2_BINDING:
+    elif value['candidate_profile'] == LONG_EMA_SMALL_BINDING:
+        expected={'id':'r217-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-ema09999-9010',
+            'experiment_order':130,'model':'convnext_small','public_revision':'fe6b358aa409414cdb522ae3d43a2c9922f7cc1b',
+            'readout':'native_avgpool_final_LN_dropout_linear_plus_age','features':768,
+            'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
+            'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native',
+            'head_lr_scope':'last_linear','ema_policy':LONG_EMA_RULE}
+        if (value.get('ema_policy')!=LONG_EMA_RULE or value.get('age_enabled',True)is not True
+                or source.get('model')!='convnext_small' or source.get('format')!='torchvision-1000-state-dict-v1'
+                or source.get('revision')!='fe6b358aa409414cdb522ae3d43a2c9922f7cc1b'
+                or source.get('sha256')!='7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610'
+                or source.get('provenance_sha256')!='8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b'
+                or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
+                    value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
+                    ('convnext_small',20261029,'imagenet',512,512,64,8,False,1e-4,1e-3,1e-4)
+                or any(value['job'].get(k)is not None for k in('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
+                    'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
+                    'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                    'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                    'training_views','training_rotation','training_photometric','lr_decay_updates','bn_statistics'))):
+            raise ValueError('fixed original Small longer EMA recipe differs')
+    elif value['candidate_profile'] in SIGLIP2_BINDINGS:
         from .siglip2_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
+        seed27=value['candidate_profile']==SIGLIP2_SEED27_BINDING
         expected={'id':'r215-siglip2-vitb16-webli-publicmap-unit-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':128,'model':MODEL,'public_revision':REVISION,
             'readout':'native_public_MAP_LN_dropout_linear_plus_age','features':768,
             'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
             'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native',
             'head_lr_scope':'last_linear'}
+        if seed27:expected.update(id='r216-siglip2-vitb16-webli-publicmap-unit-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=129)
         if (source.get('kind')!='natural_vision_language' or source.get('model')!=VARIANT
                 or source.get('format')!=FORMAT or source.get('native_library')!=LIBRARY
                 or source.get('revision')!=REVISION or source.get('sha256')!=WEIGHT_SHA
@@ -952,7 +988,7 @@ def candidate_from_configuration(value):
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
                     value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
-                    (MODEL,20261029,'unit',512,512,64,8,False,1e-4,1e-3,1e-4)
+                    (MODEL,20261027 if seed27 else 20261029,'unit',512,512,64,8,False,1e-4,1e-3,1e-4)
                 or any(value['job'].get(k)is not None for k in('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
                     'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
                     'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
@@ -1219,12 +1255,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,SIGLIP2_BINDING):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=(794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,SIGLIP2_BINDING) else 176) or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,*SIGLIP2_BINDINGS) else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt
@@ -1318,6 +1354,10 @@ def _metadata(root):
     values['EMA-TINY.json'] = {'version': f'ema-warmcopy{warm}-decay0999-nobn-v1',
         'warmcopy_updates': warm, 'decay': .999, 'dtype': 'torch.float32',
         'floating_buffers': 'same_as_parameters', 'integer_buffers': 'copy', 'batch_norm_buffers': 0}
+    if science_configuration()['candidate_profile']==LONG_EMA_SMALL_BINDING:
+        if warm!=1600 or science_configuration().get('ema_policy')!=LONG_EMA_RULE:
+            raise ValueError('registered longer EMA warmcopy/decay differs')
+        values['EMA-TINY.json']=copy.deepcopy(LONG_EMA_RULE)
     if candidate()['model'] == 'swin_base':
         values['EMA-TINY.json'].update(static_integer_buffers='relative_position_index',
                                       static_integer_buffer_count=24)
