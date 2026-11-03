@@ -1,0 +1,17 @@
+{
+  "status": "full_original_selected_CSV_and_unique_safe_verified",
+  "result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/r228-archive/R228-RESULT.json",
+    "sha256": "08d6a7269fb6a37d5d6f279f5d9abf57782250c9e30bc54a9779705908f07cc3"
+  },
+  "archive_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-b5egjtsw/CPU-RECEIPT.json",
+    "sha256": "fc9d071a8142f32da2413630f30832d854dcce6eb52ac82958675cbeb51db52c"
+  },
+  "source_script": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/archive-r228.py",
+    "sha256": "25e48ea620ff4646b3907c6488ea81217e516aac9584e86a22d2dcdd306c9ccd"
+  },
+  "old_safe_repolled": false,
+  "new_forward_or_checkpoint_load": false
+}

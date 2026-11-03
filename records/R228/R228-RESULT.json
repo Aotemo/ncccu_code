@@ -1,0 +1,289 @@
+{
+  "status": "completed",
+  "round_id": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+  "git_commit": "be5b5fa82869f3b34c8dfaf3fabe552274b1eafc",
+  "science_sha256": "087564fa826c0dbb6e35d6ba5a1e9b59906691a62f88710726979dfdafc246bb",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "skipped_updates": 0,
+    "evaluated_cycle": 8,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.984526021353633,
+    "ap": 0.8101778591971989,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "error_twice": 25702
+  },
+  "recomputed": {
+    "error_twice": 25702,
+    "ap": 0.8101778591971989,
+    "auroc": 0.984526021353633,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "tensor_sha256": "f2301444f2cb0567f582b385c6f3fd87491604b657c94f932248b170110340d4",
+    "freeze": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+      "sha256": "444e48f8cbaa5211c772913ec97739658dd53279e8051d15de0a1ebf15a5d047"
+    },
+    "prediction": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+      "sha256": "07ed1f6176da6c6902fb435b6c102e379c5c60130fec0c312369b941ac3fc48d"
+    },
+    "precision": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+      "sha256": "604d36963cff741b549c2c36b9d83e53323ed06deb8b8b2c5987a82d89f8001c"
+    },
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+      "sha256": "1ddbcea79371c762a4d1a39da6c3f779b1cc3cad83d1f4aa261eb6a15de40cf0",
+      "status": "completed",
+      "successful_updates": 6400
+    }
+  },
+  "changes_vs_R107": {
+    "all": {
+      "reference": 9600.0,
+      "candidate": 12851.0,
+      "repaired": 2179.0,
+      "introduced": 5430.0,
+      "shared": 7421.0,
+      "net_added": 3251.0
+    },
+    "fixed_positive": {
+      "reference": 6623.0,
+      "candidate": 8796.0,
+      "repaired": 1198.0,
+      "introduced": 3371.0,
+      "shared": 5425.0,
+      "net_added": 2173.0
+    },
+    "remaining_positive": {
+      "reference": 2977.0,
+      "candidate": 4055.0,
+      "repaired": 981.0,
+      "introduced": 2059.0,
+      "shared": 1996.0,
+      "net_added": 1078.0
+    }
+  },
+  "changes_vs_R120": {
+    "all": {
+      "reference": 8739.0,
+      "candidate": 12851.0,
+      "repaired": 2363.0,
+      "introduced": 6475.0,
+      "shared": 6376.0,
+      "net_added": 4112.0
+    },
+    "fixed_positive": {
+      "reference": 5829.0,
+      "candidate": 8796.0,
+      "repaired": 1365.0,
+      "introduced": 4332.0,
+      "shared": 4464.0,
+      "net_added": 2967.0
+    },
+    "remaining_positive": {
+      "reference": 2910.0,
+      "candidate": 4055.0,
+      "repaired": 998.0,
+      "introduced": 2143.0,
+      "shared": 1912.0,
+      "net_added": 1145.0
+    }
+  },
+  "changes_vs_R115": {
+    "all": {
+      "reference": 11310.0,
+      "candidate": 12851.0,
+      "repaired": 2823.0,
+      "introduced": 4364.0,
+      "shared": 8487.0,
+      "net_added": 1541.0
+    },
+    "fixed_positive": {
+      "reference": 7360.0,
+      "candidate": 8796.0,
+      "repaired": 1584.0,
+      "introduced": 3020.0,
+      "shared": 5776.0,
+      "net_added": 1436.0
+    },
+    "remaining_positive": {
+      "reference": 3950.0,
+      "candidate": 4055.0,
+      "repaired": 1239.0,
+      "introduced": 1344.0,
+      "shared": 2711.0,
+      "net_added": 105.0
+    }
+  },
+  "fixed20_count": 20,
+  "remaining_positive_count": 147,
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "next_prepared_branch": "R230",
+  "internal_AUROC_0_995_and_AP_above_0_9": false,
+  "overall_goal_complete": false,
+  "official_evaluated": false,
+  "official_reason": "threshold_not_met",
+  "official_metrics": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.984526021353633,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 4,
+        "variant": "ema",
+        "successful_updates": 3200,
+        "error_twice": 25702,
+        "ap": 0.8101778591971989,
+        "auroc": 0.984526021353633,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "prediction_sha256": "07ed1f6176da6c6902fb435b6c102e379c5c60130fec0c312369b941ac3fc48d",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "precision_sha256": "604d36963cff741b549c2c36b9d83e53323ed06deb8b8b2c5987a82d89f8001c",
+        "tensor_sha256": "f2301444f2cb0567f582b385c6f3fd87491604b657c94f932248b170110340d4"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.984526021353633,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793744894.6886895,
+  "whole_round_ended_at": 1793744861.696013,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/COMPLETION-ema-handoff-2.json",
+    "sha256": "6b3e3a47e482a547693f4ec71e876e3f279a4fbacd66dc5c28b434bc30bc5863"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-z37oyj_t/CPU-RECEIPT.json",
+    "sha256": "07c0f6a91b24dc2a9e117e73aa2b61f1db07028dca973314ac858196018ce888"
+  },
+  "selected_tensor_sha256": "f2301444f2cb0567f582b385c6f3fd87491604b657c94f932248b170110340d4",
+  "selected_blob_sha256": "1fe877c26b10f46e97fcce582888a5077ebe20f9e3176ec9b193f5e14a3f2cf2",
+  "selected_prediction_sha256": "07ed1f6176da6c6902fb435b6c102e379c5c60130fec0c312369b941ac3fc48d",
+  "selected_precision_sha256": "604d36963cff741b549c2c36b9d83e53323ed06deb8b8b2c5987a82d89f8001c",
+  "changes_vs_R224": {
+    "all": {
+      "reference": 11666.0,
+      "candidate": 12851.0,
+      "repaired": 3566.0,
+      "introduced": 4751.0,
+      "shared": 8100.0,
+      "net_added": 1185.0
+    },
+    "fixed_positive": {
+      "reference": 7720.0,
+      "candidate": 8796.0,
+      "repaired": 1923.0,
+      "introduced": 2999.0,
+      "shared": 5797.0,
+      "net_added": 1076.0
+    },
+    "remaining_positive": {
+      "reference": 3946.0,
+      "candidate": 4055.0,
+      "repaired": 1643.0,
+      "introduced": 1752.0,
+      "shared": 2303.0,
+      "net_added": 109.0
+    }
+  },
+  "changes_vs_R226": {
+    "all": {
+      "reference": 11718.0,
+      "candidate": 12851.0,
+      "repaired": 4230.0,
+      "introduced": 5363.0,
+      "shared": 7488.0,
+      "net_added": 1133.0
+    },
+    "fixed_positive": {
+      "reference": 8000.0,
+      "candidate": 8796.0,
+      "repaired": 2488.0,
+      "introduced": 3284.0,
+      "shared": 5512.0,
+      "net_added": 796.0
+    },
+    "remaining_positive": {
+      "reference": 3718.0,
+      "candidate": 4055.0,
+      "repaired": 1742.0,
+      "introduced": 2079.0,
+      "shared": 1976.0,
+      "net_added": 337.0
+    }
+  },
+  "cost": {
+    "SSL_successful_updates": 1600,
+    "SSL_primary_images": 102400,
+    "SSL_view_images": 204800,
+    "SSL_first_to_last_logged_seconds": 1125.6654319763184,
+    "joint_train_component_seconds": 4343.877398729324,
+    "train_component_start_to_SSL_finish_seconds": 1219.2229034900665,
+    "SSL_finish_to_supervised_component_end_seconds": 3124.654495239258,
+    "component_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/control/train-component-terminal.json",
+      "sha256": "3670a1fd514623df68f117bc363660881ed6da4cbc800d43d40ee4194d330efc"
+    },
+    "SSL_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+      "sha256": "ddbcfa0a5d89af20e00c01c62eb2fcfcb32a8d437b934becf0dde6dc1f07bd52"
+    },
+    "equal_SSL_updates_not_equal_algorithm_compute": true
+  },
+  "new_forward_or_model_or_checkpoint_load": false,
+  "old_actualsafe_repolled": false,
+  "future_forward_dependency": false
+}

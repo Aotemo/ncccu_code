@@ -1,0 +1,27 @@
+{
+  "status": "observed_event_intervals",
+  "previous_round": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+  "next_round": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+  "previous_whole_round_ended_at": 1793744861.696013,
+  "previous_whole_round_ended_UTC": "2026-11-03T22:27:41.696013+00:00",
+  "previous_last_train_update_at": 1793744754.339104,
+  "next_dispatch_at": 1793745047.3710768,
+  "next_first_SSL_success_at": 1793745140.157347,
+  "next_natural_SSL_25_at": 1793745160.0823371,
+  "seconds_end_to_dispatch": 185.67506384849548,
+  "seconds_end_to_first_SSL_success": 278.46133399009705,
+  "seconds_end_to_SSL_25": 298.3863241672516,
+  "seconds_last_old_train_update_to_first_SSL_success": 385.8182430267334,
+  "end_to_first_SSL_within_300_seconds": true,
+  "end_to_SSL25_within_300_seconds": true,
+  "continuous_GPU_utilization_measured": false,
+  "old_safe_proof_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/COMPLETION-ema-handoff-2.json",
+    "sha256": "6b3e3a47e482a547693f4ec71e876e3f279a4fbacd66dc5c28b434bc30bc5863"
+  },
+  "old_clock_token_grant_modified": false,
+  "preparation_completed_during_previous_training": true,
+  "no_document_or_approval_wait": true,
+  "one_activation_and_one_entry_call": true,
+  "frozen_preparation_resource_failure_did_not_delay_handoff": true
+}

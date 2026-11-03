@@ -1,0 +1,65 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+  "git_commit": "4099eeda6c08ae31b2fdab14f959070363a61f1f",
+  "tree_sha": "4888dc5c31f241bad7369a63078b46aa710898a3",
+  "science_sha256": "8cb98a2b0d3fca149f3d4ac2adb6811a559f8e14a08ccec701a7de48ab0fefd1",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "d0385fcd2bd179be73b1283301a1e09e1d9a0a70e3ceeb44a0d5c3cb815b0bfa",
+  "deployment_sha256": "fc6939c7ecfa1cb1f4cf826c0e4238bf88900c9d395d63421a4990ba1b7b1cd1",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793744193.4266276,
+  "formal_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-kbr72efu/CPU-RECEIPT.json",
+    "sha256": "21d832f006841383be874921b6dfceb26420feff281c57a7617f511884a22ed9"
+  },
+  "activation_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-rwtdcm6g/CPU-RECEIPT.json",
+    "sha256": "2df2fcc774e4dac9cb2d80d2c9c022061900f3bda2c78e62b821ce1b0a693c94"
+  },
+  "source_matched_CPU_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/source-git/records/preparation/ema-assignment-20261103/CPU-CHECKS.json",
+    "sha256": "e58e363e8a5a85e97fb6f1110f392ec0d0ce3923fb69dbbeff75027224ecaa79"
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r230-20261103-4e0c-ready/DEPLOYMENT.json",
+    "sha256": "fc6939c7ecfa1cb1f4cf826c0e4238bf88900c9d395d63421a4990ba1b7b1cd1"
+  },
+  "remote_commit": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/REMOTE-COMMIT.json",
+    "sha256": "780cb1b5402d5cb39a315f76d616273d828f052d8fb333c71ed2d61428e1dd63"
+  },
+  "remote_tree": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/REMOTE-TREE.json",
+    "sha256": "ba6ec13fbfbf3fa499562f90a39d5e384ba39ec7adf60048e0d3e9cd17e1971c"
+  },
+  "one_shot_activation": {
+    "status": "unique_activation_exit0",
+    "round_id": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+    "observed_at": 1793745000.0,
+    "preflight_sha256": "7063ef14849dbd8360744b1f0dd4586750bd03df22e01e56d8eb92212fdca695",
+    "activation_audit_sha256": "865b8fef7c908f614e343588663a62f94bf4e4f5d2a700f025a470dddc89a49d",
+    "GPU_started": false
+  },
+  "actual_start": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r230-20261103-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "60a79c5aa73f1fe3d92b455e15da276ab089e8b616072c9e29a57f83014fd50a"
+  },
+  "actual_start_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-996vmel6/CPU-RECEIPT.json",
+    "sha256": "316efefce12ab95ba5a0c6d98a301fbc2230ccf2d406997988cd04e46df34045"
+  },
+  "one_actual_launcher_call": true,
+  "one_actual_dispatch": true,
+  "caller_pre_taskset_used": false,
+  "independent_GPU_rehearsal_run": false,
+  "full_SSL_and_supervised_initial_not_yet_proven": true,
+  "initial_teacher_exact_to_actual_P8": true,
+  "initial_unknown_observation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r230-20261103-4e0c-ready/ACTUAL-START-1.json",
+    "sha256": "8948e71ed3aa650e1e53bec4cbf25990a092754cfba85ef5e821c3fcd158346e"
+  }
+}
