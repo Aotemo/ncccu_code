@@ -1,5 +1,7 @@
 # R199：原 Small sigmoid 的固定 weight decay .05
 
+11-03 04:13已[完整结束](R199-RESULT.json)：10400 success=attempt/0skip、13次评估、连续4次未提升早停，唯一EMA c9@7200内部AUROC `.9858601718742286` / AP `.8194274652755267` / error_twice23486；低于R107与R120，条件R200不eligible。官方未达到`.996`门而未跑，freeze.status原null保留。封存[同次终态安全证据](R199-COMPLETION.json)证明owner670112/start370141971为Z/非active、八rank missing、锁holders与device_users空、扫描denied0、八PCI busy0；[guardz4r7zpq6](R199-CPU-COMPLETION.json) / `66123654e643d8416e7b50eb9a2aed682075cfc7689efb889b9970c7d853be93` exit0。旧safe此后不重查，未恢复/重启此轮。独立[R201实际接续](../R201/README.md)已证真实八rank及首25成功，原82冻结不改；下文为初态历史。
+
 11-03 02:49[真实初态及首自然25](R199-START.json)已证八rank/345全训/5空原生AdamW/whole50c6与formal一致，WORLD8/G64P8/448对、各rank8图，首25 loss `.9313032627105713`有限、0skip。当前运行尚无完整所选点或官方结果，raw .999未达。
 
 直接R120 Small/public fe6/seed20261029/512/FP32/ImageNet/原sigmoid，仅原job.weight_decay改为.05；原分组顺序的实际WD `[0,.05,0,.05,.0001]`，age保持1e-4。原backbone1e-4/head-age1e-3/default betas/eps与原24000余弦保持，不叠gamma、8k跨度、半LR、wide目标或其他policy。固定.05是独立假设，不是作者微调配方复现或已证明的过拟合机制。最多24k成功更新/每800内部评估/p4早停/EMA1600及唯一内部AUROC选点不变。
