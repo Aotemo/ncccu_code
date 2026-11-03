@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "model": "convnext_small",
+  "format": "torchvision-1000-state-dict-v1",
+  "repo": "timm/convnext_small.in12k_ft_in1k_384",
+  "revision": "e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+  "source_url": "https://huggingface.co/timm/convnext_small.in12k_ft_in1k_384/resolve/e9f96b3e3e8be16706d721c30d85112a87b82a8b/pytorch_model.bin",
+  "training_data": "ImageNet-12K pretraining -> ImageNet-1K fine-tuning",
+  "original_sha256": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf",
+  "sha256": "553fd294b0b0c7c1d5883da62f24f15715a4d59c09c0fb18ade0fca7e9c27ec9",
+  "final_norm_eps": 1e-06,
+  "internal_norm_eps": 1e-06,
+  "license_file": "../original/LICENSE-apache-2.0.txt",
+  "redistribution_confirmed": true,
+  "license_basis": {
+    "identifier": "apache-2.0",
+    "declaration": "fixed-revision model card and registry",
+    "full_text_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+    "redistribution_confirmed": true
+  },
+  "source_file_hashes": {
+    "model-api.json": "45ba4d0156b409dd99ce8270857088c479e8adbb8c97edd2905fe61adffe1f26",
+    "config.json": "c810e78b836eb26f11518dc3fffafdfb960eb22a5096ba4fdb9b3ecbfa091cd3",
+    "README.md": "241c47ed952b3ff8514cccee701186a9babbddc44bffa36da583c3b33372dfce",
+    "LICENSE-apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "pytorch_model.bin": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf"
+  },
+  "source_chain": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small12k-source-screen-20261103-32e3/SOURCE-DOWNLOAD.json",
+    "sha256": "56491b7b86735667b8ea6fbe5a9d10cac70e3fa9d3eb75976cb98d8b11439f5c"
+  },
+  "mapping": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small12k-source-screen-20261103-32e3/MAPPING.json",
+    "sha256": "3b951a10781ef94a7d6e6d1139e86bd5b45d73fbbcdf7716a4d39265a12a73af"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  }
+}

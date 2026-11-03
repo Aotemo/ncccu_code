@@ -1,5 +1,7 @@
 # R218/R219：条件 EMA 复核与 Small12k 公开初始化
 
+13:10实际[7受影响目标/5compile/两完整public fresh](../../records/preparation/small12k-20261103/README.md)已通过，final98ae50cd/guardtt0qtfwv/b890d1c3 exit0。R218 whole91507a65/SCIcbdd1629，R219 whole568263ab/SCIca352c2e；实际provenance和源完整strict已通过，两候选及受影响旧绑定GREEN，原缺orig SHA校验的失败保留并最小补齐。源码/SCI尚待Git同步回读和两technical、后备normal，无新clock/GPU。当前R217/6fb/SCI92c/SITE4c4已真实8rank及自然首25，最近1525 success=attempt/0skip/eval1，暂内部 .9790918866068387，未完整selected；当前冻结不改。下面为12:37设计及当时状态。
+
 沿已启用brainstorming/writing-plans/TDD/executing-plans，由32e3唯一Git/GPU在20%准备池推进；用户明确最小修改无需审批，不恢复/派生/唤醒Agent。当前R215/c9冻结、后备R217/6fb/SCI92c087c8和已复制lease2 technical均不改；R217原normal18/18已通过，临近接续再绑定完整窗口。R218/R219尚无SCI、候选注册、formal/clock/GPU或收益声称。
 
 **固定设计。** R218/order131仅完整R217唯一selected严格胜R107 .9884405731067525与R120 .9894773092062407且actualsafe后，同fe6/原512/long EMA .9999/1600原配方独立seed20261027；否则technical。R219/order132独立直接原R107 Small/seed29/512/ImageNet/G64P8/448 logistic/原AdamW-LR-WD/增强/age/globalclip/24k-800-p4及原EMA1600/.999，只换合法自然图像公开初始化：`timm/convnext_small.in12k_ft_in1k_384`，固定revision `e9f96b3e3e8be16706d721c30d85112a87b82a8b`。完整源先strict加载1000类再沿旧转换/二分类factory丢原1000头，原原生Linear+age初始化规则保持；不叠R217 EMA或其他loss/optimizer/ROI。

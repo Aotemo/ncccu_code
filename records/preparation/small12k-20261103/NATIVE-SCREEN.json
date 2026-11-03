@@ -1,0 +1,72 @@
+{
+  "status": "fixed_metadata_and_native_non_tensor_structure_compatible_no_weight_load",
+  "at": 1793709342.3347151,
+  "repo": "timm/convnext_small.in12k_ft_in1k_384",
+  "revision": "e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+  "license": "apache-2.0",
+  "training_data": "ImageNet-12k subset pretraining -> ImageNet-1k fine-tuning",
+  "files": {
+    "FIXED-REGISTRY.json": "45ba4d0156b409dd99ce8270857088c479e8adbb8c97edd2905fe61adffe1f26",
+    "config.json": "c810e78b836eb26f11518dc3fffafdfb960eb22a5096ba4fdb9b3ecbfa091cd3",
+    "README.md": "241c47ed952b3ff8514cccee701186a9babbddc44bffa36da583c3b33372dfce"
+  },
+  "public_bin_LFS": {
+    "rfilename": "pytorch_model.bin",
+    "blobId": "ed30b84905c0a1c654162f3fe232e77b697d23bd",
+    "size": 201017809,
+    "lfs": {
+      "sha256": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf",
+      "size": 201017809,
+      "pointerSize": 134
+    }
+  },
+  "library": {
+    "timm": "1.0.27",
+    "torch": "2.10.0",
+    "torchvision": "0.25.0"
+  },
+  "public_state_shape_count": 344,
+  "gamma_reshapes": 36,
+  "LayerNorms_per_model": 41,
+  "exact_GELU": 36,
+  "convolutions": 40,
+  "native_norm_pre_Identity": true,
+  "native_head_pre_logits_Identity": true,
+  "public_pretrained_cfg": {
+    "tag": "in12k_ft_in1k_384",
+    "custom_load": false,
+    "input_size": [
+      3,
+      384,
+      384
+    ],
+    "fixed_input_size": false,
+    "interpolation": "bicubic",
+    "crop_pct": 1.0,
+    "crop_mode": "squash",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "num_classes": 1000,
+    "pool_size": [
+      12,
+      12
+    ],
+    "first_conv": "stem.0",
+    "classifier": "head.fc"
+  },
+  "zero_buffers": true,
+  "forward_calls": 0,
+  "public_weights_loaded": false,
+  "datasets_read": false,
+  "GPU_initialized": false,
+  "new_candidate_registered": false,
+  "producer_sha256": "8bee77b389e9b5b460494f45e1cd0d661adb00085b0cbcd8d98a4f69e4be7733"
+}

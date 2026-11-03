@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-small-e9f96b3e-in12k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1",
+  "initial_model_tensor_sha256": "568263ab45cd2449e256535a799752d915ea6497d7bb7cedd298afc40f12b30c",
+  "candidate": {
+    "id": "r219-convnext-small-imagenet12k-to-1k-public384-24k-p4-seed20261029-scale085-pairlog-9010",
+    "experiment_order": 132,
+    "model": "convnext_small",
+    "public_revision": "e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "553fd294b0b0c7c1d5883da62f24f15715a4d59c09c0fb18ade0fca7e9c27ec9",
+    "provenance_sha256": "772dde6cdb69e9e91c0b574773cd6c7a96ae3b71e130e5d35c171f9e763c2237",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_small",
+    "format": "torchvision-1000-state-dict-v1",
+    "repo": "timm/convnext_small.in12k_ft_in1k_384",
+    "revision": "e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+    "source_url": "https://huggingface.co/timm/convnext_small.in12k_ft_in1k_384/resolve/e9f96b3e3e8be16706d721c30d85112a87b82a8b/pytorch_model.bin",
+    "training_data": "ImageNet-12K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf",
+    "sha256": "553fd294b0b0c7c1d5883da62f24f15715a4d59c09c0fb18ade0fca7e9c27ec9",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "772dde6cdb69e9e91c0b574773cd6c7a96ae3b71e130e5d35c171f9e763c2237",
+    "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/small12k-source-screen-20261103-32e3/PUBLIC-HANDOFF.json",
+    "sha256": "67b56ac199214e8c5e67e1e57b15d9f53672757150240ce82b72c7f0d3043d7a"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "technical-prep/small12k-source-screen-20261103-32e3/assets/converted/convnext-small-tv-e9f96b3e.pt",
+    "public_provenance": "technical-prep/small12k-source-screen-20261103-32e3/assets/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "convnext_small",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Independent direct original R107 Small seed20261029 recipe, same512/FP32/ImageNet/G64P8/448 logistic/default AdamW/LR/WD/age/augmentation/globalclip/24k-800-p4/EMA1600-decay0999. Only complete legal public initialization changes to fixed timm ImageNet12k-to-1k revision e9f96b3e. Publisher384/squash is source metadata, not contest input preprocessing. This compares pretraining source/recipe jointly, not pure resolution/data causality. No R217 long EMA, teacher, old checkpoint or official-error tuning. Native tensor mapping/non-tensor checks have zero source forwards; no clinical mechanism, DCU peak or AUROC gain is claimed.",
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

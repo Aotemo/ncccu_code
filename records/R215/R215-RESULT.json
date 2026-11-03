@@ -1,0 +1,107 @@
+{
+  "status": "completed",
+  "round_id": "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103",
+  "git_commit": "c9bbde52240c458c577cd2c582f327bd31e18dec",
+  "science_sha256": "687032413916fbf64689071f30c0bc1e850aa94bd677736d8d0910f35aa9081e",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 10400,
+    "attempted_updates": 10400,
+    "skipped_updates": 0,
+    "evaluated_cycle": 13,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.9706920363977455,
+    "ap": 0.6894472108312087,
+    "variant": "ema",
+    "cycle": 9,
+    "successful_updates": 7200,
+    "error_twice": 48680
+  },
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "official": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 10400,
+      "cycles": 13,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9706920363977455,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 9,
+        "variant": "ema",
+        "successful_updates": 7200,
+        "error_twice": 48680,
+        "ap": 0.6894472108312087,
+        "auroc": 0.9706920363977455,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103/outputs/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103-8c-siglip2_vitb16-s20261029-b64-p8-fp32/siglip2-vitb16-512/predictions/ema/dev-cycle-0009.csv",
+        "prediction_sha256": "1925aa06b5562086ec56c73f9bb062e162229de968b220daba83a0aa95676bc6",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103/outputs/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103-8c-siglip2_vitb16-s20261029-b64-p8-fp32/siglip2-vitb16-512/predictions/ema/dev-cycle-0009.csv.precision.json",
+        "precision_sha256": "afef26055443d89db9c5d14fb14f27c34b25eab5bde88e0ec14c78e9f27e6e1f",
+        "tensor_sha256": "008ead185e7068bdc6e4928d45c7e708b42075d65ea000175d1d7e40b0844d91"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 10400,
+      "cycles": 13,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9706920363977455,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793710275.2578633,
+  "whole_round_ended_at": 1793710261.9988537,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r215-20261103-32e3-ready-freshfix/PROGRESS-cont-13.json",
+    "sha256": "b60e188298ad375c41135468bf70f4f752a4ba80fa507a411d98ca4772b5b187"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-wagpf140/CPU-RECEIPT.json",
+    "sha256": "e49b7d6430ea1ddb82652eff8b606cf05a28778f5a7830fafa96e651a7e4264a"
+  },
+  "freeze_status_original": null,
+  "selected_tensor_sha256": "008ead185e7068bdc6e4928d45c7e708b42075d65ea000175d1d7e40b0844d91",
+  "selected_blob_sha256": "4dd567b6bca549bd14e21368ebade7cda80b2df4898221c28bd146836d4159cc",
+  "selected_prediction_sha256": "1925aa06b5562086ec56c73f9bb062e162229de968b220daba83a0aa95676bc6",
+  "selected_precision_sha256": "afef26055443d89db9c5d14fb14f27c34b25eab5bde88e0ec14c78e9f27e6e1f",
+  "new_forward_or_model_or_checkpoint_load": false,
+  "raw_AUROC_0_999_achieved": false
+}

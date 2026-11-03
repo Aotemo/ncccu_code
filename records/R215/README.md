@@ -1,5 +1,7 @@
 # R215：原生 SigLIP2 公开 MAP 图像塔
 
+已[完整结束](R215-RESULT.json)：10400 success=attempt/13次内部dev/连续4轮无提升/0skip，唯一EMA c9@7200内部AUROC .9706920363977455、AP .6894472108312087、error_twice48680。严格R107/R120双门false，R216不eligible，官方按阈值未跑，raw .999未达。tensor008ead18/blob4dd567b6/CSV1925aa06/precisionafef2605，freeze.status=null原样保留。[唯一actualsafe](R215-COMPLETION.json)/guardwagpf140/e49b7d64已核owner inactive、八rank退出、设备无holder/user，旧safe不重查；[归档guard](R215-CPU-FINAL-ARCHIVE.json)zl_gm8x_/c283bfdc exit0。随后[R217实际首成功](../R217/README.md)已证，整轮结束至首25记录242.089秒，末训练日志至首25为277.981秒，均<=300。难组描述与冗余权重清理尚待；以下均为此前启动时点记录，不再作为当前running事实。
+
 当前唯一GPU轮，11:44[真实8rank初态与自然首25](R215-START.json)通过；11:49有效观测800 success=attempt/0skip/eval1/bad0，暂内部AUROC`.9534745108616469`、AP`.5772599571038547`，尚无完整所选结论，raw .999未达。11:52[单次原sysfs快照](R215-DEVICE-POINT.json)八绑定卡均100% busy，非连续利用率。165全训/五组/每rank空optimizer初态/whole13e6317f与实际CPU一致；首25 loss`.6560595631599426`有限、WORLD8/G64P8/448pairs、各rank8primary/8view符合合同。generic非Lion字段不代表独立逐rank实测AdamW kwargs/moment数量。
 
 来源为固定`vit_base_patch16_siglip_512.v2_webli`自然WebLI公开图像塔，完整162张量strict/exact/FP32后保留公开MAP latent/q/kv/proj/LN/MLP及所有位置参数，原head Identity，追加Dropout.2+Linear768→1，age一次。原R107 512几何/增强/采样/448 logistic/AdamW-LR-WD/globalclip/EMA1600/.999/24k-800-p4保持；仅使用匹配来源的现成unit(.5/.5)归一化。它是架构/公开预训练/归一化组合假设，非临床机制或收益证明，不称来源crop/bicubic预处理复现，不重开fit-only池化扫描。完整selected>=.996才官方5849一次。

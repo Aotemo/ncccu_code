@@ -1,0 +1,34 @@
+{
+  "status": "actual_Small12k_initialization_provenance_accepted",
+  "at": 1793709874.6177874,
+  "initialization": {
+    "kind": "imagenet",
+    "weights_sha256": "553fd294b0b0c7c1d5883da62f24f15715a4d59c09c0fb18ade0fca7e9c27ec9",
+    "provenance_sha256": "772dde6cdb69e9e91c0b574773cd6c7a96ae3b71e130e5d35c171f9e763c2237",
+    "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "model": "convnext_small",
+    "source_url": "https://huggingface.co/timm/convnext_small.in12k_ft_in1k_384/resolve/e9f96b3e3e8be16706d721c30d85112a87b82a8b/pytorch_model.bin",
+    "training_data": "ImageNet-12K pretraining -> ImageNet-1K fine-tuning",
+    "format": "torchvision-1000-state-dict-v1",
+    "original_sha256": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf",
+    "final_norm_eps": 1e-06
+  },
+  "public_source": {
+    "model": "convnext_small",
+    "format": "torchvision-1000-state-dict-v1",
+    "repo": "timm/convnext_small.in12k_ft_in1k_384",
+    "revision": "e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+    "source_url": "https://huggingface.co/timm/convnext_small.in12k_ft_in1k_384/resolve/e9f96b3e3e8be16706d721c30d85112a87b82a8b/pytorch_model.bin",
+    "training_data": "ImageNet-12K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf",
+    "sha256": "553fd294b0b0c7c1d5883da62f24f15715a4d59c09c0fb18ade0fca7e9c27ec9",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "772dde6cdb69e9e91c0b574773cd6c7a96ae3b71e130e5d35c171f9e763c2237",
+    "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "actual_models_source_sha256": "5475055f17edde1eeda34b7e53cb44e9de3c998f8456b7813ae9ca3ccfb6f501",
+  "forward_calls": 0,
+  "producer_sha256": "fa183fc1d159e50476bc230aa67f6b4e4831b011ee46ac5a88b9af7e341a8616"
+}

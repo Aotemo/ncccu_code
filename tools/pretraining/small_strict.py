@@ -34,7 +34,8 @@ def small_mapping(source, converted, expected, *, public_head=True):
 
 def accept(args, completed):
     context = cpu_context()
-    profile = SOURCE_PROFILES[getattr(args, 'source_profile', 'small224')]
+    source_profile = getattr(args, 'source_profile', 'small224')
+    profile = SOURCE_PROFILES[source_profile]
     model_name, features = profile.get('model', MODEL), profile.get('features', 768)
     num_classes = profile.get('num_classes', 1000)
     headless = num_classes == 0
@@ -121,10 +122,11 @@ def accept(args, completed):
             and source_model.head.global_pool.pool_type == 'avg'
             and isinstance(target.avgpool, torch.nn.AdaptiveAvgPool2d) and target.avgpool.output_size == 1,
             'Small pool/features/head differs')
-    if headless:
+    if headless or source_profile == 'small12k384':
         require(isinstance(source_model.norm_pre, torch.nn.Identity)
                 and isinstance(source_model.head.pre_logits, torch.nn.Identity),
-                'DINOv3 extra pre-norm or MLP head differs')
+                'Small source extra pre-norm or MLP head differs')
+    if headless:
         require(chain['training_data'] == profile['training_data']
                 and chain['license']['identifier'] == 'dinov3-license'
                 and assets[profile['license_file']]['sha256'] == profile['license_sha256'],
@@ -191,7 +193,8 @@ def accept(args, completed):
                 'asset metadata changed during acceptance')
     require(not torch.cuda.is_initialized(), 'GPU initialized during Small acceptance')
     return {'schema_version': 1, 'passed': True,
-            'scope': ('large_dinov3_backbone_cpu_strict' if model_name=='convnext_large' else
+            'scope': ('small12k_full1000_cpu_strict' if source_profile=='small12k384' else
+                      'large_dinov3_backbone_cpu_strict' if model_name=='convnext_large' else
                       'small_dinov3_backbone_cpu_strict' if headless else 'small22k_full1000_cpu_strict'), 'execution': context,
             'model': model_name, 'repo': repo, 'revision': revision, 'structure': structure,
             'public_parameters': public_parameters, 'assets': assets,

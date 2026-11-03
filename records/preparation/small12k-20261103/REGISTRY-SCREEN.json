@@ -1,0 +1,52 @@
+{
+  "status": "public_registry_metadata_only",
+  "at": 1793709226.591293,
+  "repo": "timm/convnext_small.in12k_ft_in1k_384",
+  "revision": "e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+  "license": "apache-2.0",
+  "public": true,
+  "gated": false,
+  "registry_sha256": "45ba4d0156b409dd99ce8270857088c479e8adbb8c97edd2905fe61adffe1f26",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes",
+      "blobId": "c7d9f3332a950355d5a77d85000f05e6f45435ea",
+      "size": 1477
+    },
+    {
+      "rfilename": "README.md",
+      "blobId": "40a327669c56d9940746ca6db529ebdd3210fd85",
+      "size": 16005
+    },
+    {
+      "rfilename": "config.json",
+      "blobId": "eac4df9cd62a9016f462403a3ea166b66e3fbaa4",
+      "size": 580
+    },
+    {
+      "rfilename": "model.safetensors",
+      "blobId": "e6f90d0ea9a7a3d03d3438b20dbc5e91b152e093",
+      "size": 200928946,
+      "lfs": {
+        "sha256": "476bbb20b9d3b2b47e2a98228b216b8c912fbad5fd7b2052f703e3117797a605",
+        "size": 200928946,
+        "pointerSize": 134
+      }
+    },
+    {
+      "rfilename": "pytorch_model.bin",
+      "blobId": "ed30b84905c0a1c654162f3fe232e77b697d23bd",
+      "size": 201017809,
+      "lfs": {
+        "sha256": "0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf",
+        "size": 201017809,
+        "pointerSize": 134
+      }
+    }
+  ],
+  "source_base": "https://huggingface.co/timm/convnext_small.in12k_ft_in1k_384/resolve/e9f96b3e3e8be16706d721c30d85112a87b82a8b",
+  "new_candidate_registered": false,
+  "weights_loaded": false,
+  "forward_calls": 0,
+  "producer_sha256": "4e8c71d9b3ed69f70138de746eed9db726a9545e57ee9eda878c539871ad9755"
+}

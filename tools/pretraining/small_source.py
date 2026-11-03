@@ -22,6 +22,11 @@ SOURCE_PROFILES = {
     'small384': {'repo': 'timm/convnext_small.fb_in22k_ft_in1k_384',
                  'revision': '14a837353b6ffeced1c635dc5c8c799356e316f4',
                  'tag': 'fb_in22k_ft_in1k_384'},
+    'small12k384': {'repo': 'timm/convnext_small.in12k_ft_in1k_384',
+                   'revision': 'e9f96b3e3e8be16706d721c30d85112a87b82a8b',
+                   'tag': 'in12k_ft_in1k_384',
+                   'training_data': 'ImageNet-12K pretraining -> ImageNet-1K fine-tuning',
+                   'license_sha256': 'cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30'},
     'smalldino3': {'repo': 'timm/convnext_small.dinov3_lvd1689m',
                   'revision': 'c497e64d5d483b3ad42eac93e2ef9d1799f9547c',
                   'tag': 'dinov3_lvd1689m', 'num_classes': 0,
@@ -132,7 +137,7 @@ def download(assets, transport_dir=None, source_profile='small224'):
         require(cfg.get('input_size') == [3, 224, 224] and cfg.get('test_input_size') == [3, 288, 288]
                 and cfg.get('crop_pct') == .875 and cfg.get('test_crop_pct') == 1.
                 and cfg.get('crop_mode') == 'center', 'original public224 preprocessing differs')
-    elif source_profile == 'small384':
+    elif source_profile in ('small384', 'small12k384'):
         require(cfg.get('input_size') == [3, 384, 384] and cfg.get('crop_pct') == 1.
                 and cfg.get('crop_mode') == 'squash', 'fixed public384 preprocessing differs')
     else:
@@ -144,6 +149,11 @@ def download(assets, transport_dir=None, source_profile='small224'):
         require('license_name: dinov3-license' in readme
                 and 'Pretrained on LVD-1689M with self-supervised DINOv3 method, distilled from DINOv3 ViT-7B.' in readme,
                 'fixed DINOv3 card license/recipe differs')
+    elif source_profile == 'small12k384':
+        require('license: apache-2.0' in readme
+                and 'Pretrained in `timm` on ImageNet-12k' in readme
+                and 'fine-tuned on ImageNet-1k by Ross Wightman.' in readme,
+                'fixed ImageNet12k model card license/recipe differs')
     else:
         require('license: apache-2.0' in readme
                 and 'Pretrained on ImageNet-22k and fine-tuned on ImageNet-1k by paper authors.' in readme,
@@ -161,7 +171,8 @@ def download(assets, transport_dir=None, source_profile='small224'):
     records['pytorch_model.bin'] = fetch(base + '/pytorch_model.bin', original / 'pytorch_model.bin',
                                         expected_sha, expected_size, transport('pytorch_model.bin'))
     receipt = {'schema_version': 1, 'passed': True,
-               'scope': 'large_dinov3_fixed_revision_download' if source_profile=='largedino3' else 'small22k_fixed_revision_download',
+               'scope': ('small12k_fixed_revision_download' if source_profile=='small12k384' else
+                         'large_dinov3_fixed_revision_download' if source_profile=='largedino3' else 'small22k_fixed_revision_download'),
                'execution': context, 'model': model, 'repo': repo, 'revision': revision,
                'training_data': profile.get('training_data', TRAINING_DATA), 'files': records,
                'public_pretrained_config': cfg,
