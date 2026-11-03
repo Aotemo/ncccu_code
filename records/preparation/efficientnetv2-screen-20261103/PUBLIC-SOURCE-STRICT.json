@@ -1,0 +1,204 @@
+{
+  "scope": "fixed_native_timm_EfficientNetV2_rw_s_public_full1000_CPU_strict",
+  "passed": true,
+  "execution": {
+    "at": "2026-11-03T09:10:18.425175+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/CPU-ALLOCATION.json",
+      "sha256": "d8370ed3a789939559098f3ad2f2b2dbec80f3455aa69e75a69b1901db432b66",
+      "executor_id": "32e3b079-81b0-4f66-9604-b32491599f44",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "repo": "timm/efficientnetv2_rw_s.ra2_in1k",
+  "revision": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+  "format": "timm-efficientnetv2-rw-s-native-full1000-state-dict-v1",
+  "training_data": "ImageNet-1K",
+  "declared_license": "Apache-2.0",
+  "metadata_receipt_sha256": "4133bac75dbca9d52c0d4d73f3690617fa1eb2f0eb24d1101acd36b2222a4cc7",
+  "weight": {
+    "url": "https://huggingface.co/timm/efficientnetv2_rw_s.ra2_in1k/resolve/ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704/pytorch_model.bin",
+    "started_at": "2026-11-03T09:10:18.443770+00:00",
+    "completed_at": "2026-11-03T09:10:18.706438+00:00",
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/original/pytorch_model.bin",
+    "bytes": 96674637,
+    "sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+    "resolved_host": null,
+    "transport": "authorized_raw_byte_relay_verified_on_pod",
+    "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/byte-relay/pytorch_model.bin",
+    "expected_lfs_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+    "expected_lfs_bytes": 96674637,
+    "identity": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/original/pytorch_model.bin",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/original/pytorch_model.bin",
+      "bytes": 96674637,
+      "device": 132,
+      "inode": 20066109302,
+      "mtime_ns": 1793697018000000000,
+      "ctime_ns": 1793697018000000000
+    }
+  },
+  "source_configuration": {
+    "architecture": "efficientnetv2_rw_s",
+    "num_classes": 1000,
+    "num_features": 1792,
+    "pretrained_cfg": {
+      "tag": "ra2_in1k",
+      "custom_load": false,
+      "input_size": [
+        3,
+        288,
+        288
+      ],
+      "test_input_size": [
+        3,
+        384,
+        384
+      ],
+      "fixed_input_size": false,
+      "interpolation": "bicubic",
+      "crop_pct": 1.0,
+      "crop_mode": "center",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "num_classes": 1000,
+      "pool_size": [
+        9,
+        9
+      ],
+      "first_conv": "conv_stem",
+      "classifier": "classifier"
+    }
+  },
+  "native_library": {
+    "version": "1.0.27",
+    "source_sha256": {
+      "models/efficientnet.py": "c0a9b9ade7ca27395379217636ef2f222b33878fbd4ac81088b581594a06ad6a",
+      "models/_efficientnet_builder.py": "084cf15cc4725fd926966f0dad94c8b4786f4c96aae625a8497f35ae00704000",
+      "models/_efficientnet_blocks.py": "2a3de2c0371a74d7f4fe165f4ad062d768473ca9565a9ebf63fadbd0aa5ae021",
+      "layers/norm_act.py": "4821c9fa7b73c19cb63d16a4c86912f36380c56e34d25bc6170ea728aa21fed6"
+    },
+    "scope": "four named implementation files; not every transitive timm file"
+  },
+  "public_state_tensors": 794,
+  "public_tensor_sha256": "8e3020a2d1424f56020c3c9898524273047e550c5707d59cd65757824e4f4ccd",
+  "strict_missing_keys": [],
+  "strict_unexpected_keys": [],
+  "all_public_tensors_exact": true,
+  "all_public_floating_FP32_finite": true,
+  "public_integer_counter_tensors": 112,
+  "structure": {
+    "parameter_tensors": 458,
+    "parameter_elements": 23941296,
+    "backbone_parameter_elements": 22148296,
+    "state_tensors": 794,
+    "buffer_count": 336,
+    "batch_norm_modules": 112,
+    "floating_buffer_count": 224,
+    "integer_buffer_count": 112,
+    "buffer_sha256": "cc6bffe8041dc5ffb99c649b630afb7c7000df0e969fb0194ca2979b5e50b08c",
+    "bn_eps_values": [
+      1e-05
+    ],
+    "bn_momentum_values": [
+      0.1
+    ],
+    "full_head_shape": [
+      1000,
+      1792
+    ],
+    "stem_shape": [
+      24,
+      3,
+      3,
+      3
+    ],
+    "stage_blocks": [
+      2,
+      4,
+      4,
+      6,
+      9,
+      15
+    ],
+    "features": 1792,
+    "global_pool": "avg",
+    "drop_rate": 0.2,
+    "native_train_mode_updates_BN_buffers": true
+  },
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "dataset_or_image_or_official_read": false,
+  "binary_fresh_created": false,
+  "optimizer_built": false,
+  "candidate_registered": false,
+  "science_or_live_runtime_changed": false,
+  "limitations": "Public byte/source/native-state verification only; no binary frozen-BN adaptation, 512 backward/cold-load/GPU feasibility or AUROC evidence.",
+  "validation_source_sha256": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-source-screen-20261103-32e3/CHECK-EFFICIENTNETV2-PUBLIC.py": "752ff68a60a71f97e4667475f445494319fb80c82c0856895197fb5c6bda04bc",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/source-git/tools/pretraining/small_source.py": "fddf4740189869e8d2552837ce9cfe3318ee5b6b16e747d28b79dc9a6725aea8",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/source-git/tools/pretraining/source_chain.py": "5d183e1a0949e913956d57647f6b819846696c34fcb1b4f5d1c82c1510d76473"
+  }
+}

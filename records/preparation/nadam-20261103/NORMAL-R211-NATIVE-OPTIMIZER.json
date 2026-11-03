@@ -1,0 +1,78 @@
+{
+  "scope": "actual_formal_CPU_native_NAdam_check",
+  "formal_cpu_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r211-20261103-32e3-ready/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "3c029af71ce20ef799dc8bc3d17109f60273c721d219f0da48b83976e08abcd9"
+  },
+  "check": {
+    "name": "native_NAdam_all_existing_groups_decoupled",
+    "passed": true,
+    "actual": {
+      "class": "NAdam",
+      "groups": [
+        {
+          "role": "backbone",
+          "decoupled_weight_decay": true,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "eps": 1e-08,
+          "momentum_decay": 0.004,
+          "foreach": null
+        },
+        {
+          "role": "backbone",
+          "decoupled_weight_decay": true,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "eps": 1e-08,
+          "momentum_decay": 0.004,
+          "foreach": null
+        },
+        {
+          "role": "head",
+          "decoupled_weight_decay": true,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "eps": 1e-08,
+          "momentum_decay": 0.004,
+          "foreach": null
+        },
+        {
+          "role": "head",
+          "decoupled_weight_decay": true,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "eps": 1e-08,
+          "momentum_decay": 0.004,
+          "foreach": null
+        },
+        {
+          "role": "age",
+          "decoupled_weight_decay": true,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "eps": 1e-08,
+          "momentum_decay": 0.004,
+          "foreach": null
+        }
+      ]
+    }
+  },
+  "all_formal_checks_passed": true,
+  "formal_checks": 19,
+  "optimizer_state_entries": 0,
+  "source": "158bfb0c9e174d9a71991651a1c7e33d77c3eaf8",
+  "science_sha256": "1ef87681e57bed8ab057bf100a81486ebf9b7f4e116d63434ea5c483952533b0",
+  "GPU_started": false,
+  "formal_clock_created": false
+}
