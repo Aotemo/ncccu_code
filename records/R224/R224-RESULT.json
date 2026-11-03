@@ -1,0 +1,237 @@
+{
+  "status": "completed",
+  "round_id": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+  "git_commit": "9c82ac0ded19446b9e1cdeb6c229fa0dee2f29e1",
+  "science_sha256": "79afb5e1827931880097140377da3e90bdd1f25b4825a3ad2e1f3f3a30141148",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 5600,
+    "attempted_updates": 5600,
+    "skipped_updates": 0,
+    "evaluated_cycle": 7,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.9859528881107682,
+    "ap": 0.8027262717495176,
+    "variant": "ema",
+    "cycle": 3,
+    "successful_updates": 2400,
+    "error_twice": 23332
+  },
+  "recomputed": {
+    "error_twice": 23332,
+    "ap": 0.8027262717495176,
+    "auroc": 0.9859528881107682,
+    "variant": "ema",
+    "cycle": 3,
+    "successful_updates": 2400,
+    "tensor_sha256": "699a05af654684bef4cd11dceed06fb7c05e0aa4f8ae567923435bac7b6db00b",
+    "freeze": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+      "sha256": "ea623777ae7a507d64a05e12efe97a9777699658d471019817b64fe17bc32932"
+    },
+    "prediction": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0003.csv",
+      "sha256": "f0f6cddb18568badb25c341e4997359f3c72df87122fc62e19c4dd5012e13f12"
+    },
+    "precision": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0003.csv.precision.json",
+      "sha256": "b1f285ae9019ed8a55baddfd094c41c02fcf7e57cb0e7ce2118845fb053b4e40"
+    },
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+      "sha256": "e8d808a45aca2a9d551aa880d61f147a5ad903acfc159c9b3a5733bb166d9f72",
+      "status": "completed",
+      "successful_updates": 5600
+    }
+  },
+  "changes_vs_R107": {
+    "all": {
+      "reference": 9600.0,
+      "candidate": 11666.0,
+      "repaired": 2113.0,
+      "introduced": 4179.0,
+      "shared": 7487.0,
+      "net_added": 2066.0
+    },
+    "fixed_positive": {
+      "reference": 6623.0,
+      "candidate": 7720.0,
+      "repaired": 1344.0,
+      "introduced": 2441.0,
+      "shared": 5279.0,
+      "net_added": 1097.0
+    },
+    "remaining_positive": {
+      "reference": 2977.0,
+      "candidate": 3946.0,
+      "repaired": 769.0,
+      "introduced": 1738.0,
+      "shared": 2208.0,
+      "net_added": 969.0
+    }
+  },
+  "changes_vs_R120": {
+    "all": {
+      "reference": 8739.0,
+      "candidate": 11666.0,
+      "repaired": 2121.0,
+      "introduced": 5048.0,
+      "shared": 6618.0,
+      "net_added": 2927.0
+    },
+    "fixed_positive": {
+      "reference": 5829.0,
+      "candidate": 7720.0,
+      "repaired": 1195.0,
+      "introduced": 3086.0,
+      "shared": 4634.0,
+      "net_added": 1891.0
+    },
+    "remaining_positive": {
+      "reference": 2910.0,
+      "candidate": 3946.0,
+      "repaired": 926.0,
+      "introduced": 1962.0,
+      "shared": 1984.0,
+      "net_added": 1036.0
+    }
+  },
+  "changes_vs_R115": {
+    "all": {
+      "reference": 11310.0,
+      "candidate": 11666.0,
+      "repaired": 3563.0,
+      "introduced": 3919.0,
+      "shared": 7747.0,
+      "net_added": 356.0
+    },
+    "fixed_positive": {
+      "reference": 7360.0,
+      "candidate": 7720.0,
+      "repaired": 2092.0,
+      "introduced": 2452.0,
+      "shared": 5268.0,
+      "net_added": 360.0
+    },
+    "remaining_positive": {
+      "reference": 3950.0,
+      "candidate": 3946.0,
+      "repaired": 1471.0,
+      "introduced": 1467.0,
+      "shared": 2479.0,
+      "net_added": -4.0
+    }
+  },
+  "fixed20_count": 20,
+  "remaining_positive_count": 147,
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "next_prepared_branch": "R226",
+  "internal_AUROC_0_995_and_AP_above_0_9": false,
+  "overall_goal_complete": false,
+  "official_evaluated": false,
+  "official_reason": "threshold_not_met",
+  "official_metrics": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 5600,
+      "cycles": 7,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9859528881107682,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 3,
+        "variant": "ema",
+        "successful_updates": 2400,
+        "error_twice": 23332,
+        "ap": 0.8027262717495176,
+        "auroc": 0.9859528881107682,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0003.csv",
+        "prediction_sha256": "f0f6cddb18568badb25c341e4997359f3c72df87122fc62e19c4dd5012e13f12",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0003.csv.precision.json",
+        "precision_sha256": "b1f285ae9019ed8a55baddfd094c41c02fcf7e57cb0e7ce2118845fb053b4e40",
+        "tensor_sha256": "699a05af654684bef4cd11dceed06fb7c05e0aa4f8ae567923435bac7b6db00b"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 5600,
+      "cycles": 7,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9859528881107682,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793733822.9935558,
+  "whole_round_ended_at": 1793733751.1069484,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/COMPLETION-goal2-5.json",
+    "sha256": "4053b53a64319e51057d1fea5b8b057156296c98cbd158facc769c3fd37c57b2"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-lffs56jk/CPU-RECEIPT.json",
+    "sha256": "4bd05b539bf55ce86d8feff32e234f3c7c1c03ab15f59701c857512337b0027e"
+  },
+  "selected_tensor_sha256": "699a05af654684bef4cd11dceed06fb7c05e0aa4f8ae567923435bac7b6db00b",
+  "selected_blob_sha256": "0e40afb9e0f11e9402ebbf7d0234687294bab0ea1371472896431ce3c988da0d",
+  "selected_prediction_sha256": "f0f6cddb18568badb25c341e4997359f3c72df87122fc62e19c4dd5012e13f12",
+  "selected_precision_sha256": "b1f285ae9019ed8a55baddfd094c41c02fcf7e57cb0e7ce2118845fb053b4e40",
+  "cost": {
+    "SSL_successful_updates": 1600,
+    "SSL_primary_images": 102400,
+    "SSL_view_images": 102400,
+    "SSL_first_to_last_logged_seconds": 627.8670842647552,
+    "joint_train_component_seconds": 3477.020937204361,
+    "train_component_start_to_SSL_finish_seconds": 720.7011969089508,
+    "SSL_finish_to_supervised_component_end_seconds": 2756.31974029541,
+    "component_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/control/train-component-terminal.json",
+      "sha256": "fdd2a686105e1ad040fd3c9752da525bd3a0a0b8b5efc247789e07487d9e3b72"
+    },
+    "SSL_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+      "sha256": "b3d952fa38771b497f9bfc4244d643564449313ba76b1afb410cc083a2d5bc3b"
+    },
+    "equal_SSL_updates_not_equal_VICReg_view_compute": true
+  },
+  "new_forward_or_model_or_checkpoint_load": false,
+  "old_actualsafe_repolled": false,
+  "future_forward_dependency": false
+}

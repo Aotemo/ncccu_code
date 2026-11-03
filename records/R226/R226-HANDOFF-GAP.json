@@ -1,0 +1,27 @@
+{
+  "status": "observed_event_intervals",
+  "previous_round": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+  "next_round": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+  "previous_whole_round_ended_at": 1793733751.1069484,
+  "previous_last_successful_update_at": 1793733653.4994144,
+  "next_dispatch_at": 1793733929.4324548,
+  "next_first_SSL_success_at": 1793734023.3954086,
+  "next_natural_SSL25_at": 1793734032.8508098,
+  "seconds_end_to_dispatch": 178.32550644874573,
+  "seconds_end_to_first_SSL_success": 272.2884602546692,
+  "seconds_end_to_SSL25": 281.7438614368439,
+  "seconds_last_training_update_to_first_SSL_success": 369.89599418640137,
+  "end_to_first_SSL_success_within_300": true,
+  "end_to_SSL25_within_300": true,
+  "continuous_GPU_utilization_measured": false,
+  "previous_safe_proof_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/COMPLETION-goal2-5.json",
+    "sha256": "4053b53a64319e51057d1fea5b8b057156296c98cbd158facc769c3fd37c57b2"
+  },
+  "first_success_proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "c72b7bba1993be91dc2f1cd35a2f1d606afe1e57d85253d81d7e272b84df094c"
+  },
+  "previous_clock_token_grant_modified": false,
+  "source_CPU_and_formal_packages_ready_during_previous_training": true
+}

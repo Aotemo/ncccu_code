@@ -1,0 +1,73 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+  "git_commit": "21dbb113baf03b8553358b79ba13327accb9cd89",
+  "tree_sha": "5c975e67db88baf4bc9245066a276d8d4f96ffaa",
+  "science_sha256": "43964fcfb495690e910bed77995bc3a1801f6de61bd04a5ac4c2b6bb2d9248f2",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "1c4e2d58e7ec177ee56170499c0c34c618b8ad1abd967fc950eff98e132a7a41",
+  "deployment_sha256": "004b0feef39e48dc296c2cc048bc3042cb656492b45e5d0291f0da65349007d0",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793732192.7033513,
+  "evidence": {
+    "formal_CPU": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-wsg7ff24/CPU-RECEIPT.json",
+      "sha256": "64765316e71b3470c354e54507352aa0517183af1fff784ba2aa09464de16be0",
+      "exit_code": 0,
+      "wall_seconds": 32.090492963790894
+    },
+    "current_full_clock_window": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-0ti2rlpq/CPU-RECEIPT.json",
+      "sha256": "b9e2b420211b11bff536e0a3ed4e7c046c4715b056efee09dab57f83a5cad2cd",
+      "exit_code": 0,
+      "wall_seconds": 0.22611594200134277
+    },
+    "activation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-f2enarkj/CPU-RECEIPT.json",
+      "sha256": "15a2fac7293d5f6d0c37a638375a7b5843c265a7b2739c2e9618bf72dce95ef9",
+      "exit_code": 0,
+      "wall_seconds": 36.49481439590454
+    },
+    "actual_first_SSL_success": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-ogboz1vk/CPU-RECEIPT.json",
+      "sha256": "195e8c2274c923dda5e7d9490b615fe73392e0c0ac2bc6178901c95fb7b40cb4",
+      "exit_code": 0,
+      "wall_seconds": 0.2280123233795166
+    },
+    "previous_R224_archive": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-wnbyiblu/CPU-RECEIPT.json",
+      "sha256": "9eb9fc3e3bcb1c406bafe4bf257dc717abc24361829524f3f9f8879b506dd9e0",
+      "exit_code": 0,
+      "wall_seconds": 6.392303228378296
+    }
+  },
+  "one_shot_activation": {
+    "status": "unique_activation_exit0",
+    "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+    "observed_at": 1793733882.0,
+    "preflight_sha256": "bb572f2bf812d65afbd4084afc0dea26dad4a3f198e4b89fd8d01d68c3f6ba68",
+    "activation_audit_sha256": "e2f3433abe70ac614652226ea4efa6817fe67a8075b2ab5590405f8690eb19c8",
+    "GPU_started": false
+  },
+  "fresh_window": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/WINDOW-before-first-activation.json",
+    "sha256": "dddc6464143e9407fe4d5eb343e8afe0433e5376e46111facd2de508dd450c4d"
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/DEPLOYMENT.json",
+    "sha256": "004b0feef39e48dc296c2cc048bc3042cb656492b45e5d0291f0da65349007d0"
+  },
+  "actual_initial_and_first_success": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "c72b7bba1993be91dc2f1cd35a2f1d606afe1e57d85253d81d7e272b84df094c"
+  },
+  "R224_complete_selected_branch_decision": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/r224-archive/R224-RESULT.json",
+    "sha256": "6351efe4660bd4c3b0d865e51b3a65c38c66a5388f7d0b340875fd02ae80c8b1"
+  },
+  "supervised_derived_initial_not_yet_proven": true,
+  "independent_GPU_rehearsal_run": false
+}

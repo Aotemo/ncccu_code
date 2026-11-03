@@ -1,0 +1,51 @@
+{
+  "at": 1793734013.1438732,
+  "device_proof_sha256": "5d2396bb1a5e4c452c2e7deb3ad3e6950d3ba79b6c491201e90c9b9e6868a4b4",
+  "first_ssl_update_executed": false,
+  "public_encoder_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+  "public_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "public_tensor_sha256": "966da204c7ee0668d6d2e1d51b9fa8fe1df96a9a630b12271a96d00f0a197d97",
+  "rank_count": 8,
+  "rank_proof_sha256": "98d7fdee0f7b5010d1df1c739bc3fbf6be8c7a87d31e1be38b380602059f645d",
+  "recipe": {
+    "backbone_lr": 0.0001,
+    "final_lr_factor": 0.01,
+    "global_batch": 64,
+    "gradient_clip": 1.0,
+    "hog_bins": 9,
+    "hog_cell_size": 8,
+    "hog_gradient": "sobel3_reflect_unsigned_floor",
+    "hog_norm_eps": 1e-06,
+    "image_size": 512,
+    "learning_rng_domain": "fit-masked-rgb32-1600-v1",
+    "loss": "masked_MSE_mean_HOG",
+    "mask_count": 154,
+    "mask_fill": "normalized_zero",
+    "mask_grid": [
+      16,
+      16
+    ],
+    "mask_patch_size": 32,
+    "per_rank_batch": 8,
+    "precision": "fp32",
+    "projector": [
+      768,
+      432,
+      4
+    ],
+    "projector_lr": 0.001,
+    "sampling_rng_domain": "r115-fit-vicreg-1600-v1",
+    "target": "same_augmented_RGB_local_HOG8x9",
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "training_views": 1,
+    "updates": 1600,
+    "version": "fit-masked-hog8-1600-v1",
+    "warmup_updates": 160,
+    "weight_decay": 0.0001
+  },
+  "ssl_rank0_non_encoder_sha256": "d0fe92f37fedb52d6adfba95816bba41c09141314d362c5d8b46c3a1bb9f8c4f",
+  "status": "completed"
+}

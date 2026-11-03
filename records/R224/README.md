@@ -1,17 +1,23 @@
-# R224 fit-only 遮挡空间重建
+# R224 fit-only RGB遮挡重建完整结果
 
-1600次适配已完整成功，随后监督八rank derived初态、345全训参数、五组空AdamW及自然首25均实证通过：[交接](R224-SUPERVISED-START.json) / [来源与erratum](R224-SUPERVISED-RECEIPT.json)。首监督25 loss .66771358有限、0skip、WORLD8/G64P8/448对，监督完整模型tensor09faaf77、derived encoder14246e63；head/age和监督RNG恢复匹配原公开工厂。19:00实观2975 success=attempt/0skip/c3、八rank活跃，暂EMA内部AUROC .9859528881107682/AP .8027262717495176，尚非完整selected，无收益或达标结论。
+R224正常完成1600次fit-only适配及5600次监督成功更新，0skip、7轮内部评估、连续4轮无提升停止。原selector唯一选择EMA c3@2400，完整内部AUROC **.9859528881107682**、AP **.8027262717495176**，错序质量11666（error_twice23332）。未严格胜R107/R120，也未胜原R115 VICReg；R225不eligible，官方未跑。[结果](R224-RESULT.json) SHA6351efe4，[唯一actualsafe](R224-COMPLETION.json)仅复用，未再查询旧GPU。原固定RGB配方关闭，后续已按预定独立问题接R226。
 
-11-03 18:25 UTC，实际八rank公开初态及自然首25次适配更新通过。首1 loss1.66234958、25 loss1.10275948，loss与梯度均有限，G64/P8、每图154个32像素块遮挡、单视图fit-only。公开模型50c6、encoder/public张量、空优化器及临时空间头768→3072/PixelShuffle32均与正式CPU匹配。原适配到监督已自然接续，没有重新activation/launch。
+| 相对R107的错序质量 | R107 | R224 | 修复 | 新增 | 净新增 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 完整内部 | 9600 | 11666 | 2113 | 4179 | 2066 |
+| 原固定20正例 | 6623 | 7720 | 1344 | 2441 | 1097 |
+| 其余147正例 | 2977 | 3946 | 769 | 1738 | 969 |
 
-冻结Git `9c82ac0ded19446b9e1cdeb6c229fa0dee2f29e1` / tree26818e2a，SCI79afb5e1、actual SITE0f4eed58。7必要目标、6编译和[真实公开Small/P8及冷derived](../preparation/masked-reconstruction-20261103/README.md)通过，正式包18/18 CPU和整树Git字节/模式部署通过。一次activation及唯一实际launch均exit0，无独立GPU预演。[正式准备](R224-PREPARATION.json)、[实际首成功](R224-START.json)、[公开初态门](R224-SSL-INITIAL-GATE.json)及相应CPU guard保留；登记不替代后续监督/完整结果证明。
+两组均恶化，没有以局部修复抵消代价。以上是同分计0.5的正负配对质量，非病例数或独立观测数；原20名单及5140 dev/167正例保持。相对R115固定20净增360、其余147净少4，总体净增356。
 
-只用现有fit图，保持1600适配预算，以masked RGB空间回归补充R115全局VICReg；随后保持原R107监督合同，丢弃临时decoder、重建空AdamW/EMA。不是延长VICReg，也不能补回512输入外的细节。完整内部AUROC为主，AP、原固定20/其余147的修复和新增错序并列；仅严格超过R107 .9884405731067525与R120 .9894773092062407后才运行固定seed27的R225，单次高分不升级基线。官方依现有≥.996完整selected门一次，尚未读取。
+[原selected CSV的配对分析](PAIRED-REPORT.json)采用预先固定的2000次分层图像bootstrap、PCG64 seed20261103。R224−R107 AUROC差−.002487685，条件95%区间[−.004342311, −.000793446]；相对R120差−.003524421，区间[−.006597332, −.001012594]；相对R115差−.000428662，区间[−.002811680, +.001901586]跨0。区间条件于已训练/已选模型，不包含跨seed差异、不消除同dev反复选模型偏差，也不是患者级或多重性调整后的证据。点估计和整体代价足以关闭这条预定配方，不外推所有域适配无效。
 
-owner790052/start375759290与八rank出生身份、实际设备证明已核。本会话4e0c为唯一Git/串行GPU监督，准备0–23/24核、训练24–119/96核互斥；当前私有入口`goal-20261103-4e0c/r224-pod-context.env`，原部署/clock/token/grant均冻结。R221R2旧safe不重查、R222不eligible、R223暂缓，无新Agent或计算资源。
+实际成本：SSL主图102400、单视图102400，首1至末1600日志跨度627.867秒；联合train component3477.021秒，其中component开始至SSL结束720.701秒，SSL结束至监督组件结束2756.320秒。R115同为1600次SSL更新但使用204800个视图、监督也停止于不同更新数，成本作原始描述。闭轮复算只读既有预测/precision/freeze/完成记录，原配对工具源码一致，无新模型、checkpoint或官方前向（实际guard9eb9fc3e）。[五参考输入](R224-COMPARISON-SETUP.json)在本轮结束前核实并封存。
 
-前轮17:55:17结束至新dispatch1692.424秒、首SSL成功1796.130秒、自然25记录1805.525秒，超过300秒。[真实间隙](R224-HANDOFF-GAP.json)记录新模型必要验证、源传输及可避免的归档/传输错误；不能称为连续DCU利用率。第一次传输遗漏stdin，launcher和dispatch均未出现；修正`kubectl exec -i`后仅调用一次实际launcher，使用新的launch-only Pod快照，保留原激活时钟。一次导出脚本未显式传入active env而在读取身份前失败，改为读取该ready下已验的SITE后成功；不改训练或重跑模型检查。
+冻结Git9c82ac0/tree26818e2a、SCI79afb5e1、actual SITE0f4eed58。7必要目标/6编译、真实公开Small/P8与冷derived、正式18/18 CPU及整树部署通过；一次activation/唯一实际launch。公开初态50c6、原1600次适配后derived encoder14246e63、监督完整模型09faaf77，八rank/345全训/5空AdamW/head-age及监督RNG恢复均实证。[SSL结果](R224-SSL-RESULT.json)、[监督交接](R224-SUPERVISED-START.json)和[来源](R224-SUPERVISED-RECEIPT.json)保留，未重启或热改。
 
-原SSL-RESULT的sampler_seed字段误登记version域的17388822420789876297；冻结源码实际消费recipe中R115 sampling域的14997478083172343433，与原配方首视图/采样控制相符。保留[原SSL结果](R224-SSL-RESULT.json)及明确erratum，不能用错误字段重放；原数据流和冻结包未变。后续源码统一seed消费与记录，必要采样/RGB回归已验证。上一轮8权重已[按清单清理](../storage/closed-r221r2-20261103/README.md)，R224和数据/缓存/三KEEP保护，后备[局部梯度目标](../preparation/hog-reconstruction-20261103/README.md)仅CPU准备，不并发GPU。
+原SSL回执sampler_seed误记version域的17388822420789876297；冻结源码实际消费recipe中R115域的14997478083172343433，与固定配方相符。原字段及erratum保留，按实际sampling域重放；后续源码统一seed消费与记录。原评语仍是[AI辅助结构审阅](../analysis/20261103-structure-review/README.md)，标签36例均uncertain，没有将阴性归因为错标或唯一信息瓶颈。
 
-完整结果前已[核实并封存比较输入](R224-COMPARISON-SETUP.json)：R107/R120/R115和同seed27的R108/R121五轮完成的原selected CSV、freeze、precision及TRAIN均匹配原5140 dev/167正例，原固定20组不变（guard7f90454a）。R224最终对照R107/R120/R115；条件R225对照R108/R121，R226还对照完整R224。固定2000次、seed20261103配对图像bootstrap仅用于描述条件区间，不包含跨seed/选择偏差或患者级保证。没有读取运行中R224选点、模型权重或官方图像，没有新forward。原结果归档助手已按实际源码校对component路径为`control/train-component-terminal.json`，v2检查guardfc3ffeb3；这只证明归档输入准备，完整结果仍待终态后实际执行。
+本轮前一交接到首SSL1796.130秒超过300，[原间隙](R224-HANDOFF-GAP.json)及必要验证/可避免错误保留。R224到[R226](../R226/README.md)的整轮结束→dispatch178.326秒、首SSL272.288秒、首25记录281.744秒，均≤300；末监督更新→新首SSL369.896秒包括评估和收尾，不能当作空闲时长。连续GPU利用率未测。
+
+本轮没有后续forward依赖，原预测CSV、freeze、结果/precision继续保留；权重是否实际清理以独立存储回执为准。raw .999及本次.995/AP>.9目标未达。

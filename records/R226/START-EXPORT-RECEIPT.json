@@ -1,0 +1,16 @@
+{
+  "status": "actual_first_SSL_and_prior_selected_evidence_exported",
+  "at": 1793734496.7093673,
+  "files": {
+    "records/R224/ARCHIVE-RECEIPT.json": "c9b9df90d79f65a0c0a0e910461a16542fee99bc5d7fdd9cb387c5b8666c3ac4",
+    "records/R224/PAIRED-REPORT.json": "d62d84b84ea87c1ded2590322fbcc0e209f9e472e9e44027c51bfe15f98ff008",
+    "records/R224/R224-COMPLETION.json": "4053b53a64319e51057d1fea5b8b057156296c98cbd158facc769c3fd37c57b2",
+    "records/R224/R224-RESULT.json": "6351efe4660bd4c3b0d865e51b3a65c38c66a5388f7d0b340875fd02ae80c8b1",
+    "records/R226/R226-HANDOFF-GAP.json": "620c2039d36523c689785abb3eea75ab715bf8f5a4dc34208a4523768c164609",
+    "records/R226/R226-PREPARATION.json": "1720b974515dd4110c5e83892bb457220748f4e6861b7917c9d154ac59a7e1f7",
+    "records/R226/R226-REMOTE-COMMIT.json": "aa804b0066ca38ffd169d7eed031265a748ef80c04ad21e2eee2e13ec3831fa0",
+    "records/R226/R226-SSL-INITIAL-GATE.json": "41ffd4566393158bf7b8a829d4e7de4ac489221044be88a13a81b3ac535ab003",
+    "records/R226/R226-START.json": "c72b7bba1993be91dc2f1cd35a2f1d606afe1e57d85253d81d7e272b84df094c"
+  },
+  "raw_samples_or_images_or_weights_exported": false
+}
