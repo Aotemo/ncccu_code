@@ -1,0 +1,64 @@
+{
+  "status": "read_only_storage_point_active_round_protected",
+  "at": 1793738084.3592622,
+  "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+  "free_bytes": 26020413440,
+  "active_weight_files": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3e28fd8111c744a9bfecebf67ea9c68f.pt",
+      "bytes": 792159434,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-95865d9889e140f6983c86aa159cf7fc.pt",
+      "bytes": 792159242,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-84d60c66c2ee4f359f2435b624b51b52.pt",
+      "bytes": 792159434,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-b95217a12a1b49bbb75fbcc1a1250a53.pt",
+      "bytes": 792159690,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-84dd329e0cdf44708941f60b24c1f28b.pt",
+      "bytes": 792159242,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-72de224f36924489bf08fc2dbac5fa5d.pt",
+      "bytes": 792159242,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-985d811f6d2d4c87996238f2548482d3.pt",
+      "bytes": 792159690,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-41d62a8bb0a044e493b8b10a1c496191.pt",
+      "bytes": 792159242,
+      "allocated_bytes": 792159744
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-92f3888f8a584aba99ff409bcf538a41.pt",
+      "bytes": 396070843,
+      "allocated_bytes": 396070912
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/derived-encoder.pt",
+      "bytes": 197940459,
+      "allocated_bytes": 197940736
+    }
+  ],
+  "active_weight_logical_bytes": 6931286518,
+  "free_floor_bytes": 17179869184,
+  "active_files_deleted_or_rehashed_or_loaded": false,
+  "signals_sent": false,
+  "training_lock_acquired": false,
+  "allocation_valid_until": 1793748700.5423281
+}

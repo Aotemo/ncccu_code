@@ -1,5 +1,9 @@
 # R226 fit-only 局部梯度目标实际启动
 
+20:43 [真实观测](R226-PROGRESS-goal3-3.json)：8050 success=attempt/0skip/c10/bad0，原owner798693/start376131227及八rank均active且出生身份匹配。暂EMA best c10@8000 AUROC .9858902745484298/AP .8162271393888747/error_twice23436；第9/10次评估的AUROC连续改善令原早停计数归零，继续完整24k上限/800/patience4，无完整selected或双门资格。暂best的AP低于先前c6，按原AUROC主判保留并最终报告代价，不改选点规则。
+
+20:34 [只读存储点](R226-STORAGE-before-close.json)：free26,020,413,440B，活跃权重10文件/6,931,286,518逻辑字节均保护；只stat未读取/加载大文件，无删除/锁/训练信号。清理须等唯一actualsafe、完整结果提交及新轮实际启动后，按已复用的manifest程序执行；当前只准备了三临时脚本并做语法检查（guard741f7f2a），尚无R226删除清单或清理操作。R228/条件R227的正式包保持20:25准备事实，不激活或重置旧clock/grant。
+
 完整1600次适配及八rank监督交接已实证：监督初态db052095、345全训/5组空AdamW、原head/age及监督RNG恢复一致，首25 loss .667283773有限、G64/P8/448对；20:19实观5150 success=attempt/0skip/c6/bad0，暂EMA best .9851316871585604/AP .8259593960563496。[当前快照](R226-PROGRESS-local-prep-3.json)不是完整selected。实际sampler记录与消费均为14997478083172343433，原误登记问题未复现。[监督首成功](R226-SUPERVISED-START.json)及[来源](R226-SUPERVISED-RECEIPT.json)保留，观察者没有创建模型、加载权重或执行前向。完整dev结果尚待产生。
 
 11-03 19:27:03 UTC实际首SSL更新成功，19:28:21实观200次，八rank活跃、loss/梯度有限。首1 loss .315540105、200 loss .027693853，G64/P8、每图154个32px块、单视图fit-only。实际公开模型50c6及encoder/public张量、空优化器、768→432/PixelShuffle4空间头均匹配正式CPU。[实际首成功](R226-START.json)、[公开初态门](R226-SSL-INITIAL-GATE.json)和[准备及各guard](R226-PREPARATION.json)保留，没有重做activation/launch。
