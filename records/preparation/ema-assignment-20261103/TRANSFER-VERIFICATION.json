@@ -1,0 +1,13 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "at": 1793743968.0906956,
+  "git_commit": "4099eeda6c08ae31b2fdab14f959070363a61f1f",
+  "tree_sha": "4888dc5c31f241bad7369a63078b46aa710898a3",
+  "source_files": 2662,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/source-git",
+  "remote_commit_sha256": "780cb1b5402d5cb39a315f76d616273d828f052d8fb333c71ed2d61428e1dd63",
+  "remote_tree_sha256": "ba6ec13fbfbf3fa499562f90a39d5e384ba39ec7adf60048e0d3e9cd17e1971c",
+  "affected_checks_reused": 19,
+  "checks_sha256": "e58e363e8a5a85e97fb6f1110f392ec0d0ce3923fb69dbbeff75027224ecaa79",
+  "new_forward_or_GPU": false
+}

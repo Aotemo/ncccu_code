@@ -1,0 +1,56 @@
+{
+  "status": "two_EMA_branches_formal_ready_without_activation",
+  "at": 1793744310.5342243,
+  "prepared": {
+    "R230": {
+      "file": "records/preparation/ema-assignment-20261103/R230-FORMAL-READY.json",
+      "sha256": "659d384f3c2a8b9e8ec6480dd54e7f894573d1f3b6562b388b23ba344568e583",
+      "site_sha256": "d0385fcd2bd179be73b1283301a1e09e1d9a0a70e3ceeb44a0d5c3cb815b0bfa",
+      "git_commit": "4099eeda6c08ae31b2fdab14f959070363a61f1f"
+    },
+    "R231": {
+      "file": "records/preparation/ema-assignment-20261103/R231-FORMAL-READY.json",
+      "sha256": "7446e970715aa7a4867c496f45827ad6a19b4da0abc353dd776ee9d5b1294b48",
+      "site_sha256": "5fed26348ae9a84802c30cf0a75be4dc4e0f2d5804ab78d69b7d54a73edb8c43",
+      "git_commit": "4099eeda6c08ae31b2fdab14f959070363a61f1f"
+    }
+  },
+  "bounded_technical_verification": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/BOUNDED-TECHNICAL-VERIFICATION.json",
+    "sha256": "496358f61295b68c5563eaaa460c9414b0c1cf3b1e8da884aba1d0982a65da29"
+  },
+  "R228_progress": {
+    "status": "running",
+    "phase": null,
+    "successful_updates": 5475,
+    "attempted_updates": 5475,
+    "skipped_updates": 0,
+    "evaluated_cycle": 6,
+    "stop_reason": null,
+    "termination_reason": null,
+    "early_bad_cycles": 2
+  },
+  "R228_status_best": {
+    "best_metrics": {
+      "auroc": 0.9817674122898382,
+      "ap": 0.7808351252702928,
+      "variant": "online",
+      "cycle": 5,
+      "successful_updates": 4000,
+      "error_twice": 30284
+    },
+    "ema_best_metrics": {
+      "auroc": 0.984526021353633,
+      "ap": 0.8101778591971989,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "error_twice": 25702
+    },
+    "lineage_best": {}
+  },
+  "current_GPU_R228_unchanged": true,
+  "R229_still_prepared_if_R228_passes_original_gates": true,
+  "branch_not_chosen": true,
+  "old_actualsafe_repolled": false
+}

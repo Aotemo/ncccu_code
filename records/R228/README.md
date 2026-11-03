@@ -1,5 +1,7 @@
 # R228 fit-only 局部光度一致性实际启动
 
+22:19前后的[只读快照](R228-PROGRESS-ema-formal-ready.json)：5475 success=attempt/0skip/c6/bad2，原owner及八rank仍活跃，暂EMA best c4@3200 AUROC.9845260214/AP.8101778592。尚无完整selected，不据此提前判定双门；冻结部署和原clock/token/grant不改。此时[R230/条件R231后备](../preparation/ema-assignment-20261103/README.md)已完成19必要目标、真实P8、各18/18正式CPU及4099eed精确部署，均未激活；完整本轮双门过优先原R229，否则唯一actualsafe后R230，无文档或审批等待。
+
 完整1600次适配与八rank监督交接已实证：[完整SSL结果](R228-SSL-RESULT.json)ddbcfa0a、[监督初态及自然首成功](R228-SUPERVISED-START.json)a2a293b6、[来源回执](R228-SUPERVISED-RECEIPT.json)800c9f36/guardac89d69d。derived encoder df1d4c53，监督完整模型6126df96；345全训/5组空AdamW、原head-age及监督factory RNG恢复一致。首自然25 loss.769871175有限，G64/P8/448对/WORLD8；21:37 [当前快照](R228-PROGRESS-supervised-after-cleanup.json)为325 success=attempt/0skip/eval0，原owner及八rank保持，无完整selected或收益。
 
 sampler实际消费与记录均14997478083172343433，learning/sampling域沿R115，未复现旧R224误登记。完整SSL只用fit图、1600 success=attempt/0skip/0dev、head-age不变；观察者复用现有门及元数据，没有构建模型、加载checkpoint或执行前向。当前私有r228 env的first receipt已更新为START-OBSERVATION-supervised-1，后续用原canonical observer，原activation/clock/token/grant及冻结源码保持。下方为有时间点的准备和启动历史。

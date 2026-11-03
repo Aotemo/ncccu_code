@@ -1,0 +1,31 @@
+{
+  "status": "existing_generated_technical_packages_independently_verified_within_original_CPU_guard",
+  "at": 1793744134.1863205,
+  "git_commit": "4099eeda6c08ae31b2fdab14f959070363a61f1f",
+  "tree_sha": "4888dc5c31f241bad7369a63078b46aa710898a3",
+  "source_files": 2662,
+  "validated": {
+    "R230": {
+      "round_id": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+      "site_sha256": "b953bd5ebe854c15b39f3e497b8a8b5e588576ea3a753486ac36dac89217a098",
+      "science_sha256": "8cb98a2b0d3fca149f3d4ac2adb6811a559f8e14a08ccec701a7de48ab0fefd1",
+      "bundle_files": 64
+    },
+    "R231": {
+      "round_id": "r231-small-fitassign1600-seed27-pairlog-24k-p4-9010-20261103",
+      "site_sha256": "425a39c24e499f8a44c999fe24e6e3fbbd04da9d2073bbaeec8d600fd1487558",
+      "science_sha256": "13fb11e2df9e968b687a6ea3a4ff257a71bf7fd7a1f23ae3bd7360a1b2a5d6f6",
+      "bundle_files": 64
+    }
+  },
+  "failed_generation_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-vnm1tdd_/CPU-RECEIPT.json",
+    "sha256": "0f4ca9d1853897aa002dba437b2118aa55ee9aa21c3bb9cb67e57c96fe43ab51"
+  },
+  "generation_child_exit_code": 0,
+  "generation_guard_passed": false,
+  "repeated_model_forward_or_GPU": false,
+  "source_checks_reused": 19,
+  "source_exact": true,
+  "formal_CPU_and_deployment_pending": true
+}
