@@ -26,6 +26,10 @@
 
 ## Ledger
 
+- 10:25原normal完整窗口实拒绝bbydqhcu/e04d6649 exit1，无clock/activation/GPU，不是科学失败。新未启动`r213-20261103-32e3-ready-lease2`只字节复用technical包/936材料、保留原normal19及旧grant；guardbyyubyrz/e37039b9 exit0。lease2无新normal/GPUallocation/clock，临近当前收尾再按既有入口创建；不可再用旧f2d或旧四调用。R211最新7725/0skip/eval9/bad1、暂best EMA c8`.987315937198597`，当前r211 env/start4不变。独立诊断7件已06e980f统一push，9测试复用，源码/test与Git blob在Pod逐字节pin，不新增GPU门。
+
+- 10:08原R213正常CPU19/19、精确部署已完成，actual SITEf2d45c09/guardfm3w09dh0；whole cb874611/459全训/五空组/112BN336buffer、公开512保存冷图exact，源码936冻结，7/12复用，无clock/activation/GPU。10:09实观R211 c7@5600新best`.9865332676693667`、bad0，最早终态后移；实际接续若不再覆盖完整clock，保留旧normal和回执，仅为新未启动阶段另绑资源，禁止改旧grant或clock。现役R211原158不动；R209已封存难组7408/3632并完成9旧权重清理/保护核验。
+
 - 10:07源码936dde0/tree06cc0c7实际push/API Pod回读与完整source SHA匹配，两technical包e7fb2277/guardjg7qzezu、fiwf8ds0及archivevzbsyy9t均0，默认12GiB、无normal/clock/GPU。既有四调用同SSH模板bash-n通过h63cwzxl，非新启动器；真实SITE及actualsafe后才调用一次。R211最新4925/0skip/eval6/bad2，后备normal按可行收尾前准备，保持当前158冻结。
 
 - 09:58最终7目标/12唯一源码compile及两实际public fresh通过，CPU-CHECKS 63d5d662/gveot90f exit0，详见[精简回执](../../records/preparation/efficientnetv2-20261103/README.md)。初版6/11、绑定缺门槛和WORLD8固定BN未豁免的失败均保留；必要两类型豁免已RED/GREEN，历史Tiny-only审计不在实际入口故不改。R213 whole cb874611/buffer eb77f82b；R212仍91507a65。现在待Git同步回读、两technical包与后备normal，不把准备登记当启动。09:58另一个既有会话由用户唤起做独立诊断（CPU12–23），本人未派生/恢复/发消息，唯一Git/GPU不变；其新DIAGNOSTIC-EVIDENCE文本不混入本次提交。

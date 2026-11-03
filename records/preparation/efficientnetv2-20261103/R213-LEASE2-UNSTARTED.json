@@ -1,0 +1,24 @@
+{
+  "at": 1793701500.089651,
+  "status": "new_unstarted_stage_with_exact_technical_package_reuse",
+  "prior_stage": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r213-20261103-32e3-ready",
+  "new_stage": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r213-20261103-32e3-ready-lease2",
+  "scientific_round_id": "r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+  "source_commit": "936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a",
+  "source_science_sha256": "7f6de4e13109a6e0262fd9dfa91d2a5247fc6df34e13d55eaf3cf08348c69420",
+  "original_normal_proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/NORMAL-EXPORT/NORMAL-R213.json",
+    "sha256": "3d348764bbe3901fe1c5a361138128056b4abe2d9b7eeff5f3c496bfbb30b4ef"
+  },
+  "original_CPU19_proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r213-20261103-32e3-ready/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "6a0e1af9cbdb2de44e1a5746f2f27018caa361f683e459263d8cfa9637f196bd"
+  },
+  "technical_package_files_exact": true,
+  "original_package_or_grant_modified": false,
+  "old_clock_reset": false,
+  "GPU_allocation_created": false,
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "note": "Original allocation can no longer cover full clock at handoff; create a fresh unstarted binding near current completion. Existing prepare entry reuses seven affected targets/twelve compiles; normal admission will bind the new site without repeating that test suite."
+}
