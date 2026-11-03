@@ -8,8 +8,8 @@
     "NCCCU_PYTHON": "/usr/local/python3.12/bin/python3.12"
   },
   "executor_id": "32e3b079-81b0-4f66-9604-b32491599f44",
-  "allocation_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/CPU-ALLOCATION.json",
-  "allocation_sha256": "d8370ed3a789939559098f3ad2f2b2dbec80f3455aa69e75a69b1901db432b66",
+  "allocation_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/CPU-ALLOCATION.json",
+  "allocation_sha256": "ec5cb66f3548814547e0cfb0be891f75fd2206cdbc27a20d16cda3a780c91396",
   "lease_path": "/tmp/.ncccu-cpu-task-39447c194e4ff87d923ef3fb7fd9202aa6cc1a05ab60d8249e64c5ebc99d2cf3.lock",
   "lease_scope": "compute_pod_executor_across_preparation_bindings",
   "guard_sha256": "f7eebb84650da9b8225f5369fc55d06004825938a0be3a44b3678ffaeed71941",
@@ -53,15 +53,15 @@
   "command": [
     "/usr/local/python3.12/bin/python3.12",
     "-B",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/ARCHIVE-R209-NEXT.py",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r209-20261103-32e3-ready/PROGRESS-cont-28.json",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6par19li/CPU-RECEIPT.json",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r211-20261103-32e3-ready",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r211-20261103-32e3-ready/START-OBSERVATION-start-4.json",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-x54_k_78/CPU-RECEIPT.json",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-tc6z6pq9/CPU-RECEIPT.json",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-c123p991/CPU-RECEIPT.json",
-    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/R209-R211-ACTUAL-EXPORT"
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/ARCHIVE-R207-NEXT.py",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r207-20261103-32e3-ready/PROGRESS-cont-44.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-6ihyxwpf/CPU-RECEIPT.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r209-20261103-32e3-ready",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r209-20261103-32e3-ready/START-OBSERVATION-start-2.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gwtwvxew/CPU-RECEIPT.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-_kps1z7h/CPU-RECEIPT.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-u2cjun4e/CPU-RECEIPT.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/R207-R209-ACTUAL-EXPORT"
   ],
   "max_total_threads": 24,
   "actual_resources_before_affinity": {
@@ -516,9 +516,9 @@
   "task_tree_exited": true,
   "signals_sent": false,
   "child_exit_code": 0,
-  "wall_seconds": 0.22719812393188477,
+  "wall_seconds": 0.22545123100280762,
   "physical_cpu_envelope_enforced": true,
   "runnable_thread_budget_respected": true,
   "exit_code": 0,
-  "output_sha256": "975dd78c1948088238b0412fea1712729e3437e753dba350e761c6ac5fe9fd76"
+  "output_sha256": "aa2ea0dcd324f2499875634a6077420990868420164f9b6da2cc5390076547fa"
 }

@@ -2,7 +2,9 @@
 
 09:19[完整终态](R209-RESULT.json)8800success=attempt/0skip/eval11/bad4、早停，TRAIN与整轮均completed/组件exit0/signals[]/errornull，唯一EMA c7@5600内部AUROC`.9867066590727653`、AP`.8166657875843961`、error_twice22080。严格胜R107及R120均false，关闭此固定AMSGrad配方/no seed27/R210不eligible，不扫beta/max公式/LR/WD/seed；不外推全部AMSGrad方法必然无效。官方正常not_run_by_policy/threshold_not_met/evaluatedfalse/metricsnull，freeze.status原null保留，不冒写completed；raw .999未达。
 
-[唯一安全观测](R209-COMPLETION.json)cont28/SHA501a275e，[guard6par19li](R209-CPU-COMPLETION.json)/a7d7aced exit0：owner712175同start Z inactive、8rank缺失、锁holders/设备users空、denied0、8PCI齐且busy0。该历史safe不重查。tensor f6259ed5/blob6a81aae7/CSV960db511/precision5429b114及完整SHA在原件；归档不加载或重哈希大权重、不新增forward。实际已串行接续[R211](../R211/README.md)，整轮结束至新dispatch102.804秒/设备169.122秒/首25记录249.651秒；末训练日志至首25为315.833秒超300如实保留，连续利用率未测。[归档guard8riur6z7](R209-CPU-ARCHIVE.json)/93e78c2c exit0；后续原封存难组描述与冗余权重清理尚待，下文为运行期证据。
+[唯一安全观测](R209-COMPLETION.json)cont28/SHA501a275e，[guard6par19li](R209-CPU-COMPLETION.json)/a7d7aced exit0：owner712175同start Z inactive、8rank缺失、锁holders/设备users空、denied0、8PCI齐且busy0。该历史safe不重查。tensor f6259ed5/blob6a81aae7/CSV960db511/precision5429b114及完整SHA在原件；归档不加载或重哈希大权重、不新增forward。实际已串行接续[R211](../R211/README.md)，整轮结束至新dispatch102.804秒/设备169.122秒/首25记录249.651秒；末训练日志至首25为315.833秒超300如实保留，连续利用率未测。[收口归档guard8riur6z7](R209-CPU-COMPLETION-ARCHIVE.json)/93e78c2c exit0；后续原封存难组描述与冗余权重清理尚待，下文为运行期证据。
+
+09:30修正归档文件同名冲突：2a10cba曾把新收口guard覆盖到旧启动归档名R209-CPU-ARCHIVE.json，现已从原a4e8599逐字节恢复旧件，新件另存R209-CPU-COMPLETION-ARCHIVE.json；原指标、JSON原件、Pod回执及活跃运行均未修改。两次归档各保留原来源，不重跑旧safe或归档计算。
 
 08:41[既有sysfs单次设备快照](R209-DEVICE-POINT.json)实核8PCI busy99%–100%，不推连续利用率；[guard51g3yug_](R209-CPU-DEVICE.json) / 3e89dbd8257a418897e5e46f3726831caf15c0078e45f6958f0d49ead4214eb5 exit0，无GPU API/forward或runtime修改。08:46实观4925/0skip/eval6/bad2、八rank活跃，暂best EMA c4@3200`.9862551189597479`，仍无完整selected。后续158bfb0两technical包已完成，normal在可行收尾前准备，现役冻结不改。
 
