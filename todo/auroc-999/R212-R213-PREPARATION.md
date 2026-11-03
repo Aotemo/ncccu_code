@@ -26,6 +26,8 @@
 
 ## Ledger
 
+- 11:04唯一GPU R213/order126，实际八rank初态/自然首25通过，最新3875/0skip/eval4/bad0、暂best EMA`.9830160712157026`。lease2正常CPU19/19与精确部署在R211训练期间完成（kfsbv092/1d166f17），窗口2c0klwgg、activationbmbe92o8、direct launch一次均0；actual SITE52d85df1，source936/SCI7f6冻结，7目标12compile按SHA复用。当前r213 env/lease2/start2，原lease1窗口拒绝不重置。R211完整9600/c12/bad4，EMA c8`.987315937198597`、双门false/官方未跑/actualsafe，R212不eligible；详见[实际接续](../../records/R213/README.md)。整轮结束至首25为232.264秒，末训练日志至首25为302.225秒略超300保留，连续利用率未测。原NAdam与旧冻结不改，后续SigLIP2仅来源核验、尚无新候选身份。
+
 - 10:25原normal完整窗口实拒绝bbydqhcu/e04d6649 exit1，无clock/activation/GPU，不是科学失败。新未启动`r213-20261103-32e3-ready-lease2`只字节复用technical包/936材料、保留原normal19及旧grant；guardbyyubyrz/e37039b9 exit0。lease2无新normal/GPUallocation/clock，临近当前收尾再按既有入口创建；不可再用旧f2d或旧四调用。R211最新7725/0skip/eval9/bad1、暂best EMA c8`.987315937198597`，当前r211 env/start4不变。独立诊断7件已06e980f统一push，9测试复用，源码/test与Git blob在Pod逐字节pin，不新增GPU门。
 
 - 10:08原R213正常CPU19/19、精确部署已完成，actual SITEf2d45c09/guardfm3w09dh0；whole cb874611/459全训/五空组/112BN336buffer、公开512保存冷图exact，源码936冻结，7/12复用，无clock/activation/GPU。10:09实观R211 c7@5600新best`.9865332676693667`、bad0，最早终态后移；实际接续若不再覆盖完整clock，保留旧normal和回执，仅为新未启动阶段另绑资源，禁止改旧grant或clock。现役R211原158不动；R209已封存难组7408/3632并完成9旧权重清理/保护核验。

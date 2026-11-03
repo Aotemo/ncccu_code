@@ -1,0 +1,975 @@
+{
+  "CUDA_initialized": false,
+  "at": 1793702733.318509,
+  "batch_norm_modules": 112,
+  "buffer_count": 336,
+  "buffer_sha256": "eb77f82bcbee56db34756d668a5bad312ab990d7e91b6c6150638e59c1c7c3e7",
+  "candidate": {
+    "attention_pool": null,
+    "batch_norm_buffers": 336,
+    "batch_norm_modules": 112,
+    "bn_initialization": "public",
+    "experiment_order": 126,
+    "features": 1792,
+    "final_norm_eps": null,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "id": "r213-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261029-scale085-pairlog-9010",
+    "internal_norm_eps": null,
+    "model": "efficientnetv2_rw_s",
+    "provenance_sha256": "bc653f4a6e9ff5d57649420e48d24ab0cd3b309a75484e6f8e2a2c954fe379ed",
+    "public_revision": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+    "readout": "native_avgpool_publicBN_dropout_linear_plus_age",
+    "stochastic_depth": 0.1,
+    "weight_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303"
+  },
+  "candidate_normalization": {
+    "batch_norm_modules": 112,
+    "batch_norms": [
+      {
+        "eps": 1e-05,
+        "name": "network.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.0.0.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.0.0.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.0.1.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.0.1.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.0.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.0.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.1.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.1.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.2.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.2.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.3.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.1.3.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.0.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.0.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.1.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.1.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.2.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.2.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.3.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.2.3.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.0.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.0.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.0.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.1.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.1.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.1.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.2.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.2.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.2.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.3.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.3.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.3.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.4.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.4.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.4.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.5.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.5.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.3.5.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.0.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.0.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.0.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.1.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.1.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.1.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.2.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.2.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.2.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.3.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.3.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.3.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.4.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.4.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.4.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.5.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.5.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.5.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.6.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.6.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.6.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.7.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.7.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.7.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.8.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.8.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.4.8.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.0.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.0.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.0.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.1.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.1.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.1.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.2.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.2.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.2.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.3.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.3.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.3.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.4.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.4.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.4.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.5.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.5.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.5.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.6.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.6.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.6.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.7.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.7.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.7.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.8.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.8.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.8.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.9.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.9.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.9.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.10.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.10.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.10.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.11.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.11.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.11.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.12.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.12.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.12.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.13.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.13.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.13.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.14.bn1",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.14.bn2",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.blocks.5.14.bn3",
+        "track_running_stats": true,
+        "training": false
+      },
+      {
+        "eps": 1e-05,
+        "name": "network.bn2",
+        "track_running_stats": true,
+        "training": false
+      }
+    ],
+    "buffer_count": 336,
+    "buffer_sha256": "eb77f82bcbee56db34756d668a5bad312ab990d7e91b6c6150638e59c1c7c3e7",
+    "candidate": {
+      "attention_pool": null,
+      "batch_norm_buffers": 336,
+      "batch_norm_modules": 112,
+      "bn_initialization": "public",
+      "experiment_order": 126,
+      "features": 1792,
+      "final_norm_eps": null,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "id": "r213-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261029-scale085-pairlog-9010",
+      "internal_norm_eps": null,
+      "model": "efficientnetv2_rw_s",
+      "provenance_sha256": "bc653f4a6e9ff5d57649420e48d24ab0cd3b309a75484e6f8e2a2c954fe379ed",
+      "public_revision": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+      "readout": "native_avgpool_publicBN_dropout_linear_plus_age",
+      "stochastic_depth": 0.1,
+      "weight_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303"
+    },
+    "dropout": 0.2,
+    "efficientnetv2": {
+      "age_readouts": 1,
+      "batch_norm_affine": "trainable_online",
+      "batch_norm_buffers": 336,
+      "batch_norm_eps": 1e-05,
+      "batch_norm_modules": 112,
+      "batch_norm_momentum": 0.1,
+      "batch_norm_statistics": "frozen_public",
+      "dropout": 0.2,
+      "feature_width": 1792,
+      "model": "efficientnetv2_rw_s",
+      "native_drop_rate": 0.0,
+      "native_variant": "efficientnetv2_rw_s.ra2_in1k",
+      "parameter_tensor_count": 459,
+      "pool": "avg",
+      "stage_depths": [
+        2,
+        4,
+        4,
+        6,
+        9,
+        15
+      ],
+      "version": "efficientnetv2-rws-publicbn-v1"
+    },
+    "head_in_features": 1792,
+    "head_out_features": 1,
+    "layer_norms": [],
+    "stochastic_depth": [
+      {
+        "mode": "row",
+        "name": "network.blocks.0.0.drop_path",
+        "p": 0.0
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.0.1.drop_path",
+        "p": 0.0025
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.0.drop_path",
+        "p": 0.005
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.1.drop_path",
+        "p": 0.0075000000000000015
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.2.drop_path",
+        "p": 0.01
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.1.3.drop_path",
+        "p": 0.0125
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.0.drop_path",
+        "p": 0.015000000000000003
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.1.drop_path",
+        "p": 0.0175
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.2.drop_path",
+        "p": 0.02
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.2.3.drop_path",
+        "p": 0.0225
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.0.drop_path",
+        "p": 0.025
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.1.drop_path",
+        "p": 0.027500000000000004
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.2.drop_path",
+        "p": 0.030000000000000006
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.3.drop_path",
+        "p": 0.0325
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.4.drop_path",
+        "p": 0.035
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.3.5.drop_path",
+        "p": 0.0375
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.0.drop_path",
+        "p": 0.04
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.1.drop_path",
+        "p": 0.0425
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.2.drop_path",
+        "p": 0.045
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.3.drop_path",
+        "p": 0.0475
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.4.drop_path",
+        "p": 0.05
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.5.drop_path",
+        "p": 0.052500000000000005
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.6.drop_path",
+        "p": 0.05500000000000001
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.7.drop_path",
+        "p": 0.05750000000000001
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.4.8.drop_path",
+        "p": 0.06000000000000001
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.0.drop_path",
+        "p": 0.0625
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.1.drop_path",
+        "p": 0.065
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.2.drop_path",
+        "p": 0.0675
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.3.drop_path",
+        "p": 0.07
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.4.drop_path",
+        "p": 0.07250000000000001
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.5.drop_path",
+        "p": 0.075
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.6.drop_path",
+        "p": 0.0775
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.7.drop_path",
+        "p": 0.08
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.8.drop_path",
+        "p": 0.0825
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.9.drop_path",
+        "p": 0.085
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.10.drop_path",
+        "p": 0.0875
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.11.drop_path",
+        "p": 0.09
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.12.drop_path",
+        "p": 0.0925
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.13.drop_path",
+        "p": 0.095
+      },
+      {
+        "mode": "row",
+        "name": "network.blocks.5.14.drop_path",
+        "p": 0.0975
+      }
+    ]
+  },
+  "initial_files_sha256": {
+    "outputs/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103-8c-efficientnetv2_rw_s-s20261029-b64-p8-fp32/efficientnetv2-rw-s/initial-checkpoint/index.json": "1186c467c4de08d1ca962375d589eb8f9dd13b404e033dbb4487dccd64dcc6dc",
+    "outputs/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103-8c-efficientnetv2_rw_s-s20261029-b64-p8-fp32/efficientnetv2-rw-s/initial-ranks.json": "49f4f7fc62fd00f3824825a88d9d6fe6818c772beb7317794749cad6d4da3d3c",
+    "outputs/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103-8c-efficientnetv2_rw_s-s20261029-b64-p8-fp32/efficientnetv2-rw-s/parameter-groups.json": "6641cec9daab84775c7891b235c3335005e3bac3f1d47be7afd27bb771cdd90b"
+  },
+  "model_tensor_sha256": "cb874611e2bc16ee15a76d570d9cdfe38dd2168205f415a0e8bc9470e6113c1f",
+  "native_initial_blob": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103/outputs/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103-8c-efficientnetv2_rw_s-s20261029-b64-p8-fp32/efficientnetv2-rw-s/initial-checkpoint/checkpoint-9d98cae9193049f9ad461fbb844c9b40.pt",
+  "native_initial_blob_sha256": "6d63f8789ad9241484214bc5e38866696d7cc019e929219b3a8e8cbf314ce52a",
+  "new_model_created_by_gate": false,
+  "optimizer_state_entries": 0,
+  "parameter_elements_by_role": {
+    "age": 2,
+    "backbone": 22148296,
+    "head": 1793
+  },
+  "parameter_tensors": 459,
+  "public_weights_reloaded_by_gate": false,
+  "rank_count": 8,
+  "source_digest": "dfa1aee28b3c6d2b43d2eaf5d17d8086ccf9cd6355b50e3fbaa6256a56a17867",
+  "status": "completed"
+}

@@ -1,0 +1,40 @@
+{
+  "status": "exact_affected_source_and_science_match",
+  "original_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/efficientnetv2-20261103-32e3/source-git/records/preparation/efficientnetv2-20261103/CPU-CHECKS.json",
+    "sha256": "63d5d66275bd6d75c41c1bfebe0fb6c9c696906a98ffe970ac89063780e4e7bb"
+  },
+  "source_files": {
+    "runtime/bundle/retrain/efficientnet_model.py": "17e8541d8c543b07a125cc8a4f57c8381c6d345492d470be273dc037eb4c5b66",
+    "runtime/bundle/retrain/models.py": "ef8764066dfe4ce04dd2a5adfc4c6d8f87ba230cffcc7d96f155321374cc1fa6",
+    "runtime/bundle/retrain/config.py": "a9fc0d0c728a88fffe6bd782af77ce9b607edaabd78806d507a3f090573d7d4c",
+    "runtime/bundle/retrain/inference.py": "33944f94cc76c730d646f48574f3a927150af126fa4b5837d864429cafd21cc8",
+    "runtime/bundle/retrain/ema.py": "53b5488eb595985f6bd105fd2f3bfd4809c2d58e4b6aa6b6fed66109d8a2d8f2",
+    "runtime/bundle/retrain/distributed_engine.py": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "runtime/bundle/retrain/experiment91.py": "f784b3f7f816d7515ae668bd10c1fef5e43a8ec8673f648b2e7d493beed667e5",
+    "tools/validation/check_candidate.py": "7f7e01ac646176fe4214647eb00265051d488a74dddbbef57ad685ca7c63b8d6",
+    "tests/test_candidate_binding.py": "f349d3e85fe04a4cb2aa9209ac13e6e2c1df4dfd0b3fed4b034395f44b46b513",
+    "tests/test_efficientnet_model.py": "d167b46cf4f126a8cce5df2559fc1a97afd3eebbedbca11fc0cbc835cedba07d",
+    "tools/pretraining/efficientnet_source.py": "cca027b9a2939d6abc90190c349ffc0844353e221558e9e7ddcbc25352c459d9",
+    "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/precision.py": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "runtime/bundle/retrain/finite.py": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "tools/pretraining/source_chain.py": "5d183e1a0949e913956d57647f6b819846696c34fcb1b4f5d1c82c1510d76473",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/bundle/retrain/distributed.py": "73bdd2cc31425f7185767977126f981983ca7521ce73352940baeb0d9befb1cd"
+  },
+  "science_sha256": "7f6de4e13109a6e0262fd9dfa91d2a5247fc6df34e13d55eaf3cf08348c69420",
+  "targets_reused": 7,
+  "unchanged_implementation_files": 9,
+  "tests_rerun": false,
+  "at": 1793702184.7580433
+}

@@ -1,5 +1,7 @@
 # R211：原生解耦 NAdam 独立 fresh
 
+已[完整结束](R211-RESULT.json)：9600 success=attempt、12次内部dev、连续4轮无提升、零跳过；唯一EMA c8@6400 AUROC`.987315937198597`、AP`.8143068719077303`、error_twice21068。严格R107/R120双门均false，R212不eligible，官方按阈值未跑，raw .999未达。所选tensor168f1e56/blob9d427920/CSV70f65bb8/precisiona623bb91；原freeze.status=null保留。[唯一终态](R211-COMPLETION.json)与[CPU回执](R211-CPU-COMPLETION.json)已证owner inactive、八rank退出、无设备holder/user，旧safe不重查。归档guard50ut1gx3/96f8031a exit0，独立文件[R211-CPU-COMPLETION-ARCHIVE.json](R211-CPU-COMPLETION-ARCHIVE.json)保留原首成功归档回执。随后原入口串行接续[R213](../R213/README.md)，本轮冻结/clock/token未改。以下启动阶段原记录保留；所选权重暂保护，难组与清理尚未完成。
+
 09:23[真实八rank初态与自然首25](R211-START.json)通过，09:26实观400 success=attempt/0skip/eval0、八rank活跃。345全训/5组/各rank空优化器state/whole50c6与正式CPU一致；首25 loss`.6543780565261841`有限，WORLD8/G64P8/448pairs、每rank8primary/8view均相符。真实训练链可运行，完整AUROC收益尚待；raw .999未达。
 
 直接R107 Small/publicfe6/seed29/RGB512/FP32/ImageNet/原logistic/G64P8，仅`nadam_policy='nadam-decoupled-native-v1'`改为原生`torch.optim.NAdam(groups,decoupled_weight_decay=True)`。原五组成员/顺序/LR/WD及age保持，原生betas(.9,.999)/eps1e-8/momentum_decay.004/foreach=None；不叠AMSGrad/beta095/Lion/hinge或新读出。最多24000成功/每800双variant内部dev/patience4/EMA1600及唯一选点保持，完整selected>=.996才官方5849一次。

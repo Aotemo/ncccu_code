@@ -1,0 +1,122 @@
+{
+  "at": 1793702353.679747,
+  "status": "R213_lease2_normal19_exact_deployment_ready_no_clock_or_GPU",
+  "preparation": {
+    "status": "formal_package_and_actual_Git_deployment_ready",
+    "round_id": "r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+    "git_commit": "936dde0812c5c2a06e468cf6cc2f359fc4f2ea1a",
+    "tree_sha": "06cc0c7cdab574f978f220e2163fbdc91cb8fbf1",
+    "science_sha256": "7f6de4e13109a6e0262fd9dfa91d2a5247fc6df34e13d55eaf3cf08348c69420",
+    "candidate": {
+      "id": "r213-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261029-scale085-pairlog-9010",
+      "experiment_order": 126,
+      "model": "efficientnetv2_rw_s",
+      "public_revision": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+      "readout": "native_avgpool_publicBN_dropout_linear_plus_age",
+      "features": 1792,
+      "final_norm_eps": null,
+      "internal_norm_eps": null,
+      "batch_norm_modules": 112,
+      "batch_norm_buffers": 336,
+      "attention_pool": null,
+      "weight_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+      "provenance_sha256": "bc653f4a6e9ff5d57649420e48d24ab0cd3b309a75484e6f8e2a2c954fe379ed",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "bn_initialization": "public"
+    },
+    "checks": 19,
+    "actual_model_tensor_sha256": "cb874611e2bc16ee15a76d570d9cdfe38dd2168205f415a0e8bc9470e6113c1f",
+    "trainable_tensors": 459,
+    "group_count": 5,
+    "optimizer_policy": null,
+    "optimizer_state_entries": 0,
+    "reused_cpu_checks_sha256": "060e2c94ddabc21bd64396ec7e99ca2ad80cd1e6585b432ee3ffaeed373ea20d",
+    "package_manifest_sha256": "1d41e82288a18485b28fc46566a361f635da8c9b91c80543cc2110076977fbf0",
+    "cpu_prep_sha256": "68d88144bddd305e18588b278abdf07bd2fde0b13247ae628f26898a2d092370",
+    "deployment_sha256": "f4d7fa2440174433fdd56a470cb3535c064fc51fae10984d5b86e0fd5fb2575d",
+    "site_sha256": "52d85df16fdbdf387d8aa97b1ee6aaf026d567128c42aec24fe032f228f3faf9",
+    "formal_runs": 1,
+    "formal_clock_created": false,
+    "GPU_started": false,
+    "round_storage_limit_bytes": 12884901888,
+    "storage_policy_sha256": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c",
+    "free_floor_bytes_unchanged": 17179869184
+  },
+  "formal_CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r213-20261103-32e3-ready-lease2/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "403e1db0f3877e8f6de2d9a5f6a013735078c97dd69b36c932e565fb75b56aa3"
+  },
+  "passed_check_names": [
+    "CPU_only_before_model",
+    "strict_exact_finite_source_then_fresh_binary",
+    "actual_native_EfficientNet_publicBN_avgpool_binary_agezero",
+    "native_EfficientNet_public_BN_frozen_affine_trainable",
+    "unique_groups_emptyAdam_last_linear_LN_backbone",
+    "initial_EMA_exact_and_outside_optimizer",
+    "exact_fixed_science_and_eight_rank_fresh",
+    "CPU_initial_checkpoint_strict_roundtrip_emptyAdam",
+    "initial_gate_eight_rank_coverage_CPU_fixture_only",
+    "native_EfficientNet_public512_checkpoint_cold_exact",
+    "initial_gate_missing_rank_rejected",
+    "initial_gate_wrong_tensor_rejected",
+    "LR_successful_update_boundaries",
+    "EfficientNet_EMA_synthetic_boundary_1599",
+    "EfficientNet_EMA_synthetic_boundary_1600",
+    "EfficientNet_EMA_synthetic_boundary_1601",
+    "EfficientNet_EMA_synthetic_boundary_24000",
+    "EMA_successful_clock_counts_at_maximum",
+    "CPU_only_after_all_checks"
+  ],
+  "initial_state_control": {
+    "candidate": {
+      "id": "r213-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261029-scale085-pairlog-9010",
+      "experiment_order": 126,
+      "model": "efficientnetv2_rw_s",
+      "public_revision": "ee38fe1c4e8ca084db9b6ec22c3d6a7d02990704",
+      "readout": "native_avgpool_publicBN_dropout_linear_plus_age",
+      "features": 1792,
+      "final_norm_eps": null,
+      "internal_norm_eps": null,
+      "batch_norm_modules": 112,
+      "batch_norm_buffers": 336,
+      "attention_pool": null,
+      "weight_sha256": "8bb2555726585abc07991848cfa0de5732cff2d8bf9f88d6317a687dbdc1b303",
+      "provenance_sha256": "bc653f4a6e9ff5d57649420e48d24ab0cd3b309a75484e6f8e2a2c954fe379ed",
+      "stochastic_depth": 0.1,
+      "head_initialization": "torch.nn.Linear_native",
+      "head_lr_scope": "last_linear",
+      "bn_initialization": "public"
+    },
+    "model_tensor_sha256": "cb874611e2bc16ee15a76d570d9cdfe38dd2168205f415a0e8bc9470e6113c1f",
+    "batch_norm_modules": 112,
+    "buffer_count": 336,
+    "buffer_sha256": "eb77f82bcbee56db34756d668a5bad312ab990d7e91b6c6150638e59c1c7c3e7",
+    "optimizer_state_entries": 0,
+    "trainable_tensors": 459,
+    "parameter_elements_by_role": {
+      "backbone": 22148296,
+      "head": 1793,
+      "age": 2
+    }
+  },
+  "public512_cold_numeric": {
+    "name": "native_EfficientNet_public512_checkpoint_cold_exact",
+    "passed": true,
+    "actual": null
+  },
+  "guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0858-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-kfsbv092/CPU-RECEIPT.json",
+    "sha256": "1d166f17019416ecad5beab7ee2b922d676ce91128e8aeccb858b26f3012ec79",
+    "exit_code": 0
+  },
+  "handoff": {
+    "actual_script_sha256": "5a9bb875b9145a7686e949567c4fb1fd57005cebdd2798021ed1c3196937f843",
+    "only_template_delta": "unique SITE hex literal replaced from this actual formal result",
+    "stage_calls_executed": false
+  },
+  "forward_scope": "formal CPU native public512 online/cold comparison; no new GPU forward or real data",
+  "GPU_started": false,
+  "formal_clock_created": false
+}
