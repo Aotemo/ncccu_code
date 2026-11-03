@@ -1,5 +1,7 @@
 # 原生 AdamW 固定 weight decay 对照准备
 
+11-03 02:39后备R199已在R197训练期间完成[正常CPU18/18与精确部署](NORMAL-R199.json)，[guard6_i19uxd](NORMAL-R199-CPU.json) / `69ca7035b70c3002daf8498aa79bb07538871890df4511de6b9cb8b8865da054` exit0。原3必要目标/3编译按SHA复用，完整producer实际通过；345全训/5空AdamW/whole50c6，实际SITE `a1aa771046388485335260bd0fff66f2a5348cef9380ed601b58f5924d5d5cc2`，manifest b859b750、CPU-prep3899d844、deployment af75051d。Git82add93/tree89c2231、SCIcc0e2703、默认12GiB/free16GiB不变；尚无新clock/activation/GPU。只在完整R197决定分支并actualsafe后接续；下文技术包及待normal描述为历史时点。
+
 00:58两[actual technical包](TECHNICAL-PACKAGES.json)已按GitHub实际回读commit `82add932e59e61f8eb3e8a7f0a4b4cfe1dfd454d` / tree `89c22313619ddadd1e24139ef6d3878fa8b871e5`生成。R198 SITEbc0058c4 / [guardsmw0mnep](CPU-TECHNICAL-R198.json)与R199 SITEfd68bf41 / [guardbmquvwro](CPU-TECHNICAL-R199.json)均0；归档dwxebtq8 / `795a7c3344c4f8158c49b87c05704efb69d541669716f9e2aba1ed43a36a9bed` exit0，实核无formal-cpu、gpu-inputs或真实round目录，没有新clock/GPU。旧R195/693及先行R196/R197/436冻结不改。
 
 [CPU汇总](CPU-CHECKS.json) SHA `cfd51c12e8a30d46110abfed7ba1e520a5813120c2c5d4cb58d77818ec5e637a`：3必要目标通过、3份受影响源码编译、两actual public fresh；[最终guard](CPU-FINAL.json)z_kwsql7 / `09ff968abf04e3d7c9066ff5412b225c13fec3ba10d0fdf5fbaf8b1b0068ec3d` exit0。逐次UID/Ready实核、53ab/root0–11、nice19/隐藏GPU，与活跃R195训练24–119互斥；没有新Agent或计算资源。
