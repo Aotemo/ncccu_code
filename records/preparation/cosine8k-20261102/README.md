@@ -1,5 +1,7 @@
 # R194/R195：固定较早余弦衰减
 
+11-03 00:16后备R195实际正常CPU18/18与精确Git部署已在R193训练期间完成，guardysz2jcsg/`047b6346b69305cdb97054f5fb2cea0549f029b0a66359ac1b461e1776deb76a` exit0；source693d48c、SCI57c1d89a、SITE5d5c56ab、whole50c6/345全训/5空Adam、manifestd3eb0094与deployment282452c1。完整check_candidate的新8k边界块本次实际通过；无新clock/activation/GPU，R194仍仅技术包。完整R193及actualsafe决定接续，不改当前2a冻结。原件在`exp-v3/technical-prep/r195-20261102-32e3-ready`，后续真实GPU初态/首成功另列。下文为技术准备历史。
+
 [两实际technical包](TECHNICAL-PACKAGES.json)已按GitHub实际回读的Git `693d48c732871314e163c7d4f95582f7bc0c23a9`/tree `6a0f3392534ccb00aedfc4e1dbf1b2ffa3bbd292`冻结。R194 SITEdc2bcd19、guard je89lpoy/ecf05f9e…b4c4；R195 SITEebaa451e、guard2y79z2zy/5d3e0bdf…dd6d，均exit0。汇总SHA `d76010fc595db218b5b9b06c96544f1d981538be0e2ea930615742bc333f5ba0`；归档5hm0stkc/`d16330c43299d98c9bf5375e4a0d2fb81f96a3e9b763795cf4af7dfc1ad6ef74` exit0。尚未normalformal/新GPU allocation/clock/activation/GPU，只在R193后按完整结果及actualsafe接续。
 
 [实际CPU证据](CPU-CHECKS.json)共6目标/6个受影响源码编译通过：原生五组真实LR的独立公式/边界/重复成功计数；None/省略保留旧曲线、state及RNG；保存job重建后Toy+native AdamW状态往返及后续参数/state exact；新两候选/config/保存job/来源绑定；原R192/R193身份和半骨干LR消费者保持。两个预期RED（未消费日程/未登记配置及候选）原样保留。没有新P8/EMA/cold/WORLD前向，原模型/loss/EMA/DDP/保存/推理源码逐件SHA不变，按作用域复用旧证据。不是新的生产八rank恢复或DCU峰值/吞吐证明。
