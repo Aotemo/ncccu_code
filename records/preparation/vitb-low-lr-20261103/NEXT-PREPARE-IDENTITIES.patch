@@ -1,0 +1,37 @@
+diff --git a/home/hao/Desktop/challenge/work/r137-20261101-a/PREPARE-LARGE-DINO3-NEXT-STORAGE-FIX.py b/home/hao/Desktop/challenge/work/r137-20261101-a/PREPARE-LARGE-DINO3-NEXT-VITB-LOWLR.py
+index d9e02cd..438252a 100644
+--- a/home/hao/Desktop/challenge/work/r137-20261101-a/PREPARE-LARGE-DINO3-NEXT-STORAGE-FIX.py
++++ b/home/hao/Desktop/challenge/work/r137-20261101-a/PREPARE-LARGE-DINO3-NEXT-VITB-LOWLR.py
+@@ -11,7 +11,7 @@ root = Path(sys.argv[1]).resolve(strict=True)
+ commit, tree = sys.argv[2:4]
+ source = Path(sys.argv[4]).resolve(strict=True)
+ science_filename, round_id = sys.argv[5:7]
+-if science_filename not in ('R181-SCIENCE.json', 'R182-SCIENCE.json', 'R183-SCIENCE.json', 'R184-SCIENCE.json', 'R185-SCIENCE.json', 'R186-SCIENCE.json', 'R187-SCIENCE.json', 'R184R1-SCIENCE.json', 'R188-SCIENCE.json', 'R189-SCIENCE.json', 'R190-SCIENCE.json', 'R191-SCIENCE.json', 'R192-SCIENCE.json', 'R193-SCIENCE.json', 'R194-SCIENCE.json', 'R195-SCIENCE.json', 'R196-SCIENCE.json', 'R197-SCIENCE.json', 'R198-SCIENCE.json', 'R199-SCIENCE.json', 'R200-SCIENCE.json', 'R201-SCIENCE.json'):
++if science_filename not in ('R181-SCIENCE.json', 'R182-SCIENCE.json', 'R183-SCIENCE.json', 'R184-SCIENCE.json', 'R185-SCIENCE.json', 'R186-SCIENCE.json', 'R187-SCIENCE.json', 'R184R1-SCIENCE.json', 'R188-SCIENCE.json', 'R189-SCIENCE.json', 'R190-SCIENCE.json', 'R191-SCIENCE.json', 'R192-SCIENCE.json', 'R193-SCIENCE.json', 'R194-SCIENCE.json', 'R195-SCIENCE.json', 'R196-SCIENCE.json', 'R197-SCIENCE.json', 'R198-SCIENCE.json', 'R199-SCIENCE.json', 'R200-SCIENCE.json', 'R201-SCIENCE.json', 'R202-SCIENCE.json', 'R203-SCIENCE.json'):
+     raise ValueError('only the explicitly CPU-checked next branches are prepared')
+ native_next_pair = science_filename in ('R183-SCIENCE.json', 'R184-SCIENCE.json')
+ caformer_next_pair = science_filename in ('R185-SCIENCE.json', 'R186-SCIENCE.json')
+@@ -24,6 +24,7 @@ cosine8k_next_pair = science_filename in ('R194-SCIENCE.json','R195-SCIENCE.json
+ gamma_next_pair = science_filename in ('R196-SCIENCE.json','R197-SCIENCE.json')
+ weight_decay_next_pair = science_filename in ('R198-SCIENCE.json','R199-SCIENCE.json')
+ wide_sigmoid_next_pair = science_filename in ('R200-SCIENCE.json','R201-SCIENCE.json')
++vitb_low_lr_next_pair = science_filename in ('R202-SCIENCE.json','R203-SCIENCE.json')
+ formal = root / 'formal-cpu'
+ work = root.parent.parent
+ science_path = source / 'configs' / science_filename
+@@ -83,6 +84,7 @@ if cosine8k_next_pair: checks_path=source/'records/preparation/cosine8k-20261102
+ if gamma_next_pair: checks_path=source/'records/preparation/gamma-20261102/CPU-CHECKS.json'
+ if weight_decay_next_pair: checks_path=source/'records/preparation/weight-decay-20261103/CPU-CHECKS.json'
+ if wide_sigmoid_next_pair: checks_path=source/'records/preparation/wide-sigmoid-20261103/CPU-CHECKS.json'
++if vitb_low_lr_next_pair: checks_path=source/'records/preparation/vitb-low-lr-20261103/CPU-CHECKS.json'
+ checks = read(checks_path)
+ expected_targets, expected_compiles = (8, 14) if base_cls_prepare_fix else (7, 13) if base_cls_next_pair else (4, 5) if cls_next_pair else (2, 7) if rope_retry_pair else (3, 9) if caformer_next_pair else (4, 11) if native_next_pair else (5, 12)
+ if sigmoid_lr_next_pair: expected_targets,expected_compiles=4,3
+@@ -90,6 +92,7 @@ if cosine8k_next_pair: expected_targets,expected_compiles=6,6
+ if gamma_next_pair: expected_targets,expected_compiles=5,5
+ if weight_decay_next_pair: expected_targets,expected_compiles=3,3
+ if wide_sigmoid_next_pair: expected_targets,expected_compiles=5,4
++if vitb_low_lr_next_pair: expected_targets,expected_compiles=4,3
+ if checks['passed_targets'] != expected_targets or checks['compiled_sources'] != expected_compiles:
+     raise ValueError('affected next-round CPU evidence is incomplete')
+ if sha(science_path) != checks['science_sha256'][science_filename]:

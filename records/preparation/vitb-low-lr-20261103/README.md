@@ -1,6 +1,8 @@
 # 原生 ViT-B 骨干低学习率对照准备
 
-[CPU汇总](CPU-CHECKS.json) SHA `46db60d116225a4e579a96f1fce4278b4ef1a67c0a537ef15af963bce675c397`：4必要目标、3份受影响源码编译、两actual public fresh通过；[最终guard6g4cx0gz](CPU-FINAL.json) / `1cc944acb2a1dd9acbfa2c8d3ff465782b22def60eb38b5ed7336c8c2e1c1eae` exit0。当前仍未Git冻结/技术包/formal/新clock或GPU，不把本准备写成已经启动。现役R199/82与既定R200/R201/8635冻结不改。
+[当前CPU汇总](CPU-CHECKS.json) SHA `8a3e7f62821062d59f2ab80a81b5a33d3cd1cbcf41da750259504dacd730ba65`仍覆盖4必要目标、3份源码编译与两actual public fresh。原3906410/46db60d1的4目标/3编译均实际通过，[guard6g4cx0gz](CPU-FINAL.json)为0；本次短名修正仅重跑并重新编译[一个受影响存储测试](NAME-STORAGE-GREEN.json)，三个候选目标、两份未变编译及两fresh按SHA复用。[修正汇总guarda9gsa_y1](CPU-NAME-FIX-FINAL.json) / `c75a15e4cf5d9ab310fbcb372dd7e87e0e716ed340a77e7a1d86eae48df50d78` exit0。R202已按3906410完成technical包；R203修正尚待新Git冻结及新未启动stage技术打包，无normal/新clock/GPU。现役R199/82与既定R200/R201/8635冻结不改。
+
+R203原[技术失败guardehsrg7o5](CPU-FAILED-TECHNICAL-R203.json) / `25498412e8d8f9ede71a6c6a7b7e9208b70ee586145e8565e09ce312ba08dbe6`保留。[实际生成配置诊断](ROUND-NAME-CAUSE.json)确认run_name为135字符，超原128限制；短round `r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103`生成118字符，原校验器接受。只改存储精确键及fixture名，不改SCI、模型、训练值或校验器，不放宽限制。失败包无formal、GPU allocation、clock或真实round，保持原样；修正使用新未启动prep，不能把原失败当科学阴性。R202原技术包/source390及其46db证据不回写。
 
 [先RED](CHECKS-RED.json)确因新候选尚未登记及R203仍落默认12GiB失败，两组旧候选目标先通过；最小登记/精确新round policy后[四目标GREEN](CHECKS-GREEN.json)。新身份逐项比较R202对R201仅seed、R203对R191仅backbone_lr，公源/结构/9:1/日程/早停/官方门及saved job保持，拒绝错误seed/LR/WD/loss/光度/衰减跨度/pool及来源。原预算函数fixture覆盖R203及旧16GiB、R202及旧默认12GiB、超cap及free15拒绝；所有旧32GiB键值另按policy完整相等核对。只给R203精确新round追加16GiB，与R191相同工程余量；默认12GiB/free16GiB及原runtime预算源码不改。不是实际写17GiB或峰值容量保证。
 

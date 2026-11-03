@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "targets_run": 1,
+  "targets": [
+    "test_round_storage_policy.RoundStoragePolicyTest.test_new_round_limit_and_old_default_keep_free_floor"
+  ],
+  "source_files": {
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
+    "configs/ROUND-STORAGE-POLICY.json": "187a713b63a40135fbdd61b722e39ae0727e2f5fd7917ca0505053bfa3772337",
+    "tests/test_round_storage_policy.py": "76a9d2d51dfb6667d2ee77d683bcb7c223beaef8e9f57d966b701b7da66c8a37"
+  },
+  "compiled_sources": 1,
+  "only_changed_test_recompiled": true,
+  "production_model_or_image_forward": false,
+  "official_read": false
+}

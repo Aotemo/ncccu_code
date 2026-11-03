@@ -1,6 +1,6 @@
 {
   "scope": "R202_R203_fixed_wide_confirmation_and_native_ViTB_lower_backbone_LR_affected_CPU",
-  "at": 1793674632.069561,
+  "at": 1793675117.963126,
   "passed_targets": 4,
   "targets": [
     "test_candidate_binding.CandidateBindingTest.test_R202_R203_wide_confirmation_and_independent_vitb_lower_backbone_LR",
@@ -23,14 +23,14 @@
     "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
     "tests/test_candidate_binding.py": "c535b3800c5baf1fe0acf3c53d77c6097e983916f60b1004d1cdb04540d608a1",
     "tools/validation/check_candidate.py": "eb502c8a04f717e1deaf2b4610e2c292682f3194448fe3227f56e62cefbb2cf8",
-    "configs/ROUND-STORAGE-POLICY.json": "2ffdd0858ce65c2c05073b3c5bd8242efdc336b687b5a8d23b0df8fdc84f6be9",
+    "configs/ROUND-STORAGE-POLICY.json": "187a713b63a40135fbdd61b722e39ae0727e2f5fd7917ca0505053bfa3772337",
     "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123",
     "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
     "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
     "tests/test_pairwise_sigmoid_wide_loss.py": "6e794704b84312f7818584a4b417e1c5e39f55b10d14275f988fa57dfc2b5639",
     "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
     "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
-    "tests/test_round_storage_policy.py": "370c204d220e5b8f7c091687492d32d3a2fa27da06e483ff0553c7ec18b4e779",
+    "tests/test_round_storage_policy.py": "76a9d2d51dfb6667d2ee77d683bcb7c223beaef8e9f57d966b701b7da66c8a37",
     "runtime/bundle/retrain/experiment91.py": "9c36284c0707beebf2eca829ac7eb0dc8aab169f125077c04c46725540114cef",
     "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
     "runtime/bundle/retrain/classification_loss.py": "7fd8c903b6650577a0515e1e9328d5918395c6707d54e404f661336e295b9aa6",
@@ -40,7 +40,7 @@
     "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41"
   },
   "configuration_files": {
-    "configs/ROUND-STORAGE-POLICY.json": "2ffdd0858ce65c2c05073b3c5bd8242efdc336b687b5a8d23b0df8fdc84f6be9"
+    "configs/ROUND-STORAGE-POLICY.json": "187a713b63a40135fbdd61b722e39ae0727e2f5fd7917ca0505053bfa3772337"
   },
   "science_sha256": {
     "R202-SCIENCE.json": "c553710a847697d6bf68ce971e98457c81652a3e2f92c1af3924562cca326f25",
@@ -133,6 +133,27 @@
       "sha256": "c61b7c8dac8f88dd81a84f7de7612126b729ab5134a900b6baf8e828694a36ac",
       "exit_code": 0,
       "output_sha256": "85dc0eb615f2ec492f43fcd643970fc0b3505fbffee91a956ffc0a572bbe3dd4"
+    },
+    {
+      "label": "R203_technical_name_length_failure_preserved",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ehsrg7o5/CPU-RECEIPT.json",
+      "sha256": "25498412e8d8f9ede71a6c6a7b7e9208b70ee586145e8565e09ce312ba08dbe6",
+      "exit_code": 1,
+      "output_sha256": "62962ea2ab9e04c28d9393893b10f4069991b2dd6745ce2e02c58dc9008cc0a9"
+    },
+    {
+      "label": "actual_generated_135_rejected_short_118_accepted",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-977pcq7n/CPU-RECEIPT.json",
+      "sha256": "45f9ae7840998fa178f98923da86849c71239c4fdd3019f753f2d3921ee00722",
+      "exit_code": 0,
+      "output_sha256": "270791336033e58fc257cd3b67530292c84aaa7e894a2c97cd37c10feacf2837"
+    },
+    {
+      "label": "only_changed_storage_target_and_test_compile_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261102-2224-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-bewy9pw6/CPU-RECEIPT.json",
+      "sha256": "b35e19e570afad0a2316fa35510c88592d8de6bd8cd4b2ba76507c7adf3f1507",
+      "exit_code": 0,
+      "output_sha256": "33fd6da61c876a4bdc5b87890ee71307432d439ab7ee9f42085409f4a8bfe3c6"
     }
   ],
   "unchanged_implementation_files": {
@@ -172,7 +193,7 @@
     "wide_math_legacy_and_actual_two_rank_Gloo_reused_without_rerun": true
   },
   "storage_scope": {
-    "only_new_exact_round": "r203-vitb-dinov3-seed20261029-scale085-pairlog-cls-backbonelr1e5-storage16-24k-p4-9010-20261103",
+    "only_new_exact_round": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
     "new_limit_bytes": 17179869184,
     "default_bytes": 12884901888,
     "old_overrides_unchanged": true,
@@ -195,5 +216,46 @@
   "GPU_started": false,
   "formal_clock_created": false,
   "official_read": false,
-  "tests_rerun_in_archive_task": false
+  "tests_rerun_in_archive_task": false,
+  "validation_reuse": {
+    "original_summary": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/PREPARATION-EXPORT/CPU-CHECKS.json",
+      "sha256": "46db60d116225a4e579a96f1fce4278b4ef1a67c0a537ef15af963bce675c397"
+    },
+    "unchanged_three_candidate_targets_reused": true,
+    "only_storage_target_replaced_with_current_source": true,
+    "distinct_current_targets": 4,
+    "compiled_sources": 3,
+    "only_changed_test_recompiled": 1,
+    "two_unchanged_source_compiles_reused": true,
+    "two_actual_public_fresh_reused_without_new_model_load": true,
+    "SCI_model_optimizer_config_engine_bytes_unchanged": true,
+    "current_storage_result": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/NAME-STORAGE-GREEN.json",
+      "sha256": "15738b7ecf8d20ce5a7681c099692c02e73706b38453a9446a1c69e9ab0ed456"
+    }
+  },
+  "round_name_fix": {
+    "at": 1793674945.3041494,
+    "cause": "generated run name exceeds existing 128-character limit",
+    "actual_failed_config": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r203-20261103-32e3-ready/technical-package/package/TRAIN_CONFIG.json",
+      "sha256": "6eeb2dca1603f4e0813b6fb29af79089f1a596fa30a338d13348e2130c6be68f"
+    },
+    "old_generated_run_name": "r203-vitb-dinov3-seed20261029-scale085-pairlog-cls-backbonelr1e5-storage16-24k-p4-9010-20261103-8c-vit_dino3_base-s20261029-b64-p8-fp32",
+    "old_length": 135,
+    "new_round_id": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+    "proposed_generated_run_name": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103-8c-vit_dino3_base-s20261029-b64-p8-fp32",
+    "new_length": 118,
+    "original_validator_error": "Run/job name must contain only letters, digits, underscore or hyphen",
+    "existing_validator_accepts_short_name": true,
+    "config_source_sha256": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "new_round_or_clock_or_model_or_forward": false,
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/vitb-low-lr-20261103-32e3/ROUND-NAME-CAUSE.json",
+    "sha256": "270791336033e58fc257cd3b67530292c84aaa7e894a2c97cd37c10feacf2837",
+    "only_policy_lookup_and_fixture_name_changed": true,
+    "old_failed_package_untouched": true,
+    "new_unstarted_stage_required": true,
+    "new_technical_package_passed": false
+  }
 }

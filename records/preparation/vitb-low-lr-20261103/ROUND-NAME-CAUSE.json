@@ -1,0 +1,17 @@
+{
+  "at": 1793674945.3041494,
+  "cause": "generated run name exceeds existing 128-character limit",
+  "actual_failed_config": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r203-20261103-32e3-ready/technical-package/package/TRAIN_CONFIG.json",
+    "sha256": "6eeb2dca1603f4e0813b6fb29af79089f1a596fa30a338d13348e2130c6be68f"
+  },
+  "old_generated_run_name": "r203-vitb-dinov3-seed20261029-scale085-pairlog-cls-backbonelr1e5-storage16-24k-p4-9010-20261103-8c-vit_dino3_base-s20261029-b64-p8-fp32",
+  "old_length": 135,
+  "new_round_id": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+  "proposed_generated_run_name": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103-8c-vit_dino3_base-s20261029-b64-p8-fp32",
+  "new_length": 118,
+  "original_validator_error": "Run/job name must contain only letters, digits, underscore or hyphen",
+  "existing_validator_accepts_short_name": true,
+  "config_source_sha256": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+  "new_round_or_clock_or_model_or_forward": false
+}

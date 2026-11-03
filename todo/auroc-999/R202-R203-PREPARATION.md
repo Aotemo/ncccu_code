@@ -1,6 +1,6 @@
 # R201 后续公开 ViT-B 骨干低学习率对照
 
-11-03 02:57已完成[4必要目标/3编译与两actual public fresh](../../records/preparation/vitb-low-lr-20261103/README.md)，尚未Git冻结/技术包/formal/新clock/GPU。32e3唯一Git/GPU、53ab准备0–11与训练24–119互斥；不恢复/派生Agent，不新申请资源或例行审批。现役R199/82add93及既定R200/R201/8635b53冻结不改，不因本准备阻塞接续。
+11-03 03:05已完成[4必要目标/3编译与两actual public fresh](../../records/preparation/vitb-low-lr-20261103/README.md)。R202按3906410已technical；R203首次技术包暴露run_name135>128，原失败保留，无formal/clock/GPU。只缩短未启动round名为118字符并同步其精确存储键；仅重跑/重编译一个受影响存储测试，三个候选目标与两fresh按相同SHA复用，尚待修正Git冻结和新stage技术包。32e3唯一Git/GPU、53ab准备0–11与训练24–119互斥；不恢复/派生Agent，不新申请资源或例行审批。现役R199/82add93及既定R200/R201/8635b53冻结不改，不因本准备阻塞接续。
 
 备选继续改变Small目标、增加新公开架构、或为已跑过的原生ViT-B只降低骨干LR。前两项已有固定队列/更多改动，本次选第三项：R191原Base-CLS完整AUROC `.9666919930498946`，其原backbone LR1e-4不证明对该表示合适，也不证明特征漂移是失败机制。发布者[Model Card](https://github.com/facebookresearch/dinov3/blob/main/MODEL_CARD.md)强调冻结特征的迁移用途，建议谨慎微调；它没有给本任务LR1e-5的证据。本实验仍全训，仅固定十倍较低骨干LR，是自己的低扰动假设，不是冻结特征/作者微调配方复现，不扫描LR，不声称临床原因或收益。
 
