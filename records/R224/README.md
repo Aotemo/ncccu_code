@@ -13,3 +13,5 @@ owner790052/start375759290与八rank出生身份、实际设备证明已核。�
 前轮17:55:17结束至新dispatch1692.424秒、首SSL成功1796.130秒、自然25记录1805.525秒，超过300秒。[真实间隙](R224-HANDOFF-GAP.json)记录新模型必要验证、源传输及可避免的归档/传输错误；不能称为连续DCU利用率。第一次传输遗漏stdin，launcher和dispatch均未出现；修正`kubectl exec -i`后仅调用一次实际launcher，使用新的launch-only Pod快照，保留原激活时钟。一次导出脚本未显式传入active env而在读取身份前失败，改为读取该ready下已验的SITE后成功；不改训练或重跑模型检查。
 
 原SSL-RESULT的sampler_seed字段误登记version域的17388822420789876297；冻结源码实际消费recipe中R115 sampling域的14997478083172343433，与原配方首视图/采样控制相符。保留[原SSL结果](R224-SSL-RESULT.json)及明确erratum，不能用错误字段重放；原数据流和冻结包未变。后续源码统一seed消费与记录，必要采样/RGB回归已验证。上一轮8权重已[按清单清理](../storage/closed-r221r2-20261103/README.md)，R224和数据/缓存/三KEEP保护，后备[局部梯度目标](../preparation/hog-reconstruction-20261103/README.md)仅CPU准备，不并发GPU。
+
+完整结果前已[核实并封存比较输入](R224-COMPARISON-SETUP.json)：R107/R120/R115和同seed27的R108/R121五轮完成的原selected CSV、freeze、precision及TRAIN均匹配原5140 dev/167正例，原固定20组不变（guard7f90454a）。R224最终对照R107/R120/R115；条件R225对照R108/R121，R226还对照完整R224。固定2000次、seed20261103配对图像bootstrap仅用于描述条件区间，不包含跨seed/选择偏差或患者级保证。没有读取运行中R224选点、模型权重或官方图像，没有新forward。原结果归档助手已按实际源码校对component路径为`control/train-component-terminal.json`，v2检查guardfc3ffeb3；这只证明归档输入准备，完整结果仍待终态后实际执行。
