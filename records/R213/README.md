@@ -1,5 +1,7 @@
 # R213：原生作者 EfficientNetV2-RW-S
 
+12:28已完成[预封存256图fit子集](../analysis/20261103-r213-fit-subset/README.md)、[固定20组](../analysis/20261102-persistent-errors/R213-FIXED20-SUMMARY.json)及[真实9权重删除/保护终核](../storage/closed-r213-20261103/README.md)。子集AUROC .9971923828125仅是部分fit证据，未认定过拟合原因；完整dev及所有原指标不改。所选权重已删、预测与小回执保留，下文“暂保护至诊断完成”是此前时点记录。
+
 已[完整结束](R213-RESULT.json)：8000 success=attempt、10次内部dev、连续4轮无提升、零跳过；唯一EMA c6@4800内部AUROC`.9830353369271913`、AP`.7949732693925452`、error_twice28178。严格R107/R120双门false，R214不eligible，官方按阈值未跑；raw .999未达。tensor2d3e2466/blobdc3ca40d/CSV4c7c3ea4/precision28227e91；原freeze.status=null保持。[唯一actualsafe](R213-COMPLETION.json)/guardg3i17om6/73fa8618已证owner inactive、8rank退出及设备无人占用，旧safe不重查；[归档](R213-CPU-COMPLETION-ARCHIVE.json)emqd9wmz/2431f7380。后续[R215](../R215/README.md)真实首成功已证，本轮所选暂保护至已选模型fit侧诊断与结果归档完成。以下为原启动证据。
 
 11:04历史快照3875/0skip/eval4/bad0，暂best EMA c4@3200内部`.9830160712157026`。[真实初态与首25](R213-START.json)已证459参数张量全训、五组/各rank空state、whole cb874611/params f46b7d1d/buffers eb77f82b与CPU一致，112公开BN保持eval、336buffer固定。首25 loss`.6861116290092468`有限，WORLD8/G64P8/448pairs、各rank8primary/8view符合原合同。generic非Lion optimizer身份字段不等于独立实测每rank逐组AdamW kwargs。
