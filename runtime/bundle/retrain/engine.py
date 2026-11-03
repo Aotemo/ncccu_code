@@ -273,6 +273,10 @@ def _optimizer(model, job):
             group.update(param_names=[names[id(p)] for p in group['params']],
                          param_shapes=[list(p.shape) for p in group['params']])
         optimizer=Lion(groups)
+    elif job.get('nadam_policy') is not None:
+        from .config import NADAM_RULE
+        if job['nadam_policy']!=NADAM_RULE:raise ValueError('fixed native decoupled NAdam policy differs')
+        optimizer=torch.optim.NAdam(groups,decoupled_weight_decay=True)
     elif job.get('adamw_amsgrad_policy') is not None:
         from .config import ADAMW_AMSGRAD_RULE
         if job['adamw_amsgrad_policy']!=ADAMW_AMSGRAD_RULE:raise ValueError('fixed native AdamW AMSGrad policy differs')

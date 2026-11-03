@@ -283,6 +283,17 @@ def main(args):
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         final_norm.eps = ex.candidate()['final_norm_eps']
     optimizer = _optimizer(model, job)
+    if job.get('nadam_policy') is not None:
+        from retrain.config import NADAM_RULE
+        check('native_NAdam_all_existing_groups_decoupled',
+              job['nadam_policy']==NADAM_RULE
+              and type(optimizer)is torch.optim.NAdam and len(optimizer.param_groups)==5 and not optimizer.state
+              and all(g['decoupled_weight_decay']is True and g['betas']==(.9,.999)
+                  and g['eps']==1e-8 and g['momentum_decay']==.004 and g['foreach']is None
+                  and not g['maximize'] and not g['capturable'] and not g['differentiable']for g in optimizer.param_groups),
+              {'class':type(optimizer).__name__,'groups':[{'role':g['role'],
+                  'decoupled_weight_decay':g['decoupled_weight_decay'],'betas':list(g['betas']),
+                  'eps':g['eps'],'momentum_decay':g['momentum_decay'],'foreach':g['foreach']}for g in optimizer.param_groups]})
     if job.get('adamw_amsgrad_policy') is not None:
         from retrain.config import ADAMW_AMSGRAD_RULE
         check('native_AdamW_all_existing_groups_AMSGrad',

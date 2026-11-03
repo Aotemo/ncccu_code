@@ -1,0 +1,225 @@
+{
+  "R210": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/fresh/R210-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "60ffb6b70ed0b4a6d542dbca502715c81f601b258becb3507e7638fc47c8c902",
+    "model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "optimizer_class": "AdamW",
+    "optimizer_groups": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0,
+        "eps": 1e-08,
+        "foreach": null,
+        "amsgrad": true,
+        "fused": null,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001,
+        "eps": 1e-08,
+        "foreach": null,
+        "amsgrad": true,
+        "fused": null,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0,
+        "eps": 1e-08,
+        "foreach": null,
+        "amsgrad": true,
+        "fused": null,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "eps": 1e-08,
+        "foreach": null,
+        "amsgrad": true,
+        "fused": null,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "eps": 1e-08,
+        "foreach": null,
+        "amsgrad": true,
+        "fused": null,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      }
+    ],
+    "optimizer_state_entries": 0,
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "tensor_storage_scenario": {
+      "FP32_parameter_bytes": 197821836,
+      "additional_AMSGrad_bytes": 197821836,
+      "successful_checkpoint_main_float_bytes": 989109180,
+      "initial_two_copy_float_bytes": 395643672,
+      "9C_plus_I_float_bytes": 9297626292,
+      "9C_plus_I_plus_atomic_C_float_bytes": 10286735472,
+      "scope": "raw float tensor scenario only; excludes step/mu_product/RNG/metadata/serialization/workspace/other concurrent writes; not a peak bound"
+    }
+  },
+  "R211": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/nadam-20261103-32e3/fresh/R211-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "112d3f16bf72ea75600940e95cbf537d15ed654c28de46660a6443fe7d9c0e60",
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "parameter_elements": 49455459,
+    "optimizer_class": "NAdam",
+    "optimizer_groups": [
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0,
+        "eps": 1e-08,
+        "foreach": null,
+        "momentum_decay": 0.004,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "backbone",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.0001,
+        "weight_decay": 0.0001,
+        "eps": 1e-08,
+        "foreach": null,
+        "momentum_decay": 0.004,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0,
+        "eps": 1e-08,
+        "foreach": null,
+        "momentum_decay": 0.004,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "head",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "eps": 1e-08,
+        "foreach": null,
+        "momentum_decay": 0.004,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      },
+      {
+        "role": "age",
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "eps": 1e-08,
+        "foreach": null,
+        "momentum_decay": 0.004,
+        "decoupled_weight_decay": true,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false
+      }
+    ],
+    "optimizer_state_entries": 0,
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "tensor_storage_scenario": {
+      "FP32_parameter_bytes": 197821836,
+      "additional_AMSGrad_bytes": 0,
+      "successful_checkpoint_main_float_bytes": 791287344,
+      "initial_two_copy_float_bytes": 395643672,
+      "9C_plus_I_float_bytes": 7517229768,
+      "9C_plus_I_plus_atomic_C_float_bytes": 8308517112,
+      "scope": "raw float tensor scenario only; excludes step/mu_product/RNG/metadata/serialization/workspace/other concurrent writes; not a peak bound"
+    }
+  }
+}

@@ -21,6 +21,54 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R210_R211_AMSGrad_confirmation_and_independent_native_NAdam(self):
+        from retrain import age,config
+        policy='nadam-decoupled-native-v1'
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in(('R210','R209',123,20261027),('R211','R107',124,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            self.assertIn(science['candidate_profile'],experiment.SUPPORTED_BINDINGS)
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed']),(order,seed))
+            for key in('public_source','public_asset_receipt','structure','paths','schedule','early_stopping','data_split'):
+                self.assertEqual(science[key],baseline[key])
+            self.assertEqual(science['official_evaluation'],json.loads((ROOT/'configs/R120-SCIENCE.json').read_text())['official_evaluation'])
+            expected=copy.deepcopy(baseline['job']);candidate=copy.deepcopy(baseline['candidate'])
+            if label=='R210':expected['seed']=seed
+            else:expected['nadam_policy']=candidate['nadam_policy']=policy
+            self.assertEqual(science['job'],expected)
+            candidate.update(id=science['candidate']['id'],experiment_order=order)
+            self.assertEqual(science['candidate'],candidate)
+            self.assertEqual(science['initial_model_tensor_sha256'],json.loads((ROOT/'configs'/
+                ('R208-SCIENCE.json'if label=='R210'else'R107-SCIENCE.json')).read_text())['initial_model_tensor_sha256'])
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                initialization={'kind':'imagenet','format':science['public_source']['format'],
+                    'sha256':science['public_source']['sha256'],'path':site['public_weight'],'provenance':site['public_provenance']}
+                value=copy.deepcopy(science['job']);value.update(age=experiment.resolved_age_spec(),experiment91=binding,initialization=initialization)
+                cfg=self.configuration.parent/(label+'-load.json')
+                cfg.write_text(json.dumps({'jobs':[value],'data':{'split':science['data_split']},
+                    'execution':{'devices':['cuda:'+str(i)for i in range(8)],'evaluation_physical_batch':32}}))
+                resolved=config.load_config(cfg,environ={})['jobs'][0]
+                self.assertEqual(experiment.validate_job(resolved),resolved)
+                self.assertEqual(config.job_contract(resolved).get('nadam_policy'),policy if label=='R211'else None)
+                for key,wrong_value in(('seed',20261029 if seed==20261027 else 20261027),('backbone_lr',1e-5),
+                        ('weight_decay',.05),('adamw_beta2_policy',config.ADAMW_BETA2_RULE),
+                        ('nadam_policy',None if label=='R211'else policy),
+                        ('adamw_amsgrad_policy',None if label=='R210'else config.ADAMW_AMSGRAD_RULE),
+                        ('loss',experiment.PAIR_SQUARED_HINGE_LOSS)):
+                    wrong=copy.deepcopy(resolved);wrong[key]=wrong_value
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                wrong=copy.deepcopy(science);wrong['public_source']['revision']='0'*40
+                with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
     def test_R208_R209_hinge_confirmation_and_independent_native_AMSGrad(self):
         from retrain import age,config
         policy='adamw-amsgrad-v1'

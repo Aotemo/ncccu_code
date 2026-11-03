@@ -1,0 +1,13 @@
+# R210/R211：原生解耦 NAdam CPU 证据
+
+[最终汇总](CPU-CHECKS.json) SHA `d071a1667acd906e786842323c5105c57ea8f617d66c03389f3eeaee47752f0b`：8个受影响目标、6源码编译、两actual public fresh通过。[最终guard6topkwuq](CPU-FINAL-GUARD.json) / `bc9ddfc3bc150d59954a9eeb486538e9c7573a1015c38ddcdd9554049c1358fc` exit0；未重复测试或模型。ec5/root0–11/nice19/隐藏GPU与R209训练24–119互斥。当前R209/d6冻结保持，08:27实观2550/0skip/eval3/bad0、八rank活跃，暂best EMA c3@2400内部`.9860781152354451`；不是完整selected。尚待Git/两technical包，无新normal/clock/GPU。
+
+[新优化器两目标](MATH-GREEN.json) d9ff3bf6 exit0、1.559秒：真实原生NAdam五组、decoupled=True、原组成员/LR/initial_lr/WD/age，betas(.9,.999)/eps1e-8/momentum_decay.004/foreach=None；初始state空且构造无RNG采样。独立FP64公式三步核mu累乘、m/v与参数更新，首步零数据梯度保持m/v严格0，能识别耦合衰减。Toy原生torch.save/load后第4步参数及step/mu_product/exp_avg/exp_avg_sq exact，不称生产CheckpointStore/八rank恢复。None/省略的配置与保存job身份兼容，非法policy及AMSGrad/beta095/Lion/平方hinge叠加拒绝。[旧AMSGrad两目标](LEGACY-AMSGRAD.json) `_v1hkwfz` / 73a9717c与[旧beta095/默认两目标](LEGACY-BETA.json) tzo1_ghv / c0c21000均0；原生旧默认数值保持。
+
+[候选两目标](BINDING-GREEN.json) 4r11whhl / 97d44470 exit0、10.398秒，覆盖新R210/R211及旧R208/R209身份、公开来源、结构、原9:1、日程/早停及保存job；错误策略/来源/叠加拒绝。R210仅完整有效R209严格胜R107与R120且actualsafe后同AMSGrad独立seed27，否则不eligible。R211直接R107 Small/fe6/public fresh/seed29/512/FP32/ImageNet/G64P8/原logistic，仅原生`torch.optim.NAdam(groups,decoupled_weight_decay=True)`；新policy进入SCI/candidate/load_config/job_contract/validate_job与正式消费者。原R107缺少当前显式官方门，本轮沿R120内部>=.996才完整官方一次，历史不改。
+
+[两actual public fresh](PUBLIC-FRESH-SUMMARY.json) d3fpqhaz / 9e04ac88 exit0：R210 whole91507a65、SCIc547db1a、原生AMSGrad；R211 whole50c6、SCI1ef87681、原生NAdam。各345全训/49,455,459参数/无buffer/5空组；0图像forward、无训练checkpoint或官方读取。R211五组实际decoupled=True及原LR/WD/age。主要浮点情景9C+两份参数initial+一个原子C为8,308,517,112字节，R210为10,286,735,472，均小于默认12GiB；排除step/mu_product/RNG/metadata/序列化/workspace/其他并发写，不是峰值或容量保证。旧存储例外/free16GiB保持。
+
+去掉新增4行NAdam构造分支后原_optimizer逐字符相同；model/loss/WORLD/DDP/EMA/age/precision/fresh/保存推理及入口按不变SHA复用。[六源码compile](CPU-COMPILE.json) o4l4ujv1 / 06a0ded2 exit0。既有prepare私有helper仅四处身份/证据增补，SHA `718f19e3811111e52915c6094ebe217181175fe276f6a5b08ee98871a2ab96d3`；逆移除后与bc141803逐字符相同，原storage及执行流程保持，[helper guard](CPU-TRANSPORT-HELPER.json) x30l0ldl / 81ed2b18 exit0且compile通过。
+
+保留实际RED：[MATH-RED](MATH-RED.json) htekj0l2因原返回AdamW及None身份未省略，两预期FAIL；[BINDING-RED](BINDING-RED.json) v_4r5t1z因新profile未登记。初次source archive尚未完成时上传测试遇目标目录不存在；等待源传输exit0后重传成功，未执行测试或GPU，未覆盖失败记录。原件在`exp-v3/technical-prep/nadam-20261103-32e3`。[固定设计](../../../todo/auroc-999/R210-R211-PREPARATION.md)依据PyTorch2.10原生NAdam；CPU证据不证明DCU吞吐、临床机制或AUROC收益，不扫beta/momentum/LR/WD/seed。
