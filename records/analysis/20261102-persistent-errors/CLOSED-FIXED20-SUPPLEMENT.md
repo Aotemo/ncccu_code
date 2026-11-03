@@ -11,6 +11,7 @@
 | R189 EMA c5@4000 | .977164111350996 | 11492 | 7473 | 18965 |
 | R191 EMA c9@7200 | .9666919930498946 | 15920 | 11742 | 27662 |
 | R193 EMA c4@3200 | .9838854364466322 | 9297 | 4086 | 13383 |
+| R195 EMA c4@3200 | .9861756478998568 | 8336 | 3145 | 11481 |
 
 单位是错序对质量，同分半计，不是错图数。新三轮固定20组占各轮总错误的63.39%/61.97%/60.60%；占比下降不表示已改善，其绝对错序量和其余147组均高于R107。R189相对同Small DINOv3 meanpatch的R184R1，固定20组多783、其余多902，合计多1685，描述与完整AUROC方向一致。不能从这些数值推临床结构、错标或优化机制，也不以局部组替代完整AUROC。
 
@@ -25,3 +26,7 @@ R191结束后独立补充的[原件汇总](R191-FIXED20-SUMMARY.json)SHA `4b05d4
 R193完整收口后单独[复算汇总](R193-FIXED20-SUMMARY.json)SHA `615ce9a3eb645211e0fe24edc26eb6e51e387782df141c47389e13953e13f712`，仍由原四anchor定义同一20组，不读此前各轮CSV。仅新R193 selected CSV/precision各一次，原已提交a5a8505 SHA、manifest/行序/标签、EMA3200/tensor均匹配；AUROC/AP/error_twice及两类贡献守恒一致。固定20组较R107多2674，其余147组多1109，合计多3783；较R120分别多3468/1176、合计多4644。固定组占69.47%，两组绝对错序均未改善；这不是错误图片数或学习率/临床机制证明。
 
 该次[CPU回执](CPU-R193-FIXED20.json)xji4j8py/`ef646ba5169a0fb40931571e2c6b2b158876dbe4dacaed385a94349c55c2e946` exit0，53ab/root0–11/nice19/隐藏GPU，与当前R195训练池互斥；原件`exp-v3/technical-prep/r193-fixed20-20261103-32e3`。0图片/模型/checkpoint/forward/官方，私有CSV快照已退出清除，原标签与当前693/后续436固定合同不改。
+
+R195完整收口后[同组补充](R195-FIXED20-SUMMARY.json)SHA `8812540d91d152d27a8ca12e9cad34ae1bed5fc19a3d6711cd0df421e8a39113`仍用原四anchor，未按R195重分组。新selected CSV/precision各读一次，已同步b2aa1bd的来源SHA、manifest/5140行序标签、EMA3200/tensor均一致，原函数复算AUROC/AP/error_twice及两类贡献守恒。固定20组8336、其余147组3145、总11481；比R107分别多1713/168、总多1881，固定组占72.61%，两组也均高于R120。较早衰减没有解决封存难组或完整AUROC；这些是错序对质量，不是错图数或临床/优化机制证据。
+
+[CPU回执](R195-FIXED20-CPU.json)usmtd727 / `a6a5252583c67d68f04e8ae1d146b5cfa285f600e432b5f8a166a0b4a41ce1d4` exit0，当前53ab/root0–11/nice19/隐藏GPU，与R197训练池互斥。私有原件`exp-v3/technical-prep/r195-fixed20-20261103-32e3`；无旧14CSV重读、图像/模型/checkpoint/新forward/官方，临时CSV快照已退出清除，原标签及现436/后续82add93冻结保持。
