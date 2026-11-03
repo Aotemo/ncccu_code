@@ -1,0 +1,61 @@
+{
+  "scope": "sealed_original_fixed20_descriptive_supplement_for_complete_R199",
+  "at": 1793679844.9774418,
+  "anchors": [
+    "R107",
+    "R108",
+    "R120",
+    "R134R1"
+  ],
+  "new_runs_used_to_define_group": false,
+  "private_selection_sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b",
+  "diagnostic_sha256": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+  "fixed20_index_digest": {
+    "1": "50cd354e1e6b8e6b53a7bd5b414b33152b25ce16a5cd78c2fcd957b33bbb3b5c",
+    "0": "008c591ab1f741887daf711a51ba619b49cd7b5d20d23c3c70503b8a807c1cb3"
+  },
+  "models": {
+    "R199": {
+      "selected": {
+        "auroc": 0.9858601718742286,
+        "ap": 0.8194274652755267,
+        "variant": "ema",
+        "cycle": 9,
+        "successful_updates": 7200,
+        "error_twice": 23486
+      },
+      "recomputed": {
+        "error_twice": 23486,
+        "ap": 0.8194274652755267,
+        "auroc": 0.9858601718742286
+      },
+      "prediction_sha256": "d6512bbb3c673d0f32cd7bc00ef0289cbfedcaa28b4ceaa4b034f066161c4e4a",
+      "precision_sha256": "30828eaacf7670e1763ecee0d8f01c5bf827b962b6bbadf845096ecc89a88ed8",
+      "fixed20_positive_wrong_pair_mass": 8101.0,
+      "remaining147_positive_wrong_pair_mass": 3642.0,
+      "fixed20_positive_error_fraction": 0.6898577876181555,
+      "fixed20_negative_wrong_pair_mass": 1485.0,
+      "positive_mass_delta_from_R107": {
+        "fixed20": 1478.0,
+        "remaining147": 665.0,
+        "total": 2143.0
+      }
+    }
+  },
+  "counts": {
+    "total": 5140,
+    "positive": 167,
+    "negative": 4973,
+    "fixed_positive": 20,
+    "remaining_positive": 147
+  },
+  "units": "misordered pair mass; ties count half; not number of erroneous images",
+  "labels_source": "user: 1=glaucoma, determined only from fundus photographs; 0 is task-negative",
+  "original_CSV_and_precision_reads_per_new_run": 1,
+  "old14_CSVs_reread": false,
+  "model_or_checkpoint_or_image_loaded": false,
+  "new_forward": false,
+  "official_read": false,
+  "labels_or_science_or_live_runtime_changed": false,
+  "limitations": "descriptive presealed subgroup; cannot replace complete AUROC or establish a clinical/optimization mechanism"
+}
