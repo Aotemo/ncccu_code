@@ -1,0 +1,32 @@
+{
+  "status": "actual_pushed_source_and_two_unstarted_stage_arguments_bound",
+  "at": 1793685839.8374257,
+  "git_commit": "d6fe92f01a174120543e1e82b2006018f7ad5e2c",
+  "tree_sha": "dc88747957ffad51d6fb4c0f44acf35976e87e60",
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/source-git",
+  "source_CPU_checks_sha256": "862ad766e5f0aa536a70bbead4c7a6049934dbbd93acacbeb2cebb981483184d",
+  "helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/amsgrad-20261103-32e3/PREPARE-LARGE-DINO3-NEXT-AMSGRAD.py",
+    "sha256": "bc14180349f1b808a9f042268596f7a44683d079414e3179fb6bbb3e5fde718d",
+    "old_8985_unchanged": true,
+    "only_four_identity_evidence_additions": true,
+    "existing_storage_policy_section_exact": true,
+    "compiled_by_prior_guard": true
+  },
+  "remote_commit_sha256": "944712d77b1664b8bf01cd10e2c6d96ce171ece1d6aeaca830908d5bb9d3308f",
+  "remote_tree_sha256": "d49c2ada5d8012598d2a333ce31b387319fe359e43fa7b8c347c10908a16aa8b",
+  "packages": [
+    {
+      "label": "R208",
+      "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r208-20261103-32e3-ready",
+      "science_sha256": "e4c99791df4441e0cbe09fca65628b20a00c30317c18d5a6c1ff81541faf9288"
+    },
+    {
+      "label": "R209",
+      "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r209-20261103-32e3-ready",
+      "science_sha256": "86272648c18e596c702eb46c131fc55c893897f89df7cf8f1b4cfb538cebf7d9"
+    }
+  ],
+  "GPU_started": false,
+  "formal_clock_created": false
+}

@@ -44,10 +44,11 @@ Files：`configs/R208-SCIENCE.json`、`configs/R209-SCIENCE.json`、`runtime/bun
 
 ## Task 3：同步与原链接续
 
-- [ ] 精简真实回执入records，Git push/实际commit-tree回读后原入口两technical包，normal在前轮可行收尾前完成。
+- [x] 精简真实回执入records，Gitd6fe92f实际push/commit-tree回读后原入口两technical包，实际run_name100/97、默认12GiB，两个guard和归档均0。normal尚待前轮可行收尾完成，无clock/GPU。
 - [ ] 完整双门及actualsafe决定唯一分支，一次activation/direct launch，以真实八rank初态/自然首25证明GPU能跑；不重复官方/旧safe。
 
 ## Ledger
 
 - 05:52 UTC仅封存设计，尚未实现/验证/新SCI或训练。当前R203最近4600/0skip/eval5/bad0，暂EMA `.9812761366468752`，八rank活跃；R204/R205和R206/R207均已各自冻结技术准备，不因本假设延后接续。
 - 06:02 UTC必要CPU准备已完成，6目标/6compile/两actual public fresh与final guard均0，源/SHA/原始OUTPUT已核；原件见[records](../../records/preparation/amsgrad-20261103/README.md)。私有原prepare只四处身份/证据增补，bc141803/guardhzbnpv8x0，原8985及storage消费段保持。尚待Git实际同步/回读和两technical包，无normal/clock/GPU。当前R203最近6075/0skip/eval7/bad1，暂EMA `.9816433892721294`，原573与先行7ead/78不改。
+- 06:07 UTC两个technical包及归档实际完成，6源/两SCI/证据保持，归档swxjqf69/8cac0996 exit0；无normal/clock/GPU。R203最近6800/0skip/eval8/bad2、八rank活跃，原573不改；接下来优先R203完整收尾及7ead既定分支接续，不让本准备成为等待门。

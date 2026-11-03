@@ -1,5 +1,7 @@
 # R208/R209：原生 AMSGrad CPU 证据
 
+06:06按GitHub实际回读commit `d6fe92f01a174120543e1e82b2006018f7ad5e2c` / tree `dc88747957ffad51d6fb4c0f44acf35976e87e60`完成[两technical包](TECHNICAL-PACKAGES.json)。真实源/SCI与6目标6compile/两fresh证据逐项一致；R208 SITE92a6c608/run_name100，R209 SITE0f8abdda/run_name97，均默认12GiB。[R208 guard9di3l5pf](CPU-TECHNICAL-R208.json)及[R209 guardlw1j_518](CPU-TECHNICAL-R209.json)均exit0；[归档guardswxjqf69](CPU-TECHNICAL-ARCHIVE.json) / `8cac0996a6da41e98fcf64857aee17d845efc4775e603db98fd7f956d3ab5474` exit0，汇总SHA c092c2e2。无formal-cpu/gpu-inputs/真实round，无新allocation/clock/GPU。当前R203及先行7ead/78冻结不改，下文待Git/technical为此前CPU完成时点。
+
 [最终CPU汇总](CPU-CHECKS.json) SHA `862ad766e5f0aa536a70bbead4c7a6049934dbbd93acacbeb2cebb981483184d`：6个必要目标、6份源码编译、两actual public fresh通过；[最终guards8jhvna9](CPU-FINAL-GUARD.json) / `fb7f5ebfa8fbe0b83e156cde232866c558f43accc332699205cb477d25d4e9c5` exit0。ec5/root0–11/nice19/隐藏GPU，与当前R203训练24–119互斥。尚待Git冻结/实际回读与两technical包，无新normal、clock或GPU。
 
 [新优化器两目标](MATH-GREEN.json) guardxvs5o8k0 exit0，1.573秒：真实原生AdamW五组全amsgrad=True、原LR/WD/age/默认beta(.9,.999)/eps1e-8/foreach与fused=None，初始state空、无RNG采样。三步独立FP64 oracle核参数/m/v/raw vmax/step；首大梯度后小/零梯度令vmax严格大于当前v，能区分普通AdamW，也明确先raw max再bias correction。Toy原生torch.save/load后第4步参数与全部4种state逐项exact；不冒充生产CheckpointStore或八rank断点恢复实测。None/省略的原生默认三步、RNG、配置load和保存身份保持，非法policy及beta095/Lion叠加拒绝。
