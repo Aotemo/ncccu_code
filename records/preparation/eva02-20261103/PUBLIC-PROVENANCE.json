@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "model": "eva02_base_patch14_448.mim_in22k_ft_in22k_in1k",
+  "format": "timm-eva02-base-native448-full1000-pad512-state-dict-v1",
+  "revision": "81063ecfe9c381a16a19d06f396d6c7011aa426a",
+  "source_url": "https://huggingface.co/timm/eva02_base_patch14_448.mim_in22k_ft_in22k_in1k/resolve/81063ecfe9c381a16a19d06f396d6c7011aa426a/pytorch_model.bin",
+  "training_data": "ImageNet-22K masked-image pretraining -> ImageNet-22K -> ImageNet-1K fine-tuning",
+  "sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+  "original_sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+  "native_library": {
+    "version": "1.0.27",
+    "source_sha256": {
+      "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+      "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa",
+      "layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+      "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914"
+    }
+  },
+  "redistribution_confirmed": true,
+  "license_file": "original/LICENSE-MIT",
+  "license_sha256": "80c5e100f36b0dc7dd87341705dc8a310fc7c2dcae2bff6831055bf205ee4d2e",
+  "declared_license": "MIT",
+  "public_tensor_count": 236,
+  "source_configuration": {
+    "architecture": "eva02_base_patch14_448",
+    "num_classes": 1000,
+    "num_features": 768,
+    "global_pool": "avg",
+    "pretrained_cfg": {
+      "tag": "mim_in22k_ft_in22k_in1k",
+      "custom_load": false,
+      "input_size": [
+        3,
+        448,
+        448
+      ],
+      "fixed_input_size": true,
+      "interpolation": "bicubic",
+      "crop_pct": 1.0,
+      "crop_mode": "squash",
+      "mean": [
+        0.48145466,
+        0.4578275,
+        0.40821073
+      ],
+      "std": [
+        0.26862954,
+        0.26130258,
+        0.27577711
+      ],
+      "num_classes": 1000,
+      "pool_size": null,
+      "first_conv": "patch_embed.proj",
+      "classifier": "head",
+      "license": "mit"
+    }
+  },
+  "strict_record": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/PUBLIC-SOURCE-STRICT.json",
+    "sha256": "2a4cc9f358f697a35451c022d6abaaa79fbdf50cc978f48f938fcc9bf9dc619f"
+  },
+  "fixed_files": {
+    "FIXED-REGISTRY.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/FIXED-REGISTRY.json",
+      "sha256": "44e2cc45a00c85cc36a0ee6d3c48bea6569f01b11e51ecce67702dabf5e3304c"
+    },
+    "config.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/config.json",
+      "sha256": "d62e73f578eb363032000b6bfcc57764c6a5d10ee2562cbfe3f105d795e1c4be"
+    },
+    "README.md": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/README.md",
+      "sha256": "b347298844860ff288638f1d7c0baece71d9fe1cd796eefbfbf3f0780175ba07"
+    }
+  },
+  "library_scope": "four named implementation files, not all transitive timm files",
+  "source_producer_sha256": "5804bcb0a9b5870edd7159aaddf2468697e6dba65ad69c38319f2763aaeb3c4e"
+}

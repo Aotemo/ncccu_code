@@ -303,6 +303,9 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
 
 
 def validate_initialization(initialization):
+    if initialization.get('format') == 'timm-eva02-base-native448-full1000-pad512-state-dict-v1':
+        from .eva02_model import validate_initialization as validate_eva02
+        return validate_eva02(initialization)
     if initialization.get('format') == 'timm-siglip2-vitb16-native512-image-encoder-state-dict-v1':
         from .siglip2_model import validate_initialization as validate_siglip2
         return validate_siglip2(initialization)
@@ -876,6 +879,9 @@ def describe_quadrant_mil(model, job):
 
 
 def create_model(job, initialize=True):
+    if job['model'] == 'eva02_base':
+        from .eva02_model import create_model as create_eva02
+        return create_eva02(job, initialize=initialize)
     if job['model'] == 'siglip2_vitb16':
         from .siglip2_model import create_model as create_siglip2
         return create_siglip2(job, initialize=initialize)

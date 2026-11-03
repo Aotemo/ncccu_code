@@ -382,7 +382,7 @@ class ImageDataset:
                  training_rotation=None, input_preprocessing=None):
         if not isinstance(image_size, int) or image_size <= 0:
             raise ValueError('image_size must be a positive integer')
-        if normalization not in ('imagenet', 'unit', 'flair_rgb01'):
+        if normalization not in ('imagenet', 'unit', 'flair_rgb01', 'clip'):
             raise ValueError('unknown normalization')
         if training_photometric not in (None, 'identity-v1', 'gamma-reciprocal075-v1'):
             raise ValueError('unknown training_photometric policy')
@@ -531,6 +531,8 @@ class ImageDataset:
         if self.normalization != 'flair_rgb01':
             mean, std = ((.485, .456, .406), (.229, .224, .225)) if self.normalization == 'imagenet' else (
                 (.5, .5, .5), (.5, .5, .5))
+            if self.normalization == 'clip':
+                mean,std=(.48145466,.4578275,.40821073),(.26862954,.26130258,.27577711)
             tensor.sub_(tensor.new_tensor(mean)[:, None, None]).div_(tensor.new_tensor(std)[:, None, None])
         return tensor
 

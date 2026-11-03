@@ -1,0 +1,12 @@
+{
+  "at": 1793719772.2066517,
+  "scope": "public_original_byte_transport_only",
+  "parts": 21,
+  "bytes": 348553277,
+  "sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+  "output": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/transport-assembled/EVA02-pytorch_model.bin",
+  "source_url": "https://huggingface.co/timm/eva02_base_patch14_448.mim_in22k_ft_in22k_in1k/resolve/81063ecfe9c381a16a19d06f396d6c7011aa426a/pytorch_model.bin",
+  "original_bytes_changed": false,
+  "model_or_images_loaded": false,
+  "forward_calls": 0
+}

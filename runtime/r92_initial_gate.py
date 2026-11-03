@@ -24,7 +24,7 @@ def verify_records(initials, actual_groups, reference_groups, expected, *, expec
     from retrain.experiment91 import candidate, validate_normalization, structure_contract
     require(expected['candidate'] == candidate()
             and expected['batch_norm_modules'] == candidate()['batch_norm_modules']
-            and expected['buffer_count'] == (structure_contract()['buffer_count'] if candidate()['model'] in ('vit_dino3_small','vit_dino3_base')
+            and expected['buffer_count'] == (structure_contract()['buffer_count'] if candidate()['model'] in ('vit_dino3_small','vit_dino3_base','eva02_base')
                 else candidate().get('static_buffer_count', candidate().get('static_index_buffers', candidate()['batch_norm_buffers']))),
             'CPU expected candidate/noBN identity differs')
     require(type(expected_world) is int and expected_world == 8

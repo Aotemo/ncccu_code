@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 ADAMW_AMSGRAD_RULE = 'adamw-amsgrad-v1'
 NADAM_RULE = 'nadam-decoupled-native-v1'
@@ -351,8 +351,10 @@ def validate_job(job):
         raise ValueError('warmup_cycles cannot exceed cycles')
     if job['precision'] not in ('fp32', 'fp16', 'bf16'):
         raise ValueError('precision must be fp32/fp16/bf16')
-    if job['normalization'] not in ('unit', 'imagenet', 'flair_rgb01'):
+    if job['normalization'] not in ('unit', 'imagenet', 'flair_rgb01', 'clip'):
         raise ValueError('unknown normalization')
+    if job['normalization']=='clip' and job['model']!='eva02_base':
+        raise ValueError('fixed CLIP normalization requires EVA02')
     _number(job['final_norm_eps'],'final_norm_eps',1e-15,maximum=.001)
     if job['head_lr_scope'] not in ('classifier_legacy','last_linear'):
         raise ValueError('head_lr_scope must be explicit classifier_legacy/last_linear')
@@ -361,7 +363,7 @@ def validate_job(job):
     if init.get('kind') not in ('random', 'imagenet', 'self_supervised', 'retinal_vision_language', 'natural_vision_language'):
         raise ValueError('unknown initialization kind')
     if init['kind'] == 'imagenet':
-        if job['normalization'] != 'imagenet':
+        if job['normalization'] != ('clip' if job['model']=='eva02_base' else 'imagenet'):
             raise ValueError('ImageNet weights require the fixed ImageNet normalization')
         if not all(init.get(k) for k in ('path', 'sha256', 'provenance')):
             raise ValueError('ImageNet initialization needs local path, sha256 and provenance')
@@ -371,8 +373,11 @@ def validate_job(job):
                 'torchvision-1000-state-dict-v1', 'torchvision-resnet50-backbone-state-dict-v1',
                 'torchvision-small22k-only-full-head-state-dict-v1', 'timm-deit3-native384-state-dict-v1',
                 'timm-caformer-s36-native384-full1000-state-dict-v1',
-                'timm-efficientnetv2-rw-s-native-full1000-state-dict-v1'):
+                'timm-efficientnetv2-rw-s-native-full1000-state-dict-v1',
+                'timm-eva02-base-native448-full1000-pad512-state-dict-v1'):
             raise ValueError('unsupported public initialization state format')
+        if (init.get('format')=='timm-eva02-base-native448-full1000-pad512-state-dict-v1') != (job.get('model')=='eva02_base'):
+            raise ValueError('native EVA02 public format requires its registered factory')
         if (init.get('format') == 'timm-efficientnetv2-rw-s-native-full1000-state-dict-v1') != (job.get('model') == 'efficientnetv2_rw_s'):
             raise ValueError('native EfficientNet public format requires its registered factory')
         if (init.get('format') == 'timm-deit3-native384-state-dict-v1') != (job.get('model') == 'deit3_small'):
@@ -452,6 +457,12 @@ def validate_job(job):
                 or job['prepared_size'] not in (0, 512)
                 or job.get('age') is None or not job['age'].get('enabled')):
             raise ValueError('N08 ImageNet ResNet model/initialization/age contract differs')
+    elif job['model'] == 'eva02_base':
+        fixed={'image_size':512,'precision':'fp32','normalization':'clip','dropout':.2,
+            'stochastic_depth':.1,'final_norm_eps':1e-6,'head_lr_scope':'last_linear'}
+        if (any(job.get(k)!=v for k,v in fixed.items())or job.get('frozen_bn')
+                or not job.get('age',{}).get('enabled')or init['kind']not in('random','imagenet')):
+            raise ValueError('native EVA02 fixed 512/CLIP/mean/age contract differs')
     elif job['model'] == 'siglip2_vitb16':
         fixed={'image_size':512,'precision':'fp32','normalization':'unit','dropout':.2,
                'stochastic_depth':.1,'final_norm_eps':1e-6,'head_lr_scope':'last_linear'}

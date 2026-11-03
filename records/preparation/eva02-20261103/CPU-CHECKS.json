@@ -1,0 +1,167 @@
+{
+  "at": 1793720151.7036855,
+  "scope": "R220 conditional Small12k seed27 and R221 independent native EVA02 Base",
+  "passed_targets": 10,
+  "targets": {
+    "full_public1000_strict": 1,
+    "source_registration": 1,
+    "native_model_P8_cold_tests": 3,
+    "new_candidate_binding": 1,
+    "affected_legacy_binding": 1,
+    "storage_function_fixture": 1,
+    "public_factory_initials": 2
+  },
+  "compiled_sources": 13,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/eva02_model.py",
+    "runtime/bundle/retrain/models.py",
+    "runtime/bundle/retrain/config.py",
+    "runtime/bundle/retrain/data.py",
+    "runtime/bundle/retrain/inference.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "runtime/bundle/retrain/single91.py",
+    "runtime/r92_initial_gate.py",
+    "tools/validation/check_candidate.py",
+    "tools/pretraining/eva02_source.py",
+    "tests/test_eva02_model.py",
+    "tests/test_eva02_candidate.py",
+    "tests/test_round_storage_policy.py"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/eva02_model.py": "7cc6d2a61f7c2b9b5d6f1c38000242c21b8c6f42f209d89efb310ee65e8ff3ba",
+    "runtime/bundle/retrain/models.py": "b03d614d68c6231eb88b8b1b824ee8997bd610cd8b68f6a75fc1beffcc2aba6f",
+    "runtime/bundle/retrain/config.py": "b7ed610e55cc3ea5933e021e296e793f909ff346638cc64939aa9337130c8992",
+    "runtime/bundle/retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4",
+    "runtime/bundle/retrain/inference.py": "369bf4c09dacda028ea123fe1c332ed03ff22d1d21590c1182c4cc377fc21f6c",
+    "runtime/bundle/retrain/experiment91.py": "0e7eaacebe5298b4020a5819d548de15b8bb3dbc2d4acb31024c6b366b5cd4bf",
+    "runtime/bundle/retrain/single91.py": "edac014b424e0ef127602ed4d038a74af51b0f796426e20996ca9fae07482a79",
+    "runtime/r92_initial_gate.py": "704b0fc29f441a47eec7e87aa54e044634904dd76da88d71c2a0939524bef3a3",
+    "tools/validation/check_candidate.py": "884dfe0b5d5e916cd12c8cdd83f3c0e1f63ce247d3f6fe8cbdff17bee4bf23d0",
+    "tools/pretraining/eva02_source.py": "5804bcb0a9b5870edd7159aaddf2468697e6dba65ad69c38319f2763aaeb3c4e",
+    "tests/test_eva02_model.py": "26e8b7c16e94b10badcca41f9b2cf89e250e99012187d5e594a7632e2f388acf",
+    "tests/test_eva02_candidate.py": "d0419eef93432c765352587fad066dc55eb73378c75da01f475553eac972dec1",
+    "tests/test_round_storage_policy.py": "5f177fc3457235bf812bdba7e76f8d3693881761e11d42b5f7a4dead97dd7f30"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "db5f2e33ee1bcbe087111d5e255db4c3e2cc8178e258579edcc421e6bbbc7c55",
+    "configs/RESOURCE-POLICY.json": "0b1a5f9509251c383c0b0103419d0ab673f92dc2a8269bfa5971d3c5123ea063"
+  },
+  "unchanged_implementation_files": {
+    "classification_loss": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "engine": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "precision": "b54298033adbf69b1abf0139a0df8e20012cc142631d7cd9d717d2e5b49749c4",
+    "finite": "476d81cce9fde02f5031100bee6c13cd0fbe224bdac07c5143b5703029833567",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "distributed_engine": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "ema": "53b5488eb595985f6bd105fd2f3bfd4809c2d58e4b6aa6b6fed66109d8a2d8f2"
+  },
+  "science_sha256": {
+    "R220-SCIENCE.json": "e85321fb85a071a62cb4d3f58e5bf16c25da1b76d1016d33028025a75a6e964a",
+    "R221-SCIENCE.json": "3a205228fbf3ff814607261d0f629968714d90beaf7a4bda505dc8e3d49f3f78"
+  },
+  "evidence": [
+    {
+      "label": "MODEL-RED",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-3e3im534/CPU-RECEIPT.json",
+      "sha256": "a1e98d3b31ddb960ba05d5c8bfa9e99e449aca6b1ba05030dad1a8baa8857d6f",
+      "exit_code": 1,
+      "output_sha256": "3095ef8ec2f0593f41b0dbedadf39e49e7ab39f6357993bc202898056f37d7ba"
+    },
+    {
+      "label": "MODEL-THREE-TESTS",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-9jdt1c1b/CPU-RECEIPT.json",
+      "sha256": "3b27a869c15e746798b1b4c2cdce39106b3661a420e0aae8a4b4a8e8c2672c03",
+      "exit_code": 0,
+      "output_sha256": "688be5e60876c906818a1c851e655424b051ded2e2326f63430d932b8b4a0158"
+    },
+    {
+      "label": "LEGACY-BINDING",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-3uiexg9m/CPU-RECEIPT.json",
+      "sha256": "3a73bc672b78abb7e39c0221046736728b61d373042ec2e45101074b2d21066a",
+      "exit_code": 0,
+      "output_sha256": "18731fe8ce31897f76889bbe25e384f1c880cc218499e893c20a205beda804ba"
+    },
+    {
+      "label": "STORAGE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-oaheijrx/CPU-RECEIPT.json",
+      "sha256": "44e79ad9ba129342ea5a2df04c95d4eff3502569112bfe8064d07b38a58c75b3",
+      "exit_code": 0,
+      "output_sha256": "c815cecbea7ebc22732de641a210a053dd38b5c32415ef8071fc4a7ba84c9ad6"
+    },
+    {
+      "label": "TRANSPORT-ASSEMBLY",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-tkrohit6/CPU-RECEIPT.json",
+      "sha256": "03cb26c8ae4ae012e736909c430d5f0af916b2d98905dd988538f8fdab0afe60",
+      "exit_code": 0,
+      "output_sha256": "d47dcfbac550e4400d8716a67db90b07e5c088d2a5f8ddeddf3817f19c30d4b1"
+    },
+    {
+      "label": "PUBLIC-STRICT",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gmt32pgw/CPU-RECEIPT.json",
+      "sha256": "44be7cf4457fa30c22d1cea4daacded60bda2ca44bd41da8840941d454f431d2",
+      "exit_code": 0,
+      "output_sha256": "133e671bd779e080f41f2782d4f67c8c790f950f102bf1a9403eacc4b4d97dca"
+    },
+    {
+      "label": "R220-METADATA-FAILURE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-yl_4694z/CPU-RECEIPT.json",
+      "sha256": "ce4268bbb4e9f31487b0961305c42e1b95b00f67332c6dad9ed59d93846b8fcd",
+      "exit_code": 1,
+      "output_sha256": "6c834af37061fae1bd01e6390b127e66a0d758e5564a68e5600706cc9df2b7b5"
+    },
+    {
+      "label": "R220-PUBLIC-INITIAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-38fl3xjn/CPU-RECEIPT.json",
+      "sha256": "d4603b4d07fec64b419ab446b5d89a466ca0637f3fb20e3e56ac1b5587b5e329",
+      "exit_code": 0,
+      "output_sha256": "557bd990eb4686df1784db26d19bf1725e7b315b2bf617d54549fbd4181a58aa"
+    },
+    {
+      "label": "CANDIDATE-FIXTURE-MISSING-SCIENCE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-gpb6t0mo/CPU-RECEIPT.json",
+      "sha256": "e1093a2f22c6a361e6f5a21ab1f2594591a75dbc7f0f599d760ad16c100794f7",
+      "exit_code": 1,
+      "output_sha256": "a99d98a6ce70aa6059433b6908971afc1434be21221eee603b25b70a46931684"
+    },
+    {
+      "label": "SOURCE-REGISTRATION",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-n9km7cld/CPU-RECEIPT.json",
+      "sha256": "775fe121f8d48b75e40d3e5f9f617293232d162800fb9a914610ffbf64ff5581",
+      "exit_code": 0,
+      "output_sha256": "06bb6a8ee1aadb308621de0641cb2e67d6400118d979f7f75a3f670f43cfad66"
+    },
+    {
+      "label": "R221-PUBLIC-INITIAL",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-botpi11i/CPU-RECEIPT.json",
+      "sha256": "2fc5f9781a1074d1c3a0a251d239730cdc808b38fc08aede40c51247f7e92ab7",
+      "exit_code": 0,
+      "output_sha256": "e0308ccaf727fe589f6e5ddc5a16b87ddff7223153a9dd6357e92e39b437744e"
+    },
+    {
+      "label": "NEW-CANDIDATE",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-vgjkl_6z/CPU-RECEIPT.json",
+      "sha256": "64c070ee9bcbead64b8efaf8472b89589a94c605d1ab56b46fc0b352adfec63c",
+      "exit_code": 0,
+      "output_sha256": "5c9e5a1f091972959ef3337cacb97052cd072f9b1722434fc03ec98b51b82cf9"
+    }
+  ],
+  "prepare_helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/PREPARE-EVA02-NEXT.py",
+    "sha256": "2cbf99164736c70224602cae55e14dac13d48cc6c885eb4133577e6842cb26ff",
+    "existing_chain_identity_and_evidence_changes_only": true
+  },
+  "scope_notes": [
+    "Three model CPU tests passed in113.012s; model/normalization/cold functions unchanged afterward. Full public strict and the two real-public factory initializations are separate zero-image-forward evidence.",
+    "Public-factory initial measurements precede final frozen-package fresh metadata; normal CPU admission separately consumes and checks the complete production binding and EMA1600/.999.",
+    "The source has four named timm implementation pins, not a pin of every transitive file. Native static RoPE is live but absent from checkpoint state and is rebuilt/checked on cold construction.",
+    "Default normalization paths remain unchanged. The EVA job explicitly consumes CLIP mean/std, native grid37 and normalized-zero right/bottom pad6; these are a joint source/architecture/input hypothesis.",
+    "The initial R220 CPU failure was only an absent preliminary-report attribute, after its SCI was written; the corrected producer independently validates provenance and recomputes the identical seed27 initial before asserting the existing SCI is exact. No round, clock, GPU attempt or scientific seed scan occurred.",
+    "Eight bounded SSH/SFTP byte streams used the same existing host/shared exp-v3. Only the compute Pod reassembled and checked the complete fixed original SHA; partial transports are not accepted assets.",
+    "No real task-image forward, official access, clinical mechanism, AUROC gain or DCU memory/throughput guarantee is established by this preparation. Active R219 remains frozen."
+  ],
+  "producer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/FINAL-CHECKS.py",
+    "sha256": "79e161058cb9c1e3571030765d121c342f9096f1bcc9773d0b06965de0f33c00"
+  }
+}

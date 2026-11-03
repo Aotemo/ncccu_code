@@ -86,6 +86,10 @@ LONG_EMA_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlysto
 LONG_EMA_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-ema09999-v1'
 LONG_EMA_BINDINGS = (LONG_EMA_SMALL_BINDING,LONG_EMA_SMALL_SEED27_BINDING)
 SMALL_12K_BINDING = 'single-convnext-small-e9f96b3e-in12k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+SMALL_12K_SEED27_BINDING = 'single-convnext-small-e9f96b3e-in12k-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+SMALL_12K_BINDINGS = (SMALL_12K_BINDING,SMALL_12K_SEED27_BINDING)
+EVA02_BINDING = 'single-eva02-base-81063ecf-natural22k-native512pad6-clip-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+EVA02_BINDINGS = (EVA02_BINDING,)
 LONG_EMA_RULE = {'version':'ema-warmcopy1600-decay09999-nobn-v1','warmcopy_updates':1600,
     'decay':.9999,'dtype':'torch.float32','floating_buffers':'same_as_parameters',
     'integer_buffers':'copy','batch_norm_buffers':0}
@@ -163,7 +167,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,SMALL_12K_BINDING,
+                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -270,7 +274,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,SMALL_12K_BINDING,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*LONG_EMA_BINDINGS,*SMALL_12K_BINDINGS,*EVA02_BINDINGS,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -614,7 +618,7 @@ def candidate_from_configuration(value):
                                         HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                         PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
                                         ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,
-                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,SMALL_12K_BINDING,
+                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,*SMALL_12K_BINDINGS,
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
                                         ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING,
@@ -884,18 +888,20 @@ def candidate_from_configuration(value):
                             cosine_head_policy=COSINE_HEAD_RULE)
             if value['candidate_profile']==COSINE_HEAD_SMALL_SEED27_BINDING:
                 expected.update(id='r163-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-cosine16-9010',experiment_order=75)
-        if value['candidate_profile'] in (SMALL_384_BINDING,SMALL_384_SEED27_BINDING,SMALL_12K_BINDING):
-            small12k=value['candidate_profile']==SMALL_12K_BINDING
+        if value['candidate_profile'] in (SMALL_384_BINDING,SMALL_384_SEED27_BINDING,*SMALL_12K_BINDINGS):
+            small12k=value['candidate_profile'] in SMALL_12K_BINDINGS
             expected.update(id='r158-convnext-small-imagenet22k-to-1k-public384-24k-p4-seed20261029-scale085-pairlog-9010',
                             experiment_order=70,public_revision='14a837353b6ffeced1c635dc5c8c799356e316f4')
             if small12k:expected.update(id='r219-convnext-small-imagenet12k-to-1k-public384-24k-p4-seed20261029-scale085-pairlog-9010',
                 experiment_order=132,public_revision='e9f96b3e3e8be16706d721c30d85112a87b82a8b')
             if value['candidate_profile']==SMALL_384_SEED27_BINDING:
                 expected.update(id='r159-convnext-small-imagenet22k-to-1k-public384-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=71)
+            if value['candidate_profile']==SMALL_12K_SEED27_BINDING:
+                expected.update(id='r220-convnext-small-imagenet12k-to-1k-public384-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=133)
             if (source.get('revision')!=expected['public_revision']
                     or source.get('original_sha256')!=('0a127fb2d1e4634a1ac0a33a999fb18203d2eb190362f8af63bed917a4c71ccf'if small12k else '24f8525364a67ec20ae1ab21f45a525638950a8dc057534506b7aaee63b7e2a6')
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
-                    or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile']==SMALL_384_SEED27_BINDING else 20261029)):
+                    or (value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('seed'))!=(512,512,20261027 if value['candidate_profile'] in (SMALL_384_SEED27_BINDING,SMALL_12K_SEED27_BINDING) else 20261029)):
                 raise ValueError('fixed Small public384 source or original512 recipe differs')
             if small12k and ((source.get('repo'),source.get('training_data'),source.get('sha256'),source.get('provenance_sha256'),source.get('license_sha256'))!=
                     ('timm/convnext_small.in12k_ft_in1k_384','ImageNet-12K pretraining -> ImageNet-1K fine-tuning',
@@ -988,6 +994,30 @@ def candidate_from_configuration(value):
                     'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                     'training_views','training_rotation','training_photometric','lr_decay_updates','bn_statistics'))):
             raise ValueError('fixed original Small longer EMA recipe differs')
+    elif value['candidate_profile'] in EVA02_BINDINGS:
+        from .eva02_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
+        expected={'id':'r221-eva02-base-imagenet22k-to-1k-native512pad6-clip-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order':134,'model':MODEL,'public_revision':REVISION,'readout':'native_patchmean_fcLN_dropout_linear_plus_age',
+            'features':768,'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
+            'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if (source.get('kind')!='imagenet' or source.get('model')!=VARIANT or source.get('format')!=FORMAT
+                or source.get('revision')!=REVISION or source.get('native_library')!=LIBRARY
+                or source.get('sha256')!=WEIGHT_SHA or source.get('original_sha256')!=WEIGHT_SHA
+                or source.get('public_tensor_count')!=236 or source.get('full_head_shape')!=[1000,768]
+                or source.get('training_data')!='ImageNet-22K masked-image pretraining -> ImageNet-22K -> ImageNet-1K fine-tuning'
+                or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
+                    value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
+                    (MODEL,20261029,'clip',512,512,64,8,False,1e-4,1e-3,1e-4)
+                or any(value['job'].get(k)is not None for k in('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
+                    'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
+                    'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                    'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                    'training_views','training_rotation','training_photometric','lr_decay_updates','bn_statistics'))):
+            raise ValueError('fixed native EVA02 public512 pad6 CLIP original recipe differs')
     elif value['candidate_profile'] in SIGLIP2_BINDINGS:
         from .siglip2_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
         seed27=value['candidate_profile']==SIGLIP2_SEED27_BINDING
@@ -1265,7 +1295,7 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16'):
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base'):
             raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
@@ -1277,12 +1307,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,*SIGLIP2_BINDINGS,*EVA02_BINDINGS):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=(794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,*SIGLIP2_BINDINGS) else 176) or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(236 if science['candidate_profile']in EVA02_BINDINGS else 794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,*SIGLIP2_BINDINGS) else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt
@@ -1518,6 +1548,17 @@ def describe_model(model):
     import torch
     from .ema import tensor_digest
     nn = torch.nn
+    if candidate()['model']=='eva02_base':
+        from .eva02_model import describe
+        native=describe(model)
+        value={'candidate':candidate(),'batch_norm_modules':0,'buffer_count':len(dict(model.named_buffers())),
+            'buffer_sha256':tensor_digest(dict(model.named_buffers())),
+            'layer_norms':[{'name':'network.'+n['name'],'eps':n['eps'],'normalized_shape':n['shape']}for n in native['normalization_catalog']],
+            'head_in_features':768,'head_out_features':1,'dropout':model.classifier[0].p,
+            'stochastic_depth':[{'name':f'network.blocks.{i}.drop_path{j}',
+                'p':float(getattr(getattr(b,f'drop_path{j}'),'drop_prob',0.)),'mode':'row'}
+                for i,b in enumerate(model.network.blocks)for j in(1,2)],'eva02':native}
+        validate_normalization(value);return value
     if candidate()['model']=='siglip2_vitb16':
         from .siglip2_model import describe
         native=describe(model)
@@ -1749,6 +1790,22 @@ def describe_model(model):
 
 def validate_normalization(value):
     import hashlib
+    if candidate()['model']=='eva02_base':
+        from .eva02_model import LIBRARY,VARIANT
+        native=value.get('eva02',{});norms=value.get('layer_norms',[])
+        if (value.get('candidate')!=candidate()or value.get('batch_norm_modules')!=0 or value.get('buffer_count')!=1
+                or value.get('buffer_sha256')!=science_configuration().get('initial_buffer_sha256')
+                or value.get('buffer_sha256')!=native.get('rope_buffer_sha256')
+                or value.get('head_in_features')!=768 or value.get('head_out_features')!=1 or value.get('dropout')!=.2
+                or len(norms)!=37 or any(n['eps']!=1e-6 for n in norms)
+                or native.get('normalization_catalog')!=public_source()['structure']['layer_norm_catalog']
+                or value.get('stochastic_depth')!=structure_contract()['stochastic_depth']
+                or native.get('native_variant')!=VARIANT or native.get('native_library')!=LIBRARY
+                or native.get('public_pool')!='avg' or native.get('position_shape')!=[1,1370,768]
+                or native.get('patch_grid')!=[37,37]or native.get('right_bottom_zero_padding')!=[6,6]
+                or native.get('persistent_buffer_count')!=0 or native.get('live_buffer_count')!=1):
+            raise ValueError('actual native EVA02 padding/position/RoPE/LN/mean graph differs')
+        return True
     if candidate()['model']=='siglip2_vitb16':
         from .siglip2_model import LIBRARY,VARIANT
         native=value.get('siglip2',{});norms=value.get('layer_norms',[])

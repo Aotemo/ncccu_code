@@ -1,0 +1,461 @@
+{
+  "passed": true,
+  "at": 1793719796.819328,
+  "execution": {
+    "at": "2026-11-03T15:29:49.710007+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2115385083737251842-acfwvv9ejn-44186-worker-0",
+    "uid": "51fe3daf-ba0d-46e8-919c-99caec599c99",
+    "container": "vcjob-2115385083737251842-acfwvv9ejn-44186",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/CPU-ALLOCATION.json",
+      "sha256": "7c7af22ca15c3b20cd4e88016dd11e73f842530d4330dba485599b2dcb791e7e",
+      "executor_id": "32e3b079-81b0-4f66-9604-b32491599f44",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "model": "eva02_base_patch14_448.mim_in22k_ft_in22k_in1k",
+  "repo": "timm/eva02_base_patch14_448.mim_in22k_ft_in22k_in1k",
+  "revision": "81063ecfe9c381a16a19d06f396d6c7011aa426a",
+  "weight": {
+    "url": "https://huggingface.co/timm/eva02_base_patch14_448.mim_in22k_ft_in22k_in1k/resolve/81063ecfe9c381a16a19d06f396d6c7011aa426a/pytorch_model.bin",
+    "started_at": "2026-11-03T15:29:54.112298+00:00",
+    "completed_at": "2026-11-03T15:29:54.973243+00:00",
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/pytorch_model.bin",
+    "bytes": 348553277,
+    "sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+    "resolved_host": null,
+    "transport": "authorized_raw_byte_relay_verified_on_pod",
+    "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/transport-assembled/EVA02-pytorch_model.bin",
+    "expected_lfs_sha256": "dbbfef826976527b9060875233f4cbeb61f9b14b8352e4116e2769c38593f054",
+    "expected_lfs_bytes": 348553277,
+    "identity": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/pytorch_model.bin",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/pytorch_model.bin",
+      "bytes": 348553277,
+      "device": 132,
+      "inode": 9952514899,
+      "mtime_ns": 1793719794000000000,
+      "ctime_ns": 1793719794000000000
+    }
+  },
+  "license": {
+    "url": "https://raw.githubusercontent.com/baaivision/EVA/5623d08bb08a8268c7bc18e1d9b8b4bd651fe4d9/LICENSE",
+    "started_at": "2026-11-03T15:29:54.975826+00:00",
+    "completed_at": "2026-11-03T15:29:54.987461+00:00",
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/LICENSE-MIT",
+    "bytes": 1067,
+    "sha256": "80c5e100f36b0dc7dd87341705dc8a310fc7c2dcae2bff6831055bf205ee4d2e",
+    "resolved_host": null,
+    "transport": "authorized_raw_byte_relay_verified_on_pod",
+    "transport_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/transport-assembled/EVA02-LICENSE",
+    "expected_lfs_sha256": null,
+    "expected_lfs_bytes": null,
+    "identity": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/LICENSE-MIT",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/assets/original/LICENSE-MIT",
+      "bytes": 1067,
+      "device": 132,
+      "inode": 9952515667,
+      "mtime_ns": 1793719794000000000,
+      "ctime_ns": 1793719794000000000
+    }
+  },
+  "source_configuration": {
+    "architecture": "eva02_base_patch14_448",
+    "num_classes": 1000,
+    "num_features": 768,
+    "global_pool": "avg",
+    "pretrained_cfg": {
+      "tag": "mim_in22k_ft_in22k_in1k",
+      "custom_load": false,
+      "input_size": [
+        3,
+        448,
+        448
+      ],
+      "fixed_input_size": true,
+      "interpolation": "bicubic",
+      "crop_pct": 1.0,
+      "crop_mode": "squash",
+      "mean": [
+        0.48145466,
+        0.4578275,
+        0.40821073
+      ],
+      "std": [
+        0.26862954,
+        0.26130258,
+        0.27577711
+      ],
+      "num_classes": 1000,
+      "pool_size": null,
+      "first_conv": "patch_embed.proj",
+      "classifier": "head",
+      "license": "mit"
+    }
+  },
+  "native_library": {
+    "version": "1.0.27",
+    "source_sha256": {
+      "models/eva.py": "23314ef536d7ce9cc3737e54f424841b46f426e93af651c357b4a75a8b00a12d",
+      "layers/patch_embed.py": "7b7e670f8e6a2828752a65297025fb903fc2fbe0298617a3cd29d804be1455aa",
+      "layers/mlp.py": "c024128a1c7e2a55ebc5e33a7c94c585ae1e960cd032b39b08445ea30f05c5a5",
+      "layers/pos_embed_sincos.py": "8d1751ada7f98bebb81f973567f350b85a110b42c548e036ace40d05f32cb914"
+    }
+  },
+  "fixed_files": {
+    "FIXED-REGISTRY.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/FIXED-REGISTRY.json",
+      "sha256": "44e2cc45a00c85cc36a0ee6d3c48bea6569f01b11e51ecce67702dabf5e3304c"
+    },
+    "config.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/config.json",
+      "sha256": "d62e73f578eb363032000b6bfcc57764c6a5d10ee2562cbfe3f105d795e1c4be"
+    },
+    "README.md": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/eva02-base-source-screen-20261103-32e3/README.md",
+      "sha256": "b347298844860ff288638f1d7c0baece71d9fe1cd796eefbfbf3f0780175ba07"
+    }
+  },
+  "public_tensor_count": 236,
+  "public_parameters": 87117544,
+  "public_tensor_sha256": "745cf8dcab1a77fa6d1809ae00b61437c0e748d1f5901e7a1933b2e443968bf7",
+  "strict_missing_keys": [],
+  "strict_unexpected_keys": [],
+  "all_public_tensors_exact": true,
+  "all_public_tensors_FP32_finite": true,
+  "layer_norm_catalog": [
+    {
+      "name": "blocks.0.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.0.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.0.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.1.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.1.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.1.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.2.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.2.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.2.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.3.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.3.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.3.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.4.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.4.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.4.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.5.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.5.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.5.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.6.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.6.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.6.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.7.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.7.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.7.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.8.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.8.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.8.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.9.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.9.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.9.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.10.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.10.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.10.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "blocks.11.norm1",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.11.norm2",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    },
+    {
+      "name": "blocks.11.mlp.norm",
+      "eps": 1e-06,
+      "shape": [
+        2048
+      ]
+    },
+    {
+      "name": "fc_norm",
+      "eps": 1e-06,
+      "shape": [
+        768
+      ]
+    }
+  ],
+  "source_head_shape": [
+    1000,
+    768
+  ],
+  "source_position_shape": [
+    1,
+    1025,
+    768
+  ],
+  "source_buffer": {
+    "name": "rope.pos_embed",
+    "shape": [
+      1024,
+      128
+    ],
+    "persistent": false,
+    "dtype": "torch.float32"
+  },
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "datasets_read": false,
+  "producer_sha256": "a166d0299e660dbfea0622dec9611871005f68415d7d61084e0a31b7dd233c36"
+}

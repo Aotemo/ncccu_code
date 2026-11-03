@@ -84,6 +84,7 @@ def main(args):
     is_r50 = job['model'] == 'resnet50_imagenet'
     is_effnet = job['model'] == 'efficientnetv2_rw_s'
     is_siglip2 = job['model'] == 'siglip2_vitb16'
+    is_eva02 = job['model'] == 'eva02_base'
     is_dinov2 = job['model'] == 'dinov2_vits14'
     is_dino = ex.science_configuration()['candidate_profile'] in (ex.DINO_R50_BINDING,ex.DINOV2_PAIRLOG_BINDING,ex.SMALL_DINO3_BINDING,ex.LARGE_DINO3_BINDING,ex.LARGE_DINO3_SEED27_BINDING,*ex.VIT_DINO3_BINDINGS)
     is_swin = job['model'] in ('swin_base','swin_v2_small')
@@ -130,7 +131,7 @@ def main(args):
               and proof['rgb_before']==proof['rgb_after'] and proof['bias_before']==proof['bias_after']
               and proof['added_zero_elements']==4608 and not bool(torch.count_nonzero(stem.weight[:,3:])),
               {'stem':structure['stem_native6'],'initialization':proof})
-    check('actual_native_SigLIP2_public_MAP_LN_binary_agezero' if is_siglip2 else 'actual_native_EfficientNet_publicBN_avgpool_binary_agezero' if is_effnet else 'actual_DeiT3_LN_GELU_CLS_noBN_binary_agezero' if is_deit else 'actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
+    check('actual_native_EVA02_public_mean_SwiGLU_LN_binary_agezero' if is_eva02 else 'actual_native_SigLIP2_public_MAP_LN_binary_agezero' if is_siglip2 else 'actual_native_EfficientNet_publicBN_avgpool_binary_agezero' if is_effnet else 'actual_DeiT3_LN_GELU_CLS_noBN_binary_agezero' if is_deit else 'actual_DINOv2_LN_GELU_CLS_meanpatch_noBN_binary_agezero' if is_dinov2 else 'actual_measured_LN_GELU_native_avgpool_noBN_binary_agezero',
           len(structure['layer_norms']) == contract['layer_norms']
           and all(row['eps'] == ex.candidate()['internal_norm_eps'] for row in structure['layer_norms'])
           and structure['batch_norm_modules'] == contract.get('batch_norm_modules', 0)
@@ -287,7 +288,7 @@ def main(args):
     else:
         wrong = copy.deepcopy(job); wrong['final_norm_eps'] = 1e-12
         rejected('old_R92_final_LN_job_rejected', lambda: ex.validate_job(wrong))
-        final_norm = model.network.head.norm if is_caformer else model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit or is_vit_dino3 or is_siglip2 else model.network.classifier[0]
+        final_norm = model.network.fc_norm if is_eva02 else model.network.head.norm if is_caformer else model.backbone.norm if is_dinov2 else model.network.norm if is_swin or is_deit or is_vit_dino3 or is_siglip2 else model.network.classifier[0]
         final_norm.eps = 1e-12
         rejected('wrong_actual_final_LN_rejected', lambda: ex.describe_model(model))
         final_norm.eps = ex.candidate()['final_norm_eps']
@@ -361,7 +362,7 @@ def main(args):
     expected_roles = ('backbone', 'head', 'age') if job['age']['enabled'] else ('backbone', 'head')
     roles = {role: sum(row['numel'] for group in groups if group['role'] == role for row in group['parameters'])
              for role in expected_roles}
-    classifier_head = model.network.head.fc.fc2 if is_caformer else (model.classifier if is_r50 or is_dinov2 or is_vit_dino3 or is_siglip2 else model.network.classifier)[-1]
+    classifier_head = model.network.head.fc.fc2 if is_caformer else (model.classifier if is_r50 or is_dinov2 or is_vit_dino3 or is_siglip2 or is_eva02 else model.network.classifier)[-1]
     head = {id(parameter) for parameter in classifier_head.parameters()}
     if is_content_pool:
         head.add(id(model.attention_pool_weight))
@@ -376,7 +377,7 @@ def main(args):
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else
-             any(row['name'] == ('network.bn1.weight' if is_effnet else 'network.head.norm.weight' if is_caformer else 'backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit or is_vit_dino3 or is_siglip2 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
+             any(row['name'] == ('network.fc_norm.weight' if is_eva02 else 'network.bn1.weight' if is_effnet else 'network.head.norm.weight' if is_caformer else 'backbone.bn1.weight' if is_r50 else 'backbone.norm.weight' if is_dinov2 else 'network.norm.weight' if is_swin or is_deit or is_vit_dino3 or is_siglip2 else 'network.classifier.0.weight') for group in groups if group['role'] == 'backbone' for row in group['parameters']))
         and group_lrs_match(groups, job)
         and all(group['weight_decay'] == ((job['age']['contract']['weight_decay'] if group['role']=='age' else
             job['weight_decay'] if any(named[row['name']].ndim>1 and not row['name'].endswith('.bias') for row in group['parameters']) else 0.) if is_lion else
@@ -537,6 +538,8 @@ def main(args):
     check('CPU_initial_checkpoint_strict_roundtrip_emptyAdam', not result.missing_keys and not result.unexpected_keys
           and tensor_digest(model.state_dict()) == model_digest and loaded['optimizer']['state'] == {}
           and reload_job == job and reloaded is not model
+          and (not is_eva02 or (reload_origin.get('eva02')==structure['eva02']
+                                and ex.describe_model(reloaded)==structure))
           and (not is_siglip2 or (reload_origin.get('siglip2')==structure['siglip2']
                                  and ex.describe_model(reloaded)==structure))
           and (not is_effnet or (reload_origin.get('efficientnetv2')==structure['efficientnetv2']
@@ -610,17 +613,17 @@ def main(args):
         for record in initials: record['low_rank_optimizer'] = low_rank_initial
     check('initial_gate_eight_rank_coverage_CPU_fixture_only',
         initial_gate.verify_records(initials, groups, groups, expected, expected_world=8) == model_digest)
-    if is_effnet or is_siglip2:
+    if is_effnet or is_siglip2 or is_eva02:
         original_mode=model.training;model.eval()
         with torch.inference_mode():
             images=torch.zeros(1,3,512,512,dtype=torch.float32);ages=torch.zeros(1,2,dtype=torch.float32)
             online=model(images,ages);rebuilt=reloaded(images,ages)
         model.train(original_mode)
-        check('native_SigLIP2_public512_MAP_checkpoint_cold_exact' if is_siglip2 else 'native_EfficientNet_public512_checkpoint_cold_exact',tuple(online.shape)==(1,)
+        check('native_EVA02_public512_pad6_checkpoint_cold_exact' if is_eva02 else 'native_SigLIP2_public512_MAP_checkpoint_cold_exact' if is_siglip2 else 'native_EfficientNet_public512_checkpoint_cold_exact',tuple(online.shape)==(1,)
               and bool(torch.isfinite(online).all()) and torch.equal(online,rebuilt)
               and ex.describe_model(model)==ex.describe_model(reloaded)
               and not torch.cuda.is_initialized())
-    if is_vit_dino3:
+    if is_vit_dino3 or is_eva02:
         from retrain.single91 import immutable_buffers, immutable_buffer_contract
         buffers = immutable_buffers(loaded['model'])
         count, buffer_sha = immutable_buffer_contract(loaded['candidate_normalization'])
