@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "status": "evidence_report",
+  "manifest": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1/manifest.json",
+    "sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377"
+  },
+  "count": 5140,
+  "positives": 167,
+  "negatives": 4973,
+  "models": {
+    "R107": {
+      "error_twice": 19200,
+      "ap": 0.8274326888154083,
+      "auroc": 0.9884405731067525,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "tensor_sha256": "b3108d3398091f7bb5574d1d437e7de0ab68e5643000194ebdf5c509cbcaeebd",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json",
+        "sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "sha256": "01a2e3cb8f578359ed0279ce73ef49c7880dc9c9235105ae9a1df919e3457ecd"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "sha256": "22e0be32a8378cbdd65168c701447f8ad06c66c07234b0c796b75d4e40190ee4"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json",
+        "sha256": "b84ab2c676dad4ed76f54796e643d47ba9b6b108a935dabebdead9138a7c93be",
+        "status": "completed",
+        "successful_updates": 6400
+      }
+    },
+    "R120": {
+      "error_twice": 17478,
+      "ap": 0.8313831149805229,
+      "auroc": 0.9894773092062407,
+      "variant": "ema",
+      "cycle": 6,
+      "successful_updates": 4800,
+      "tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json",
+        "sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+        "sha256": "e6f9f640a513e723c29e5fe9ca00c5c93baf6399f68f682229652ad34c5a7ab1"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+        "sha256": "2d81e0b09dd1291a57b48fa00b3111ec484838433df3e63d11801b282e961b27"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json",
+        "sha256": "955a0107c842f5bddb93c485063a60101f5772f576edca3ae77193e5d721cdfb",
+        "status": "completed",
+        "successful_updates": 8000
+      }
+    },
+    "R201": {
+      "error_twice": 18348,
+      "ap": 0.8363466610846791,
+      "auroc": 0.9889535226751404,
+      "variant": "ema",
+      "cycle": 5,
+      "successful_updates": 4000,
+      "tensor_sha256": "a0b54a0846a3949f4fa280196f93e724290574acc406c3ad7e4d62dda812c861",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+        "sha256": "03229efd2476efda44005b31d710f53e1be7280ab80fc95df042fa9082e635d4"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103/outputs/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+        "sha256": "79a5f8ddd8eefa20939597aa5ffb4f46470bf2f973dd2a504f873d89d46e92fc"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103/outputs/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+        "sha256": "4165fa9c91a990f385f680a51a974827646b5b32d76159ddd5d08cd5dc78c748"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+        "sha256": "3ea206fe3d2b8aada50a283316ae76c7d36456cdf934cc198ee50ce893793c72",
+        "status": "completed",
+        "successful_updates": 7200
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "candidate": "R120",
+      "reference": "R107",
+      "delta_auroc": 0.001036736099488178,
+      "interval": [
+        -0.0011201506096996017,
+        0.003867922710781947
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.788,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 8739.0,
+          "repaired": 2987.0,
+          "introduced": 2126.0,
+          "shared": 6613.0,
+          "net_added": -861.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 5829.0,
+          "repaired": 2088.0,
+          "introduced": 1294.0,
+          "shared": 4535.0,
+          "net_added": -794.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 2910.0,
+          "repaired": 899.0,
+          "introduced": 832.0,
+          "shared": 2078.0,
+          "net_added": -67.0
+        }
+      }
+    },
+    {
+      "candidate": "R201",
+      "reference": "R107",
+      "delta_auroc": 0.0005129495683878771,
+      "interval": [
+        -0.0007659324423744949,
+        0.001976150253283947
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.7655,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 9174.0,
+          "repaired": 2385.0,
+          "introduced": 1959.0,
+          "shared": 7215.0,
+          "net_added": -426.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 6092.0,
+          "repaired": 1529.0,
+          "introduced": 998.0,
+          "shared": 5094.0,
+          "net_added": -531.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 3082.0,
+          "repaired": 856.0,
+          "introduced": 961.0,
+          "shared": 2121.0,
+          "net_added": 105.0
+        }
+      }
+    },
+    {
+      "candidate": "R201",
+      "reference": "R120",
+      "delta_auroc": -0.0005237865311003009,
+      "interval": [
+        -0.0027370555490667274,
+        0.001245046604960165
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.322,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9174.0,
+          "repaired": 2216.0,
+          "introduced": 2651.0,
+          "shared": 6523.0,
+          "net_added": 435.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6092.0,
+          "repaired": 1280.0,
+          "introduced": 1543.0,
+          "shared": 4549.0,
+          "net_added": 263.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3082.0,
+          "repaired": 936.0,
+          "introduced": 1108.0,
+          "shared": 1974.0,
+          "net_added": 172.0
+        }
+      }
+    }
+  ],
+  "fixed_positive_count": 20,
+  "fixed_positive_group_source": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/PRIVATE-SELECTION.json",
+    "sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b",
+    "anchors": [
+      "R107",
+      "R108",
+      "R120",
+      "R134R1"
+    ],
+    "index_digest": "50cd354e1e6b8e6b53a7bd5b414b33152b25ce16a5cd78c2fcd957b33bbb3b5c",
+    "index_digest_encoding": "ranked_default",
+    "new_runs_used_to_define_group": false
+  },
+  "bootstrap_groups": null,
+  "evidence": {
+    "fit_dev": {
+      "R107": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R120": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R201": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      }
+    },
+    "structure": {
+      "status": "unknown",
+      "reviewed_count": null,
+      "reason": "no_source_bound_human_structure_review"
+    }
+  },
+  "causal_diagnosis": "not_identified",
+  "limits": [
+    "Intervals condition on the supplied trained and selected checkpoints; they do not include seed variability.",
+    "Resampling does not remove adaptive selection bias from repeated use of the same dev set.",
+    "Image-level intervals are not patient-level intervals; supplied group IDs are not independently verified patient IDs.",
+    "Pairwise errors share samples; positive-negative pairs are not independent bootstrap observations.",
+    "Intervals are descriptive, unadjusted for multiple comparisons, and do not authorize training or change selected checkpoints.",
+    "Fit/dev gaps and supplied structure annotations alone do not identify a clinical cause, label error or achievable AUROC ceiling."
+  ],
+  "checkpoint_selection_changed": false,
+  "official_read": false,
+  "model_loaded": false,
+  "new_forward": false,
+  "labels_changed": false,
+  "numpy_version": "1.26.4",
+  "source_sha256": {
+    "tools/diagnostics/paired_evidence.py": "ed211542a8987df86fcc88d9538c239bb913b56060b74c831be8bdd4c16bfe90",
+    "tools/diagnostics/persistent_errors.py": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+    "runtime/bundle/retrain/n05_metrics.py": "00377a60f40f22324f89a16c8e8933473229736955ff58cf3d2e8d1b8941fee7"
+  },
+  "inventory": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/diagnostic-evidence-20261103-a4e2/analysis/INVENTORY.json",
+    "sha256": "7ca09001c88cef22dbdc9ebdfb1a5c2799c21e336dbed6972e086fb02af0ecf1"
+  }
+}
