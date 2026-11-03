@@ -1,0 +1,96 @@
+{
+  "status": "completed_predeclared_partial_fit_only",
+  "at": 1793718602.723371,
+  "population": {
+    "fit_total": 46256,
+    "sample_total": 256,
+    "positive": 128,
+    "negative": 128
+  },
+  "seed": 20261103,
+  "generator": "PCG64",
+  "sealed_before_forward": true,
+  "seal_sha256": "3ed0c7697c238061be033a36cc52a94ed668fef15bb0aeeaf2422291d6d9c8a6",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "selected": {
+    "variant": "ema",
+    "cycle": 13,
+    "successful_updates": 10400,
+    "tensor_sha256": "46e343fa7be5e8106f3c7d6e21d64af77c5bd28f9a79cf121c1ddf9d3c1ad98c",
+    "blob_sha256": "14fe3b403f4b730c26475305bd05fb4d3aa871fa23afeef39c2f185cb874e865"
+  },
+  "original_sealed_subset": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r213-fit-subset-20261103-32e3/SEALED-SUBSET.json",
+    "sha256": "f5f774b41069d3ede4f5bb8c5d0d326b18fdb1993aac2eea22da4cfddf167088",
+    "indices_exact": true
+  },
+  "metrics": {
+    "error_twice": 58,
+    "ap": 0.9982425340702886,
+    "auroc": 0.99822998046875
+  },
+  "conditional_image_bootstrap_AUROC_interval": [
+    0.9952987670898438,
+    0.99981689453125
+  ],
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20261103,
+    "confidence": 0.95,
+    "method": "stratified_image_percentile",
+    "implementation": "paired_evidence.paired_bootstrap with constant-zero reference; add .5 to delta interval",
+    "sampling_not_seed_or_selection_uncertainty": true
+  },
+  "original_complete_dev": {
+    "auroc": 0.9875435134155578,
+    "ap": 0.8211863371259488,
+    "variant": "ema",
+    "cycle": 13,
+    "successful_updates": 10400,
+    "error_twice": 20690
+  },
+  "point_fit_subset_minus_dev_auroc": 0.010686467053192206,
+  "source_commit": "6fb491afaf8e5d61add04bfeacc04b932c0bb127",
+  "source_files": {
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/inference.py": "2d1cf7260fa3eb3c934b5c26598c3179815117fddf8743f4ce7025b95314db61",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "runtime/bundle/retrain/experiment91.py": "d8c90289b9530b99f047a57b4998ef078b6e531e3ccb9e038981b03716f535db"
+  },
+  "site_sha256": "4c4f341aab8b5da8446273206aa4662b9b0998cf4c15b1a100e9802a8f9707fd",
+  "producer_sha256": "940f428c4777675e8ce54aee28512b39dc37d473144c88d65fae677698b02751",
+  "private_summary_sha256": "490fe3a9a4e7345b2f4b32d0b35ac631a2aef0a7eff74a2919fa5233c65592e4",
+  "prediction_sha256": "2e06390c0d7f0fa3d16c293cddd407fee67ae32850cd0ce9c51893e77d29a760",
+  "wall_seconds": 828.2206008434296,
+  "execution_overrides": {
+    "physical_batch": 4,
+    "eval_workers": 0,
+    "torch_threads": 5
+  },
+  "model_tensor_unchanged": true,
+  "GPU_initialized": false,
+  "official_read": false,
+  "complete_fit_measured": false,
+  "mechanism_identified": false,
+  "training_or_checkpoint_selection_changed": false,
+  "CPU_evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-j_ebher_/CPU-RECEIPT.json",
+      "sha256": "635dbc6ed67a6f6fe65b95e2bd3bdf664c9ef879f7d2dc3dbb9f1be0d0cde14f"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-1435-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-_pnhq7zo/CPU-RECEIPT.json",
+      "sha256": "fb2b3117648a9511d787f6cb82597d825222520ee961d257d68658c3701176fb"
+    }
+  ],
+  "limitations": [
+    "Balanced256 subset is not full46256 fit. AP/threshold metrics do not share dev prevalence.",
+    "Fit/dev AUC gap includes sampling and dev model selection bias, and does not identify a mechanism or ceiling.",
+    "CPU FP32 inference is not a new byte-exact comparison with the original DCU forward.",
+    "An error-free or nearly error-free subset does not establish the full-fit error rate or an achievable dev ceiling. The bootstrap interval conditions on the selected model and this sample and excludes adaptive selection/seed/patient uncertainty."
+  ],
+  "producer_archive": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/gpu-allocation-headroom-20261103-32e3/ARCHIVE-R217-FIT-SUBSET.py",
+    "sha256": "5d4173f7de20c9bcd76883a2774fb6403141b0be55e3e21a60e2a44fabf2565f"
+  }
+}
