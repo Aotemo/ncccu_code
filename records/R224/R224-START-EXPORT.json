@@ -1,0 +1,18 @@
+{
+  "status": "small_result_and_start_receipts_exported",
+  "at": 1793730432.5624151,
+  "files": {
+    "records/R221R2/ARCHIVE-RECEIPT.json": "0274f353e412190ed08fa68b55be4263d8bbefcb4e7647e87d77c7ad94bd6024",
+    "records/R221R2/R221R2-COMPLETION.json": "87e11a70744de45e63761ec50413c15ccdfd2df2e3f9b991a967a620eb2f80eb",
+    "records/R221R2/R221R2-RESULT.json": "5dd97f769da0cbf0633c24f261d987fa786f9a4daa2cc1de78cf61a705119251",
+    "records/R224/R224-CPU-ACTIVATION.json": "8b85e1a7e809987ba99287e57bd9662cdbf97bc326754b4e4482a2a758ccee57",
+    "records/R224/R224-CPU-FIRST-SUCCESS.json": "519a8b6ac7972b04c8b50610f86e7d66e12cc33cef2c7f530967b92bbaa20b73",
+    "records/R224/R224-CPU-PREPARE.json": "f6f8d710601d1cf168c5465303f1358e33b589cd469006237e75276f576f3f60",
+    "records/R224/R224-HANDOFF-GAP.json": "2108ce6a4cd15453c567c54fe5b574eecf3b61a55279910d2c4e658531e009b4",
+    "records/R224/R224-PREPARATION.json": "23933c16b3439f5e15f00c0feefa369601cb67d8af7f6563d7904ccb422adead",
+    "records/R224/R224-REMOTE-COMMIT.json": "1b31a14eacd132ec72559ae91387763f1b3af2e100cf3e69c3c220046130b82b",
+    "records/R224/R224-SSL-INITIAL-GATE.json": "9502428f059c6a639e300868c050caf6db96aa5cf7f8fc70cc84aa9e836b6774",
+    "records/R224/R224-START.json": "277f95c80e9d1dc9aa562549aa6f0f0a1e9a09ef144288cff4e4c3bae9b5464d"
+  },
+  "raw_images_or_sample_predictions_exported": false
+}

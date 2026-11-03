@@ -1,0 +1,29 @@
+{
+  "status": "observed_event_intervals",
+  "previous_round": "r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+  "next_round": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+  "previous_whole_round_ended_at": 1793728517.6477134,
+  "previous_whole_round_ended_UTC": "2026-11-03T17:55:17.647713+00:00",
+  "next_dispatch_at": 1793730210.071902,
+  "next_first_SSL_success_at": 1793730313.778115,
+  "next_natural_SSL_25_at": 1793730323.173037,
+  "seconds_end_to_dispatch": 1692.4241886138916,
+  "seconds_end_to_first_SSL_success": 1796.1304016113281,
+  "seconds_end_to_SSL_25": 1805.5253236293793,
+  "within_300_seconds": false,
+  "continuous_GPU_utilization_measured": false,
+  "reasons": [
+    "New user-prioritized fit-only masked spatial objective required implementation, affected CPU checks, actual public P8 and cold handoff validation, Git sync, formal CPU and exact deployment.",
+    "Avoidable private archive caller failures and source transfer/metadata latency occurred during the idle interval; their failed receipts remain.",
+    "Initial launch transport omitted stdin; no launcher or dispatch ran; corrected transport used one actual launcher call without resetting the active clock."
+  ],
+  "old_safe_proof_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/R221R2-PROGRESS-4.json",
+    "sha256": "87e11a70744de45e63761ec50413c15ccdfd2df2e3f9b991a967a620eb2f80eb"
+  },
+  "first_success_proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "277f95c80e9d1dc9aa562549aa6f0f0a1e9a09ef144288cff4e4c3bae9b5464d"
+  },
+  "old_clock_token_grant_modified": false
+}

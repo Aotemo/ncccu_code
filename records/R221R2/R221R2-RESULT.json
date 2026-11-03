@@ -1,0 +1,165 @@
+{
+  "status": "completed",
+  "round_id": "r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+  "git_commit": "c7326677a1fb960533a00a37b2e970ec95529e43",
+  "science_sha256": "ecf6e050d4737b117cd6713dc92523d6cb65cfb801871c5dae5ce19e5c1a2ef1",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 6400,
+    "attempted_updates": 6400,
+    "skipped_updates": 0,
+    "evaluated_cycle": 8,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.9784452811649976,
+    "ap": 0.7396113715466042,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "error_twice": 35802
+  },
+  "recomputed": {
+    "error_twice": 35802,
+    "ap": 0.7396113715466042,
+    "auroc": 0.9784452811649976,
+    "variant": "ema",
+    "cycle": 4,
+    "successful_updates": 3200,
+    "tensor_sha256": "16db79426956a03c709857a54423d9beb4770824ab1b2d898a47320a21ca1cc4",
+    "freeze": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+      "sha256": "9d08068357ebff5a8306aa68509c5dd4011fe5bd67d18513a2e4da0a33efb6d1"
+    },
+    "prediction": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/predictions/ema/dev-cycle-0004.csv",
+      "sha256": "a7d5650422a1f4a9d56ee7392bf6823646cefdd94333213e2ec5bf4a09a5e216"
+    },
+    "precision": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/predictions/ema/dev-cycle-0004.csv.precision.json",
+      "sha256": "1674bd734ea2b25ce6fa3b4e1178d98fa7425d73e0cd314889eaeef3b69c6fb9"
+    },
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+      "sha256": "2baecfdd2a50c4f261fb7181964ed94e211beaac41ebaea579923cbb4907b636",
+      "status": "completed",
+      "successful_updates": 6400
+    }
+  },
+  "changes_vs_R107": {
+    "all": {
+      "reference": 9600.0,
+      "candidate": 17901.0,
+      "repaired": 3607.0,
+      "introduced": 11908.0,
+      "shared": 5993.0,
+      "net_added": 8301.0
+    },
+    "fixed_positive": {
+      "reference": 6623.0,
+      "candidate": 10487.0,
+      "repaired": 2605.0,
+      "introduced": 6469.0,
+      "shared": 4018.0,
+      "net_added": 3864.0
+    },
+    "remaining_positive": {
+      "reference": 2977.0,
+      "candidate": 7414.0,
+      "repaired": 1002.0,
+      "introduced": 5439.0,
+      "shared": 1975.0,
+      "net_added": 4437.0
+    }
+  },
+  "fixed20_count": 20,
+  "remaining_positive_count": 147,
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "official_evaluated": false,
+  "official_reason": "threshold_not_met",
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 6400,
+      "cycles": 8,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9784452811649976,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 4,
+        "variant": "ema",
+        "successful_updates": 3200,
+        "error_twice": 35802,
+        "ap": 0.7396113715466042,
+        "auroc": 0.9784452811649976,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/predictions/ema/dev-cycle-0004.csv",
+        "prediction_sha256": "a7d5650422a1f4a9d56ee7392bf6823646cefdd94333213e2ec5bf4a09a5e216",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103/outputs/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103-8c-eva02_base-s20261029-b64-p8-fp32/eva02-base/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "precision_sha256": "1674bd734ea2b25ce6fa3b4e1178d98fa7425d73e0cd314889eaeef3b69c6fb9",
+        "tensor_sha256": "16db79426956a03c709857a54423d9beb4770824ab1b2d898a47320a21ca1cc4"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 6400,
+      "cycles": 8,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9784452811649976,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793728661.326341,
+  "whole_round_ended_at": 1793728517.6477134,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/R221R2-PROGRESS-4.json",
+    "sha256": "87e11a70744de45e63761ec50413c15ccdfd2df2e3f9b991a967a620eb2f80eb"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-l4f8nmgm/CPU-RECEIPT.json",
+    "sha256": "2a4d7385e75fe2c39f720c0c7485aa98a55ab998c51ee7e41498c64257bb6b42"
+  },
+  "selected_tensor_sha256": "16db79426956a03c709857a54423d9beb4770824ab1b2d898a47320a21ca1cc4",
+  "selected_blob_sha256": "7e6b9747f2de3d9793112b55b8a9d9d0860bdb076e0a7c552f82ae03cb2c709e",
+  "selected_prediction_sha256": "a7d5650422a1f4a9d56ee7392bf6823646cefdd94333213e2ec5bf4a09a5e216",
+  "selected_precision_sha256": "1674bd734ea2b25ce6fa3b4e1178d98fa7425d73e0cd314889eaeef3b69c6fb9",
+  "private_fixed_group_sha256": "6e6009605e2573db21804280146924dfa3412f56e75002ab480b7d65072a037c",
+  "new_forward_or_model_or_checkpoint_load": false,
+  "old_actualsafe_repolled": false,
+  "future_forward_dependency": false,
+  "raw_AUROC_0_999_achieved": false
+}

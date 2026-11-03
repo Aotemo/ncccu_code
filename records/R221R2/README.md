@@ -1,9 +1,19 @@
-# R221R2 实际跑通及工程恢复
+# R221R2 完整阴性结果及工程恢复
+
+完整6400成功更新=attempt、0skip、8轮内部评估、连续4轮无提升停止。唯一EMA c4@3200内部AUROC **.9784452811649976**、AP **.7396113715466042**，错序质量17901（error_twice35802）；严格R107/R120双门均false，R222无资格，官方未跑。所选CSV/precision/freeze与原manifest重新核验并精确复算，无额外模型、checkpoint或官方前向。[完整结果](R221R2-RESULT.json)、[唯一终态/actualsafe](R221R2-COMPLETION.json)及来源SHA保留，旧safe不再查询。
+
+| 相对R107的错序质量 | R107 | R221R2 | 修复 | 新增 | 净新增 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 完整内部 | 9600 | 17901 | 3607 | 11908 | 8301 |
+| 原固定20正例 | 6623 | 10487 | 2605 | 6469 | 3864 |
+| 其余147正例 | 2977 | 7414 | 1002 | 5439 | 4437 |
+
+按原固定组计算，平分ties；不是病例数或独立观测数。两组均恶化，不以局部修复抵消整体代价。没有预声明的后续forward依赖，结束后的权重可按真实manifest清理，预测CSV/结果继续保留；清理是否执行另看存储回执。
 
 冻结c7326677/tree9d4bbada、SCIecf6e050、actual SITEc833c9ad。正式20/20 CPU和整树精确部署完成；窗口检查、一次activation、direct launch均exit0，未做GPU预演。科学合同与R221/R221R1相同，仅独立fresh身份/order136和存储报错补足四个实际字节值，预算阈值未改。
 
-11-03 16:52:29 UTC记录自然首25成功，loss .5590348839759827有限、WORLD8/G64P8/448对/scale1；16:52:44实观50成功/0跳步，随后17:08实观1700成功/0跳步/c2/八rank活跃，已跨1382旧存储故障点及1601 EMA blend边界（cont4/qchar9_d exit0）。实际八rank/237参数/五空AdamW/初态51592a3d与正式CPU一致。start2/23e51726、guardrznpl7fo/bd48c126 exit0。尚无完整selected或收益结论，raw .999未达。
+11-03 16:52:29 UTC记录自然首25成功，loss .5590348839759827有限、WORLD8/G64P8/448对/scale1；16:52:44实观50成功/0跳步，随后17:08实观1700成功/0跳步/c2/八rank活跃，已跨1382旧存储故障点及1601 EMA blend边界（cont4/qchar9_d exit0）。实际八rank/237参数/五空AdamW/初态51592a3d与正式CPU一致。start2/23e51726、guardrznpl7fo/bd48c126 exit0。raw .999未达。
 
 R1工程结束至本轮dispatch1303.054秒、八卡设备记录1383.764秒、首25记录1435.147秒，明确超过300秒。原因是共享存储容量恢复、精确旧权重清理、必要窄修复与Git同步/正式CPU/部署；[真实间隙](R221R2-HANDOFF-GAP.json)不声称连续利用率或失败调用瞬间未知字节。三份manifest共24旧checkpoint、19,705,864,713逻辑字节已清理，保护对象不变。
 
-唯一Git/GPU owner32e3；7c准备0–11/保留12–23与训练24–119/96核互斥。当前私有r221r2-pod-context.env/start2与source-git-r221r2，旧env仅历史；冻结运行不热改，不重复clock/activation/launch或旧safe观测。后续R222/R223仅在独立准备树完成，不恢复或派生Agent，不新增计算资源。
+本轮启动时唯一Git/GPU owner32e3，7c准备0–11/保留12–23与训练24–119/96核互斥；中途监督交给当前4e0c，原owner/rank和冻结包未变。私有r221r2 env/start2及source-git-r221r2现为历史定位，不作为新入口。本轮17:55:17完成、17:57唯一actualsafe封存；后续已接[R224 fit-only空间重建](../R224/README.md)，R222不eligible、R223暂缓。原clock/token/grant不重置，无旧Agent恢复/派生或新计算资源。

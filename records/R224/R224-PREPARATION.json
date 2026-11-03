@@ -1,0 +1,59 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+  "git_commit": "9c82ac0ded19446b9e1cdeb6c229fa0dee2f29e1",
+  "tree_sha": "26818e2a11c26c2e54d38baa8127014da33cd96e",
+  "science_sha256": "79afb5e1827931880097140377da3e90bdd1f25b4825a3ad2e1f3f3a30141148",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "0f4eed58095dd57122d134a133dc7ea298cb60b1abe270e488415cbde6327a6a",
+  "deployment_sha256": "4b2c259a7ff8ecff6db75036d479fef45d1d6c6c899c137c86ba10473b4ee5cc",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793729861.3988032,
+  "formal_CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+    "sha256": "2a19a20d8a0037cd31b7471521b1b433de4d95ee1ff42fd839d87eff7ca0a5b9"
+  },
+  "formal_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-9u9w7x2h/CPU-RECEIPT.json",
+    "sha256": "f6f8d710601d1cf168c5465303f1358e33b589cd469006237e75276f576f3f60"
+  },
+  "source_matched_affected_CPU_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/source-git/records/preparation/masked-reconstruction-20261103/CPU-CHECKS.json",
+    "sha256": "e7d86b007f4f858fed03fc5c6823556cedce3b79f237968243b2245a2ae671ab"
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/DEPLOYMENT.json",
+    "sha256": "4b2c259a7ff8ecff6db75036d479fef45d1d6c6c899c137c86ba10473b4ee5cc"
+  },
+  "remote_commit": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/REMOTE-COMMIT.json",
+    "sha256": "1b31a14eacd132ec72559ae91387763f1b3af2e100cf3e69c3c220046130b82b"
+  },
+  "remote_tree": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/REMOTE-TREE.json",
+    "sha256": "61db7886ce7d12619cfa10148d0175a571d4db2e2650738730bf7d507b7510ec"
+  },
+  "one_shot_activation": {
+    "status": "unique_activation_exit0",
+    "round_id": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+    "observed_at": 1793730124.0,
+    "preflight_sha256": "c69e4412e5864787826f9a7a6f242bda1340916ed5f2971699f3edd58bb55868",
+    "activation_audit_sha256": "d845278e2069a08bd51e5744a1917e2d0d27cef23708f28bf669bfd01075113e",
+    "GPU_started": false
+  },
+  "actual_start": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "277f95c80e9d1dc9aa562549aa6f0f0a1e9a09ef144288cff4e4c3bae9b5464d"
+  },
+  "supervised_initial_proven_at_this_observation": false,
+  "launch_transport_issue": {
+    "first_shell_received_no_stdin": true,
+    "formal_launcher_was_not_called": true,
+    "dispatch_absent_verified_before_first_call": true,
+    "correction": "kubectl exec -i; fresh launch-only Pod snapshot; existing clock and activation preserved"
+  },
+  "affected_GPU_preflight_or_rehearsal_run": false
+}
