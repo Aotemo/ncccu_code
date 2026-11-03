@@ -16,7 +16,7 @@ R226完整完成1600次fit-only HOG适配及11200次监督更新，attempt=succe
 
 冻结Git21dbb113/tree5c975e67、SCI43964fcf、actual SITE1c4e2d58。原公开Small/fe6 fresh，均匀fit G64/P8、512/ImageNet、每图154个32px块；逐RGB Sobel/9方向/8px cell及逐cell L2归一化，只hidden HOG cell的MSE，临时decoder丢弃，完整R107监督24k/800/patience4保持。[准备与真实CPU](../preparation/hog-reconstruction-20261103/README.md)含12必要目标/5编译、真实公开Small-P8和冷derived；18/18正式CPU及2585文件精确Git部署通过。公开50c6、监督初态db052095/345全训/5空AdamW、原head-age及监督RNG恢复、自然首25已实证：[首SSL](R226-START.json)、[完整1600到监督首成功](R226-SUPERVISED-START.json)、[交接来源](R226-SUPERVISED-RECEIPT.json)。实际与登记sampler seed均14997478083172343433，旧R224误登记未复现。没有额外任务图、旧teacher或label/age进入SSL。
 
-唯一actualsafe为COMPLETION-goal4-2/ac9cbc91、guardc7d6e876：原owner798693/start376131227已Z，八rank消失、锁无持有者、无device user、八卡busy0；已封存不重查。所选tensor d4c0d126、CSV be638a1e、precision37e3d0bc，完整归档eb250376/guardb030daca只读原内部CSV和小回执，没有模型/权重加载、新前向或官方读取。当前权重尚未按新清单清理；归档和Git同步后，仅清理已解除未来forward依赖的冗余checkpoint，三KEEP、CSV、元数据、数据缓存及当前R228保护。
+唯一actualsafe为COMPLETION-goal4-2/ac9cbc91、guardc7d6e876：原owner798693/start376131227已Z，八rank消失、锁无持有者、无device user、八卡busy0；已封存不重查。所选tensor d4c0d126、CSV be638a1e、precision37e3d0bc，完整归档eb250376/guardb030daca只读原内部CSV和小回执，没有模型/权重加载、新前向或官方读取。21:32在结果Gitdaa1b07同步后，已按[精确清单](../storage/closed-r226-20261103/README.md)删除9个冗余checkpoint/6.733GB逻辑字节，侧车/CSV/结果及三KEEP、数据缓存、当前R228保持；所选现在不可再称可加载模型。清单外文件未处理，未重新检查旧safe。
 
 后续按预登记分支接[R228局部光度一致性](../R228/README.md)，它约束同位置16×16特征而非R115全局池化向量；参数在R226完整结果前已固定，监督合同保持。[R228实际首25及接续间隙](../R228/R228-HANDOFF-GAP.json)为一次activation、两次入口调用（第一次在派发前被资源检查拒绝）、一次实际dispatch；旧clock/token/grant不改。R226整轮结束到新dispatch258.174秒、首SSL357.314秒、自然首25为374.255秒。首更新区间超过300秒，原因含调用方提前收紧CPU mask的可避免错误；实际连续GPU利用率未测，不能把整个区间都称作设备空闲。
 

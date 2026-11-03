@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "status": "completed",
+  "authorization_reference": "user-preserve-three-models-delete-redundant-keep-results",
+  "started_at": 1793741486.0038953,
+  "finished_at": 1793741486.8574378,
+  "plan_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/closed-r226-20261103-4e0c/PLAN.json",
+  "plan_sha256": "02b5d9c8f9dfab884adab7e7e8ee1cbb69ec48a179a0c0ea8fe80907d57e0839",
+  "inventory_sha256": "a493dd78087d70b1c909c51d5bd19d5f36350b97081bc48d7b60f53bf26022b2",
+  "deleted_count": 9,
+  "deleted_categories": {
+    "closed_round_checkpoint": {
+      "count": 9,
+      "logical_bytes": 6733346059,
+      "allocated_bytes": 6733348864
+    }
+  },
+  "skipped_during_apply": [],
+  "error": null,
+  "protected_stat_and_small_sha_unchanged": true,
+  "protected_before_sha256": "ecc17c043f863549de3e26bbe37a20e153881f59f92b4694117966a561e6ab3b",
+  "protected_after_sha256": "ecc17c043f863549de3e26bbe37a20e153881f59f92b4694117966a561e6ab3b",
+  "journal_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/closed-r226-20261103-4e0c/DELETE-JOURNAL.jsonl",
+  "journal_sha256": "4983238da1b21af0fb834f5eede94e00f101175dc0279464027d8bea66b92d85",
+  "usage_before": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 477815111680,
+      "used": 452228808704,
+      "free": 25586302976
+    }
+  },
+  "usage_after": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 477815111680,
+      "used": 445494853632,
+      "free": 32320258048
+    }
+  },
+  "free_delta_bytes": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": 6733955072
+  },
+  "unlinked_allocated_bytes": 6733348864,
+  "unlinked_logical_bytes": 6733346059,
+  "checkpoint_blob_rehashed_or_loaded": false,
+  "sidecar_index_lock_or_one_shot_modified": false,
+  "open_file_scan_denied": [],
+  "active_candidate_round_owners": [],
+  "protected_current_round": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+  "current_training_signals_sent": false,
+  "training_lock_acquired": false,
+  "limitations": [
+    "Allocated bytes are pre-unlink st_blocks*512 of unique regular inodes, not a claim of backend physical reclaim.",
+    "Filesystem free delta is a point-in-time observation on a shared filesystem and may include concurrent activity.",
+    "Large checkpoint identity uses exact stat plus actual small sidecar SHA/advertised blob SHA; payload was not rehashed or loaded.",
+    "All manifest exclusions, unknown ownership, raw/shared caches and protected current dependencies remain."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "closed_R226_checkpoints_removed_metadata_and_protected_stat_small_SHA_verified",
+  "at": 1793741572.701406,
+  "plan": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/closed-r226-20261103-4e0c/PLAN.json",
+    "sha256": "02b5d9c8f9dfab884adab7e7e8ee1cbb69ec48a179a0c0ea8fe80907d57e0839"
+  },
+  "delete": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/closed-r226-20261103-4e0c/DELETE-RECEIPT.json",
+    "sha256": "83cd59de7cdff871c8fcd2ce0fac55cdf6de18438300a449ace9c5a179d4cc60"
+  },
+  "CPU_evidence": {
+    "plan": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-w097qkws/CPU-RECEIPT.json",
+      "sha256": "647a6d2b991dc787bbd267235a746da5ffe57724bfe9b0755e13fedf91e1c7a4"
+    },
+    "delete": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-5h98_dli/CPU-RECEIPT.json",
+      "sha256": "0a7e3f98e53eb4449cf9cfccee22cd07f7a96611738e12ca43ad32580c7fb45f"
+    }
+  },
+  "current_round": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+  "current_site_sha256": "84b5108e54f790be241252cc419ca2637f92980236a8174cc5f502e08375a601",
+  "deleted_count": 9,
+  "logical_bytes_removed": 6733346059,
+  "free_bytes": 32320258048,
+  "old_safe_repolled": false,
+  "training_signals_or_lock": false,
+  "checkpoint_blob_rehashed_or_loaded": false
+}

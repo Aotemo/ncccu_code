@@ -1,5 +1,7 @@
 # R228 fit-only 局部光度一致性实际启动
 
+21:32 [1450次适配观测](R228-PROGRESS-SSL-2.json)：owner808714及8rank同出生身份活跃，原64图/128视图/16384×256矩阵及finite loss/gradient保持，完整1600→监督交接仍待。同期R226已按Git提交及精确清单清理9个checkpoint/6.733GB逻辑字节，free实观32.320GB，三KEEP及当前R228保护不变；没有新GPU预演、训练信号、锁或clock重置。
+
 21:23 [最新真实观测](R228-PROGRESS-SSL-1.json)：675次fit适配，原owner和8rank同出生身份活跃；global64图/128视图、16384×256相关token矩阵、loss/梯度有限，监督交接尚未证明。条件[R229正式18/18/精确部署](../preparation/local-invariance-20261103/R229-FORMAL-READY.json)也已在准备池完成，actual SITEfea174de/公开91507a65，guard353905d3；未激活/无clock/dispatch，不能等同于晋级。
 
 11-03 21:15:50 UTC实际首SSL成功，首25也已实证：8个rank、公开模型50c6/encoder/public张量及空初态匹配正式CPU；全局64图/128视图、实际矩阵16384×256、每图256个相关空间token，loss/梯度有限。首1 loss21.812551、首25 loss18.627014；token不是独立图像。owner808714/start376783424及八rank活跃，[实际首成功](R228-START.json)、[公开初态门](R228-SSL-INITIAL-GATE.json)、[正式准备与guard](R228-PREPARATION.json)保留。完整1600到监督交接及完整dev结果尚未证明，不能据SSL loss宣称收益。
