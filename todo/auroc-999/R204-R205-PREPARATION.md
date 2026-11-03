@@ -1,5 +1,7 @@
 # R204/R205 固定困难负例四分之一混合 Implementation Plan
 
+04:23已完成Git7ead152实际commit/tree回读与[两technical包](../../records/preparation/hard-negative-20261103/TECHNICAL-PACKAGES.json)，guard均0，R204实际run_name104/16GiB、R205实际100/default12GiB；无normal/GPU allocation/clock/GPU。原13b helper、现役R201/8635和先行R203/573保持。下文“尚待Git/技术包”为之前CPU完成时点。
+
 11-03 04:18已完成[六必要目标、五源码编译及两actual public fresh](../../records/preparation/hard-negative-20261103/README.md)，CPU汇总1b7cd941/guardtvbimxcy exit0。R204 whole6a261e48/165全训/5空组、R205 whole50c6/345全训/5空组，0图像forward；SCI分别f079cdd6/7aaa297d。原RED及两次私有汇总脚本错误均保留。当前尚待Git冻结/实际回读与两technical包，没有normal/clock/GPU；R201/8635与后续R203/573不混入新源码。
 
 > 使用 superpowers:brainstorming / writing-plans / executing-plans / TDD，由32e3本人在现有20%池实施；用户已明确最小修改无需审批，不恢复/派生Agent。
@@ -50,4 +52,5 @@ Files：`configs/R204-SCIENCE.json`、`R205-SCIENCE.json`、`ROUND-STORAGE-POLIC
 
 ## Task 4：Git冻结与既有串行接续
 
-- [ ] 精简真实回执入records，Git同步/实际API回读commit/tree后两technical包，真实生成名/配置验证。正常CPU/精确部署在前轮可行收尾前完成；实际safe后唯一owner沿原入口一次activation/direct launch，以真实八rank初态及首自然成功更新确认GPU链。不追加GPU预演，不把准备状态当训练或收益。
+- [x] 精简真实回执入records，Git7ead152同步/实际API回读commit/tree后两technical包，真实生成名/配置验证。
+- [ ] 正常CPU/精确部署在前轮可行收尾前完成；实际safe后唯一owner沿原入口一次activation/direct launch，以真实八rank初态及首自然成功更新确认GPU链。不追加GPU预演，不把准备状态当训练或收益。

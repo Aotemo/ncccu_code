@@ -1,5 +1,7 @@
 # R204/R205：固定困难负例四分之一混合 CPU 证据
 
+04:23按GitHub实际回读commit `7ead1526ec629508277f0623a506bc42fbf0dee8` / tree `9a03c357677b629b3256d0531fe863c7f98a6f61`完成[两technical包](TECHNICAL-PACKAGES.json)，原源码/配置/SHA与CPU证据逐项相符。R204 SITEdd961ec1、实际run_name104字符、16GiB；R205 SITE51f23387、100字符、默认12GiB，均在原128字符限制内。两[CPU技术guard](CPU-TECHNICAL-R204.json) / [R205](CPU-TECHNICAL-R205.json)及[归档guard46jc_af0](CPU-TECHNICAL-ARCHIVE.json)均0；归档SHA `3e27f118bcabcbdb3f6b4588aa9dc09b0d2ef8de899751ba2f18dd028460b809`。无formal-cpu/gpu-inputs/真实round目录，无新allocation/clock/GPU；后续正常CPU/精确部署仍按前轮可行收尾执行。私有原helper仅加两身份与6目标5编译证据路径，SHA8a1727e9；原13b/7fc及存储policy消费段逐字符保持，非新启动/训练链。当前R201/8635与既有R203/573不改，下文待Git/技术包为CPU完成时点。
+
 [最终CPU汇总](CPU-CHECKS.json) SHA `1b7cd94133adc0c6c82e227a9d918c8a404cdcf9edd346a6112513cd515b40c0`：6个受影响目标通过、5份源码编译、两次实际公开fresh；[最终guardtvbimxcy](CPU-FINAL-GUARD.json) / `c25f17a6981bf38f866423757fcad6c66976c8373bc605731080fb210a1cceb3` exit0。实核Pod/ec5/root0–11、nice19/隐藏CUDA-HIP-ROCR，与当前R201训练24–119互斥；无新Agent、计算资源、公开模型图像forward或GPU预演。Git冻结和两technical包随后按实际结果登记，此处不冒充已部署或已有收益。
 
 [三个数学目标](MATH-GREEN.json)覆盖真实8×56独立Python标量softplus/逐logit解析梯度、共同平移/共享bias、全同分与第14名边界同分、有限极端值和严格九字段；旧None/logistic/sigmoid/wide值与梯度bitwise保持。实际2rank CPU Gloo可微WORLD gather+DDP，局部正例[0,8]，distinct/alltie/boundary各每rank一次Toy Linear，共3次；真实保留global/local logits.grad，分别对照g和2g，DDP参数梯度对独立X^T*g。零空间不同特征使同分选择能由实际非零参数梯度区分，实际梯度识别的alltie/boundary负例index均0–13，未把参考index当运行观测。共享bias梯度容差2e-7，alltie实值约1.49e-7，不声称FP32数值恰为0。
