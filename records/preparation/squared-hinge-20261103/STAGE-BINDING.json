@@ -1,0 +1,32 @@
+{
+  "status": "actual_pushed_source_and_two_unstarted_stage_arguments_bound",
+  "at": 1793684489.7689793,
+  "git_commit": "78e80aa25701888b482e96de3066511de63f2def",
+  "tree_sha": "f6bd57161068be6d658ca23af4471f4ebd2cf2aa",
+  "source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/squared-hinge-20261103-32e3/source-git",
+  "source_CPU_checks_sha256": "4799663278c0b1ecfda413241f48ea9a29903b9fdf247e874ed57171e8007ee0",
+  "helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/squared-hinge-20261103-32e3/PREPARE-LARGE-DINO3-NEXT-SQUARED-HINGE.py",
+    "sha256": "89857348cd3289b4fe2d192f2318ea194d180f513e046ee24e32db7845d8e496",
+    "old_8a172_unchanged": true,
+    "only_four_identity_evidence_additions": true,
+    "existing_storage_policy_section_exact": true,
+    "compiled_by_prior_guard": true
+  },
+  "remote_commit_sha256": "885268ff546d520587346fffbba44615fcafa111b8517dbf4d6ee3f674cccd50",
+  "remote_tree_sha256": "09d2cdfba103394b315f32d8ccf8d0381438228428313f12c4206cec1a06bac0",
+  "packages": [
+    {
+      "label": "R206",
+      "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r206-20261103-32e3-ready",
+      "science_sha256": "11e6f001985b1dd2c5f3c1e2a25a806c52666c6bd067c5c13ec86a151def5670"
+    },
+    {
+      "label": "R207",
+      "prep": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r207-20261103-32e3-ready",
+      "science_sha256": "a146cfe2855eebd6aa77bb9d572159df059c220f1cffa51ba076a6ce883bc1b9"
+    }
+  ],
+  "GPU_started": false,
+  "formal_clock_created": false
+}

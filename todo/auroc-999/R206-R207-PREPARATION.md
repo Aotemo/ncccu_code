@@ -44,7 +44,7 @@ Files：`configs/R206-SCIENCE.json`、`configs/R207-SCIENCE.json`、`runtime/bun
 
 ## Task 3：同步与原链接续
 
-- [ ] 精简真实回执入records，实际Git push/commit-tree回读后构建两technical包，normal在前轮可行收尾前完成。
+- [x] 精简真实回执入records，Git78e80aa实际push/commit-tree回读，两个technical包guard均0，实际run_name均100/default12GiB；normal尚待前轮可行收尾完成。源/SCI与5目标4compile/两fresh证据逐项一致。
 - [ ] 完整双门及actualsafe决定唯一分支；原入口一次activation/direct launch，真实八rank初态及自然首25证实可运行。不重复旧safe/官方或改现役，不为文档空等。
 
 ## Ledger
@@ -52,3 +52,4 @@ Files：`configs/R206-SCIENCE.json`、`configs/R207-SCIENCE.json`、`runtime/bun
 - 05:32 UTC设计已固定，尚未实现/测试/配置身份/训练。Ruling：暂不引入EfficientNet BN适配，选择现有loss矩阵内单分支；这是本次范围决定，不是该架构的科学阴性。
 - 05:35 UTC已5目标GREEN，尚待compile/两actual fresh/最终归档/Git/technical包。首次新测试传输早于源码目录完成而失败，确认后顺序补传；无源码或训练后果。R203第9次观测请求早于16llskka guard完全退场，被既有owner flock拒绝，未执行观察；该次为unknown，准备无并发越池。后续等待guard结束再派发，未加流程或改互斥实现。
 - 05:40 UTC受影响CPU准备已完成，真实原件归入[records](../../records/preparation/squared-hinge-20261103/README.md)，无formal/clock/GPU。私有既有prepare helper仅四处身份/证据增补并compile，SHA89857348；原8a172及storage段保持。当前R203实观3050/0skip/eval3/bad0，暂EMA `.9771051101095617`，八rank活跃；后续R204/R205仍原7ead两technical包。
+- 05:43 UTC两technical包已实际完成、归档guardk9rxoipf/99b98596 exit0，未新normal/clock/GPU。05:42 Paseo只读实核仅32e3 running、peer idle/activeTurn null，无消息/恢复/派生。当前R203最近3525/0skip/eval4/bad0，暂EMA `.9798155548946346`，仍沿原队列接续。

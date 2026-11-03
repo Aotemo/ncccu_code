@@ -1,5 +1,7 @@
 # R206/R207：固定逐配对平方 hinge CPU 证据
 
+05:43已按GitHub实际回读commit `78e80aa25701888b482e96de3066511de63f2def` / tree `f6bd57161068be6d658ca23af4471f4ebd2cf2aa`构建[两technical包](TECHNICAL-PACKAGES.json)，真实source/SCI与CPU证据逐项相符。R206 SITEee3210f8、R207 SITEdd296d6d，实际run_name均100字符、默认12GiB；[R206 guardfk2ca9_y](CPU-TECHNICAL-R206.json) / [R207 guardyvd374om](CPU-TECHNICAL-R207.json)均0。无formal-cpu/gpu-inputs/真实round，无新allocation/clock/GPU。[归档guardk9rxoipf](CPU-TECHNICAL-ARCHIVE.json) / `99b9859643693af5f6e6fdf4029e692250ce8646b840313c6f7a06398f43632e` exit0，汇总SHA be989789。原R203/573和既定R204/R205/7ead不改。下文待Git/technical包为CPU完成时点。
+
 [CPU汇总](CPU-CHECKS.json) SHA `4799663278c0b1ecfda413241f48ea9a29903b9fdf247e874ed57171e8007ee0`：5个受影响目标通过、4份源码实际编译、两次实际公开fresh；[最终guardkksy1dne](CPU-FINAL-GUARD.json) / `b8b655dab855c5792375bf48474c3846a79a96addab3f34d62bb841469fa6cbd` exit0。Pod实核ec5/root0–11/nice19/隐藏CUDA-HIP-ROCR，与R203训练24–119互斥。尚待本次Git冻结/实际回读及两technical包，没有新normal、allocation、clock或GPU。
 
 [数学GREEN](MATH-GREEN.json) guard1pi0tzpl exit0，3目标/8.297秒：原8×56完整配对，独立Python双循环标量与逐logit解析梯度、共同平移/共享bias容差2e-7、混合间隔/全过/恰边界/全同分、有限极端值及严格六字段；旧None/logistic/sigmoid值和梯度bitwise保持。真实2rank CPU Gloo/WORLD+DDP，本地正例[0,8]；四case分别实核全部global梯度g、local梯度2g和DDP参数梯度X^T*g，不加world因子。不当作新八rank/DCU或真实图像证据。
