@@ -20,4 +20,4 @@ R224正常完成1600次fit-only适配及5600次监督成功更新，0skip、7轮
 
 本轮前一交接到首SSL1796.130秒超过300，[原间隙](R224-HANDOFF-GAP.json)及必要验证/可避免错误保留。R224到[R226](../R226/README.md)的整轮结束→dispatch178.326秒、首SSL272.288秒、首25记录281.744秒，均≤300；末监督更新→新首SSL369.896秒包括评估和收尾，不能当作空闲时长。连续GPU利用率未测。
 
-本轮没有后续forward依赖，原预测CSV、freeze、结果/precision继续保留；权重是否实际清理以独立存储回执为准。raw .999及本次.995/AP>.9目标未达。
+本轮没有后续forward依赖；8个checkpoint已[按真实清单清理](../storage/closed-r224-20261103/README.md)，5.941GB逻辑字节，原预测CSV、freeze、结果/precision和sidecar继续保留。历史所选不能再称可加载。raw .999及本次.995/AP>.9目标未达。
