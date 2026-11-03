@@ -13,3 +13,5 @@ R218仅完整R217严格胜两固定基线且actualsafe后的同原fe6/long EMA�
 原P8/冷加载仅按未变函数/源码身份复用，未来正式CPU仍由原入口绑定实际阶段。容量为原Small浮点情景，不是DCU峰值或磁盘峰值保证。未读官方/训练checkpoint或新增GPU预演，未证明临床机制、fit上限或AUROC收益；当前R217冻结6fb不改。
 
 13:20实际源码已提交并推送 `b8b8bbe6a21e60620a858c299172e1de9b5247fc` / tree `de0a717672a61a1c2a541759f68f921d44ea140d`，GitHub API回读与受影响文件/SCI SHA一致。[两技术包](TECHNICAL-PACKAGES.json) SHA320efb7e已生成，R218/R219 guard分别vkfzglw5/5a533017和drgdsdci/87649cf7均exit0；绑定guard1h4uh6kp/d51e6180。完整Git源树已传输，逐文件部署核验仍由后续原normal/precise-deployment执行，不能把技术包当成正式可启动。未创建新formal clock或GPU任务；后备normal临近当前轮收尾执行，避免提前耗尽完整授权窗口。
+
+13:35[完整源树传输核验](TRANSFER-VERIFICATION.json) SHAa359a5eb / [guard](CPU-TRANSFER.json)u9t5mhon/08a1bb38 exit0：直接复用现有freeze_deployment.verify_commit/verify_tree，2337文件清单/全部Git blob内容和执行权限与b8远端完整tree一致。提前排除R215曾遇到的漏文件传输问题，无模型或数据检查重跑，不产生formal allocation/clock/GPU。后续正式包/manifest/源码之间的部署绑定仍由原normal入口完成，不能以本次源树核验替代。

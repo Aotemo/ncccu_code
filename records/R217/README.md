@@ -1,5 +1,7 @@
 # R217：原 Small 较长 EMA 窗口
 
+13:33实观4900 success=attempt/0skip/c6/bad0、八rank活跃，暂EMA c6@4800内部AUROC .985093155735583 / AP .8024036697244497，尚无完整selected。13:33:18[原sysfs单次快照](R217-DEVICE-POINT.json)八绑定PCI均busy100%，[guard](R217-CPU-DEVICE.json)xiylcuee/5e7b17a5 exit0；非连续利用率测量。当前冻结部署保持，以下12:56为实际启动时点。
+
 12:56[真实八rank与自然首25](R217-START.json)已证可运行，最近150 success=attempt/0skip/eval0。345全训、五组/各rank空优化器state、初态50c6f55c与正式CPU一致；首25 loss .6513809561729431有限，WORLD8/G64P8/448pairs，每rank8主图/8视图。尚无完整selected或收益声称，raw .999未达。
 
 直接原R107 Small/publicfe6/seed29/512/ImageNet/原logistic/default AdamW-LR-WD/增强/age/globalclip/24k-800-p4，仅前1600次原EMA逐步复制后decay .999→.9999。既有更新、保存、加载和双variant内部dev唯一选点复用；首25处于复制阶段，不声称已观测1601之后真实混合或泛化收益。完整内部所选>=.996才官方5849一次。
