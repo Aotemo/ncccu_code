@@ -1,5 +1,7 @@
 # R204/R205 固定困难负例四分之一混合 Implementation Plan
 
+11-03 04:18已完成[六必要目标、五源码编译及两actual public fresh](../../records/preparation/hard-negative-20261103/README.md)，CPU汇总1b7cd941/guardtvbimxcy exit0。R204 whole6a261e48/165全训/5空组、R205 whole50c6/345全训/5空组，0图像forward；SCI分别f079cdd6/7aaa297d。原RED及两次私有汇总脚本错误均保留。当前尚待Git冻结/实际回读与两technical包，没有normal/clock/GPU；R201/8635与后续R203/573不混入新源码。
+
 > 使用 superpowers:brainstorming / writing-plans / executing-plans / TDD，由32e3本人在现有20%池实施；用户已明确最小修改无需审批，不恢复/派生Agent。
 
 **Goal:** 为R203之后准备条件seed27复核及一条独立、批内困难负例梯度假设，不阻塞当前R199或既定R201/R203。
@@ -20,6 +22,8 @@ R204/order117只在完整有效R203严格胜R107 `.9884405731067525`及R120 `.98
 
 R205/order118独立direct R107原Small/fe6/seed20261029/512/FP32/ImageNet/logistic/G64P8/448对/原AdamW/LR/WD/24k余弦，仅loss改固定negative-top14-mix05。`L=.5*mean(softplus(n-p))+.5*mean(stable_descending_top14(mean_over_8_positives(softplus(n-p))))`；矩阵维度8×56，沿dim0得到56负例项，stable=True按WORLD负例顺序取14。九字段独立version/kind加固定top_negative_count14、hard_negative_weight.5、tie_break WORLD_negative_order_stable，拒绝变值/多缺字段。全部448对仍有原项梯度，112个选中对多获梯度，不增加独立标签样本。不叠WD.05、wide2、gamma、低LR、困难正例或旧checkpoint。round `r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103`默认12GiB。
 
+历史R107没有当前显式official_evaluation字段，R205沿用现R120的完整内部selected>=.996才一次官方门，原R107文件不改。未封存草稿缺该字段已在首次候选GREEN前发现并保留；补齐后SCI为7aaa297d，不能称官方字段逐字来自R107。
+
 ## Review Focus
 
 1. 局部无正例rank仍通过既有可微WORLD gather拿完整8×56；真实global/local logit及DDP参数梯度对独立解析值，不另乘除world。
@@ -32,17 +36,17 @@ R205/order118独立direct R107原Small/fe6/seed20261029/512/FP32/ImageNet/logist
 
 Files：`tests/test_pairwise_hard_negative_loss.py`、`runtime/bundle/retrain/classification_loss.py`。消费原classification_loss/gather接口，新增固定PAIR_HARD_NEGATIVE_LOSS及kind，其他函数不改。
 
-- [ ] 先写独立Python标量/解析8×56梯度、全同分/边界同分、legacy bitwise/严格schema和真实2rank Gloo目标；实际RED后最小实现，GREEN。WORLD fixture每rank一次Toy Linear，真实保留global/local logits.grad及非零dW，含本地0正例；无公开模型/实图forward。
+- [x] 先写独立Python标量/解析8×56梯度、全同分/边界同分、legacy bitwise/严格schema和真实2rank Gloo目标；实际RED后最小实现，GREEN。WORLD的distinct/alltie/boundary三case各每rank一次Toy Linear，真实保留global/local logits.grad及非零dW，含本地0正例；无公开模型/实图forward。
 
 ## Task 2：两身份及存储最小登记
 
 Files：`configs/R204-SCIENCE.json`、`R205-SCIENCE.json`、`ROUND-STORAGE-POLICY.json`、`runtime/bundle/retrain/experiment91.py`、`tests/test_candidate_binding.py`、`tests/test_round_storage_policy.py`。config/data/engine/distributed_engine/model/EMA/保存/推理/源加载不改。
 
-- [ ] Pod内从R203/R107生成SCI；候选/存储目标先RED，再仅登记对应profile/来源/固定loss及LR/seed/互斥，GREEN。R204除seed、R205除loss之外job逐项相等；原9:1/结构/日程/早停/官方门及source保持。存储原guard做size/free fixture，旧16/32/default保持，超cap/free15拒；不实际写大文件。
+- [x] Pod内从R203/R107生成SCI；候选/存储目标先RED，再仅登记对应profile/来源/固定loss及LR/seed/互斥，GREEN。R204除seed、R205除loss之外job逐项相等；原9:1/结构/日程/早停/source保持，R205官方门明确采用现R120。存储原guard做size/free fixture，旧16/32/default保持，超cap/free15拒；不实际写大文件。
 
 ## Task 3：实际fresh与源码闭合
 
-- [ ] 只编译受影响源码；两actual public fresh核R204原165全训/5空组/原seed27 tensor身份和非持久RoPE、R205原345/5空组/whole50c6，原LR/default betas/eps/WD保持，0图像forward。原模型/P8/EMA/cold及gather/helper函数按相同SHA复用，汇总明确新测与复用，不重跑全套。
+- [x] 只编译受影响源码；两actual public fresh核R204原165全训/5空组/原seed27 tensor身份和非持久RoPE、R205原345/5空组/whole50c6，原LR/default betas/eps/WD保持，0图像forward。原模型/P8/EMA/cold及gather/helper函数按相同SHA复用，汇总明确新测与复用，不重跑全套。
 
 ## Task 4：Git冻结与既有串行接续
 

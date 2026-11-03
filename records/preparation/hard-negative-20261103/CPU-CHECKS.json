@@ -1,0 +1,247 @@
+{
+  "scope": "R204_R205_lower_LR_confirmation_and_fixed_negative_quarter_mix_affected_CPU",
+  "at": 1793679462.6404815,
+  "passed_targets": 6,
+  "targets": [
+    "test_pairwise_hard_negative_loss.HardNegativeLossTest.test_complete_8x56_value_gradients_and_stable_ties",
+    "test_pairwise_hard_negative_loss.HardNegativeLossTest.test_legacy_bitwise_and_strict_fixed_contract_extremes",
+    "test_pairwise_hard_negative_loss.HardNegativeLossTest.test_two_rank_actual_global_local_and_tie_parameter_gradients",
+    "test_candidate_binding.CandidateBindingTest.test_R204_R205_lower_LR_confirmation_and_independent_negative_quarter_loss",
+    "test_round_storage_policy.RoundStoragePolicyTest.test_new_round_limit_and_old_default_keep_free_floor",
+    "test_candidate_binding.CandidateBindingTest.test_R202_R203_wide_confirmation_and_independent_vitb_lower_backbone_LR"
+  ],
+  "compiled_sources": 5,
+  "compiled_source_names": [
+    "runtime/bundle/retrain/classification_loss.py",
+    "runtime/bundle/retrain/experiment91.py",
+    "tests/test_pairwise_hard_negative_loss.py",
+    "tests/test_candidate_binding.py",
+    "tests/test_round_storage_policy.py"
+  ],
+  "source_files": {
+    "runtime/r92_initial_gate.py": "76c54d67f8b669a7db5f0358a90123b4d8804ad2121792bdc9216ab5cf3edf71",
+    "tests/test_lr_decay.py": "cd9a65ddfd53af9314498c6b9b18dc3cecd657ebc4d1426a5e59d034d3058b63",
+    "tests/test_pairwise_sigmoid_wide_loss.py": "6e794704b84312f7818584a4b417e1c5e39f55b10d14275f988fa57dfc2b5639",
+    "tests/test_round_storage_policy.py": "57724e586c2075590bb4664a39339a3d8a2ea0a5ddec98ad0a5b5063fd699405",
+    "runtime/bundle/retrain/experiment91.py": "95941222597f5ac2b5736a607d84b48f4c38be6e7391c6f0781921272f5fb7f1",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "runtime/bundle/retrain/classification_loss.py": "11749a1f1462ca7217c8403df8c50c55a0d455645a581923ab8de11a146c1edf",
+    "runtime/bundle/retrain/inference.py": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "runtime/bundle/retrain/engine.py": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "runtime/bundle/retrain/models.py": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "runtime/bundle/retrain/single91.py": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "tests/test_deit3_model.py": "73c679f7e1cbd37d1ecb73e543bda9b237cf173225a29e50b399b46d2f449707",
+    "runtime/bundle/retrain/config.py": "9ab078fb583240cb90cdb0cf8b7a93511d0bde2612b883d9a930ae628a9b90c0",
+    "configs/ROUND-STORAGE-POLICY.json": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c",
+    "runtime/bundle/retrain/fresh.py": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "runtime/bundle/retrain/data.py": "962773883607a0334bd7428cfee04c7bc691734e8d74a6260d87d48d7b600045",
+    "tests/test_pairwise_hard_negative_loss.py": "19c763ae9268e6528b39ab22b27a8fb91b3767a81e2aef4a2c2ba1d07a79912d",
+    "tests/test_gamma_policy.py": "d766f98e3bf868153c79209ddf43fa606c1e33a43406709aee443a9c4e92833f",
+    "tools/validation/check_candidate.py": "eb502c8a04f717e1deaf2b4610e2c292682f3194448fe3227f56e62cefbb2cf8",
+    "tests/test_nonpersistent_buffers.py": "ed42a88ffc59905efe99d643cbe933f436c989cdfbed8a301057c24c8d7993eb",
+    "tools/pretraining/deit3_source.py": "7fa48427b413198744d9d50b871367f721a5d30a27f2b3095708d0fcdc4e0e27",
+    "runtime/bundle/retrain/ema.py": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "tests/test_candidate_binding.py": "b3879f6b31eb23478229f316aaa24bf10e53530fc175dbdedf0ca8a3099c6f44",
+    "runtime/run_round.py": "ee175648bb171eee265037eef6936bdd42ca711ca97f80e4fa15140ee5f52123"
+  },
+  "configuration_files": {
+    "configs/ROUND-STORAGE-POLICY.json": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c"
+  },
+  "science_sha256": {
+    "R204-SCIENCE.json": "f079cdd6b70ace86aad97cfbd0ef1169a1deb545d9c5b60a0b7d6c2761c2855c",
+    "R205-SCIENCE.json": "7aaa297d8ec74aa76758294bc47dcf0891a6410c6c8fa729d64953b188e9ab4c"
+  },
+  "public_fresh": {
+    "R204": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-negative-20261103-32e3/fresh/R204-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "1050a47bea35fe259f4d3f3569684cf25de7800cb8954c15311f061e7a7040d9",
+      "model_tensor_sha256": "6a261e48579f7651b5a887ff6889a140262adfc93a08c9e0c5832bda94b8f6cc",
+      "parameter_tensors": 165,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "weight_decay_by_group": [
+        0.0,
+        0.0001,
+        0.0,
+        0.0001,
+        0.0001
+      ],
+      "lr_by_group": [
+        1e-05,
+        1e-05,
+        0.001,
+        0.001,
+        0.001
+      ],
+      "image_forward_calls": 0,
+      "loss": {
+        "version": "binary-pairwise-logistic-v1",
+        "kind": "binary_pairwise_logistic",
+        "temperature": 1.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch"
+      },
+      "buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6"
+    },
+    "R205": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-negative-20261103-32e3/fresh/R205-PUBLIC-FRESH-INITIAL.json",
+      "sha256": "742fe03ca538f4a026d50c7376fa67ac005a0d55a0f163f70de70df82658c7a8",
+      "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+      "parameter_tensors": 345,
+      "optimizer_groups": 5,
+      "optimizer_state_entries": 0,
+      "weight_decay_by_group": [
+        0.0,
+        0.0001,
+        0.0,
+        0.0001,
+        0.0001
+      ],
+      "lr_by_group": [
+        0.0001,
+        0.0001,
+        0.001,
+        0.001,
+        0.001
+      ],
+      "image_forward_calls": 0,
+      "loss": {
+        "version": "binary-pairwise-logistic-negative-top14-mix05-v1",
+        "kind": "binary_pairwise_logistic_hard_negative",
+        "temperature": 1.0,
+        "reduction": "mean",
+        "dtype": "float32",
+        "scope": "global_batch",
+        "top_negative_count": 14,
+        "hard_negative_weight": 0.5,
+        "tie_break": "WORLD_negative_order_stable"
+      },
+      "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "evidence": [
+    {
+      "label": "math_RED_new_kind_missing",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-ck6n26pu/CPU-RECEIPT.json",
+      "sha256": "e2628c9a01112ee5c93d39ef8a395ee1a42d9557fde6e944e304194c845a1565",
+      "exit_code": 1,
+      "output_sha256": "fce4f6468ffc54cdade46fc32b0946cb3e7546748da330d1fd6de752e4e63da5"
+    },
+    {
+      "label": "three_math_legacy_actual_Gloo_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-zpnkrdw5/CPU-RECEIPT.json",
+      "sha256": "402272ed2c13606051dbe9bed2675be57462b45ddcbf34b565b3e8cecac9dc12",
+      "exit_code": 0,
+      "output_sha256": "de5879096c9f5e1a7833cc5f8bce0d2e54199652822914ce982e9b8d851b6fd4"
+    },
+    {
+      "label": "new_binding_storage_RED_old_candidate_PASS",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-j8yjecdx/CPU-RECEIPT.json",
+      "sha256": "20e8d55fdf27ab79d87c4208d37877d59169895979595706b7c9a534dc3256c3",
+      "exit_code": 1,
+      "output_sha256": "4af59d2f26da3ef6abaeeaaf3e696705268b7194057b534346368974cadf20b7"
+    },
+    {
+      "label": "three_binding_storage_GREEN",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-jy075324/CPU-RECEIPT.json",
+      "sha256": "5e51159ba786fb51ff87a6733d14d92c3b6ad3b45550adf070ebf987d47d522e",
+      "exit_code": 0,
+      "output_sha256": "8883242233e66b71965aa9b016f86ad3be86f8b59e84c08d1dc079924d2d1ecc"
+    },
+    {
+      "label": "unsealed_draft_current_official_gate_correction",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-99biyzjc/CPU-RECEIPT.json",
+      "sha256": "abd4c710d578c7a1e0c9de21fbb4463994cf8c322bda862ce50851e4af69f25e",
+      "exit_code": 0,
+      "output_sha256": "b9dd8fb57cd7552510c4bcbca108e52e9dcd85d38a4ab5ca748d4c877b98aef0"
+    },
+    {
+      "label": "two_actual_public_fresh_no_image_forward",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-xsgf6u_u/CPU-RECEIPT.json",
+      "sha256": "5744bb6b3e6e84e5d3535ae89b6d249e04351fa4973c3ebd4164728fea3ab717",
+      "exit_code": 0,
+      "output_sha256": "7c3229c47bd6ceda2415eddf690762f4db29804e24082e9b04e50063d3a819c2"
+    },
+    {
+      "label": "archive_check_RED_expected_changed_storage_in_wrong_unchanged_list",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-7um30lni/CPU-RECEIPT.json",
+      "sha256": "baecd01f5eb010792cd6563faa2c5415a42d92d24ddfa7a56bb8bcb069d83818",
+      "exit_code": 1,
+      "output_sha256": "6ecc7aa2733b7f245bbb39cb1e50713e249360ae0aed82798c2d29b1a91746f7"
+    },
+    {
+      "label": "archive_check_RED_wrong_gate_field_name",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/cpu-renewal-20261103-0320-32e3/tasks/32e3b079-81b0-4f66-9604-b32491599f44-evnjyiy8/CPU-RECEIPT.json",
+      "sha256": "59ede5f2ebac13c10d66cd6e4ceb3f1c8322d5646789014a31a15789764b2085",
+      "exit_code": 1,
+      "output_sha256": "ee21de0272b86ca46bb951c8fe579a3d9e0a21555f1a0028ec5330eeae2c4eab"
+    }
+  ],
+  "unchanged_implementation_files": {
+    "models": "b0cf9b6c8129ee9449042d8fdcf3cc99ecde485bdda0b8b4a849ef74ae190e41",
+    "engine": "47dcc7eb35d4708a519e8e0c5eaefa430fbf8096c9082d5bddcc7a0dca64bafa",
+    "distributed_engine": "a014c0f07f89320bdb6c47383b2c10cd3177615a4de8bb0f29d91f450461f6ca",
+    "ema": "1a88f71cb78eb3e97982a2728a8fa583e0187e81dfedcfd40ce614872fc21881",
+    "persistence": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "fresh": "ea0374a5980641ca00d81aa18767726c3766b4eebfd8400a78c5429f9d109786",
+    "single91": "f8e6a6927b1984ff753507448917d1b54bc11988d876fe3575ee573b60538eb0",
+    "inference": "0249347161c896ab353c25eb4f500a20badf79a7511dcac18270d69c4919bf49",
+    "parallel_evaluation": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "age": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "preprocessing": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456"
+  },
+  "unchanged_loss_helper_functions": {
+    "gather_pairwise_inputs": "2f35cdcba83d89c40ed227ff80a497528751be066864c27818a091c710ddf566",
+    "regularized_pairwise_loss": "3f14b202521445794799e1249d718f94d97567a8f6786080e5aab321efcfd0ae",
+    "validate_output_regularization": "18634589c968c7af90b2bac54882aadf9579c7d07e292f5e7d3c41e09a4a7f55",
+    "validate_output_regularization_job": "90c9d770dda08772f88fa6337430efa65d3837fb31424c362a98bbc53780ea0d"
+  },
+  "legacy_loss_AST_identical_after_removing_only_new_kind_branch": true,
+  "prior_recent_evidence": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-negative-20261103-32e3/source-cpu/records/preparation/vitb-low-lr-20261103/CPU-CHECKS.json",
+    "sha256": "8a3e7f62821062d59f2ab80a81b5a33d3cd1cbcf41da750259504dacd730ba65",
+    "model_config_engine_data_distributed_EMA_persistence_inference_exact_source_pins": true,
+    "production_P8_EMA_cold_targets_rerun": false
+  },
+  "storage_scope": {
+    "only_new_exact_round": "r204-vitb-dinov3-seed27-lr1e5-cls-storage16-24k-p4-9010-20261103",
+    "new_limit_bytes": 17179869184,
+    "default_bytes": 12884901888,
+    "old_overrides_unchanged": true,
+    "runtime_budget_function_unchanged": true,
+    "native_guard_mock_size_and_free_fixture": true,
+    "real_large_file_write": false
+  },
+  "numeric_scope": {
+    "independent_scalar_8x56_loss_and_logit_gradients": true,
+    "legacy_None_logistic_sigmoid_wide_value_and_gradient_bitwise": true,
+    "actual_Gloo_WORLD_ranks": 2,
+    "actual_retained_global_and_local_logit_gradients_checked": true,
+    "DDP_parameter_gradients_checked_against_analytic_X_transpose_g": true,
+    "distinct_alltie_boundary_cases": 3,
+    "CPU_Toy_linear_forward_calls_per_rank": 3,
+    "actual_tie_selection_observed_from_gradients": true,
+    "extra_world_factor": false,
+    "shared_bias_gradient_tolerance": 2e-07,
+    "production_image_forward_calls": 0,
+    "GPU_eight_rank_proof": false
+  },
+  "official_gate_scope": {
+    "R107_original_unchanged": true,
+    "R205_uses_current_R120_explicit_gate": true,
+    "unsealed_draft_missing_current_gate_preserved": true,
+    "correction_precedes_candidate_GREEN": true
+  },
+  "scientific_limits": [
+    "fixed finite-batch negative-tail mixture; not a clinical mechanism or benefit proof",
+    "not literal SOPA or LibAUC forward and not a population-unbiased objective",
+    "all 448 pairs keep base weight; selected 112 pairs do not become independent samples",
+    "hard-negative weighting may amplify noisy task negatives; selection remains full internal AUROC",
+    "CPU evidence does not measure DCU peak or throughput"
+  ],
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "official_read": false,
+  "tests_rerun_in_archive_task": false
+}

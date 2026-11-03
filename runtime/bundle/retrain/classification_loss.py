@@ -28,15 +28,23 @@ PAIR_WIDE_SIGMOID_LOSS = {
     'version': 'binary-pairwise-sigmoid-wide2-peakgrad-v1', 'kind': 'binary_pairwise_sigmoid_wide',
     'temperature': 2.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
 }
+PAIR_HARD_NEGATIVE_LOSS = {
+    'version': 'binary-pairwise-logistic-negative-top14-mix05-v1',
+    'kind': 'binary_pairwise_logistic_hard_negative', 'temperature': 1.0,
+    'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
+    'top_negative_count': 14, 'hard_negative_weight': .5,
+    'tie_break': 'WORLD_negative_order_stable',
+}
 PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid',
                        PAIR_HARD_POSITIVE_LOSS['kind'], PAIR_AUC_MARGIN_LOSS['kind'], PAIR_BCE_MIX_LOSS['kind'],
-                       PAIR_WIDE_SIGMOID_LOSS['kind'])
+                       PAIR_WIDE_SIGMOID_LOSS['kind'], PAIR_HARD_NEGATIVE_LOSS['kind'])
 _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
                           'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1',
                           PAIR_HARD_POSITIVE_LOSS['kind']: PAIR_HARD_POSITIVE_LOSS['version'],
                           PAIR_AUC_MARGIN_LOSS['kind']: PAIR_AUC_MARGIN_LOSS['version'],
                           PAIR_BCE_MIX_LOSS['kind']: PAIR_BCE_MIX_LOSS['version'],
-                          PAIR_WIDE_SIGMOID_LOSS['kind']: PAIR_WIDE_SIGMOID_LOSS['version']}
+                          PAIR_WIDE_SIGMOID_LOSS['kind']: PAIR_WIDE_SIGMOID_LOSS['version'],
+                          PAIR_HARD_NEGATIVE_LOSS['kind']: PAIR_HARD_NEGATIVE_LOSS['version']}
 
 
 def validate_loss(specification):
@@ -53,6 +61,10 @@ def validate_loss(specification):
             if specification != PAIR_BCE_MIX_LOSS:
                 raise ValueError('joint pairwise/BCE loss requires the fixed mix05 contract')
             fields = set(PAIR_BCE_MIX_LOSS)
+        if kind == PAIR_HARD_NEGATIVE_LOSS['kind']:
+            if specification != PAIR_HARD_NEGATIVE_LOSS or type(specification.get('top_negative_count')) is not int:
+                raise ValueError('hard-negative loss requires the fixed top14/mix05/stable-WORLD contract')
+            fields = set(PAIR_HARD_NEGATIVE_LOSS)
         if (set(specification) != fields
                 or specification['version'] != _PAIRWISE_LOSS_VERSIONS[kind]
                 or specification['reduction'] != 'mean' or specification['dtype'] != 'float32'
@@ -135,6 +147,13 @@ def classification_loss(logits, targets, specification=None):
             hardest = torch.sort(per_positive, descending=True, stable=True).values[:specification['top_positive_count']]
             weight = specification['hard_positive_weight']
             return (1. - weight) * per_positive.mean() + weight * hardest.mean()
+        if specification['kind'] == PAIR_HARD_NEGATIVE_LOSS['kind']:
+            if (positives.numel(), negatives.numel()) != (8, 56):
+                raise ValueError('fixed hard-negative loss requires complete WORLD G64P8 inputs')
+            per_negative = F.softplus(scaled).mean(dim=0)
+            hardest = torch.sort(per_negative, descending=True, stable=True).values[:specification['top_negative_count']]
+            weight = specification['hard_negative_weight']
+            return (1. - weight) * per_negative.mean() + weight * hardest.mean()
         if specification['kind'] == PAIR_WIDE_SIGMOID_LOSS['kind']:
             return 2. * specification['temperature'] * torch.sigmoid(scaled).mean()
         return 2. * torch.sigmoid(scaled).mean()

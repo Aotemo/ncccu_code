@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "targets_run": 3,
+  "targets": [
+    "test_pairwise_hard_negative_loss.HardNegativeLossTest.test_complete_8x56_value_gradients_and_stable_ties",
+    "test_pairwise_hard_negative_loss.HardNegativeLossTest.test_legacy_bitwise_and_strict_fixed_contract_extremes",
+    "test_pairwise_hard_negative_loss.HardNegativeLossTest.test_two_rank_actual_global_local_and_tie_parameter_gradients"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "11749a1f1462ca7217c8403df8c50c55a0d455645a581923ab8de11a146c1edf",
+    "tests/test_pairwise_hard_negative_loss.py": "19c763ae9268e6528b39ab22b27a8fb91b3767a81e2aef4a2c2ba1d07a79912d"
+  },
+  "failures": 0,
+  "errors": 0,
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "official_read": false
+}

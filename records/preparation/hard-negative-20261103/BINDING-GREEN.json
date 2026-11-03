@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "targets_run": 3,
+  "targets": [
+    "test_candidate_binding.CandidateBindingTest.test_R204_R205_lower_LR_confirmation_and_independent_negative_quarter_loss",
+    "test_round_storage_policy.RoundStoragePolicyTest.test_new_round_limit_and_old_default_keep_free_floor",
+    "test_candidate_binding.CandidateBindingTest.test_R202_R203_wide_confirmation_and_independent_vitb_lower_backbone_LR"
+  ],
+  "source_files": {
+    "runtime/bundle/retrain/classification_loss.py": "11749a1f1462ca7217c8403df8c50c55a0d455645a581923ab8de11a146c1edf",
+    "runtime/bundle/retrain/experiment91.py": "95941222597f5ac2b5736a607d84b48f4c38be6e7391c6f0781921272f5fb7f1",
+    "tests/test_candidate_binding.py": "b3879f6b31eb23478229f316aaa24bf10e53530fc175dbdedf0ca8a3099c6f44",
+    "tests/test_round_storage_policy.py": "57724e586c2075590bb4664a39339a3d8a2ea0a5ddec98ad0a5b5063fd699405",
+    "configs/ROUND-STORAGE-POLICY.json": "93f8a86f8cff623598d0f33cd08490c5874bba95e5c4eccee207061d9988cc5c"
+  },
+  "failures": 0,
+  "errors": 0,
+  "GPU_initialized": false,
+  "production_model_or_image_forward": false,
+  "official_read": false
+}

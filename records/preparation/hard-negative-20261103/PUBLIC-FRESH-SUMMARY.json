@@ -1,0 +1,69 @@
+{
+  "R204": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-negative-20261103-32e3/fresh/R204-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "1050a47bea35fe259f4d3f3569684cf25de7800cb8954c15311f061e7a7040d9",
+    "model_tensor_sha256": "6a261e48579f7651b5a887ff6889a140262adfc93a08c9e0c5832bda94b8f6cc",
+    "parameter_tensors": 165,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "lr_by_group": [
+      1e-05,
+      1e-05,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "buffer_sha256": "b2d9ba4bc2342ce5db46e3ae190f6854f676f03d26bdcbe83191462c98f942c6"
+  },
+  "R205": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/hard-negative-20261103-32e3/fresh/R205-PUBLIC-FRESH-INITIAL.json",
+    "sha256": "742fe03ca538f4a026d50c7376fa67ac005a0d55a0f163f70de70df82658c7a8",
+    "model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+    "parameter_tensors": 345,
+    "optimizer_groups": 5,
+    "optimizer_state_entries": 0,
+    "weight_decay_by_group": [
+      0.0,
+      0.0001,
+      0.0,
+      0.0001,
+      0.0001
+    ],
+    "lr_by_group": [
+      0.0001,
+      0.0001,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "image_forward_calls": 0,
+    "loss": {
+      "version": "binary-pairwise-logistic-negative-top14-mix05-v1",
+      "kind": "binary_pairwise_logistic_hard_negative",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch",
+      "top_negative_count": 14,
+      "hard_negative_weight": 0.5,
+      "tie_break": "WORLD_negative_order_stable"
+    },
+    "buffer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
