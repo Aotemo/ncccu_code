@@ -12,9 +12,9 @@ R228仍按冻结be5b5fa8运行；本页在其完整结果前固定后备问题�
 
 精确代码范围：新增`runtime/bundle/retrain/ema_assignment.py`实现原型头/EMA目标及loss；`ssl_stage.py`仅接入同一既有fit循环和回执；`experiment91.py`加两固定身份；`runtime/r115_ssl_gate.py`仅为此recipe核辅助教师初态；`configs/R230-SCIENCE.json`/`R231-SCIENCE.json`；`tests/test_ema_assignment.py`及既有SSL门测试的必要部分。data/sampler/gather、监督训练/保存/评估/监控/启动平台不重建，活跃R228冻结不改。CPU准备独立`technical-prep/ema-assignment-20261103-4e0c`，原24核0–23/nice19/隐藏GPU，与96核训练互斥，不派生Agent。
 
-- [ ] 先Pod RED：解析交叉熵独立oracle/教师及center stop-grad、动量及center算术、原型归一化与首epoch冻结/解冻、公开head-age及RNG保持、两SCI完整R107合同、实际教师初态门。
-- [ ] 最小实现、必要GREEN/编译，真实公开Small/P8双视图/65536头/学生更新/教师EMA/冷derived检查；CPU fixture退出删除，不进训练。
+- [x] 先Pod两项缺失行为RED；GREEN含解析交叉熵独立oracle/教师及center stop-grad、动量及center算术、原型归一化与首epoch冻结/解冻、公开head-age及RNG保持、两SCI完整R107合同、实际教师初态门。
+- [x] 最小实现、19必要目标/5编译，真实公开Small/P8双视图/65536头/349有限梯度/学生更新/教师EMA/冷derived通过；722步原型冻结，监督5空组，CPU fixture退出删除，不进训练。证据e58e363e/guard65e9ed62，143.844秒，见[准备回执](../../records/preparation/ema-assignment-20261103/README.md)。
 - [ ] Git同步/API回读/精确源和技术包，正式CPU及已有入口准备在R228运行期间完成；不新增GPU预演。
 - [ ] R228完整selected双门过则优先R229，否则唯一actualsafe后R230；R231只在R230完整双门后激活。完整内部AUROC主判，AP与原固定20/其余147修复/新增错序及真实成本并列，比较R107/R120/R115/R224/R226/完整R228；seed27比较R108/R121，官方仍原≥.996一次门。
 
-现在是后备固定设计，尚未实现、CPU通过或证明收益；当前唯一GPU仍R228。必要最小改动按用户既有授权直接实施，无额外任务数据、资源或审批门。
+后备固定设计已实现并通过必要CPU验证，尚未正式部署、GPU启动或证明收益；当前唯一GPU仍R228。必要最小改动按用户既有授权直接实施，无额外任务数据、资源或审批门。

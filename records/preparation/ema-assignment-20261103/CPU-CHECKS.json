@@ -1,0 +1,62 @@
+{
+  "status": "nineteen_affected_targets_passed",
+  "targets": 19,
+  "compiled_sources": 5,
+  "source_files": {
+    "runtime/bundle/retrain/ema_assignment.py": "1f9dda4323103e3181a3017222420be6a289825ea65a899779d6ecebdba34a78",
+    "runtime/bundle/retrain/ssl_stage.py": "409ed756d88ca2f7beef9ddc87bdaedff917ff8ae68d6b5b035b81e8e4129b84",
+    "runtime/bundle/retrain/experiment91.py": "2b779cb43f9950e10761c9e6d6b0cf7bbdcb49f74d61b617f996a99a0ca611e5",
+    "runtime/r115_ssl_gate.py": "bad449bc222d3401715d3921594d1324596eac6085e7f888da332b1ea37a40c4",
+    "tests/test_ema_assignment.py": "86fb91ed71002a5baf725b14ecc1ec3d0c2dac02900a8b7fb1f31d9575b30430"
+  },
+  "configuration_files": {
+    "configs/R230-SCIENCE.json": "8cb98a2b0d3fca149f3d4ac2adb6811a559f8e14a08ccec701a7de48ab0fefd1",
+    "configs/R231-SCIENCE.json": "13fb11e2df9e968b687a6ea3a4ff257a71bf7fd7a1f23ae3bd7360a1b2a5d6f6"
+  },
+  "unchanged_implementation_files": {
+    "runtime/bundle/retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a",
+    "runtime/bundle/retrain/vicreg.py": "018907a9643d852ad24f83acbb7f3e53021ab1539b868b08422cfd5665b5cb01",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/distributed_engine.py": "83a4842831aee0063edce300a2873007c9c088d1ee6ee058b7b39f8a3c66811b",
+    "runtime/bundle/retrain/parallel_evaluation.py": "fa5b9319cf0c310a265aba2efe3e6c83299fa95812b284042e414bbb6e7abf35",
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "runtime/bundle/retrain/classification_loss.py": "ae4b24317e5baf59bc0f0ce97661d024a2965f50aaf7326a716315daa363d339",
+    "runtime/r92_initial_gate.py": "704b0fc29f441a47eec7e87aa54e044634904dd76da88d71c2a0939524bef3a3",
+    "tools/activation/prepare.py": "6687931e964e9652f2587ab0e9d005594023adb5c2624eb94f285634f167489e",
+    "tools/validation/check_candidate.py": "fa47a07f21376bddf9692b48ca53068c9783c587b7d37d176a1c9e57d00756be",
+    "tools/observer/observe_round_once.py": "c4ff39e91c47c9cfd69da05bd8df8fd8ee0125b29f17f72b1ba4dc1a2dc6f296",
+    "configs/RESOURCE-POLICY.json": "0b1a5f9509251c383c0b0103419d0ab673f92dc2a8269bfa5971d3c5123ea063",
+    "tests/test_ssl_stage.py": "28905cdf987278b7474b61b68616511c3fc52b82a1d3b61e7a936d0c553e2655",
+    "tests/test_masked_reconstruction.py": "59aa4b9f61703d1e6c5bc6a51816a6d1a2301eb604ad2108055325a51dd03788",
+    "tests/test_masked_reconstruction_candidate.py": "4339cc9cf80707dcaad1a561081e882dec1524f4a86466df34b727751165f559"
+  },
+  "red_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/RED.json",
+    "sha256": "10dc098a1aa9794b61d31723cc9dadaa08ec889635a653b84e68d63c339703bc",
+    "guard": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-qqomek14/CPU-RECEIPT.json",
+      "sha256": "38001cbe51c5d50c5ce501189583e0bb2e216524f05930f3ceb1419dba8af9df"
+    }
+  },
+  "green_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/CPU-CHECKS.json",
+    "sha256": "97090143059c2646972d343338629325a85da8c85dfa7f1889d701d63906bf74",
+    "guard": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-sn6u3x54/CPU-RECEIPT.json",
+      "sha256": "81e0c02d3f6a013f6b98cc01064e7957fed2d4bb90bf0a0e83127478ba60f4dd"
+    }
+  },
+  "legacy_candidates_log_sha256": "8477d705dd67430ac17ac81c8ce7d3e96f8aa45789b14820188d0aef0786a178",
+  "actual_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "026afc2698da61793fe95e2bd4826035500841edfcaf2b29c2b1cfcd7ba3efa8"
+  },
+  "actual_P8_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-a2ci950e/CPU-RECEIPT.json",
+    "sha256": "65e9ed62199e6fdaa919390aa90e742887e941fca2e0fbd70316c8e8a6fda484"
+  },
+  "at": 1793743758.2949133,
+  "new_GPU_forward": false,
+  "active_R228_unchanged": true
+}

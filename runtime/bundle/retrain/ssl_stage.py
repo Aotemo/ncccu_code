@@ -1,5 +1,6 @@
 """One registered fit-only representation phase inside the fresh training owner."""
 import hashlib
+import copy
 import json
 import math
 import os
@@ -51,6 +52,9 @@ def validate_recipe(recipe, job, manifest, world):
         expected = HOG_RECIPE
     if recipe.get('version') == LOCAL_RECIPE['version']:
         expected = LOCAL_RECIPE
+    if recipe.get('version') == 'fit-ema-assignment-1600-v1':
+        from .ema_assignment import EMA_RECIPE
+        expected = EMA_RECIPE
     if recipe != expected or world != 8 or job['model'] != 'convnext_small' or job['image_size'] != 512:
         raise ValueError('registered fixed fit-only SSL recipe/topology differs')
     indices = manifest['fit_indices']
@@ -198,6 +202,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     masked = domain in ('fit-masked-rgb32-1600-v1', 'fit-masked-hog8-1600-v1')
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
+    assignment = domain == 'fit-ema-assignment-1600-v1'
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -205,9 +210,18 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     if masked:
         from .masked_reconstruction import MaskedReconstructionModel, spatial_mask, masked_l1, hog_target, masked_hog_mse
         model = MaskedReconstructionModel(binary, projector_seed=rng['projector_seed'], target='hog' if hog else 'rgb')
+    elif assignment:
+        from .ema_assignment import (AssignmentSSLModel, assignment_loss, freeze_prototypes,
+                                     teacher_initial_proof, update_teacher)
+        model = AssignmentSSLModel(binary, projector_seed=rng['projector_seed'])
     else:
         model = (LocalSSLModel if local else SSLModel)(binary, projector_seed=rng['projector_seed'])
     model = model.to(ctx.device)
+    if assignment:
+        teacher = copy.deepcopy(model).requires_grad_(False).eval()
+        center = torch.zeros(1, 65536, device=ctx.device)
+        teacher_public = teacher_initial_proof(model, teacher)
+        fit_epoch_updates = len(manifest['fit_indices']) // 64
     wrapped = ctx.wrap(model)
     public_digest = tensor_digest(binary.state_dict())
     public_encoder_digest = tensor_digest(_derived_state(binary))
@@ -218,7 +232,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
         'public_tensor_sha256': public_receipt['public_tensor_sha256'],
         'strict_public_exact': public_receipt['all_public_tensors_exact'],
         'non_encoder_sha256': public_non_encoder_digest, 'optimizer_state_entries': 0,
-        'projector_shape': ssl_head_shape(recipe)})
+        'projector_shape': ssl_head_shape(recipe), **(teacher_public if assignment else {})})
     if (len({item['model_sha256'] for item in publics}) != 1
             or len({item['encoder_tensor_sha256'] for item in publics}) != 1
             or len({item['public_tensor_sha256'] for item in publics}) != 1
@@ -262,17 +276,28 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                 loss = (masked_hog_mse(prediction.float(), hog_target(images), mask[:, :, ::8, ::8]) if hog
                         else masked_l1(prediction.float(), images.float(), mask))
             else:
+                dimension = 65536 if assignment else 256
+                if assignment:
+                    with torch.no_grad():
+                        targets = teacher(images.reshape(16, 3, 512, 512)).reshape(8, 2, dimension)
+                        t1 = gather_embeddings(targets[:, 0])
+                        t2 = gather_embeddings(targets[:, 1])
                 embeddings = wrapped(images.reshape(16, 3, 512, 512))
-                expected_embedding_shape = (16, 16, 16, 256) if local else (16, 256)
+                expected_embedding_shape = (16, 16, 16, 256) if local else (16, dimension)
                 if embeddings.shape != expected_embedding_shape:
                     raise ValueError('SSL actual per-view embedding geometry differs')
                 embeddings = embeddings.reshape(8, 2, *expected_embedding_shape[1:])
-                z1 = gather_embeddings(embeddings[:, 0].reshape(-1, 256))
-                z2 = gather_embeddings(embeddings[:, 1].reshape(-1, 256))
-                expected_global_shape = (16384, 256) if local else (64, 256)
+                z1 = gather_embeddings(embeddings[:, 0].reshape(-1, dimension))
+                z2 = gather_embeddings(embeddings[:, 1].reshape(-1, dimension))
+                expected_global_shape = (16384, 256) if local else (64, dimension)
                 if z1.shape != expected_global_shape or z2.shape != expected_global_shape:
                     raise ValueError('SSL actual global two-view embedding geometry differs')
-                loss = vicreg_loss(z1.float(), z2.float())
+                if assignment:
+                    if t1.shape != expected_global_shape or t2.shape != expected_global_shape:
+                        raise ValueError('EMA global teacher geometry differs')
+                    loss, assignment_stats = assignment_loss(z1.float(), z2.float(), t1.float(), t2.float(), center)
+                else:
+                    loss = vicreg_loss(z1.float(), z2.float())
             if ctx.any(not bool(torch.isfinite(loss))):
                 raise FloatingPointError('nonfinite R115 VICReg loss')
             loss.backward()
@@ -282,7 +307,13 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             factor = _factor(update)
             for group in optimizer.param_groups:
                 group['lr'] = group['initial_lr'] * factor
+            if assignment:
+                prototype_frozen = freeze_prototypes(model, update=update, fit_epoch_updates=fit_epoch_updates)
             optimizer.step()
+            if assignment:
+                momentum = update_teacher(teacher, model, center, torch.cat((t1, t2)), update=update)
+                if ctx.any(not all_floating_finite(teacher.parameters()) or not bool(torch.isfinite(center).all())):
+                    raise FloatingPointError('nonfinite EMA teacher or center')
             if ctx.any(not all_floating_finite(model.parameters())
                        or not all_floating_finite(value for state in optimizer.state.values() for value in state.values())):
                 raise FloatingPointError('nonfinite R115 VICReg parameter or Adam state')
@@ -294,7 +325,13 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                         'spatial_masked_blocks_per_image': 154 if masked else None,
                         'spatial_tokens_per_primary': 256 if local else None,
                         'finite_loss_and_gradient': True,
-                        'loss': float(loss.detach()), 'lr_factor': factor, 'at': time.time()}) + '\n')
+                        'loss': float(loss.detach()), 'lr_factor': factor, 'at': time.time(),
+                        **({'teacher_entropy': float(assignment_stats['teacher_entropy']),
+                            'teacher_mean_entropy': float(assignment_stats['teacher_mean_entropy']),
+                            'teacher_momentum': momentum, 'prototype_frozen': prototype_frozen,
+                            'prototype_freeze_updates': fit_epoch_updates,
+                            'teacher_forward_inputs': 128, 'encoder_view_forwards': 256}
+                           if assignment else {})}) + '\n')
                 atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
                     'successful_updates': update, 'target_updates': 1600,
                     'last_loss': float(loss.detach()), 'at': time.time()})
@@ -305,14 +342,22 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     state = _derived_state(binary)
     digest = tensor_digest(state)
     non_encoder_after = tensor_digest(_non_encoder_state(binary))
+    teacher_final = ({'teacher_final_sha256': tensor_digest(teacher.state_dict()),
+        'teacher_center_sha256': tensor_digest({'center': center}),
+        'teacher_no_gradients': all(parameter.grad is None and not parameter.requires_grad
+                                   for parameter in teacher.parameters())} if assignment else {})
     digests = ctx.values({'rank': ctx.rank, 'derived_tensor_sha256': digest,
         'non_encoder_sha256_before': publics[ctx.rank]['non_encoder_sha256'],
         'non_encoder_sha256_after': non_encoder_after,
-        'head_age_unchanged': non_encoder_after == publics[ctx.rank]['non_encoder_sha256']})
+        'head_age_unchanged': non_encoder_after == publics[ctx.rank]['non_encoder_sha256'], **teacher_final})
     if len({item['derived_tensor_sha256'] for item in digests}) != 1:
         raise ValueError('SSL derived encoder differs between ranks')
     if any(item['head_age_unchanged'] is not True for item in digests):
         raise ValueError('SSL changed the sealed public head or age parameters')
+    if assignment and (len({item['teacher_final_sha256'] for item in digests}) != 1
+            or len({item['teacher_center_sha256'] for item in digests}) != 1
+            or any(item['teacher_no_gradients'] is not True for item in digests)):
+        raise ValueError('EMA teacher/center rank agreement or gradient ownership differs')
     receipt = None
     if ctx.primary:
         asset = folder / 'derived-encoder.pt'
@@ -341,6 +386,10 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'ssl_rank0_non_encoder_sha256': publics[0]['non_encoder_sha256'],
             'derived_tensor_sha256': digest, 'asset_path': str(asset),
             'asset_sha256': sha256_file(asset), 'rank_proofs': digests,
+            **({'prototype_freeze_updates': fit_epoch_updates,
+                'teacher_projector_center_persisted': False,
+                'unique_augmented_views_per_update': 128, 'encoder_view_forwards_per_update': 256}
+               if assignment else {}),
             'rng_derivation': rng,
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)
@@ -354,6 +403,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
         del prediction, mask
     else:
         del embeddings, z1, z2
+    if assignment:
+        del teacher, center, targets, t1, t2, assignment_stats
     if ctx.device.type == 'cuda':
         torch.cuda.empty_cache()
     return receipt

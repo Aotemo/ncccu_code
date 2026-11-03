@@ -4,6 +4,18 @@ from pathlib import Path
 import time
 
 
+def verify_teacher_initial(proof, world):
+    if (world != 8 or len(proof) != world or {item.get('rank') for item in proof} != set(range(world))
+            or len({item.get('teacher_tensor_sha256') for item in proof}) != 1
+            or any(not isinstance(item.get('teacher_tensor_sha256'), str)
+                   or len(item['teacher_tensor_sha256']) != 64
+                   or item['teacher_tensor_sha256'] != item.get('teacher_student_sha256')
+                   or item.get('teacher_trainable_tensors') != 0
+                   or item.get('teacher_shared_parameter_tensors') != 0 for item in proof)):
+        raise ValueError('EMA eight-rank teacher initial equality/no-gradient/disjoint storage differs')
+    return True
+
+
 def maybe_release(root, atomic, sha):
     root = Path(root)
     recipe = json.loads((root / 'SCIENCE.json').read_text()).get('ssl_recipe')
@@ -40,6 +52,8 @@ def maybe_release(root, atomic, sha):
                    or not isinstance(item.get('non_encoder_sha256'), str)
                    or len(item['non_encoder_sha256']) != 64 for item in proof)):
         raise ValueError('R115 eight-rank public source/empty Adam/projector identity differs')
+    if recipe['version'] == 'fit-ema-assignment-1600-v1':
+        verify_teacher_initial(proof, world)
     fresh = json.loads((root / 'control/train-fresh-spec.json').read_text())
     if (fresh.get('ssl_recipe') != recipe
             or fresh.get('ssl_startup_barrier') != str(barrier)
