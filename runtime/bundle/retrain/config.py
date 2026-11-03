@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 
 BUNDLE = Path(__file__).resolve().parents[1]
-MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s')
+MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
 ADAMW_AMSGRAD_RULE = 'adamw-amsgrad-v1'
 NADAM_RULE = 'nadam-decoupled-native-v1'
@@ -358,7 +358,7 @@ def validate_job(job):
         raise ValueError('head_lr_scope must be explicit classifier_legacy/last_linear')
     init = job['initialization']
     _unknown(init, ('kind', 'path', 'sha256', 'provenance','format','expected_backbone_state_keys','original_sha256','visual_prefix_removed'), 'initialization')
-    if init.get('kind') not in ('random', 'imagenet', 'self_supervised', 'retinal_vision_language'):
+    if init.get('kind') not in ('random', 'imagenet', 'self_supervised', 'retinal_vision_language', 'natural_vision_language'):
         raise ValueError('unknown initialization kind')
     if init['kind'] == 'imagenet':
         if job['normalization'] != 'imagenet':
@@ -385,6 +385,13 @@ def validate_job(job):
         if (init.get('format') == 'torchvision-resnet50-backbone-state-dict-v1'
                 and job.get('model') != 'resnet50_imagenet'):
             raise ValueError('DINO backbone format requires the registered R50 factory')
+    elif init['kind'] == 'natural_vision_language':
+        if (job['model']!='siglip2_vitb16' or job['normalization']!='unit'
+                or init.get('format')!='timm-siglip2-vitb16-native512-image-encoder-state-dict-v1'
+                or not re.fullmatch('[0-9a-f]{64}',init.get('sha256',''))
+                or not all(isinstance(init.get(k),str)and Path(init[k]).is_absolute()
+                           and '://'not in init[k]for k in('path','provenance'))):
+            raise ValueError('native SigLIP2 requires its fixed natural-image public format')
     elif init['kind'] == 'self_supervised':
         if init.get('format')in ('timm-vits16-dinov3-native-state-dict-v1','timm-vitb16-dinov3-native-state-dict-v1'):
             expected_model='vit_dino3_base' if init['format']=='timm-vitb16-dinov3-native-state-dict-v1' else 'vit_dino3_small'
@@ -445,6 +452,12 @@ def validate_job(job):
                 or job['prepared_size'] not in (0, 512)
                 or job.get('age') is None or not job['age'].get('enabled')):
             raise ValueError('N08 ImageNet ResNet model/initialization/age contract differs')
+    elif job['model'] == 'siglip2_vitb16':
+        fixed={'image_size':512,'precision':'fp32','normalization':'unit','dropout':.2,
+               'stochastic_depth':.1,'final_norm_eps':1e-6,'head_lr_scope':'last_linear'}
+        if (any(job.get(k)!=v for k,v in fixed.items())or job.get('frozen_bn')
+                or not job.get('age',{}).get('enabled')or init['kind']not in('random','natural_vision_language')):
+            raise ValueError('native SigLIP2 fixed 512/unit/MAP/age contract differs')
     elif job['model'] == 'efficientnetv2_rw_s':
         fixed = {'image_size':512,'precision':'fp32','normalization':'imagenet','dropout':.2,
                  'stochastic_depth':.1,'head_lr_scope':'last_linear','frozen_bn':True,

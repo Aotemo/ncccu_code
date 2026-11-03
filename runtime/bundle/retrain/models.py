@@ -303,6 +303,9 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
 
 
 def validate_initialization(initialization):
+    if initialization.get('format') == 'timm-siglip2-vitb16-native512-image-encoder-state-dict-v1':
+        from .siglip2_model import validate_initialization as validate_siglip2
+        return validate_siglip2(initialization)
     if initialization.get('format') == 'timm-efficientnetv2-rw-s-native-full1000-state-dict-v1':
         from .efficientnet_model import validate_initialization as validate_efficientnet
         return validate_efficientnet(initialization)
@@ -868,6 +871,9 @@ def describe_quadrant_mil(model, job):
 
 
 def create_model(job, initialize=True):
+    if job['model'] == 'siglip2_vitb16':
+        from .siglip2_model import create_model as create_siglip2
+        return create_siglip2(job, initialize=initialize)
     if job.get('experiment91') is not None:
         from .experiment91 import validate_job
         validate_job(job)

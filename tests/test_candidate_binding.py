@@ -21,6 +21,50 @@ STEM_XY = {'version':'convnext-small-rgbxy512-v1','channels':['R','G','B','X','Y
 
 
 class CandidateBindingTest(unittest.TestCase):
+    def test_R214_R215_native_EfficientNet_confirmation_and_public_SigLIP2(self):
+        from retrain import age,config
+        synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}
+            for i in range(4)],'fit_indices':[0,1,2,3]})
+        for label,prior,order,seed in(('R214','R213',127,20261027),('R215','R107',128,20261029)):
+            path=ROOT/'configs'/(label+'-SCIENCE.json');science=json.loads(path.read_text())
+            self.assertIn(science['candidate_profile'],experiment.SUPPORTED_BINDINGS)
+            baseline=json.loads((ROOT/'configs'/(prior+'-SCIENCE.json')).read_text())
+            expected=copy.deepcopy(baseline['job'])
+            if label=='R214':expected['seed']=seed
+            else:expected.update(name='siglip2-vitb16-512',model='siglip2_vitb16',normalization='unit')
+            self.assertEqual(science['job'],expected)
+            for key in('schedule','early_stopping','data_split'):
+                self.assertEqual(science[key],baseline[key])
+            self.assertEqual((science['candidate']['experiment_order'],science['job']['seed']),(order,seed))
+            self.assertEqual(science['official_evaluation'],experiment.OFFICIAL_GATE_0996)
+            site=copy.deepcopy(self.site)
+            site.update(work_root=str(ROOT),round_root=str(ROOT/'rounds'/(label+'-fixture')),
+                **{k:str(ROOT/v)for k,v in science['paths'].items()})
+            site['science']={'binding_version':science['candidate_profile'],'candidate':science['candidate'],
+                'configuration':{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}}
+            self.path.write_text(json.dumps(site));binding={'version':science['candidate_profile']}
+            with patch.dict(os.environ,NCCCU_SITE_BINDING_SHA256=hashlib.sha256(self.path.read_bytes()).hexdigest()), \
+                    patch.object(experiment,'binding',return_value=binding),patch.object(experiment,'metadata',return_value={'AGE.json':synthetic_age}):
+                value=copy.deepcopy(science['job']);value.update(age=experiment.resolved_age_spec(),experiment91=binding,
+                    initialization={'kind':science['public_source'].get('kind','imagenet'),
+                        'format':science['public_source']['format'],'sha256':science['public_source']['sha256'],
+                        'path':site['public_weight'],'provenance':site['public_provenance']})
+                cfg=self.configuration.parent/(label+'-load.json')
+                cfg.write_text(json.dumps({'jobs':[value],'data':{'split':science['data_split']},
+                    'execution':{'devices':['cuda:'+str(i)for i in range(8)],'evaluation_physical_batch':32}}))
+                resolved=config.load_config(cfg,environ={})['jobs'][0]
+                self.assertEqual(experiment.validate_job(resolved),resolved)
+                self.assertEqual(config.job_contract(resolved)['normalization'],science['job']['normalization'])
+                for key,wrong_value in(('seed',20261029 if seed==20261027 else 20261027),
+                        ('normalization','unit'if label=='R214'else'imagenet'),('backbone_lr',1e-5),
+                        ('loss',experiment.PAIR_SQUARED_HINGE_LOSS),('nadam_policy',config.NADAM_RULE),
+                        ('deit_pool_policy',config.DEIT3_MEANPATCH_RULE)):
+                    wrong=copy.deepcopy(resolved);wrong[key]=wrong_value
+                    with self.assertRaises(ValueError):experiment.validate_job(wrong)
+                for section,key,wrong_value in(('public_source','revision','0'*40),('candidate','readout','avg')):
+                    wrong=copy.deepcopy(science);wrong[section][key]=wrong_value
+                    with self.assertRaises(ValueError):experiment.candidate_from_configuration(wrong)
+
     def test_R212_R213_NAdam_confirmation_and_native_public_BN_EfficientNet(self):
         from retrain import age,config
         synthetic_age=age.make_spec({'rows':[{'name':str(i),'sha256':str(i)*64,'age':str(30+i)}

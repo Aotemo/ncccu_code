@@ -31,6 +31,23 @@ GIB = 1024 ** 3
 
 
 class RoundStoragePolicyTest(unittest.TestCase):
+    def test_R215_exact_24GiB_preserves_default_and_free_floor(self):
+        name='r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103'
+        with tempfile.TemporaryDirectory()as directory:
+            for round_id,limit in((name,24),('r214-effv2rws-seed27-publicbn-pairlog-24k-p4-9010-20261103',12),
+                                 ('r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103',12)):
+                root=Path(directory)/round_id;root.mkdir()
+                (root/'STORAGE_POLICY.json').write_bytes((ROOT/'configs/ROUND-STORAGE-POLICY.json').read_bytes())
+                usage=type('Usage',(),{'free':40*GIB})()
+                with patch.object(guard,'ROOT',root),patch.object(guard,'tree_bytes',return_value=(limit-1)*GIB), \
+                        patch.object(guard.shutil,'disk_usage',return_value=usage):
+                    self.assertEqual(guard.round_storage_limit(),limit*GIB)
+                    self.assertEqual(guard.budget(guard.time.time()+10)['new_round_bytes'],(limit-1)*GIB)
+                    with patch.object(guard,'tree_bytes',return_value=(limit+1)*GIB),self.assertRaises(RuntimeError):
+                        guard.budget(guard.time.time()+10)
+                    usage.free=15*GIB
+                    with self.assertRaises(RuntimeError):guard.budget(guard.time.time()+10)
+
     def test_large_exact_round_32GiB_keeps_free_floor_and_small_default(self):
         with tempfile.TemporaryDirectory() as directory:
             policy = ROOT / 'configs/ROUND-STORAGE-POLICY.json'

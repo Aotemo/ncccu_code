@@ -183,7 +183,7 @@ def validate_freeze(path, *, allow_fixture=False):
                 completed_cycles=ex.validate_training_completion(value['training_completion']))
             or value.get('variant') != value['selected']['variant']
             or value.get('tensor_sha256') != value['selected']['tensor_sha256']
-            or value.get('normalization') != 'imagenet'):
+            or value.get('normalization') != ex.science_configuration()['job']['normalization']):
         raise ValueError('unique single-model freeze differs')
     if value['fresh'].get('ssl_recipe') is not None:
         derived=value.get('ssl_derived')

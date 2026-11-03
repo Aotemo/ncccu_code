@@ -77,6 +77,9 @@ ADAMW_AMSGRAD_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-
 NADAM_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-nadam-decoupled-v1'
 NADAM_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-nadam-decoupled-v1'
 EFFICIENTNET_BINDING = 'single-efficientnetv2-rws-ee38fe1c-publicbn-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
+EFFICIENTNET_SEED27_BINDING = 'single-efficientnetv2-rws-ee38fe1c-publicbn-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
+EFFICIENTNET_BINDINGS = (EFFICIENTNET_BINDING,EFFICIENTNET_SEED27_BINDING)
+SIGLIP2_BINDING = 'single-siglip2-vitb16-3c4b2d39-native512-publicmap-unit-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 HARD_POSITIVE_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-positive-top2-mix05-v1'
 SMALL_384_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SMALL_384_SEED27_BINDING = 'single-convnext-small-14a83735-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
@@ -151,7 +154,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,EFFICIENTNET_BINDING,
+                      ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,SIGLIP2_BINDING,
                       HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                       SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                       AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -258,7 +261,7 @@ def science_configuration():
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
-                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,EFFICIENTNET_BINDING,
+                                                       ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,*EFFICIENTNET_BINDINGS,SIGLIP2_BINDING,
                                                        HARD_POSITIVE_SMALL_SEED27_BINDING,SMALL_384_BINDING,
                                                        SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                                        AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,
@@ -929,14 +932,44 @@ def candidate_from_configuration(value):
                         'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
                         'training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed original Small AdamW beta2 recipe differs')
-    elif value['candidate_profile'] == EFFICIENTNET_BINDING:
+    elif value['candidate_profile'] == SIGLIP2_BINDING:
+        from .siglip2_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
+        expected={'id':'r215-siglip2-vitb16-webli-publicmap-unit-24k-p4-seed20261029-scale085-pairlog-9010',
+            'experiment_order':128,'model':MODEL,'public_revision':REVISION,
+            'readout':'native_public_MAP_LN_dropout_linear_plus_age','features':768,
+            'final_norm_eps':1e-6,'internal_norm_eps':1e-6,'batch_norm_modules':0,'batch_norm_buffers':0,
+            'attention_pool':None,'stochastic_depth':.1,'head_initialization':'torch.nn.Linear_native',
+            'head_lr_scope':'last_linear'}
+        if (source.get('kind')!='natural_vision_language' or source.get('model')!=VARIANT
+                or source.get('format')!=FORMAT or source.get('native_library')!=LIBRARY
+                or source.get('revision')!=REVISION or source.get('sha256')!=WEIGHT_SHA
+                or source.get('original_sha256')!=WEIGHT_SHA
+                or source.get('provenance_sha256')!='c93b8f3095d3bf047d50737c23caad391143100a0060820ef7f3c9a30ed827f5'
+                or source.get('training_data')!='WebLI (natural image-text; SigLIP2 image encoder)'
+                or source.get('public_tensor_count')!=162 or source.get('full_head_shape')is not None
+                or source.get('source_features')!=768 or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
+                or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
+                    value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
+                    value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
+                    value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
+                    (MODEL,20261029,'unit',512,512,64,8,False,1e-4,1e-3,1e-4)
+                or any(value['job'].get(k)is not None for k in('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
+                    'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
+                    'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
+                    'layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy','tri3_downsample_policy',
+                    'output_regularization','attention_pool','stage3_residual','freeze_features_before','final_downsample_stride',
+                    'training_views','training_rotation','training_photometric','lr_decay_updates','bn_statistics'))):
+            raise ValueError('fixed native SigLIP2 public MAP/unit/original recipe differs')
+    elif value['candidate_profile'] in EFFICIENTNET_BINDINGS:
         from .efficientnet_model import MODEL,VARIANT,FORMAT,REVISION,WEIGHT_SHA,LIBRARY
+        seed27=value['candidate_profile']==EFFICIENTNET_SEED27_BINDING
         expected={'id':'r213-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261029-scale085-pairlog-9010',
             'experiment_order':126,'model':MODEL,'public_revision':REVISION,
             'readout':'native_avgpool_publicBN_dropout_linear_plus_age','features':1792,
             'final_norm_eps':None,'internal_norm_eps':None,'batch_norm_modules':112,'batch_norm_buffers':336,
             'bn_initialization':'public','attention_pool':None,'stochastic_depth':.1,
             'head_initialization':'torch.nn.Linear_native','head_lr_scope':'last_linear'}
+        if seed27:expected.update(id='r214-efficientnetv2-rws-imagenet1k-publicbn-24k-p4-seed20261027-scale085-pairlog-9010',experiment_order=127)
         if (source.get('kind','imagenet')!='imagenet' or source.get('model')!=VARIANT
                 or source.get('format')!=FORMAT or source.get('native_library')!=LIBRARY
                 or source.get('revision')!=REVISION or source.get('sha256')!=WEIGHT_SHA
@@ -948,7 +981,7 @@ def candidate_from_configuration(value):
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('frozen_bn'),value['job'].get('backbone_lr'),
                     value['job'].get('head_lr'),value['job'].get('weight_decay'))!=
-                    (MODEL,20261029,'imagenet',512,512,64,8,True,1e-4,1e-3,1e-4)
+                    (MODEL,20261027 if seed27 else 20261029,'imagenet',512,512,64,8,True,1e-4,1e-3,1e-4)
                 or any(value['job'].get(k)is not None for k in ('nadam_policy','adamw_amsgrad_policy','adamw_beta2_policy',
                     'deit_pool_policy','vit_dino3_pool_policy','cosine_head_policy','quadrant_mil_policy','input_preprocessing',
                     'optimizer_policy','gradient_centralization_policy','gradient_clip_policy','head_warmup_policy',
@@ -1174,7 +1207,7 @@ def verify_public_asset(science, site):
     """Consume the new public source handoff without altering historical migration."""
     reference = science.get('public_asset_receipt')
     if reference is None:
-        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s'):
+        if science['job']['model'] in ('convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16'):
             raise ValueError('registered public backbone requires its independently verified asset')
         return None
     relative = Path(reference['path'])
@@ -1186,12 +1219,12 @@ def verify_public_asset(science, site):
         raise ValueError('public handoff bytes differ')
     receipt = json.loads(path.read_text())
     source = science['public_source']
-    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,EFFICIENTNET_BINDING):
+    if science['candidate_profile'] in (DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*EFFICIENTNET_BINDINGS,SIGLIP2_BINDING):
         if (receipt.get('passed')is not True or receipt.get('model')!=source['model']
                 or receipt.get('revision')!=source['revision'] or receipt['execution']['uid']!=site['pod']['uid']
                 or receipt.get('native_weights')!={'path':site['public_weight'],'sha256':source['sha256']}
                 or receipt.get('provenance')!={'path':site['public_provenance'],'sha256':source['provenance_sha256']}
-                or receipt.get('public_tensor_count')!=(794 if science['candidate_profile']==EFFICIENTNET_BINDING else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in VIT_DINO3_BINDINGS else 176) or receipt.get('forward_calls')!=0
+                or receipt.get('public_tensor_count')!=(794 if science['candidate_profile']in EFFICIENTNET_BINDINGS else 395 if science['candidate_profile'] in CAFORMER_BINDINGS else 162 if science['candidate_profile'] in (*VIT_DINO3_BINDINGS,SIGLIP2_BINDING) else 176) or receipt.get('forward_calls')!=0
                 or receipt.get('GPU_initialized')is not False or receipt.get('datasets_read')is not False):
             raise ValueError('native DeiT3 source handoff differs')
         return receipt
@@ -1363,7 +1396,7 @@ def ema_rule():
 def validate_job(job):
     configured = science_configuration()['job']
     expected = {'model': candidate()['model'], 'image_size': configured['image_size'], 'prepared_size': configured['prepared_size'],
-        'precision': 'fp32', 'normalization': 'imagenet', 'seed': configured['seed'], 'effective_batch': 64,
+        'precision': 'fp32', 'normalization': configured['normalization'], 'seed': configured['seed'], 'effective_batch': 64,
         'positive_per_batch': configured['positive_per_batch'], **{key: configured[key] for key in (
             'cycles', 'warmup_cycles', 'min_cycles', 'patience', 'min_delta', 'stop_after_cycles')},
         'backbone_lr': configured['backbone_lr'],
@@ -1423,6 +1456,17 @@ def describe_model(model):
     import torch
     from .ema import tensor_digest
     nn = torch.nn
+    if candidate()['model']=='siglip2_vitb16':
+        from .siglip2_model import describe
+        native=describe(model)
+        value={'candidate':candidate(),'batch_norm_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm)for m in model.modules()),
+            'buffer_count':len(dict(model.named_buffers())),'buffer_sha256':tensor_digest(dict(model.named_buffers())),
+            'layer_norms':[{'name':'network.'+n['name'],'eps':n['eps'],'normalized_shape':n['shape']}for n in native['normalization_catalog']],
+            'head_in_features':768,'head_out_features':1,'dropout':model.classifier[0].p,
+            'stochastic_depth':[{'name':f'network.blocks.{i}.drop_path{j}',
+                'p':float(getattr(getattr(b,f'drop_path{j}'),'drop_prob',0.)),'mode':'row'}
+                for i,b in enumerate(model.network.blocks)for j in(1,2)],'siglip2':native}
+        validate_normalization(value);return value
     if candidate()['model']=='efficientnetv2_rw_s':
         from .efficientnet_model import describe
         native=describe(model)
@@ -1643,6 +1687,22 @@ def describe_model(model):
 
 def validate_normalization(value):
     import hashlib
+    if candidate()['model']=='siglip2_vitb16':
+        from .siglip2_model import LIBRARY,VARIANT
+        native=value.get('siglip2',{});norms=value.get('layer_norms',[])
+        if (value.get('candidate')!=candidate()or value.get('batch_norm_modules')!=0 or value.get('buffer_count')!=0
+                or value.get('buffer_sha256')!=hashlib.sha256(b'').hexdigest()
+                or value.get('head_in_features')!=768 or value.get('head_out_features')!=1 or value.get('dropout')!=.2
+                or len(norms)!=26 or any(n['eps']!=1e-6 or n['normalized_shape']!=[768]for n in norms)
+                or value.get('stochastic_depth')!=structure_contract()['stochastic_depth']
+                or native.get('native_variant')!=VARIANT or native.get('native_library')!=LIBRARY
+                or native.get('normalization_catalog')!=public_source()['structure']['layer_norm_catalog']
+                or native.get('public_pool')!='map' or native.get('public_latent_shape')!=[1,1,768]
+                or native.get('public_pool_heads')!=12 or native.get('public_pool_MLP')is not True
+                or native.get('prefix_tokens')!=0 or native.get('position_shape')!=[1,1024,768]
+                or native.get('native_head_dropout')!=0. or native.get('binary_dropout')!=.2):
+            raise ValueError('actual native SigLIP2 public MAP/position/LN graph differs')
+        return True
     if candidate()['model']=='efficientnetv2_rw_s':
         layers=value.get('batch_norms',[]);native=value.get('efficientnetv2',{})
         if (value.get('candidate')!=candidate() or value.get('batch_norm_modules')!=112
