@@ -177,6 +177,15 @@ def canonical_member(rows, indices, packets, world):
     return canonical_predictions(rows, indices, packets, 8, world)
 
 
+def evaluation_dataset(dataset_class, data_root, rows, job):
+    """Keep each frozen runtime's default when no custom preprocessing was registered."""
+    options = {'normalization': job.get('normalization', 'imagenet'),
+               'prepared_size': int(job.get('prepared_size', 0)), 'age': job.get('age')}
+    if job.get('input_preprocessing') is not None:
+        options['input_preprocessing'] = job['input_preprocessing']
+    return dataset_class(data_root, rows, int(job['image_size']), False, **options)
+
+
 def compare_full_dev(labels, fp32, fp16, members):
     """Compare the same fixed members without retaining per-sample vectors."""
     import numpy as np
@@ -391,10 +400,7 @@ def worker(args):
         raise ValueError('strict historical runtime or fp16 state differs')
     model.eval()
     assignments = batch_assignments(indices, 8, assignment['rank'], assignment['world'])
-    dataset = ImageDataset(member['data_root'], rows, int(job['image_size']), False,
-                           normalization=job.get('normalization', 'imagenet'),
-                           prepared_size=int(job.get('prepared_size', 0)), age=job.get('age'),
-                           input_preprocessing=job.get('input_preprocessing'))
+    dataset = evaluation_dataset(ImageDataset, member['data_root'], rows, job)
     loader = DataLoader(dataset, batch_sampler=[batch for _, batch in assignments], num_workers=0)
     records = []
     with torch.inference_mode():

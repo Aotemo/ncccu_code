@@ -1,0 +1,211 @@
+{
+  "status": "historical_interfaces_inventoried",
+  "at": 1793831934.6181095,
+  "input_sha256": "060b0ec2f6e851b5ca90df2ec1ca6305e59839ae7fa6563e9cf937343e7cbad9",
+  "members": [
+    {
+      "round_id": "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "load": {
+        "signature": "(source, device='cpu', checkpoint='best', model_factory=None, variant=None)",
+        "bind_error": null
+      },
+      "batches": {
+        "signature": "(indices, batch_size, rank, world_size)",
+        "bind_error": null
+      },
+      "canonical": {
+        "signature": "(rows, indices, packets, batch_size, world_size)",
+        "bind_error": null
+      },
+      "dataset": {
+        "signature": "(data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None, training_scale=None, training_views=None, include_labels=True)",
+        "bind_error": "got an unexpected keyword argument 'input_preprocessing'"
+      },
+      "unpack": {
+        "signature": "(batch, job, device)",
+        "bind_error": null
+      },
+      "forward": {
+        "signature": "(model, images, age_features, job)",
+        "bind_error": null
+      },
+      "job_preprocessing": null,
+      "job_image_size": 512,
+      "job_prepared_size": 512,
+      "job_normalization": "imagenet",
+      "runtime_signature": "(job, metadata, threshold=None, precision=None)",
+      "runtime": {
+        "threshold": 0.5,
+        "precision": "fp32",
+        "image_size": 512,
+        "normalization": "imagenet",
+        "prepared_size": 512,
+        "preprocessing": "rgb-conservative-border-prepared-letterbox-v2"
+      }
+    },
+    {
+      "round_id": "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "load": {
+        "signature": "(source, device='cpu', checkpoint='best', model_factory=None, variant=None)",
+        "bind_error": null
+      },
+      "batches": {
+        "signature": "(indices, batch_size, rank, world_size)",
+        "bind_error": null
+      },
+      "canonical": {
+        "signature": "(rows, indices, packets, batch_size, world_size)",
+        "bind_error": null
+      },
+      "dataset": {
+        "signature": "(data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None, training_scale=None, training_views=None, include_labels=True, training_photometric=None, training_rotation=None)",
+        "bind_error": "got an unexpected keyword argument 'input_preprocessing'"
+      },
+      "unpack": {
+        "signature": "(batch, job, device)",
+        "bind_error": null
+      },
+      "forward": {
+        "signature": "(model, images, age_features, job, *, mixstyle_context=None)",
+        "bind_error": null
+      },
+      "job_preprocessing": null,
+      "job_image_size": 512,
+      "job_prepared_size": 512,
+      "job_normalization": "imagenet",
+      "runtime_signature": "(job, metadata, threshold=None, precision=None)",
+      "runtime": {
+        "threshold": 0.5,
+        "precision": "fp32",
+        "image_size": 512,
+        "normalization": "imagenet",
+        "prepared_size": 512,
+        "preprocessing": "rgb-conservative-border-prepared-letterbox-v2"
+      }
+    },
+    {
+      "round_id": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "load": {
+        "signature": "(source, device='cpu', checkpoint='best', model_factory=None, variant=None)",
+        "bind_error": null
+      },
+      "batches": {
+        "signature": "(indices, batch_size, rank, world_size)",
+        "bind_error": null
+      },
+      "canonical": {
+        "signature": "(rows, indices, packets, batch_size, world_size)",
+        "bind_error": null
+      },
+      "dataset": {
+        "signature": "(data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None, training_scale=None, training_views=None, include_labels=True, training_photometric=None, training_rotation=None, input_preprocessing=None, shared_view_geometry=False)",
+        "bind_error": null
+      },
+      "unpack": {
+        "signature": "(batch, job, device)",
+        "bind_error": null
+      },
+      "forward": {
+        "signature": "(model, images, age_features, job, *, mixstyle_context=None)",
+        "bind_error": null
+      },
+      "job_preprocessing": null,
+      "job_image_size": 512,
+      "job_prepared_size": 512,
+      "job_normalization": "imagenet",
+      "runtime_signature": "(job, metadata, threshold=None, precision=None)",
+      "runtime": {
+        "threshold": 0.5,
+        "precision": "fp32",
+        "image_size": 512,
+        "normalization": "imagenet",
+        "prepared_size": 512,
+        "preprocessing": "rgb-conservative-border-prepared-letterbox-v2"
+      }
+    },
+    {
+      "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "load": {
+        "signature": "(source, device='cpu', checkpoint='best', model_factory=None, variant=None)",
+        "bind_error": null
+      },
+      "batches": {
+        "signature": "(indices, batch_size, rank, world_size)",
+        "bind_error": null
+      },
+      "canonical": {
+        "signature": "(rows, indices, packets, batch_size, world_size)",
+        "bind_error": null
+      },
+      "dataset": {
+        "signature": "(data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None, training_scale=None, training_views=None, include_labels=True, training_photometric=None, training_rotation=None, input_preprocessing=None, shared_view_geometry=False)",
+        "bind_error": null
+      },
+      "unpack": {
+        "signature": "(batch, job, device)",
+        "bind_error": null
+      },
+      "forward": {
+        "signature": "(model, images, age_features, job, *, mixstyle_context=None)",
+        "bind_error": null
+      },
+      "job_preprocessing": null,
+      "job_image_size": 512,
+      "job_prepared_size": 512,
+      "job_normalization": "imagenet",
+      "runtime_signature": "(job, metadata, threshold=None, precision=None)",
+      "runtime": {
+        "threshold": 0.5,
+        "precision": "fp32",
+        "image_size": 512,
+        "normalization": "imagenet",
+        "prepared_size": 512,
+        "preprocessing": "rgb-conservative-border-prepared-letterbox-v2"
+      }
+    },
+    {
+      "round_id": "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+      "load": {
+        "signature": "(source, device='cpu', checkpoint='best', model_factory=None, variant=None)",
+        "bind_error": null
+      },
+      "batches": {
+        "signature": "(indices, batch_size, rank, world_size)",
+        "bind_error": null
+      },
+      "canonical": {
+        "signature": "(rows, indices, packets, batch_size, world_size)",
+        "bind_error": null
+      },
+      "dataset": {
+        "signature": "(data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None, training_scale=None, training_views=None, include_labels=True, training_photometric=None, training_rotation=None)",
+        "bind_error": "got an unexpected keyword argument 'input_preprocessing'"
+      },
+      "unpack": {
+        "signature": "(batch, job, device)",
+        "bind_error": null
+      },
+      "forward": {
+        "signature": "(model, images, age_features, job, *, mixstyle_context=None)",
+        "bind_error": null
+      },
+      "job_preprocessing": null,
+      "job_image_size": 512,
+      "job_prepared_size": 512,
+      "job_normalization": "imagenet",
+      "runtime_signature": "(job, metadata, threshold=None, precision=None)",
+      "runtime": {
+        "threshold": 0.5,
+        "precision": "fp32",
+        "image_size": 512,
+        "normalization": "imagenet",
+        "prepared_size": 512,
+        "preprocessing": "rgb-conservative-border-prepared-letterbox-v2"
+      }
+    }
+  ],
+  "model_constructed": false,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

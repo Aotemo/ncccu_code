@@ -1,0 +1,38 @@
+{
+  "status": "five_historical_first_dev_dataset_inputs_equal",
+  "at": 1793832220.4875314,
+  "inputs_sha256": "060b0ec2f6e851b5ca90df2ec1ca6305e59839ae7fa6563e9cf937343e7cbad9",
+  "source_sha256": "b663257705d140443c189fc5eed2c74b28b4ee198262cc188e6b54d03d60b51c",
+  "members": [
+    {
+      "round_id": "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "fixed_first_manifest_dev_sample_equal": true,
+      "GPU_initialized": false
+    },
+    {
+      "round_id": "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "fixed_first_manifest_dev_sample_equal": true,
+      "GPU_initialized": false
+    },
+    {
+      "round_id": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "fixed_first_manifest_dev_sample_equal": true,
+      "GPU_initialized": false
+    },
+    {
+      "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "fixed_first_manifest_dev_sample_equal": true,
+      "GPU_initialized": false
+    },
+    {
+      "round_id": "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+      "fixed_first_manifest_dev_sample_equal": true,
+      "GPU_initialized": false
+    }
+  ],
+  "fixed_sample": "manifest_first_dev",
+  "model_constructed": false,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

@@ -13,3 +13,5 @@
 上述是隔离测试，不是实际 GPU 全 dev 验证。本次登记时入口尚待 Git 推送、目标 Pod 完整树核验、现场调用与交接前重新封存当前 F04 成员；实际设备上尚未执行、模型预测差异尚未知。如果届时入口或新清单未就绪，直接接已准备轮次，不等待评估。
 
 **22:36 接口缺陷：** 上述隔离测试未覆盖真实历史数据集接口。对封存五成员执行 CPU-only 补充探测时，R120 历史 `ImageDataset` 不接受现有 worker 传入的 `input_preprocessing` 关键字，CPU 失败回执 `77faef3cfbc62c3f1c99bda16c72c7840891c2968fbb40dac6e4cc36dce8602e`。该版本 GPU 入口不可派发；须核查各成员实际原预处理、修复、重测并重新 push/精确部署。不存在实际 GPU 前向或官方读取。
+
+**22:43 修复与 CPU 验证：** [五成员接口清单](../../records/analysis/20261104-f04/HISTORICAL-INTERFACES.json) `78676a5d` 表明 R120/R134R1/R135 使用旧签名，R250/R249 支持新参数；五成员 job 的该字段均为 null，原 runtime 的 512/512、ImageNet 预处理一致。修复只在字段非 null 时传参，旧 runtime 遇到非空配置仍明确报错，不静默丢弃。回归测试修复前按预期失败 `61000100`、修复后通过 `33c4ffe1`，原隔离套件复测通过 `a86f6fbc`。[五成员真实历史数据集检查](../../records/analysis/20261104-f04/HISTORICAL-DATASET.json) `cacca96b` 在 CPU 上使用 manifest 顺序第一张内部 dev，确认修复入口与各自历史默认预处理逐项完全相等；无模型前向/GPU/官方。后续仍需推送、重新完成完整树校验和现场调用；全 dev fp16 指标未知。
