@@ -92,7 +92,7 @@ def main(args):
     is_vit_dino3 = job['model'] in ('vit_dino3_small','vit_dino3_base')
     is_caformer = job['model'] == 'caformer_s36'
     is_pair_sigmoid = ex.science_configuration()['candidate_profile'] in (
-        ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING)
+        ex.PAIR_SIGMOID_SMALL_BINDING, ex.PAIR_SIGMOID_SMALL_SEED27_BINDING, *ex.PAIR_SIGMOID_SEED_REPLICAS)
     is_photo_identity = ex.science_configuration()['candidate_profile'] == ex.PHOTO_IDENTITY_SMALL_BINDING
     is_rotation_identity = ex.science_configuration()['candidate_profile'] == ex.ROTATION_IDENTITY_SMALL_BINDING
     is_content_pool = ex.science_configuration()['candidate_profile'] == ex.CONTENT_POOL_SMALL_BINDING

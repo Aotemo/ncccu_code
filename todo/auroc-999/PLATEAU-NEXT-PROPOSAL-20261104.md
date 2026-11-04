@@ -5,7 +5,7 @@
 ## P1：执行 R134R1 full-fit census（诊断，一次前向）
 
 - 目的：回答残余错误来自拟合不足还是泛化差距，决定后续 GPU 投向。
-- 复用：已登记合同 [R134R1-FIT-CENSUS-20261101.md](R134R1-FIT-CENSUS-20261101.md)；草稿 `tools/diagnostics/fit_census_owner.py`、`tools/diagnostics/fit_census_driver.py`、`tests/test_fit_census.py`、`tools/diagnostics/R134R1-FIT-CENSUS-20261101.json` 目前未提交，需 4e 核清用途与状态后再提交/部署。
+- 状态核正：旧诊断已按[a5a356f8及权威归档](../../records/R134R1/README.md)唯一执行但工程失败，metrics=null；当前未提交的四文件不能据此被当作“尚未执行”入口。不得复用/重启旧诊断身份；任何新诊断须另登记目的、来源和修复范围。
 - 建议扩展（最小改动）：同一诊断对 R107 与 R120 的 selected 各跑一次，得到 fit 与 dev 的 AUROC/错序，形成三点对照。
 - 判读：完整fit接近饱和而dev停在0.98x只支持泛化差距假说，不能据此判定标签错误或停止一切容量/训练研究；fit也未饱和则继续区分优化、覆盖与容量因素，不用单一AUROC阈值诊断原因。
 - 成本：每个selected八rank一次前向，耗时尚未实测；25分钟只能作为暂估，不能称上限。

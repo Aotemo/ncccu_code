@@ -1,0 +1,192 @@
+{
+  "status": "both_actual_EMA_blobs_general_sources_and_selected_dev_verified",
+  "at": 1793791383.9118557,
+  "execution": {
+    "at": "2026-11-04T11:22:54.073086+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909275134578690-acfwvv9ejn-18257-worker-0",
+    "uid": "37e3fb34-c233-4294-b517-e98978cbd016",
+    "container": "vcjob-2117909275134578690-acfwvv9ejn-18257",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/CPU-ALLOCATION.json",
+      "sha256": "f48cb4b714251509c8e1e0d9bd8a136c825d89e7025029e1c8f9bf7395788147",
+      "executor_id": "4e0ce707-5c70-493a-8e54-796363eb740f",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "members": {
+    "R120": {
+      "selected": {
+        "error_twice": 17478,
+        "ap": 0.8313831149805229,
+        "auroc": 0.9894773092062407,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json",
+          "sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+          "sha256": "e6f9f640a513e723c29e5fe9ca00c5c93baf6399f68f682229652ad34c5a7ab1"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+          "sha256": "2d81e0b09dd1291a57b48fa00b3111ec484838433df3e63d11801b282e961b27"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json",
+          "sha256": "955a0107c842f5bddb93c485063a60101f5772f576edca3ae77193e5d721cdfb",
+          "status": "completed",
+          "successful_updates": 8000
+        }
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5ef58f7de94f4db4a3542a7f182b3463.pt",
+        "blob_sha256": "25229efdea3a91baeb0b5e5142a470c2a68a15bab9470f92e9de76b1b616cac6",
+        "EMA_tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+        "sidecar_sha256": "c9ff63d34190c812cfa8d8c568632c18963f7380c5ec4de9d790a6f881736729"
+      },
+      "science_sha256": "a612fe234e5d6aab6c4d5be228c47755a097fde016c15bbaba4ebe94b7bab3a8",
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "model_identity_site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SITE_BINDING.json",
+        "sha256": "26cae5aefe899351d153dff9c1dd6d685c129dcc0cb578bc73a2f03af409ce43",
+        "execution_binding_replaced": false
+      },
+      "current_CPU_load_seconds": 2.256553888320923
+    },
+    "R238": {
+      "selected": {
+        "error_twice": 24672,
+        "ap": 0.8147244363510374,
+        "auroc": 0.985146136442177,
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+          "sha256": "41f0b7d1ee634a757580f1539f06f0a0780ff1b3ea47b96c1ddcca3d5a82acc2"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+          "sha256": "49f7cbeea602ea97b470ea5205dd6dd26f3935a6cba33f7e5d47311d14a67406"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+          "sha256": "50f713f1f7bc9a87575a81c4ffa963f2b5add1880c41dfdaa960fe0a204ecaa9"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+          "sha256": "0c98669ada1f18f463dbc4f8ff31382687f633628fb09ff77e4097738752782f",
+          "status": "completed",
+          "successful_updates": 7200
+        }
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-27ecefdf0cf64826ab8b370bf0107177.pt",
+        "blob_sha256": "1619cdd97dadbc181b7d5877e620b9bcfd360e77ffc6b0eb887d7faa4049185a",
+        "EMA_tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+        "sidecar_sha256": "eb2e0c820de718f619054523bad8c8c501969cf77440360546376c70aa6bbfc2"
+      },
+      "science_sha256": "2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c",
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "model_identity_site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/SITE_BINDING.json",
+        "sha256": "4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea",
+        "execution_binding_replaced": false
+      },
+      "current_CPU_load_seconds": 3.3975560665130615
+    }
+  },
+  "manifest": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1/manifest.json",
+    "sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377"
+  },
+  "model_constructed": false,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "git_commit": "f018e2ebc84ed3f30d65c1775a5d54628f5818be",
+  "git_files": {
+    "tools/diagnostics/ensemble_dev.py": "265c8d3331c20ff660b4cd1dea020bd3949354c260f37b16fad31c73bfb6b3e0",
+    "configs/F01-LOGIT-GRID.json": "d83dbc6ca2cbe2e81e391029affe66480bb6bd95e027dd8de7210be0c1fa5db6",
+    "tests/test_ensemble_dev.py": "1025ea9c402d8da08de7dd913eff3f58e55577e04fd42c57dba4b4b24680dd0c"
+  }
+}

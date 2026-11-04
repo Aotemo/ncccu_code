@@ -1,0 +1,40 @@
+{
+  "status": "new_seed_actual_public_fresh_CPU_factory_tensor_derived_not_formal_admission",
+  "at": 1793792256.800146,
+  "label": "R244",
+  "seed": 20261104,
+  "round_id": "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+  "initial_model_tensor_sha256": "55b1ab41c349e70fb6d68405bb3f94a1d4771b842bacdcb10f96ccb534decc65",
+  "configuration": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r120-seed-replicas-20261104-4e0c/source/configs/R244-SCIENCE.json",
+    "sha256": "9de116226fa0382f721ba74c3a7c7ef450da9ea99104c1b95eafbfbc08d56a73"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/dual-pod-20261104-4e0c/pod-b/public-current/PUBLIC-SMALL-CURRENT.json",
+    "sha256": "4248548433020c2921e45d15135fab847e4b7aa73a87d90aa3a17bfcf88012f8"
+  },
+  "CPU_threads": 10,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "same_original_R120_job_except_seed": true,
+  "GPU_initialized": false,
+  "forward_calls": 0,
+  "factory_and_digest_seconds": 4.890598297119141,
+  "provisional_package_never_formal_or_GPU": true,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "f00cda7c00ec9f78af491f7fe02d50aae63fa70735abf2c9f815472dca850b88",
+    "tools/validation/check_candidate.py": "ba7684cf13909b7ad16df6d524fc18b99b289400632e08bd07735d16664c35f3"
+  }
+}

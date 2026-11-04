@@ -1,0 +1,373 @@
+{
+  "status": "completed_dev_only_fusion_analysis",
+  "at": 1793791384.386629,
+  "id": "F01-general-small-R120-R238-logit-grid",
+  "git_commit": "f018e2ebc84ed3f30d65c1775a5d54628f5818be",
+  "git_files": {
+    "tools/diagnostics/ensemble_dev.py": "265c8d3331c20ff660b4cd1dea020bd3949354c260f37b16fad31c73bfb6b3e0",
+    "configs/F01-LOGIT-GRID.json": "d83dbc6ca2cbe2e81e391029affe66480bb6bd95e027dd8de7210be0c1fa5db6",
+    "tests/test_ensemble_dev.py": "1025ea9c402d8da08de7dd913eff3f58e55577e04fd42c57dba4b4b24680dd0c"
+  },
+  "support_source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/frozen-source-c4b77a2/source-git",
+  "support_files": {
+    "tools/diagnostics/paired_evidence.py": "ed211542a8987df86fcc88d9538c239bb913b56060b74c831be8bdd4c16bfe90",
+    "tools/diagnostics/persistent_errors.py": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+    "runtime/bundle/retrain/n05_metrics.py": "00377a60f40f22324f89a16c8e8933473229736955ff58cf3d2e8d1b8941fee7",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530"
+  },
+  "config_sha256": "d83dbc6ca2cbe2e81e391029affe66480bb6bd95e027dd8de7210be0c1fa5db6",
+  "preflight_sha256": "ad8b00c6fc2450f0eed3bb1c6efba228100e259d0336f48bb0cbdc08c4994485",
+  "manifest": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1/manifest.json",
+    "sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377"
+  },
+  "members": {
+    "R120": {
+      "selected": {
+        "error_twice": 17478,
+        "ap": 0.8313831149805229,
+        "auroc": 0.9894773092062407,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json",
+          "sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+          "sha256": "e6f9f640a513e723c29e5fe9ca00c5c93baf6399f68f682229652ad34c5a7ab1"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+          "sha256": "2d81e0b09dd1291a57b48fa00b3111ec484838433df3e63d11801b282e961b27"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json",
+          "sha256": "955a0107c842f5bddb93c485063a60101f5772f576edca3ae77193e5d721cdfb",
+          "status": "completed",
+          "successful_updates": 8000
+        }
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5ef58f7de94f4db4a3542a7f182b3463.pt",
+        "blob_sha256": "25229efdea3a91baeb0b5e5142a470c2a68a15bab9470f92e9de76b1b616cac6",
+        "EMA_tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+        "sidecar_sha256": "c9ff63d34190c812cfa8d8c568632c18963f7380c5ec4de9d790a6f881736729"
+      },
+      "science_sha256": "a612fe234e5d6aab6c4d5be228c47755a097fde016c15bbaba4ebe94b7bab3a8",
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "model_identity_site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SITE_BINDING.json",
+        "sha256": "26cae5aefe899351d153dff9c1dd6d685c129dcc0cb578bc73a2f03af409ce43",
+        "execution_binding_replaced": false
+      },
+      "current_CPU_load_seconds": 2.256553888320923
+    },
+    "R238": {
+      "selected": {
+        "error_twice": 24672,
+        "ap": 0.8147244363510374,
+        "auroc": 0.985146136442177,
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+          "sha256": "41f0b7d1ee634a757580f1539f06f0a0780ff1b3ea47b96c1ddcca3d5a82acc2"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+          "sha256": "49f7cbeea602ea97b470ea5205dd6dd26f3935a6cba33f7e5d47311d14a67406"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+          "sha256": "50f713f1f7bc9a87575a81c4ffa963f2b5add1880c41dfdaa960fe0a204ecaa9"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+          "sha256": "0c98669ada1f18f463dbc4f8ff31382687f633628fb09ff77e4097738752782f",
+          "status": "completed",
+          "successful_updates": 7200
+        }
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-27ecefdf0cf64826ab8b370bf0107177.pt",
+        "blob_sha256": "1619cdd97dadbc181b7d5877e620b9bcfd360e77ffc6b0eb887d7faa4049185a",
+        "EMA_tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+        "sidecar_sha256": "eb2e0c820de718f619054523bad8c8c501969cf77440360546376c70aa6bbfc2"
+      },
+      "science_sha256": "2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c",
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "model_identity_site": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/SITE_BINDING.json",
+        "sha256": "4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea",
+        "execution_binding_replaced": false
+      },
+      "current_CPU_load_seconds": 3.3975560665130615
+    }
+  },
+  "grid": [
+    {
+      "R120_weight": 1.0,
+      "R238_weight": 0.0,
+      "error_twice": 17478,
+      "ap": 0.8313831149805229,
+      "auroc": 0.9894773092062407
+    },
+    {
+      "R120_weight": 0.95,
+      "R238_weight": 0.05,
+      "error_twice": 17432,
+      "ap": 0.8315568426302248,
+      "auroc": 0.9895050036665057
+    },
+    {
+      "R120_weight": 0.9,
+      "R238_weight": 0.1,
+      "error_twice": 17390,
+      "ap": 0.8316620444079923,
+      "auroc": 0.9895302899128346
+    },
+    {
+      "R120_weight": 0.85,
+      "R238_weight": 0.15,
+      "error_twice": 17370,
+      "ap": 0.8318512851490567,
+      "auroc": 0.9895423309825152
+    },
+    {
+      "R120_weight": 0.8,
+      "R238_weight": 0.2,
+      "error_twice": 17320,
+      "ap": 0.8322399618922947,
+      "auroc": 0.9895724336567163
+    },
+    {
+      "R120_weight": 0.75,
+      "R238_weight": 0.25,
+      "error_twice": 17288,
+      "ap": 0.8325088091720151,
+      "auroc": 0.9895916993682051
+    },
+    {
+      "R120_weight": 0.7,
+      "R238_weight": 0.3,
+      "error_twice": 17264,
+      "ap": 0.8326276228586331,
+      "auroc": 0.9896061486518216
+    },
+    {
+      "R120_weight": 0.65,
+      "R238_weight": 0.35,
+      "error_twice": 17232,
+      "ap": 0.8330022052167896,
+      "auroc": 0.9896254143633104
+    },
+    {
+      "R120_weight": 0.6,
+      "R238_weight": 0.4,
+      "error_twice": 17232,
+      "ap": 0.8330962923453213,
+      "auroc": 0.9896254143633104
+    },
+    {
+      "R120_weight": 0.55,
+      "R238_weight": 0.45,
+      "error_twice": 17260,
+      "ap": 0.8331918244766119,
+      "auroc": 0.9896085568657578
+    },
+    {
+      "R120_weight": 0.5,
+      "R238_weight": 0.5,
+      "error_twice": 17288,
+      "ap": 0.8336510405036416,
+      "auroc": 0.9895916993682051
+    },
+    {
+      "R120_weight": 0.44999999999999996,
+      "R238_weight": 0.55,
+      "error_twice": 17338,
+      "ap": 0.8335468406818883,
+      "auroc": 0.9895615966940039
+    },
+    {
+      "R120_weight": 0.4,
+      "R238_weight": 0.6,
+      "error_twice": 17424,
+      "ap": 0.833391030000473,
+      "auroc": 0.9895098200943779
+    },
+    {
+      "R120_weight": 0.35,
+      "R238_weight": 0.65,
+      "error_twice": 17530,
+      "ap": 0.8333796406709991,
+      "auroc": 0.9894460024250714
+    },
+    {
+      "R120_weight": 0.30000000000000004,
+      "R238_weight": 0.7,
+      "error_twice": 17692,
+      "ap": 0.833613828678755,
+      "auroc": 0.9893484697606597
+    },
+    {
+      "R120_weight": 0.25,
+      "R238_weight": 0.75,
+      "error_twice": 17946,
+      "ap": 0.8328303896582105,
+      "auroc": 0.9891955481757178
+    },
+    {
+      "R120_weight": 0.19999999999999996,
+      "R238_weight": 0.8,
+      "error_twice": 18206,
+      "ap": 0.8322605721293799,
+      "auroc": 0.9890390142698717
+    },
+    {
+      "R120_weight": 0.15000000000000002,
+      "R238_weight": 0.85,
+      "error_twice": 18752,
+      "ap": 0.8314492236347778,
+      "auroc": 0.988710293067595
+    },
+    {
+      "R120_weight": 0.09999999999999998,
+      "R238_weight": 0.9,
+      "error_twice": 19588,
+      "ap": 0.8292403311119897,
+      "auroc": 0.9882069763549515
+    },
+    {
+      "R120_weight": 0.050000000000000044,
+      "R238_weight": 0.95,
+      "error_twice": 21182,
+      "ap": 0.8238010913257262,
+      "auroc": 0.9872473031014183
+    },
+    {
+      "R120_weight": 0.0,
+      "R238_weight": 1.0,
+      "error_twice": 24672,
+      "ap": 0.8147244363510374,
+      "auroc": 0.985146136442177
+    }
+  ],
+  "selected": {
+    "R120_weight": 0.6,
+    "R238_weight": 0.4,
+    "error_twice": 17232,
+    "ap": 0.8330962923453213,
+    "auroc": 0.9896254143633104
+  },
+  "changes": {
+    "R120": {
+      "all": {
+        "reference": 8739.0,
+        "candidate": 8616.0,
+        "repaired": 550.0,
+        "introduced": 427.0,
+        "shared": 8189.0,
+        "net_added": -123.0
+      },
+      "fixed_positive": {
+        "reference": 5829.0,
+        "candidate": 5758.0,
+        "repaired": 359.0,
+        "introduced": 288.0,
+        "shared": 5470.0,
+        "net_added": -71.0
+      },
+      "remaining_positive": {
+        "reference": 2910.0,
+        "candidate": 2858.0,
+        "repaired": 191.0,
+        "introduced": 139.0,
+        "shared": 2719.0,
+        "net_added": -52.0
+      }
+    },
+    "R238": {
+      "all": {
+        "reference": 12336.0,
+        "candidate": 8616.0,
+        "repaired": 5484.0,
+        "introduced": 1764.0,
+        "shared": 6852.0,
+        "net_added": -3720.0
+      },
+      "fixed_positive": {
+        "reference": 8480.0,
+        "candidate": 5758.0,
+        "repaired": 3774.0,
+        "introduced": 1052.0,
+        "shared": 4706.0,
+        "net_added": -2722.0
+      },
+      "remaining_positive": {
+        "reference": 3856.0,
+        "candidate": 2858.0,
+        "repaired": 1710.0,
+        "introduced": 712.0,
+        "shared": 2146.0,
+        "net_added": -998.0
+      }
+    }
+  },
+  "fixed_positive_count": 20,
+  "remaining_positive_count": 147,
+  "count": 5140,
+  "positive_count": 167,
+  "negative_count": 4973,
+  "accumulation_dtype": "float64",
+  "strict_AUROC_gain_over_R120": true,
+  "raw_dev_auroc_0995_met": false,
+  "dev_AP_above_09_met": false,
+  "prediction": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/f01-20261104-4e0c/analysis-v2/dev-fused.csv",
+    "sha256": "513938a9c6c1b3d564a78cfacd60c3144b86bd1e2b934e3c691c697a12c69d29"
+  },
+  "grid_wall_seconds": 0.4687793254852295,
+  "total_wall_seconds": 6.411671876907349,
+  "official_labels_read": false,
+  "official_forward": false,
+  "TTA": false,
+  "member_checkpoint_selection_changed": false,
+  "training_modified": false,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "limits": [
+    "Weights selected on repeatedly reused internal dev; this is not an independent generalization estimate.",
+    "No official score or overall-goal completion is established by this dev-only analysis."
+  ]
+}

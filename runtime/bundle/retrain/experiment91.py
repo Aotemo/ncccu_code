@@ -54,6 +54,10 @@ SWIN_BINDING = 'single-swin-base-ms22k-fixed-9010-24k-earlystop-seed20261029-sca
 DINO_R50_BINDING = 'single-resnet50-dino-imagenet-fixedbn-9010-24k-earlystop-seed20261029-v1'
 PAIR_SIGMOID_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-v1'
 PAIR_SIGMOID_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-v1'
+PAIR_SIGMOID_SEED_REPLICAS = {
+    'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261104-scale085-pairsigmoid-v1': ('R244',20261104,159),
+    'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261105-scale085-pairsigmoid-v1': ('R245',20261105,160),
+}
 PAIR_SIGMOID_LOWLR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-backbonelr5e5-v1'
 PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-backbonelr5e5-v1'
 PAIR_SIGMOID_DECAY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-decay8000-v1'
@@ -182,7 +186,7 @@ PAIR_LOGISTIC_LOSS = {'version': 'binary-pairwise-logistic-v1', 'kind': 'binary_
 SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BINDING,
                       LAST_STRIDE_SMALL_BINDING, *FIT_SSL_BINDINGS, BASE_BINDING, SWIN_BINDING,
                       DINO_R50_BINDING, PAIR_SIGMOID_SMALL_BINDING,
-                      PAIR_SIGMOID_SMALL_SEED27_BINDING, PAIR_SIGMOID_LOWLR_SMALL_BINDING,
+                      PAIR_SIGMOID_SMALL_SEED27_BINDING, *PAIR_SIGMOID_SEED_REPLICAS, PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                       PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING, PAIR_SIGMOID_DECAY_SMALL_BINDING,
                       PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING, PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                       PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING, PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
@@ -282,7 +286,7 @@ def science_configuration():
                 or (value.get('candidate_profile') in FIT_SSL_BINDINGS) != (value.get('ssl_recipe') is not None)
                 or (value.get('candidate_profile') in (SWIN_BINDING, DINO_R50_BINDING,
                                                        PAIR_SIGMOID_SMALL_BINDING,
-                                                       PAIR_SIGMOID_SMALL_SEED27_BINDING,
+                                                       PAIR_SIGMOID_SMALL_SEED27_BINDING, *PAIR_SIGMOID_SEED_REPLICAS,
                                                        PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                                        PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
@@ -478,7 +482,7 @@ def science_configuration():
                          or value.get('job', {}).get('gradient_clip_policy') != ROLEWISE_CLIP_RULE
                          or value.get('candidate', {}).get('gradient_clip_policy') != value.get('job', {}).get('gradient_clip_policy')))
                 or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
-                                                       PAIR_SIGMOID_SMALL_SEED27_BINDING,PAIR_SIGMOID_LOWLR_SMALL_BINDING,
+                                                       PAIR_SIGMOID_SMALL_SEED27_BINDING,*PAIR_SIGMOID_SEED_REPLICAS,PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                                        PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                                                        PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
@@ -632,7 +636,7 @@ def candidate_from_configuration(value):
                         bn_initialization='public')
     elif value['candidate_profile'] in (FROZEN_SMALL_BINDING, LAST_STRIDE_SMALL_BINDING,
                                         *FIT_SSL_BINDINGS, PAIR_SIGMOID_SMALL_BINDING,
-                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,
+                                        PAIR_SIGMOID_SMALL_SEED27_BINDING, *PAIR_SIGMOID_SEED_REPLICAS,
                                         PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                         PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                         PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
@@ -718,6 +722,12 @@ def candidate_from_configuration(value):
         if value['candidate_profile'] == PAIR_SIGMOID_SMALL_SEED27_BINDING:
             expected.update(id='r121-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-9010',
                             experiment_order=31)
+        if value['candidate_profile'] in PAIR_SIGMOID_SEED_REPLICAS:
+            label,seed,order=PAIR_SIGMOID_SEED_REPLICAS[value['candidate_profile']]
+            if value['job'].get('seed')!=seed:
+                raise ValueError('registered R120 replica seed differs')
+            expected.update(id=f'{label.lower()}-convnext-small-imagenet22k-to-1k-24k-p4-seed{seed}-scale085-pairsigmoid-9010',
+                            experiment_order=order)
         if value['candidate_profile'] in (PAIR_SIGMOID_LOWLR_SMALL_BINDING,PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,
                 PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
                 PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,

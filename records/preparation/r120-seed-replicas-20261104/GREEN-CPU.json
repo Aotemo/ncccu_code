@@ -1,0 +1,12 @@
+{
+  "status": "two_replica_registration_targets_two_compiles_and_original_runtime_bytes_passed",
+  "at": 1793792140.43394,
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "f00cda7c00ec9f78af491f7fe02d50aae63fa70735abf2c9f815472dca850b88",
+    "tools/validation/check_candidate.py": "ba7684cf13909b7ad16df6d524fc18b99b289400632e08bd07735d16664c35f3"
+  },
+  "unchanged_runtime_files": 75,
+  "test_sha256": "6a465080b564e5152a780f2aa79b123952a00ded93c314001ea1c8c56202d943",
+  "new_GPU_or_model_or_images_read": false,
+  "source_published": false
+}
