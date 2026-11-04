@@ -1,4 +1,12 @@
-# R232 固定9600 EMA历史窗口与实际监督交接
+# R232 固定9600 EMA历史窗口完整阴性
+
+[完整结果](R232-RESULT.json)64420323：9600 fit适配后原监督6400成功=attempt/0skip/c8/bad4正常早停，唯一selected为EMA c4@3200，AUROC **0.9829462330115558**、AP **0.8046405473793247**、error_twice28326。未严格胜R107或R120，R233不eligible且未激活；官方未达.996，按政策未运行，.995/AP>.9及raw.999未达。已确认[唯一actualsafe](R232-COMPLETION.json)6e329f85/guard53a425d1：owner退出、原八rank缺失、锁/设备使用者空、denied0/八卡busy0，不再重查旧GPU。随后[实际接续R234](../R234/README.md)，当前训练冻结保持565。
+
+[配对报告](PAIRED-REPORT.json)只复算原selected CSV。对R107，全dev错序9600→14163，修复1728/新增6291/净增4563；原固定20为6623→10251，修复961/新增4589/净增3628；其余147为2977→3912，修复767/新增1702/净增935。图片配对bootstrap2000/PCG64 seed20261103，ΔAUROC vs R107 −.005494340，95%区间[−.009501728,−.002096380]；vs R120 −.006531076、[−.012526475,−.001932531]；vs R115和同目标短窗R230区间也均低于0，vs R224/R226/R228跨0。未校正患者聚类、seed、选择或多重比较，不推出临床因果或模型上限。
+
+实际fit适配614400主图/1228800增强视图/2457600 encoder-view forward，其中1228800教师forward；首至末SSL日志8004.983秒，联合训练组件11232.067秒，启动至SSL完成8098.022秒，随后监督至组件结束3134.045秒。本固定长窗及其必要日程伸展整体验证阴性，不重开预算/动量扫描，不复用本轮状态作初始化或teacher。结果归档guarda122b88a、[回执](R232-RESULT-RECEIPT.json)验证原safe和CSV，没有新前向/权重加载。所选tensor98c500e6、预测afd06ae6、precision a55fad69保留身份；完整结果与新首成功同步后，旧checkpoint按真实清单清理，当前尚不声称已删除。
+
+以下是本轮实际启动和交接的历史记录；其当时“待”事项已由上方完整结果更新。
 
 02:18 [监督1500快照](R232-PROGRESS-formal-next-ready.json)e27394d0/guardd4388182仍为原owner及八rank活跃，1500成功=attempt/0skip/c1/bad0；首个dev online/EMA均为AUROC .9661043888494878/AP .7346687961376994，仅临时结果，完整selected待。当前训练期间已完成[未启动R233新足额绑定及后备R234正式CPU/精确部署](../preparation/instance-contrastive-20261104/README.md)，actual SITE f5c09d84/c5ad926f，各18/18，均未激活；原四步入口命令已填实际身份，完整双门与唯一actualsafe前不执行。
 

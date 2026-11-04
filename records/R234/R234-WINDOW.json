@@ -1,0 +1,11 @@
+{
+  "status": "unactivated_full_clock_plus_60s_currently_covered",
+  "at": 1793761235.219675,
+  "round_id": "r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+  "site_sha256": "c5ad926fd879cd8d792616db791be44e9ac92c68140647837a84db1d6d283be7",
+  "remaining_seconds": 40609.539939403534,
+  "required_seconds": 31560,
+  "CPU_and_deployment_reused": true,
+  "GPU_started": false,
+  "formal_clock_created": false
+}

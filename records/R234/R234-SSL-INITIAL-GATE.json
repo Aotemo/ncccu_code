@@ -1,0 +1,40 @@
+{
+  "at": 1793761368.6591928,
+  "device_proof_sha256": "3597daf03490ca8d91a790b7b247b4d8fadb42a23979411c758faa8629ca79cb",
+  "first_ssl_update_executed": false,
+  "public_encoder_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+  "public_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "public_tensor_sha256": "966da204c7ee0668d6d2e1d51b9fa8fe1df96a9a630b12271a96d00f0a197d97",
+  "rank_count": 8,
+  "rank_proof_sha256": "ebca77c03c2ba7404042f88e2ab63928136efbe739ed9eed9eb040234f47dc62",
+  "recipe": {
+    "backbone_lr": 0.0001,
+    "final_lr_factor": 0.01,
+    "global_batch": 64,
+    "gradient_clip": 1.0,
+    "image_size": 512,
+    "learning_rng_domain": "r115-fit-vicreg-1600-v1",
+    "loss": "symmetric_nt_xent",
+    "per_rank_batch": 8,
+    "precision": "fp32",
+    "projector": [
+      768,
+      1024,
+      256
+    ],
+    "projector_lr": 0.001,
+    "sampling_rng_domain": "r115-fit-vicreg-1600-v1",
+    "temperature": 0.1,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "training_views": 2,
+    "updates": 1600,
+    "version": "fit-ntxent-1600-v1",
+    "warmup_updates": 160,
+    "weight_decay": 0.0001
+  },
+  "ssl_rank0_non_encoder_sha256": "d0fe92f37fedb52d6adfba95816bba41c09141314d362c5d8b46c3a1bb9f8c4f",
+  "status": "completed"
+}

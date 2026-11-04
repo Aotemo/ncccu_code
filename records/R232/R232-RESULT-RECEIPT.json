@@ -1,0 +1,17 @@
+{
+  "status": "full_original_selected_CSV_and_unique_safe_verified",
+  "result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/r232-result-archive/R232-RESULT.json",
+    "sha256": "644203233763f83a20df31e5ee66e71465b7ee21f06c0e549e3c00436ab8577d"
+  },
+  "archive_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-h213ief_/CPU-RECEIPT.json",
+    "sha256": "a122b88a7e114130fe808163fd00990a514bade68201e4925d5930723afad456"
+  },
+  "source_script": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/archive-r232.py",
+    "sha256": "6e5848b8962fd9da322a63157258efa3fd6f4448d10d994e6fc9de4c4692d3cb"
+  },
+  "old_safe_repolled": false,
+  "new_forward_or_checkpoint_load": false
+}

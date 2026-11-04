@@ -1,5 +1,7 @@
 # 固定fit-only实例负对照的CPU准备
 
+03:04后续[R234真实接续](../../R234/README.md)已按预登记条件发生：R232完整双门失败，唯一safe6e329f85后一次activation/入口/dispatch，真实八rank首100/74905ab9/guard47f898a2证明原公开初态及实际128×128对比几何、损失/梯度有限。R233未eligible/未激活，R235仍只有技术包。终态→首1/25为207.645/224.573秒，连续GPU空闲时长未测；原source565/SITE c5ad及clock/token/grant保持。下方“未激活”为02:18准备时点，当前唯一运行及私有env以R234页为准，完整1600和监督收益待。
+
 02:18 [正式两分支回执](FORMAL-READY-VERIFICATION.json)1b8b76e8/guardd4388182通过：从未激活R233的新独立ready为`r233-20261104-4e0c-ready`，沿4fea/tree dfe968ec、2699源、18/18 CPU、公开91507a65/345全训/空优化器；[actual SITE](R233-FORMAL-READY.json)f5c09d84、部署9526b793、guard5d5d5a3e。旧R233/36406c3d及其grant原件不改。R234沿已发布5654574/tree131b36bb、2744源、18/18 CPU、公开50c6f55c/345全训/空优化器；[actual SITE](R234-FORMAL-READY.json)c5ad926f、部署4dfc6395、guard35407385。均无activation/clock/dispatch/独立GPU预演；正式检查没有重跑真实P8或冷derived。
 
 两新grant均核完整31500秒clock+60秒启动余量，latest activation分别epoch1793770160.0080159/1793770284.7596166；临近窗口前仍须检查，过期只能为从未启动阶段另建独立输出，不能改旧grant。两条原四步入口已用这些实际READY/SITE填好，私有本机`post-r232-R233-entry.sh`/`post-r232-R234-entry.sh`及会话命令store保留，未执行；沿用原模板语法证据，不声称另有实际activation。唯一分支仍等完整R232严格双门和唯一actualsafe；R233资格成立时优先，否则R234。
