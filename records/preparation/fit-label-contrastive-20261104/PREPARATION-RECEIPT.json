@@ -1,0 +1,23 @@
+{
+  "status": "fit_label_checks_two_configs_priority_ready_and_current_lineage_only",
+  "at": 1793771265.6662185,
+  "files": {
+    "configs/R238-SCIENCE.json": "2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c",
+    "configs/R239-SCIENCE.json": "1d934cdbfafcc11c4ddb37aaf8f647c63a753441f10477685aa902a13ad8d186",
+    "records/R236R2/R236R2-SUPERVISED-START.json": "b902e2244d0c8474d067b551b72758da519d91799a7fd7ca5b79f9770522c15e",
+    "records/R236R2/R236R2-PROGRESS-fit-label-checks-ready.json": "4262246944dedfc706858fab4184df62b4a5d42a12dd3ae04ed1137940b0dcb8",
+    "records/R236R2/R236R2-SSL-RESULT.json": "8b8cf2d7f0189b74832beb6edd7354c642dc18ad048b28d8146d3f834535ae9d",
+    "records/R236R2/R236R2-SUPERVISED-RECEIPT.json": "0d73d0a7005d5d23e2f83b668d145380cbbd59b98321b04f80abd4cb1e6b47ed",
+    "records/preparation/fit-label-contrastive-20261104/CPU-CHECKS.json": "d992863f07325fbc0b45a88b500ada79c67157d223047ebfc04b40a553473358",
+    "records/preparation/fit-label-contrastive-20261104/R237-FORMAL-READY.json": "bd6d2446687f71214a2e6bbd3a49822e9c2b9764a0decf3da16c05c1dfe7644e"
+  },
+  "no_images_predictions_weights_credentials": true,
+  "GPU_or_model_invoked": false,
+  "resource_failed_guard_preserved": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-is3wmwqo/CPU-RECEIPT.json",
+    "sha256": "2f3a8d9b7dc5d10eb28fba5d8c66e0651f53fc017ad1b4062c20925b56418d25",
+    "exit_code": 2,
+    "peak_runnable_threads": 48
+  },
+  "private_export_helper_sha256": "db62e5a3ea620cd7002875fa3ebbf3b51895167c17f228a3a3716870defccda4"
+}

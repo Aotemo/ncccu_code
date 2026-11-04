@@ -1,5 +1,9 @@
 # R236R2 实际八rank强光度适配启动
 
+完整1600适配及原监督自然交接已核实：[SSL结果](R236R2-SSL-RESULT.json)、[监督初态/首25](R236R2-SUPERVISED-START.json)b902e224和[来源回执](R236R2-SUPERVISED-RECEIPT.json)0d73d0a7/guardec0dee92。1600成功=attempt/0skip/dev0/无label-age，实际强光度/128×128/126负视图/.1/128 encoder-view forward保持，八rank derived9ce9f323、head-age不变；监督完整模型ad1e0533/345全训/5空组及原factory RNG恢复通过，首自然25 loss.60167861、G64P8/448符合原合同，采样实际=登记14997478083172343433。观察者未加载checkpoint/模型或前向；私有当前env first已更新为START-OBSERVATION-supervised-1，原部署不改。
+
+最近封存[监督2450/c3/bad0/0skip](R236R2-PROGRESS-fit-label-checks-ready.json)，原owner及八rank活跃；临时EMA .9799781093353209/AP .8088639385503698，非完整selected。条件R237正式18/18/部署15dc4f71/SITEaf2b092b/guarde8b949d4及整窗已备，未激活，原入口已填；新fit标签关系后备事前b489登记并完成窄CPU与资源重验，来源见[准备记录](../preparation/fit-label-contrastive-20261104/README.md)。
+
 11-04 05:08:50.774 UTC首适配成功，05:09实观自然首75：[实际首成功](R236R2-START.json)3d62e66b/guard8244ae79、[公开初态门](R236R2-SSL-INITIAL-GATE.json)及[八rank](R236R2-SSL-INITIAL-RANKS.json)验证公开50c6f55c/encoder/public张量、空初始优化器和原projector形状。实际64图/128视图、64×256 embedding、128×128矩阵/1同图目标/126负视图/自身排除/.1、128 encoder-view forward和`ssl-strong-color-v1`消费成立，loss/梯度有限；首1 loss5.0321264、首75为1.4136722。完整1600、derived→原监督交接和完整内部指标仍待，不据SSL loss宣布收益。
 
 冻结c8004a695989aa76ab17f7cb493c6c486f100438/tree1f6a6d9c88d6c0e1e653204eeca610e5833fc118、R236原SCI266beb7f/order151，actual SITE65bf8525/部署50f33058，2822全树bytes/mode及新正式18/18通过03224975；公开实际50c6/345全训/空Adam保持。[准备与入口来源](R236R2-PREPARATION.json)：原严格存储门成功当次free26,719,813,632、threshold21,474,836,480，已进入既有handoff.storage。新身份一次activation b93ba0af/一次GPU入口/dispatch成功，无调用方预taskset或独立GPU预演。原R236和R236R1两次pre-clock存储失败仍保留；第二次失败瞬间free未记录，后验读数和本次成功不能证明其根因。

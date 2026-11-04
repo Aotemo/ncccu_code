@@ -1,0 +1,215 @@
+{
+  "status": "fit_label_targets_actual_fit_alignment_and_two_rank_Gloo_passed_with_resource_guard",
+  "at": 1793771265.5716648,
+  "tests": 2,
+  "compilations": 4,
+  "source_files": {
+    "runtime/bundle/retrain/vicreg.py": "50c11de25a340213d721fa37f1374229488c7e6db945985505bd7abb08fbb2ec",
+    "runtime/bundle/retrain/ssl_stage.py": "d79c8b023fe431e603e69fb3ed24b41b4cf8d1cdfdb1eda038939fd949c0ae68",
+    "runtime/bundle/retrain/experiment91.py": "51f364bb7cb80a8ed529a4683e6e40c78b9433b04cc769d46fdcddbb642787c6"
+  },
+  "test_sha256": "51da2a18956947250d369ea1ba367e4ade4991c2ed8b5a53e9839dadea7e729d",
+  "configuration_files": {
+    "configs/R238-SCIENCE.json": "2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c",
+    "configs/R239-SCIENCE.json": "1d934cdbfafcc11c4ddb37aaf8f647c63a753441f10477685aa902a13ad8d186"
+  },
+  "actual_fit_consumer_and_two_rank_Gloo_pending": false,
+  "model_or_GPU_invoked": false,
+  "unchanged_function_scopes": {
+    "runtime/bundle/retrain/ssl_stage.py:ssl_head_shape": "15b3d7e8a988e8958cb04be98585ef4ba3a8d54f38be0e3063657bd21e7e6929",
+    "runtime/bundle/retrain/ssl_stage.py:ssl_rng_derivation": "2b2f1d33f6bff92e866bd95e451fb9ddd19037aae2015c589d72e7180c0692b9",
+    "runtime/bundle/retrain/ssl_stage.py:UniformFitSampler": "4d12f6fae0272171bfadf7b7c6293ea273c8c66b902a45ce7d31f4ecc12b22d8",
+    "runtime/bundle/retrain/ssl_stage.py:SSLModel": "14f496abb877c3e2c628923c16f791c02dd6e3c428548108479b4c00bdbcb794",
+    "runtime/bundle/retrain/ssl_stage.py:LocalSSLModel": "22a135360f1a89a44ce900745476765be5b623b77d96ffe8a2049ae22cd55286",
+    "runtime/bundle/retrain/ssl_stage.py:_derived_state": "47acb40d9cca19bcf88f7555cff91a98d31f0282ac3794532bc8f5bea884164c",
+    "runtime/bundle/retrain/ssl_stage.py:_non_encoder_state": "6e1d4cbc69fd7661b92c6a66a32993ee0f3c0287e2f0ef0222455ae92810d066",
+    "runtime/bundle/retrain/ssl_stage.py:_factor": "c9a9b6ada2925919546b66f757befe234cb5ecb063a2d36d881191c2e7c2dc76",
+    "runtime/bundle/retrain/ssl_stage.py:_optimizer": "52ce40567e59ba5cab84bceb52aae0ba654c8dec8e270fff4e82203acde1439f",
+    "runtime/bundle/retrain/ssl_stage.py:_wait_barrier": "2f6e248dc768ae51ed08d629f9299aeec5563267d9de551f8e39b65fa6079ead",
+    "runtime/bundle/retrain/ssl_stage.py:load_derived_model": "111d49373a7a74be1bad5e56c25607bd6ac7c8bb0b8cedf88240913c63983291",
+    "runtime/bundle/retrain/vicreg.py:_GatherEmbeddings": "73b43edb1ad59623a69e41a00d40fa1f63c6e4f2ecd555bedd4d6dfa7b4b3b17",
+    "runtime/bundle/retrain/vicreg.py:gather_embeddings": "29b883f7e0a06bde5abe55207c9c02534edd6ba17b83b73fe742be5902fea0e6",
+    "runtime/bundle/retrain/vicreg.py:vicreg_loss": "ac1b8b973befc21b3506d7e923fdbfc3e0f3972acc2912a4cb43423a964e4693",
+    "runtime/bundle/retrain/vicreg.py:nt_xent_loss": "1135fe993b926f09d1f9fb1350454bd9dfcd35b9ca7126f8de702fceb9766c78",
+    "runtime/bundle/retrain/experiment91.py:official_allowed_for_selected": "489e30a13cccf6c9178669acd4aca26e47d47c5926b138a37410599223264477",
+    "runtime/bundle/retrain/experiment91.py:science_configuration": "bc93abef99b9c2fb1c12e9a13e318d77736c26f56bd0370982dff5f4315f0dfc",
+    "runtime/bundle/retrain/experiment91.py:public_source": "1aeb328cb40dda754cfb1c1cac264840e7908487d77ea21a09da1354907e98bb",
+    "runtime/bundle/retrain/experiment91.py:structure_contract": "de6c6fb2a2f2d5f56dfd2ca8a04128bc2e12b86e18e5c8263b6010f58fa432cc",
+    "runtime/bundle/retrain/experiment91.py:verify_public_asset": "5c5064827351b72302dffae631fd07f0242b1b175122b8e517273f4e6878805c",
+    "runtime/bundle/retrain/experiment91.py:candidate": "94ac39e7a63419d3dde8ed801d6c3916d5f023abc9340bcadab338d84d317ea5",
+    "runtime/bundle/retrain/experiment91.py:metadata": "9f3e859775865d3c24de9a12a515ff98335ab15287e016d05b2faf90d4a46411",
+    "runtime/bundle/retrain/experiment91.py:_metadata": "7533159b841bc5214b5d62c56936c1b82692fc53df7f6cbcbbc400bc6f6f5c2f",
+    "runtime/bundle/retrain/experiment91.py:binding": "806e289dd3f1689374f1d118d21f3f159e545bdbdbb3dd012f5abb43af3065c9",
+    "runtime/bundle/retrain/experiment91.py:resolved_age_spec": "cdc784fd0b043e93a4fa94f5878c8ebd83a3e6d6d81143c0fea30fc9e5719978",
+    "runtime/bundle/retrain/experiment91.py:schedule": "3e6152657b6722d679258759cbc3f03ffe515150413d386a52ef9fa2f96f1e08",
+    "runtime/bundle/retrain/experiment91.py:early_stopping": "8d925440be798460e3b5bb03163097d8eae1503640ad181bff1b8258c8782afd",
+    "runtime/bundle/retrain/experiment91.py:validate_training_completion": "f3bb64572a763afe15c56651f34afbafcbfec56c95a01298ae1fe9ab5f9961de",
+    "runtime/bundle/retrain/experiment91.py:ema_rule": "e0e60be8ea45f2abb7e1eedb4cd2bc7443e3f902a68cd3828a594e48082a50b9",
+    "runtime/bundle/retrain/experiment91.py:validate_job": "6a821bede00651e21de1417ca8f5befbdb0690a76ee10d2935e6fe056ea2609a",
+    "runtime/bundle/retrain/experiment91.py:describe_model": "ea0d503413a124acc240c4053d7c6cbbf6bd249a0f09c8190c72811ce3f94c55",
+    "runtime/bundle/retrain/experiment91.py:validate_normalization": "ce5925f747cecab11ad0d994bc487a372b2da53368093f4df1ed01a5453c71e5",
+    "runtime/bundle/retrain/experiment91.py:accepted_manifest": "6f6d6adc40bf5f4df7e4348d3a5ed1d14ba752391f50ad7ed6b9d477544210f5",
+    "runtime/bundle/retrain/experiment91.py:validate_runtime": "3ba830e8fd56692c248d232ad2789d7d0377ad1cb3ad60f5ef79ab1a385db6b5",
+    "runtime/bundle/retrain/experiment91.py:validate_checkpoint": "99e521e433d1b2af29ebc24acccdc7ee56fd5a9693b2b4ac8991b187b9b43f23"
+  },
+  "unchanged_implementation_files": {
+    "runtime/bundle/retrain/data.py": "dd792e48d0a6ec9a4f15553cc28c7b31a7e2f5439bf674c5dfc4158e74d91a73",
+    "runtime/bundle/retrain/preprocessing.py": "f14db5f98ba86b229d1cade25d906b7a6985b124e6873cee93b8ad1b298624b1",
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/distributed_engine.py": "937fae016629d21d17ff4b3dea1b75acb03a4e759a560130995da48448432b7c",
+    "runtime/bundle/retrain/single91.py": "dcd76aed3d173521b0a79e05e4e26f34185b897b12c09a0cb97d5f1beaaa3662",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "runtime/bundle/retrain/inference.py": "1a00f003fe5db81627934b2afba2e71af68dafed76810d9ba6fa26835fcb7833",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/r92_initial_gate.py": "fe2455352c88600f10e0e2ff88e8b4582b0ea55aa906a15a38bcfe02257bf25d",
+    "runtime/r115_ssl_gate.py": "dc0bf3ce7fe0c2a812942f1d04ee6aa7793c1152b7fb36085a41a3c5fb19e869"
+  },
+  "actual_fit_consumer": {
+    "shape": [
+      8,
+      2,
+      3,
+      512,
+      512
+    ],
+    "fit_label_count": 46256,
+    "fit_positive_count": 1490,
+    "only_fit_label_keys_accessed": true,
+    "labels_match_actual_image_indices": true,
+    "age_used": false,
+    "tensor_sha256": "2aebe5cdde715062644c749dc5960a82216bdc7363e05a053ce3d29673a97e2f",
+    "same_original_R236_fit8_pixels": true
+  },
+  "CPU_Gloo": {
+    "world_size": 2,
+    "per_rank_threads": 4,
+    "import_time_thread_environment": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4",
+      "NUMEXPR_NUM_THREADS": "4"
+    },
+    "ranks": [
+      {
+        "rank": 0,
+        "labels_follow_embedding_rank_order": true,
+        "global_shape": [
+          64,
+          256
+        ],
+        "loss": 11.601848602294922,
+        "global_loss_matches_serial": true,
+        "gather_gradient_SUM_matches_DDP_mean_cancellation": true,
+        "maximum_gradient_errors": [
+          0.0,
+          0.0
+        ],
+        "stats": {
+          "contrastive_logits_shape": [
+            128,
+            128
+          ],
+          "contrastive_anchor_count": 128,
+          "contrastive_temperature": 0.1,
+          "contrastive_self_excluded": true,
+          "contrastive_target": "fit_csv_same_label",
+          "contrastive_positive_targets_per_anchor_min": 23,
+          "contrastive_positive_targets_per_anchor_max": 103,
+          "contrastive_negative_views_per_anchor_min": 24,
+          "contrastive_negative_views_per_anchor_max": 104,
+          "contrastive_fit_positive_images": 12
+        },
+        "GPU_initialized": false
+      },
+      {
+        "rank": 1,
+        "labels_follow_embedding_rank_order": true,
+        "global_shape": [
+          64,
+          256
+        ],
+        "loss": 11.601848602294922,
+        "global_loss_matches_serial": true,
+        "gather_gradient_SUM_matches_DDP_mean_cancellation": true,
+        "maximum_gradient_errors": [
+          0.0,
+          0.0
+        ],
+        "stats": {
+          "contrastive_logits_shape": [
+            128,
+            128
+          ],
+          "contrastive_anchor_count": 128,
+          "contrastive_temperature": 0.1,
+          "contrastive_self_excluded": true,
+          "contrastive_target": "fit_csv_same_label",
+          "contrastive_positive_targets_per_anchor_min": 23,
+          "contrastive_positive_targets_per_anchor_max": 103,
+          "contrastive_negative_views_per_anchor_min": 24,
+          "contrastive_negative_views_per_anchor_max": 104,
+          "contrastive_fit_positive_images": 12
+        },
+        "GPU_initialized": false
+      }
+    ],
+    "native_eight_rank_training_not_yet_proven": true
+  },
+  "actual_original_P8_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "93ac00abe708243dd49d25e8cdaf21c90c35a5fe608b90ec827ad7ae0d1f3697"
+  },
+  "model_forward_or_checkpoint_load": false,
+  "GPU_initialized": false,
+  "reused_numeric_checks_from_guard_rejected_task": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-is3wmwqo/CPU-RECEIPT.json",
+    "sha256": "2f3a8d9b7dc5d10eb28fba5d8c66e0651f53fc017ad1b4062c20925b56418d25",
+    "child_exit_code": 0,
+    "guard_exit_code": 2
+  },
+  "source_changed_since_numeric_checks": false,
+  "unit_fit_and_source_checks_rerun": false,
+  "resource_recheck_only": true,
+  "resource_guard_not_yet_returned": false,
+  "CPU_guards": {
+    "RED": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-dawzj4e7/CPU-RECEIPT.json",
+      "sha256": "9b6ec1bc0a678e9e31f1e6fa0733e0bbc23d5f35f2d1c1bbbe74039228113439",
+      "exit_code": 1,
+      "peak_runnable_threads": 1
+    },
+    "GREEN": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-mqwg12ae/CPU-RECEIPT.json",
+      "sha256": "7e07dc7c10898d1893802598f627bea557e9adbf9b8e55fc0707f2572b3aac7f",
+      "exit_code": 0,
+      "peak_runnable_threads": 24
+    },
+    "numeric_integration_resource_failed": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-is3wmwqo/CPU-RECEIPT.json",
+      "sha256": "2f3a8d9b7dc5d10eb28fba5d8c66e0651f53fc017ad1b4062c20925b56418d25",
+      "exit_code": 2,
+      "peak_runnable_threads": 48
+    },
+    "Gloo_resource_recheck": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-gajdpme3/CPU-RECEIPT.json",
+      "sha256": "f3fcced07d078a159a132162ec7a2b5bfbe2ed34a22887879e7730fd8c2dbb8f",
+      "exit_code": 0,
+      "peak_runnable_threads": 8
+    },
+    "priority_R237_formal": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-5rnivvqq/CPU-RECEIPT.json",
+      "sha256": "e8b949d46ea57ebc45679396a23ea7e4846440f01c241142a33c4463c685889a",
+      "exit_code": 0,
+      "peak_runnable_threads": 24
+    },
+    "R236R2_supervised_archive": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-aizujhxh/CPU-RECEIPT.json",
+      "sha256": "ec0dee92f23deb638658be8a5b20ab094b3f3abc07395df511b06b2c1782b9ae",
+      "exit_code": 0,
+      "peak_runnable_threads": 1
+    }
+  },
+  "review": "Primary agent reviewed positive mask/normalization, fit index lookup, label collectives, RNG, unchanged supervision and completion flags. No independent reviewer or subagent per user instruction."
+}

@@ -18,7 +18,7 @@ from .ema import tensor_digest
 from .finite import all_floating_finite
 from .models import create_model
 from .persistence import atomic_json, canonical_digest, sha256_file
-from .vicreg import gather_embeddings, vicreg_loss, nt_xent_loss
+from .vicreg import gather_embeddings, vicreg_loss, nt_xent_loss, supervised_contrastive_loss
 from . import engine as single
 
 
@@ -38,6 +38,39 @@ STRONG_COLOR_RECIPE = dict(NTXENT_RECIPE, version='fit-ntxent-strongcolor1600-v1
     training_photometric='ssl-strong-color-v1')
 
 
+FIT_LABEL_RECIPE = dict(STRONG_COLOR_RECIPE, version='fit-label-supcon-1600-v1',
+    loss='supervised_contrastive_out', label_source='fit_csv')
+
+
+def fit_label_table(manifest):
+    """Read labels only for the declared fit rows; never read age or dev rows."""
+    indices = manifest['fit_indices']
+    rows = manifest['rows']
+    if (not indices or len(indices) != len(set(indices))
+            or set(indices) & set(manifest['dev_indices']) or manifest.get('audit_indices')
+            or any(type(index) is not int or not 0 <= index < len(rows) for index in indices)):
+        raise ValueError('fit label table requires unique valid fit-only indices')
+    result = {}
+    for index in indices:
+        try:
+            label = float(rows[index]['label'])
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError('fit CSV label missing or nonnumeric') from error
+        if not math.isfinite(label) or label not in (0., 1.):
+            raise ValueError('fit CSV label must be binary')
+        result[index] = int(label)
+    return result
+
+
+def gather_fit_labels(table, indices, *, device):
+    """Use the same local image indices and existing world-rank gather order."""
+    indices = indices.tolist() if isinstance(indices, torch.Tensor) else list(indices)
+    if any(type(index) is not int or index not in table for index in indices):
+        raise ValueError('label lookup index is outside the declared fit table')
+    local = torch.tensor([table[index] for index in indices], dtype=torch.float32, device=device)
+    return gather_embeddings(local.reshape(-1, 1)).reshape(-1).long()
+
+
 LOCAL_RECIPE = {'version': 'fit-local-photometric-1600-v1', 'updates': 1600,
     'global_batch': 64, 'per_rank_batch': 8, 'training_views': 2,
     'image_size': 512, 'training_scale': [0.85, 1.0],
@@ -52,7 +85,7 @@ LOCAL_RECIPE = {'version': 'fit-local-photometric-1600-v1', 'updates': 1600,
 
 
 def validate_recipe(recipe, job, manifest, world):
-    """The science file fixes this one recipe; labels and dev never enter the phase."""
+    """The science file fixes the recipe and its fit signals; dev never enters."""
     expected = {'version': 'r115-fit-vicreg-1600-v1', 'updates': 1600,
         'global_batch': 64, 'per_rank_batch': 8, 'training_views': 2,
         'image_size': 512, 'training_scale': [0.85, 1.0],
@@ -72,6 +105,8 @@ def validate_recipe(recipe, job, manifest, world):
         expected = NTXENT_RECIPE
     if recipe.get('version') == STRONG_COLOR_RECIPE['version']:
         expected = STRONG_COLOR_RECIPE
+    if recipe.get('version') == FIT_LABEL_RECIPE['version']:
+        expected = FIT_LABEL_RECIPE
     if recipe.get('version') == 'fit-ema-assignment-1600-v1':
         from .ema_assignment import EMA_RECIPE
         expected = EMA_RECIPE
@@ -93,7 +128,12 @@ def ssl_phase_completed(receipt, recipe):
         and type(recipe.get('updates')) is int and recipe['updates'] > 0
         and receipt.get('status') == 'completed' and receipt.get('recipe') == recipe
         and receipt.get('successful_updates') == receipt.get('attempted_updates') == recipe['updates']
-        and receipt.get('skipped_updates') == receipt.get('dev_evaluations') == 0)
+        and receipt.get('skipped_updates') == receipt.get('dev_evaluations') == 0
+        and (recipe.get('label_source') != 'fit_csv' or (
+            receipt.get('labels_or_age_used_for_loss') is True
+            and receipt.get('labels_used_for_loss') is True
+            and receipt.get('age_used_for_loss') is False
+            and receipt.get('label_scope') == 'fit_csv')))
 
 
 def ssl_head_shape(recipe):
@@ -236,8 +276,9 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
     assignment = domain in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1')
-    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'])
-    strong_color = domain == STRONG_COLOR_RECIPE['version']
+    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'])
+    labeled = domain == FIT_LABEL_RECIPE['version']
+    strong_color = domain in (STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'])
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -288,6 +329,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
         normalization='imagenet', prepared_size=512, age=None,
         training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False,
         shared_view_geometry=local, training_photometric=recipe.get('training_photometric'))
+    labels_by_index = fit_label_table(manifest) if labeled else None
     sampler = UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
         updates=updates, rank=ctx.rank, world=ctx.world_size)
     loader = DataLoader(dataset, batch_sampler=sampler,
@@ -332,7 +374,12 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                         raise ValueError('EMA global teacher geometry differs')
                     loss, assignment_stats = assignment_loss(z1.float(), z2.float(), t1.float(), t2.float(), center)
                 elif contrastive:
-                    loss, contrastive_stats = nt_xent_loss(z1.float(), z2.float(), temperature=recipe['temperature'])
+                    if labeled:
+                        labels = gather_fit_labels(labels_by_index, indices, device=ctx.device)
+                        loss, contrastive_stats = supervised_contrastive_loss(
+                            z1.float(), z2.float(), labels, temperature=recipe['temperature'])
+                    else:
+                        loss, contrastive_stats = nt_xent_loss(z1.float(), z2.float(), temperature=recipe['temperature'])
                 else:
                     loss = vicreg_loss(z1.float(), z2.float())
             if ctx.any(not bool(torch.isfinite(loss))):
@@ -418,7 +465,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             'world_size': ctx.world_size, 'successful_updates': updates,
             'attempted_updates': updates, 'skipped_updates': 0,
             'fit_indices_only': True, 'dev_evaluations': 0,
-            'labels_or_age_used_for_loss': False,
+            'labels_or_age_used_for_loss': labeled,
             'public_model_tensor_sha256': public_digest,
             'public_encoder_tensor_sha256': public_encoder_digest,
             'public_tensor_sha256': public_receipt['public_tensor_sha256'],
@@ -432,6 +479,9 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             **(dict(contrastive_stats, unique_augmented_views_per_update=128,
                     encoder_view_forwards_per_update=128) if contrastive else {}),
             **({'training_photometric': dataset.training_photometric} if strong_color else {}),
+            **({'labels_used_for_loss': True, 'age_used_for_loss': False, 'label_scope': 'fit_csv',
+                'fit_label_count': len(labels_by_index), 'fit_positive_count': sum(labels_by_index.values()),
+                'fit_label_table_sha256': canonical_digest(sorted(labels_by_index.items()))} if labeled else {}),
             'rng_derivation': rng,
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)

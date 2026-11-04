@@ -1,4 +1,4 @@
-"""Differentiable global gather and fit-only embedding losses without labels."""
+"""Differentiable global gather and registered fit-only embedding losses."""
 import math
 import torch
 import torch.distributed as dist
@@ -84,3 +84,33 @@ def nt_xent_loss(z1, z2, *, temperature):
                   'contrastive_positive_targets_per_anchor': 1,
                   'contrastive_temperature': float(temperature),
                   'contrastive_self_excluded': True}
+
+
+def supervised_contrastive_loss(z1, z2, labels, *, temperature):
+    """Average each anchor's log probabilities over its same-label other views."""
+    if (z1.dim() != 2 or z1.shape != z2.shape or z1.shape[0] < 2 or z1.shape[1] < 1
+            or not isinstance(labels, torch.Tensor) or labels.dim() != 1
+            or labels.shape[0] != z1.shape[0] or labels.dtype not in
+                (torch.int8, torch.int16, torch.int32, torch.int64, torch.uint8)
+            or bool((labels < 0).any()) or not isinstance(temperature, (int, float))
+            or not math.isfinite(temperature) or temperature <= 0):
+        raise ValueError('supervised contrastive loss requires equal NxD views and N nonnegative integer labels')
+    n = z1.shape[0]
+    values = torch.nn.functional.normalize(torch.cat((z1, z2)), dim=1, eps=1e-12)
+    scores = (values @ values.transpose(0, 1)) / temperature
+    tag = labels.to(device=scores.device).repeat(2)
+    diagonal = torch.eye(2*n, device=scores.device, dtype=torch.bool)
+    positive = (tag[:, None] == tag[None, :]) & ~diagonal
+    counts = positive.sum(dim=1)
+    normalizer = torch.logsumexp(scores.masked_fill(diagonal, -torch.inf), dim=1)
+    positive_mean = scores.masked_fill(~positive, 0).sum(dim=1) / counts
+    loss = (normalizer - positive_mean).mean()
+    negatives = 2*n - 1 - counts
+    return loss, {'contrastive_logits_shape': list(scores.shape),
+        'contrastive_anchor_count': 2*n, 'contrastive_temperature': float(temperature),
+        'contrastive_self_excluded': True, 'contrastive_target': 'fit_csv_same_label',
+        'contrastive_positive_targets_per_anchor_min': int(counts.min()),
+        'contrastive_positive_targets_per_anchor_max': int(counts.max()),
+        'contrastive_negative_views_per_anchor_min': int(negatives.min()),
+        'contrastive_negative_views_per_anchor_max': int(negatives.max()),
+        'contrastive_fit_positive_images': int((labels == 1).sum())}
