@@ -1,0 +1,13 @@
+{
+  "status": "closed_R232_summary_and_current_SSL_progress_exported",
+  "at": 1793762210.0509586,
+  "files": {
+    "records/R234/R234-PROGRESS-after-r232-cleanup.json": "71939f26cb1cd50d6a1a1c1bbe0f7a94399decb4e76629b8c93f4df2430aeefc",
+    "records/storage/closed-r232-20261104/PLAN-SUMMARY.json": "88b8ecee68246cdac507755ce70bbf3827a041d23c30e429bc687891fede377e",
+    "records/storage/closed-r232-20261104/FINAL-CPU-RECEIPT.json": "248c6655f27b801d9699c3accc41a2667efcb556a51d52fa5c983f9a474a2315",
+    "records/storage/closed-r232-20261104/EXPORT-RECEIPT.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "records/storage/closed-r232-20261104/DELETE-RECEIPT.json": "62b9d07900c34250bcf19e34bddd6657917a550af8885d5e5a091476d2e4a285",
+    "records/storage/closed-r232-20261104/FINAL-VERIFICATION.json": "87690c1a7701ed105689efe12405fe5e5655d42ad96a06a25ba12ece05a4837e"
+  },
+  "images_weights_predictions_exported": false
+}

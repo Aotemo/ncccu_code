@@ -1,5 +1,7 @@
 # R232 固定9600 EMA历史窗口完整阴性
 
+后续[8 checkpoint清理](../storage/closed-r232-20261104/README.md)已完成并终检，plan af24732d/delete62b9d079/最终CPU248c6655：5.941GB逻辑字节，三KEEP及当前R234保护stat/小SHA保持，free点观测28.616GB。只删除实际清单内PT，derived在清单外；历史结果、预测CSV、precision及sidecar保持。下方归档时点“待清理”已由本条更新。
+
 [完整结果](R232-RESULT.json)64420323：9600 fit适配后原监督6400成功=attempt/0skip/c8/bad4正常早停，唯一selected为EMA c4@3200，AUROC **0.9829462330115558**、AP **0.8046405473793247**、error_twice28326。未严格胜R107或R120，R233不eligible且未激活；官方未达.996，按政策未运行，.995/AP>.9及raw.999未达。已确认[唯一actualsafe](R232-COMPLETION.json)6e329f85/guard53a425d1：owner退出、原八rank缺失、锁/设备使用者空、denied0/八卡busy0，不再重查旧GPU。随后[实际接续R234](../R234/README.md)，当前训练冻结保持565。
 
 [配对报告](PAIRED-REPORT.json)只复算原selected CSV。对R107，全dev错序9600→14163，修复1728/新增6291/净增4563；原固定20为6623→10251，修复961/新增4589/净增3628；其余147为2977→3912，修复767/新增1702/净增935。图片配对bootstrap2000/PCG64 seed20261103，ΔAUROC vs R107 −.005494340，95%区间[−.009501728,−.002096380]；vs R120 −.006531076、[−.012526475,−.001932531]；vs R115和同目标短窗R230区间也均低于0，vs R224/R226/R228跨0。未校正患者聚类、seed、选择或多重比较，不推出临床因果或模型上限。

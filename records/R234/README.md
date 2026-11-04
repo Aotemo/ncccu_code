@@ -1,5 +1,7 @@
 # R234 fit-only实例对比目标实际启动
 
+03:16 [SSL1125快照](R234-PROGRESS-after-r232-cleanup.json)71939f26/guardfd3dca99仍为原owner及八rank活跃，loss/gradient有限；完整1600及监督交接待。[旧R232清单8 checkpoint清理及终检](../storage/closed-r232-20261104/README.md)完成，当前565/SITE c5ad及clock/token/grant保持。
+
 [真实首100](R234-START.json)74905ab9/guard47f898a2通过：owner835172/start378866795与八rank活跃，公开模型50c6f55c与正式CPU及原真实局部P8一致；[公开初态门](R234-SSL-INITIAL-GATE.json)及[八rank记录](R234-SSL-INITIAL-RANKS.json)保持空初始优化器。实际G64/P8、128独立增强视图、64×256 embedding，损失矩阵128×128、128 anchor、1同图目标/126负视图、自身排除、温度.1、128 encoder-view forward符合预登记。首1 loss4.580774、首100 .279874，损失和梯度有限；完整1600与监督交接及收益仍待。首观测ACTUAL-START-1仅缺metrics时记unknown，未重启；真实first为ACTUAL-START-2。
 
 新信号仍为[事前固定的同图识别与其他图竞争](../../todo/auroc-999/R234-R235-FIT-NTXENT-20261104.md)，同R115双原512视图、头/采样/学习随机域/1600日程，只将VICReg替换为固定NT-Xent。不是延长旧VICReg或完整SimCLR复现；无teacher/队列/定位/额外任务图/医学预训练/标签改动。仅学生encoder/final-LN进入原完整R107监督，head-age及监督RNG保持、空Adam/EMA重建仍须真实交接证明。预计计数102400主图/204800增强视图/204800 encoder-view forward为合同总量，不是已完成计数。
