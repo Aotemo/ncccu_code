@@ -1,0 +1,295 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "9f12803ae6319e5024ef0a16e28fb89f7e726e48d124ad5cc796b1f8990143e5",
+  "inventory_sha256": "1ac22d5987d0c95c4a03fb36bbf29838172b1aba1e9abe83e0f1f28f9e9d33b9",
+  "source_commit": "31da65289a8f0b9400d29e17bdcfd2b3dd1895d5",
+  "candidate_count": 11,
+  "candidate_labels": [
+    "R137",
+    "R139",
+    "R141",
+    "R143",
+    "R144",
+    "R146",
+    "R148",
+    "R150R1",
+    "R184",
+    "R218",
+    "R220"
+  ],
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r139-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r141-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r143-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r144-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r146-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r148-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r150r1-20261101-32e3",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r184-20261102-32e3-ready-gatefix",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r218-20261103-32e3-ready-headroom",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r220-20261103-32e3-ready"
+  ],
+  "skipped": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r184-20261102-32e3-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-8482f86d9fad4659bac6c287eff2b2e0.pt",
+      "label": "R184",
+      "reason": "'/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r184-20261102-32e3-ready/formal-cpu/CPU-RECEIPT.json'"
+    }
+  ],
+  "logical_bytes": 3912880853,
+  "allocated_bytes": 3912883712,
+  "filesystem_free_now": 45918191616,
+  "conclusions": {
+    "R137": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9854411426493483,
+        "ap": 0.8124829988951043,
+        "variant": "ema",
+        "cycle": 8,
+        "successful_updates": 6400,
+        "error_twice": 24182
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R137/R137-RESULT.json",
+        "sha256": "b250ac9b846366e34fd190d1abaa910fa0834b32b287c374e1c06819e7473b54",
+        "git_blob": "7ae1649d3c3cefe922ceddfcc25e7474dcfca339"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r137-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "42e8917e1cf6c95f08ee989a7105133f17ce26a8f7feb573da358d5759239b90"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R139": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9844971227863999,
+        "ap": 0.8115500912154501,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 25750
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R139/R139-RESULT.json",
+        "sha256": "0b85f5921b55489adc9194a6c9261adf21e4afb8e5bbc24db576fd1b2384e5a2",
+        "git_blob": "2aab041ad71dc117cf3abf88882342aad403bcd1"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r139-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "73834d45e58410ac11d698c1ec77ba6651e3f5341ac9acaad4f826421189a306"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R141": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9418572868339332,
+        "ap": 0.5441920880700725,
+        "variant": "ema",
+        "cycle": 18,
+        "successful_updates": 14400,
+        "error_twice": 96574
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R141/R141-RESULT.json",
+        "sha256": "fdf949f8d72aa7100a9a9bcb4a3e5a2d4b63fe411a8fb616b1b9a9962eabb6f2",
+        "git_blob": "76bf17f5af6ed701e9116f073f2a48bd629df9f4"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r141-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "65b4da9d75ef19e262727e32d70e66a7a53f23b3a6fdcfd41bf7f1b1f7cdff6c"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R143": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9782357665525575,
+        "ap": 0.7877912472019675,
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "error_twice": 36150
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R143/R143-RESULT.json",
+        "sha256": "f5b090a86486971521f86bf76bc75c191919040f5f2ad64d0a680742f6c90e71",
+        "git_blob": "0f36ec6ec9604ffe60692cd172bb28b0dbec47a8"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r143-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "8a46d8e0de43cc153d7c922b698f1a5c347df33cb60909b8826421c8a2f5b854"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R144": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9754916067723792,
+        "ap": 0.78141764482292,
+        "variant": "ema",
+        "cycle": 3,
+        "successful_updates": 2400,
+        "error_twice": 40708
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R144/R144-RESULT.json",
+        "sha256": "5033ca06f9035f863748e909bf66d351be2dc2325d77a628b6a4222e6718e667",
+        "git_blob": "ae496c53f7723c52176427c9412386e924ec1bbc"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r144-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "928ebfa363625e1e625e3b41ed6c51b54dc5ec3d0079b4651ce4243243647f6b"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R146": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9838457009166867,
+        "ap": 0.8260687902035526,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 26832
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R146/R146-RESULT.json",
+        "sha256": "9471cb50dfaa145260b15ca809ef0ec60af3c2a8bb1aab7dbd56b8f24c58bd66",
+        "git_blob": "b59ae152872cae312c92b87762d54c225893be1c"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r146-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "f541ed366d6e474afb0c4464bd92bcd01e11452aaab556eb9b4fb75167ebbd3d"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R148": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9872244250690254,
+        "ap": 0.8234500014661867,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "error_twice": 21220
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R148/R148-RESULT.json",
+        "sha256": "9a6dc97d7148f287db3445a7e0498b1e3c3ecd72f8bac53302f4390c788c09fd",
+        "git_blob": "b7f3c336ce3ae88a6b41820a27be7256888add06"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r148-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "441358f286a3fe52777963b7aa466d357f48ff60cfb772798a786b7c073ba1b9"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R150R1": {
+      "status": "completed_not_target",
+      "historical_actual_safe": true,
+      "selected_internal_dev": {
+        "auroc": 0.9859781743570972,
+        "ap": 0.8099265137055353,
+        "variant": "ema",
+        "cycle": 7,
+        "successful_updates": 5600,
+        "error_twice": 23290
+      },
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R150R1/R150R1-RESULT.json",
+        "sha256": "1535285c6cf539cd050667098673bee33cdc0fbd7323b1f790f2a0603339cf47",
+        "git_blob": "ea14f1fc793da6fd00732a7b4737d4a2b9e63755"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r150r1-20261101-32e3/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "bd9f58752c16394e6f6c8b06b81c32fbb01a74e71fed59e0111e827279606f66"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R184": {
+      "status": "technical_failure_safe_no_scientific_score",
+      "historical_actual_safe": true,
+      "selected_internal_dev": null,
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R184/R184-RESULT.json",
+        "sha256": "f595194922c4b1f78dfd741c8209948eb165647ea1b311c685012b39b05c9167",
+        "git_blob": "0ff1d67671684adac13b4756780a7a26b262e510"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r184-20261102-32e3-ready-gatefix/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "ecaedf6b12c5bf4558019ebb51423d1165606d6c3390a886a1596ac979f068d6"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R218": {
+      "status": "not_activated_ineligible",
+      "historical_actual_safe": true,
+      "selected_internal_dev": null,
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R217/R217-RESULT.json",
+        "sha256": "44e5a84db75db6081eda213ec532aabc0dfe4a30f1d28fd2a314fcad6f754c5b",
+        "git_blob": "c7973fa1828ed527670f2626056195f67542d93a"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r218-20261103-32e3-ready-headroom/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "cc8974daa4448eed23e5e5d1cf80a126241508b2fa49c078999add2d6d74476a"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    },
+    "R220": {
+      "status": "not_activated_ineligible",
+      "historical_actual_safe": true,
+      "selected_internal_dev": null,
+      "result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/R219/R219-RESULT.json",
+        "sha256": "2d29288a7d8fb0017a1d8d875e21a72d63dad1300899d665db15ee57fa84e634",
+        "git_blob": "88814ea67a835641c8bad494df222d963a8d2354"
+      },
+      "conclusion": "Only the zero-update CPU strict-roundtrip fixture is redundant; runtime/model/metadata/results stay protected.",
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r220-20261103-32e3-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "efa26d5118e80f913477eaf4a6aa7ebf6d4316f76b23843a65872b306cf1f37b"
+      },
+      "fixture_only": true,
+      "future_fixture_forward_dependency": false
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/committed-records/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": []
+}

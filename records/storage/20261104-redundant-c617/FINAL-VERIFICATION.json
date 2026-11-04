@@ -1,0 +1,110 @@
+{
+  "status": "completed_exact_manifests_verified",
+  "verified_at": 1793786018.1086566,
+  "pod_uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+  "CPU_allocation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/CPU-ALLOCATION.json",
+    "sha256": "9fca3bbf3682a1f647167a9cdb08199b372c920ad8df3c5aebe487fd1a3efeb9"
+  },
+  "executor": "c61766a9-1920-4e29-a4a6-f08dd09bbd78",
+  "CPU_mask": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "deleted_count": 50,
+  "logical_bytes_removed": 21816588622,
+  "pre_unlink_allocated_bytes": 21816601088,
+  "logical_GB_removed": 21.816588622,
+  "logical_GiB_removed": 20.318281484767795,
+  "filesystem_free_bytes": 49701453824,
+  "filesystem_free_GB": 49.701453824,
+  "filesystem_free_before_first_delete": 28014804992,
+  "filesystem_point_free_delta": 21686648832,
+  "remaining_fixture_count": 15,
+  "remaining_fixture_paths": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r107-frozen-2c75e7d6664c/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-f1b2957deb434d09996090181cf199d0.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r108-frozen-e92311a04e0e-2/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-47fd7b2d9d834a6894463c53fd26435f.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r120-20261031-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-1f2eab3211ba45fc9088783da12507c0.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r130-20261101-e62a/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-7d0d06f4896749ae80b93f5d1498323c.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r134r1-20261101-7c17/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-7219f4caac10418b8c3b5931d1be9df8.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r150-20261101-32e3/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-00d73f28e4f849318b071ce2be036da7.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r170-20261102-32e3/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-3569bce2ace24cff882ac1aef50fe747.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r184-20261102-32e3-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-8482f86d9fad4659bac6c287eff2b2e0.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r221-20261103-32e3-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-27b88117200d49e3ae96289ebc321395.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r221r1-20261103-32e3-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-101ab42ba7e6493c9f0ada63c720fe09.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r2-20261104-4e0c-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-c66b3f7229734651be0102a3ba4158cd.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r237-20261104-4e0c-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-145893d0f9c14412b856fd464ccbaf06.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r238-20261104-4e0c-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-35c3f334969942d29801c0317aee6835.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r239-20261104-4e0c-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-7f9f0ed98a254a549db439910aa870a3.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r240-20261104-4e0c-ready/formal-cpu/CPU-FIXTURE-NOT-FOR-TRAINING/initial-checkpoint/checkpoint-20dfe45c32f74be1a9210125daf74eb8.pt"
+  ],
+  "protected_paths_independently_verified": 220,
+  "keep_models_stat_unchanged": true,
+  "keep_models": [
+    "N06",
+    "R17",
+    "R8-C25"
+  ],
+  "all_runtime_rounds_protected": true,
+  "all_r236_plus_preparation_protected": true,
+  "model_loaded_or_payload_rehashed": false,
+  "new_forward": false,
+  "old_safe_repolled": false,
+  "training_signal_or_lock": false,
+  "CPU_evidence": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/tasks/c61766a9-1920-4e29-a4a6-f08dd09bbd78-yrsh5jse/CPU-RECEIPT.json",
+      "sha256": "e37c8c968db9763d5f2921ff1d154b4e6ba9935c4a4d5ebdc6f0572841635eb1"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/tasks/c61766a9-1920-4e29-a4a6-f08dd09bbd78-6aax3ppg/CPU-RECEIPT.json",
+      "sha256": "610654c41f656595053b13e863f922548dd709e13ac0a240752e04339186af1a"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/tasks/c61766a9-1920-4e29-a4a6-f08dd09bbd78-ibczrgc1/CPU-RECEIPT.json",
+      "sha256": "fdd09442a3d26653ce13185e6c891e4aaf3667249d6be9cdfc55550f41ca43cf"
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/tasks/c61766a9-1920-4e29-a4a6-f08dd09bbd78-xmzwnw_0/CPU-RECEIPT.json",
+      "sha256": "a93f8f0143169ddd286be567c935f9a89b2fee40010a68fc8beaf13fef1ecbba"
+    }
+  ],
+  "batches": [
+    {
+      "name": "targeted",
+      "plan": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/targeted/PLAN.json",
+        "sha256": "d167df9d75c0c5049c9409ec55384c628e8803c7b9a5e9b07c2393f3e4feaa9a"
+      },
+      "delete": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/targeted/DELETE-RECEIPT.json",
+        "sha256": "d78b306bf6359f2528db23938b2f77fabc6963584007b9fd46e1d2fd7a0922b4"
+      }
+    },
+    {
+      "name": "supplement",
+      "plan": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/supplement/PLAN.json",
+        "sha256": "9f12803ae6319e5024ef0a16e28fb89f7e726e48d124ad5cc796b1f8990143e5"
+      },
+      "delete": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/supplement/DELETE-RECEIPT.json",
+        "sha256": "317de3bd7591b0a2ae46c9cfd3216366d5d57dc1509431549e1e840555023589"
+      }
+    }
+  ],
+  "limits": [
+    "Filesystem free is a point observation on shared NFS; allocated bytes do not assert physical backend reclaim.",
+    "Only proven redundant CPU fixtures were unlinked. Runtime checkpoints, unknown or protected artifacts, data, caches and sources were retained."
+  ]
+}

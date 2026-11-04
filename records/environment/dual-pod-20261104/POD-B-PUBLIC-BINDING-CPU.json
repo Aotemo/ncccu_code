@@ -1,0 +1,83 @@
+{
+  "status": "old_UID_rejected_current_UID_accepted_with_same_science",
+  "execution": {
+    "at": "2026-11-04T09:59:53.316216+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909275134578690-acfwvv9ejn-18257-worker-0",
+    "uid": "37e3fb34-c233-4294-b517-e98978cbd016",
+    "container": "vcjob-2117909275134578690-acfwvv9ejn-18257",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/CPU-ALLOCATION.json",
+      "sha256": "f48cb4b714251509c8e1e0d9bd8a136c825d89e7025029e1c8f9bf7395788147",
+      "executor_id": "4e0ce707-5c70-493a-8e54-796363eb740f",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "old_failure": "public source, paths or measured structure differ from handoff",
+  "handoff": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/public-current/PUBLIC-SMALL-CURRENT.json",
+    "sha256": "4248548433020c2921e45d15135fab847e4b7aa73a87d90aa3a17bfcf88012f8"
+  },
+  "configuration": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/public-current/R242-DUALPOD-SCIENCE.json",
+    "sha256": "cef33b16b5570d4c8feaa7cb9c16d6daa5e959b6519178d188a8e9353eb72d3f"
+  },
+  "only_configuration_change": "public_asset_receipt",
+  "all_scientific_values_unchanged": true,
+  "historical_strict_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/STRICT-LOAD.json",
+    "sha256": "a4cc6fec059c6b0fa826c29ee1832f7e8007f875d15835acc269b493c6d4a68f"
+  },
+  "forward_calls": 0,
+  "GPU_initialized": false
+}

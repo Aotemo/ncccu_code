@@ -1,0 +1,8 @@
+{
+  "status": "downloaded_archive_roundtrip_SHA_and_all_exported_files_verified",
+  "at": 1793786117.8845139,
+  "pod_uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+  "archive_sha256": "c27eb600fbb0ac085481ee9b974c72ee3744f7aeb779ebcf00ee8e7ee8b7ef05",
+  "file_count": 10,
+  "model_or_data_exported": false
+}

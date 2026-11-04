@@ -1,0 +1,83 @@
+{
+  "status": "old_UID_rejected_current_UID_accepted_with_same_science",
+  "execution": {
+    "at": "2026-11-04T09:59:57.887526+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909060596142082-acfwvv9ejn-44303-worker-0",
+    "uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+    "container": "vcjob-2117909060596142082-acfwvv9ejn-44303",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/storage-cleanup-20261104-c617-04203d31/CPU-ALLOCATION.json",
+      "sha256": "9fca3bbf3682a1f647167a9cdb08199b372c920ad8df3c5aebe487fd1a3efeb9",
+      "executor_id": "4e0ce707-5c70-493a-8e54-796363eb740f",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "old_failure": "public source, paths or measured structure differ from handoff",
+  "handoff": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-a/public-current/PUBLIC-SMALL-CURRENT.json",
+    "sha256": "e25d549adfe272449807536ca2f44b0e7e7c1de7ad43d4ac2a776bfdb81687c4"
+  },
+  "configuration": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-a/public-current/R240R1-SCIENCE.json",
+    "sha256": "1b1badea4082ecf9e5ec43f9972903de9d7048f50466b95b2a1634894e0825cf"
+  },
+  "only_configuration_change": "public_asset_receipt",
+  "all_scientific_values_unchanged": true,
+  "historical_strict_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/small22k-20261029-b/STRICT-LOAD.json",
+    "sha256": "a4cc6fec059c6b0fa826c29ee1832f7e8007f875d15835acc269b493c6d4a68f"
+  },
+  "forward_calls": 0,
+  "GPU_initialized": false
+}
