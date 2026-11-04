@@ -375,6 +375,24 @@ def flatten_training_views(images, labels, age_features, training_views=None):
             None if age_features is None else age_features.repeat_interleave(2, dim=0))
 
 
+def _ssl_strong_color(image, augmentation_seed):
+    """Fixed independent photometric stream; geometry and global RNG are untouched."""
+    from torchvision.transforms import functional as image_ops
+
+    rng = random.Random(_seed(augmentation_seed, 'ssl-strong-color-v1'))
+    if rng.random() < .8:
+        order = list(range(4))
+        rng.shuffle(order)
+        factors = [rng.uniform(.2, 1.8) for _ in range(3)] + [rng.uniform(-.2, .2)]
+        operations = (image_ops.adjust_brightness, image_ops.adjust_contrast,
+                      image_ops.adjust_saturation, image_ops.adjust_hue)
+        for index in order:
+            image = operations[index](image, factors[index])
+    if rng.random() < .2:
+        image = image_ops.rgb_to_grayscale(image, num_output_channels=3)
+    return image
+
+
 class ImageDataset:
     """Map-style Dataset whose augmentation randomness lives in its sample key."""
     def __init__(self, data_root, rows, image_size, training, normalization='imagenet', prepared_size=0, age=None,
@@ -384,7 +402,7 @@ class ImageDataset:
             raise ValueError('image_size must be a positive integer')
         if normalization not in ('imagenet', 'unit', 'flair_rgb01', 'clip'):
             raise ValueError('unknown normalization')
-        if training_photometric not in (None, 'identity-v1', 'gamma-reciprocal075-v1'):
+        if training_photometric not in (None, 'identity-v1', 'gamma-reciprocal075-v1', 'ssl-strong-color-v1'):
             raise ValueError('unknown training_photometric policy')
         if training_rotation not in (None, 'identity-v1'):
             raise ValueError("training_rotation must be None or 'identity-v1'")
@@ -413,6 +431,11 @@ class ImageDataset:
         self.include_labels = bool(include_labels)
         self.training_photometric = training_photometric
         self.training_rotation = training_rotation
+        if training_photometric == 'ssl-strong-color-v1' and (
+                not self.training or self.training_views != 2 or self.include_labels
+                or age is not None or normalization != 'imagenet'
+                or shared_view_geometry or input_preprocessing is not None):
+            raise ValueError('strong color requires label-free default two-view SSL training')
         if type(shared_view_geometry) is not bool or (shared_view_geometry and (
                 not training or self.training_views != 2 or include_labels or age is not None
                 or normalization != 'imagenet' or training_photometric is not None
@@ -519,7 +542,9 @@ class ImageDataset:
                 photo_rng = random.Random(int(photometric_seed))
                 photo_rng.random()
                 factors = [photo_rng.uniform(.9, 1.1) for _ in range(3)]
-            if self.training_photometric != 'identity-v1':
+            if self.training_photometric == 'ssl-strong-color-v1':
+                image = _ssl_strong_color(image, augmentation_seed)
+            elif self.training_photometric != 'identity-v1':
                 image = ImageEnhance.Brightness(image).enhance(factors[0])
                 image = ImageEnhance.Contrast(image).enhance(factors[1])
                 image = ImageEnhance.Color(image).enhance(factors[2])

@@ -34,6 +34,10 @@ NTXENT_RECIPE = {'version': 'fit-ntxent-1600-v1', 'updates': 1600,
     'sampling_rng_domain': 'r115-fit-vicreg-1600-v1'}
 
 
+STRONG_COLOR_RECIPE = dict(NTXENT_RECIPE, version='fit-ntxent-strongcolor1600-v1',
+    training_photometric='ssl-strong-color-v1')
+
+
 LOCAL_RECIPE = {'version': 'fit-local-photometric-1600-v1', 'updates': 1600,
     'global_batch': 64, 'per_rank_batch': 8, 'training_views': 2,
     'image_size': 512, 'training_scale': [0.85, 1.0],
@@ -66,6 +70,8 @@ def validate_recipe(recipe, job, manifest, world):
         expected = LOCAL_RECIPE
     if recipe.get('version') == NTXENT_RECIPE['version']:
         expected = NTXENT_RECIPE
+    if recipe.get('version') == STRONG_COLOR_RECIPE['version']:
+        expected = STRONG_COLOR_RECIPE
     if recipe.get('version') == 'fit-ema-assignment-1600-v1':
         from .ema_assignment import EMA_RECIPE
         expected = EMA_RECIPE
@@ -230,7 +236,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
     assignment = domain in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1')
-    contrastive = domain == NTXENT_RECIPE['version']
+    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'])
+    strong_color = domain == STRONG_COLOR_RECIPE['version']
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -280,7 +287,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     dataset = ImageDataset(data_root, manifest['rows'], 512, training=True,
         normalization='imagenet', prepared_size=512, age=None,
         training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False,
-        shared_view_geometry=local)
+        shared_view_geometry=local, training_photometric=recipe.get('training_photometric'))
     sampler = UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
         updates=updates, rank=ctx.rank, world=ctx.world_size)
     loader = DataLoader(dataset, batch_sampler=sampler,
@@ -362,7 +369,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                             'prototype_freeze_updates': fit_epoch_updates,
                             'teacher_forward_inputs': 128, 'encoder_view_forwards': 256}
                            if assignment else {}),
-                        **(dict(contrastive_stats, encoder_view_forwards=128) if contrastive else {})}) + '\n')
+                        **(dict(contrastive_stats, encoder_view_forwards=128) if contrastive else {}),
+                        **({'training_photometric': dataset.training_photometric} if strong_color else {})}) + '\n')
                 atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
                     'successful_updates': update, 'target_updates': updates,
                     'last_loss': float(loss.detach()), 'at': time.time()})
@@ -423,6 +431,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                if assignment else {}),
             **(dict(contrastive_stats, unique_augmented_views_per_update=128,
                     encoder_view_forwards_per_update=128) if contrastive else {}),
+            **({'training_photometric': dataset.training_photometric} if strong_color else {}),
             'rng_derivation': rng,
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)

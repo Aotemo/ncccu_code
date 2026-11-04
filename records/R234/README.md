@@ -1,4 +1,8 @@
-# R234 fit-only实例对比目标实际启动
+# R234 fit-only实例对比目标实际启动与监督交接
+
+03:55 [监督4175快照](R234-PROGRESS-strong-color-checks-ready.json)为4175成功=attempt/0skip/c5/bad0，原owner和八rank活跃；临时EMA .9844971227863999/AP .8149208203982412，无完整selected。条件[R235正式包](../preparation/instance-contrastive-20261104/R235-FORMAL-READY.json)18/18、实际公开91507a65/345全训/空优化器和部署de4fd083通过，actual SITE80fc6382/guardcb22f8eb、完整31500+60窗口，未激活；私有post-r234-R235-entry.sh已填实际身份，仍只完整双门后。强光度[R236/R237](../preparation/strong-color-20261104/README.md)仅CPU后备，当前565不改。
+
+[完整SSL](R234-SSL-RESULT.json)615f0061和[监督交接](R234-SUPERVISED-RECEIPT.json)29af7461已核：1600成功=attempt/0skip/dev0，仅fit、无标签/age进入适配loss，八rank derived7de4e305及原head-age一致，实际128×128/1目标/126负视图/自身排除/.1和128 encoder-view forward保持。监督初态74c5a3e6/345全训/5空组及原factory RNG通过ea3a94f1；自然[监督首25](R234-SUPERVISED-START.json)f618327b/guard6a671463符合原G64P8/448、loss .67136627有限、采样实际=登记。归档guard9ad8705e只读小JSON，无新模型加载/前向。先前barrier0记starting、未重启；私有r234 env first现为START-OBSERVATION-supervised-2，历史原件和clock/token/grant保持。以下为启动时点记录。
 
 03:16 [SSL1125快照](R234-PROGRESS-after-r232-cleanup.json)71939f26/guardfd3dca99仍为原owner及八rank活跃，loss/gradient有限；完整1600及监督交接待。[旧R232清单8 checkpoint清理及终检](../storage/closed-r232-20261104/README.md)完成，当前565/SITE c5ad及clock/token/grant保持。
 

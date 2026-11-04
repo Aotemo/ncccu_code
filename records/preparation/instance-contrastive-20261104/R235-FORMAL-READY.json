@@ -1,0 +1,29 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r235-small-fitntxent1600-seed27-pairlog-24k-p4-9010-20261104",
+  "git_commit": "56545749d7fde4666515a8c11b786acaf48b81da",
+  "tree_sha": "131b36bb99445ce4c34bd6a9367f2055fc5e974e",
+  "science_sha256": "7328a2f175b4176c1e1313842be23b7296ad2f05df60c91512507700b0fc8a89",
+  "checks": 18,
+  "actual_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+  "trainable_tensors": 345,
+  "site_sha256": "80fc638206d6d9a95a14e4c91848d01fa8ff8220a66436240546b51dd32999a6",
+  "deployment_sha256": "de4fd083472083381331684868207e667d3438a560a5fd49b19e1644b4f3f069",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793763282.970255,
+  "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r235-20261104-4e0c-ready",
+  "site_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r235-20261104-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+  "formal_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-655a560p/CPU-RECEIPT.json",
+    "sha256": "cb22f8ebcf03d43f4785bb6ef7c77e2d9b885bcebbc1dd24ce371a2c362bfd8f"
+  },
+  "activation_called": false,
+  "dispatch_called": false,
+  "full_clock_window": {
+    "at": 1793764525.7648551,
+    "remaining_seconds": 41923.75328230858,
+    "required_seconds": 31560,
+    "latest_activation_preserving_60s": 1793774889.518138
+  }
+}

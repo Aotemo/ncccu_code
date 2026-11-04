@@ -1,0 +1,56 @@
+{
+  "status": "three_affected_CPU_targets_passed_original_P8_and_native_scopes_reused",
+  "at": 1793764525.824105,
+  "checks_sha256": "d1d46cd1f7b77538b7e0bc30f265f343bcb79795a87f824d21be0d684e3a1e60",
+  "CPU_guards": {
+    "RED": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-nbjf3vy6/CPU-RECEIPT.json",
+      "sha256": "abc29247ce3608103c0bd68f0501717e1fa1581070a168d2a77444a59278b7bf"
+    },
+    "unit_GREEN": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-9mxj271t/CPU-RECEIPT.json",
+      "sha256": "c97bfa7555bc85c7de62e31d14a87f4c2c12929a3b271bea0c26677c877f8d77"
+    },
+    "technical": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-9n3apyaw/CPU-RECEIPT.json",
+      "sha256": "d3fc369d6779cef78558137a30443db7e6b60228591c1ecef0d2fbb87b1db373"
+    },
+    "actual_views_and_reuse": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-wprtnulr/CPU-RECEIPT.json",
+      "sha256": "a5b11a8efe7536f342647f8bea8bb524f54ed0f616b917fb2f2f4ee9115c4be4"
+    },
+    "R235_formal": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-655a560p/CPU-RECEIPT.json",
+      "sha256": "cb22f8ebcf03d43f4785bb6ef7c77e2d9b885bcebbc1dd24ce371a2c362bfd8f"
+    }
+  },
+  "R234_progress": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/PROGRESS-strong-color-checks-ready.json",
+    "sha256": "cb06483a334f5a8171ce9abab870b60be91e5af4c5ecab6c917f6ac3448b3f0b"
+  },
+  "R234_status_best": {
+    "best_metrics": {
+      "auroc": 0.9827824744639014,
+      "ap": 0.7881123259645916,
+      "variant": "online",
+      "cycle": 5,
+      "successful_updates": 4000,
+      "error_twice": 28598
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9844971227863999,
+      "ap": 0.8149208203982412,
+      "variant": "ema",
+      "cycle": 5,
+      "successful_updates": 4000,
+      "error_twice": 25750
+    },
+    "lineage_best": {}
+  },
+  "R235_unactivated_ready": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/checks-export/records/preparation/instance-contrastive-20261104/R235-FORMAL-READY.json",
+    "sha256": "6ecb3dc3ae00dd2db67275f27332fb28880eab48ff87922d52fda16a4c64364c"
+  },
+  "new_model_forward_or_checkpoint_load": false,
+  "export_helper_sha256": "f56ae961b993af883dfa8424187a2398bf5cd1271fe147cf6e1ffb661d1d232b"
+}

@@ -1,0 +1,129 @@
+{
+  "status": "strong_color_two_targets_original_pixels_and_actual_fit_views_passed",
+  "at": 1793764261.3053749,
+  "source_files": {
+    "runtime/bundle/retrain/data.py": "dd792e48d0a6ec9a4f15553cc28c7b31a7e2f5439bf674c5dfc4158e74d91a73",
+    "runtime/bundle/retrain/ssl_stage.py": "2b0b0f061736e121491d746292542c688267882e0acb330e074922871b16f77c",
+    "runtime/bundle/retrain/experiment91.py": "f6081aa76d863d888d8b80822bd49fc85b224aa53a13c537b0e06141d351e17b",
+    "tests/test_ssl_strong_color.py": "b445330841c40d2cf8d9f627fd70dfef56fc4751c0ae4973db73ee41d34997c7"
+  },
+  "configuration_files": {
+    "configs/R236-SCIENCE.json": "266beb7fba9de8199a1288d59a3ad03f8109ca36543344cd694bf69ef16a6139",
+    "configs/R237-SCIENCE.json": "372407cb78191fbba3253df8ce7ae0f2d2f2ba756cc2dc0ead2e47166d445229"
+  },
+  "tests": 2,
+  "compiles": 4,
+  "model_forward_or_checkpoint_loaded": false,
+  "targets": 3,
+  "original_pixel_cases_exact": 48,
+  "original_eight_draw_geometry_RNG_cases_exact": 16,
+  "unchanged_function_scopes": {
+    "runtime/bundle/retrain/ssl_stage.py:ssl_phase_completed": "afffe8a96fb97a3d6ba9bb1faae6b7ac8703cea5b6627b376bc6d4aaf49104b5",
+    "runtime/bundle/retrain/ssl_stage.py:ssl_head_shape": "15b3d7e8a988e8958cb04be98585ef4ba3a8d54f38be0e3063657bd21e7e6929",
+    "runtime/bundle/retrain/ssl_stage.py:ssl_rng_derivation": "2b2f1d33f6bff92e866bd95e451fb9ddd19037aae2015c589d72e7180c0692b9",
+    "runtime/bundle/retrain/ssl_stage.py:UniformFitSampler": "4d12f6fae0272171bfadf7b7c6293ea273c8c66b902a45ce7d31f4ecc12b22d8",
+    "runtime/bundle/retrain/ssl_stage.py:SSLModel": "14f496abb877c3e2c628923c16f791c02dd6e3c428548108479b4c00bdbcb794",
+    "runtime/bundle/retrain/ssl_stage.py:LocalSSLModel": "22a135360f1a89a44ce900745476765be5b623b77d96ffe8a2049ae22cd55286",
+    "runtime/bundle/retrain/ssl_stage.py:_derived_state": "47acb40d9cca19bcf88f7555cff91a98d31f0282ac3794532bc8f5bea884164c",
+    "runtime/bundle/retrain/ssl_stage.py:_non_encoder_state": "6e1d4cbc69fd7661b92c6a66a32993ee0f3c0287e2f0ef0222455ae92810d066",
+    "runtime/bundle/retrain/ssl_stage.py:_factor": "c9a9b6ada2925919546b66f757befe234cb5ecb063a2d36d881191c2e7c2dc76",
+    "runtime/bundle/retrain/ssl_stage.py:_optimizer": "52ce40567e59ba5cab84bceb52aae0ba654c8dec8e270fff4e82203acde1439f",
+    "runtime/bundle/retrain/ssl_stage.py:_wait_barrier": "2f6e248dc768ae51ed08d629f9299aeec5563267d9de551f8e39b65fa6079ead",
+    "runtime/bundle/retrain/ssl_stage.py:load_derived_model": "111d49373a7a74be1bad5e56c25607bd6ac7c8bb0b8cedf88240913c63983291",
+    "runtime/bundle/retrain/data.py:_digest": "03a47f5146b56332206367179ec16ef337dbdfc257973701469b1c527f4f5a18",
+    "runtime/bundle/retrain/data.py:_file_sha": "f09cd0f48a3a9a957b02a950ebcfaf70e9c6e6c5f13c5c582df483a2c431b141",
+    "runtime/bundle/retrain/data.py:_safe_name": "c088f25f9e6b0320658dc162deea0f19903ac9cce1035458f96ad994656e6476",
+    "runtime/bundle/retrain/data.py:_safe_path": "6a4fdeb578eca9951bc699a4bdbcbd5a19f18ecd1ffa8e2a33cf80d35d47c972",
+    "runtime/bundle/retrain/data.py:_read_csv": "a4c0eafb715766e18768e389ef67906bf09c8df3f9d345909ceab60024e527b0",
+    "runtime/bundle/retrain/data.py:_image_mapping": "dd167970d55bbf65660d8b6074f1b5d2b2749b764e5a8c927b8e945aadab133d",
+    "runtime/bundle/retrain/data.py:load_source": "aa0cf824381a19602f72f6c532a095fcc112e5b7f3492ff20a00d8624c2fdf99",
+    "runtime/bundle/retrain/data.py:_age_bin": "c2010d3379d09349f84ad4e3405075f749cff1abd3315ebacb5da4e1816aa19f",
+    "runtime/bundle/retrain/data.py:_group_stratum": "7abd309893ed1becedd2cae1e0646a71b2e05640b15ec8c7053501e9a3065b53",
+    "runtime/bundle/retrain/data.py:_partition_groups": "c299232862f2b442212788cda4e8cb9f037e7f77fe27b052e6f3a8f10bbade46",
+    "runtime/bundle/retrain/data.py:build_manifest": "2a6658ce0e72d2861f7696c1280bd8c4ee8b41a983906f13720f7879a13369df",
+    "runtime/bundle/retrain/data.py:_seed": "46dec67f3e8c71f2bf18a136cfd38d30d31301a8d0bc09bc2cf2a87f97dfcbb2",
+    "runtime/bundle/retrain/data.py:BalancedBatchSampler": "351c9ac50042e45e2e38e6a145bde6f7cea9ab841e61ded1de8542bc3604e95e",
+    "runtime/bundle/retrain/data.py:_crop_black_border": "50a2e004754425644ab24a489fb9e92200248cc43ee75e8ca7cbc740a301db34",
+    "runtime/bundle/retrain/data.py:flatten_training_views": "1787de4d937eb6b5a249fec5e7c23868b0ea61629c0f5d31acc618a42c1ffbe2",
+    "runtime/bundle/retrain/preprocessing.py:bright_center_box": "30367fa08e9ae2cdf3cd25073dda9eed84300ecfaa33885a2d5ac751c8867775",
+    "runtime/bundle/retrain/preprocessing.py:bright_center_crop": "7f9863235b42357f96564bd60089531ae011d7183a834cba5ee2f1dde06330e1",
+    "runtime/bundle/retrain/preprocessing.py:locate_optic_disc": "d4aa91d12a0e0c1ef8059fd9cd7975afa4030baeee69da66938f6e772bc88f6b",
+    "runtime/bundle/retrain/preprocessing.py:global_native_inset": "493ad5672a52dc12e76dc3f045e7783b39acd049542bede832b2f17b4d14b42b",
+    "runtime/bundle/retrain/preprocessing.py:verify_composite_cache_asset": "fb6b7126ef132f5adc758b8f79a0033cffa9fb8be23d6d32c47e12836b5634e6",
+    "runtime/bundle/retrain/preprocessing.py:verify_native_cache_asset": "aaf839f8fb018d857f36123f061bf7793a2fceea29f4b6ccfedc81eabbd696b9",
+    "runtime/bundle/retrain/preprocessing.py:prepare_image": "b871f2f42978be803ee76ebda28a4d3f0f74496f896e016792216d8d595dc545",
+    "runtime/bundle/retrain/preprocessing.py:PreparedImageCache": "d1afdba2ff98b96bf37802a4086dd606178c408b6eedd94413cec8903df66526",
+    "runtime/bundle/retrain/vicreg.py:_GatherEmbeddings": "73b43edb1ad59623a69e41a00d40fa1f63c6e4f2ecd555bedd4d6dfa7b4b3b17",
+    "runtime/bundle/retrain/vicreg.py:gather_embeddings": "29b883f7e0a06bde5abe55207c9c02534edd6ba17b83b73fe742be5902fea0e6",
+    "runtime/bundle/retrain/vicreg.py:vicreg_loss": "ac1b8b973befc21b3506d7e923fdbfc3e0f3972acc2912a4cb43423a964e4693",
+    "runtime/bundle/retrain/vicreg.py:nt_xent_loss": "1135fe993b926f09d1f9fb1350454bd9dfcd35b9ca7126f8de702fceb9766c78"
+  },
+  "unchanged_implementation_files": {
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/distributed_engine.py": "937fae016629d21d17ff4b3dea1b75acb03a4e759a560130995da48448432b7c",
+    "runtime/bundle/retrain/single91.py": "dcd76aed3d173521b0a79e05e4e26f34185b897b12c09a0cb97d5f1beaaa3662",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "runtime/bundle/retrain/inference.py": "1a00f003fe5db81627934b2afba2e71af68dafed76810d9ba6fa26835fcb7833",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/bundle/retrain/vicreg.py": "043892e445c256bd098bde59487303d4723f916bf317ff172d085719a06b5687",
+    "runtime/bundle/retrain/preprocessing.py": "f14db5f98ba86b229d1cade25d906b7a6985b124e6873cee93b8ad1b298624b1",
+    "runtime/r115_ssl_gate.py": "dc0bf3ce7fe0c2a812942f1d04ee6aa7793c1152b7fb36085a41a3c5fb19e869",
+    "runtime/r92_initial_gate.py": "fe2455352c88600f10e0e2ff88e8b4582b0ea55aa906a15a38bcfe02257bf25d"
+  },
+  "original_SSL_loop_except_declared_injections_exact": true,
+  "actual_fit_views": {
+    "shape": [
+      8,
+      2,
+      3,
+      512,
+      512
+    ],
+    "fit_only": true,
+    "labels_or_age_returned": false,
+    "training_photometric": "ssl-strong-color-v1",
+    "tensor_sha256": "2aebe5cdde715062644c749dc5960a82216bdc7363e05a053ce3d29673a97e2f"
+  },
+  "actual_P8_receipt_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "93ac00abe708243dd49d25e8cdaf21c90c35a5fe608b90ec827ad7ae0d1f3697"
+  },
+  "actual_native_supervised_receipt_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/START-OBSERVATION-supervised-2.json",
+    "sha256": "f618327bf061f6cdc75630740a74310b6864fdab3dcb004b5cc927f6ecb8d215"
+  },
+  "new_model_forward_or_checkpoint_load": false,
+  "GPU_initialized": false,
+  "CPU_guards": {
+    "RED": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-nbjf3vy6/CPU-RECEIPT.json",
+      "sha256": "abc29247ce3608103c0bd68f0501717e1fa1581070a168d2a77444a59278b7bf"
+    },
+    "unit_GREEN": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-9mxj271t/CPU-RECEIPT.json",
+      "sha256": "c97bfa7555bc85c7de62e31d14a87f4c2c12929a3b271bea0c26677c877f8d77"
+    },
+    "technical": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-9n3apyaw/CPU-RECEIPT.json",
+      "sha256": "d3fc369d6779cef78558137a30443db7e6b60228591c1ecef0d2fbb87b1db373"
+    },
+    "actual_views_and_reuse": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-wprtnulr/CPU-RECEIPT.json",
+      "sha256": "a5b11a8efe7536f342647f8bea8bb524f54ed0f616b917fb2f2f4ee9115c4be4"
+    },
+    "R235_formal": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-655a560p/CPU-RECEIPT.json",
+      "sha256": "cb22f8ebcf03d43f4785bb6ef7c77e2d9b885bcebbc1dd24ce371a2c362bfd8f"
+    }
+  },
+  "actual_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "93ac00abe708243dd49d25e8cdaf21c90c35a5fe608b90ec827ad7ae0d1f3697"
+  },
+  "actual_P8_reused_not_rerun": true,
+  "scope_count": 39,
+  "whole_unchanged_file_count": 12,
+  "mutable_technical_fixture_only": true
+}

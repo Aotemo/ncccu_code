@@ -34,7 +34,10 @@ FIT_EMA_HORIZON_BINDINGS = (FIT_EMA_HORIZON_SMALL_BINDING, FIT_EMA_HORIZON_SMALL
 FIT_EMA_BINDINGS = (FIT_EMA_SMALL_BINDING, FIT_EMA_SMALL_SEED27_BINDING, *FIT_EMA_HORIZON_BINDINGS)
 FIT_NTXENT_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitntxent1600-v1'
 FIT_NTXENT_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fitntxent1600-v1'
-FIT_NTXENT_BINDINGS = (FIT_NTXENT_SMALL_BINDING, FIT_NTXENT_SMALL_SEED27_BINDING)
+FIT_NTXENT_STRONG_COLOR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitntxentcolor1600-v1'
+FIT_NTXENT_STRONG_COLOR_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-fitntxentcolor1600-v1'
+FIT_NTXENT_STRONG_COLOR_BINDINGS = (FIT_NTXENT_STRONG_COLOR_SMALL_BINDING, FIT_NTXENT_STRONG_COLOR_SMALL_SEED27_BINDING)
+FIT_NTXENT_BINDINGS = (FIT_NTXENT_SMALL_BINDING, FIT_NTXENT_SMALL_SEED27_BINDING, *FIT_NTXENT_STRONG_COLOR_BINDINGS)
 FIT_REPRESENTATION_BINDINGS = (*FIT_MASKED_BINDINGS, *FIT_LOCAL_BINDINGS, *FIT_EMA_BINDINGS, *FIT_NTXENT_BINDINGS)
 FIT_SSL_BINDINGS = (FIT_SSL_SMALL_BINDING, *FIT_REPRESENTATION_BINDINGS)
 BASE_BINDING = 'single-convnext-base-in22k-ft-in1k-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
@@ -665,24 +668,25 @@ def candidate_from_configuration(value):
                             experiment_order=25)
         if value['candidate_profile'] in FIT_REPRESENTATION_BINDINGS:
             from .masked_reconstruction import MASKED_RECIPE, HOG_RECIPE
-            from .ssl_stage import LOCAL_RECIPE, NTXENT_RECIPE
+            from .ssl_stage import LOCAL_RECIPE, NTXENT_RECIPE, STRONG_COLOR_RECIPE
             from .ema_assignment import EMA_RECIPE, EMA_HORIZON_RECIPE
             hog = value['candidate_profile'] in FIT_HOG_BINDINGS
             local = value['candidate_profile'] in FIT_LOCAL_BINDINGS
             assignment = value['candidate_profile'] in FIT_EMA_BINDINGS
             horizon = value['candidate_profile'] in FIT_EMA_HORIZON_BINDINGS
             contrastive = value['candidate_profile'] in FIT_NTXENT_BINDINGS
-            seed27 = value['candidate_profile'] in (FIT_MIM_SMALL_SEED27_BINDING, FIT_HOG_SMALL_SEED27_BINDING, FIT_LOCAL_SMALL_SEED27_BINDING, FIT_EMA_SMALL_SEED27_BINDING, FIT_EMA_HORIZON_SMALL_SEED27_BINDING, FIT_NTXENT_SMALL_SEED27_BINDING)
+            strong_color = value['candidate_profile'] in FIT_NTXENT_STRONG_COLOR_BINDINGS
+            seed27 = value['candidate_profile'] in (FIT_MIM_SMALL_SEED27_BINDING, FIT_HOG_SMALL_SEED27_BINDING, FIT_LOCAL_SMALL_SEED27_BINDING, FIT_EMA_SMALL_SEED27_BINDING, FIT_EMA_HORIZON_SMALL_SEED27_BINDING, FIT_NTXENT_SMALL_SEED27_BINDING, FIT_NTXENT_STRONG_COLOR_SMALL_SEED27_BINDING)
             number = (233 if seed27 else 232) if horizon else ((231 if seed27 else 230) if assignment else
                 ((229 if seed27 else 228) if local else ((227 if seed27 else 226) if hog else (225 if seed27 else 224))))
             seed = 20261027 if seed27 else 20261029
             target = 'fitassign9600' if horizon else ('fitassign1600' if assignment else ('fitlocal1600' if local else ('fithog1600' if hog else 'fitmim1600')))
             if contrastive:
-                number = 235 if seed27 else 234
-                target = 'fitntxent1600'
+                number = (237 if seed27 else 236) if strong_color else (235 if seed27 else 234)
+                target = 'fitntxentcolor1600' if strong_color else 'fitntxent1600'
             expected.update(id=f'r{number}-convnext-small-imagenet22k-to-1k-24k-p4-seed{seed}-scale085-pairlog-{target}-9010',
                             experiment_order=number - 85)
-            if (value.get('ssl_recipe') != (NTXENT_RECIPE if contrastive else (EMA_HORIZON_RECIPE if horizon else (EMA_RECIPE if assignment else (LOCAL_RECIPE if local else (HOG_RECIPE if hog else MASKED_RECIPE))))) or value.get('official_evaluation') != OFFICIAL_GATE_0996
+            if (value.get('ssl_recipe') != ((STRONG_COLOR_RECIPE if strong_color else NTXENT_RECIPE) if contrastive else (EMA_HORIZON_RECIPE if horizon else (EMA_RECIPE if assignment else (LOCAL_RECIPE if local else (HOG_RECIPE if hog else MASKED_RECIPE))))) or value.get('official_evaluation') != OFFICIAL_GATE_0996
                     or value['job'].get('loss') != PAIR_LOGISTIC_LOSS
                     or (value['job'].get('seed'), value['job'].get('image_size'), value['job'].get('prepared_size'),
                         value['job'].get('normalization'), value['job'].get('effective_batch'), value['job'].get('positive_per_batch'),

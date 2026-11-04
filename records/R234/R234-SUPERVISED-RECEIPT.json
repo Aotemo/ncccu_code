@@ -1,0 +1,121 @@
+{
+  "status": "full1600_derived_lineage_and_eight_rank_supervised_first25_verified",
+  "at": 1793762720.3494573,
+  "first_success": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/START-OBSERVATION-supervised-2.json",
+    "sha256": "f618327bf061f6cdc75630740a74310b6864fdab3dcb004b5cc927f6ecb8d215"
+  },
+  "CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-vroni_qx/CPU-RECEIPT.json",
+    "sha256": "6a67146399e808b0c2d26fdf446ba67f5e1661a46cbdd6281acbd4d07ae9d2e4"
+  },
+  "actual_initial_gate": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/evidence/ACTUAL_FRESH_INITIAL.json",
+    "sha256": "ea3a94f10a0510fd62394c4cfbe4155155b9845ed6b9e8e275e4ea0ff9c0e9cf"
+  },
+  "SSL_result": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+    "sha256": "615f0061756377383121b568c8446944383a24cafc16953e13f8ea6f84f8ec33"
+  },
+  "sampler_actual_matches_recorded": true,
+  "progress": {
+    "status": "running",
+    "successful_updates": 325,
+    "attempted_updates": 325,
+    "skipped_updates": 0,
+    "evaluated_cycle": 0,
+    "stop_reason": null
+  },
+  "model_tensor_sha256": "74c5a3e6c78842b1066575f7cc3f798e4086171f957c56519ae8409210ba2646",
+  "derived_encoder_tensor_sha256": "7de4e305222d558587814091ec0b78bf6a6b26d184e362d2967393f8a9ddac7c",
+  "initial_optimizer_entries": 0,
+  "initial_optimizer_groups": 5,
+  "first_supervised_update": {
+    "event": "update",
+    "successful_updates": 25,
+    "attempted_updates": 25,
+    "cycle": 0,
+    "loss": 0.671366274356842,
+    "skipped": false,
+    "scale": 1.0,
+    "learning_rates": [
+      1.6250000000000001e-06,
+      1.6250000000000001e-06,
+      1.6250000000000002e-05,
+      1.6250000000000002e-05,
+      1.6250000000000002e-05
+    ],
+    "unique_samples": 1600,
+    "mixup": null,
+    "primary_inputs": 64,
+    "view_inputs": 64,
+    "pairwise_global": {
+      "global_inputs": 64,
+      "positive_inputs": 8,
+      "negative_inputs": 56,
+      "pair_count": 448,
+      "world_size": 8
+    },
+    "global_loss": 0.671366274356842,
+    "rank_inputs": [
+      {
+        "rank": 0,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 4
+      },
+      {
+        "rank": 1,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 2,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 3,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 4,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 4
+      },
+      {
+        "rank": 5,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 6,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      },
+      {
+        "rank": 7,
+        "primary_inputs": 8,
+        "view_inputs": 8,
+        "positive_inputs": 0
+      }
+    ],
+    "at": 1793762557.8189085,
+    "sampler_attempted_updates": 25,
+    "purpose": "train"
+  },
+  "contrastive_logits_shape": [
+    128,
+    128
+  ],
+  "only_encoder_handoff_verified": true,
+  "new_model_forward_or_checkpoint_load": false,
+  "frozen_deployment_modified": false
+}
