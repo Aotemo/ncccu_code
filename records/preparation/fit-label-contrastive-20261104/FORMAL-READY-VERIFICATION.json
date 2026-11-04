@@ -1,0 +1,182 @@
+{
+  "status": "two_conditional_unactivated_branches_formal_ready",
+  "at": 1793780915.6304924,
+  "prepared": {
+    "R239": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/post-r238-formal-ready-export/records/preparation/fit-label-contrastive-20261104/R239-FORMAL-READY.json",
+      "sha256": "ca42c771023cdd47117f7c750814ab3419ffc31189d41dedf7844a2b75cc2050"
+    },
+    "R240": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/post-r238-formal-ready-export/records/preparation/fit-label-quota-20261104/R240-FORMAL-READY.json",
+      "sha256": "c30b7662f07784103e0c480aabd45c5b2d1348bcfd9c159355c8c463f0e7c50b"
+    }
+  },
+  "CPU_allocation": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/CPU-ALLOCATION-EXCLUSIVE-3.json",
+    "sha256": "7846913652c2686ace0c3c42d68cf1be380fb19a072712a54ccdc2f2b87a33d6"
+  },
+  "R238_progress": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r238-20261104-4e0c-ready/PROGRESS-post-r238-formal-ready.json",
+    "sha256": "2c63bd3f0aa8a87316b1b8717b125313f8fafaf3722641fc5d38fb55688b313c"
+  },
+  "R238_status_best": {
+    "best_metrics": {
+      "auroc": 0.9759684331317257,
+      "ap": 0.772389874175539,
+      "variant": "online",
+      "cycle": 2,
+      "successful_updates": 1600,
+      "error_twice": 39916
+    },
+    "ema_best_metrics": {
+      "auroc": 0.9759684331317257,
+      "ap": 0.772389874175539,
+      "variant": "ema",
+      "cycle": 2,
+      "successful_updates": 1600,
+      "error_twice": 39916
+    },
+    "lineage_best": {}
+  },
+  "R238_live_identity": {
+    "owner_expected": {
+      "pid": 856400,
+      "start_ticks": "380615027"
+    },
+    "owner": {
+      "pid": 856400,
+      "present": true,
+      "readable": true,
+      "state": "S",
+      "start_ticks": "380615027",
+      "active": true
+    },
+    "owner_status": "active",
+    "owner_match": true,
+    "ranks_expected": [
+      {
+        "pid": 856425,
+        "start_ticks": "380620714"
+      },
+      {
+        "pid": 856426,
+        "start_ticks": "380620716"
+      },
+      {
+        "pid": 856427,
+        "start_ticks": "380620717"
+      },
+      {
+        "pid": 856428,
+        "start_ticks": "380620721"
+      },
+      {
+        "pid": 856429,
+        "start_ticks": "380620723"
+      },
+      {
+        "pid": 856430,
+        "start_ticks": "380620724"
+      },
+      {
+        "pid": 856431,
+        "start_ticks": "380620726"
+      },
+      {
+        "pid": 856432,
+        "start_ticks": "380620728"
+      }
+    ],
+    "ranks": [
+      {
+        "pid": 856425,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620714",
+        "active": true
+      },
+      {
+        "pid": 856426,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620716",
+        "active": true
+      },
+      {
+        "pid": 856427,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620717",
+        "active": true
+      },
+      {
+        "pid": 856428,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620721",
+        "active": true
+      },
+      {
+        "pid": 856429,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620723",
+        "active": true
+      },
+      {
+        "pid": 856430,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620724",
+        "active": true
+      },
+      {
+        "pid": 856431,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620726",
+        "active": true
+      },
+      {
+        "pid": 856432,
+        "present": true,
+        "readable": true,
+        "state": "S",
+        "start_ticks": "380620728",
+        "active": true
+      }
+    ],
+    "rank_status": [
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active",
+      "active"
+    ],
+    "rank_matches": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "rank_count": 8
+  },
+  "R238_unchanged": true,
+  "branch_not_chosen": true,
+  "old_actualsafe_repolled": false,
+  "export_helper_sha256": "e2c573d323d298c003c3b179b69529d5c0f3bc961f1e7c6a8a0e85b337cfbaee"
+}

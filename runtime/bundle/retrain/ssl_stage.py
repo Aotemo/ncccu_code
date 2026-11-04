@@ -46,6 +46,10 @@ FIT_LABEL_QUOTA_RECIPE = dict(FIT_LABEL_RECIPE, version='fit-label-supcon-quota8
     sampling_policy='fit-class-quota-g64-p8-v1', global_positive_quota=8)
 
 
+FIT_SUPMIN_RECIPE = dict(FIT_LABEL_QUOTA_RECIPE, version='fit-label-supminquota8-1600-v1',
+    loss='supervised_minority_out', positive_policy='minority_same_label_majority_same_image', minority_label=1)
+
+
 def fit_label_table(manifest):
     """Read labels only for the declared fit rows; never read age or dev rows."""
     indices = manifest['fit_indices']
@@ -113,6 +117,8 @@ def validate_recipe(recipe, job, manifest, world):
         expected = FIT_LABEL_RECIPE
     if recipe.get('version') == FIT_LABEL_QUOTA_RECIPE['version']:
         expected = FIT_LABEL_QUOTA_RECIPE
+    if recipe.get('version') == FIT_SUPMIN_RECIPE['version']:
+        expected = FIT_SUPMIN_RECIPE
     if recipe.get('version') == 'fit-ema-assignment-1600-v1':
         from .ema_assignment import EMA_RECIPE
         expected = EMA_RECIPE
@@ -145,7 +151,14 @@ def ssl_phase_completed(receipt, recipe):
             and receipt.get('fit_global_positive_quota') == recipe['global_positive_quota']
             and receipt.get('contrastive_fit_positive_images') == recipe['global_positive_quota']
             and receipt.get('fit_positive_primary_draws') == recipe['updates'] * recipe['global_positive_quota']
-            and receipt.get('fit_negative_primary_draws') == recipe['updates'] * (recipe['global_batch'] - recipe['global_positive_quota']))))
+            and receipt.get('fit_negative_primary_draws') == recipe['updates'] * (recipe['global_batch'] - recipe['global_positive_quota'])))
+        and (recipe.get('version') != FIT_SUPMIN_RECIPE['version'] or (
+            receipt.get('contrastive_target') == 'fit_csv_' + recipe['positive_policy']
+            and receipt.get('contrastive_minority_label') == recipe['minority_label']
+            and receipt.get('contrastive_positive_targets_per_anchor_min') == 1
+            and receipt.get('contrastive_positive_targets_per_anchor_max') == 15
+            and receipt.get('contrastive_negative_views_per_anchor_min') == 112
+            and receipt.get('contrastive_negative_views_per_anchor_max') == 126)))
 
 
 def ssl_head_shape(recipe):
@@ -312,10 +325,11 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
     assignment = domain in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1')
-    quota = domain == FIT_LABEL_QUOTA_RECIPE['version']
-    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'], FIT_LABEL_QUOTA_RECIPE['version'])
+    supmin = domain == FIT_SUPMIN_RECIPE['version']
+    quota = domain in (FIT_LABEL_QUOTA_RECIPE['version'], FIT_SUPMIN_RECIPE['version'])
+    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'], FIT_LABEL_QUOTA_RECIPE['version'], FIT_SUPMIN_RECIPE['version'])
     labeled = recipe.get('label_source') == 'fit_csv'
-    strong_color = domain in (STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'], FIT_LABEL_QUOTA_RECIPE['version'])
+    strong_color = domain in (STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'], FIT_LABEL_QUOTA_RECIPE['version'], FIT_SUPMIN_RECIPE['version'])
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -417,7 +431,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                     if labeled:
                         labels = gather_fit_labels(labels_by_index, indices, device=ctx.device)
                         loss, contrastive_stats = supervised_contrastive_loss(
-                            z1.float(), z2.float(), labels, temperature=recipe['temperature'])
+                            z1.float(), z2.float(), labels, temperature=recipe['temperature'], majority_instance_only=supmin)
                         if quota:
                             actual_positive = contrastive_stats['contrastive_fit_positive_images']
                             if actual_positive != recipe['global_positive_quota']:

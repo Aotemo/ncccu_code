@@ -1,5 +1,7 @@
 # fit标签固定类配额准备
 
+11-04 08:28 R238监督期间，[R240正式包](R240-FORMAL-READY.json)c30b7662已完成18/18/guard06061219，公开50c6/345全训/空Adam，原f22/SITE2c6b3de5/部署8e2b0cd0；[实际五步入口](R240-ENTRY-CPU.json)bash-n及真实source/ready/SITE身份ff318c5b通过。31560秒完整clock+60窗口满足、最晚activation1793792264.7918582，尚未激活。完整R238三门过仍R239优先，否则R240；R241仍仅技术包、完整R240预定门后才资格。本段覆盖后文“正式待”历史快照，无收益或GPU消费声明。
+
 [事前合同](../../../todo/auroc-999/R240-R241-FIT-LABEL-QUOTA-20261104.md)151896ae已同步/API回读，在R238尚未激活/无其dev之前登记。唯一处理为R238均匀fit流→原已有类排列流固定global64中8正/56负，保留同一SupCon、强光度/双视图、公开Small/MLP、1600预算、学习RNG和原监督完整合同。复用RankBatchSampler/两reference microbatch和八rank连续分片，只重新附上R238原augmentation seed公式；实际indices/像素随处理变化，不称与R238逐draw像素相同。
 
 [CPU汇总](CPU-CHECKS.json)39dc67e8：两缺行为REDc48adc66后，仅`ssl_stage.py`/`experiment91.py`两必要runtime文件实现，两个目标/三编译GREEN0a4d78cf通过。独立手算class permutation、两microbatch顺序、八rank合并与每draw seed oracle，70步跨排列边界、重复/交错迭代互不影响；dev/age访问trap、两身份/原完整监督job/学习域、旧recipe及新quota完成回执边界通过。

@@ -1,5 +1,7 @@
 # R238 fit 标签表征适配
 
+08:14 UTC 后续：[完整适配](R238-SSL-RESULT.json)1600/0skip/dev0，fit标签True、ageFalse；derived encoder `90e0828722a419b3be961b712620a5514704c61d022d1d184a86f20bbf0139d4`，八rank公开head-age不变/原factory RNG恢复。[实际监督初态与首75](R238-SUPERVISED-START.json)280a965a/guard6a9caac6通过：345全训、5空Adam组、原G64P8/448，实际初态6aa100f1。[归档](R238-SUPERVISED-RECEIPT.json)480ea3d6/guard8781ebd9只读metadata。私有r238 env first现为START-OBSERVATION-supervised-2。08:20封存[监督800/0skip、首次评估进行中](R238-PROGRESS-supmin-CPU-ready.json)，尚无选中指标；原observer guard28f8656d exit0，随后的kubectl cat遇EOF，仅以SCP取回同一产物，不重做观察/forward。此前一次监督观察请求因同执行者CPU lease正忙在目标脚本前被拒，未执行观察/改变训练；待CPU结束后原缺失输出的目标才真正运行并得上述首75，不改unknown原件。
+
 2026-11-04 07:55 UTC 已核实原公开权重八 rank 初态和自然首 50 次更新，完整 1600 次适配及后续监督指标仍待。唯一 GPU owner 为 4e；当前私有定位为 `r238-pod-context.env`，首成功证据为 `r238-20261104-4e0c-ready/ACTUAL-START-2.json`，SHA `467ae32d317796434edcf733c182faa9e4bb50174857b965b1ee5aee221cbf00`，CPU guard `3ec3b7227b7c2cee9df427dfe5d6ad0349c9d647eb110750b81b6204a785c4ab`。首观测缺原生文件的 unknown 原件保留，没有重启。
 
 冻结源码 `3bd21524c46b242e7206d6766e91ea1c313314a8`，tree `36eb332e650a14b5007f124d9bf7fd2cd158a3b1`；SCI `2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c`，SITE `4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea`，部署 `edefb07237b687492895d6368f77260d964157f6e81eedb22c9448ff912dbaa6`。既有 18/18 正式 CPU、2845 Git 文件 bytes/mode、真实公开初态证据复用，未改当前冻结源码、clock/token/grant。owner PID 856400/start_ticks 380615027，八 rank 进程与设备实际身份、训练 24–119 核与准备 0–23 核互斥均已核实。
@@ -10,4 +12,4 @@
 
 [接续记录](R238-HANDOFF-GAP.json)保留一次入口源码路径重复拼接导致的 CPU FileNotFoundError，发生在容量判断、activation、clock 和 GPU 之前；修正实际路径后才完成一次激活及派发。容量实测 24,818,745,344 bytes > 原 20 GiB，完整 clock+60 秒窗口通过，一次 activation guard `8fc2acc8`。R236R2 结束至 R238 首成功 2598.700 秒，期间完成用户优先要求的 [R120 提交及下载校验](../submissions/R120-20261104/README.md)，也包含验证、传输、上下文压缩及入口修正；连续 GPU 空闲未测，不称全程满足五分钟。旧 R236R2 actualsafe 只读复用，不重查。
 
-完整 R238 严格胜 R107、R120、完整 R236R2 后，才执行已登记 R239 seed27；否则接已登记 R240 固定配额。R239 当前只有技术包，正式 CPU/部署与 R240 正式包在本轮监督期间准备。R237 不 eligible，不补做其 forward。目标 AUROC≥.995/AP>.9 及总体 raw .999 均未达到，不做官方 valid5849 前向。
+08:28 [当前快照](R238-PROGRESS-formal-next-ready.json)：监督1850/c2/bad0/0skip、原owner及八rank活跃，临时online/EMA c2@1600 AUROC .9759684331317257/AP .772389874175539，完整selected待。监督期间已完成 [R239正式包](../preparation/fit-label-contrastive-20261104/R239-FORMAL-READY.json) 18/18、原3bd/SITE3b682644/部署f77b2a42/guardf9cedc85，以及 [R240正式包](../preparation/fit-label-quota-20261104/R240-FORMAL-READY.json) 18/18、原f22/SITE2c6b3de5/部署8e2b0cd0/guard06061219。两31560秒整窗、原五步接续脚本的bash-n及实际source/ready/SITE路径身份由ff318c5b核实，均未激活；最晚activation分别1793792216.9671955/1793792264.7918582。完整 R238 严格胜 R107、R120、完整 R236R2 后才执行R239，否则R240；不足整窗时只为未启动阶段另建ready。R237 不eligible，不补做其forward；目标未达，官方隔离不变。

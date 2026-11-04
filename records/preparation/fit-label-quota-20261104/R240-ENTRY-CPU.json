@@ -1,0 +1,17 @@
+{
+  "status": "existing_five_step_entry_shell_syntax_actual_source_paths_and_ready_identity_match",
+  "at": 1793780915.5790277,
+  "script": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/post-r238-R240-entry.sh",
+    "sha256": "f286c6d72d0eaee11a1d5bf8ac2b74e5142b5016854a287fc7f8be4f61856ca0"
+  },
+  "assignments": {
+    "next_ready": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r240-20261104-4e0c-ready",
+    "next_source": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-quota-20261104-4e0c/source-git",
+    "next_round": "r240-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "next_formal": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "next_site_sha": "2c6b3de589ae8ecb7ba963b8c1a5de6738ef483e3d340d43abd72b7760ec2f35"
+  },
+  "source_checks_and_formal_CPU_not_rerun": true,
+  "activation_clock_dispatch_GPU_executed": false
+}

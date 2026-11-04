@@ -16,6 +16,6 @@ R242/order157 seed20261029；R243/order158 seed20261027。recipe固定 `fit-labe
 
 CPU使用当前核验CPU3、nice19/隐藏GPU/0–23核，与GPU训练24–119核互斥。先缺行为RED，再独立标量loss/梯度、二元同类与异实例mask/64全局真实计数、全0退化NT-Xent/全1退化SupCon、旧默认函数数学和view/row变换；新recipe/完成字段及原完整监督身份、fit-only/age边界按受影响路径窄验。标签表/原quota完整1600流/实际fit像素/模型P8按未变源码范围复用；新loss的两rank CPU Gloo须在预导入每rank4线程后比较全局串行loss及gather/DDP梯度缩放，不增加CPU模型前向或独立GPU预演。源push/API回读/精确全树/现有正式CPU部署后才可自然GPU执行。
 
-- [x] 事前登记；实现、CPU、部署及GPU均待。
-- [ ] 最小实现与必要窄验、源码同步和原链部署。
+- [x] 9efea4c1事前登记/API回读；三runtime最小实现后两目标/四编译d56acae9及新两rank Gloo ff404197通过，原quota流/像素/P8按未变源码复用，无模型前向/GPU；[CPU汇总](../../records/preparation/fit-supervised-minority-20261104/README.md)3a8b34b3。实际源同步/technical/正式部署仍待，本提交仅发布准备。
+- [ ] 源码同步后精确全树及原链部署，前述分支保持优先。
 - [ ] 完整结果及固定第二seed门，不提前声称科学收益。

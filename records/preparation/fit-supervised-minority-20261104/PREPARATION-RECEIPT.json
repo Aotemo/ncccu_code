@@ -1,0 +1,13 @@
+{
+  "status": "returned_guarded_supervised_minority_checks_and_two_SCI_exported",
+  "at": 1793780525.9218535,
+  "files": {
+    "configs/R242-SCIENCE.json": "9d17076bf9bbd958c743c2b163e80246345c228e096d55f3ad70014ea79855fb",
+    "configs/R243-SCIENCE.json": "196bb155a5dd130a2e74c38ed0ea08f8240c6827d551b51745621bba7bb4ef5d",
+    "records/preparation/fit-supervised-minority-20261104/CPU-CHECKS.json": "3a8b34b37c463ee2914296e18663e910e698fa18cd19f14bb8da64400a0d6867"
+  },
+  "images_models_weights_predictions_exported": false,
+  "source_published": false,
+  "GPU_started": false,
+  "helper_sha256": "15bdd090b139556ed6b6ec1bfb6c63586293e758b4c911a8de57a3d5ef5fef11"
+}

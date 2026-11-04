@@ -1,0 +1,42 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r239-small-fitlabelcon1600-seed27-pairlog-24k-p4-9010-20261104",
+  "git_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "tree_sha": "36eb332e650a14b5007f124d9bf7fd2cd158a3b1",
+  "science_sha256": "1d934cdbfafcc11c4ddb37aaf8f647c63a753441f10477685aa902a13ad8d186",
+  "checks": 18,
+  "actual_model_tensor_sha256": "91507a65d24dd90fce1c4a0d7e7950f55401015f0ec23161e6a9bcd8b86d0d67",
+  "trainable_tensors": 345,
+  "site_sha256": "3b682644773566f3fb94ddb3587c0260ece218ac1764a442377c414459502b43",
+  "deployment_sha256": "f77b2a428c0bf1584433169bfa440a6fa26b730a4daf88da484d12e90fe78f0d",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793780609.5435092,
+  "work_root_free_bytes_point_observation": 29336010752,
+  "storage_minimum_bytes_strictly_greater_than": 21474836480,
+  "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r239-20261104-4e0c-ready",
+  "site_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r239-20261104-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+  "evidence": {
+    "formal_CPU_guard": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-8adcvb30/CPU-RECEIPT.json",
+      "sha256": "f9cedc85a7eedfc3a5c9892f576e4b4e7b8fbd7e21fc9bbe48789522faf49ac9"
+    },
+    "source_checks": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r239-20261104-4e0c-ready/REUSED-CPU-CHECKS.json",
+      "sha256": "247e789b8159c0485a8b07b8962ada3ca7a4332a851c7cf294b35087ea1f8db1"
+    },
+    "deployment": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r239-20261104-4e0c-ready/DEPLOYMENT.json",
+      "sha256": "f77b2a428c0bf1584433169bfa440a6fa26b730a4daf88da484d12e90fe78f0d"
+    }
+  },
+  "full_clock_window": {
+    "at": 1793780915.5393384,
+    "remaining_seconds": 42861.42889404297,
+    "required_seconds": 31560,
+    "latest_activation_preserving_60s": 1793792216.9671955
+  },
+  "activation_called": false,
+  "dispatch_called": false,
+  "branch_qualification_not_yet_proven": true
+}
