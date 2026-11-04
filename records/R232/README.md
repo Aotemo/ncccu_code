@@ -1,5 +1,7 @@
 # R232 固定9600 EMA历史窗口实际启动
 
+01:12 [实际SSL5725](R232-PROGRESS-postcommit-1.json)5e8d0672/guard737fc963仍为原owner和八rank活跃，loss/gradient有限；9600结束、监督交接和完整排序仍待。后备NT-Xent源码5654574已发布/2744精确整树/两技术包准备，尚未正式绑定或激活；当前冻结4fea不改，完整双门过仍优先原9600第二seed R233。当前监督首个dev后才为未启动两分支建立足额新绑定，预写入口仅语法检查，未提前执行。
+
 00:03后续[SSL750快照](R232-PROGRESS-after-r230-cleanup.json)c0aec43d/guardd2370b0f仍为原owner和八rank活跃，loss/gradient有限，原型已按722冻结边界自然解冻。旧R230[9 checkpoint清理及终检](../storage/closed-r230-20261103/README.md)完成，当前R232及其冻结/clock/token/grant保持，完整9600与监督收益仍待。
 
 唯一问题仍是[事前登记的时间尺度](../../todo/auroc-999/R232-R233-EMA-HORIZON-20261103.md)：在同一EMA跨视图目标上固定9600步，随后保持原监督合同。只用fit图片和CSV，fresh合规公开初始化，不继承R230状态。完整内部AUROC、AP和固定20/其余147修复及新增错序尚待；当前fit诊断不证明收益。

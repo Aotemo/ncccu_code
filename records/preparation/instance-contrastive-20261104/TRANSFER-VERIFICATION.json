@@ -1,0 +1,17 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "at": 1793753210.4224436,
+  "git_commit": "56545749d7fde4666515a8c11b786acaf48b81da",
+  "tree_sha": "131b36bb99445ce4c34bd6a9367f2055fc5e974e",
+  "source_files": 2744,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/source-git",
+  "remote_commit_sha256": "35c0b5fbbea01845513e0e9023ed51b6cda5dc75d6e1ad5deb3d2803bd1ee4b9",
+  "remote_tree_sha256": "6c1859c1a42c2422e808874d197366309b559c60d8904d611acb43ec52314d19",
+  "affected_checks_reused": 3,
+  "checks_sha256": "087300372ec77f8b80a1595296aeb31552e56092515cc5d24939036082830676",
+  "actual_local_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "93ac00abe708243dd49d25e8cdaf21c90c35a5fe608b90ec827ad7ae0d1f3697"
+  },
+  "new_forward_or_GPU": false
+}

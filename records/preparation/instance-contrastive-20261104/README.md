@@ -1,5 +1,9 @@
 # 固定fit-only实例负对照的CPU准备
 
+后续已将源码/config及CPU证据随5654574/tree131b36bb推送并API回读，[2744整树bytes/mode核验](TRANSFER-VERIFICATION.json)b7c2951e通过。两[技术包](TECHNICAL-PACKAGES.json)c2f3e291已用同一发布源码直接exec生成，R234/R235技术SITE c0cb7540/dcbe5dab、guardbf5fda9c/21a67aa1；它们不是GPU正式绑定。6个私有元数据helper编译及固定五baseline设置核对通过f15add86，[准备回执](NEXT-METADATA-PREPARATION.json)不包含未来R232结果或预测。R232结果分析已明确9600预算并追加同目标短窗R230比较，但未执行未来分析；旧R233尚未重绑。当前训练进入监督且首个内部dev完成后，将对未启动阶段建立足额新绑定并完成既有正式CPU/部署，原grant/clock/token不改。
+
+现有四步接续命令已在当前训练期间预写，保留window→新Pod快照→唯一activation→唯一launch顺序，GPU入口不加外部taskset且显式八设备可见性。[命令语法回执](ENTRY-TEMPLATE-SYNTAX.json)b1ad7d7f/guard76be1542只运行bash -n、没有执行入口；仍须填实际新READY/SITE身份，并等待R232完整selected与唯一actualsafe。当前原source4fea保持，较新[SSL5725快照](../../R232/R232-PROGRESS-postcommit-1.json)5e8d0672/guard737fc963核原owner及八rank活跃、loss/gradient有限，完整监督收益待证明。
+
 [事前问题](../../../todo/auroc-999/R234-R235-FIT-NTXENT-20261104.md)仍为同R115配方仅换NT-Xent损失，不延长旧VICReg、不加入定位或疾病标签。R234/R235两SCI分别3ee3cbc3/7328a2f1；只有R232完整未过原双门且唯一actualsafe后才考虑R234，完整双门过仍优先R233。这里尚无正式新绑定、activation、dispatch或GPU收益证据。
 
 [CPU汇总](CPU-CHECKS.json)08730037：3必要目标、4受影响文件编译通过，原gather/VICReg、SSL模型/采样/RNG/优化器/完成门/derived加载及原默认预处理共22个函数或类范围精确相同；11个未改实现文件字节相同。独立Python标量oracle、双分支double梯度检查、同图目标索引、N64的128×128几何/126负视图、自身排除、换序及逐行尺度不变，以及新两候选完整R107监督、原R115全部RNG流和既有受支持配方均验证。原实际冷derived及5空组证据026afc26按相同加载范围复用，不新增冷加载前向。

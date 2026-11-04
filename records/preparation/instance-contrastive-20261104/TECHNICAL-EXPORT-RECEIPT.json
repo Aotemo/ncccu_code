@@ -1,0 +1,16 @@
+{
+  "status": "exact_source_and_unactivated_technical_only",
+  "at": 1793753909.5978205,
+  "verification_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-5ob1e3ce/CPU-RECEIPT.json",
+    "sha256": "f15add861ac63c8ddfec556cf97b51a89d97f44927d779f30411c99d8108fb02"
+  },
+  "files": {
+    "records/R232/R232-PROGRESS-ntxent-technical-ready.json": "3849dfaf6489e69d199665b5f949c8d3d6912ec82711c8be54d38854f15dbe81",
+    "records/preparation/instance-contrastive-20261104/TRANSFER-VERIFICATION.json": "b7c2951eaf7c0b4f278ff44d0058f3b2953c292ce360cff062db19494629d7bc",
+    "records/preparation/instance-contrastive-20261104/TECHNICAL-EXPORT-RECEIPT.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "records/preparation/instance-contrastive-20261104/TECHNICAL-PACKAGES.json": "c2f3e29143902aad35a5cb4b880f520d189113463948e7ca7ad8aa6b596dc615",
+    "records/preparation/instance-contrastive-20261104/NEXT-METADATA-PREPARATION.json": "2268c52d6048882b7136f1266f9ddc5b81062cb5380dcc0b4f941d1f8537b19c"
+  },
+  "formal_binding_or_activation_called": false
+}

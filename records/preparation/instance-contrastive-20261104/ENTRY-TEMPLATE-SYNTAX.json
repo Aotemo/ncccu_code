@@ -1,0 +1,11 @@
+{
+  "status": "existing_entry_command_template_syntax_checked_only",
+  "at": 1793754430.8365366,
+  "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/post-r232-existing-entry-template.sh",
+  "sha256": "b1ad7d7f11be11f34992629bf843553e57b12d92942635b631c8bd9571970873",
+  "exit_code": 0,
+  "stderr": "",
+  "GPU_entry_executed": false,
+  "activation_called": false,
+  "requires_complete_R232_actualsafe_and_real_next_binding": true
+}

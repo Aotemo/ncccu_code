@@ -1,0 +1,22 @@
+{
+  "status": "two_committed_technical_packages_and_only_metadata_helpers_ready",
+  "at": 1793753693.993423,
+  "source_commit": "56545749d7fde4666515a8c11b786acaf48b81da",
+  "source_tree": "131b36bb99445ce4c34bd6a9367f2055fc5e974e",
+  "source_file_count": 2744,
+  "transfer_verification_sha256": "b7c2951eaf7c0b4f278ff44d0058f3b2953c292ce360cff062db19494629d7bc",
+  "technical_packages_sha256": "c2f3e29143902aad35a5cb4b880f520d189113463948e7ca7ad8aa6b596dc615",
+  "compiled_private_helpers": {
+    "collect-ntxent-packages.py": "b00791447da01bbf9a8da28d91117e9d9c2948a0fd521116efe9e820fb944bde",
+    "formal-ntxent.py": "f9cc92160701f436fbb68b2468ebdebbb6cd8429140acc20636d56554648916d",
+    "archive-r232.py": "6e5848b8962fd9da322a63157258efa3fd6f4448d10d994e6fc9de4c4692d3cb",
+    "observe-instance-start.py": "9aa45c18bd0e9b662079d4feb83a7b60080b3513ae0c487423967628202db218",
+    "observe-r232-handoff-once.py": "85427af778692c54016a855824e5b7f3c7bec43cdc8c28aad175be7b399adea3",
+    "refresh-r233-unstarted.py": "2c7c4482aad75b8bc6c4dc9ad5381b5d6ff1093030dddb869e4a4ae6c3c39628"
+  },
+  "future_R232_results_or_predictions_read": false,
+  "R233_window_refreshed": false,
+  "new_formal_GPU_binding_created": false,
+  "activation_called": false,
+  "GPU_started": false
+}
