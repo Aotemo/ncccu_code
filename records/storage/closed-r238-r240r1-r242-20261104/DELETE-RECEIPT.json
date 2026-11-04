@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "status": "completed",
+  "authorization_reference": "user-preserve-three-models-delete-redundant-keep-results",
+  "started_at": 1793796506.769946,
+  "finished_at": 1793796507.4899228,
+  "plan_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/closed-cleanup/plan/PLAN.json",
+  "plan_sha256": "98d3bef55f82e47858549652432bd5299ab4e8821884ffbb38a3ceb2f24fc7a7",
+  "inventory_sha256": "46d34c4eed53b698cb93f66f8e04dc7a8acffeed71392d4469c103596b98aaca",
+  "deleted_count": 22,
+  "deleted_categories": {
+    "closed_round_checkpoint": {
+      "count": 22,
+      "logical_bytes": 16239260911,
+      "allocated_bytes": 16239266816
+    }
+  },
+  "skipped_during_apply": [],
+  "error": null,
+  "protected_stat_and_small_sha_unchanged": true,
+  "protected_before_sha256": "13b04ac3c37c3c6587f0f65d0fbd3401b04d905569f22195a0a42a38bf27298d",
+  "protected_after_sha256": "13b04ac3c37c3c6587f0f65d0fbd3401b04d905569f22195a0a42a38bf27298d",
+  "journal_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/closed-cleanup/plan/DELETE-JOURNAL.jsonl",
+  "journal_sha256": "06937f273853a144f71a9ad7507b33f6f9c5dcf766aabd576a5ebfdacaa6654c",
+  "usage_before": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 482110078976,
+      "used": 457583886336,
+      "free": 24526192640
+    }
+  },
+  "usage_after": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 482110078976,
+      "used": 441344589824,
+      "free": 40765489152
+    }
+  },
+  "free_delta_bytes": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": 16239296512
+  },
+  "unlinked_allocated_bytes": 16239266816,
+  "unlinked_logical_bytes": 16239260911,
+  "checkpoint_blob_rehashed_or_loaded": false,
+  "sidecar_index_lock_or_one_shot_modified": false,
+  "open_file_scan_denied": [],
+  "active_candidate_round_owners": [],
+  "protected_current_round": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+  "current_training_signals_sent": false,
+  "training_lock_acquired": false,
+  "limitations": [
+    "Allocated bytes are pre-unlink st_blocks*512 of unique regular inodes, not a claim of backend physical reclaim.",
+    "Filesystem free delta is a point-in-time observation on a shared filesystem and may include concurrent activity.",
+    "Large checkpoint identity uses exact stat plus actual small sidecar SHA/advertised blob SHA; payload was not rehashed or loaded.",
+    "All manifest exclusions, unknown ownership, raw/shared caches and protected current dependencies remain."
+  ]
+}

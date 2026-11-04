@@ -417,9 +417,10 @@ def main():
   official_allowed=official_allowed_for_selected(evaluation,frozen['selected'])
   if frozen.get('official_evaluations_allowed')!=int(official_allowed):raise ValueError('official gate/freeze differs')
   if not official_allowed:
+   from retrain.experiment91 import OFFICIAL_FINAL_ENSEMBLE_ONLY
    terminal.update(status='completed',phase='complete',freeze_component=freeze_result,
      single_model_freeze_sha256=sha(freeze_path),official_status='not_run_by_policy',
-     official_reason='threshold_not_met',official_evaluated=False,
+     official_reason=('final_ensemble_only' if evaluation==OFFICIAL_FINAL_ENSEMBLE_ONLY else 'threshold_not_met'),official_evaluated=False,
      selected_internal_dev_auroc=frozen['selected']['auroc'],official_result_sha256=None,
      official_metrics=None,target_auroc_at_least_0_999=None)
    atomic(EVIDENCE/'ROUND_RESULT.json',terminal,exclusive=True)

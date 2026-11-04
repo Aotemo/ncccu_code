@@ -222,19 +222,35 @@ OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
     'metric': 'selected_internal_dev_auroc', 'threshold': 0.996,
     'after': 'complete_internal_freeze', 'split': 'official_valid_5849',
     'below_status': 'not_run_by_policy'}
+OFFICIAL_FINAL_ENSEMBLE_ONLY = {'version': 'final-frozen-ensemble-only-v1',
+    'split': 'official_valid_5849', 'member_round_evaluation': False}
+ENSEMBLE_MEMBER_ROUNDS = {
+    'r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104': QUADRANT_MIL_SMALL_BINDING,
+    'r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_DINO3_BINDING,
+    'r247r1-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_BINDING,
+}
+
+
+def expected_official_policy(site, science):
+    round_id=site.get('round_id')
+    if round_id in ENSEMBLE_MEMBER_ROUNDS:
+        if science.get('candidate_profile')!=ENSEMBLE_MEMBER_ROUNDS[round_id]:
+            raise ValueError('ensemble member round/profile identity differs')
+        return OFFICIAL_FINAL_ENSEMBLE_ONLY
+    return OFFICIAL_GATE_0996
 
 
 def official_allowed_for_selected(policy, selected):
     """Gate one official run only after the complete internal selector has frozen."""
     if policy is None:
         return True
-    if policy != OFFICIAL_GATE_0996 or not isinstance(selected, dict):
+    if policy not in (OFFICIAL_GATE_0996,OFFICIAL_FINAL_ENSEMBLE_ONLY) or not isinstance(selected, dict):
         raise ValueError('versioned official gate differs')
     auroc = selected.get('auroc')
     if (isinstance(auroc, bool) or not isinstance(auroc, (int, float))
             or not math.isfinite(auroc) or not 0 <= auroc <= 1):
         raise ValueError('complete selected internal dev AUROC required for official gate')
-    return auroc >= policy['threshold']
+    return False if policy==OFFICIAL_FINAL_ENSEMBLE_ONLY else auroc >= policy['threshold']
 CANDIDATE = {'id': 'r111-resnet50-imagenetv2-24k-p4-seed20261029-publicbn-9010', 'experiment_order': 21,
     'model': 'resnet50_imagenet', 'public_revision': 'IMAGENET1K_V2-11ad3fa6',
     'readout': 'native_avgpool_dropout_linear_plus_age', 'features': 2048,
@@ -261,6 +277,9 @@ def science_configuration():
         if hashlib.sha256(raw).hexdigest() != reference['sha256']:
             raise ValueError('pinned science configuration path/SHA differs')
         value = json.loads(raw)
+        if site.get('round_id') in ENSEMBLE_MEMBER_ROUNDS:
+            if value.get('official_evaluation')!=expected_official_policy(site,value):
+                raise ValueError('ensemble member must defer official evaluation')
         if value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING:
             from .tri3_downsample import TRI3_RULE
         if value.get('candidate_profile') in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING):
@@ -325,7 +344,7 @@ def science_configuration():
                                                        BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
                                                        BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
                                                        PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*LARGE_VARIANT_BINDINGS)
-                    and value.get('official_evaluation') != OFFICIAL_GATE_0996)
+                    and value.get('official_evaluation') != expected_official_policy(site,value))
                 or type(value.get('age_enabled', True)) is not bool
                 or ((value.get('candidate_profile')in(PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('lr_decay_updates')is not None))

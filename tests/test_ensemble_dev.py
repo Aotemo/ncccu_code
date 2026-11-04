@@ -80,6 +80,25 @@ def test_historical_load_receipt_requires_the_same_selected_identity_and_sidecar
         else:raise AssertionError('mismatched historical tensor accepted')
 
 
+def test_f03_fixed_threshold_includes_boundary_and_never_assumes_unknown_source():
+    gate=function('f03_candidate_gate');approved={'sha':'general images'}
+    row={'status':'prediction_verified_weight_pending','selected':{'auroc':.988},
+         'public_source':{'sha256':'sha','training_data':'general images'}}
+    assert gate(row,.988,approved)==('eligible',None)
+    row['selected']['auroc']=.987999
+    assert gate(row,.988,approved)==('excluded','below_fixed_selected_auroc_threshold')
+    row['selected']['auroc']=.99;row['public_source']['sha256']='unknown'
+    assert gate(row,.988,approved)==('pending','general_public_source_not_yet_verified')
+    row['public_source']={}
+    assert gate(row,.988,approved)==('pending','general_public_source_not_yet_verified')
+    row['status']='selected_checkpoint_missing'
+    assert gate(row,.988,approved)==('excluded','selected_checkpoint_missing')
+    row['status']='selected_checkpoint_ambiguous'
+    assert gate(row,.988,approved)==('pending','selected_checkpoint_ambiguous')
+    row['status']='unknown_or_excluded'
+    assert gate(row,.988,approved)==('pending','unknown_or_excluded')
+
+
 if __name__=='__main__':
     test_complementary_errors_improve_and_tie_prefers_incumbent_weight()
     test_no_gain_keeps_incumbent_vertex()
@@ -87,4 +106,5 @@ if __name__=='__main__':
     test_fixed_top_k_uses_single_member_ranking_and_registered_tie_order()
     test_zero_variance_cannot_silently_enter_standardized_fusion()
     test_historical_load_receipt_requires_the_same_selected_identity_and_sidecar()
-    print('six independent F01/F02 ranking and receipt targets passed',flush=True)
+    test_f03_fixed_threshold_includes_boundary_and_never_assumes_unknown_source()
+    print('seven independent F01/F02/F03 ranking and receipt targets passed',flush=True)

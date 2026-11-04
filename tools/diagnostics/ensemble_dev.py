@@ -99,7 +99,7 @@ def verify_git_inputs(metadata,commit,config):
     if remote['sha']!=commit or remote['tree']['sha']!=tree['sha'] or tree['truncated']is not False:
         raise ValueError('connector-verified commit/tree identity differs')
     entries={row['path']:row for row in tree['tree']if row['type']=='blob'}
-    if config.name not in ('F01-LOGIT-GRID.json','F02-HETEROGENEOUS-EQUAL.json'):
+    if config.name not in ('F01-LOGIT-GRID.json','F02-HETEROGENEOUS-EQUAL.json','F03-THRESHOLD-EQUAL.json'):
         raise ValueError('registered fusion configuration required')
     files={'tools/diagnostics/ensemble_dev.py':Path(__file__), 'configs/'+config.name:config,
            'tests/test_ensemble_dev.py':Path(__file__).resolve().parents[2]/'tests/test_ensemble_dev.py'}
@@ -408,13 +408,178 @@ def analyze_equal(args):
         'weight_loadable_subset':subset_report},indent=2),flush=True)
 
 
+def f03_candidate_gate(row,minimum,approved):
+    if row['status'] in ('unknown_or_excluded','selected_checkpoint_ambiguous'):
+        return ('pending',row['status'])
+    if row['status']!='prediction_verified_weight_pending':return ('excluded',row['status'])
+    auroc=row['selected']['auroc']
+    if isinstance(auroc,bool)or not isinstance(auroc,(int,float))or not np.isfinite(auroc)or not 0<=auroc<=1:
+        return ('pending','invalid_selected_auroc')
+    if auroc<minimum:return ('excluded','below_fixed_selected_auroc_threshold')
+    public=row.get('public_source')or{};digest=public.get('sha256')
+    if digest not in approved or approved[digest]!=public.get('training_data'):
+        return ('pending','general_public_source_not_yet_verified')
+    return ('eligible',None)
+
+
+def verify_constructed_member(row,path,expected_sha):
+    path=Path(path)
+    if sha(path)!=expected_sha:raise ValueError('model construction receipt SHA differs')
+    receipt=json.loads(path.read_text());selected=row['selected'];checkpoints=row['checkpoint_candidates']
+    if (len(checkpoints)!=1 or receipt.get('status')!='strict_CPU_model_construction_and_selected_state_loaded'
+            or receipt.get('member')!=row['round_id'].split('-')[0].upper()
+            or receipt.get('freeze')!=row['spec']['freeze'] or receipt.get('checkpoint')!=checkpoints[0]
+            or receipt.get('blob_sha256')!=row['selected_blob_sha256']
+            or receipt.get('selected_tensor_sha256')!=selected['tensor_sha256']
+            or receipt.get('variant')!=selected['variant'] or receipt.get('successful_updates')!=selected['successful_updates']
+            or receipt.get('model_constructed')is not True or receipt.get('strict_state_load')is not True
+            or receipt.get('device')!='cpu' or receipt.get('forward_calls')!=0
+            or receipt.get('GPU_initialized')is not False or receipt.get('official_read')is not False):
+        raise ValueError('model construction receipt identity differs')
+    checkpoint=checkpoints[0]
+    if not Path(checkpoint['path']).is_file()or sha(checkpoint['sidecar']['path'])!=checkpoint['sidecar']['sha256']:
+        raise ValueError('selected checkpoint or sidecar no longer present')
+    return {'path':str(path),'sha256':expected_sha}
+
+
+def discover_f03(args):
+    """Seal a fresh ordered census of complete same-population selected predictions."""
+    source=args.source_root.resolve(strict=True)
+    sys.path[:0]=[str(source/'runtime/bundle'),str(source/'tools/diagnostics'),str(source/'tools/pretraining')]
+    from source_chain import cpu_context
+    import paired_evidence as pe
+    context=cpu_context();git_files=verify_git_inputs(args.remote_metadata,args.git_commit,args.config)
+    cfg=json.loads(args.config.read_text());old=pe._pinned_json(cfg['reference_inventory'])
+    if old['manifest']['sha256']!=cfg['manifest_sha256']:raise ValueError('fixed F03 reference differs')
+    reference=pe._reference(old['manifest']);work=Path(old['manifest']['path']).parents[2]
+    out=args.output.resolve()
+    if not out.is_relative_to(work/'technical-prep')or out.exists():raise ValueError('new isolated technical-prep output required')
+    out.mkdir(parents=True);rows=[]
+    def ref(path):return {'path':str(path),'sha256':sha(path)}
+    for root in sorted((work/'rounds').iterdir(),key=lambda p:p.name):
+        done=root/'control/done.json';freeze=root/'SINGLE-MODEL-FREEZE.json';training=root/'evidence/TRAIN_RESULT.json';science_path=root/'SCIENCE.json'
+        if root.is_symlink()or not all(p.is_file()for p in(done,freeze,training,science_path)):continue
+        try:
+            if json.loads(done.read_text()).get('status')!='completed':continue
+            science=json.loads(science_path.read_text());frozen=json.loads(freeze.read_text())
+            if frozen.get('experiment91',{}).get('manifest_sha256')!=cfg['manifest_sha256']:continue
+            spec={'id':root.name,'freeze':ref(freeze),'completion':ref(training)}
+            _,selected,_=pe._selected(spec,reference);checkpoints=[]
+            for path in root.glob('outputs/*/*/checkpoints/checkpoint-*.pt'):
+                side=Path(str(path)+'.json')
+                if side.is_file()and json.loads(side.read_text()).get('sha256')==frozen.get('blob_sha256'):
+                    checkpoints.append({'path':str(path),'sidecar':ref(side),'bytes':path.stat().st_size})
+            state=('prediction_verified_weight_pending'if len(checkpoints)==1 else
+                   'selected_checkpoint_missing'if not checkpoints else 'selected_checkpoint_ambiguous')
+            rows.append({'round_id':root.name,'status':state,
+                'selected':selected,'spec':spec,'science':ref(science_path),'public_source':science.get('public_source'),
+                'checkpoint_candidates':checkpoints,'selected_blob_sha256':frozen.get('blob_sha256')})
+        except Exception as error:
+            rows.append({'round_id':root.name,'status':'unknown_or_excluded','type':type(error).__name__,'reason':str(error)})
+    value={'status':'read_only_F03_candidate_discovery_no_fusion','at':time.time(),'execution':context,
+        'git_commit':args.git_commit,'git_files':git_files,'manifest':old['manifest'],'members':rows,
+        'fixed_positive_indices':old['fixed_positive_indices'],'checkpoint_load_or_model_construction':False,
+        'official_read':False,'forward_calls':0,'GPU_initialized':False}
+    write(out/'CANDIDATES.json',value)
+    print(json.dumps({'status':value['status'],'candidate_count':len(rows),'output_sha256':sha(out/'CANDIDATES.json'),
+        'weight_present':sum(r['status']=='prediction_verified_weight_pending'for r in rows),
+        'unknown_count':sum(r['status']=='unknown_or_excluded'for r in rows)},indent=2),flush=True)
+
+
+def analyze_f03(args):
+    """The preregistered AUROC threshold followed by one all-member equal blend."""
+    source=args.source_root.resolve(strict=True)
+    sys.path[:0]=[str(source/'runtime/bundle'),str(source/'tools/diagnostics'),str(source/'tools/pretraining')]
+    from source_chain import cpu_context
+    import paired_evidence as pe
+    context=cpu_context();git_files=verify_git_inputs(args.remote_metadata,args.git_commit,args.config)
+    cfg=json.loads(args.config.read_text())
+    if (cfg['id']!='F03-general-threshold-standardized-equal' or cfg['minimum_selected_auroc']!=.988
+            or cfg['normalization']!='dev_float64_zscore_ddof0' or cfg['weights']!='equal_all_admitted'
+            or cfg['TTA']is not False or cfg['official_read_or_forward']is not False
+            or cfg['external_medical_pretraining']is not False):raise ValueError('fixed F03 contract differs')
+    if not args.f03_candidate_inventory:raise ValueError('pinned F03 candidate discovery required')
+    inv_path,inv_sha=args.f03_candidate_inventory;inv=pe._pinned_json({'path':inv_path,'sha256':inv_sha})
+    if (inv['status']!='read_only_F03_candidate_discovery_no_fusion' or inv['official_read']is not False
+            or inv['manifest']['sha256']!=cfg['manifest_sha256']):raise ValueError('F03 discovery or population differs')
+    reference=pe._reference(inv['manifest']);labels=[row['label'] for row in reference['dev']]
+    fixed=inv['fixed_positive_indices']
+    if len(labels)!=5140 or labels.count(1)!=167 or len(fixed)!=20:raise ValueError('F03 fixed dev population differs')
+    out=args.output.resolve();work=Path(inv['manifest']['path']).parents[2]
+    if not out.is_relative_to(work/'technical-prep')or out.exists():raise ValueError('new isolated technical-prep output required')
+    receipts={}
+    for name,path,digest in args.model_load_receipt:
+        if name in receipts:raise ValueError('duplicate model construction receipt')
+        receipts[name]=(path,digest)
+    vectors={};members={};excluded=[];pending=[]
+    for row in inv['members']:
+        name=row['round_id']
+        state,reason=f03_candidate_gate(row,cfg['minimum_selected_auroc'],cfg['approved_general_public_weight_sha256'])
+        if state=='excluded':
+            excluded.append({'round_id':name,'reason':reason,
+                'selected_auroc':row.get('selected',{}).get('auroc')});continue
+        if state=='pending':pending.append({'round_id':name,'reason':reason});continue
+        source_proof=row.get('public_source')or{}
+        if name not in receipts:
+            pending.append({'round_id':name,'reason':'strict_model_construction_receipt_missing'});continue
+        try:
+            receipt=verify_constructed_member(row,*receipts[name])
+            science=pe._pinned_json(row['science'])
+            if (science['public_source']!=source_proof or science['job'].get('initial_checkpoint')is not None
+                    or science['candidate'].get('weight_sha256')!=source_proof['sha256']):
+                raise ValueError('frozen general source or initialization identity differs')
+            scores,selected,_=pe._selected(row['spec'],reference)
+            if selected!=row['selected']:raise ValueError('selected identity changed after candidate discovery')
+            values=np.asarray(scores,dtype=np.float64)
+            if not np.isfinite(values).all()or values.std(ddof=0)<=0:raise ValueError('invalid member logit variance')
+            vectors[name]=values;members[name]={'selected':selected,'science':row['science'],
+                'public_source':source_proof,'checkpoint':row['checkpoint_candidates'][0],'model_load_receipt':receipt}
+        except (OSError,ValueError,KeyError,AssertionError)as error:
+            pending.append({'round_id':name,'reason':str(error),'type':type(error).__name__})
+    if pending:raise ValueError('F03 eligible candidate verification incomplete: '+json.dumps(pending))
+    order=[row['round_id']for row in inv['members']if row['round_id']in vectors]
+    out.mkdir(parents=True)
+    write(out/'PREFLIGHT.json',{'status':'all_admitted_members_fixed_before_F03_fusion','at':time.time(),
+        'execution':context,'candidate_inventory':{'path':inv_path,'sha256':inv_sha},'ordered_members':order,
+        'members':members,'excluded':excluded,'threshold':cfg['minimum_selected_auroc'],
+        'git_commit':args.git_commit,'git_files':git_files,'official_read':False,'forward_calls':0})
+    if len(order)<2:
+        write(out/'RESULT.json',{'status':'insufficient_members_for_fusion','members':order,'preflight_sha256':sha(out/'PREFLIGHT.json')})
+        print(json.dumps({'status':'insufficient_members_for_fusion','result_sha256':sha(out/'RESULT.json'),'members':order}),flush=True)
+        return
+    blend=standardized_equal_schemes(labels,vectors,order,top_k=len(order));scores=blend['scores']['all_equal_z']
+    baseline=next((name for name in order if name.startswith('r120-')),None)
+    changes=pe._error_changes(labels,vectors[baseline],scores,fixed)if baseline else None
+    path=out/'dev-f03-equal.csv'
+    with path.open('x',newline='')as stream:
+        writer=csv.DictWriter(stream,fieldnames=['name','label','logit']);writer.writeheader()
+        for row,score in zip(reference['dev'],scores):writer.writerow({'name':row['name'],'label':row['label'],'logit':float(score)})
+    report={'status':'completed_F03_dev_only_fixed_threshold_equal','id':cfg['id'],'at':time.time(),
+        'git_commit':args.git_commit,'git_files':git_files,'preflight_sha256':sha(out/'PREFLIGHT.json'),
+        'members':members,'excluded':excluded,'normalization':blend['normalization'],'scheme':blend['schemes'][0],
+        'changes_vs_R120':changes,'prediction':{'path':str(path),'sha256':sha(path)},
+        'count':5140,'positive_count':167,'negative_count':4973,'official_read':False,'TTA':False,
+        'forward_calls':0,'raw_dev_auroc_0995_met':blend['schemes'][0]['auroc']>=.995,
+        'dev_AP_above_09_met':blend['schemes'][0]['ap']>.9,
+        'limits':['Same internal dev was repeatedly used; result is not independent generalization.',
+                  'Actual CPU strict model loading does not replace a final deployed inference validation.']}
+    write(out/'RESULT.json',report)
+    print(json.dumps({'status':report['status'],'result_sha256':sha(out/'RESULT.json'),
+        'preflight_sha256':report['preflight_sha256'],'scheme':report['scheme'],'changes_vs_R120':changes},indent=2),flush=True)
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('source-root','config','remote-metadata','output'):p.add_argument('--'+name,required=True,type=Path)
     p.add_argument('--git-commit',required=True)
     p.add_argument('--historical-load-receipt',nargs=3,action='append',default=[],metavar=('MEMBER','PATH','SHA256'))
+    p.add_argument('--f03-candidate-inventory',nargs=2,metavar=('PATH','SHA256'))
+    p.add_argument('--model-load-receipt',nargs=3,action='append',default=[],metavar=('ROUND','PATH','SHA256'))
+    p.add_argument('--f03-discover',action='store_true')
     args=p.parse_args()
-    if args.config.name=='F02-HETEROGENEOUS-EQUAL.json':analyze_equal(args)
+    if args.config.name=='F03-THRESHOLD-EQUAL.json'and args.f03_discover:discover_f03(args)
+    elif args.config.name=='F03-THRESHOLD-EQUAL.json':analyze_f03(args)
+    elif args.config.name=='F02-HETEROGENEOUS-EQUAL.json':analyze_equal(args)
     else:analyze(args)
 
 

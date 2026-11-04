@@ -1,0 +1,2802 @@
+{
+  "result_sha256": "5e1ba406aecace02bc3d51e566ecc2c9fad4284d57c9d1adc968eb3e24ce5d9b",
+  "preflight_sha256": "18ab026afbb9ce5df4a3769cd917b3f4a5efa4f098c9534d54c96171b69bd4ab",
+  "schemes": [
+    {
+      "id": "all_equal_z",
+      "members": [
+        "R120",
+        "R134R1",
+        "R201",
+        "R197",
+        "R135",
+        "R107",
+        "R172",
+        "R180",
+        "R116",
+        "R182",
+        "R154"
+      ],
+      "weights": {
+        "R120": 0.09090909090909091,
+        "R134R1": 0.09090909090909091,
+        "R201": 0.09090909090909091,
+        "R197": 0.09090909090909091,
+        "R135": 0.09090909090909091,
+        "R107": 0.09090909090909091,
+        "R172": 0.09090909090909091,
+        "R180": 0.09090909090909091,
+        "R116": 0.09090909090909091,
+        "R182": 0.09090909090909091,
+        "R154": 0.09090909090909091
+      },
+      "error_twice": 16648,
+      "ap": 0.8444933823565994,
+      "auroc": 0.98997701359798
+    },
+    {
+      "id": "top_k_equal_z",
+      "members": [
+        "R120",
+        "R134R1",
+        "R201",
+        "R197",
+        "R135"
+      ],
+      "weights": {
+        "R120": 0.2,
+        "R134R1": 0.2,
+        "R201": 0.2,
+        "R197": 0.2,
+        "R135": 0.2
+      },
+      "error_twice": 16188,
+      "ap": 0.8435746088360473,
+      "auroc": 0.9902539582006307
+    }
+  ],
+  "selected": {
+    "id": "top_k_equal_z",
+    "members": [
+      "R120",
+      "R134R1",
+      "R201",
+      "R197",
+      "R135"
+    ],
+    "weights": {
+      "R120": 0.2,
+      "R134R1": 0.2,
+      "R201": 0.2,
+      "R197": 0.2,
+      "R135": 0.2
+    },
+    "error_twice": 16188,
+    "ap": 0.8435746088360473,
+    "auroc": 0.9902539582006307
+  },
+  "changes": {
+    "all_equal_z": {
+      "R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 8324.0,
+          "repaired": 2170.0,
+          "introduced": 1755.0,
+          "shared": 6569.0,
+          "net_added": -415.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 5784.0,
+          "repaired": 1284.0,
+          "introduced": 1239.0,
+          "shared": 4545.0,
+          "net_added": -45.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 2540.0,
+          "repaired": 886.0,
+          "introduced": 516.0,
+          "shared": 2024.0,
+          "net_added": -370.0
+        }
+      },
+      "F01": {
+        "all": {
+          "reference": 8616.0,
+          "candidate": 8324.0,
+          "repaired": 1818.0,
+          "introduced": 1526.0,
+          "shared": 6798.0,
+          "net_added": -292.0
+        },
+        "fixed_positive": {
+          "reference": 5758.0,
+          "candidate": 5784.0,
+          "repaired": 1061.0,
+          "introduced": 1087.0,
+          "shared": 4697.0,
+          "net_added": 26.0
+        },
+        "remaining_positive": {
+          "reference": 2858.0,
+          "candidate": 2540.0,
+          "repaired": 757.0,
+          "introduced": 439.0,
+          "shared": 2101.0,
+          "net_added": -318.0
+        }
+      }
+    },
+    "top_k_equal_z": {
+      "R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 8094.0,
+          "repaired": 2136.0,
+          "introduced": 1491.0,
+          "shared": 6603.0,
+          "net_added": -645.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 5501.0,
+          "repaired": 1302.0,
+          "introduced": 974.0,
+          "shared": 4527.0,
+          "net_added": -328.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 2593.0,
+          "repaired": 834.0,
+          "introduced": 517.0,
+          "shared": 2076.0,
+          "net_added": -317.0
+        }
+      },
+      "F01": {
+        "all": {
+          "reference": 8616.0,
+          "candidate": 8094.0,
+          "repaired": 1803.0,
+          "introduced": 1281.0,
+          "shared": 6813.0,
+          "net_added": -522.0
+        },
+        "fixed_positive": {
+          "reference": 5758.0,
+          "candidate": 5501.0,
+          "repaired": 1102.0,
+          "introduced": 845.0,
+          "shared": 4656.0,
+          "net_added": -257.0
+        },
+        "remaining_positive": {
+          "reference": 2858.0,
+          "candidate": 2593.0,
+          "repaired": 701.0,
+          "introduced": 436.0,
+          "shared": 2157.0,
+          "net_added": -265.0
+        }
+      }
+    }
+  },
+  "weight_loadable_subset": {
+    "status": "completed_weight_loadable_subset_dev_only",
+    "members": [
+      "R120",
+      "R134R1",
+      "R135",
+      "R107",
+      "R154"
+    ],
+    "failures": [
+      {
+        "id": "R201",
+        "reason": "unique selected checkpoint missing",
+        "type": "MissingCheckpoint"
+      },
+      {
+        "id": "R197",
+        "reason": "unique selected checkpoint missing",
+        "type": "MissingCheckpoint"
+      },
+      {
+        "id": "R172",
+        "reason": "unique selected checkpoint missing",
+        "type": "MissingCheckpoint"
+      },
+      {
+        "id": "R180",
+        "reason": "unique selected checkpoint missing",
+        "type": "MissingCheckpoint"
+      },
+      {
+        "id": "R116",
+        "reason": "unique selected checkpoint missing",
+        "type": "MissingCheckpoint"
+      },
+      {
+        "id": "R182",
+        "reason": "unique selected checkpoint missing",
+        "type": "MissingCheckpoint"
+      }
+    ],
+    "normalization": {
+      "R120": {
+        "mean": -41.568375320352814,
+        "std": 16.558998314435453
+      },
+      "R134R1": {
+        "mean": -12.771333054145835,
+        "std": 4.543301802872881
+      },
+      "R135": {
+        "mean": -18.079126347632577,
+        "std": 5.606855365383561
+      },
+      "R107": {
+        "mean": -12.642142427403204,
+        "std": 4.417544012994015
+      },
+      "R154": {
+        "mean": -10.260315412880875,
+        "std": 4.53994140300656
+      }
+    },
+    "schemes": [
+      {
+        "id": "all_equal_z",
+        "members": [
+          "R120",
+          "R134R1",
+          "R135",
+          "R107",
+          "R154"
+        ],
+        "weights": {
+          "R120": 0.2,
+          "R134R1": 0.2,
+          "R135": 0.2,
+          "R107": 0.2,
+          "R154": 0.2
+        },
+        "error_twice": 16972,
+        "ap": 0.8415616617057505,
+        "auroc": 0.9897819482691564
+      }
+    ],
+    "selected": {
+      "id": "all_equal_z",
+      "members": [
+        "R120",
+        "R134R1",
+        "R135",
+        "R107",
+        "R154"
+      ],
+      "weights": {
+        "R120": 0.2,
+        "R134R1": 0.2,
+        "R135": 0.2,
+        "R107": 0.2,
+        "R154": 0.2
+      },
+      "error_twice": 16972,
+      "ap": 0.8415616617057505,
+      "auroc": 0.9897819482691564
+    },
+    "changes": {
+      "all_equal_z": {
+        "R120": {
+          "all": {
+            "reference": 8739.0,
+            "candidate": 8486.0,
+            "repaired": 1997.0,
+            "introduced": 1744.0,
+            "shared": 6742.0,
+            "net_added": -253.0
+          },
+          "fixed_positive": {
+            "reference": 5829.0,
+            "candidate": 5888.0,
+            "repaired": 1204.0,
+            "introduced": 1263.0,
+            "shared": 4625.0,
+            "net_added": 59.0
+          },
+          "remaining_positive": {
+            "reference": 2910.0,
+            "candidate": 2598.0,
+            "repaired": 793.0,
+            "introduced": 481.0,
+            "shared": 2117.0,
+            "net_added": -312.0
+          }
+        },
+        "F01": {
+          "all": {
+            "reference": 8616.0,
+            "candidate": 8486.0,
+            "repaired": 1670.0,
+            "introduced": 1540.0,
+            "shared": 6946.0,
+            "net_added": -130.0
+          },
+          "fixed_positive": {
+            "reference": 5758.0,
+            "candidate": 5888.0,
+            "repaired": 996.0,
+            "introduced": 1126.0,
+            "shared": 4762.0,
+            "net_added": 130.0
+          },
+          "remaining_positive": {
+            "reference": 2858.0,
+            "candidate": 2598.0,
+            "repaired": 674.0,
+            "introduced": 414.0,
+            "shared": 2184.0,
+            "net_added": -260.0
+          }
+        }
+      }
+    },
+    "predictions": {
+      "all_equal_z": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f02-analysis-corrected/dev-loadable-all_equal_z.csv",
+        "sha256": "ab983011ad6793ed48ddba0e9922a1cf4dbc50a907497311de6c6559b9c1a1c6"
+      }
+    }
+  },
+  "members": [
+    {
+      "id": "R120",
+      "single": {
+        "error_twice": 17478,
+        "ap": 0.8313831149805229,
+        "auroc": 0.9894773092062407
+      },
+      "changes_vs_R120": null,
+      "R120": {
+        "Pearson": 0.9999999999999998,
+        "Spearman": 1.0
+      },
+      "R134R1": {
+        "Pearson": 0.9426449234973,
+        "Spearman": 0.8752029721386262
+      },
+      "R135": {
+        "Pearson": 0.9525009324471555,
+        "Spearman": 0.829630939749457
+      }
+    },
+    {
+      "id": "R134R1",
+      "single": {
+        "error_twice": 18066,
+        "ap": 0.8334499172214856,
+        "auroc": 0.989123301757635
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9033.0,
+          "repaired": 2463.0,
+          "introduced": 2757.0,
+          "shared": 6276.0,
+          "net_added": 294.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6401.0,
+          "repaired": 1388.0,
+          "introduced": 1960.0,
+          "shared": 4441.0,
+          "net_added": 572.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 2632.0,
+          "repaired": 1075.0,
+          "introduced": 797.0,
+          "shared": 1835.0,
+          "net_added": -278.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9426449234972999,
+        "Spearman": 0.8752029721386261
+      },
+      "R134R1": {
+        "Pearson": 0.9999999999999998,
+        "Spearman": 0.9999999999999999
+      },
+      "R135": {
+        "Pearson": 0.9203115861450407,
+        "Spearman": 0.8177521574172051
+      }
+    },
+    {
+      "id": "R201",
+      "single": {
+        "error_twice": 18348,
+        "ap": 0.8363466610846791,
+        "auroc": 0.9889535226751404
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9174.0,
+          "repaired": 2216.0,
+          "introduced": 2651.0,
+          "shared": 6523.0,
+          "net_added": 435.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6092.0,
+          "repaired": 1280.0,
+          "introduced": 1543.0,
+          "shared": 4549.0,
+          "net_added": 263.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3082.0,
+          "repaired": 936.0,
+          "introduced": 1108.0,
+          "shared": 1974.0,
+          "net_added": 172.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9746848284424316,
+        "Spearman": 0.8815491895864263
+      },
+      "R134R1": {
+        "Pearson": 0.9332587013062807,
+        "Spearman": 0.8880443443808956
+      },
+      "R135": {
+        "Pearson": 0.9522012835479408,
+        "Spearman": 0.8258340619533713
+      }
+    },
+    {
+      "id": "R197",
+      "single": {
+        "error_twice": 19150,
+        "ap": 0.8262997760790266,
+        "auroc": 0.9884706757809537
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9575.0,
+          "repaired": 2517.0,
+          "introduced": 3353.0,
+          "shared": 6222.0,
+          "net_added": 836.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6334.0,
+          "repaired": 1573.0,
+          "introduced": 2078.0,
+          "shared": 4256.0,
+          "net_added": 505.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3241.0,
+          "repaired": 944.0,
+          "introduced": 1275.0,
+          "shared": 1966.0,
+          "net_added": 331.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.965764119622918,
+        "Spearman": 0.8862197563521662
+      },
+      "R134R1": {
+        "Pearson": 0.9198045367617184,
+        "Spearman": 0.8214423426863259
+      },
+      "R135": {
+        "Pearson": 0.9513453067063063,
+        "Spearman": 0.8170140554980078
+      }
+    },
+    {
+      "id": "R135",
+      "single": {
+        "error_twice": 19168,
+        "ap": 0.8245256334018152,
+        "auroc": 0.9884598388182413
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9584.0,
+          "repaired": 3162.0,
+          "introduced": 4007.0,
+          "shared": 5577.0,
+          "net_added": 845.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6202.0,
+          "repaired": 2103.0,
+          "introduced": 2476.0,
+          "shared": 3726.0,
+          "net_added": 373.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3382.0,
+          "repaired": 1059.0,
+          "introduced": 1531.0,
+          "shared": 1851.0,
+          "net_added": 472.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9525009324471555,
+        "Spearman": 0.829630939749457
+      },
+      "R134R1": {
+        "Pearson": 0.9203115861450407,
+        "Spearman": 0.8177521574172051
+      },
+      "R135": {
+        "Pearson": 0.9999999999999999,
+        "Spearman": 1.0
+      }
+    },
+    {
+      "id": "R107",
+      "single": {
+        "error_twice": 19200,
+        "ap": 0.8274326888154083,
+        "auroc": 0.9884405731067525
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9600.0,
+          "repaired": 2126.0,
+          "introduced": 2987.0,
+          "shared": 6613.0,
+          "net_added": 861.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6623.0,
+          "repaired": 1294.0,
+          "introduced": 2088.0,
+          "shared": 4535.0,
+          "net_added": 794.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 2977.0,
+          "repaired": 832.0,
+          "introduced": 899.0,
+          "shared": 2078.0,
+          "net_added": 67.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9533216189417725,
+        "Spearman": 0.8840018279399209
+      },
+      "R134R1": {
+        "Pearson": 0.9747964694213633,
+        "Spearman": 0.9172843395814603
+      },
+      "R135": {
+        "Pearson": 0.934241349424633,
+        "Spearman": 0.8277725797684383
+      }
+    },
+    {
+      "id": "R172",
+      "single": {
+        "error_twice": 19586,
+        "ap": 0.8264419710103553,
+        "auroc": 0.9882081804619195
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9793.0,
+          "repaired": 2390.0,
+          "introduced": 3444.0,
+          "shared": 6349.0,
+          "net_added": 1054.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6688.0,
+          "repaired": 1405.0,
+          "introduced": 2264.0,
+          "shared": 4424.0,
+          "net_added": 859.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3105.0,
+          "repaired": 985.0,
+          "introduced": 1180.0,
+          "shared": 1925.0,
+          "net_added": 195.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.914669510029921,
+        "Spearman": 0.8037997212423721
+      },
+      "R134R1": {
+        "Pearson": 0.9527500657717842,
+        "Spearman": 0.8156033195905513
+      },
+      "R135": {
+        "Pearson": 0.8956872042604765,
+        "Spearman": 0.7669936946769386
+      }
+    },
+    {
+      "id": "R180",
+      "single": {
+        "error_twice": 19784,
+        "ap": 0.8240243312217729,
+        "auroc": 0.9880889738720829
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9892.0,
+          "repaired": 2783.0,
+          "introduced": 3936.0,
+          "shared": 5956.0,
+          "net_added": 1153.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6552.0,
+          "repaired": 1688.0,
+          "introduced": 2411.0,
+          "shared": 4141.0,
+          "net_added": 723.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3340.0,
+          "repaired": 1095.0,
+          "introduced": 1525.0,
+          "shared": 1815.0,
+          "net_added": 430.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9420848607853428,
+        "Spearman": 0.8074626299299151
+      },
+      "R134R1": {
+        "Pearson": 0.9312521500082356,
+        "Spearman": 0.8043040142566833
+      },
+      "R135": {
+        "Pearson": 0.927987139339389,
+        "Spearman": 0.8179248387102637
+      }
+    },
+    {
+      "id": "R116",
+      "single": {
+        "error_twice": 20468,
+        "ap": 0.8222910002960596,
+        "auroc": 0.987677169289011
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 10234.0,
+          "repaired": 2557.0,
+          "introduced": 4052.0,
+          "shared": 6182.0,
+          "net_added": 1495.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6809.0,
+          "repaired": 1538.0,
+          "introduced": 2518.0,
+          "shared": 4291.0,
+          "net_added": 980.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3425.0,
+          "repaired": 1019.0,
+          "introduced": 1534.0,
+          "shared": 1891.0,
+          "net_added": 515.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9414721851007644,
+        "Spearman": 0.8264192289997002
+      },
+      "R134R1": {
+        "Pearson": 0.941693772537122,
+        "Spearman": 0.8371531463560095
+      },
+      "R135": {
+        "Pearson": 0.9249570593725748,
+        "Spearman": 0.8039977633239014
+      }
+    },
+    {
+      "id": "R182",
+      "single": {
+        "error_twice": 21896,
+        "ap": 0.8119164253097094,
+        "auroc": 0.9868174369138257
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 10948.0,
+          "repaired": 2909.0,
+          "introduced": 5118.0,
+          "shared": 5830.0,
+          "net_added": 2209.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6762.0,
+          "repaired": 1720.0,
+          "introduced": 2653.0,
+          "shared": 4109.0,
+          "net_added": 933.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 4186.0,
+          "repaired": 1189.0,
+          "introduced": 2465.0,
+          "shared": 1721.0,
+          "net_added": 1276.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.9183978337444874,
+        "Spearman": 0.7887413262625353
+      },
+      "R134R1": {
+        "Pearson": 0.9231252857302031,
+        "Spearman": 0.7750286540200296
+      },
+      "R135": {
+        "Pearson": 0.8978723529260895,
+        "Spearman": 0.7891026503084693
+      }
+    },
+    {
+      "id": "R154",
+      "single": {
+        "error_twice": 27144,
+        "ap": 0.8024213566293862,
+        "auroc": 0.9836578602296714
+      },
+      "changes_vs_R120": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 13572.0,
+          "repaired": 2404.0,
+          "introduced": 7237.0,
+          "shared": 6335.0,
+          "net_added": 4833.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 8895.0,
+          "repaired": 1399.0,
+          "introduced": 4465.0,
+          "shared": 4430.0,
+          "net_added": 3066.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 4677.0,
+          "repaired": 1005.0,
+          "introduced": 2772.0,
+          "shared": 1905.0,
+          "net_added": 1767.0
+        }
+      },
+      "R120": {
+        "Pearson": 0.8493844456712646,
+        "Spearman": 0.7746507211564388
+      },
+      "R134R1": {
+        "Pearson": 0.8891693598956698,
+        "Spearman": 0.8023164724739973
+      },
+      "R135": {
+        "Pearson": 0.8300994406618231,
+        "Spearman": 0.7367993268635581
+      }
+    }
+  ],
+  "correlations": {
+    "member_order": [
+      "R120",
+      "R134R1",
+      "R201",
+      "R197",
+      "R135",
+      "R107",
+      "R172",
+      "R180",
+      "R116",
+      "R182",
+      "R154"
+    ],
+    "Pearson": [
+      [
+        0.9999999999999998,
+        0.9426449234973,
+        0.9746848284424318,
+        0.965764119622918,
+        0.9525009324471555,
+        0.9533216189417724,
+        0.914669510029921,
+        0.9420848607853428,
+        0.9414721851007644,
+        0.9183978337444872,
+        0.8493844456712646
+      ],
+      [
+        0.9426449234972999,
+        0.9999999999999998,
+        0.9332587013062807,
+        0.9198045367617182,
+        0.9203115861450407,
+        0.9747964694213632,
+        0.9527500657717841,
+        0.9312521500082356,
+        0.9416937725371219,
+        0.9231252857302031,
+        0.8891693598956697
+      ],
+      [
+        0.9746848284424316,
+        0.9332587013062807,
+        0.9999999999999999,
+        0.9682294196163032,
+        0.9522012835479408,
+        0.9472257433868339,
+        0.9070788695655837,
+        0.9355732128079719,
+        0.9348551797850424,
+        0.9089406828833408,
+        0.8307857894058757
+      ],
+      [
+        0.965764119622918,
+        0.9198045367617184,
+        0.968229419616303,
+        0.9999999999999998,
+        0.9513453067063063,
+        0.9355505869677367,
+        0.8953430510069736,
+        0.9274710337961136,
+        0.9288680810129272,
+        0.9010925589568484,
+        0.8254057593611033
+      ],
+      [
+        0.9525009324471555,
+        0.9203115861450407,
+        0.9522012835479408,
+        0.9513453067063063,
+        0.9999999999999999,
+        0.9342413494246331,
+        0.8956872042604765,
+        0.927987139339389,
+        0.9249570593725748,
+        0.8978723529260896,
+        0.8300994406618231
+      ],
+      [
+        0.9533216189417725,
+        0.9747964694213633,
+        0.9472257433868339,
+        0.9355505869677367,
+        0.934241349424633,
+        1.0,
+        0.9554983779395321,
+        0.9377288246124043,
+        0.9465856133546097,
+        0.9249282890481644,
+        0.8766157402346498
+      ],
+      [
+        0.914669510029921,
+        0.9527500657717842,
+        0.9070788695655838,
+        0.8953430510069736,
+        0.8956872042604765,
+        0.9554983779395322,
+        1.0,
+        0.9129391033898578,
+        0.9246870020586675,
+        0.9089260428563752,
+        0.8685519786271706
+      ],
+      [
+        0.9420848607853428,
+        0.9312521500082356,
+        0.9355732128079719,
+        0.9274710337961135,
+        0.927987139339389,
+        0.9377288246124043,
+        0.912939103389858,
+        0.9999999999999998,
+        0.9463663042874736,
+        0.9147566549156508,
+        0.8730725318105784
+      ],
+      [
+        0.9414721851007644,
+        0.941693772537122,
+        0.9348551797850424,
+        0.9288680810129273,
+        0.9249570593725748,
+        0.9465856133546098,
+        0.9246870020586675,
+        0.9463663042874737,
+        1.0,
+        0.9123362186369287,
+        0.880829261334544
+      ],
+      [
+        0.9183978337444874,
+        0.9231252857302031,
+        0.9089406828833407,
+        0.9010925589568485,
+        0.8978723529260895,
+        0.9249282890481644,
+        0.9089260428563752,
+        0.9147566549156508,
+        0.9123362186369286,
+        1.0,
+        0.8709716355388502
+      ],
+      [
+        0.8493844456712646,
+        0.8891693598956698,
+        0.8307857894058756,
+        0.8254057593611033,
+        0.8300994406618231,
+        0.8766157402346498,
+        0.8685519786271706,
+        0.8730725318105784,
+        0.8808292613345439,
+        0.8709716355388502,
+        1.0
+      ]
+    ],
+    "Spearman": [
+      [
+        1.0,
+        0.8752029721386262,
+        0.8815491895864261,
+        0.8862197563521662,
+        0.829630939749457,
+        0.8840018279399208,
+        0.803799721242372,
+        0.8074626299299151,
+        0.8264192289997002,
+        0.7887413262625353,
+        0.7746507211564388
+      ],
+      [
+        0.8752029721386261,
+        0.9999999999999999,
+        0.8880443443808957,
+        0.8214423426863259,
+        0.8177521574172051,
+        0.9172843395814603,
+        0.8156033195905513,
+        0.8043040142566834,
+        0.8371531463560095,
+        0.7750286540200297,
+        0.8023164724739973
+      ],
+      [
+        0.8815491895864263,
+        0.8880443443808956,
+        1.0,
+        0.847833207871587,
+        0.8258340619533713,
+        0.9091574118353417,
+        0.8344833612561051,
+        0.819581151345441,
+        0.8400203811568919,
+        0.806352900637235,
+        0.7802842035128864
+      ],
+      [
+        0.8862197563521662,
+        0.8214423426863259,
+        0.847833207871587,
+        1.0,
+        0.8170140554980078,
+        0.8588689785126424,
+        0.778162888569918,
+        0.783843181785442,
+        0.8028361208293159,
+        0.7499891419483817,
+        0.7291314058212794
+      ],
+      [
+        0.829630939749457,
+        0.8177521574172051,
+        0.8258340619533713,
+        0.8170140554980078,
+        1.0,
+        0.8277725797684383,
+        0.7669936946769385,
+        0.8179248387102637,
+        0.8039977633239015,
+        0.7891026503084692,
+        0.7367993268635581
+      ],
+      [
+        0.8840018279399209,
+        0.9172843395814603,
+        0.9091574118353416,
+        0.8588689785126424,
+        0.8277725797684383,
+        1.0,
+        0.8493016219792263,
+        0.8019881615207277,
+        0.8390989953747,
+        0.7860203578661279,
+        0.7704261964031945
+      ],
+      [
+        0.8037997212423721,
+        0.8156033195905513,
+        0.834483361256105,
+        0.778162888569918,
+        0.7669936946769386,
+        0.8493016219792264,
+        0.9999999999999999,
+        0.7564742922821844,
+        0.7865125897698497,
+        0.7491587083370583,
+        0.709294752223857
+      ],
+      [
+        0.8074626299299151,
+        0.8043040142566833,
+        0.8195811513454409,
+        0.783843181785442,
+        0.8179248387102637,
+        0.8019881615207277,
+        0.7564742922821843,
+        1.0,
+        0.8427282194463792,
+        0.8026077014853529,
+        0.7935147165573304
+      ],
+      [
+        0.8264192289997002,
+        0.8371531463560095,
+        0.8400203811568919,
+        0.802836120829316,
+        0.8039977633239014,
+        0.8390989953747001,
+        0.7865125897698498,
+        0.8427282194463792,
+        1.0,
+        0.7947093964018354,
+        0.8179353457808171
+      ],
+      [
+        0.7887413262625353,
+        0.7750286540200296,
+        0.806352900637235,
+        0.7499891419483817,
+        0.7891026503084693,
+        0.7860203578661279,
+        0.7491587083370584,
+        0.8026077014853529,
+        0.7947093964018354,
+        1.0,
+        0.7786471924190935
+      ],
+      [
+        0.7746507211564388,
+        0.8023164724739973,
+        0.7802842035128865,
+        0.7291314058212794,
+        0.7367993268635581,
+        0.7704261964031945,
+        0.709294752223857,
+        0.7935147165573304,
+        0.8179353457808171,
+        0.7786471924190934,
+        0.9999999999999999
+      ]
+    ]
+  },
+  "pair_error_overlaps": [
+    {
+      "reference": "R120",
+      "candidate": "R134R1",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9033.0,
+          "repaired": 2463.0,
+          "introduced": 2757.0,
+          "shared": 6276.0,
+          "net_added": 294.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6401.0,
+          "repaired": 1388.0,
+          "introduced": 1960.0,
+          "shared": 4441.0,
+          "net_added": 572.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 2632.0,
+          "repaired": 1075.0,
+          "introduced": 797.0,
+          "shared": 1835.0,
+          "net_added": -278.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R201",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9174.0,
+          "repaired": 2216.0,
+          "introduced": 2651.0,
+          "shared": 6523.0,
+          "net_added": 435.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6092.0,
+          "repaired": 1280.0,
+          "introduced": 1543.0,
+          "shared": 4549.0,
+          "net_added": 263.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3082.0,
+          "repaired": 936.0,
+          "introduced": 1108.0,
+          "shared": 1974.0,
+          "net_added": 172.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R197",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9575.0,
+          "repaired": 2517.0,
+          "introduced": 3353.0,
+          "shared": 6222.0,
+          "net_added": 836.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6334.0,
+          "repaired": 1573.0,
+          "introduced": 2078.0,
+          "shared": 4256.0,
+          "net_added": 505.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3241.0,
+          "repaired": 944.0,
+          "introduced": 1275.0,
+          "shared": 1966.0,
+          "net_added": 331.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R135",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9584.0,
+          "repaired": 3162.0,
+          "introduced": 4007.0,
+          "shared": 5577.0,
+          "net_added": 845.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6202.0,
+          "repaired": 2103.0,
+          "introduced": 2476.0,
+          "shared": 3726.0,
+          "net_added": 373.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3382.0,
+          "repaired": 1059.0,
+          "introduced": 1531.0,
+          "shared": 1851.0,
+          "net_added": 472.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R107",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9600.0,
+          "repaired": 2126.0,
+          "introduced": 2987.0,
+          "shared": 6613.0,
+          "net_added": 861.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6623.0,
+          "repaired": 1294.0,
+          "introduced": 2088.0,
+          "shared": 4535.0,
+          "net_added": 794.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 2977.0,
+          "repaired": 832.0,
+          "introduced": 899.0,
+          "shared": 2078.0,
+          "net_added": 67.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R172",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9793.0,
+          "repaired": 2390.0,
+          "introduced": 3444.0,
+          "shared": 6349.0,
+          "net_added": 1054.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6688.0,
+          "repaired": 1405.0,
+          "introduced": 2264.0,
+          "shared": 4424.0,
+          "net_added": 859.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3105.0,
+          "repaired": 985.0,
+          "introduced": 1180.0,
+          "shared": 1925.0,
+          "net_added": 195.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 9892.0,
+          "repaired": 2783.0,
+          "introduced": 3936.0,
+          "shared": 5956.0,
+          "net_added": 1153.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6552.0,
+          "repaired": 1688.0,
+          "introduced": 2411.0,
+          "shared": 4141.0,
+          "net_added": 723.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3340.0,
+          "repaired": 1095.0,
+          "introduced": 1525.0,
+          "shared": 1815.0,
+          "net_added": 430.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 10234.0,
+          "repaired": 2557.0,
+          "introduced": 4052.0,
+          "shared": 6182.0,
+          "net_added": 1495.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6809.0,
+          "repaired": 1538.0,
+          "introduced": 2518.0,
+          "shared": 4291.0,
+          "net_added": 980.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3425.0,
+          "repaired": 1019.0,
+          "introduced": 1534.0,
+          "shared": 1891.0,
+          "net_added": 515.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 10948.0,
+          "repaired": 2909.0,
+          "introduced": 5118.0,
+          "shared": 5830.0,
+          "net_added": 2209.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 6762.0,
+          "repaired": 1720.0,
+          "introduced": 2653.0,
+          "shared": 4109.0,
+          "net_added": 933.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 4186.0,
+          "repaired": 1189.0,
+          "introduced": 2465.0,
+          "shared": 1721.0,
+          "net_added": 1276.0
+        }
+      }
+    },
+    {
+      "reference": "R120",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 13572.0,
+          "repaired": 2404.0,
+          "introduced": 7237.0,
+          "shared": 6335.0,
+          "net_added": 4833.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 8895.0,
+          "repaired": 1399.0,
+          "introduced": 4465.0,
+          "shared": 4430.0,
+          "net_added": 3066.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 4677.0,
+          "repaired": 1005.0,
+          "introduced": 2772.0,
+          "shared": 1905.0,
+          "net_added": 1767.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R201",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 9174.0,
+          "repaired": 2237.0,
+          "introduced": 2378.0,
+          "shared": 6796.0,
+          "net_added": 141.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6092.0,
+          "repaired": 1526.0,
+          "introduced": 1217.0,
+          "shared": 4875.0,
+          "net_added": -309.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 3082.0,
+          "repaired": 711.0,
+          "introduced": 1161.0,
+          "shared": 1921.0,
+          "net_added": 450.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R197",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 9575.0,
+          "repaired": 2685.0,
+          "introduced": 3227.0,
+          "shared": 6348.0,
+          "net_added": 542.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6334.0,
+          "repaired": 1888.0,
+          "introduced": 1821.0,
+          "shared": 4513.0,
+          "net_added": -67.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 3241.0,
+          "repaired": 797.0,
+          "introduced": 1406.0,
+          "shared": 1835.0,
+          "net_added": 609.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R135",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 9584.0,
+          "repaired": 2982.0,
+          "introduced": 3533.0,
+          "shared": 6051.0,
+          "net_added": 551.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6202.0,
+          "repaired": 2140.0,
+          "introduced": 1941.0,
+          "shared": 4261.0,
+          "net_added": -199.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 3382.0,
+          "repaired": 842.0,
+          "introduced": 1592.0,
+          "shared": 1790.0,
+          "net_added": 750.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R107",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 9600.0,
+          "repaired": 1532.0,
+          "introduced": 2099.0,
+          "shared": 7501.0,
+          "net_added": 567.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6623.0,
+          "repaired": 1088.0,
+          "introduced": 1310.0,
+          "shared": 5313.0,
+          "net_added": 222.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 2977.0,
+          "repaired": 444.0,
+          "introduced": 789.0,
+          "shared": 2188.0,
+          "net_added": 345.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R172",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 9793.0,
+          "repaired": 1959.0,
+          "introduced": 2719.0,
+          "shared": 7074.0,
+          "net_added": 760.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6688.0,
+          "repaired": 1366.0,
+          "introduced": 1653.0,
+          "shared": 5035.0,
+          "net_added": 287.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 3105.0,
+          "repaired": 593.0,
+          "introduced": 1066.0,
+          "shared": 2039.0,
+          "net_added": 473.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 9892.0,
+          "repaired": 2745.0,
+          "introduced": 3604.0,
+          "shared": 6288.0,
+          "net_added": 859.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6552.0,
+          "repaired": 1798.0,
+          "introduced": 1949.0,
+          "shared": 4603.0,
+          "net_added": 151.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 3340.0,
+          "repaired": 947.0,
+          "introduced": 1655.0,
+          "shared": 1685.0,
+          "net_added": 708.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 10234.0,
+          "repaired": 2329.0,
+          "introduced": 3530.0,
+          "shared": 6704.0,
+          "net_added": 1201.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6809.0,
+          "repaired": 1511.0,
+          "introduced": 1919.0,
+          "shared": 4890.0,
+          "net_added": 408.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 3425.0,
+          "repaired": 818.0,
+          "introduced": 1611.0,
+          "shared": 1814.0,
+          "net_added": 793.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 10948.0,
+          "repaired": 3010.0,
+          "introduced": 4925.0,
+          "shared": 6023.0,
+          "net_added": 1915.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 6762.0,
+          "repaired": 2053.0,
+          "introduced": 2414.0,
+          "shared": 4348.0,
+          "net_added": 361.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 4186.0,
+          "repaired": 957.0,
+          "introduced": 2511.0,
+          "shared": 1675.0,
+          "net_added": 1554.0
+        }
+      }
+    },
+    {
+      "reference": "R134R1",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9033.0,
+          "candidate": 13572.0,
+          "repaired": 2402.0,
+          "introduced": 6941.0,
+          "shared": 6631.0,
+          "net_added": 4539.0
+        },
+        "fixed_positive": {
+          "reference": 6401.0,
+          "candidate": 8895.0,
+          "repaired": 1556.0,
+          "introduced": 4050.0,
+          "shared": 4845.0,
+          "net_added": 2494.0
+        },
+        "remaining_positive": {
+          "reference": 2632.0,
+          "candidate": 4677.0,
+          "repaired": 846.0,
+          "introduced": 2891.0,
+          "shared": 1786.0,
+          "net_added": 2045.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R197",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 9575.0,
+          "repaired": 2438.0,
+          "introduced": 2839.0,
+          "shared": 6736.0,
+          "net_added": 401.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6334.0,
+          "repaired": 1430.0,
+          "introduced": 1672.0,
+          "shared": 4662.0,
+          "net_added": 242.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 3241.0,
+          "repaired": 1008.0,
+          "introduced": 1167.0,
+          "shared": 2074.0,
+          "net_added": 159.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R135",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 9584.0,
+          "repaired": 3065.0,
+          "introduced": 3475.0,
+          "shared": 6109.0,
+          "net_added": 410.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6202.0,
+          "repaired": 2043.0,
+          "introduced": 2153.0,
+          "shared": 4049.0,
+          "net_added": 110.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 3382.0,
+          "repaired": 1022.0,
+          "introduced": 1322.0,
+          "shared": 2060.0,
+          "net_added": 300.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R107",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 9600.0,
+          "repaired": 1959.0,
+          "introduced": 2385.0,
+          "shared": 7215.0,
+          "net_added": 426.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6623.0,
+          "repaired": 998.0,
+          "introduced": 1529.0,
+          "shared": 5094.0,
+          "net_added": 531.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 2977.0,
+          "repaired": 961.0,
+          "introduced": 856.0,
+          "shared": 2121.0,
+          "net_added": -105.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R172",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 9793.0,
+          "repaired": 2337.0,
+          "introduced": 2956.0,
+          "shared": 6837.0,
+          "net_added": 619.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6688.0,
+          "repaired": 1272.0,
+          "introduced": 1868.0,
+          "shared": 4820.0,
+          "net_added": 596.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 3105.0,
+          "repaired": 1065.0,
+          "introduced": 1088.0,
+          "shared": 2017.0,
+          "net_added": 23.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 9892.0,
+          "repaired": 2899.0,
+          "introduced": 3617.0,
+          "shared": 6275.0,
+          "net_added": 718.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6552.0,
+          "repaired": 1716.0,
+          "introduced": 2176.0,
+          "shared": 4376.0,
+          "net_added": 460.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 3340.0,
+          "repaired": 1183.0,
+          "introduced": 1441.0,
+          "shared": 1899.0,
+          "net_added": 258.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 10234.0,
+          "repaired": 2464.0,
+          "introduced": 3524.0,
+          "shared": 6710.0,
+          "net_added": 1060.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6809.0,
+          "repaired": 1379.0,
+          "introduced": 2096.0,
+          "shared": 4713.0,
+          "net_added": 717.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 3425.0,
+          "repaired": 1085.0,
+          "introduced": 1428.0,
+          "shared": 1997.0,
+          "net_added": 343.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 10948.0,
+          "repaired": 2956.0,
+          "introduced": 4730.0,
+          "shared": 6218.0,
+          "net_added": 1774.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 6762.0,
+          "repaired": 1712.0,
+          "introduced": 2382.0,
+          "shared": 4380.0,
+          "net_added": 670.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 4186.0,
+          "repaired": 1244.0,
+          "introduced": 2348.0,
+          "shared": 1838.0,
+          "net_added": 1104.0
+        }
+      }
+    },
+    {
+      "reference": "R201",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9174.0,
+          "candidate": 13572.0,
+          "repaired": 2360.0,
+          "introduced": 6758.0,
+          "shared": 6814.0,
+          "net_added": 4398.0
+        },
+        "fixed_positive": {
+          "reference": 6092.0,
+          "candidate": 8895.0,
+          "repaired": 1367.0,
+          "introduced": 4170.0,
+          "shared": 4725.0,
+          "net_added": 2803.0
+        },
+        "remaining_positive": {
+          "reference": 3082.0,
+          "candidate": 4677.0,
+          "repaired": 993.0,
+          "introduced": 2588.0,
+          "shared": 2089.0,
+          "net_added": 1595.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R135",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 9584.0,
+          "repaired": 3449.0,
+          "introduced": 3458.0,
+          "shared": 6126.0,
+          "net_added": 9.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 6202.0,
+          "repaired": 2281.0,
+          "introduced": 2149.0,
+          "shared": 4053.0,
+          "net_added": -132.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 3382.0,
+          "repaired": 1168.0,
+          "introduced": 1309.0,
+          "shared": 2073.0,
+          "net_added": 141.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R107",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 9600.0,
+          "repaired": 2812.0,
+          "introduced": 2837.0,
+          "shared": 6763.0,
+          "net_added": 25.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 6623.0,
+          "repaired": 1595.0,
+          "introduced": 1884.0,
+          "shared": 4739.0,
+          "net_added": 289.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 2977.0,
+          "repaired": 1217.0,
+          "introduced": 953.0,
+          "shared": 2024.0,
+          "net_added": -264.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R172",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 9793.0,
+          "repaired": 3001.0,
+          "introduced": 3219.0,
+          "shared": 6574.0,
+          "net_added": 218.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 6688.0,
+          "repaired": 1828.0,
+          "introduced": 2182.0,
+          "shared": 4506.0,
+          "net_added": 354.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 3105.0,
+          "repaired": 1173.0,
+          "introduced": 1037.0,
+          "shared": 2068.0,
+          "net_added": -136.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 9892.0,
+          "repaired": 3606.0,
+          "introduced": 3923.0,
+          "shared": 5969.0,
+          "net_added": 317.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 6552.0,
+          "repaired": 2233.0,
+          "introduced": 2451.0,
+          "shared": 4101.0,
+          "net_added": 218.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 3340.0,
+          "repaired": 1373.0,
+          "introduced": 1472.0,
+          "shared": 1868.0,
+          "net_added": 99.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 10234.0,
+          "repaired": 3040.0,
+          "introduced": 3699.0,
+          "shared": 6535.0,
+          "net_added": 659.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 6809.0,
+          "repaired": 1796.0,
+          "introduced": 2271.0,
+          "shared": 4538.0,
+          "net_added": 475.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 3425.0,
+          "repaired": 1244.0,
+          "introduced": 1428.0,
+          "shared": 1997.0,
+          "net_added": 184.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 10948.0,
+          "repaired": 3409.0,
+          "introduced": 4782.0,
+          "shared": 6166.0,
+          "net_added": 1373.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 6762.0,
+          "repaired": 2114.0,
+          "introduced": 2542.0,
+          "shared": 4220.0,
+          "net_added": 428.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 4186.0,
+          "repaired": 1295.0,
+          "introduced": 2240.0,
+          "shared": 1946.0,
+          "net_added": 945.0
+        }
+      }
+    },
+    {
+      "reference": "R197",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9575.0,
+          "candidate": 13572.0,
+          "repaired": 3051.0,
+          "introduced": 7048.0,
+          "shared": 6524.0,
+          "net_added": 3997.0
+        },
+        "fixed_positive": {
+          "reference": 6334.0,
+          "candidate": 8895.0,
+          "repaired": 1833.0,
+          "introduced": 4394.0,
+          "shared": 4501.0,
+          "net_added": 2561.0
+        },
+        "remaining_positive": {
+          "reference": 3241.0,
+          "candidate": 4677.0,
+          "repaired": 1218.0,
+          "introduced": 2654.0,
+          "shared": 2023.0,
+          "net_added": 1436.0
+        }
+      }
+    },
+    {
+      "reference": "R135",
+      "candidate": "R107",
+      "error_mass": {
+        "all": {
+          "reference": 9584.0,
+          "candidate": 9600.0,
+          "repaired": 3233.0,
+          "introduced": 3249.0,
+          "shared": 6351.0,
+          "net_added": 16.0
+        },
+        "fixed_positive": {
+          "reference": 6202.0,
+          "candidate": 6623.0,
+          "repaired": 1828.0,
+          "introduced": 2249.0,
+          "shared": 4374.0,
+          "net_added": 421.0
+        },
+        "remaining_positive": {
+          "reference": 3382.0,
+          "candidate": 2977.0,
+          "repaired": 1405.0,
+          "introduced": 1000.0,
+          "shared": 1977.0,
+          "net_added": -405.0
+        }
+      }
+    },
+    {
+      "reference": "R135",
+      "candidate": "R172",
+      "error_mass": {
+        "all": {
+          "reference": 9584.0,
+          "candidate": 9793.0,
+          "repaired": 3408.0,
+          "introduced": 3617.0,
+          "shared": 6176.0,
+          "net_added": 209.0
+        },
+        "fixed_positive": {
+          "reference": 6202.0,
+          "candidate": 6688.0,
+          "repaired": 1863.0,
+          "introduced": 2349.0,
+          "shared": 4339.0,
+          "net_added": 486.0
+        },
+        "remaining_positive": {
+          "reference": 3382.0,
+          "candidate": 3105.0,
+          "repaired": 1545.0,
+          "introduced": 1268.0,
+          "shared": 1837.0,
+          "net_added": -277.0
+        }
+      }
+    },
+    {
+      "reference": "R135",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 9584.0,
+          "candidate": 9892.0,
+          "repaired": 3920.0,
+          "introduced": 4228.0,
+          "shared": 5664.0,
+          "net_added": 308.0
+        },
+        "fixed_positive": {
+          "reference": 6202.0,
+          "candidate": 6552.0,
+          "repaired": 2421.0,
+          "introduced": 2771.0,
+          "shared": 3781.0,
+          "net_added": 350.0
+        },
+        "remaining_positive": {
+          "reference": 3382.0,
+          "candidate": 3340.0,
+          "repaired": 1499.0,
+          "introduced": 1457.0,
+          "shared": 1883.0,
+          "net_added": -42.0
+        }
+      }
+    },
+    {
+      "reference": "R135",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9584.0,
+          "candidate": 10234.0,
+          "repaired": 3718.0,
+          "introduced": 4368.0,
+          "shared": 5866.0,
+          "net_added": 650.0
+        },
+        "fixed_positive": {
+          "reference": 6202.0,
+          "candidate": 6809.0,
+          "repaired": 2212.0,
+          "introduced": 2819.0,
+          "shared": 3990.0,
+          "net_added": 607.0
+        },
+        "remaining_positive": {
+          "reference": 3382.0,
+          "candidate": 3425.0,
+          "repaired": 1506.0,
+          "introduced": 1549.0,
+          "shared": 1876.0,
+          "net_added": 43.0
+        }
+      }
+    },
+    {
+      "reference": "R135",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9584.0,
+          "candidate": 10948.0,
+          "repaired": 3935.0,
+          "introduced": 5299.0,
+          "shared": 5649.0,
+          "net_added": 1364.0
+        },
+        "fixed_positive": {
+          "reference": 6202.0,
+          "candidate": 6762.0,
+          "repaired": 2275.0,
+          "introduced": 2835.0,
+          "shared": 3927.0,
+          "net_added": 560.0
+        },
+        "remaining_positive": {
+          "reference": 3382.0,
+          "candidate": 4186.0,
+          "repaired": 1660.0,
+          "introduced": 2464.0,
+          "shared": 1722.0,
+          "net_added": 804.0
+        }
+      }
+    },
+    {
+      "reference": "R135",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9584.0,
+          "candidate": 13572.0,
+          "repaired": 3311.0,
+          "introduced": 7299.0,
+          "shared": 6273.0,
+          "net_added": 3988.0
+        },
+        "fixed_positive": {
+          "reference": 6202.0,
+          "candidate": 8895.0,
+          "repaired": 1772.0,
+          "introduced": 4465.0,
+          "shared": 4430.0,
+          "net_added": 2693.0
+        },
+        "remaining_positive": {
+          "reference": 3382.0,
+          "candidate": 4677.0,
+          "repaired": 1539.0,
+          "introduced": 2834.0,
+          "shared": 1843.0,
+          "net_added": 1295.0
+        }
+      }
+    },
+    {
+      "reference": "R107",
+      "candidate": "R172",
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 9793.0,
+          "repaired": 2178.0,
+          "introduced": 2371.0,
+          "shared": 7422.0,
+          "net_added": 193.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 6688.0,
+          "repaired": 1425.0,
+          "introduced": 1490.0,
+          "shared": 5198.0,
+          "net_added": 65.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 3105.0,
+          "repaired": 753.0,
+          "introduced": 881.0,
+          "shared": 2224.0,
+          "net_added": 128.0
+        }
+      }
+    },
+    {
+      "reference": "R107",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 9892.0,
+          "repaired": 3162.0,
+          "introduced": 3454.0,
+          "shared": 6438.0,
+          "net_added": 292.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 6552.0,
+          "repaired": 2066.0,
+          "introduced": 1995.0,
+          "shared": 4557.0,
+          "net_added": -71.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 3340.0,
+          "repaired": 1096.0,
+          "introduced": 1459.0,
+          "shared": 1881.0,
+          "net_added": 363.0
+        }
+      }
+    },
+    {
+      "reference": "R107",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 10234.0,
+          "repaired": 2707.0,
+          "introduced": 3341.0,
+          "shared": 6893.0,
+          "net_added": 634.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 6809.0,
+          "repaired": 1694.0,
+          "introduced": 1880.0,
+          "shared": 4929.0,
+          "net_added": 186.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 3425.0,
+          "repaired": 1013.0,
+          "introduced": 1461.0,
+          "shared": 1964.0,
+          "net_added": 448.0
+        }
+      }
+    },
+    {
+      "reference": "R107",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 10948.0,
+          "repaired": 3459.0,
+          "introduced": 4807.0,
+          "shared": 6141.0,
+          "net_added": 1348.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 6762.0,
+          "repaired": 2225.0,
+          "introduced": 2364.0,
+          "shared": 4398.0,
+          "net_added": 139.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 4186.0,
+          "repaired": 1234.0,
+          "introduced": 2443.0,
+          "shared": 1743.0,
+          "net_added": 1209.0
+        }
+      }
+    },
+    {
+      "reference": "R107",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 13572.0,
+          "repaired": 2667.0,
+          "introduced": 6639.0,
+          "shared": 6933.0,
+          "net_added": 3972.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 8895.0,
+          "repaired": 1742.0,
+          "introduced": 4014.0,
+          "shared": 4881.0,
+          "net_added": 2272.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 4677.0,
+          "repaired": 925.0,
+          "introduced": 2625.0,
+          "shared": 2052.0,
+          "net_added": 1700.0
+        }
+      }
+    },
+    {
+      "reference": "R172",
+      "candidate": "R180",
+      "error_mass": {
+        "all": {
+          "reference": 9793.0,
+          "candidate": 9892.0,
+          "repaired": 3347.0,
+          "introduced": 3446.0,
+          "shared": 6446.0,
+          "net_added": 99.0
+        },
+        "fixed_positive": {
+          "reference": 6688.0,
+          "candidate": 6552.0,
+          "repaired": 2176.0,
+          "introduced": 2040.0,
+          "shared": 4512.0,
+          "net_added": -136.0
+        },
+        "remaining_positive": {
+          "reference": 3105.0,
+          "candidate": 3340.0,
+          "repaired": 1171.0,
+          "introduced": 1406.0,
+          "shared": 1934.0,
+          "net_added": 235.0
+        }
+      }
+    },
+    {
+      "reference": "R172",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9793.0,
+          "candidate": 10234.0,
+          "repaired": 2887.0,
+          "introduced": 3328.0,
+          "shared": 6906.0,
+          "net_added": 441.0
+        },
+        "fixed_positive": {
+          "reference": 6688.0,
+          "candidate": 6809.0,
+          "repaired": 1801.0,
+          "introduced": 1922.0,
+          "shared": 4887.0,
+          "net_added": 121.0
+        },
+        "remaining_positive": {
+          "reference": 3105.0,
+          "candidate": 3425.0,
+          "repaired": 1086.0,
+          "introduced": 1406.0,
+          "shared": 2019.0,
+          "net_added": 320.0
+        }
+      }
+    },
+    {
+      "reference": "R172",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9793.0,
+          "candidate": 10948.0,
+          "repaired": 3512.0,
+          "introduced": 4667.0,
+          "shared": 6281.0,
+          "net_added": 1155.0
+        },
+        "fixed_positive": {
+          "reference": 6688.0,
+          "candidate": 6762.0,
+          "repaired": 2162.0,
+          "introduced": 2236.0,
+          "shared": 4526.0,
+          "net_added": 74.0
+        },
+        "remaining_positive": {
+          "reference": 3105.0,
+          "candidate": 4186.0,
+          "repaired": 1350.0,
+          "introduced": 2431.0,
+          "shared": 1755.0,
+          "net_added": 1081.0
+        }
+      }
+    },
+    {
+      "reference": "R172",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9793.0,
+          "candidate": 13572.0,
+          "repaired": 2785.0,
+          "introduced": 6564.0,
+          "shared": 7008.0,
+          "net_added": 3779.0
+        },
+        "fixed_positive": {
+          "reference": 6688.0,
+          "candidate": 8895.0,
+          "repaired": 1793.0,
+          "introduced": 4000.0,
+          "shared": 4895.0,
+          "net_added": 2207.0
+        },
+        "remaining_positive": {
+          "reference": 3105.0,
+          "candidate": 4677.0,
+          "repaired": 992.0,
+          "introduced": 2564.0,
+          "shared": 2113.0,
+          "net_added": 1572.0
+        }
+      }
+    },
+    {
+      "reference": "R180",
+      "candidate": "R116",
+      "error_mass": {
+        "all": {
+          "reference": 9892.0,
+          "candidate": 10234.0,
+          "repaired": 3001.0,
+          "introduced": 3343.0,
+          "shared": 6891.0,
+          "net_added": 342.0
+        },
+        "fixed_positive": {
+          "reference": 6552.0,
+          "candidate": 6809.0,
+          "repaired": 1721.0,
+          "introduced": 1978.0,
+          "shared": 4831.0,
+          "net_added": 257.0
+        },
+        "remaining_positive": {
+          "reference": 3340.0,
+          "candidate": 3425.0,
+          "repaired": 1280.0,
+          "introduced": 1365.0,
+          "shared": 2060.0,
+          "net_added": 85.0
+        }
+      }
+    },
+    {
+      "reference": "R180",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 9892.0,
+          "candidate": 10948.0,
+          "repaired": 4031.0,
+          "introduced": 5087.0,
+          "shared": 5861.0,
+          "net_added": 1056.0
+        },
+        "fixed_positive": {
+          "reference": 6552.0,
+          "candidate": 6762.0,
+          "repaired": 2464.0,
+          "introduced": 2674.0,
+          "shared": 4088.0,
+          "net_added": 210.0
+        },
+        "remaining_positive": {
+          "reference": 3340.0,
+          "candidate": 4186.0,
+          "repaired": 1567.0,
+          "introduced": 2413.0,
+          "shared": 1773.0,
+          "net_added": 846.0
+        }
+      }
+    },
+    {
+      "reference": "R180",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 9892.0,
+          "candidate": 13572.0,
+          "repaired": 3361.0,
+          "introduced": 7041.0,
+          "shared": 6531.0,
+          "net_added": 3680.0
+        },
+        "fixed_positive": {
+          "reference": 6552.0,
+          "candidate": 8895.0,
+          "repaired": 1947.0,
+          "introduced": 4290.0,
+          "shared": 4605.0,
+          "net_added": 2343.0
+        },
+        "remaining_positive": {
+          "reference": 3340.0,
+          "candidate": 4677.0,
+          "repaired": 1414.0,
+          "introduced": 2751.0,
+          "shared": 1926.0,
+          "net_added": 1337.0
+        }
+      }
+    },
+    {
+      "reference": "R116",
+      "candidate": "R182",
+      "error_mass": {
+        "all": {
+          "reference": 10234.0,
+          "candidate": 10948.0,
+          "repaired": 4086.0,
+          "introduced": 4800.0,
+          "shared": 6148.0,
+          "net_added": 714.0
+        },
+        "fixed_positive": {
+          "reference": 6809.0,
+          "candidate": 6762.0,
+          "repaired": 2476.0,
+          "introduced": 2429.0,
+          "shared": 4333.0,
+          "net_added": -47.0
+        },
+        "remaining_positive": {
+          "reference": 3425.0,
+          "candidate": 4186.0,
+          "repaired": 1610.0,
+          "introduced": 2371.0,
+          "shared": 1815.0,
+          "net_added": 761.0
+        }
+      }
+    },
+    {
+      "reference": "R116",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 10234.0,
+          "candidate": 13572.0,
+          "repaired": 3161.0,
+          "introduced": 6499.0,
+          "shared": 7073.0,
+          "net_added": 3338.0
+        },
+        "fixed_positive": {
+          "reference": 6809.0,
+          "candidate": 8895.0,
+          "repaired": 1856.0,
+          "introduced": 3942.0,
+          "shared": 4953.0,
+          "net_added": 2086.0
+        },
+        "remaining_positive": {
+          "reference": 3425.0,
+          "candidate": 4677.0,
+          "repaired": 1305.0,
+          "introduced": 2557.0,
+          "shared": 2120.0,
+          "net_added": 1252.0
+        }
+      }
+    },
+    {
+      "reference": "R182",
+      "candidate": "R154",
+      "error_mass": {
+        "all": {
+          "reference": 10948.0,
+          "candidate": 13572.0,
+          "repaired": 3794.0,
+          "introduced": 6418.0,
+          "shared": 7154.0,
+          "net_added": 2624.0
+        },
+        "fixed_positive": {
+          "reference": 6762.0,
+          "candidate": 8895.0,
+          "repaired": 1842.0,
+          "introduced": 3975.0,
+          "shared": 4920.0,
+          "net_added": 2133.0
+        },
+        "remaining_positive": {
+          "reference": 4186.0,
+          "candidate": 4677.0,
+          "repaired": 1952.0,
+          "introduced": 2443.0,
+          "shared": 2234.0,
+          "net_added": 491.0
+        }
+      }
+    }
+  ],
+  "limits": [
+    "Only two fixed equal schemes; selection still reuses internal dev.",
+    "Weight-loadable subset proves selected blob/tensor loading, not model construction or full deployment readiness.",
+    "A correction using historical load receipts may have been run after an earlier subset result was seen.",
+    "No official result or overall-goal completion is established."
+  ]
+}
