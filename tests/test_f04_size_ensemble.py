@@ -87,9 +87,33 @@ def test_export_requires_one_eligible_general_source():
         else: raise AssertionError('unverified or ineligible checkpoint accepted')
 
 
+def test_paired_forward_uses_identical_inputs_and_rejects_nonfinite():
+    sys.path.insert(0, str(ROOT / 'tools/diagnostics'))
+    spec = importlib.util.spec_from_file_location('f04_predict', ROOT / 'tools/diagnostics/f04_predict_member.py')
+    predict = importlib.util.module_from_spec(spec); spec.loader.exec_module(predict)
+    class Toy(torch.nn.Module):
+        def __init__(self, scale):
+            super().__init__(); self.scale = torch.nn.Parameter(torch.tensor(scale))
+        def forward(self, image): return image[:, 0] * self.scale
+    model32, model16 = Toy(1.).eval(), Toy(.5).eval()
+    images, age = torch.tensor([[1.], [2.]]), torch.tensor([.1, .2])
+    calls = []
+    def forward(model, actual_images, actual_age, job):
+        calls.append((actual_images is images, actual_age is age))
+        return model(actual_images) + actual_age
+    a, b = predict.paired_logits(model32, model16, images, age, {}, forward)
+    assert calls == [(True, True), (True, True)] and a.shape == b.shape == (2,)
+    assert torch.allclose(a, torch.tensor([1.1, 2.2])) and torch.allclose(b, torch.tensor([.6, 1.2]))
+    model16.scale.data.fill_(float('nan'))
+    try: predict.paired_logits(model32, model16, images, age, {}, forward)
+    except FloatingPointError: pass
+    else: raise AssertionError('nonfinite dev score accepted')
+
+
 if __name__ == '__main__':
     test_budget_stops_and_ties_use_original_order()
     test_state_export_contains_age_and_nonfloating_buffers()
     test_paired_metrics_and_equal_zscore()
     test_export_requires_one_eligible_general_source()
+    test_paired_forward_uses_identical_inputs_and_rejects_nonfinite()
     print('F04 fixed budget, complete state export and paired-score tests passed', flush=True)

@@ -1,0 +1,147 @@
+{
+  "status": "F04_complete_inference_state_exported_and_strictly_reloaded",
+  "at": 1793815454.7912755,
+  "execution": {
+    "at": "2026-11-04T18:04:04.751859+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909060596142082-acfwvv9ejn-44303-worker-0",
+    "uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+    "container": "vcjob-2117909060596142082-acfwvv9ejn-44303",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/CPU-ALLOCATION.json",
+      "sha256": "1951bb937b1c2d549427d42545232b1027c87d93950df27ab1d24d8b1c662daa",
+      "executor_id": "08ac5df9-3ab6-41ad-b7b1-ecfba1f8ac92",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "git_commit": "e68e914ab1c7981703928012353ebe3956973f07",
+  "git_files": {
+    "tools/diagnostics/f04_size_ensemble.py": "40db9d4bc348df763be4fd874f096e5a858f1c11659f7b0a24821e1ca1d20d07",
+    "tools/diagnostics/f04_export_member.py": "cc85ba153ea3e1b04bb9946e41b5da0a20c8476cf49d10b7caa477dac1370329",
+    "tools/diagnostics/ensemble_dev.py": "7c382ea0ff0505f70cf271854409d05477a302bf7ea8ff65d40c296d93d4440d",
+    "tests/test_f04_size_ensemble.py": "4e31cd65c03931bac77ae14897731815d5867f7fe930e2cd186ce1ebf5366621",
+    "configs/F03-THRESHOLD-EQUAL.json": "f1e47d8323efcfd95adfa091910b6c04d844e08b6f88f944d06252cbc0b3cad0",
+    "todo/auroc-999/F04-SIZE-LIMIT-20261104.md": "1a5cae81c7a13f76b11e64f11bae2eda2b2e5c2a4834fbc0df6d1fe66784862e"
+  },
+  "inventory": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-discovery-1747/CANDIDATES.json",
+    "sha256": "94b9d638e42cb0f2c883af6583c74173c9f45319fd8672fb337e8f74209dd389"
+  },
+  "round_id": "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+  "selected": {
+    "error_twice": 19168,
+    "ap": 0.8245256334018152,
+    "auroc": 0.9884598388182413,
+    "variant": "ema",
+    "cycle": 10,
+    "successful_updates": 8000,
+    "tensor_sha256": "cfe343da157e330aa6aba024317a09826674ba63d441fd658402bac0f8126a39",
+    "freeze": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+      "sha256": "52c18f8520eed6abc071b6a26a12e09653fb39b4e8c38aa1074f0e37108550d3"
+    },
+    "prediction": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv",
+      "sha256": "6524675619390f2752b59d0f779ab548275a67892b9c4434ecf6023f109fefff"
+    },
+    "precision": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv.precision.json",
+      "sha256": "6fdd4efef46bc9fc50b71f40991a4586cf7b7614471dbae28d5adc5f6b6efe33"
+    },
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json",
+      "sha256": "b9060f872a084d0299168ac3432e8fde9c2da3a2343a3f3b29393146d3f81c9d",
+      "status": "completed",
+      "successful_updates": 11200
+    }
+  },
+  "frozen_source_commit": "dbbe65531d511b91c89f63cd8a4cbba2e68e7303",
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+    "sha256": "52c18f8520eed6abc071b6a26a12e09653fb39b4e8c38aa1074f0e37108550d3"
+  },
+  "science": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/SCIENCE.json",
+    "sha256": "b0e57ced9cd6c6040fe60b0e6d5acd191de274414770d97a643d18a492407dda"
+  },
+  "checkpoint": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-efd72225e03e454cb239fbddffda5213.pt",
+    "sidecar": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-efd72225e03e454cb239fbddffda5213.pt.json",
+      "sha256": "6dbab3a5ce12dce03220dd15627cfa9db4e6434e787af2d69242d34a1f4d58da"
+    },
+    "bytes": 792203850
+  },
+  "selected_blob_sha256": "f561793ace2a8bb8d423652cf09e495343d428a4887143588733fa5db963237b",
+  "exports": {
+    "parameter_count": 49458531,
+    "state_tensor_count": 345,
+    "fp32": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R135/weights-fp32.pt",
+      "bytes": 197941453,
+      "sha256": "8ff8ad092d991d3e42c462b29339ebb30020349a33dee027deeb2e0a76997170"
+    },
+    "fp16": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R135/weights-fp16.pt",
+      "bytes": 99024397,
+      "sha256": "2a936d4964c4948fccc90758fa5298373ddd5e73175d1a232b230605aadcfe5a"
+    },
+    "strict_reload": true,
+    "nonfloating_buffers_preserved": true,
+    "fp16_storage_in_fp32_model": true
+  },
+  "model_constructed": true,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}
