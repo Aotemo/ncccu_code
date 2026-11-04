@@ -6,7 +6,7 @@
 
 沿已有`RankBatchSampler`/`BalancedBatchSampler`的fit两类独立排列流及原两reference microbatch→八rank连续分片，reference physical32/effective64/positive8、start0/1600更新。使用R238同一已派生sampler seed；只取该既有sampler输出的indices，再用R238原`_seed(seed,'sample',update,global_position,index)`生成每draw种子，保留其增强种子公式和全部学习/loader RNG域。不同indices导致的像素/随机种子变化是采样处理的组成部分，不称实际图像流或逐draw像素与R238相同。类内按完整permutation流循环，少数类重复暴露如实计成本，不改变CSV、不读取dev/age/official标签，也不为所有rank增加独立采样。
 
-固定每更新64图/128视图，128个anchor、全部127个非自身视图分母；正例anchor各15同类/112异类，负例anchor各111同类/16异类，均有跨类竞争。1600更新固定102400主图、204800视图/encoder forward，其中12800正例主图draw和89600负例主图draw；增加重复正例暴露是实验代价，不声称独立正例数增加。R238均匀流实际正例draw/全同类batch数仅在其完整适配后从既有训练metrics汇总，不用于选择配额。新结果需显式记录采样策略、quota、实际global正例数与标签使用True/ageFalse/label_scope=fit_csv。
+固定每更新64图/128视图，128个anchor、全部127个非自身视图分母；正例anchor各15同类/112异类，负例anchor各111同类/16异类，均有跨类竞争。1600更新固定102400主图、204800视图/encoder forward，其中12800正例主图draw和89600负例主图draw；增加重复正例暴露是实验代价，不声称独立正例数增加。R238既有metrics只记录首1/每25步，共65点，只能直接汇总这些观测点的正例draw/全同类batch数；完整1600流若按冻结sampler/seed/manifest重建，须标为合同重建并与65个已记录点逐项核对，不将稀疏日志冒充全量实际遥测，也不据此选择配额。新结果需显式记录采样策略、quota、实际global正例数与标签使用True/ageFalse/label_scope=fit_csv。
 
 仍fresh合规公开自然图像初始化，单模型、固定9:1。只传encoder/final-LN，公开head-age/原监督factory RNG恢复、空Adam/EMA重建；原512/G64P8/448 pairlog监督、最多24000成功/每800 dev/patience4、唯一完整dev AUROC选点与官方selected≥.996后一次保持。没有医学权重/teacher、队列、类别权重、重采样dev、原生裁剪或新增训练/保存/评估/启动/监控链。
 
