@@ -1,0 +1,22 @@
+{
+  "status": "cross_batch_safe_window_and_capacity_verified",
+  "at": 1793824955.5269241,
+  "round_id": "r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104",
+  "predecessor_safe_sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+  "site_sha256": "aa380cc094ceca662ccaabf4848e48cbb8d5bb3c6c6e4393c6ef89308720d016",
+  "peer_round_id": "r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104",
+  "peer_site_sha256": "8de16958c72ec061e494cda849558f4968c04b0dd45ff0b28108aa821ed0ed40",
+  "peer_safe": false,
+  "peer_observed_size_bytes": 2012558886,
+  "peer_storage_limit_bytes": 12884901888,
+  "peer_reserved_bytes": 10872343002,
+  "peer_vanished_during_scan": 0,
+  "own_storage_limit_bytes": 12884901888,
+  "free_bytes": 81080090624,
+  "required_free_bytes": 45232081370,
+  "grant_remaining_seconds": 40951.96333646774,
+  "required_seconds": 31560,
+  "entry_sha256": "c5e2d2f1806f2e6a5e8d98dfb31a15fc9b2ebf4bc578c7e04c00dcc8064fefe5",
+  "activation_reserved": false,
+  "GPU_started": false
+}

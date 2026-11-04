@@ -1,0 +1,9 @@
+{
+  "status": "existing_observation_refused_and_unchanged",
+  "at": 1793824680.2509255,
+  "original_sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+  "observer_sha256": "c310b79fbc8c021212cbd97d10dd13195cbcfa55fee911ef82582946e2ae568a",
+  "exit_code": 1,
+  "GPU_initialized": false,
+  "signals_sent": false
+}
