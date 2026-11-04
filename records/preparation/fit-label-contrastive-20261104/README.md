@@ -10,6 +10,8 @@ R238/R239两SCI为2527b844/1d934cdb；源码/config已3bd21524同步并API回读
 
 私有范围为`fit-label-contrastive-20261104-4e0c/`中的当前CPU、正式打包和metadata helper；现有通用测试runner、prepare/check_candidate/freeze及observer复用，未新建训练、保存、评估、启动或监控平台。主Agent自审loss目标、对角mask、gather、fit-only边界、RNG/原监督和完成证据；按用户要求无子Agent或独立审阅者。[接续helper](HANDOFF-HELPERS-CPU.json)及guardfa1e4cdc：七文件编译、65种实际类计数公式与五baseline设置通过，不读取未来结果。标签版自然八rank和监督交接观察显式要求fit标签True/ageFalse；旧R2观察不变。
 
+后续字段自审发现上述最初监督观察helper0569a32b错误读取`loss_label_scope`，而已发布训练producer和完成门实际使用`label_scope`；最初helper仅编译过、尚未观察任何R238运行，不将编译说成字段对接通过。原件保留，当前应使用私有`OBSERVE-FIT-LABEL-SUPERVISED-v2.py`/a4c00b39。[实际producer字段对接](OBSERVER-LABEL-FIELDS-CPU.json)/guard03c77e6d复现旧缺字段KeyError、直接提取冻结producer的真实字段，v2接受fit_csv/标签True/ageFalse，拒绝四错标志/范围和旧拼写；新helper编译通过，无模型/GPU或训练源码/冻结包修改。
+
 [R237正式包](R237-FORMAL-READY.json)已沿c800原源码完成18/18、公开91507a65/345全训/空Adam，SITEaf2b092b/部署15dc4f71/guarde8b949d4，未激活；31560秒完整窗口满足，最晚activation epoch1793782523.271514。两分支实际入口已填私有post-r236r2-R237-entry.sh/post-r236r2-R238-entry.sh及会话store，均已Pod内bash -n；在原window/Pod快照/activation/launch之前调用同一已发布verify_storage做真实容量预检，不消耗activation身份。完整R236R2双门/唯一safe后才选择；若延续至不足整窗，须为未启动阶段另建ready，不改旧grant。
 
 R238正式准备时实际free20,510,146,560小于原20 GiB准入，未尝试activation。已按[两个精确清单](../../storage/obsolete-CPU-fixtures-20261104/README.md)处理15个历史CPU-only fixture；当前R2、R237/R238和三KEEP保护，数据/缓存/公开初始化不动。共享文件系统free是瞬时观测，启动前仍须实测；当前R2终态归档及必要闭轮清理helper已在训练期间准备、六文件编译通过，完整selected/唯一safe前不读取未来结果或删除活跃checkpoint。

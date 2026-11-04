@@ -1,0 +1,26 @@
+{
+  "status": "actual_producer_label_fields_and_corrected_metadata_observer_interoperate",
+  "at": 1793773156.2403972,
+  "actual_producer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/source-git/runtime/bundle/retrain/ssl_stage.py",
+    "sha256": "d79c8b023fe431e603e69fb3ed24b41b4cf8d1cdfdb1eda038939fd949c0ae68"
+  },
+  "actual_producer_label_fields": {
+    "labels_used_for_loss": true,
+    "age_used_for_loss": false,
+    "label_scope": "fit_csv"
+  },
+  "old_observer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/OBSERVE-FIT-LABEL-SUPERVISED.py",
+    "sha256": "0569a32b2652bac43ce8907ed2184afd59beb1b425490bd3a2435fef10ed8282"
+  },
+  "old_missing_field_KeyError_reproduced": true,
+  "corrected_observer": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/OBSERVE-FIT-LABEL-SUPERVISED-v2.py",
+    "sha256": "a4c00b391bd8bb4f7f5f6434f33f7e233c1790ba504c08b51e6a18ea941dd7dd"
+  },
+  "four_wrong_flags_or_scope_and_old_wrong_field_rejected": true,
+  "old_observer_preserved": true,
+  "training_source_or_frozen_package_changed": false,
+  "GPU_or_model_invoked": false
+}
