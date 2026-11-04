@@ -1,5 +1,7 @@
 # R234 fit-only实例对比目标实际启动与监督交接
 
+结果同步回读后，实际9个checkpoint已按[精确清单](../storage/closed-r234-20261104/README.md)清理6.733GB逻辑字节，三KEEP及新package保护一致；所选现在仅历史参数/预测身份，不能称可加载。derived/SSL-stage及全部CSV/precision/sidecar保留，原actualsafe不重查。
+
 完整本轮于11-04 04:33 UTC结束：[结果](R234-RESULT.json)ada69a35、[唯一actualsafe](R234-COMPLETION.json)94f21ed6/guard0678dfc8，原监督8800成功=attempt/0skip/c11/patience4，唯一EMA c7@5600 AUROC **.9852701594598858**、AP **.8070188576018261**、error_twice24466。R107/R120严格双门均false，R235不eligible且未激活；官方5849按原阈值未运行，.995/AP>.9及raw.999未达。原owner835172同出生身份退出、八rank消失、锁无持有者、设备user为空/denied0、八卡busy0；这份safe只复用，不重查原运行。
 
 [固定20及其余147配对](PAIRED-REPORT.json)相对R107：全体错序9600→12233，修复2559/新增5192/净增2633；原固定20为6623→8062，修复1658/新增3097/净增1439；其余147为2977→4171，修复901/新增2095/净增1194。两组均未净修复，少量修复不替代完整AUROC主判。附八个事前比较及2000次PCG64 seed20261103图像分层paired-bootstrap；区间不覆盖患者依赖、seed方差、选点或多重比较，不作临床因果解释。

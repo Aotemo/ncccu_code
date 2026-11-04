@@ -167,6 +167,16 @@ def verify_preflight(value, site, package, *, now):
     return value
 
 
+def verify_storage(work_root):
+    """Keep the strict admission boundary and preserve the one actual reading."""
+    free = shutil.disk_usage(work_root).free
+    evidence = {'at': time.time(), 'work_root': str(work_root),
+                'free_bytes': free, 'minimum_free_bytes': 20 * 1024**3}
+    require(free > evidence['minimum_free_bytes'],
+            f"insufficient storage: free_bytes={free} minimum_free_bytes={evidence['minimum_free_bytes']} work_root={work_root}")
+    return evidence
+
+
 def admit_now(package, site, processes):
     # Observe live processes/locks/cards; never acquire the training lock or signal work.
     sys.path.insert(0, str(package))
@@ -203,10 +213,11 @@ def admit_now(package, site, processes):
     require(len(resource['cards']) == len(site['gpus']) and all(
         card['busy_percent'] == 0 and card['vram_used_bytes'] < 64 * 1024**2 for card in resource['cards']),
         'every admitted device must be actually idle')
-    require(shutil.disk_usage(site['work_root']).free > 20 * 1024**3, 'insufficient storage')
+    storage = verify_storage(site['work_root'])
     return {'at': time.time(), 'exact_processes': exact, 'lock_released': True, 'lock_inode': info.st_ino,
             'lock_device': info.st_dev, 'lock_path': str(lock), 'proc_locks': matching,
-            'resources': resource, 'device_users': users, 'lock_acquisition_attempted': False, 'signals_sent': False}
+            'resources': resource, 'device_users': users, 'lock_acquisition_attempted': False, 'signals_sent': False,
+            'storage': storage}
 
 
 def parser():

@@ -1,0 +1,41 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "46ba7bd520c91d7cc0357e4c9069a899e1745d54c1cf54374f05602822eb3c9d",
+  "inventory_sha256": "56c91b3ba1c388f0b31ba17bb916c4d905f834a9ac28f6cc814490c534c104e2",
+  "source_commit": "376fd3cf0a6a3d7267e73acf3492ace0a5d4bd23",
+  "candidate_count": 9,
+  "skipped": [],
+  "logical_bytes": 6733344075,
+  "allocated_bytes": 6733346304,
+  "filesystem_free_now": 20432551936,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104"
+  ],
+  "conclusions": {
+    "R234": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/closed-r234-storage-20261104-4e0c/r234-cleanup-source-records/records/R234/R234-RESULT.json",
+        "sha256": "ada69a35998d06288f475c57b95910a2d72344107984a0e2428055ceb5edb7c6",
+        "git_blob": "11266af4139ca7a05743531bbb5dbf57af297b6c"
+      },
+      "selected": {
+        "auroc": 0.9852701594598858,
+        "ap": 0.8070188576018261,
+        "variant": "ema",
+        "cycle": 7,
+        "successful_updates": 5600,
+        "error_twice": 24466
+      },
+      "freeze_metadata_sha256": "73d993a64db665264b0bb2140e29546df8f9f6223d27c4dfa50aa4c582b10efb",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/closed-r234-storage-20261104-4e0c/r234-cleanup-source-records/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

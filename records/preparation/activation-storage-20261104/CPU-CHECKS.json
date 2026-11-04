@@ -1,0 +1,37 @@
+{
+  "status": "two_storage_boundary_targets_and_exact_unchanged_activation_scopes_passed",
+  "at": 1793768095.968377,
+  "tests": 2,
+  "compilations": 2,
+  "source_files": {
+    "tools/activation/activate.py": "3b05f127462bccc78b92631f2d9268832686626ba19e3bde15669af4f130cab1",
+    "tests/test_activation_storage.py": "7a09851338ff1f6f92bf6a7a5eb39bdab4c0221a2a60b7cb13b68642af5f34b2"
+  },
+  "unchanged_functions_or_classes": [
+    "read",
+    "sha",
+    "require",
+    "verify_training_topology",
+    "write",
+    "pinned",
+    "ident",
+    "process_alive",
+    "ensure_new_activation",
+    "verify_package",
+    "verify_deployment",
+    "verify_gpu_admission",
+    "verify_preflight",
+    "parser",
+    "main"
+  ],
+  "admission_other_than_storage_read_and_evidence_exact": true,
+  "strict_boundary_unchanged": "free_bytes > 21474836480",
+  "actual_storage": {
+    "at": 1793768095.9683692,
+    "work_root": "/public/home/acfwvv9ejn/SothisAI",
+    "free_bytes": 27142389760,
+    "minimum_free_bytes": 21474836480
+  },
+  "GPU_or_model_invoked": false,
+  "second_activation_failure_instant_reading_unknown": true
+}

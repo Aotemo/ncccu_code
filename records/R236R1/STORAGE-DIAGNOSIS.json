@@ -1,0 +1,67 @@
+{
+  "status": "readonly_failed_activation_storage_diagnosis",
+  "at": 1793767522.5245538,
+  "site_sha256": "4bc36dbee4cc5b01fc9512f928b5dd8760a9f3196f0a22dcc3d7e53f2a0112c7",
+  "actual_activation_sha256": "a453747f34442622d7bea7d55ce42ff66c5e99fcb969a1e70c225cf87aacfe36",
+  "storage_check_actual_source": [
+    "require(shutil.disk_usage(site['work_root']).free > 20 * 1024 ** 3, 'insufficient storage')"
+  ],
+  "actual_shutil_module": "/usr/local/python3.12/lib/python3.12/shutil.py",
+  "uid": 0,
+  "samples": [
+    {
+      "at": 1793767520.0003672,
+      "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+      "shutil": {
+        "total": 477815111680,
+        "used": 450649653248,
+        "free": 27165458432
+      },
+      "statvfs_available_bytes": 27165458432,
+      "above_20_GiB": true
+    },
+    {
+      "at": 1793767521.2533205,
+      "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+      "shutil": {
+        "total": 477815111680,
+        "used": 450649653248,
+        "free": 27165458432
+      },
+      "statvfs_available_bytes": 27165458432,
+      "above_20_GiB": true
+    },
+    {
+      "at": 1793767522.2587628,
+      "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+      "shutil": {
+        "total": 477815111680,
+        "used": 450649653248,
+        "free": 27165458432
+      },
+      "statvfs_available_bytes": 27165458432,
+      "above_20_GiB": true
+    }
+  ],
+  "same_environment_child": {
+    "module": "/usr/local/python3.12/lib/python3.12/shutil.py",
+    "uid": 0,
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+    "usage": [
+      477815111680,
+      450649653248,
+      27165458432
+    ]
+  },
+  "old_attempt_markers": {
+    "FORMAL-CLOCK.json": false,
+    "formal-cpu/FORMAL-CLOCK.json": false,
+    "formal-cpu/ACTIVATION-FAILURE.json": true,
+    "CHAIN-RESULT.json": false
+  },
+  "formal_root_exists": false,
+  "GPU_admission_or_model_invoked": false
+}

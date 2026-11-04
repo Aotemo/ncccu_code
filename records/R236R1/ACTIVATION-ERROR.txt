@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r1-20261104-4e0c-ready/formal-cpu/activate.py", line 366, in <module>
+    main()
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r1-20261104-4e0c-ready/formal-cpu/activate.py", line 283, in main
+    handoff = admit_now(package, site, processes)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r1-20261104-4e0c-ready/formal-cpu/activate.py", line 206, in admit_now
+    require(shutil.disk_usage(site['work_root']).free > 20 * 1024**3, 'insufficient storage')
+  File "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r1-20261104-4e0c-ready/formal-cpu/activate.py", line 32, in require
+    raise ValueError(message)
+ValueError: insufficient storage
