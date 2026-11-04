@@ -379,7 +379,7 @@ def main(args):
         and len(trainable) == len(members) == len({id(parameter) for parameter in members})
         and {id(parameter) for parameter in members} == {id(parameter) for parameter in model.parameters() if parameter.requires_grad}
         and roles == ({'backbone': contract['backbone_parameters'] - sum(p.numel() for p in frozen.values()) + (1082880 if is_low_rank else 0) + (3072 if is_stem_xy else 0) + (4608 if is_native6 else 0),
-                       'head': contract['features'] + 1 + (768 if is_content_pool else 0) + (384 if is_stage3_residual else 0),
+                       'head': contract['features'] * (4 if is_vit_dino3 and (job.get('vit_dino3_pool_policy') or {}).get('version')=='vit-dinov3-final-ln-quadrant-patch-concat-v1' else 1) + 1 + (768 if is_content_pool else 0) + (384 if is_stage3_residual else 0),
                        **({'age': 2} if job['age']['enabled'] else {})})
         and {id(parameter) for group in optimizer.param_groups if group['role'] == 'head' for parameter in group['params']} == head
         and (all(row['name'].endswith(('.lora_A', '.lora_B')) for group in groups if group['role'] == 'backbone' for row in group['parameters']) if is_low_rank else

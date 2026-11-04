@@ -23,6 +23,9 @@ DEIT3_MEANPATCH_RULE = {'version':'deit3-final-ln-meanpatch-v1','pool':'avg',
     'exclude_prefix_tokens':1,'position':'after_native_final_LN_before_original_dropout_linear'}
 VIT_DINO3_CLS_RULE = {'version':'vit-dinov3-final-ln-cls-v1','pool':'token','token_index':0,
     'prefix_tokens_retained_in_attention':5,'position':'after_native_final_LN_before_original_dropout_linear'}
+VIT_DINO3_QUADRANT_RULE = {'version':'vit-dinov3-final-ln-quadrant-patch-concat-v1',
+    'patch_grid':[32,32],'quadrants':'TL_TR_BL_BR','reduction':'mean_each_then_concat',
+    'prefix_tokens_retained_in_attention':5,'position':'after_native_final_LN_before_dropout_linear'}
 COSINE_HEAD_RULE = {'version':'convnext-small-cosine16-v1','scale':16.,'eps':1e-12,
                     'position':'after_native_pool_LN_flatten_dropout','bias':'original_linear'}
 LION_RULE = {'version':'lion10x-v1','betas':[.9,.99],'learning_rate_scale':.1,
@@ -114,7 +117,9 @@ def validate_job(job):
     if job.get('model')=='vit_dino3_base' and job.get('vit_dino3_pool_policy')!=VIT_DINO3_CLS_RULE:
         raise ValueError('fixed native DINOv3 Base requires the CLS policy')
     if job.get('vit_dino3_pool_policy') is not None:
-        if (job['vit_dino3_pool_policy']!=VIT_DINO3_CLS_RULE or job.get('model')not in ('vit_dino3_small','vit_dino3_base')
+        if (job['vit_dino3_pool_policy'] not in (VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE)
+                or job.get('model')not in ('vit_dino3_small','vit_dino3_base')
+                or (job['vit_dino3_pool_policy']==VIT_DINO3_QUADRANT_RULE and job.get('model')!='vit_dino3_small')
                 or job.get('precision')!='fp32' or job.get('normalization')!='imagenet'
                 or (job.get('image_size'),job.get('prepared_size'))!=(512,512)
                 or (job.get('effective_batch'),job.get('positive_per_batch'))!=(64,8)

@@ -58,6 +58,7 @@ PAIR_SIGMOID_SEED_REPLICAS = {
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261104-scale085-pairsigmoid-v1': ('R244',20261104,159),
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261105-scale085-pairsigmoid-v1': ('R245',20261105,160),
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261109-scale085-pairsigmoid-v1': ('R254',20261109,164),
+    'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261111-scale085-pairsigmoid-v1': ('R256',20261111,166),
 }
 PAIR_SIGMOID_LOWLR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-backbonelr5e5-v1'
 PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-backbonelr5e5-v1'
@@ -154,12 +155,13 @@ VIT_DINO3_R1_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlysto
 VIT_DINO3_R1_SEED27_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-r188-v1'
 VIT_DINO3_CLS_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cls-v1'
 VIT_DINO3_CLS_SEED27_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-cls-v1'
+VIT_DINO3_QUADRANT_BINDING = 'single-vit-small-dinov3-3bf4720a-fixed-9010-24k-earlystop-seed20261110-scale085-pairlog-quadrantpool-v1'
 VIT_DINO3_BASE_CLS_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cls-v1'
 VIT_DINO3_BASE_CLS_SEED27_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-cls-v1'
 VIT_DINO3_BASE_CLS_LOWLR_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-cls-backbonelr1e5-v1'
 VIT_DINO3_BASE_CLS_LOWLR_SEED27_BINDING = 'single-vit-base-dinov3-c6a5fb7d-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-cls-backbonelr1e5-v1'
 VIT_DINO3_CLS_BINDINGS = (VIT_DINO3_CLS_BINDING,VIT_DINO3_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_LOWLR_BINDING,VIT_DINO3_BASE_CLS_LOWLR_SEED27_BINDING)
-VIT_DINO3_BINDINGS = (VIT_DINO3_BINDING,VIT_DINO3_SEED27_BINDING,VIT_DINO3_R1_BINDING,VIT_DINO3_R1_SEED27_BINDING,*VIT_DINO3_CLS_BINDINGS)
+VIT_DINO3_BINDINGS = (VIT_DINO3_BINDING,VIT_DINO3_SEED27_BINDING,VIT_DINO3_R1_BINDING,VIT_DINO3_R1_SEED27_BINDING,VIT_DINO3_QUADRANT_BINDING,*VIT_DINO3_CLS_BINDINGS)
 CAFORMER_BINDING = 'single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 CAFORMER_SEED27_BINDING = 'single-caformer-s36-695903ae-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 CAFORMER_BINDINGS = (CAFORMER_BINDING,CAFORMER_SEED27_BINDING)
@@ -241,6 +243,8 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104': PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,
     'r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261108_BINDING,
     'r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261109-scale085-pairsigmoid-v1',
+    'r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104': VIT_DINO3_QUADRANT_BINDING,
+    'r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261111-scale085-pairsigmoid-v1',
 }
 
 
@@ -278,7 +282,7 @@ def science_configuration():
     from .layerwise_lr import LAYERWISE_LR_RULE
     from .low_rank import LOW_RANK_RULE
     from .classification_loss import OUTPUT_REGULARIZATION_RULE
-    from .config import COSINE_HEAD_RULE,DEIT3_MEANPATCH_RULE,ADAMW_BETA2_RULE,QUADRANT_MIL_RULE,VIT_DINO3_CLS_RULE
+    from .config import COSINE_HEAD_RULE,DEIT3_MEANPATCH_RULE,ADAMW_BETA2_RULE,QUADRANT_MIL_RULE,VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE
     site = load_site()
     try:
         reference = site['science']['configuration']
@@ -387,12 +391,15 @@ def science_configuration():
                 or (value.get('candidate_profile') in QUADRANT_MIL_SMALL_BINDINGS
                     and (value.get('job',{}).get('quadrant_mil_policy')!=QUADRANT_MIL_RULE
                          or value.get('candidate',{}).get('quadrant_mil_policy')!=QUADRANT_MIL_RULE))
-                or (value.get('candidate_profile')not in VIT_DINO3_CLS_BINDINGS
+                or (value.get('candidate_profile')not in (*VIT_DINO3_CLS_BINDINGS,VIT_DINO3_QUADRANT_BINDING)
                     and (value.get('job',{}).get('vit_dino3_pool_policy')is not None
                          or value.get('candidate',{}).get('vit_dino3_pool_policy')is not None))
                 or (value.get('candidate_profile')in VIT_DINO3_CLS_BINDINGS
                     and (value.get('job',{}).get('vit_dino3_pool_policy')!=VIT_DINO3_CLS_RULE
                          or value.get('candidate',{}).get('vit_dino3_pool_policy')!=VIT_DINO3_CLS_RULE))
+                or (value.get('candidate_profile')==VIT_DINO3_QUADRANT_BINDING
+                    and (value.get('job',{}).get('vit_dino3_pool_policy')!=VIT_DINO3_QUADRANT_RULE
+                         or value.get('candidate',{}).get('vit_dino3_pool_policy')!=VIT_DINO3_QUADRANT_RULE))
                 or (value.get('candidate_profile') not in (DEIT3_MEANPATCH_BINDING,DEIT3_MEANPATCH_SEED27_BINDING)
                     and (value.get('job',{}).get('deit_pool_policy')is not None
                          or value.get('candidate',{}).get('deit_pool_policy')is not None))
@@ -1240,7 +1247,7 @@ def candidate_from_configuration(value):
             raise ValueError('fixed native CAFormer/source/MLP/original recipe differs')
     elif value['candidate_profile'] in VIT_DINO3_BINDINGS:
         from .models import VIT_DINO3_FORMAT,VIT_DINO3_BASE_FORMAT,VIT_DINO3_LIBRARY
-        from .config import VIT_DINO3_CLS_RULE
+        from .config import VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE
         seed27=value['candidate_profile'] in (VIT_DINO3_SEED27_BINDING,VIT_DINO3_R1_SEED27_BINDING,VIT_DINO3_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_LOWLR_SEED27_BINDING)
         low_lr=value['candidate_profile']in(VIT_DINO3_BASE_CLS_LOWLR_BINDING,VIT_DINO3_BASE_CLS_LOWLR_SEED27_BINDING)
         base=value['candidate_profile'] in (VIT_DINO3_BASE_CLS_BINDING,VIT_DINO3_BASE_CLS_SEED27_BINDING,VIT_DINO3_BASE_CLS_LOWLR_BINDING,VIT_DINO3_BASE_CLS_LOWLR_SEED27_BINDING)
@@ -1261,6 +1268,10 @@ def candidate_from_configuration(value):
         if value['candidate_profile']in VIT_DINO3_CLS_BINDINGS:
             expected.update(id='r190-vits16-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-cls-9010' if seed27 else 'r189-vits16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-9010',experiment_order=103 if seed27 else 102,
                 readout='native_final_LN_CLS_dropout_linear_plus_age',vit_dino3_pool_policy=VIT_DINO3_CLS_RULE)
+        if value['candidate_profile']==VIT_DINO3_QUADRANT_BINDING:
+            expected.update(id='r255-vits16-dinov3-lvd1689m-24k-p4-seed20261110-scale085-pairlog-quadrantpool-9010',
+                experiment_order=165,readout='native_final_LN_quadrant_patch_concat_dropout_linear_plus_age',
+                vit_dino3_pool_policy=VIT_DINO3_QUADRANT_RULE)
         if base:
             expected.update(id='r192-vitb16-dinov3-lvd1689m-24k-p4-seed20261027-scale085-pairlog-cls-9010' if seed27 else 'r191-vitb16-dinov3-lvd1689m-24k-p4-seed20261029-scale085-pairlog-cls-9010',
                 experiment_order=105 if seed27 else 104,model=model_name,public_revision=revision,features=768)
@@ -1278,7 +1289,7 @@ def candidate_from_configuration(value):
                 or value['job'].get('vit_dino3_pool_policy')!=expected.get('vit_dino3_pool_policy')
                 or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
-                    value['job'].get('positive_per_batch'),value['job'].get('final_norm_eps'))!=(model_name,20261027 if seed27 else 20261029,'imagenet',512,512,64,8,1e-5)
+                    value['job'].get('positive_per_batch'),value['job'].get('final_norm_eps'))!=(model_name,20261110 if value['candidate_profile']==VIT_DINO3_QUADRANT_BINDING else 20261027 if seed27 else 20261029,'imagenet',512,512,64,8,1e-5)
                 or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
                     'quadrant_mil_policy','input_preprocessing','optimizer_policy','gradient_centralization_policy',
                     'gradient_clip_policy','head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy',
@@ -2016,17 +2027,18 @@ def validate_normalization(value):
     if candidate()['model']in ('vit_dino3_small','vit_dino3_base'):
         import torch
         from .models import VIT_DINO3_LIBRARY
+        from .config import VIT_DINO3_QUADRANT_RULE
         policy=candidate().get('vit_dino3_pool_policy')
         features=candidate()['features']
         native=value.get('vit_dino3',{});norms=value.get('layer_norms',[]);depth=value.get('stochastic_depth',[])
         rates=[float(t)for t in torch.linspace(0,.1,12)]
         if (value.get('candidate')!=candidate()or value.get('batch_norm_modules')!=0 or value.get('buffer_count')!=1
                 or value.get('buffer_sha256')!=science_configuration().get('initial_buffer_sha256')
-                or value.get('head_in_features')!=features or value.get('head_out_features')!=1 or value.get('dropout')!=.2
+                or value.get('head_in_features')!=(features*4 if policy==VIT_DINO3_QUADRANT_RULE else features) or value.get('head_out_features')!=1 or value.get('dropout')!=.2
                 or len(norms)!=25 or any(n['eps']!=1e-5 or n['normalized_shape']!=[features]for n in norms)
                 or len(depth)!=24 or any(r['p']!=rates[i//2]or r['mode']!='row'for i,r in enumerate(depth))
                 or native.get('native_library')!=VIT_DINO3_LIBRARY or native.get('image_size')!=[512,512]
-                or native.get('global_pool')!=('token' if policy is not None else 'avg')
+                or native.get('global_pool')!=('token' if policy is not None and policy!=VIT_DINO3_QUADRANT_RULE else 'avg')
                 or native.get('vit_dino3_pool_policy')!=policy
                 or native.get('num_prefix_tokens')!=5 or native.get('reg_token_shape')!=[1,4,features]
                 or (candidate()['model']=='vit_dino3_base' and native.get('variant')!='vit_base_patch16_dinov3.lvd1689m')

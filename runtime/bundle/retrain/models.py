@@ -661,6 +661,16 @@ def _deit3_library():
     return actual
 
 
+def _dino3_quadrant_patch_pool(tokens):
+    """Fixed spatial readout after native final LN; prefix tokens never enter the head."""
+    import torch
+    if not isinstance(tokens,torch.Tensor) or tokens.ndim!=3 or tuple(tokens.shape[1:])!=(1029,384):
+        raise ValueError('DINOv3 Small requires five prefix and 32x32 patch tokens')
+    grid=tokens[:,5:,:].reshape(tokens.shape[0],32,32,384)
+    return torch.cat([grid[:,:16,:16].mean((1,2)),grid[:,:16,16:].mean((1,2)),
+                      grid[:,16:,:16].mean((1,2)),grid[:,16:,16:].mean((1,2))],dim=1)
+
+
 def _create_vit_dino3_binary(job, initialize=True):
     import torch,timm
     from torch import nn
@@ -671,8 +681,9 @@ def _create_vit_dino3_binary(job, initialize=True):
     features=768 if base else 384
     policy=job.get('vit_dino3_pool_policy')
     if policy is not None:
-        from .config import VIT_DINO3_CLS_RULE
-        if policy!=VIT_DINO3_CLS_RULE:raise ValueError('native DINOv3 CLS pool identity differs')
+        from .config import VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE
+        if policy not in (VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE) or (base and policy==VIT_DINO3_QUADRANT_RULE):
+            raise ValueError('native DINOv3 pool identity differs')
     network=timm.create_model(variant,pretrained=False,img_size=512,num_classes=0,
         global_pool='avg',drop_path_rate=job.get('stochastic_depth',.1),drop_rate=0.,device='cpu',dtype=torch.float32)
     public=None
@@ -687,13 +698,16 @@ def _create_vit_dino3_binary(job, initialize=True):
         public={'initialization':proof,'strict_missing_keys':[],'strict_unexpected_keys':[],
             'public_tensor_count':162,'public_tensor_sha256':tensor_digest(state),'full_head_shape':None,
             'all_public_tensors_exact':True,'all_public_tensors_FP32_finite':True,'backbone_only':True}
-    if policy is not None:network.global_pool='token'
+    if policy is not None and policy==VIT_DINO3_CLS_RULE:network.global_pool='token'
     class ViTBinary(nn.Module):
         def __init__(self):
             super().__init__();self.network=network;self.native_library=library
-            self.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(features,1))
+            head_features=features*4 if policy is not None and policy==VIT_DINO3_QUADRANT_RULE else features
+            self.classifier=nn.Sequential(nn.Dropout(job.get('dropout',.2)),nn.Linear(head_features,1))
         def forward(self,images,age_features=None):
-            logits=self.classifier(self.network(images)).flatten()
+            native=(_dino3_quadrant_patch_pool(self.network.forward_features(images))
+                    if policy is not None and policy==VIT_DINO3_QUADRANT_RULE else self.network(images))
+            logits=self.classifier(native).flatten()
             if hasattr(self,'age_weight'):
                 from .age import residual
                 return residual(self,logits,age_features)
@@ -718,8 +732,9 @@ def describe_vit_dino3(model):
     base=variant==VIT_DINO3_BASE_VARIANT;features=768 if base else 384
     policy=getattr(model,'vit_dino3_pool_policy',None)
     if policy is not None:
-        from .config import VIT_DINO3_CLS_RULE
-        if policy!=VIT_DINO3_CLS_RULE:raise ValueError('native DINOv3 CLS pool descriptor differs')
+        from .config import VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE
+        if policy not in (VIT_DINO3_CLS_RULE,VIT_DINO3_QUADRANT_RULE) or (base and policy==VIT_DINO3_QUADRANT_RULE):
+            raise ValueError('native DINOv3 pool descriptor differs')
     value={'native_library':model.native_library,'image_size':list(network.patch_embed.img_size),
         'patch_size':list(network.patch_embed.patch_size),'features':network.num_features,
         'num_prefix_tokens':network.num_prefix_tokens,'reg_token_shape':list(network.reg_token.shape),
@@ -730,8 +745,8 @@ def describe_vit_dino3(model):
     if base:value['variant']=variant
     if (value['native_library']!=VIT_DINO3_LIBRARY or value['image_size']!=[512,512]
             or value['patch_size']!=[16,16] or value['features']!=features or value['num_prefix_tokens']!=5
-            or value['reg_token_shape']!=[1,4,features] or value['global_pool']!=('token' if policy is not None else 'avg')
-            or value['norm_eps']!=1e-5 or value['head_shape']!=[1,features] or value['head_dropout']!=.2
+            or value['reg_token_shape']!=[1,4,features] or value['global_pool']!=('token' if policy is not None and policy==VIT_DINO3_CLS_RULE else 'avg')
+            or value['norm_eps']!=1e-5 or value['head_shape']!=[1,features*4 if policy is not None and policy==VIT_DINO3_QUADRANT_RULE else features] or value['head_dropout']!=.2
             or value['blocks']!=12 or network.pos_embed is not None or not isinstance(network.head,torch.nn.Identity)
             or not isinstance(network.fc_norm,torch.nn.Identity) or set(buffers)!={'rope.periods'}
             or buffers['rope.periods'].shape!=(16,) or buffers['rope.periods'].dtype!=torch.float32
