@@ -15,3 +15,7 @@
 推理固定式为五个成员各输出一个单视图 logit，分别按相应内部 dev 均值和总体标准差标准化，再等权平均。表中常数来自原 fp32 dev logits，仅供当前标注为 fp32 预测的候选；fp16 文件在完整 dev 前向后应按原 F04 规则得到并记录实际 fp16 logits 的均值和总体标准差及融合指标，不凭小样本假定两套常数完全相同。
 
 现有内部验证入口为 `tools/diagnostics/f04_predict_member.py`：调用各轮冻结的 `retrain.inference._load_model`、`ImageDataset` 与 age 路径，严格载入导出的 fp16 state 到 fp32 模型。它目前仍先依赖原 selected checkpoint 构造模型，并非可直接提交的五成员独立入口；不能把大 checkpoint 当成最终文件或声称该入口已完成。最终需用各自版本化结构/配置直接构造，仅读取上述五份文件并使用精确预处理、age 与固定 z 常数，完成无原 checkpoint 的严格加载及单视图等权推理验证，再测完整 dev 的 fp16 输入、指标和文件总量。现役结束后的既有 Pod GPU 仅执行内部 dev 全量验证，不读官方；官方5849只对最终冻结方案一次。
+
+**独立加载准备范围（尚未完成）：** 新增 `tools/diagnostics/f04_standalone_member.py` 与对应窄测，复用已封存 F04 inventory/成员导出及各历史冻结 `retrain.inference._load_model`。仅在准备池从 selected 读取已验 job，生成带完整 age/结构身份的 `model.json`，对原 fp16 文件建立同文件系统硬链接 `model.pt`；不复制或修改权重。随后以导出目录独立严格加载，核 fp16 文件/tensor SHA、模型状态，以及同一固定合成图和 age 的单视图前向是否与直接装载 fp16 权重的历史模型一致。五个结果先逐成员留 exp-v3 小回执；不读取 dev/官方、不重新选成员、不进行 GPU 前向。此技术通过后才可作为全 dev GPU 验证入口的一个输入；GPU 入口仍须另做实际安全/锁/资源及发布校验，前轮终态时未备妥则直接启动已备妥后备轮。
+
+CPU 窄测在旧源码缺独立导出工具时失败 `95522962`；草稿以模型工厂严格加载 fp16 导出并拒绝篡改 SHA 通过 `e4533127`。这仅是隔离单元证据，五个真实成员各自历史 runtime 的独立构造与合成前向尚待逐个实测，完整 dev 及最终融合入口尚未完成。
