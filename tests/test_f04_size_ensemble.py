@@ -110,10 +110,29 @@ def test_paired_forward_uses_identical_inputs_and_rejects_nonfinite():
     else: raise AssertionError('nonfinite dev score accepted')
 
 
+def test_historical_dataset_signature_does_not_drop_real_preprocessing():
+    sys.path.insert(0, str(ROOT / 'tools/diagnostics'))
+    spec = importlib.util.spec_from_file_location('f04_predict', ROOT / 'tools/diagnostics/f04_predict_member.py')
+    predict = importlib.util.module_from_spec(spec); spec.loader.exec_module(predict)
+    class OldDataset:
+        def __init__(self, root, rows, size, training, normalization, prepared_size, age): pass
+    class NewDataset:
+        def __init__(self, root, rows, size, training, normalization, prepared_size, age, input_preprocessing=None): pass
+    job = {'normalization': 'imagenet', 'prepared_size': 512, 'age': {'enabled': False}}
+    assert 'input_preprocessing' not in predict.dataset_options(OldDataset, job)
+    assert predict.dataset_options(NewDataset, job)['input_preprocessing'] is None
+    job['input_preprocessing'] = {'registered': True}
+    assert predict.dataset_options(NewDataset, job)['input_preprocessing'] == job['input_preprocessing']
+    try: predict.dataset_options(OldDataset, job)
+    except ValueError: pass
+    else: raise AssertionError('configured preprocessing was silently discarded')
+
+
 if __name__ == '__main__':
     test_budget_stops_and_ties_use_original_order()
     test_state_export_contains_age_and_nonfloating_buffers()
     test_paired_metrics_and_equal_zscore()
     test_export_requires_one_eligible_general_source()
     test_paired_forward_uses_identical_inputs_and_rejects_nonfinite()
+    test_historical_dataset_signature_does_not_drop_real_preprocessing()
     print('F04 fixed budget, complete state export and paired-score tests passed', flush=True)

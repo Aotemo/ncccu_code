@@ -3,6 +3,7 @@ import argparse
 import copy
 import csv
 import hashlib
+import inspect
 import json
 import os
 from pathlib import Path
@@ -24,6 +25,20 @@ def paired_logits(model32, model16, images, age_features, job, forward):
             or not torch.isfinite(left).all() or not torch.isfinite(right).all()):
         raise FloatingPointError('invalid paired dev logits')
     return left, right
+
+
+def dataset_options(dataset_type, job):
+    """Honor historical loader signatures without dropping configured processing."""
+    options = {'training': False, 'normalization': job.get('normalization', 'imagenet'),
+               'prepared_size': int(job.get('prepared_size', 0)), 'age': job.get('age')}
+    parameters = inspect.signature(dataset_type.__init__).parameters
+    accepts_extra = any(value.kind == inspect.Parameter.VAR_KEYWORD for value in parameters.values())
+    configured = job.get('input_preprocessing')
+    if 'input_preprocessing' in parameters or accepts_extra:
+        options['input_preprocessing'] = configured
+    elif configured is not None:
+        raise ValueError('historical dataset cannot honor configured preprocessing')
+    return options
 
 
 def verify_prediction_blob(source, metadata):
@@ -103,10 +118,7 @@ def main():
             or cache != (work / science['paths']['prepared_cache']).resolve(strict=True)):
         raise ValueError('frozen train data or prepared cache differs')
     os.environ['TRAIN_IMAGE_CACHE'] = str(cache)
-    dataset = ImageDataset(data_root, manifest['rows'], int(job['image_size']), training=False,
-                           normalization=job.get('normalization', 'imagenet'),
-                           prepared_size=int(job.get('prepared_size', 0)), age=job.get('age'),
-                           input_preprocessing=job.get('input_preprocessing'))
+    dataset = ImageDataset(data_root, manifest['rows'], int(job['image_size']), **dataset_options(ImageDataset, job))
     indices = manifest['dev_indices'][args.offset:args.offset + args.count]
     loader = DataLoader(Subset(dataset, indices), batch_size=8, shuffle=False, **_loader_options(0, job))
     device = torch.device('cpu'); predictions = []; started = time.time()
