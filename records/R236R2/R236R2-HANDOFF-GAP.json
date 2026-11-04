@@ -1,0 +1,39 @@
+{
+  "status": "observed_event_intervals",
+  "previous_round": "r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+  "next_round": "r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+  "previous_whole_round_ended_at": 1793766809.032616,
+  "previous_whole_round_ended_UTC": "2026-11-04T04:33:29.032616+00:00",
+  "previous_last_train_update_at": 1793766700.4634986,
+  "next_dispatch_at": 1793768827.5252068,
+  "next_first_SSL_success_at": 1793768930.77373,
+  "next_natural_SSL_25_at": 1793768947.680427,
+  "seconds_end_to_dispatch": 2018.4925909042358,
+  "seconds_end_to_first_SSL_success": 2121.741114139557,
+  "seconds_end_to_SSL_25": 2138.6478111743927,
+  "seconds_last_old_train_update_to_first_SSL_success": 2230.31023144722,
+  "end_to_first_SSL_within_300_seconds": false,
+  "end_to_SSL25_within_300_seconds": false,
+  "continuous_GPU_utilization_measured": false,
+  "old_safe_proof_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/COMPLETION-actual-handoff-1.json",
+    "sha256": "94f21ed6c9b00ccd6246ddba9221bd890bb0cf64bf8181da8109db6e17b47896"
+  },
+  "old_clock_token_grant_modified": false,
+  "preparation_completed_during_previous_training": false,
+  "approval_wait": false,
+  "recorded_delays": [
+    "first_storage_rejection",
+    "closed_result_publication_and_checkpoint_deletion",
+    "second_storage_rejection_with_instant_reading_unknown",
+    "storage_observation_patch_publication_and_CPU",
+    "Kubernetes_API_EOF_and_transfers"
+  ],
+  "next_identity_activation_calls": 1,
+  "next_identity_GPU_entry_calls": 1,
+  "preserved_failed_activation_attempts_before_next_identity": 2,
+  "observed_intervals_include": "terminal_observation_existing_entry_validation_activation_and_native_initialization",
+  "existing_entry_text_prepared_before_terminal": false,
+  "original_R236_entry_prepared_before_terminal": true,
+  "continuous_idle_duration_not_inferred": true
+}

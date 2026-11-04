@@ -1,0 +1,11 @@
+{
+  "status": "unactivated_full_clock_plus_60s_currently_covered",
+  "at": 1793768774.4989986,
+  "round_id": "r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+  "site_sha256": "65bf85257318ff0f378bddf55d3327a3c405733a953be969fcd3f4f5e250ff43",
+  "remaining_seconds": 43016.08274269104,
+  "required_seconds": 31560,
+  "CPU_and_deployment_reused": true,
+  "GPU_started": false,
+  "formal_clock_created": false
+}

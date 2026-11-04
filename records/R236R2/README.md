@@ -1,0 +1,9 @@
+# R236R2 实际八rank强光度适配启动
+
+11-04 05:08:50.774 UTC首适配成功，05:09实观自然首75：[实际首成功](R236R2-START.json)3d62e66b/guard8244ae79、[公开初态门](R236R2-SSL-INITIAL-GATE.json)及[八rank](R236R2-SSL-INITIAL-RANKS.json)验证公开50c6f55c/encoder/public张量、空初始优化器和原projector形状。实际64图/128视图、64×256 embedding、128×128矩阵/1同图目标/126负视图/自身排除/.1、128 encoder-view forward和`ssl-strong-color-v1`消费成立，loss/梯度有限；首1 loss5.0321264、首75为1.4136722。完整1600、derived→原监督交接和完整内部指标仍待，不据SSL loss宣布收益。
+
+冻结c8004a695989aa76ab17f7cb493c6c486f100438/tree1f6a6d9c88d6c0e1e653204eeca610e5833fc118、R236原SCI266beb7f/order151，actual SITE65bf8525/部署50f33058，2822全树bytes/mode及新正式18/18通过03224975；公开实际50c6/345全训/空Adam保持。[准备与入口来源](R236R2-PREPARATION.json)：原严格存储门成功当次free26,719,813,632、threshold21,474,836,480，已进入既有handoff.storage。新身份一次activation b93ba0af/一次GPU入口/dispatch成功，无调用方预taskset或独立GPU预演。原R236和R236R1两次pre-clock存储失败仍保留；第二次失败瞬间free未记录，后验读数和本次成功不能证明其根因。
+
+[实测接续](R236R2-HANDOFF-GAP.json)：R234整轮结束→新dispatch2018.493秒、首1为2121.741秒、自然首25为2138.648秒，均明确超过300秒。包含两次激活存储拒绝、闭轮结果同步和9 checkpoint清理、补存储观测的源码/CPU/部署、Kubernetes EOF和传输；连续GPU利用率未测，不将整个间隔写成已测设备空闲。原R236入口在前轮训练期间已备，R2实际包和新入口在失败后才准备；两者分列，非声称R2已提前全部准备。最初metadata草稿误沿旧字段将R2入口写成提前准备，发布前另存corrected导出修正，原私有草稿保留，不修改冻结运行或重做模型前向。
+
+当前唯一owner845023/start379621036及八rank由实际首成功证明；私有实际定位`goal-20261103-4e0c/r236r2-pod-context.env`，first为ACTUAL-START-2，原r234 env仅历史/CPU继承来源。准备CPU3 78469136独占24核0–23、训练96核24–119互斥；只用任务图片/CSV，适配无标签/age/医学权重/旧teacher。严格完整R107/R120双门后仍优先固定seed27 R237，目标.995/AP>.9及raw.999尚未达到；当前活跃source/clock/token/grant保持冻结。

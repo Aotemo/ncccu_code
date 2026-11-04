@@ -1,0 +1,102 @@
+{
+  "status": "actual_eight_rank_SSL_start_and_preparation_verified",
+  "round_id": "r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+  "git_commit": "c8004a695989aa76ab17f7cb493c6c486f100438",
+  "tree_sha": "1f6a6d9c88d6c0e1e653204eeca610e5833fc118",
+  "science_sha256": "266beb7fba9de8199a1288d59a3ad03f8109ca36543344cd694bf69ef16a6139",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "65bf85257318ff0f378bddf55d3327a3c405733a953be969fcd3f4f5e250ff43",
+  "deployment_sha256": "50f3305848cff500b01389575934c0d4929aa01908e5fe04a66e3472835237e3",
+  "formal_clock_created": true,
+  "GPU_started": true,
+  "at": 1793769181.4089506,
+  "preparation_at": 1793768732.8835092,
+  "formal_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-dd_8nmrl/CPU-RECEIPT.json",
+    "sha256": "032249753e017ea40ec0a1f5b8bc6aaaa5b2f3a69cdf3c9f8df9953d43db49aa"
+  },
+  "activation_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-f_8ggtq3/CPU-RECEIPT.json",
+    "sha256": "b93ba0af030f80e2e8d819b49ca91d30bd4aeb14fec0201dbd35d7dbebdcf57e"
+  },
+  "window_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-x6lfzrnp/CPU-RECEIPT.json",
+    "sha256": "347c0115c40a7ceb9a80289d7666a1a0c68f4a467d7b05e1c5cc2c7a6ed166e6"
+  },
+  "source_matched_CPU_checks": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/activation-storage-20261104-4e0c/source-git/records/preparation/strong-color-20261104/CPU-CHECKS.json",
+    "sha256": "d1d46cd1f7b77538b7e0bc30f265f343bcb79795a87f824d21be0d684e3a1e60"
+  },
+  "deployment": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r2-20261104-4e0c-ready/DEPLOYMENT.json",
+    "sha256": "50f3305848cff500b01389575934c0d4929aa01908e5fe04a66e3472835237e3"
+  },
+  "remote_commit": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/activation-storage-20261104-4e0c/REMOTE-COMMIT.json",
+    "sha256": "5bacaa36d6329c07c2cb3a23021daba6a88813e3d2e0f8cbaa9dc79f31fe1676"
+  },
+  "remote_tree": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/activation-storage-20261104-4e0c/REMOTE-TREE.json",
+    "sha256": "b2145db1e5cb3952e72262261a10d1a185d0486f947d40944e9e3907fe302f9c"
+  },
+  "one_shot_activation": {
+    "status": "unique_activation_exit0",
+    "round_id": "r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+    "observed_at": 1793768779.0,
+    "preflight_sha256": "0da2226fd09c6f01ec077d311c49696546ded06486d650bb7e467381ad307da7",
+    "activation_audit_sha256": "71b44c9bb4cbdfd7c2896c965cc8b4745cd9965e4147558f47cf673f5553475e",
+    "GPU_started": false
+  },
+  "actual_activation_storage": {
+    "at": 1793768795.201431,
+    "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+    "free_bytes": 26719813632,
+    "minimum_free_bytes": 21474836480
+  },
+  "preserved_failed_attempts": {
+    "r236": {
+      "error": "ValueError('insufficient storage')",
+      "formal_clock": null,
+      "GPU_launcher_called": false,
+      "CPU_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-2txj_5it/CPU-RECEIPT.json",
+        "sha256": "b6d9a8176dd22cf315b14b044204cbffe555ad19e4b2b204aa98edef2b82754c"
+      },
+      "activation_exit": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236-20261104-4e0c-ready/activation-audit/ACTIVATION-EXIT.json",
+        "sha256": "bd6e4ebc32c7e0900f399d90604022a5e8fb78642bfdba75a13cb3be37611546"
+      }
+    },
+    "r236r1": {
+      "error": "ValueError('insufficient storage')",
+      "formal_clock": null,
+      "GPU_launcher_called": false,
+      "CPU_guard": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-be8vefii/CPU-RECEIPT.json",
+        "sha256": "e250d131d42270997ae5de48e7367fcb8fb638f27d60ed52634e5cc36e7ac55f"
+      },
+      "activation_exit": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r1-20261104-4e0c-ready/activation-audit/ACTIVATION-EXIT.json",
+        "sha256": "9ba890bf9a28b41fc9ce00d66fe8279a6713c78cb276397e2ecc35bf01b8090b"
+      }
+    }
+  },
+  "actual_start": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r2-20261104-4e0c-ready/ACTUAL-START-2.json",
+    "sha256": "3d62e66b371c17cbf14b341128c42856cfb390584d9871e2483888d83cdf5dc3"
+  },
+  "actual_start_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-9ueo88db/CPU-RECEIPT.json",
+    "sha256": "8244ae790a35f502ce2a404ca2ca66bd9aceecdae983943f402df1856405e023"
+  },
+  "one_actual_launcher_call": true,
+  "one_actual_dispatch": true,
+  "caller_pre_taskset_used": false,
+  "independent_GPU_rehearsal_run": false,
+  "full_1600_SSL_and_supervised_initial_not_yet_proven": true,
+  "initial_public_exact_to_original_local_P8": true,
+  "same_R115_sampling_learning_RNG_and_original_supervised_contract": true,
+  "only_fit_images_and_CSV": true
+}

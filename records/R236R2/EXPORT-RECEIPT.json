@@ -1,0 +1,19 @@
+{
+  "status": "small_start_and_full_R234_result_only",
+  "at": 1793769181.4824653,
+  "files": {
+    "records/R234/R234-COMPLETION.json": "94f21ed6c9b00ccd6246ddba9221bd890bb0cf64bf8181da8109db6e17b47896",
+    "records/R234/R234-RESULT-RECEIPT.json": "84afa8f8620faaa3ed2c79af7de2341b8ae511adf5c4f680ab43cdd9223a11f0",
+    "records/R234/R234-RESULT.json": "ada69a35998d06288f475c57b95910a2d72344107984a0e2428055ceb5edb7c6",
+    "records/R234/PAIRED-REPORT.json": "640a0ea797c10b01f63b95c7691f49c74e39f5fbea0ed41aeaaf130078292f8f",
+    "records/R234/ARCHIVE-RECEIPT.json": "48056208f0d5410fa033d973227b36eb6e92f0edeb4fe861fa106b711df1c66b",
+    "records/R236R2/R236R2-PREPARATION.json": "655cbd00b2a966ddaad56fc892e83e426c71c6dbcae84be326827cb369ea29be",
+    "records/R236R2/R236R2-START.json": "3d62e66b371c17cbf14b341128c42856cfb390584d9871e2483888d83cdf5dc3",
+    "records/R236R2/R236R2-REMOTE-COMMIT.json": "5bacaa36d6329c07c2cb3a23021daba6a88813e3d2e0f8cbaa9dc79f31fe1676",
+    "records/R236R2/R236R2-WINDOW.json": "8de50761ede8596cfe3ef548b0c9bf25ca0980aa98c6643c792f0f509f5086bc",
+    "records/R236R2/R236R2-HANDOFF-GAP.json": "08b9fe776b7aeaae75dd718ab4739a3ca4c6ee84c6a58c70542a81290fc19697",
+    "records/R236R2/R236R2-SSL-INITIAL-GATE.json": "a4ffa27280ee20cb85cb9c0ed5db6d7f13cc399f07e11ba917e469dd880232cf",
+    "records/R236R2/R236R2-SSL-INITIAL-RANKS.json": "ebca77c03c2ba7404042f88e2ab63928136efbe739ed9eed9eb040234f47dc62"
+  },
+  "no_images_predictions_weights_credentials": true
+}
