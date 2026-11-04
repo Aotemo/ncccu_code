@@ -200,7 +200,12 @@ def analyze_equal(args):
     from source_chain import cpu_context
     import paired_evidence as pe
     from retrain.n05_metrics import metrics
+    import torch
+    from retrain.persistence import load_file
+    from retrain.ema import select_variant,tensor_digest
     context=cpu_context();started=time.time()
+    torch.set_num_threads(max(1,int(os.environ['NCCCU_CPU_THREADS'])-2));torch.set_num_interop_threads(1)
+    if torch.cuda.is_initialized():raise ValueError('CPU analysis cannot initialize GPU')
     git_files=verify_git_inputs(args.remote_metadata,args.git_commit,args.config)
     cfg=json.loads(args.config.read_text())
     order=['R120','R134R1','R201','R197','R135','R107','R172','R180','R116','R182','R154']
@@ -217,7 +222,7 @@ def analyze_equal(args):
     work=Path(inv['manifest']['path']).parents[2];out=args.output.resolve()
     if not out.is_relative_to(work/'technical-prep')or out.exists():
         raise ValueError('new isolated technical-prep output required')
-    out.mkdir(parents=True);vectors={};members={};excluded=[]
+    out.mkdir(parents=True);vectors={};members={};excluded=[];loadable=[];weight_failures=[]
     for name in order:
         rows=[row for row in inv['members']if row['id']==name]
         if len(rows)!=1:raise ValueError('unique registered member inventory required')
@@ -248,13 +253,48 @@ def analyze_equal(args):
             vectors[name]=vector
         except (OSError,ValueError,KeyError,AssertionError)as error:
             excluded.append({'id':name,'reason':str(error),'type':type(error).__name__})
+            continue
+        if not present:
+            weight_failures.append({'id':name,'reason':'unique selected checkpoint missing','type':'MissingCheckpoint'})
+            continue
+        try:
+            checkpoint=Path(checkpoints[0]['path']);model_site=Path(row['science']['path']).parent/'SITE_BINDING.json'
+            payload=load_file(checkpoint,map_location='cpu')
+            keys=('NCCCU_SITE_BINDING','NCCCU_SITE_BINDING_SHA256')
+            previous={key:os.environ.get(key)for key in keys}
+            try:
+                os.environ.update(NCCCU_SITE_BINDING=str(model_site),NCCCU_SITE_BINDING_SHA256=sha(model_site))
+                state=select_variant(payload,selected['variant']);actual_tensor=tensor_digest(state)
+            finally:
+                for key,value in previous.items():
+                    if value is None:os.environ.pop(key,None)
+                    else:os.environ[key]=value
+            if actual_tensor!=row['selected_tensor_sha256']or payload['successful_updates']!=selected['successful_updates']:
+                raise ValueError('loaded selected tensor or successful update differs')
+            for key in ('model','image_size','prepared_size','normalization','precision'):
+                if payload['job'].get(key)!=science['job'].get(key):
+                    raise ValueError('loaded checkpoint input identity differs: '+key)
+            members[name]['checkpoint_load_verified_by_this_analysis']=True
+            members[name]['loaded_checkpoint']={'path':str(checkpoint),'blob_sha256':row['selected_blob_sha256'],
+                'tensor_sha256':actual_tensor,'variant':selected['variant'],
+                'sidecar_sha256':checkpoints[0]['sidecar']['sha256'],
+                'model_identity_site':{'path':str(model_site),'sha256':sha(model_site)}}
+            loadable.append(name)
+            print(json.dumps({'stage':'actual_selected_checkpoint_loaded','member':name,'tensor_sha256':actual_tensor}),flush=True)
+        except Exception as error:
+            weight_failures.append({'id':name,'reason':str(error),'type':type(error).__name__})
+        finally:
+            if 'state'in locals():del state
+            if 'payload'in locals():del payload
     admitted=[name for name in order if name in members]
     if 'R120'not in members or len(admitted)<2:raise ValueError('R120 and another verified saved-prediction member required')
-    write(out/'PREFLIGHT.json',{'status':'prediction_members_fixed_before_equal_fusion_and_correlations',
+    write(out/'PREFLIGHT.json',{'status':'prediction_and_weight_loadable_members_fixed_before_equal_fusion_and_correlations',
         'at':time.time(),'execution':context,'ordered_members':admitted,'members':members,'excluded':excluded,
         'manifest':inv['manifest'],'inventory':cfg['inventory'],'git_commit':args.git_commit,'git_files':git_files,
-        'checkpoint_weights_loaded':False,'model_constructed':False,'forward_calls':0,'official_read':False})
+        'weight_loadable_members':loadable,'weight_load_failures':weight_failures,
+        'checkpoint_weights_loaded':bool(loadable),'model_constructed':False,'forward_calls':0,'official_read':False})
     result=standardized_equal_schemes(labels,vectors,admitted,top_k=5)
+    subset=standardized_equal_schemes(labels,{name:vectors[name]for name in loadable},loadable,top_k=5) if len(loadable)>=2 else None
     f01=pe._pinned_json(cfg['F01_reference']);raw=pe._pinned_bytes(f01['prediction'])
     f01_rows=list(csv.DictReader(io.StringIO(raw.decode('utf-8-sig'))))
     if len(f01_rows)!=len(labels)or any(item['name']!=row['name']or item['label']!=str(row['label'])for item,row in zip(f01_rows,reference['dev'])):
@@ -276,6 +316,23 @@ def analyze_equal(args):
             writer=csv.DictWriter(stream,fieldnames=['name','label','logit']);writer.writeheader()
             for row,score in zip(reference['dev'],scores):writer.writerow({'name':row['name'],'label':row['label'],'logit':float(score)})
         predictions[identity]={'path':str(path),'sha256':sha(path)}
+    subset_report={'status':'insufficient_loaded_members_for_fusion','members':loadable,'failures':weight_failures}
+    if subset:
+        subset_changes={};subset_predictions={}
+        for scheme in subset['schemes']:
+            identity=scheme['id'];scores=subset['scores'][identity]
+            subset_changes[identity]={name:pe._error_changes(labels,base,scores,fixed)
+                for name,base in (('R120',vectors['R120']),('F01',f01_scores))}
+            if any(value['all']['candidate']!=scheme['error_twice']/2 for value in subset_changes[identity].values()):
+                raise ValueError('loadable subset pair mass differs from metric')
+            path=out/('dev-loadable-'+identity+'.csv')
+            with path.open('x',newline='')as stream:
+                writer=csv.DictWriter(stream,fieldnames=['name','label','logit']);writer.writeheader()
+                for row,score in zip(reference['dev'],scores):writer.writerow({'name':row['name'],'label':row['label'],'logit':float(score)})
+            subset_predictions[identity]={'path':str(path),'sha256':sha(path)}
+        subset_report={'status':'completed_weight_loadable_subset_dev_only','members':loadable,'failures':weight_failures,
+            'normalization':subset['normalization'],'schemes':subset['schemes'],'selected':subset['selected'],
+            'changes':subset_changes,'predictions':subset_predictions}
     matrix=np.stack([vectors[name]for name in admitted])
     rank_rows=[]
     for values in matrix:
@@ -299,17 +356,19 @@ def analyze_equal(args):
         'selected':selected,'predictions':predictions,'F01_reference':cfg['F01_reference'],'F01_metrics':f01_metrics,
         'changes':changes,'correlations':{'member_order':admitted,'Pearson':pearson.tolist(),'Spearman':spearman.tolist()},
         'pair_error_overlaps':overlaps,'fixed_positive_count':20,'remaining_positive_count':147,
+        'weight_loadable_subset':subset_report,
         'count':5140,'positive_count':167,'negative_count':4973,'selected_member_checkpoint_files_missing':missing,
-        'deployment_ready':False,'checkpoint_weights_loaded':False,'new_forward_calls':0,'GPU_initialized':False,
+        'deployment_ready':False,'checkpoint_weights_loaded':bool(loadable),'new_forward_calls':0,'GPU_initialized':torch.cuda.is_initialized(),
         'raw_dev_auroc_0995_met':selected['auroc']>=.995,'dev_AP_above_09_met':selected['ap']>.9,
         'official_labels_read':False,'official_forward':False,'TTA':False,'training_modified':False,
         'total_wall_seconds':time.time()-started,
         'limits':['Only two fixed equal schemes; selection still reuses internal dev.',
-                  'Saved predictions do not establish checkpoint availability or deployment readiness.',
+                  'Weight-loadable subset proves selected blob/tensor loading, not model construction or full deployment readiness.',
                   'No official result or overall-goal completion is established.']}
     write(out/'RESULT.json',report)
     print(json.dumps({'status':report['status'],'result_sha256':sha(out/'RESULT.json'),'output':str(out),
-        'selected':selected,'missing_checkpoint_members':missing,'changes':changes},indent=2),flush=True)
+        'selected':selected,'missing_checkpoint_members':missing,'changes':changes,
+        'weight_loadable_subset':subset_report},indent=2),flush=True)
 
 
 def main():
