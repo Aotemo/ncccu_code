@@ -1,5 +1,7 @@
 # 两个新Pod的实际环境绑定
 
+[自然监督交接汇总](DUAL-SUPERVISED-SUMMARY.json)21dffac4/CPUcb4c2414已核两轮适配均1600/0skip/0dev，以及各自原生监督八rank、345全训/5空Adam组、head-age和RNG、G64P8/448及资源池；各首25已通过。汇总时A525、B1350成功更新，完整所选结果仍待。只读导出实际小回执，不加载模型或重复forward。
+
 [实际双Pod首成功汇总](DUAL-START-SUMMARY.json)已由Pod CPU导出：两边各8rank、原生SSL公开初态50c6及自然首更新均通过，导出CPU740cb1de；监督模型CPU初态345全训/空Adam，监督原生初态仍待自然交接核验。当时R240R1适配750/1600、R242为1250/1600，完整内部dev结果仍待。当前训练使用c4b77a2冻结包；用户后续允许合规融合/禁止TTA及raw目标0.995的规则更新只作用于后续计划，未热改现役。
 
 用户选择两独立8卡实验并行；A UID04203d31/Node10.5.15.26，B UID37e3fb34/Node10.5.15.35。各120有效CPU、8张DCU，每卡实测68,702,699,520字节显存。实际Python3.12.7、torch2.10.0/torchvision0.25.0、numpy1.26.4、Pillow12.3.0；两个96核训练池分别与本Pod24核准备池互斥。A准备allocation9fca3bbf，B f48cb4b7，初始root0–11/peer12–23，未改旧allocation。

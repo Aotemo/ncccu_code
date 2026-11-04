@@ -1,5 +1,7 @@
 # 两独立8卡Pod接续（2026-11-04）
 
+**10:49 UTC 自然交接完成。** [监督双Pod汇总](../../records/environment/dual-pod-20261104/DUAL-SUPERVISED-SUMMARY.json)21dffac4/CPUcb4c2414：A525成功/0skip，B1350成功/0skip，仍无完整selected。两适配均1600/attempt1600/0skip/0dev，标签只来自fit、age不参与适配。原生监督八rank、345全训/5空Adam、head-age不变/factory RNG恢复、G64P8/448及资源池身份已各自然首25通过：A model3197c153、观察b5ea0574/guard44185282；B model85cf288d、观察f53355ee/guard2ec421df。仅复用quota监督metadata helper接受已登记SupMin版本，调用原`ssl_phase_completed`和`verify_records`核真实产物，没有新forward、模型加载、activation或clock重置。唯一4e继续控制两Pod；当前冻结c4b77a2保持，最新规则已06ace3c发布/API，新增F01只是准备，不把融合结果写成完成。
+
 **10:33 UTC 已真实并行运行，完整dev结果仍待。** A R240R1原生八rank/公开初态及首成功`75c10e76`、guard`81570bdb`通过，owner677/start381509155；B R242对应`1be111a1`/guard`35f4aa71`、owner432/start381475114通过。[两Pod小回执](../../records/environment/dual-pod-20261104/DUAL-START-SUMMARY.json)CPU导出`740cb1de`：当时A750/1600、B1250/1600，均有限loss/gradient，分别为同类SupCon及SupMin目标，每批8阳性/56阴性。两边18/18、345全训/空Adam、c4b77a2/treeed24的2959文件bytes/mode、各31560秒整窗、一次activation/direct launch均通过。实际SCI A1b1badea/Bcef33b16，SITE349d1597/525ac08a，部署ed0de39c/878895df。各训练96核24–119与准备24核0–23互斥，模型仍FP32/G64P8；真实首更新后不加GPU预演。
 
 用户最新规则已直接改raw目标为0.995，AP > 0.9保留；通用公开预训练可用，医学/眼底预训练禁止，允许内部dev选择成员/权重融合，禁止TTA。两现役冻结包、clock/token/grant及版本化官方门均保持。[F01融合准备](../auroc-999/F01-GENERAL-ENSEMBLE-20261104.md)先核真实合规依赖，暂保护R120/R238所选EMA及最小加载依赖，尚无融合结果或官方forward。c617清理已c4b77a2同步/API，其CPU树退出，原A12/12 allocation继续复用。新Pod准备窗口超过5分钟（NFS实际慢/旧handoff UID拒绝/源码同步与正式验收等），每个Pod Ready至首更新的实际时长列在上述JSON；连续设备空闲与利用率未测，不称满足五分钟。原完整源码展开最终成功；NFS慢期间尝试的链接暂存因tar对已有非空目录unlink失败，未用于任何正式包或GPU，原件保留。

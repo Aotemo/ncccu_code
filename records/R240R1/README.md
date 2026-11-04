@@ -1,5 +1,7 @@
 # R240R1：固定fit类别配额对照
 
+已[完整1600次适配](R240R1-SSL-RESULT.json)并自然进入监督：[原生八rank/首25](R240R1-SUPERVISED-START.json)b5ea0574/CPU44185282通过，实际监督初态3197c153、345全训/5空Adam组、原head-age与factory RNG恢复、G64P8/448。[10:49汇总](../environment/dual-pod-20261104/DUAL-SUPERVISED-SUMMARY.json)525成功/attempt525、0skip，完整selected仍待。该交接未重启owner或修改冻结包。
+
 在用户新建的独立Pod A fresh启动，未恢复旧R240身份。[正式18/18](R240R1-FORMAL-READY.json)与c4b77a2/treeed24的2959 Git文件精确部署通过；SCI1b1badea、SITE349d1597、部署ed0de39c。96训练核24–119与24准备核0–23互斥，G64/P8、FP32、1600适配后原监督24k/800/patience4均保持。
 
 [公开八rank及自然首成功](R240R1-START.json)SHA75c10e76、CPU81570bdb通过，owner677/start381509155；初始模型50c6、每批8阳性/56阴性，同类正对范围15–111、负视图16–112，loss/gradient有限。首次[unknown](R240R1-START-UNKNOWN.json)仅缺metrics，保留原件；没有再次activation或重启。[一次激活](R240R1-ACTIVATION.json)616074d9/CPUfccac619通过。
