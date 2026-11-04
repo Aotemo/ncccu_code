@@ -34,6 +34,10 @@ class HardCaseTests(unittest.TestCase):
         self.assertFalse(p3.near_duplicate(hashes, (hashes[0] ^ 31, hashes[1])))
         self.assertFalse(p3.near_duplicate(hashes, (hashes[0], hashes[1] ^ 31)))
 
+    def test_common_negative_requires_strict_misordering_by_every_model(self):
+        count = p3.shared_negative_count([0.5, 0.5], [[0.6, 0.7, 0.5], [0.2, 0.8, 0.9]])
+        self.assertEqual(count, 1)
+
 
 if __name__ == '__main__':
     unittest.main()

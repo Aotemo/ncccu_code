@@ -1,0 +1,34 @@
+{
+  "status": "p3_sealed_inputs_read_only_preflight",
+  "at": 1793807519.4153247,
+  "inventory_sha256": "a7ab1594e9b8a22430e1afb7a439e2559d59c52bbbcf3fd0b3d3c5bfd567dce4",
+  "f03_sha256": "6dbc0638247d6ac4e0a967528113b2d82834daf87ff3bf49861a5309b95b1119",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "dev_count": 5140,
+  "positive_count": 167,
+  "fixed_positive_count": 20,
+  "f03_member_count": 7,
+  "fit_count": 46256,
+  "review": {
+    "status": "verified",
+    "count": 36,
+    "fixed20_in_review": 20,
+    "positive_count": 28,
+    "negative_count": 8,
+    "mapping_sha256": "18e818b8b7b7ca8fcfb0cc45cb01f3a981f982cdd73e76a6c3e1c37102cd2c76",
+    "blind_sha256": "dfaa1d8b8a20b0f097411d9514a9e3d4158200a489274d120ee30f1677c09b85"
+  },
+  "roots": {
+    "data_root": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "exists": true
+    },
+    "metadata_root": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1",
+      "exists": true
+    }
+  },
+  "official_read": false,
+  "GPU_initialized": false,
+  "forward_calls": 0
+}

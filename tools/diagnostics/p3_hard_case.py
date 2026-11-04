@@ -61,6 +61,18 @@ def near_duplicate(first, second):
     return (first[0] ^ second[0]).bit_count() <= 4 and (first[1] ^ second[1]).bit_count() <= 4
 
 
+def shared_negative_count(positive_scores, negative_scores):
+    if not positive_scores or len(positive_scores) != len(negative_scores):
+        raise ValueError('one negative vector for each model is required')
+    if len({len(values) for values in negative_scores}) != 1:
+        raise ValueError('negative identities must have the same order across models')
+    shared = None
+    for score, negatives in zip(positive_scores, negative_scores):
+        above = {index for index, negative in enumerate(negatives) if negative > score}
+        shared = above if shared is None else shared & above
+    return len(shared)
+
+
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -129,7 +141,7 @@ def ranks(base, source, packet, output):
     private = {index: {'index': index, 'name': rows[index]['name'], 'label': labels[index],
                        'fixed20': index in fixed, 'reviewed_uncertain': index in reviewed,
                        'members': {}} for index in targets}
-    model_receipts = {}
+    model_receipts, negatives_by_member = {}, {}
     for member in members:
         row = candidates[member]
         spec = {key: row['spec'][key] for key in ('freeze', 'completion')}
@@ -138,6 +150,7 @@ def ranks(base, source, packet, output):
         if any(summary[key] != expected[key] for key in ('auroc', 'ap', 'variant', 'cycle', 'successful_updates', 'tensor_sha256')):
             raise ValueError('selected prediction identity or metrics differ from frozen F03')
         negatives = [score for score, label in zip(scores, labels) if label == 0]
+        negatives_by_member[member] = negatives
         for index in targets:
             score = scores[index]
             above = negative_above_mass(score, negatives)
@@ -151,17 +164,37 @@ def ranks(base, source, packet, output):
     for item in private.values():
         item['members_below_majority_negatives'] = sum(row['below_majority_negatives'] for row in item['members'].values())
         item['consensus'] = consensus(item['members_below_majority_negatives'], len(members))
+        if item['label'] == 1:
+            item['members_with_any_misordered_negative'] = sum(row['negative_above_mass'] > 0 for row in item['members'].values())
+            item['any_misorder_consensus'] = consensus(item['members_with_any_misordered_negative'], len(members))
+            item['shared_strictly_misordered_negatives'] = shared_negative_count(
+                [item['members'][member]['score'] for member in members],
+                [negatives_by_member[member] for member in members])
     groups = {'fixed20': [private[i] for i in fixed],
               'remaining_positive': [private[i] for i in targets if labels[i] == 1 and i not in fixed],
               'reviewed_positive': [private[i] for i in sorted(reviewed) if labels[i] == 1],
               'reviewed_negative': [private[i] for i in sorted(reviewed) if labels[i] == 0],
               'all_positive': [private[i] for i in targets if labels[i] == 1]}
+    def group_summary(items):
+        result = {'count': len(items), 'all': sum(x['consensus'] == 'all' for x in items),
+                  'mixed': sum(x['consensus'] == 'mixed' for x in items),
+                  'none': sum(x['consensus'] == 'none' for x in items),
+                  'negative_percentile_median_by_member': {member: float(np.median(
+                      [x['members'][member]['negative_midrank_quantile'] for x in items])) for member in members}}
+        if items and all(x['label'] == 1 for x in items):
+            shared = [x['shared_strictly_misordered_negatives'] for x in items]
+            result.update({'any_misorder_all': sum(x['any_misorder_consensus'] == 'all' for x in items),
+                           'any_misorder_mixed': sum(x['any_misorder_consensus'] == 'mixed' for x in items),
+                           'any_misorder_none': sum(x['any_misorder_consensus'] == 'none' for x in items),
+                           'shared_strict_negative_positive_count': sum(x > 0 for x in shared),
+                           'shared_strict_negative_count_median': float(np.median(shared)),
+                           'shared_strict_negative_count_max': max(shared)})
+        return result
+
     summary = {'status': 'completed_p3_fixed_member_rank_consistency', 'at': time.time(),
         'member_count': len(members), 'population': {'dev': len(rows), 'positive': 167, 'negative': 4973,
             'fixed20': 20, 'reviewed': 36, 'unique_targets': len(targets)},
-        'groups': {name: {'count': len(items), 'all': sum(x['consensus'] == 'all' for x in items),
-                          'mixed': sum(x['consensus'] == 'mixed' for x in items),
-                          'none': sum(x['consensus'] == 'none' for x in items)} for name, items in groups.items()},
+        'groups': {name: group_summary(items) for name, items in groups.items()},
         'interpretation': 'All/mixed/none count members below a majority of negatives; negatives are not called mistakes.',
         'input_inventory_sha256': sha(inventory_path), 'f03_sha256': sha(f03_path),
         'manifest_sha256': reference['manifest_sha256'], 'models': model_receipts,
@@ -169,7 +202,10 @@ def ranks(base, source, packet, output):
     output.mkdir(exist_ok=False)
     write(output / 'PRIVATE-RANKS.json', {'rows': list(private.values())})
     write(output / 'SUMMARY-RANKS.json', summary)
-    print(json.dumps({'status': summary['status'], 'population': summary['population'], 'groups': summary['groups'],
+    compact = {name: {key: value for key, value in summary['groups'][name].items()
+                      if key != 'negative_percentile_median_by_member'}
+               for name in ('fixed20', 'remaining_positive', 'reviewed_negative')}
+    print(json.dumps({'status': summary['status'], 'population': summary['population'], 'groups': compact,
                       'summary_sha256': sha(output / 'SUMMARY-RANKS.json'),
                       'private_sha256': sha(output / 'PRIVATE-RANKS.json')}, indent=2), flush=True)
 
