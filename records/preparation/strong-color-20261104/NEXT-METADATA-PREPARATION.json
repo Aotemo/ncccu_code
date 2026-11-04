@@ -1,0 +1,21 @@
+{
+  "status": "four_metadata_helpers_compiled_and_existing_baseline_setup_verified",
+  "at": 1793765769.622618,
+  "helpers": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/archive-r234.py": "a0c66fb288e09728dee5b13063eab6b5f02007ec11f6e93f58ea51a831da9f18",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/observe-r234-handoff-once.py": "71af265c4b28348820f65b6b6c7e1c5190d7500718897967da650d9ea8dc8208",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/observe-strong-color-start.py": "c9fbae4c1be3fa6adba16f291255b01d61bca405b7717abee3628a1844ef90bd",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/export-post-r234-ready.py": "31b0986fef4136fe37bb8fe8da1547ebf70bb66641567d1f3bf5b1835d8911c5"
+  },
+  "baseline_setup": {
+    "status": "result_archive_script_and_five_baseline_setup_ready",
+    "script_sha256": "a0c66fb288e09728dee5b13063eab6b5f02007ec11f6e93f58ea51a831da9f18",
+    "baseline_inventory": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/result-inputs/BASELINES.json",
+      "sha256": "11e998dbaef75e1118552b2bd1c2c3a770c96a93e0198e4d5458ae64785b6a3a"
+    },
+    "future_candidate_not_read": true
+  },
+  "future_R234_result_or_prediction_read": false,
+  "model_forward_or_GPU": false
+}

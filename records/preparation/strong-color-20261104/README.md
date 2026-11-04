@@ -6,4 +6,8 @@
 
 原真实公开局部P893ac00ab和R234自然八rank监督f618327b按相同模型/loss/gather/optimizer/derived源码复用，没有重复模型前向、冷derived或GPU预演。首次RED abc29247两目标均明确缺helper/recipe，随后CPU/source复用a5b11a8e通过；[准备回执](PREPARATION-RECEIPT.json)及导出guardc161500d仅小JSON，无图像、逐样本预测或权重出Pod。主Agent自审光度范围、原八draw及监督边界，按用户要求未派生Agent，无独立审查者。
 
-可变technical fixture仅CPU消费，不是正式部署；R236/R237两SCI为266beb7f/372407cb，发布源全树、技术包及R236正式CPU/部署待。当前唯一[R234监督4175](../../R234/R234-PROGRESS-strong-color-checks-ready.json)/c5/bad0、原owner及八rank活跃，临时EMA .9844971228/AP .8149208204，无完整selected。准备24核0–23/nice19/隐藏GPU与训练96核24–119互斥，当前565/SITE c5ad/clock/token/grant不改；.995/AP>.9及raw.999未达。
+正式发布源为c57e3ea78be8ecd31e1d4c25f67ab8d1fa50b264/tree31f31a2186ab71fd0d3dbabf98f9ee1d770791e7，GitHub commit/tree/ref回读及2792文件全部bytes/mode核对通过；[传输核验](TRANSFER-VERIFICATION.json)914130b6。可变technical fixture仅CPU消费；R236/R237两SCI为266beb7f/372407cb，[两技术包](TECHNICAL-PACKAGES.json)已备，R237尚无正式绑定、晋级或激活。
+
+[R236正式包](R236-FORMAL-READY.json)d6f216b6已完成18/18、公开实际初态50c6f55c/345全训张量/空Adam，SITE c4cb7dd9、部署24129974、guard74fdecb0；[原R235正式包](R235-FORMAL-READY.json)f6c64f7c保留565源/SITE80fc6382/部署de4fd083/guardcb22f8eb。04:16核实两者尚无activation/dispatch，31500+60秒完整窗口满足，最晚activation分别epoch1793777076.8788226及1793774889.518138；[联合核验](FORMAL-READY-VERIFICATION.json)和[小文件导出](FORMAL-EXPORT-RECEIPT.json)封存当时事实，不作为未来资格或过期后准入。唯一4e原四步入口已填实际身份，未重复GPU预演；私有四metadata helper仅编译/旧baseline核对，不读未来R234结果，见[NEXT准备](NEXT-METADATA-PREPARATION.json)。
+
+当时唯一[R234监督6825](../../R234/R234-PROGRESS-formal-next-ready.json)/c8/bad1/0skip、原owner及八rank活跃，临时EMA c7@5600 .9852701595/AP .8070188576，无完整selected。准备24核0–23/nice19/隐藏GPU与训练96核24–119互斥，当前565/SITE c5ad/clock/token/grant不改；.995/AP>.9及raw.999未达。04:21实查仍仅当前4e，无新增或恢复Agent。

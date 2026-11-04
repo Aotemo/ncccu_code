@@ -1,0 +1,10 @@
+{
+  "status": "small_readiness_and_live_progress_only",
+  "files": {
+    "records/R234/R234-PROGRESS-formal-next-ready.json": "a8866ec9b2ebc5accf38ee646fe93893bde3ff846e93cc5d2c5aac9aad0c8769",
+    "records/preparation/strong-color-20261104/FORMAL-READY-VERIFICATION.json": "d9a018ff0a44436087fa0a02a5d4a2f7dc8ab9b8e98e56574f61f21607b19f4e",
+    "records/preparation/strong-color-20261104/R235-FORMAL-READY.json": "f6c64f7c7e1e502ad794128325013a243d5753034b036296be1959837293de6b",
+    "records/preparation/strong-color-20261104/R236-FORMAL-READY.json": "d6f216b6a7a9c42ca497e32bce57b694d7c6b9d7c2065dfed6256e2c2c64338f"
+  },
+  "no_images_predictions_weights_credentials": true
+}

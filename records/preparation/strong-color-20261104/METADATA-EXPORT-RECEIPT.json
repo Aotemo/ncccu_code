@@ -1,0 +1,31 @@
+{
+  "status": "preparation_metadata_and_existing_export_verified",
+  "at": 1793766199.594831,
+  "completed_CPU_guards": {
+    "compile-post-r234-metadata.py": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-k9sul1yc/CPU-RECEIPT.json",
+      "sha256": "5d91e831d5a7c3f6cfe91d9033d27ca5d0c0a87627c2a0d191073daaf449e47e",
+      "exit_code": 0,
+      "task_tree_exited": true,
+      "wall_seconds": 0.2301950454711914
+    },
+    "export-post-r234-ready.py": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-54qq6hu6/CPU-RECEIPT.json",
+      "sha256": "991f1af3fe1f585f2c01189a0048ec48b739ef2facd1ccc32339e8a159ccf835",
+      "exit_code": 0,
+      "task_tree_exited": true,
+      "wall_seconds": 0.230210542678833
+    }
+  },
+  "formal_export_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/formal-ready-export/EXPORT-RECEIPT.json",
+    "sha256": "eb298121d9ed428340165e6aa275166340cfdb1b03822304712af65bc8485cb2"
+  },
+  "files": {
+    "TRANSFER-VERIFICATION.json": "914130b62d077b6ec029b8e45f838b503a70f6311d4263451bd6ed06e09857b8",
+    "NEXT-METADATA-PREPARATION.json": "4a5ce07e14f36ec96a731e392054b92eea028db0dc76f6ae4f3590498e5ed112",
+    "TECHNICAL-PACKAGES.json": "0a88e5cbcd942d10dfdf79a87675dd113b8887f8b497b21f0000a62a3167c74d"
+  },
+  "no_live_observation_model_forward_weights_or_predictions_read": true,
+  "private_export_helper_sha256": "0e498fb510d1530422471f5054b4236421ba92a3141b00688ff35e1efba33cff"
+}

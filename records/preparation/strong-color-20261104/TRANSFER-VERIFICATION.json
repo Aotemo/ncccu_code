@@ -1,0 +1,17 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "at": 1793765130.153913,
+  "git_commit": "c57e3ea78be8ecd31e1d4c25f67ab8d1fa50b264",
+  "tree_sha": "31f31a2186ab71fd0d3dbabf98f9ee1d770791e7",
+  "source_files": 2792,
+  "source_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/strong-color-20261104-4e0c/source-git",
+  "remote_commit_sha256": "bdc2379a0e487cda99bd7a7c2232e9e62d742ac41182352df8129e3c01f2818a",
+  "remote_tree_sha256": "e594fe42e6f7c506e194141e7a4f06216f380dd3c163f03c26e3fdcd540bdba1",
+  "affected_checks_reused": 3,
+  "checks_sha256": "d1d46cd1f7b77538b7e0bc30f265f343bcb79795a87f824d21be0d684e3a1e60",
+  "actual_local_P8_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/instance-contrastive-20261104-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "93ac00abe708243dd49d25e8cdaf21c90c35a5fe608b90ec827ad7ae0d1f3697"
+  },
+  "new_forward_or_GPU": false
+}
