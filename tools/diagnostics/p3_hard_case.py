@@ -5,6 +5,7 @@ output.  This tool never reads official data, changes labels, or trains models.
 """
 import argparse
 from bisect import bisect_left, bisect_right
+from collections import Counter
 import hashlib
 import json
 import os
@@ -61,7 +62,7 @@ def near_duplicate(first, second):
     return (first[0] ^ second[0]).bit_count() <= 4 and (first[1] ^ second[1]).bit_count() <= 4
 
 
-def shared_negative_count(positive_scores, negative_scores):
+def shared_negative_indices(positive_scores, negative_scores):
     if not positive_scores or len(positive_scores) != len(negative_scores):
         raise ValueError('one negative vector for each model is required')
     if len({len(values) for values in negative_scores}) != 1:
@@ -70,7 +71,17 @@ def shared_negative_count(positive_scores, negative_scores):
     for score, negatives in zip(positive_scores, negative_scores):
         above = {index for index, negative in enumerate(negatives) if negative > score}
         shared = above if shared is None else shared & above
-    return len(shared)
+    return shared
+
+
+def shared_negative_count(positive_scores, negative_scores):
+    return len(shared_negative_indices(positive_scores, negative_scores))
+
+
+def shared_pair_summary(shared_by_positive):
+    support = Counter(index for indices in shared_by_positive for index in indices)
+    return {'pair_count': sum(support.values()), 'unique_negative_count': len(support),
+            'negative_count_support_at_least_three': sum(count >= 3 for count in support.values())}
 
 
 def sha(path):
@@ -161,15 +172,17 @@ def ranks(base, source, packet, output):
                                   'prediction_sha256': summary['prediction']['sha256'],
                                   'precision_sha256': summary['precision']['sha256'],
                                   'auroc': summary['auroc'], 'ap': summary['ap']}
-    for item in private.values():
+    shared_by_positive = {}
+    for index, item in private.items():
         item['members_below_majority_negatives'] = sum(row['below_majority_negatives'] for row in item['members'].values())
         item['consensus'] = consensus(item['members_below_majority_negatives'], len(members))
         if item['label'] == 1:
             item['members_with_any_misordered_negative'] = sum(row['negative_above_mass'] > 0 for row in item['members'].values())
             item['any_misorder_consensus'] = consensus(item['members_with_any_misordered_negative'], len(members))
-            item['shared_strictly_misordered_negatives'] = shared_negative_count(
+            shared_by_positive[index] = shared_negative_indices(
                 [item['members'][member]['score'] for member in members],
                 [negatives_by_member[member] for member in members])
+            item['shared_strictly_misordered_negatives'] = len(shared_by_positive[index])
     groups = {'fixed20': [private[i] for i in fixed],
               'remaining_positive': [private[i] for i in targets if labels[i] == 1 and i not in fixed],
               'reviewed_positive': [private[i] for i in sorted(reviewed) if labels[i] == 1],
@@ -188,13 +201,24 @@ def ranks(base, source, packet, output):
                            'any_misorder_none': sum(x['any_misorder_consensus'] == 'none' for x in items),
                            'shared_strict_negative_positive_count': sum(x > 0 for x in shared),
                            'shared_strict_negative_count_median': float(np.median(shared)),
-                           'shared_strict_negative_count_max': max(shared)})
+                           'shared_strict_negative_count_max': max(shared),
+                           'shared_strict_pair_summary': shared_pair_summary(
+                               [shared_by_positive[x['index']] for x in items])})
         return result
 
+    group_results = {name: group_summary(items) for name, items in groups.items()}
+    pair_denominator = 167 * 4973
+    pair_total = group_results['all_positive']['shared_strict_pair_summary']['pair_count']
+    if (pair_denominator != 830491 or pair_total != sum(group_results[name]['shared_strict_pair_summary']['pair_count']
+                                                         for name in ('fixed20', 'remaining_positive'))):
+        raise ValueError('fixed groups or positive-negative denominator differ')
     summary = {'status': 'completed_p3_fixed_member_rank_consistency', 'at': time.time(),
         'member_count': len(members), 'population': {'dev': len(rows), 'positive': 167, 'negative': 4973,
             'fixed20': 20, 'reviewed': 36, 'unique_targets': len(targets)},
-        'groups': {name: group_summary(items) for name, items in groups.items()},
+        'groups': group_results,
+        'shared_strict_pair_denominator': pair_denominator,
+        'nonnegative_seven_member_auroc_upper_bound': 1 - pair_total / pair_denominator,
+        'upper_bound_scope': 'positive member standardization and nonnegative ensemble weights only; no new members',
         'interpretation': 'All/mixed/none count members below a majority of negatives; negatives are not called mistakes.',
         'input_inventory_sha256': sha(inventory_path), 'f03_sha256': sha(f03_path),
         'manifest_sha256': reference['manifest_sha256'], 'models': model_receipts,
