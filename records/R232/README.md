@@ -1,5 +1,7 @@
 # R232 固定9600 EMA历史窗口实际启动
 
+00:03后续[SSL750快照](R232-PROGRESS-after-r230-cleanup.json)c0aec43d/guardd2370b0f仍为原owner和八rank活跃，loss/gradient有限，原型已按722冻结边界自然解冻。旧R230[9 checkpoint清理及终检](../storage/closed-r230-20261103/README.md)完成，当前R232及其冻结/clock/token/grant保持，完整9600与监督收益仍待。
+
 唯一问题仍是[事前登记的时间尺度](../../todo/auroc-999/R232-R233-EMA-HORIZON-20261103.md)：在同一EMA跨视图目标上固定9600步，随后保持原监督合同。只用fit图片和CSV，fresh合规公开初始化，不继承R230状态。完整内部AUROC、AP和固定20/其余147修复及新增错序尚待；当前fit诊断不证明收益。
 
 [真实首200](R232-START.json)431b2df7/guardd925f9e4核实owner825876/start377725472和八rank活跃；[公开初态门](R232-SSL-INITIAL-GATE.json)、[八rank初态](R232-SSL-INITIAL-RANKS.json)均通过。完整公开模型50c6f55c及344公开张量、空初始优化器与正式CPU一致；教师1a1d51c8与学生及原P8精确一致，无梯度或参数共享。实际G64/P8、128唯一视图、64×65536输出、学生/教师合计256 encoder-view forward；首1 loss10.446009、首200 loss10.861097，梯度和损失有限，722步内原型冻结符合合同。9600完成、教师最终一致/丢弃和监督冷交接仍待。
