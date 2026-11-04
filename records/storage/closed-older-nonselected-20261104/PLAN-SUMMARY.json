@@ -1,0 +1,177 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "536b79456211cc9ad2ce1532f3385611a74c8e8382ab3c2d8ca669aa18e56476",
+  "inventory_sha256": "a3507c4d097a0bb7b0ddd032ba950dd00656633735a7ca5a5ccd5a4f78634ebc",
+  "source_commit": "905a5ff93e5b3749493f4f9aad92b25e262a4b25",
+  "candidate_count": 58,
+  "skipped": [],
+  "logical_bytes": 42738460922,
+  "allocated_bytes": 42738476544,
+  "filesystem_free_now": 39965425664,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r152-small22k-seed20261029-scale085-pairlog-global768-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r156-small22k-seed20261029-scale085-pairlog-positive-top2-mix05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r160-small22k-seed20261029-scale085-batch-aucmargin1-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r162-small22k-seed20261029-scale085-pairlog-cosine16-24k-p4-9010-20261102"
+  ],
+  "conclusions": {
+    "R135": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R135/R135-RESULT.json",
+        "sha256": "7daf40017c27d69669d0999c69c2aacbd9204fe8530e03962b5ee1b58eb2cebc",
+        "git_blob": "2cc314c199fe938df7cb8fb84b2b00501d1be57d"
+      },
+      "selected": {
+        "cycle": 10,
+        "variant": "ema",
+        "successful_updates": 8000,
+        "error_twice": 19168,
+        "ap": 0.8245256334018152,
+        "auroc": 0.9884598388182413,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv",
+        "prediction_sha256": "6524675619390f2752b59d0f779ab548275a67892b9c4434ecf6023f109fefff",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv.precision.json",
+        "precision_sha256": "6fdd4efef46bc9fc50b71f40991a4586cf7b7614471dbae28d5adc5f6b6efe33",
+        "tensor_sha256": "cfe343da157e330aa6aba024317a09826674ba63d441fd658402bac0f8126a39"
+      },
+      "freeze_metadata_sha256": "52c18f8520eed6abc071b6a26a12e09653fb39b4e8c38aa1074f0e37108550d3",
+      "historical_actual_safe": true
+    },
+    "R136": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R136/R136-RESULT.json",
+        "sha256": "629b64a0af45b118749c5e53eac03e513a37af99f831f50ee17047be10911dfa",
+        "git_blob": "b621814c8f7b262c38be700b543ef056f5b65c58"
+      },
+      "selected": {
+        "cycle": 4,
+        "variant": "ema",
+        "successful_updates": 3200,
+        "error_twice": 20984,
+        "ap": 0.82175064566623,
+        "auroc": 0.987366509691255,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101/outputs/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "prediction_sha256": "6d996daad077ae9c9ec91024c0386816267dc4329061538055f1cd213b53b7b1",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101/outputs/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "precision_sha256": "f7a522a2856436b5ad9ee8bd52491749f376e7c08a859e87b72977196b081a1e",
+        "tensor_sha256": "928e2d106a379637aeabff34ffcef8e4d8776e07ede7f5f6706290cd5f5c885f"
+      },
+      "freeze_metadata_sha256": "be0396b9f722e2ce5b0e0cb30aa8ada9abc47420cc8cd82182528ac361b7e873",
+      "historical_actual_safe": true
+    },
+    "R152": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R152/R152-RESULT.json",
+        "sha256": "89523edafec492416a3e3e3d87c873cfda6be8e228ea1acea443461821e76d55",
+        "git_blob": "ff5f81947fe771fcd2aa7f4ac5d5438c4a25e75d"
+      },
+      "selected": {
+        "auroc": 0.9875928818012477,
+        "ap": 0.8381138566395393,
+        "variant": "ema",
+        "cycle": 9,
+        "successful_updates": 7200,
+        "error_twice": 20608
+      },
+      "freeze_metadata_sha256": "acad2b9d7a9e25d99435b69a8cf6cfe0e4bd231b1f57c4a1076de66b48cfdcfc",
+      "historical_actual_safe": true
+    },
+    "R154": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R154/R154-RESULT.json",
+        "sha256": "9761eb92ab10588c91b4958f787b55eefe769a3ca7b46d6c657817f32e1d875e",
+        "git_blob": "920760efa2ea3c6d3726c7c84edac0f08926debc"
+      },
+      "selected": {
+        "auroc": 0.9836578602296714,
+        "ap": 0.8024213566293862,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 27144
+      },
+      "freeze_metadata_sha256": "71eb5602ff29a3e7ca9188be1954680db56d06b02785d45f367ee9f09424bf22",
+      "historical_actual_safe": true
+    },
+    "R156": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R156/R156-RESULT.json",
+        "sha256": "fed710b3536acd2555d822e7e4462703f3e1ba78d634a39031bae8a7e91a4f51",
+        "git_blob": "52a0d898fb26edf9dc79b5534b13931c14bc0731"
+      },
+      "selected": {
+        "auroc": 0.9860275427427871,
+        "ap": 0.8255205020020818,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 23208
+      },
+      "freeze_metadata_sha256": "749eecc41387a60b84157f1289ffcdc6ae8289b7aa57b60697429c3810d5e271",
+      "historical_actual_safe": true
+    },
+    "R158": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R158/R158-RESULT.json",
+        "sha256": "434a70d6f9cd04babd74254e53ea235fe07904c0542c5e72bfef3b62f7f937af",
+        "git_blob": "9f98b0cdd797a8e25dad5de20a487299d73630ac"
+      },
+      "selected": {
+        "auroc": 0.9864032241168177,
+        "ap": 0.8270582470791915,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 22584
+      },
+      "freeze_metadata_sha256": "99a39a83aaf67b0774c7f91b66fdf03e657d44f50d1451b7dffbb08d95eb802f",
+      "historical_actual_safe": true
+    },
+    "R160": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R160/R160-RESULT.json",
+        "sha256": "f1b261f282b65c8cc0f38258ecd92ecbb56f7eeb4e811b099428240d23be951b",
+        "git_blob": "7c9f7867ec558d45124d03300ac047405b539730"
+      },
+      "selected": {
+        "auroc": 0.9842021165792284,
+        "ap": 0.8029835679258244,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 26240
+      },
+      "freeze_metadata_sha256": "564ae6221d7442a4bf7c01e6cb37fa03254251b49aeb6d95bceca3f87b458fc4",
+      "historical_actual_safe": true
+    },
+    "R162": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/R162/R162-RESULT.json",
+        "sha256": "6183622504157cf2575f29c069f3b2b36707c9da924730585fc24f00932fcbc2",
+        "git_blob": "aa0f410d0f05abec160657e2cce7bd476c911ada"
+      },
+      "selected": {
+        "auroc": 0.9875302682389093,
+        "ap": 0.8272015483495194,
+        "variant": "ema",
+        "cycle": 5,
+        "successful_updates": 4000,
+        "error_twice": 20712
+      },
+      "freeze_metadata_sha256": "43e3ea4b73e96bb56826608cad680f11b859507a907963d7c6b35eafb5a19cd5",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/older-cleanup/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

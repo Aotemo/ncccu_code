@@ -1,0 +1,18 @@
+{
+  "status": "formal_CPU_and_precise_git_deployment_ready",
+  "round_id": "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104",
+  "at": 1793798966.3487272,
+  "git_commit": "66f4b808a84bd419894cab2fac1b070ff1476c6b",
+  "tree_sha": "0c3e91eb60ab7ae95eb8a94acaf1d295c1c829f4",
+  "science_sha256": "c43f2df3f8953bb0983d9eb9ea57fcdbc2aaa174620f911331e20bc87c7e7089",
+  "checks": 18,
+  "formal_cpu_sha256": "3c74fc535f85f12d390605acfe4157aa40f0da0c70ebf1759de6d52ccc2b859c",
+  "actual_initial_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "site_sha256": "6eb45180bc03259d0ed244031e3afb061f6b20cb22f92406162f9968e206e310",
+  "deployment_sha256": "25bb358dd1c7b1e3e9205d5d01d6c51ea590a44ba63597a6b8f19249a6849f32",
+  "grant_valid_until": 1793841486.3044853,
+  "grant_remaining_seconds": 42519.95445609093,
+  "required_seconds": 31560,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

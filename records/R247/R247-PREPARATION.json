@@ -1,0 +1,18 @@
+{
+  "status": "formal_CPU_and_precise_git_deployment_ready",
+  "round_id": "r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "at": 1793799065.9979186,
+  "git_commit": "66f4b808a84bd419894cab2fac1b070ff1476c6b",
+  "tree_sha": "0c3e91eb60ab7ae95eb8a94acaf1d295c1c829f4",
+  "science_sha256": "390ff0798f47be93fdb6b47cf6e2b260cb151e695e517e1a077c08474671bde9",
+  "checks": 18,
+  "formal_cpu_sha256": "d31824d2e530a73108309483d23b2ebc1fd3b4093550b2a205a01e2f23ab8fea",
+  "actual_initial_tensor_sha256": "864775ca1be0d6be0c6b42ae6b06b2ded0b45a825762a85a4617afc8eee54b33",
+  "site_sha256": "f7d49c2082de5044d209fd3fa4e0968037a8eb18bf25bf3e83a3e85c630f84e4",
+  "deployment_sha256": "6a519fef8197025123b7ec94d2059e72a6e6f2bb68c8ab0ec3da354cdf1d52de",
+  "grant_valid_until": 1793841649.198173,
+  "grant_remaining_seconds": 42583.19877934456,
+  "required_seconds": 31560,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

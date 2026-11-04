@@ -1,0 +1,18 @@
+{
+  "status": "snapshot_non_executable_blob_repairs_complete_pending_original_deployment_verifier",
+  "at": 1793798914.8316455,
+  "git_tree": "0c3e91eb60ab7ae95eb8a94acaf1d295c1c829f4",
+  "archive_sha256": "38152d73983cbe076b9703a81d64f834aafa4997b222138578f286265c5f8d73",
+  "repairs": [
+    {
+      "path": "records/R189/R189-INITIAL-GATE.json",
+      "before_blob": "c51f76bb6e5603fbc10eb729e6b247d4b6d9fae8",
+      "expected_blob": "9590a144b25977d1ac150bb5abb3e22976cd42f5",
+      "before_bytes": 6656,
+      "after_blob": "9590a144b25977d1ac150bb5abb3e22976cd42f5",
+      "after_sha256": "778882e29b70d833d68adc78643520a81fe786ce56af351131b3859cd849a7f1"
+    }
+  ],
+  "runtime_config_tools_tests_modified": false,
+  "GPU_started": false
+}

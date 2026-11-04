@@ -1,0 +1,8 @@
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "observed_at": 1793799115.0,
+  "preflight_sha256": "39d63b65e070626016e3461b5fb6ec19ecc41f315d71a43a458231485ae8a5a0",
+  "activation_audit_sha256": "45aa652cd63a982cef2ab4c106ca39ed003199fc63249f04771c923a6d7ecee9",
+  "GPU_started": false
+}

@@ -1,0 +1,8 @@
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104",
+  "observed_at": 1793799033.0,
+  "preflight_sha256": "83192602b1ce8515f623dc542940e103f56f704ccf4d91bf7a0154f63715b12b",
+  "activation_audit_sha256": "cfc7e2380d5402dbe1dce435bb62aa137bcd5432cf5fe04a5b7436c22c928c82",
+  "GPU_started": false
+}

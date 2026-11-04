@@ -1,0 +1,30 @@
+{
+  "status": "strict_CPU_model_construction_and_selected_state_loaded",
+  "at": 1793796827.0588286,
+  "member": "R134R1",
+  "source_commit": "49c8ad727073604135fc95f4984796e6b00a7808",
+  "frozen_source_files_verified": 59,
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+    "sha256": "524fb6fc568364fe2d25d02c375628cdb41525b87f66b30fce18c4fc5c4a4782"
+  },
+  "site_sha256": "8bf42228fa7c6d1250ee978829773e8c8cdb07660663a60567397bf42ced3a41",
+  "checkpoint": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt",
+    "bytes": 792155466,
+    "sidecar": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt.json",
+      "sha256": "01f7d582143823121e473782408e3b83d0daab2d73819e8d5254e3a75bc04f79"
+    }
+  },
+  "blob_sha256": "62cc2ab68be6a657a4a575c9347b12ad0d582d021e23d6062ce6abc1500ea375",
+  "selected_tensor_sha256": "1442a625f8596cf8357a9c1d58f4c7b40d998d1dbe9dfc6eb880a193edf10462",
+  "variant": "ema",
+  "successful_updates": 3200,
+  "model_constructed": true,
+  "strict_state_load": true,
+  "device": "cpu",
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

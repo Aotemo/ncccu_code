@@ -1,0 +1,30 @@
+{
+  "status": "strict_CPU_model_construction_and_selected_state_loaded",
+  "at": 1793796828.662239,
+  "member": "R154",
+  "source_commit": "04172db46eccc884f5d4e242c1235d066c8657af",
+  "frozen_source_files_verified": 59,
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+    "sha256": "71eb5602ff29a3e7ca9188be1954680db56d06b02785d45f367ee9f09424bf22"
+  },
+  "site_sha256": "96547e8539661e849954590f802cdf9a7d0a5b77be2623afeb11acb1d6fd802e",
+  "checkpoint": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101/outputs/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101-8c-swin_v2_small-s20261029-b64-p8-fp32/swin-v2-small/checkpoints/checkpoint-950067f65b044f6994533f00a2872107.pt",
+    "bytes": 786159053,
+    "sidecar": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101/outputs/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101-8c-swin_v2_small-s20261029-b64-p8-fp32/swin-v2-small/checkpoints/checkpoint-950067f65b044f6994533f00a2872107.pt.json",
+      "sha256": "d2986cacc5f0f1aae287f9b40e2b1ef554363cbc3825d7f9fdf1e69da74d950e"
+    }
+  },
+  "blob_sha256": "aad954815a4ae2fa9b5e51480a078c76a0d36146bc735643d7f7efc34b723c52",
+  "selected_tensor_sha256": "e0f48ff051d47b897cb8cb22c2d7a5d26dc0e72739ce9ea6abf79da5553f6259",
+  "variant": "ema",
+  "successful_updates": 3200,
+  "model_constructed": true,
+  "strict_state_load": true,
+  "device": "cpu",
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

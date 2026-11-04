@@ -1,0 +1,7 @@
+# R246/R247源码传输与校验
+
+Git `66f4b808a84bd419894cab2fac1b070ff1476c6b`、tree `0c3e91eb60ab7ae95eb8a94acaf1d295c1c829f4` 经push与GitHub API回读。共享盘源码通过单个压缩Git archive的五个固定分片传入；[分片回执](SHARD-RECEIPT.txt)记录Pod内接收流及落盘复核一致的SHA，合并archive SHA `38152d73983cbe076b9703a81d64f834aafa4997b222138578f286265c5f8d73`。
+
+旧复用SSH失联，直接流式解包和单个未压缩archive传输超时；部分初始文件因此不完整。两轮原部署验证均在历史记录`records/R189/R189-INITIAL-GATE.json`的blob不一致处拒绝，未创建clock/GPU；在Pod内完整清点并依据已验archive仅修复该文件，[修复回执](SOURCE-REPAIR-RECEIPT.json) SHA `37061038d57c33565261bda39156ebe692ba0149063e2ccc11fcffcfb863b7bb`，未改runtime/config/tools/tests。随后两Pod各自重新执行原全树逐文件Git blob与模式校验并通过，复用之前已通过的正式CPU，不覆盖失败回执。
+
+此前实际Pod侧tar和R247正式验证均曾处于`rpc_wait_bit_killable`，随后自然恢复；两轮安全终态至接续均超过五分钟，无法由点测推断连续设备利用率。后续保留已验证完整树，用版本化增量准备独立快照并再次完整校验；可匿名从Pod直连时优先使用已核验commit，不配置或复制凭据。
