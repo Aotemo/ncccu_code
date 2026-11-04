@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "at": 1793802204.2478237,
+  "window_sha256": "aba38b7497bd7983051571886cdf20e9c7ea20ed6753bbe9246add785c67dbf9",
+  "entry_sha256": "56465ccda816009e4e5d5108108acbd5dd7796570e4e0b46ceb05beaba308c97",
+  "cases": [
+    "small_single_includes_large_active_remaining",
+    "equal_floor_rejected",
+    "existing_peer_budget_reserved",
+    "large_single_includes_small_active_remaining"
+  ],
+  "synthetic_fixture": true,
+  "fixture_removed": true,
+  "GPU_initialized": false,
+  "activation_or_launch_executed": false
+}

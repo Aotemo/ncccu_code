@@ -16,3 +16,9 @@ Git `631ce2012e18c4ef6bee5f57e3fc6a6746195641` 已 push/API 回读，tree `dd913
 旧闭轮至 R236R2 非 selected 复查 [0项](OLDER-INVENTORY.json)，SHA `25a39157115472b3232f74e14a05c3510a8d1b27ddc47cd6b22e91902526dbe2`。统筹授权后，[R244/R245 非 selected 清理](../../storage/closed-r244-r245-nonselected-20261104/README.md)完成，free 点测 71,388,102,656 B；两现役仍消耗空间，须等对应安全终态、重核并行和活跃轮剩余预算。
 
 14:14 [容量投影](CAPACITY-PROJECTION-1413.json) `0c1106597a170395b253c681f1e6c25ca0bf0322938c1cf509bc16ab45261994`：free 68,454,187,008 B，现役 R246/R247 的剩余上限分别约 8.49/20.19 GB。统筹批准 R246 先终态接 R249/B，R247 先终态接 R248/A；第二个安全 Pod 接余下成员，启动时重新核容量。一次广域只读 `du` 超时并留下孤儿；第一次身份核验拒绝发信号，CPU 失败回执 `d55ed77996c48b4407e344860d071e6148e1a633f2f363e0c8ecd90273e15336`，复核 PID 已自行变为 cmdline 为空的 `du` 僵尸，不再执行、未发信号，[状态回执](DU-STATE.json) `1d1fe96350491a1f3cde779de6b18d243d26e43b4e672512912fb3adc7b56d42`。此后不再扫描整个 technical-prep。
+
+Pod B 在隐藏设备的准备池禁用 credential helper 和提示后，匿名 GitHub `ls-remote` 30秒超时、exit 124；回执 `235282a3b22819fb7a573fd53b4b088ac41df84c574b54b3e96faffc9256a901`。代理信息仅保留脱敏结果，未复制凭据。后续使用已校验旧树与增量传输，并保持完整 tree 验证。
+
+[容量入口隔离测试](CAPACITY-WINDOW-TEST.json) `d59257083522a48096ae10949ab775884162f7a0e0f42e696a5001935e5238d5`：Small 或 Large 单轮接续时计入另一活跃轮的剩余上限，等于门槛被拒，另一新轮存在时保留其剩余预算；均为模拟数据、不代表生产容量或实际 activation，临时 fixture 已清除。
+
+现用入口在此基础上复核已有对侧新轮的 SITE/RUNTIME、Pod UID 和 commit；[五项隔离测试](CAPACITY-WINDOW-TEST-v3.json) `2b26c7371302169214698288b3d46c370ef2fa106b15c4eb65dbbadff10aa967` 包含错误对侧 Pod 身份拒绝，仍不替代实际启动前检查。
