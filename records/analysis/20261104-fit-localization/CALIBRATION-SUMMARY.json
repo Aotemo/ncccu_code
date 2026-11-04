@@ -1,0 +1,20 @@
+{
+  "status": "calibration32_only_not_heldout_validation",
+  "at": 1793751664.6541626,
+  "count": 32,
+  "manual_unknown": 2,
+  "located": 32,
+  "disc_contained_in_fixed_native_window": 30,
+  "disc_and_margin_contained_in_fixed_native_window": 23,
+  "median_center_error_in_box_half_diagonal": 0.20010011440668815,
+  "algorithm_seconds": 23.057697772979736,
+  "total_seconds": 33.87998032569885,
+  "notes_sha256": "f0c66c0471b1e13c52050604bb0817c126be5b177071a33cce2af31c78b4bc22",
+  "predictions_sha256": "52c75a11e65c1734a2d94a23af6368f9c0ef52a650b71ae92812b52361105d02",
+  "preprocessing_sha256": "f14db5f98ba86b229d1cade25d906b7a6985b124e6873cee93b8ad1b298624b1",
+  "heldout64_predictions_or_review_performed": false,
+  "strict_heldout_63_of64_gate_passed": false,
+  "dev_or_official_used": false,
+  "model_forward": false,
+  "disease_labels_changed": false
+}

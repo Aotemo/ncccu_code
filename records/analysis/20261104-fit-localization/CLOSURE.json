@@ -1,0 +1,66 @@
+{
+  "status": "stopped_at_calibration_not_eligible_for_training",
+  "at": 1793751798.6056125,
+  "calibration_summary": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-disc-localization-20261104-4e0c/CALIBRATION-SUMMARY.json",
+    "sha256": "b78676724858b80b045ee8af0d7246198dffc89e4ed390427d68620f0a918562"
+  },
+  "notes_sealed_before_first_task_prediction": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-disc-localization-20261104-4e0c/CALIBRATION-NOTES-SEALED.json",
+    "sha256": "f0c66c0471b1e13c52050604bb0817c126be5b177071a33cce2af31c78b4bc22"
+  },
+  "private_predictions": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-disc-localization-20261104-4e0c/CALIBRATION-PREDICTIONS.json",
+    "sha256": "52c75a11e65c1734a2d94a23af6368f9c0ef52a650b71ae92812b52361105d02"
+  },
+  "CPU_guards": {
+    "missing_behavior": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-4yr1pn4l/CPU-RECEIPT.json",
+      "sha256": "020981c8cf742937075433f9626e97ab0d3e303bca3c9bc11a5077ca756e70bd",
+      "exit_code": 1
+    },
+    "first_geometry_failure": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-2nml946i/CPU-RECEIPT.json",
+      "sha256": "3cc52c92891fdf17d5c2ba4df0a3bab880f9463c6b37cadb3f666a3e50c37af8",
+      "exit_code": 1
+    },
+    "synthetic_diagnosis": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-nvwxak3x/CPU-RECEIPT.json",
+      "sha256": "cf2c8bda4c13dbf57cac4b5cafa4aaeb1df53e0a0eb5525f8e80a08a9320e0e4",
+      "exit_code": 0
+    },
+    "geometry_green": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-jmu4ygr1/CPU-RECEIPT.json",
+      "sha256": "256e6525629a5647537d884a76113fa1de652c76970c5834696f62b64ca755f9",
+      "exit_code": 0
+    },
+    "packet": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-i3uyjtk8/CPU-RECEIPT.json",
+      "sha256": "18b481ae872457a341e2551854b058af699549552d2720b043360c876dbfd253",
+      "exit_code": 0
+    },
+    "calibration": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-fxzk03qw/CPU-RECEIPT.json",
+      "sha256": "02fbf83199832e99b2cd97d8ed9649e3f912a1b92fd17664827a41fa5d1e0058",
+      "exit_code": 0
+    }
+  },
+  "production_helper_source": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-disc-localization-20261104-4e0c/source/runtime/bundle/retrain/preprocessing.py",
+    "sha256": "f14db5f98ba86b229d1cade25d906b7a6985b124e6873cee93b8ad1b298624b1"
+  },
+  "test_source": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-disc-localization-20261104-4e0c/test_disc_localization.py",
+    "sha256": "7aa04ac37a284f093bd1517455884f770a4b3c166cab184ea3ae9b28d2d388e6"
+  },
+  "original_default_source": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-horizon-20261103-4e0c/source-git/runtime/bundle/retrain/preprocessing.py",
+    "sha256": "36d0e32419970e63d3527399347cc7ee3cfe32943948cf7b0494402f4a5d9456"
+  },
+  "unchanged_existing_top_level_scopes": 7,
+  "heldout64_opened_or_predicted": false,
+  "heldout_gate_passed": false,
+  "disease_labels_changed": false,
+  "training_policy_uses_helper": false,
+  "reason": "30/32 rough discs contained but only23/32 contain the fixed required neighbor margin; 2 technical unknowns. Calibration only, no estimate of heldout accuracy. No window or radius scan."
+}

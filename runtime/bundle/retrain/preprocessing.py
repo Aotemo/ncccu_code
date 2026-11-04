@@ -44,6 +44,97 @@ def bright_center_crop(image, policy):
     return image.crop(bright_center_box(image,policy))
 
 
+def locate_optic_disc(image):
+    """Fixed, image-only geometry pilot; unused by existing training policies.
+
+    Bright radial symmetry is qualified by coarse dark-line density. Returned
+    evidence is not a calibrated probability, medical contour, or diagnosis.
+    Coordinates refer to the caller's RGB pixels; no input pixels are changed.
+    """
+    from PIL import ImageFilter
+    if image.mode != 'RGB':
+        raise ValueError('disc localization requires explicit RGB pixels')
+    unknown = {'status': 'unknown', 'center_xy': None, 'native_box': None,
+               'version': 'bright-radial-vessel-density-v1'}
+    if min(image.size) < 64:
+        return {**unknown, 'reason': 'image_too_small'}
+    scale = min(1., 480 / max(image.size))
+    size = tuple(max(1, round(v * scale)) for v in image.size)
+    thumb = image.resize(size, Image.Resampling.BILINEAR)
+    channel = thumb.getchannel('G')
+    green = np.asarray(channel).astype(np.float32)
+    field = np.asarray(thumb).max(axis=2) > 12
+    field = np.asarray(Image.fromarray(field.astype(np.uint8) * 255).filter(
+        ImageFilter.MinFilter(15))) > 0
+    if np.count_nonzero(field) < 1000:
+        return {**unknown, 'reason': 'insufficient_field'}
+    closed = np.asarray(channel.filter(ImageFilter.MaxFilter(17)).filter(
+        ImageFilter.MinFilter(17))).astype(np.float32)
+    response = np.clip(closed - green, 0, 255).astype(np.uint8)
+    hist = np.bincount(response[field], minlength=256).astype(np.float64)
+    count = hist.cumsum(); total = count[-1]
+    weighted = (hist * np.arange(256)).cumsum()
+    denominator = count * (total - count)
+    variance = np.zeros(256)
+    np.divide((weighted[-1] * count - weighted * total) ** 2, denominator,
+              out=variance, where=denominator > 0)
+    threshold = max(4, int(variance.argmax()))
+    vessels = (response > threshold) & field
+    if np.count_nonzero(vessels) < 64:
+        return {**unknown, 'reason': 'insufficient_dark_line_support'}
+    density = np.asarray(Image.fromarray(vessels.astype(np.uint8) * 255).filter(
+        ImageFilter.GaussianBlur(12))).astype(np.float32) / 255
+    normalized_density = density / max(float(density.max()), 1e-6)
+    smooth = np.asarray(channel.filter(ImageFilter.MedianFilter(7)).filter(
+        ImageFilter.GaussianBlur(1.5))).astype(np.float32)
+    gy, gx = np.gradient(smooth)
+    magnitude = np.hypot(gx, gy)
+    gradient_threshold = max(1., float(np.quantile(magnitude[field], .75)))
+    ys, xs = np.where(field & (magnitude > gradient_threshold))
+    if len(xs) < 64:
+        return {**unknown, 'reason': 'insufficient_radial_edges'}
+    weights = magnitude[ys, xs]
+    ux, uy = gx[ys, xs] / weights, gy[ys, xs] / weights
+    height, width = green.shape
+    symmetry = np.zeros_like(green)
+    for radius in (10, 14, 18, 22, 28, 34, 42):
+        px = np.rint(xs + radius * ux).astype(np.int64)
+        py = np.rint(ys + radius * uy).astype(np.int64)
+        valid = (px >= 0) & (px < width) & (py >= 0) & (py < height)
+        bins = py[valid] * width + px[valid]
+        orientation = np.bincount(bins, minlength=width * height).reshape(green.shape)
+        strength = np.bincount(bins, weights=weights[valid],
+                               minlength=width * height).reshape(green.shape)
+        score = np.minimum(orientation, 9.9) ** 2 * strength
+        peak = float(score.max())
+        if peak > 0:
+            quantized = np.rint(score * (255 / peak)).clip(0, 255).astype(np.uint8)
+            blurred = np.asarray(Image.fromarray(quantized).filter(
+                ImageFilter.GaussianBlur(radius / 4))).astype(np.float32) / 255
+            # Restore vote strength after quantized filtering and combine
+            # evidence across scales; a per-scale maximum favors small cavities.
+            symmetry += blurred * peak
+    symmetry /= max(float(symmetry.max()), 1e-6)
+    combined = symmetry * np.maximum(.1, normalized_density) * field
+    y, x = np.unravel_index(int(combined.argmax()), combined.shape)
+    peak = float(combined[y, x])
+    if peak <= 0 or float(density[y, x]) < .02:
+        return {**unknown, 'reason': 'no_joint_radial_and_vascular_support'}
+    cx = (x + .5) * image.width / width - .5
+    cy = (y + .5) * image.height / height - .5
+    side = max(1, round(min(image.size) / 2))
+    left = max(0, min(image.width - side, round(cx - side / 2)))
+    top = max(0, min(image.height - side, round(cy - side / 2)))
+    yy, xx = np.ogrid[:height, :width]
+    separated = combined.copy()
+    separated[(xx - x) ** 2 + (yy - y) ** 2 <= 60 ** 2] = 0
+    return {'status': 'located', 'version': unknown['version'],
+            'center_xy': [cx, cy], 'native_box': [left, top, left + side, top + side],
+            'evidence': {'threshold': threshold, 'vessel_pixels': int(vessels.sum()),
+                         'local_vessel_density': float(density[y, x]),
+                         'joint_peak': peak, 'separated_peak_ratio': float(separated.max()) / peak}}
+
+
 def global_native_inset(global_image, native_image, policy):
     from .config import GLOBAL_NATIVE_INSET_RULE
     if policy!=GLOBAL_NATIVE_INSET_RULE or global_image.mode!='RGB' or native_image.mode!='RGB':
