@@ -14,3 +14,5 @@ R261/A 与 R262/B 已首成功。按最近 R259 的 9600 次约 76 分钟、R260
 备选是等待 P3 全量结果及用户决定后再准备，但 R261/R262 若更早安全终态可能造成空闲；现有视盘定位未过预登记几何门，R255 异构 ViT 单模过低，尚无满足既定门槛的其他 Small 配方可直接替换。故先提出复用已批准配方的新 seed 作为有条件后备；这不意味着能打破共有错序，也不据此延后已决定的冻结。
 
 拟影响范围仅 `runtime/bundle/retrain/experiment91.py` 的两个身份绑定、四份 `configs/R263-{A,B}-SCIENCE.json` / `configs/R264-{A,B}-SCIENCE.json`、对应原配方/seed 窄测、本合同及必要小型回执；复用现有模型、正式 CPU、Git tree/部署、容量门、后台入口。计划在 R261/R262 期间完成两 Pod 四变体的 CPU 和精确部署；未经 c607 的排队批复、实际前轮安全终态和现场容量门，不启动。P3 限速 CPU 扫描、F04 全 dev fp16 入口准备与只读监控继续。
+
+**23:29 CPU 准备进度：** Git 全史及 Pod 124 个实际轮次检索两个 seed 无命中、无 unknown，Small 公共权重核验，回执 `c5770d52001de910d402bafe2bce6fed6246855e3f142db2de25bb54e1d4c2c8`。旧身份窄测按预期失败 `f86667e4`，新增身份及原配方/官方门测试通过 `15459edd`。CPU fresh 初态张量 SHA：R263 `67f0bf65083bd63d0262c5b690229e16335b2fc174678c9158bf061042bbab72`、R264 `e7cc52df4f039eb02c43be90e528f37af643dcf3d0d7b4b6077db65863fa5957`；Pod A/B 配置与公开资产绑定回执 `fa872c3d` / `e9cc19e1`。跨批接续测试对旧门预期失败 `1e12ea63`，新门 CPU 96 项通过 `3da1f5fb`。四变体尚待 Git 推送、完整树、正式 CPU/部署；均未 activation/launch，GPU 排队仍待 c607 批复。
