@@ -1,0 +1,19 @@
+{
+  "status": "detached_activation_and_unique_launch_verified",
+  "at": 1793833163.6417868,
+  "round_id": "r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104",
+  "site_binding_sha256": "7f53d254ad3b1b35ee576fb27e60f04bd8ee7b22dff9109796c6bfe6f3436981",
+  "controller_sha256": "c5e2d2f1806f2e6a5e8d98dfb31a15fc9b2ebf4bc578c7e04c00dcc8064fefe5",
+  "stage_sha256": {
+    "CLAIM": "efa0fc1ce040938322722a7fe657587aee0b020e067473e57eb7ed73cec3a01b",
+    "STARTED": "53c5fb7bba594fc8d5ab52ef8874ba71672918f3e95ce055d42b908298f534f5",
+    "ACTIVATION": "df69aa2ee9b6392ea10aa136e540789faf1eab0f8f63b62c7cc6a064af6f3912",
+    "LAUNCH": "bb5e297b51c6793700341628a9276d4560acf869ff6a51df3c785e356ea21e56",
+    "RESULT": "7cc665a91b329f1830af4198545deba04b23d68bcffddcb7f2e7e85e6d42800f"
+  },
+  "activation_seconds": 81,
+  "launch_seconds": 4,
+  "dispatch_sha256": "7d1f1ef7762d2ac05ec6e6955629232d27bb09517fcf9e02164bcec06ae7b31a",
+  "signals_sent": false,
+  "GPU_initialized_by_observer": false
+}
