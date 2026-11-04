@@ -1,0 +1,37 @@
+{
+  "status": "R238_archive_and_existing_formal_entry_helpers_syntax_and_sealed_baselines_passed",
+  "at": 1793779328.4690888,
+  "files": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/archive-r238.py": "5209e078f9f54b00efe69d9877b375752eb6576c17c993decb59a99194e3a29c",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/formal-fit-label-next.py": "f378bfdf1a5bd64c196afc8b2cf1a671725d0487ff55a03f8eeb1b12d9dd68a0"
+  },
+  "future_candidate_read": false,
+  "model_load_or_forward": false,
+  "formal_or_GPU_execution": false,
+  "CPU_mask": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ]
+}

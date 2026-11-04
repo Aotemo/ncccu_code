@@ -1,0 +1,37 @@
+{
+  "status": "native_eight_rank_first_success_and_real_handoff_exported",
+  "at": 1793779079.6987765,
+  "CPU_guards": {
+    "CAPACITY-CPU-RECEIPT.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-8vcdebic/CPU-RECEIPT.json",
+      "sha256": "f28fd7f756b6fe9a2f3d870a3dc45dd8cbf5632a538998be1245b68edcacb5c7"
+    },
+    "WINDOW-CPU-RECEIPT.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-3joi7bhm/CPU-RECEIPT.json",
+      "sha256": "240a0daa8b2a3ea767a30674d1123a2930e3881dd0e37efb3625283f6803158e"
+    },
+    "ACTIVATION-CPU-RECEIPT.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-smxyhlu1/CPU-RECEIPT.json",
+      "sha256": "8fc2acc828fb99fc50821da4ef8df8d4bd6c30fbe1ad4a60b45421c479ea40fe"
+    },
+    "START-CPU-RECEIPT.json": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-msedj_e1/CPU-RECEIPT.json",
+      "sha256": "3ec3b7227b7c2cee9df427dfe5d6ad0349c9d647eb110750b81b6204a785c4ab"
+    }
+  },
+  "files": {
+    "records/R238/ACTIVATION-CPU-RECEIPT.json": "8fc2acc828fb99fc50821da4ef8df8d4bd6c30fbe1ad4a60b45421c479ea40fe",
+    "records/R238/CAPACITY-CPU-RECEIPT.json": "f28fd7f756b6fe9a2f3d870a3dc45dd8cbf5632a538998be1245b68edcacb5c7",
+    "records/R238/R238-ALLOCATION-WINDOW-prelaunch.json": "dea8ecdf63c244de466b671c5163bb638b7f7a387cee3b8c9d3bb615df325bd0",
+    "records/R238/R238-CAPACITY-prelaunch.json": "ce10deabd47a28a4d708514a1dd5d5b3b8655ec21c5a7108873f84b4b833011d",
+    "records/R238/R238-HANDOFF-GAP.json": "4662c990a0a7683d343022a891a7151384be9d99883ef1ef4e8df1dae25ae733",
+    "records/R238/R238-PREPARATION.json": "f37bcb2cc5c1fdc630e4b57956d2ae7fb6a06286726aac3bfdeeb1d8142dfa26",
+    "records/R238/R238-PUBLIC-INITIAL.json": "3427278b82215dd5592c4ea5a92d63d5191b1ea95d0f10a627c20423598d43e1",
+    "records/R238/R238-REMOTE-COMMIT.json": "b32ff13f40091c6c01a3c255b05404de6aeb3ed136bdf9acddaa4bfe45659cbe",
+    "records/R238/R238-START-UNKNOWN.json": "a9d7f4c4d09eaa467ca2676324be2483a8c083b347fb99dc63fdba7fdeb33db1",
+    "records/R238/R238-START.json": "467ae32d317796434edcf733c182faa9e4bb50174857b965b1ee5aee221cbf00",
+    "records/R238/START-CPU-RECEIPT.json": "3ec3b7227b7c2cee9df427dfe5d6ad0349c9d647eb110750b81b6204a785c4ab",
+    "records/R238/WINDOW-CPU-RECEIPT.json": "240a0daa8b2a3ea767a30674d1123a2930e3881dd0e37efb3625283f6803158e"
+  },
+  "model_forward_or_GPU_by_export": false
+}

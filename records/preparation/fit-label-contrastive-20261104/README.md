@@ -1,5 +1,7 @@
 # fit CSV同类关系准备与CPU证据
 
+当前进展：R236R2完整双门false，R237不eligible；用户R120提交与往返SHA已交付。R238已一次激活并[实际公开八rank/自然首50](../../R238/README.md)通过467ae32d/guard3ec3b722；原3bd/SITE4bb2冻结，首unknown保留，完整1600/监督及科学结果仍待。旧R236R2 safe不重查；R239/R240正式CPU/部署按计划在监督期间完成。下文的“未激活”“当前R236R2”为当时准备快照。
+
 [事前合同](../../../todo/auroc-999/R238-R239-FIT-LABEL-CONTRASTIVE-20261104.md)b489f61已push/API回读，登记在R236R2任何dev读取前。新信号仅为同fit CSV标签的所有非自身视图作为正对；属于有监督表征适配，不声称无标签SSL或标签经专家确认。R236R2完整过门仍优先原R237；新R238还须胜完整匹配R236R2及R107/R120，才资格固定R239，原监督和官方门保持。
 
 [CPU检查](CPU-CHECKS.json)d992863f：两缺行为RED9b6ec1bc；最小3文件实现后两目标/四编译7e07dc7c通过。独立标量手算和双视图梯度、unique-label退化原NT-Xent、view/row/尺度不变及全同类/对角mask稳定；fit/dev/age访问trap、非法indices/标签、新recipe/原监督全job/学习和采样stream、旧recipe及新完成标志验证通过。真实fit8×2×3×512×512与原R236同像素SHA2aebe5cd，46,256 fit标签/1,490正例、实际图片indices到标签一致，age未用；模型/数据/优化器/derived等原函数范围及12整实现文件相同，原实际P893ac00ab按源身份复用，没有新CPU模型前向或GPU预演。

@@ -1,0 +1,13 @@
+# R238 fit 标签表征适配
+
+2026-11-04 07:55 UTC 已核实原公开权重八 rank 初态和自然首 50 次更新，完整 1600 次适配及后续监督指标仍待。唯一 GPU owner 为 4e；当前私有定位为 `r238-pod-context.env`，首成功证据为 `r238-20261104-4e0c-ready/ACTUAL-START-2.json`，SHA `467ae32d317796434edcf733c182faa9e4bb50174857b965b1ee5aee221cbf00`，CPU guard `3ec3b7227b7c2cee9df427dfe5d6ad0349c9d647eb110750b81b6204a785c4ab`。首观测缺原生文件的 unknown 原件保留，没有重启。
+
+冻结源码 `3bd21524c46b242e7206d6766e91ea1c313314a8`，tree `36eb332e650a14b5007f124d9bf7fd2cd158a3b1`；SCI `2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c`，SITE `4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea`，部署 `edefb07237b687492895d6368f77260d964157f6e81eedb22c9448ff912dbaa6`。既有 18/18 正式 CPU、2845 Git 文件 bytes/mode、真实公开初态证据复用，未改当前冻结源码、clock/token/grant。owner PID 856400/start_ticks 380615027，八 rank 进程与设备实际身份、训练 24–119 核与准备 0–23 核互斥均已核实。
+
+与完整 [R236R2](../R236R2/README.md) 相比，仅把同图配对目标改为 fit CSV 同类关系；仍为相同 uniform fit 流、两个独立强光度 512 视图、G64/P8、768→1024→256 projector、温度 0.1、FP32、1600 更新及原监督合同。标签参与表征 loss，年龄不参与；不是无标签自监督。原 age/head 的 fresh 初态、学习 RNG 隔离及原监督八 rank 首成功必须在自然阶段交接后另核。
+
+[实际首成功](R238-START.json)为 64 个主输入、128 视图、64×256 embedding 和 128×128 logits，自身项排除，loss/gradient 有限；首批 3 阳性，每 anchor 同类目标范围 5–121、异类负视图 6–122。最新封存第 50 次批次为全阴性，同类目标 127、异类负视图 0；这是当前 uniform 流的实际代价，不作局部 loss 改善或指标收益声明。闭轮将按实际 selected CSV 报 AUROC/AP、固定 20/其余 147 的修复和新增错序、全阶段代价及匹配 R236R2 比较。仅每 25 次的稀疏生产日志不能冒充全部 1600 批实测，完整采样代价只能明确标为冻结 sampler 的合同重建并与全部已有日志对照。
+
+[接续记录](R238-HANDOFF-GAP.json)保留一次入口源码路径重复拼接导致的 CPU FileNotFoundError，发生在容量判断、activation、clock 和 GPU 之前；修正实际路径后才完成一次激活及派发。容量实测 24,818,745,344 bytes > 原 20 GiB，完整 clock+60 秒窗口通过，一次 activation guard `8fc2acc8`。R236R2 结束至 R238 首成功 2598.700 秒，期间完成用户优先要求的 [R120 提交及下载校验](../submissions/R120-20261104/README.md)，也包含验证、传输、上下文压缩及入口修正；连续 GPU 空闲未测，不称全程满足五分钟。旧 R236R2 actualsafe 只读复用，不重查。
+
+完整 R238 严格胜 R107、R120、完整 R236R2 后，才执行已登记 R239 seed27；否则接已登记 R240 固定配额。R239 当前只有技术包，正式 CPU/部署与 R240 正式包在本轮监督期间准备。R237 不 eligible，不补做其 forward。目标 AUROC≥.995/AP>.9 及总体 raw .999 均未达到，不做官方 valid5849 前向。

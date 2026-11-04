@@ -1,0 +1,11 @@
+{
+  "status": "unactivated_full_clock_plus_60s_currently_covered",
+  "at": 1793778716.4499066,
+  "round_id": "r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+  "site_sha256": "4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea",
+  "remaining_seconds": 36535.86391043663,
+  "required_seconds": 31560,
+  "CPU_and_deployment_reused": true,
+  "GPU_started": false,
+  "formal_clock_created": false
+}

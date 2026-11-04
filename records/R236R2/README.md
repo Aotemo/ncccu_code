@@ -1,5 +1,7 @@
 # R236R2：固定强光度NT-Xent完整阴性
 
+11-04 后续状态：用户 [R120 test 提交](../submissions/R120-20261104/README.md)及下载往返SHA已完成交付；唯一GPU已接续独立 [R238](../R238/README.md)，实际公开八rank和首50通过。完整R2结果已368b95dc推送/API回读后，[9个无后续依赖checkpoint](../storage/closed-r236r2-20261104/README.md)按精确清单清理6.733GB、终检CPUfe1df9f4通过，三KEEP/当前依赖和所有selected预测/metadata保留；旧safe未重查。下文末尾“当前先执行R120”是执行时序记录。
+
 [完整结果](R236R2-RESULT.json)039c2ec2：原监督12800成功=尝试、0skip/c16/bad4，唯一原AUROC selector选EMA c12@9600，内部5140 dev AUROC **0.9849896025363309**、AP **0.8104065152313845**、error_twice24932，tensor e155a8b888672b3f7ca32babc6e38099a7268770d2033d67cdf23dd8e93cf259。严格R107/R120双门均false，固定第二seed R237不eligible、未激活；官方5849按原≥.996门未跑。AP/局部修复不救AUROC，目标.995/AP>.9及总体raw.999未达到。
 
 [原唯一安全终态](R236R2-COMPLETION.json)0449db24来自现成PROGRESS-r120-gpu-wait.json/guardb78dec36：原owner845023/start379621036已Z退出、八rank不在、锁无holder、device users空/拒读0、八PCI busy0。只读复用，未再扫描旧safe。[CPU归档](CLOSEOUT-CPU-EXPORT.json)由原helper完成（aec005c6），导出b51dbfc3；只读既有selected CSV/precision/freeze与完成回执，无模型、checkpoint加载或新forward。

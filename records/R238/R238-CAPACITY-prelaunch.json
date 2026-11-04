@@ -1,0 +1,15 @@
+{
+  "status": "actual_capacity_above_unchanged_admission_minimum",
+  "evidence": {
+    "at": 1793778709.9425585,
+    "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+    "free_bytes": 24818745344,
+    "minimum_free_bytes": 21474836480
+  },
+  "at": 1793778709.942565,
+  "site_sha256": "4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea",
+  "round_id": "r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+  "activation_reserved": false,
+  "clock_created": false,
+  "GPU_started": false
+}
