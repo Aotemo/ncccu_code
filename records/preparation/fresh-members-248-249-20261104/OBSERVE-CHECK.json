@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "at": 1793801891.6788104,
+  "window_sha256": "7eaafe560e2a25ab6b7c8e334af406b167f6293f4d0c800cc04c5f6313a61595",
+  "entry_sha256": "56465ccda816009e4e5d5108108acbd5dd7796570e4e0b46ceb05beaba308c97",
+  "bash_syntax_exit_code": 0,
+  "stderr": "",
+  "GPU_initialized": false,
+  "activation_or_launch_executed": false
+}

@@ -14,3 +14,5 @@ Git `631ce2012e18c4ef6bee5f57e3fc6a6746195641` 已 push/API 回读，tree `dd913
 | [R249/B](R249-B-PREPARATION.json) | `79351253c3d4400b1c2447558070767ddba307b6fc45207880fdab676bfd22b9` | `45fb27c036fa0892ddd13d7e0a54e69f36a9d8b23b4c7689cf06e826563ee549` | `194544d5e96418efd880481254df2f9f43377d2c08bdcec8fcc5788969aeef82` |
 
 旧闭轮至 R236R2 非 selected 复查 [0项](OLDER-INVENTORY.json)，SHA `25a39157115472b3232f74e14a05c3510a8d1b27ddc47cd6b22e91902526dbe2`。统筹授权后，[R244/R245 非 selected 清理](../../storage/closed-r244-r245-nonselected-20261104/README.md)完成，free 点测 71,388,102,656 B；两现役仍消耗空间，须等对应安全终态、重核并行和活跃轮剩余预算。
+
+14:14 [容量投影](CAPACITY-PROJECTION-1413.json) `0c1106597a170395b253c681f1e6c25ca0bf0322938c1cf509bc16ab45261994`：free 68,454,187,008 B，现役 R246/R247 的剩余上限分别约 8.49/20.19 GB。统筹批准 R246 先终态接 R249/B，R247 先终态接 R248/A；第二个安全 Pod 接余下成员，启动时重新核容量。一次广域只读 `du` 超时并留下孤儿；第一次身份核验拒绝发信号，CPU 失败回执 `d55ed77996c48b4407e344860d071e6148e1a633f2f363e0c8ecd90273e15336`，复核 PID 已自行变为 cmdline 为空的 `du` 僵尸，不再执行、未发信号，[状态回执](DU-STATE.json) `1d1fe96350491a1f3cde779de6b18d243d26e43b4e672512912fb3adc7b56d42`。此后不再扫描整个 technical-prep。
