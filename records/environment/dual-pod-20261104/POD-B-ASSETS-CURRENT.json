@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "execution": {
+    "at": "2026-11-04T09:51:55.847307+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909275134578690-acfwvv9ejn-18257-worker-0",
+    "uid": "37e3fb34-c233-4294-b517-e98978cbd016",
+    "container": "vcjob-2117909275134578690-acfwvv9ejn-18257",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/CPU-ALLOCATION.json",
+      "sha256": "f48cb4b714251509c8e1e0d9bd8a136c825d89e7025029e1c8f9bf7395788147",
+      "executor_id": "4e0ce707-5c70-493a-8e54-796363eb740f",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "paths": {
+    "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+    "dataset_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+    "train_identity": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/train_identity.json",
+    "stage1_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1",
+    "public_original_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/tiny22k-bc48a87f/original",
+    "public_converted_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/tiny22k-bc48a87f/converted",
+    "public_pretrained": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/converted/convnext-small-tv-fe6b358a.pt",
+    "public_metadata": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/small22k-fe6b358a/converted/provenance.json",
+    "official_manifest": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/official-valid-sealed.json",
+    "prepared_cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0"
+  },
+  "scope": "existing_shared_NFS_assets_current_UID_revalidated_no_copy",
+  "source_modified_by_tool": false,
+  "historical_FREEZE_bytes_preserved": true,
+  "official_manifest_semantics_read": false,
+  "GPU_work": false,
+  "copy_performed": false,
+  "old_clock_or_builder_state_inherited": false,
+  "preparation_changed": false,
+  "historical_source_receipts": {
+    "small": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/SMALL-COPY.json",
+      "sha256": "2025c819bcd56390e0c6d8ae9eba4fbefcf27496b6d378ae84aecf0283fd8d66"
+    },
+    "complete": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/RELOCATION.json",
+      "sha256": "be516bfec741dd9c7f5cc4b41694be562c9e1fceb195fa1e41e535b715f9273e"
+    }
+  },
+  "implementation_sha256": "a59cff67b11ae1951578a7de1f3bdddf14935231cb1ed08631c99575f4851ada",
+  "phase": "complete",
+  "at": 1793785981.3624947,
+  "cache": {
+    "policy": {
+      "version": "rgb-conservative-border-prepared-v2",
+      "prepared_size": 512,
+      "pillow": "12.3.0",
+      "dataset_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first"
+    },
+    "namespace": "429cbdbda7d0827c564d279fcfcef12d5bf3784f127c7226841d9b5948fee960",
+    "train": {
+      "cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0/train/sealed",
+      "entries": 51396,
+      "namespace": "429cbdbda7d0827c564d279fcfcef12d5bf3784f127c7226841d9b5948fee960",
+      "counts": {
+        "array_bytes": 31286003712,
+        "entries": 51396,
+        "raw_bytes": 32803270694,
+        "receipts_created": 51396,
+        "receipts_reused": 0
+      },
+      "entries_manifest": {
+        "bytes": 106059486,
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/CACHE-TRAIN.entries.jsonl",
+        "sha256": "f1e2d1ac47dfa5b2ac1c4d09d36ecd5e2269ccea64dc319a29209eb16c0872a7"
+      },
+      "receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/CACHE-TRAIN.json",
+        "sha256": "3123f225d9d64bdea23b6d1f5d8bbe517ea21bb0139f2f0149c915b22690df2b"
+      },
+      "current_identity_manifest": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/assets-current/CACHE-TRAIN-CURRENT.identities.jsonl",
+        "sha256": "987e610c0485d04a47569247bbd69f398acc2d2c162db8df1b9658e4145edaa5"
+      },
+      "current_checked_entries": 51396,
+      "array_bytes_rehashed_in_renewal": false,
+      "receipt_SHA_and_raw_fingerprint_and_array_size_checked": true
+    },
+    "valid": {
+      "cache_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0/valid/sealed",
+      "entries": 5849,
+      "namespace": "429cbdbda7d0827c564d279fcfcef12d5bf3784f127c7226841d9b5948fee960",
+      "counts": {
+        "array_bytes": 3564873856,
+        "entries": 5849,
+        "raw_bytes": 3693437585,
+        "receipts_created": 5849,
+        "receipts_reused": 0
+      },
+      "entries_manifest": {
+        "bytes": 12064059,
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/CACHE-VALID.entries.jsonl",
+        "sha256": "4fdcccfa64bc53d843bd887c453d5e13590823c35830c1c6fc88392b6b8ecf25"
+      },
+      "receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/migration-cpu-20261028-51fe3daf-b/CACHE-VALID.json",
+        "sha256": "36fbc40cbeb8253a370c08a0ecbc4786585f8d751b463bcbd155f7b277208c9b"
+      },
+      "current_identity_manifest": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/assets-current/CACHE-VALID-CURRENT.identities.jsonl",
+        "sha256": "8d717b463a1d6bdd73647252d737151f7e824401af4804e90288f6eb1665d50d"
+      },
+      "current_checked_entries": 5849,
+      "array_bytes_rehashed_in_renewal": false,
+      "receipt_SHA_and_raw_fingerprint_and_array_size_checked": true
+    }
+  },
+  "inputs": {
+    "small_current": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/dual-pod-20261104-4e0c/pod-b/assets-current/SMALL-CURRENT.json",
+      "sha256": "360af9329ecb555ec0bf627f01f33e85bcef8265c8cce5e455e5e84e94374865"
+    }
+  },
+  "training_csv": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first/train.csv",
+    "sha256": "ec81a23ba7758eccdd09dba027ce1a50998d81c18ed30ab6d2d608b3397f67d7",
+    "copied_content_matches_sealed_sha": true,
+    "labels_parsed_by_finalizer": false,
+    "copied_in_this_renewal": false,
+    "current_content_matches_sealed_sha": true,
+    "labels_parsed_by_renewal": false
+  },
+  "verification": {
+    "small_required_files_fresh_sha256": true,
+    "cache_entry_receipts_fresh_sha256": true,
+    "cache_raw_fingerprints_and_array_sizes_current": true,
+    "raw_and_array_content_proof_inherited_from_pinned_complete": true,
+    "raw_and_array_content_rehashed_in_renewal": false,
+    "production_arrays_SHA256_checked_on_every_read": true
+  },
+  "topology": {
+    "cards": [
+      {
+        "render": "renderD128",
+        "pci": "0000:09:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "0"
+      },
+      {
+        "render": "renderD129",
+        "pci": "0000:36:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "3"
+      },
+      {
+        "render": "renderD130",
+        "pci": "0000:55:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "2"
+      },
+      {
+        "render": "renderD131",
+        "pci": "0000:77:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "1"
+      },
+      {
+        "render": "renderD132",
+        "pci": "0000:85:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "4"
+      },
+      {
+        "render": "renderD133",
+        "pci": "0000:b5:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "7"
+      },
+      {
+        "render": "renderD134",
+        "pci": "0000:d5:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "6"
+      },
+      {
+        "render": "renderD135",
+        "pci": "0000:f5:00.0",
+        "vram_total_bytes": 68702699520,
+        "device_id": "0x6320",
+        "vendor": "0x1d94",
+        "numa_node": "5"
+      }
+    ],
+    "hostname": "vcjob-2117909275134578690-acfwvv9ejn-18257-worker-0"
+  },
+  "retained_models_used_as_training_dependencies": false,
+  "wall_seconds": 65.48771262168884,
+  "free_bytes_after": 49765416960
+}

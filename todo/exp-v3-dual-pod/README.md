@@ -1,5 +1,11 @@
 # 两独立8卡Pod接续（2026-11-04）
 
+**10:33 UTC 已真实并行运行，完整dev结果仍待。** A R240R1原生八rank/公开初态及首成功`75c10e76`、guard`81570bdb`通过，owner677/start381509155；B R242对应`1be111a1`/guard`35f4aa71`、owner432/start381475114通过。[两Pod小回执](../../records/environment/dual-pod-20261104/DUAL-START-SUMMARY.json)CPU导出`740cb1de`：当时A750/1600、B1250/1600，均有限loss/gradient，分别为同类SupCon及SupMin目标，每批8阳性/56阴性。两边18/18、345全训/空Adam、c4b77a2/treeed24的2959文件bytes/mode、各31560秒整窗、一次activation/direct launch均通过。实际SCI A1b1badea/Bcef33b16，SITE349d1597/525ac08a，部署ed0de39c/878895df。各训练96核24–119与准备24核0–23互斥，模型仍FP32/G64P8；真实首更新后不加GPU预演。
+
+用户最新规则已直接改raw目标为0.995，AP > 0.9保留；通用公开预训练可用，医学/眼底预训练禁止，允许内部dev选择成员/权重融合，禁止TTA。两现役冻结包、clock/token/grant及版本化官方门均保持。[F01融合准备](../auroc-999/F01-GENERAL-ENSEMBLE-20261104.md)先核真实合规依赖，暂保护R120/R238所选EMA及最小加载依赖，尚无融合结果或官方forward。c617清理已c4b77a2同步/API，其CPU树退出，原A12/12 allocation继续复用。新Pod准备窗口超过5分钟（NFS实际慢/旧handoff UID拒绝/源码同步与正式验收等），每个Pod Ready至首更新的实际时长列在上述JSON；连续设备空闲与利用率未测，不称满足五分钟。原完整源码展开最终成功；NFS慢期间尝试的链接暂存因tar对已有非空目录unlink失败，未用于任何正式包或GPU，原件保留。
+
+以下为准备期原始记录，早期“未启动/待同步”不覆盖上述实核现状。
+
 用户09:19新要求重新发现已创建的两个8卡Pod，并明确选择两个独立8卡实验并行，保留每轮G64/P8科学合同；这覆盖旧单GPU串行资源规则，不合并成16-rank，不申请新资源。唯一源码/Git写入者与两个Pod的GPU执行owner仍为4e。R238已完整7200/c9/bad4/0skip、唯一EMA c5@4000 AUROC.9851461364/AP.8147244364、完整结果6b43e762及唯一safe4f40fa9b已落地但尚未同步；旧safe不再重查。
 
 旧R240在原UID51fe实际派发，首观测仅owner/8rank活跃、公开gate/首更新尚缺；后续查询原Pod NotFound。旧R240当前运行/结束状态unknown，不写成完整阴性，不恢复或改绑旧clock/token。新环境只使用fresh独立身份：拟PodA做R240R1（R240相同固定fit配额控制），PodB做已登记R242（同配额下仅改变多数标签正对）。用户新并行授权改变执行先后，晋级与固定seed27仍必须等两者完整结果及实际匹配控制；不提前跑R241/R243。
@@ -20,3 +26,5 @@ c617由用户另行授权清理，仍不接管GPU或Git。其已建立PodA fresh
 09:53准备范围：仅私有`technical-prep/dual-pod-20261104-4e0c/revalidate-shared-assets.py`读取已pin旧来源，当前UID实哈希必要小文件/公开Small，扫描现有缓存receipt SHA、原图fingerprint和array大小，明确继承旧大字节证明、生产每次读取仍核array SHA；不重拷/重建缓存、不读取官方标签语义。两新UID各出独立续验回执和原native guard CPU构建；复用原prepare/check_candidate/freeze链，不新增训练平台。B已实核12/12分配f48cb4b7、TTL1793806639.2465532与A96训练核池同样互斥。
 
 10:00首轮技术准备因旧公开Small handoff UID被拒（A fe93572e、B b27e6eee），无activation/clock/GPU，原件保留。新UID公开绑定窄检查A cf6a5f59/B94e837bd通过，original新SHA+已验converted/provenance、旧strict结构证据明确复用；新增两SCIENCE仅更新public_asset_receipt，源码/全部科学值保持。新正式包使用env2独立ready，原失败ready不覆盖。两边统一使用已测125ceea8的运行文件，默认SupCon不变的原数学/梯度证据和完整quota流/P8复用，不混入未通过实现。私有formal-fit-supmin-next.py仅为已有prepare/check/freeze链补当前资产参数，不建立新训练链。用户清理执行者已交付50个冗余CPU fixture真实删除/保护不变及49.70GB free，其指定两文本范围由4e精确纳入同次Git同步。
+
+准备时长复盘：实际Pod Ready至自然首更新A3731.701秒、B3343.652秒；这不是连续设备空闲测量。除NFS慢、旧UID公开交接拒绝、必要CPU/发布/部署外，也包含执行者的绑定决策、入口编排及上下文整理时间，不能全部归因于存储。后续准备在当前GPU运行的20%池完成，复用已通过的源身份，避免再次等待整套源码重复展开。上文345全训/空Adam指监督模型CPU初态，当前原生SSL初态已证，监督原生交接另核；不把阶段前置验证冒充后续自然成功。

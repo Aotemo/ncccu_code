@@ -2,6 +2,8 @@
 
 项目不指定永久主机、Pod 或 Python 路径。环境来自工具实时查询；旧回执用于核对已经绑定的运行，不能替代发现步骤。
 
+用户明确授权多个独立Pod时，由同一GPU执行owner按todo中的分配并行控制，各Pod内仍串行，分别绑定自己的UID、实例锁、clock/token、CPU份额和八rank。每个Pod按实时有效CPU生成互斥80%训练池与20%准备池；两个8卡实验不合成一个16-rank任务，不复用旧Pod的allocation或验收。当前长期目标和融合/TTA/预训练边界以AGENTS及todo页首的最新用户决定为准，活跃冻结包保持原值。
+
 ## 发现与绑定
 
 1. 使用 Paseo `list_hosts` 查询当前 server，再用 `list_agents`、`get_agent_status`/`get_agent_activity` 核实 `todo/` 当前授权的规划、执行 owner、CPU 执行者及连接上下文。保留 `{serverId, agentId}` 配对；不要唤醒旧Agent或创建计算资源。本次用户允许A/B各自行按执行profile新建1名文本子Agent；子Agent无Pod命令/Git写/GPU/再派生权，父级统一部署验收。当前实例继续使用，分工见[本轮任务](../todo/exp-v3-8card/README.md)。

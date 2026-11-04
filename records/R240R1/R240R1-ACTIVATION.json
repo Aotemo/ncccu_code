@@ -1,0 +1,8 @@
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+  "observed_at": 1793787606.0,
+  "preflight_sha256": "8431742b6eb10f0fb54dfc7f3756d0acc2c52af2bf5aa0bbbbfbebdd922ec62a",
+  "activation_audit_sha256": "616074d907276dca794154bf950137669622dcefac97c7b8a84898b94170c371",
+  "GPU_started": false
+}

@@ -1,0 +1,44 @@
+{
+  "status": "observer_compiles_and_accepts_actual_quota_and_SupMin_producer_statistics_rejects_wrong_fields",
+  "at": 1793787290.0809107,
+  "files": {
+    "formal-fit-supmin-next.py": "3ae21de16372ab0bad2e8ec65da30884e9d21077240b2b4cd58e9f1a619192dd",
+    "observe-fit-quota-start.py": "3c4266525a11420b69576fa4e7838c3a4d4b938cc98fe2cf11d6137994a04d8f"
+  },
+  "actual_producer_rows": [
+    {
+      "contrastive_logits_shape": [
+        128,
+        128
+      ],
+      "contrastive_anchor_count": 128,
+      "contrastive_temperature": 0.1,
+      "contrastive_self_excluded": true,
+      "contrastive_target": "fit_csv_same_label",
+      "contrastive_positive_targets_per_anchor_min": 15,
+      "contrastive_positive_targets_per_anchor_max": 111,
+      "contrastive_negative_views_per_anchor_min": 16,
+      "contrastive_negative_views_per_anchor_max": 112,
+      "contrastive_fit_positive_images": 8
+    },
+    {
+      "contrastive_logits_shape": [
+        128,
+        128
+      ],
+      "contrastive_anchor_count": 128,
+      "contrastive_temperature": 0.1,
+      "contrastive_self_excluded": true,
+      "contrastive_target": "fit_csv_minority_same_label_majority_same_image",
+      "contrastive_positive_targets_per_anchor_min": 1,
+      "contrastive_positive_targets_per_anchor_max": 15,
+      "contrastive_negative_views_per_anchor_min": 112,
+      "contrastive_negative_views_per_anchor_max": 126,
+      "contrastive_fit_positive_images": 8,
+      "contrastive_minority_label": 1
+    }
+  ],
+  "model_constructed": false,
+  "images_or_dev_or_official_labels_read": false,
+  "GPU_initialized": false
+}

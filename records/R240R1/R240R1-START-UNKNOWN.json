@@ -1,0 +1,70 @@
+{
+  "status": "startup_observation_unknown",
+  "observed_at": 1793787826.5992563,
+  "formal_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+  "site_sha256": "349d1597bc74f6cb69204fd52235856995a294438b5cd896f983b37b59b4f643",
+  "git_commit": "c4b77a269442c4dc8a5641deb15a15979207ce87",
+  "owner": {
+    "pid": 677,
+    "present": true,
+    "readable": true,
+    "state": "S",
+    "start_ticks": "381509155",
+    "active": true
+  },
+  "rank_processes": [
+    {
+      "rank": 0,
+      "pid": 689,
+      "start_ticks": "381515880",
+      "active": true
+    },
+    {
+      "rank": 1,
+      "pid": 690,
+      "start_ticks": "381515882",
+      "active": true
+    },
+    {
+      "rank": 2,
+      "pid": 691,
+      "start_ticks": "381515883",
+      "active": true
+    },
+    {
+      "rank": 3,
+      "pid": 692,
+      "start_ticks": "381515885",
+      "active": true
+    },
+    {
+      "rank": 4,
+      "pid": 693,
+      "start_ticks": "381515887",
+      "active": true
+    },
+    {
+      "rank": 5,
+      "pid": 694,
+      "start_ticks": "381515889",
+      "active": true
+    },
+    {
+      "rank": 6,
+      "pid": 695,
+      "start_ticks": "381515890",
+      "active": true
+    },
+    {
+      "rank": 7,
+      "pid": 696,
+      "start_ticks": "381515892",
+      "active": true
+    }
+  ],
+  "model_forward_by_observer": false,
+  "GPU_API_used_by_observer": false,
+  "missing": [
+    "outputs/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/metrics.jsonl"
+  ]
+}
