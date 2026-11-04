@@ -11,6 +11,13 @@ import time
 import numpy as np
 
 
+def preregistered_exclusion(round_id):
+    # This P2 diagnostic was excluded from the current F04 before its result.
+    if round_id == 'r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104':
+        return 'preregistered_P2_variance_diagnostic_not_F04'
+    return None
+
+
 def sha(path):
     digest = hashlib.sha256()
     with Path(path).open('rb') as stream:
@@ -111,8 +118,13 @@ def main():
         raise ValueError('duplicate old round')
     rows, excluded, by_id, export_refs = [], [], {}, {}
     for order, row in enumerate(inv['members']):
-        state, reason = f03_candidate_gate(row, .988, approved)
         name = row['round_id']
+        fixed_exclusion = preregistered_exclusion(name)
+        if fixed_exclusion:
+            excluded.append({'round_id': name, 'reason': fixed_exclusion,
+                             'selected_auroc': (row.get('selected') or {}).get('auroc')})
+            continue
+        state, reason = f03_candidate_gate(row, .988, approved)
         if state == 'pending':
             raise ValueError('unresolved candidate: ' + name + ' ' + str(reason))
         if state == 'excluded':

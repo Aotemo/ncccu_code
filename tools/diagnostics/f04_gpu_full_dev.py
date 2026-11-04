@@ -64,6 +64,40 @@ def require_safe_predecessor(safe, expected_root, now):
     return safe
 
 
+def validate_current_preflight(refreshed, current, current_sha, safe, inputs):
+    """Bind the fixed F04 screening to a census taken after the safe predecessor."""
+    discovered_at, screened_at, safe_at = current.get('at'), refreshed.get('at'), safe.get('observed_at')
+    if (current.get('status') != 'read_only_F03_candidate_discovery_no_fusion'
+            or current.get('official_read') is not False
+            or refreshed.get('status') != 'F04_fp16_size_members_sealed_before_blend'
+            or refreshed.get('official_read') is not False
+            or any(type(value) not in (int, float) or not math.isfinite(value)
+                   for value in (discovered_at, screened_at, safe_at))
+            or not safe_at <= discovered_at <= screened_at
+            or refreshed.get('inventory_sha256') != current_sha
+            or refreshed.get('old_inventory_sha256') != inputs['inventory']['sha256']
+            or refreshed.get('fp16', {}).get('members') != [x['round_id'] for x in inputs['members']]
+            or refreshed.get('fp16', {}).get('bytes') != inputs['weight_bytes']):
+        raise ValueError('freshly screened F04 inventory, fixed members or storage differs')
+    predecessor = Path(safe['formal_root']).name
+    selected_auroc = (safe.get('selected') or {}).get('auroc')
+    matching = [row for row in current.get('members', []) if row.get('round_id') == predecessor]
+    observed = (matching[0].get('selected') or {}).get('auroc') if len(matching) == 1 else None
+    if (type(selected_auroc) not in (int, float) or not math.isfinite(selected_auroc)
+            or type(observed) not in (int, float) or not math.isfinite(observed)
+            or not math.isclose(observed, selected_auroc, rel_tol=0, abs_tol=1e-12)):
+        raise ValueError('safe predecessor selected result absent or differs in the fresh census')
+    if selected_auroc >= .988 and predecessor not in refreshed.get('eligible_order', []):
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from f04_bounded_fusion import preregistered_exclusion
+        reason = preregistered_exclusion(predecessor)
+        excluded = [row for row in refreshed.get('excluded', [])
+                    if row.get('round_id') == predecessor and row.get('reason') == reason]
+        if reason is None or len(excluded) != 1:
+            raise ValueError('eligible predecessor is absent from the refreshed F04 selection')
+    return refreshed
+
+
 def validate_evaluation_window(window, safe_sha, site_sha, round_id, now, free, *, reserve=1024 ** 3):
     """Keep the prepared next round and the peer's full reserved storage intact."""
     at, required, recorded = window.get('at'), window.get('required_free_bytes'), window.get('free_bytes')
@@ -546,20 +580,7 @@ def owner(args):
         raise ValueError('fixed F04 input inventory differs')
     refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
     current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
-    if (refreshed.get('status') != 'F04_fp16_size_members_sealed_before_blend'
-            or refreshed.get('at', 0) < safe['observed_at']
-            or refreshed.get('old_inventory_sha256') != args.current_inventory_sha256
-            or refreshed['fp16']['members'] != [x['round_id'] for x in inputs['members']]
-            or refreshed['fp16']['bytes'] != inputs['weight_bytes']):
-        raise ValueError('freshly rescreened F04 selection differs or is stale')
-    predecessor_name = Path(safe['formal_root']).name
-    selected_auroc = (safe.get('selected') or {}).get('auroc')
-    if type(selected_auroc) not in (int, float) or not math.isfinite(selected_auroc):
-        raise ValueError('completed predecessor selected metric is unknown')
-    if (selected_auroc >= .988
-            and (predecessor_name not in refreshed.get('eligible_order', [])
-                 or predecessor_name not in {x.get('round_id') for x in current_inventory.get('members', [])})):
-        raise ValueError('eligible predecessor is absent from the refreshed F04 inventory')
+    validate_current_preflight(refreshed, current_inventory, args.current_inventory_sha256, safe, inputs)
     ready_root = args.next_ready.resolve(strict=True)
     prep = read_pinned(ready_root / 'PREPARATION-RESULT.json', args.next_preparation_sha256)
     cpu_path = ready_root / 'formal-cpu/CPU-RECEIPT.json'
