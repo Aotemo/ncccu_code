@@ -1,0 +1,22 @@
+{
+  "status": "actual_F04_current_census_and_safe_predecessor_verified",
+  "at": 1793835413.8097901,
+  "source_sha256": "fc795badc0d380f0d9c4870af169da8f0c34376cb53704a17a28c41be9699574",
+  "preflight_sha256": "244ec04558c80c2864bfe703aa31fb4adaa4bcbf6ee6290394fa56426ed63e06",
+  "inventory_sha256": "6f206c8078c84eea06e235c0c923652041a537f9a52809de3b36cf7906095a97",
+  "safe_sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+  "inputs_sha256": "9ec771835c0e2b666c69d3d03637a6bd97c3bad39df2c3bb6f1de45e21d34846",
+  "predecessor": "r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104",
+  "members": [
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101"
+  ],
+  "weight_bytes": 495097409,
+  "predeclared_P2_excluded": true,
+  "GPU_initialized": false,
+  "forward_calls": 0,
+  "official_read": false
+}

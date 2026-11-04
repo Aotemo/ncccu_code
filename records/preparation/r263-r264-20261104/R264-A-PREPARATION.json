@@ -1,0 +1,18 @@
+{
+  "status": "formal_CPU_and_precise_git_deployment_ready",
+  "round_id": "r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104",
+  "at": 1793835223.4257777,
+  "git_commit": "7658eb865cf9d15a234a474621f39cd316f0cded",
+  "tree_sha": "c8c7f898138415b19923c59f3903eb8b4c9a7e89",
+  "science_sha256": "34315280331193beab6a565bc0508557a6e5195b7a8d953a1cecc6a28fd98e13",
+  "checks": 19,
+  "formal_cpu_sha256": "0b2dc0ad64c65d24093a02a07497d1e57cf859ea094629fb099a3215f9b20e0c",
+  "actual_initial_tensor_sha256": "e7cc52df4f039eb02c43be90e528f37af643dcf3d0d7b4b6077db65863fa5957",
+  "site_sha256": "04850194c78d0d19cdb03fdde28ff6a4ba499c08a44d7292ad14a6caf162927b",
+  "deployment_sha256": "03d625e656c35d1e682c76d302ac9371c4a0b65eab22fa2bee0c634f707bed07",
+  "grant_valid_until": 1793878391.956421,
+  "grant_remaining_seconds": 43168.5292494297,
+  "required_seconds": 31560,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

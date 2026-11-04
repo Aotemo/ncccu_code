@@ -1,0 +1,638 @@
+{
+  "status": "F04_fp16_size_members_sealed_before_blend",
+  "at": 1793835326.5364559,
+  "inventory_sha256": "6f206c8078c84eea06e235c0c923652041a537f9a52809de3b36cf7906095a97",
+  "old_inventory_sha256": "94b9d638e42cb0f2c883af6583c74173c9f45319fd8672fb337e8f74209dd389",
+  "eligible_order": [
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+    "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029",
+    "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+    "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104",
+    "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104"
+  ],
+  "fp16": {
+    "members": [
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101"
+    ],
+    "bytes": 495097409,
+    "stopped_before": "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029"
+  },
+  "fp32": {
+    "members": [
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101"
+    ],
+    "bytes": 395858330,
+    "stopped_before": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104"
+  },
+  "exports": {
+    "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R107/EXPORT.json",
+      "sha256": "21eae576d70f852c554bad2d7241ca50cdc0f9fd3e692b5d8f0a5dc0b3f03074",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R120/EXPORT.json",
+      "sha256": "ff4008284aee4aaf00aaf39fdf79290e3c5ae8969680e3e9ddeabc7ff47047e9",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R134R1/EXPORT.json",
+      "sha256": "886214ced0605a1636d4e5c3bcd9274549a65bd78fee7ae7f4b67edf3ec42659",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R135/EXPORT.json",
+      "sha256": "7348162223cc697276f0c67d97f40817d6ebb38774f0e2e4c6dfb369f9fced05",
+      "sizes": {
+        "fp32_bytes": 197941453,
+        "fp16_bytes": 99024397
+      }
+    },
+    "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R244/EXPORT.json",
+      "sha256": "0d7ce69b524364bf0fef42e68bda2edb71412d56ab749f4141287b6d6f0724c8",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R245/EXPORT.json",
+      "sha256": "62036b827ab4e530d2002878ec5d8b8f8f15aed17ea1f47baf1e2a63635625fc",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R246/EXPORT.json",
+      "sha256": "b932abfc1f2a024b2bbb86b0636f429f37b362c1b5366af087ecd3f292466324",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R249/EXPORT.json",
+      "sha256": "47f4ec8ad436e2b4be37f9e42339f3ed26d5274df5da254af0b35103ba3138af",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    },
+    "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-exports-e68/R250/EXPORT.json",
+      "sha256": "c3a9c0050781462e88d07638c22353021a4fdbbb0df7fc6460d9c5ce62fef070",
+      "sizes": {
+        "fp32_bytes": 197929165,
+        "fp16_bytes": 99018253
+      }
+    }
+  },
+  "excluded": [
+    {
+      "round_id": "r100-tiny22k-focal2-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9851617898327616
+    },
+    {
+      "round_id": "r101-tiny22k-seed20261029-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9843911613732117
+    },
+    {
+      "round_id": "r102-small22k-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867391699609026
+    },
+    {
+      "round_id": "r103-small22k-seed20261029-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9840901346312001
+    },
+    {
+      "round_id": "r104-small22k-scale085-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9850823187728706
+    },
+    {
+      "round_id": "r105-small22k-scale085-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.987161811506687
+    },
+    {
+      "round_id": "r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9842033206861964
+    },
+    {
+      "round_id": "r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9872328538178018
+    },
+    {
+      "round_id": "r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9855326547789199
+    },
+    {
+      "round_id": "r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9870727075910516
+    },
+    {
+      "round_id": "r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9754398301727533
+    },
+    {
+      "round_id": "r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.6869135246498758
+    },
+    {
+      "round_id": "r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9838264352051979
+    },
+    {
+      "round_id": "r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9875399010946536
+    },
+    {
+      "round_id": "r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9863815501913928
+    },
+    {
+      "round_id": "r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.987677169289011
+    },
+    {
+      "round_id": "r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9850076641408516
+    },
+    {
+      "round_id": "r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.970734180141627
+    },
+    {
+      "round_id": "r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9869089490433972
+    },
+    {
+      "round_id": "r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9874796957462513
+    },
+    {
+      "round_id": "r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867584356723914
+    },
+    {
+      "round_id": "r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9861082179096462
+    },
+    {
+      "round_id": "r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867572315654234
+    },
+    {
+      "round_id": "r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867283329981902
+    },
+    {
+      "round_id": "r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9886320261146719
+    },
+    {
+      "round_id": "r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9882093845688875
+    },
+    {
+      "round_id": "r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9884188991813276
+    },
+    {
+      "round_id": "r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9850016436060114
+    },
+    {
+      "round_id": "r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9809751099048635
+    },
+    {
+      "round_id": "r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.985972153822257
+    },
+    {
+      "round_id": "r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9857614351028487
+    },
+    {
+      "round_id": "r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.987366509691255
+    },
+    {
+      "round_id": "r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9854411426493483
+    },
+    {
+      "round_id": "r139-small22k-seed20261029-scale085-pairlog-localcontrast10-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9844971227863999
+    },
+    {
+      "round_id": "r141-dinov2s14-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9418572868339332
+    },
+    {
+      "round_id": "r143-small22k-seed20261029-scale085-pairlog-brightcenter-half-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9782357665525575
+    },
+    {
+      "round_id": "r144-small22k-seed20261029-scale085-pairlog-nativebright-half-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9754916067723792
+    },
+    {
+      "round_id": "r146-small22k-seed20261029-scale085-pairlog-inset256-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9838457009166867
+    },
+    {
+      "round_id": "r148-small22k-seed20261029-scale085-pairlog-nostoch-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9872244250690254
+    },
+    {
+      "round_id": "r150r1-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9859781743570972
+    },
+    {
+      "round_id": "r152-small22k-seed20261029-scale085-pairlog-global768-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9875928818012477
+    },
+    {
+      "round_id": "r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9836578602296714
+    },
+    {
+      "round_id": "r156-small22k-seed20261029-scale085-pairlog-positive-top2-mix05-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9860275427427871
+    },
+    {
+      "round_id": "r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9864032241168177
+    },
+    {
+      "round_id": "r160-small22k-seed20261029-scale085-batch-aucmargin1-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9842021165792284
+    },
+    {
+      "round_id": "r162-small22k-seed20261029-scale085-pairlog-cosine16-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9875302682389093
+    },
+    {
+      "round_id": "r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.980575346391472
+    },
+    {
+      "round_id": "r166-deit3-small-seed20261029-scale085-pairlog-meanpatch-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9763103995106509
+    },
+    {
+      "round_id": "r168-small22k-seed20261029-scale085-pairlog-adamw-beta2-095-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9871738525763675
+    },
+    {
+      "round_id": "r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9882081804619195
+    },
+    {
+      "round_id": "r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9855170013883353
+    },
+    {
+      "round_id": "r176-small-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9834218552639342
+    },
+    {
+      "round_id": "r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9861985259322498
+    },
+    {
+      "round_id": "r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9880889738720829
+    },
+    {
+      "round_id": "r182-large-dinov3-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9868174369138257
+    },
+    {
+      "round_id": "r184r1-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9791930315921545
+    },
+    {
+      "round_id": "r186-caformer-s36-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.983750576466211
+    },
+    {
+      "round_id": "r189-vits-dinov3-seed20261029-scale085-pairlog-cls-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.977164111350996
+    },
+    {
+      "round_id": "r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9666919930498946
+    },
+    {
+      "round_id": "r193-small22k-seed20261029-scale085-pairsigmoid-backbonelr5e5-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9838854364466322
+    },
+    {
+      "round_id": "r195-small22k-seed20261029-scale085-pairsigmoid-decay8000-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9861756478998568
+    },
+    {
+      "round_id": "r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9884706757809537
+    },
+    {
+      "round_id": "r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9858601718742286
+    },
+    {
+      "round_id": "r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9889535226751404
+    },
+    {
+      "round_id": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9816433892721294
+    },
+    {
+      "round_id": "r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9860335632776274
+    },
+    {
+      "round_id": "r207-small22k-seed29-pairsqhinge-m1q025-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9865633703435679
+    },
+    {
+      "round_id": "r209-small22k-seed29-pairlog-amsgrad-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867066590727653
+    },
+    {
+      "round_id": "r211-small22k-seed29-pairlog-nadam-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.987315937198597
+    },
+    {
+      "round_id": "r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9830353369271913
+    },
+    {
+      "round_id": "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9706920363977455
+    },
+    {
+      "round_id": "r217-small22k-seed29-pairlog-ema09999-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9875435134155578
+    },
+    {
+      "round_id": "r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9877759060603908
+    },
+    {
+      "round_id": "r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9784452811649976
+    },
+    {
+      "round_id": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9859528881107682
+    },
+    {
+      "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9858902745484298
+    },
+    {
+      "round_id": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.984526021353633
+    },
+    {
+      "round_id": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.986436939111923
+    },
+    {
+      "round_id": "r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9829462330115558
+    },
+    {
+      "round_id": "r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9852701594598858
+    },
+    {
+      "round_id": "r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9849896025363309
+    },
+    {
+      "round_id": "r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.985146136442177
+    },
+    {
+      "round_id": "r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9854230810448277
+    },
+    {
+      "round_id": "r242-small-fitsupminquota1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9831400942334113
+    },
+    {
+      "round_id": "r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9868174369138257
+    },
+    {
+      "round_id": "r251-small-quadrant-seed20261106-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9862214039646426
+    },
+    {
+      "round_id": "r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.986361080372936
+    },
+    {
+      "round_id": "r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9874664505696028
+    },
+    {
+      "round_id": "r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9852388526787166
+    },
+    {
+      "round_id": "r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9824116095177431
+    },
+    {
+      "round_id": "r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104",
+      "reason": "preregistered_P2_variance_diagnostic_not_F04",
+      "selected_auroc": 0.9890895867625297
+    },
+    {
+      "round_id": "r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9875122066343885
+    },
+    {
+      "round_id": "r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9863911830471371
+    },
+    {
+      "round_id": "r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9874074493281685
+    },
+    {
+      "round_id": "r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9878373155157611
+    },
+    {
+      "round_id": "r94-tiny22k-lr1e4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867415781748388
+    },
+    {
+      "round_id": "r95-tiny22k-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9866645153288838
+    },
+    {
+      "round_id": "r96-tiny22k-lr5e5-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.983341180097075
+    },
+    {
+      "round_id": "r97-tiny22k-head5e4-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9854519796120608
+    },
+    {
+      "round_id": "r98-tiny22k-head2e3-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9853363853431284
+    },
+    {
+      "round_id": "r99-tiny22k-drop04-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9843622628059786
+    }
+  ],
+  "git_commit": "7658eb865cf9d15a234a474621f39cd316f0cded",
+  "git_files": {
+    "tools/diagnostics/f04_size_ensemble.py": "40db9d4bc348df763be4fd874f096e5a858f1c11659f7b0a24821e1ca1d20d07",
+    "tools/diagnostics/f04_export_member.py": "cc85ba153ea3e1b04bb9946e41b5da0a20c8476cf49d10b7caa477dac1370329",
+    "tools/diagnostics/ensemble_dev.py": "7c382ea0ff0505f70cf271854409d05477a302bf7ea8ff65d40c296d93d4440d",
+    "tests/test_f04_size_ensemble.py": "4d490131d727f90e8d84034fe191ba30ea63c3564da37af6052a3ce09322892d",
+    "configs/F03-THRESHOLD-EQUAL.json": "f1e47d8323efcfd95adfa091910b6c04d844e08b6f88f944d06252cbc0b3cad0",
+    "todo/auroc-999/F04-SIZE-LIMIT-20261104.md": "7ca90ddb3b770bd75889dba89039beafc2d37b7fa7dce70506829f844f60a576",
+    "tools/diagnostics/f04_bounded_fusion.py": "d9adf866b98757be637906c0f1638db36508763f8130dd2a4322151ac42cb726",
+    "tests/test_f04_bounded_fusion.py": "6fe1d38c98252e59c7d2bfe65e67d728314f36ec5e735e941658c2d5ec972652",
+    "records/analysis/20261104-f04/R107-EXPORT.json": "21eae576d70f852c554bad2d7241ca50cdc0f9fd3e692b5d8f0a5dc0b3f03074",
+    "records/analysis/20261104-f04/R120-EXPORT.json": "ff4008284aee4aaf00aaf39fdf79290e3c5ae8969680e3e9ddeabc7ff47047e9",
+    "records/analysis/20261104-f04/R134R1-EXPORT.json": "886214ced0605a1636d4e5c3bcd9274549a65bd78fee7ae7f4b67edf3ec42659",
+    "records/analysis/20261104-f04/R135-EXPORT.json": "7348162223cc697276f0c67d97f40817d6ebb38774f0e2e4c6dfb369f9fced05",
+    "records/analysis/20261104-f04/R244-EXPORT.json": "0d7ce69b524364bf0fef42e68bda2edb71412d56ab749f4141287b6d6f0724c8",
+    "records/analysis/20261104-f04/R245-EXPORT.json": "62036b827ab4e530d2002878ec5d8b8f8f15aed17ea1f47baf1e2a63635625fc",
+    "records/analysis/20261104-f04/R246-EXPORT.json": "b932abfc1f2a024b2bbb86b0636f429f37b362c1b5366af087ecd3f292466324",
+    "records/analysis/20261104-f04/R249-EXPORT.json": "47f4ec8ad436e2b4be37f9e42339f3ed26d5274df5da254af0b35103ba3138af",
+    "records/analysis/20261104-f04/R250-EXPORT.json": "c3a9c0050781462e88d07638c22353021a4fdbbb0df7fc6460d9c5ce62fef070"
+  },
+  "official_read": false
+}
