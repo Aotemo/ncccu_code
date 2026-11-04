@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**11-04 21:47 UTC 现役与接续：** R257/B 已 actualsafe 8000/0，selected EMA c6 AUROC `0.9875122066` / AP `0.8234507321`（`e69c1e7b`），低于 F04 门槛；R259/B 现场容量通过，八 rank、fresh 初态 `13646842`、100/0 首成功（`5436c8c9`）。前轮完成事件→owner spawn `222.913 s`（`699c3fda`），非连续 GPU idle。R258/A 7200/0、c9 bad4 已 terminal，但 done 未出现/safe=false（`0d645447`）；安全释放后接备妥 R260/A。P3 图像扫描在 B 恢复，当前 1550/51396、0 unknown，仍为部分覆盖。
+
 **11-04 21:22 UTC 视盘固定几何门未过：** 独立 fit 盲包 64 例，非专家技术粗框 6 unknown；固定双线索方法含余量 47/64（要求 ≥63），算法 unknown/回退 12，完整包含 50/64（`9f48aa31`）。粗框经保持几何的 JPEG 显示副本审阅、不是专家分割；不改阈值、不进入 A/B 训练，见[记录](../records/analysis/20261104-fit-disc-consensus/README.md)。P3 图像二阶段继续限速准备，接续优先。
 
 **11-04 21:06 UTC 后备备妥：** [R259/R260](auroc-999/R259-R260-FRESH-SEEDS-20261104.md) A/B 四变体正式 CPU 均 18/18 `ad1c3a54`/`caa15fe0`/`6ee38201`/`e6e24f53`，部署 `39339a60`/`1e7eeff6`/`f4b94464`/`8ab02190`；源码 push/API `bd1bc6d`，3348 文件 tree `0ec744fd`，后台跨批 66 项隔离测试 `dbfc19f4`。尚未 activation/launch；前轮 actualsafe 后现场重核容量与身份。下一步准备池推进视盘盲封 63/64 门和 P3 二阶段，F04 全 dev GPU 验证不延误接续。
