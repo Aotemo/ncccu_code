@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "aefda47914f1edb4280d8a7568ff1209d794a2720345570d5c3b9bb670d1f27c",
+    "runtime/run_training.py": "ae940c3267515a3b86b704edcc98b587fd9727ec397077261b8832835ec20d51",
+    "tests/test_ensemble_member_official_gate.py": "94eaada4eb92dd057c858739d313b16a8f511381e33d8d49190b4a81b72cff54",
+    "tests/test_r120_seed_replicas.py": "6a465080b564e5152a780f2aa79b123952a00ded93c314001ea1c8c56202d943"
+  },
+  "tests": [
+    {
+      "test": "tests/test_ensemble_member_official_gate.py",
+      "exit_code": 0,
+      "output": "final ensemble-only official gate and historical gate passed\n",
+      "wall_seconds": 0.16722893714904785
+    },
+    {
+      "test": "tests/test_r120_seed_replicas.py",
+      "exit_code": 0,
+      "output": "two seed-registration and original-profile targets passed\n",
+      "wall_seconds": 0.1392068862915039
+    }
+  ],
+  "science_files": {
+    "R246": "c43f2df3f8953bb0983d9eb9ea57fcdbc2aaa174620f911331e20bc87c7e7089",
+    "R247": "390ff0798f47be93fdb6b47cf6e2b260cb151e695e517e1a077c08474671bde9",
+    "R248-A": "6610aa3f3d32ed10669decea0a38bcd083965464091e29f4003222d11c3eca41",
+    "R248-B": "8c94c3daba018b0f356b361b6ed75a0b774eee9ec45f2881ca6901769bef73d5",
+    "R249-A": "528afb105736ab86683f9728b5822075ed3c46e61e7603ca41ae38469463c3b6",
+    "R249-B": "6d779f8140fac448a96dde8c6ea830050ba0c251f407f7d7f25b15e44517037a"
+  },
+  "GPU_initialized": false,
+  "real_data_or_official_read": false
+}

@@ -2,6 +2,7 @@
   "schema_version": 1,
   "default_round_storage_limit_bytes": 12884901888,
   "round_overrides": {
+    "r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104": 34359738368,
     "r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104": 34359738368,
     "r247r1-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104": 34359738368,
     "r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030": 17179869184,

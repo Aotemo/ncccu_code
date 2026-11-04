@@ -228,6 +228,8 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104': QUADRANT_MIL_SMALL_BINDING,
     'r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_DINO3_BINDING,
     'r247r1-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_BINDING,
+    'r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_BINDING,
+    'r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104': PAIR_SIGMOID_GAMMA_SMALL_BINDING,
 }
 
 

@@ -1,0 +1,142 @@
+{
+  "status": "current_public_source_bound_original_science_unchanged",
+  "at": 1793800817.0065577,
+  "execution": {
+    "at": "2026-11-04T14:00:13.522506+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909060596142082-acfwvv9ejn-44303-worker-0",
+    "uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+    "container": "vcjob-2117909060596142082-acfwvv9ejn-44303",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/CPU-ALLOCATION.json",
+      "sha256": "1951bb937b1c2d549427d42545232b1027c87d93950df27ab1d24d8b1c662daa",
+      "executor_id": "08ac5df9-3ab6-41ad-b7b1-ecfba1f8ac92",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "results": [
+    {
+      "round_id": "r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104",
+      "member": "R248",
+      "base_science_sha256": "9ea7429cbef86cc69b20cea37afdd2760043c17968401a5e662b9083740ba442",
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R248-R249-bind-a/R248-A-SCIENCE.json",
+        "sha256": "6610aa3f3d32ed10669decea0a38bcd083965464091e29f4003222d11c3eca41"
+      },
+      "public_asset_receipt": {
+        "path": "technical-prep/takeover-20261104-08ac/R248-R249-bind-a/PUBLIC-LARGE-CURRENT.json",
+        "sha256": "e5340939241f9f3f6835b9a1ebeea5df8d30a6ca8d25bdfac5c428749c510831"
+      }
+    },
+    {
+      "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "member": "R249",
+      "base_science_sha256": "6000c2a8366ce1464032e1bc0e5801075dead535b6f868cd3c969ee4344f892c",
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R248-R249-bind-a/R249-A-SCIENCE.json",
+        "sha256": "528afb105736ab86683f9728b5822075ed3c46e61e7603ca41ae38469463c3b6"
+      },
+      "public_asset_receipt": {
+        "path": "technical-prep/dual-pod-20261104-4e0c/pod-a/public-current/PUBLIC-SMALL-CURRENT.json",
+        "sha256": "e25d549adfe272449807536ca2f44b0e7e7c1de7ad43d4ac2a776bfdb81687c4"
+      }
+    }
+  ],
+  "large_content_proofs": {
+    "original": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/large22k-dc2e53fa/original/pytorch_model.bin",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/large22k-dc2e53fa/original/pytorch_model.bin",
+      "bytes": 791192465,
+      "device": 152,
+      "inode": 10370798383,
+      "mtime_ns": 1793632333000000000,
+      "ctime_ns": 1793632333000000000,
+      "sha256": "fd95109867ce61ed5609b604045b2ffc7425ddb0ed2d53f77cb2281de0422277",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 791192465
+    },
+    "converted": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/large22k-dc2e53fa/converted/convnext-large-tv-dc2e53fa.pt",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/large22k-dc2e53fa/converted/convnext-large-tv-dc2e53fa.pt",
+      "bytes": 791173647,
+      "device": 152,
+      "inode": 10128721475,
+      "mtime_ns": 1793632347000000000,
+      "ctime_ns": 1793632347000000000,
+      "sha256": "b27d6640f40b2e9a296b4c4374b0aa89a0bbdf4e6240dd04b9176a9e63044f21",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 791173647
+    },
+    "provenance": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/large22k-dc2e53fa/converted/provenance.json",
+      "resolved": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/public/large22k-dc2e53fa/converted/provenance.json",
+      "bytes": 2225,
+      "device": 152,
+      "inode": 18923782783,
+      "mtime_ns": 1793632349000000000,
+      "ctime_ns": 1793632349000000000,
+      "sha256": "d57564b87040538ea4b500b305acdb1bed620682b74ecca145e8c5212f8ae4d3",
+      "sha256_evidence": "fresh_pod_sha256",
+      "bytes_hashed": 2225
+    }
+  },
+  "official_evaluation": {
+    "version": "final-frozen-ensemble-only-v1",
+    "split": "official_valid_5849",
+    "member_round_evaluation": false
+  },
+  "GPU_initialized": false,
+  "model_constructed": false,
+  "forward_calls": 0,
+  "official_read": false
+}

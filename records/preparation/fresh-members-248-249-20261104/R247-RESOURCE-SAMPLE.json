@@ -1,0 +1,131 @@
+{
+  "status": "sampled_no_gpu_context",
+  "at": 1793800948.843933,
+  "execution": {
+    "at": "2026-11-04T14:02:28.822361+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909060596142082-acfwvv9ejn-44303-worker-0",
+    "uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+    "container": "vcjob-2117909060596142082-acfwvv9ejn-44303",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/CPU-ALLOCATION.json",
+      "sha256": "1951bb937b1c2d549427d42545232b1027c87d93950df27ab1d24d8b1c662daa",
+      "executor_id": "08ac5df9-3ab6-41ad-b7b1-ecfba1f8ac92",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "round_id": "r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "first_receipt_sha256": "dc4bdef98f46d338317077172d8f5706a77096656000d53058b73f28e9a693f1",
+  "progress_receipt_sha256": "f8467402baa9857d01016676600d2ddd59a27d30f567010d4667d4bf57f6f588",
+  "first_updates": 25,
+  "later_updates": 1225,
+  "elapsed_seconds": 1143.5520644187927,
+  "observed_seconds_per_update_including_one_evaluation": 0.9529600536823273,
+  "cards": [
+    {
+      "pci": "0000:09:00.0",
+      "vram_used_bytes": 20716122112,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 69
+    },
+    {
+      "pci": "0000:36:00.0",
+      "vram_used_bytes": 20783157248,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 94
+    },
+    {
+      "pci": "0000:55:00.0",
+      "vram_used_bytes": 20783157248,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 38
+    },
+    {
+      "pci": "0000:77:00.0",
+      "vram_used_bytes": 20783206400,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 91
+    },
+    {
+      "pci": "0000:85:00.0",
+      "vram_used_bytes": 20783169536,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 21
+    },
+    {
+      "pci": "0000:b5:00.0",
+      "vram_used_bytes": 20783149056,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 86
+    },
+    {
+      "pci": "0000:d5:00.0",
+      "vram_used_bytes": 20783099904,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 96
+    },
+    {
+      "pci": "0000:f5:00.0",
+      "vram_used_bytes": 20682481664,
+      "vram_total_bytes": 68702699520,
+      "busy_percent": 83
+    }
+  ],
+  "max_sampled_vram_used_bytes": 20783206400,
+  "free_bytes": 66047705088,
+  "gt_20GiB_now": true,
+  "gt_20_plus_32_plus_12_GiB_now": false,
+  "peak_memory_measured": false,
+  "future_capacity_guaranteed": false,
+  "GPU_initialized": false
+}

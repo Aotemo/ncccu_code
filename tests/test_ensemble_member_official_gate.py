@@ -10,6 +10,8 @@ sys.path.insert(0,str(ROOT/'runtime/bundle'))
 
 def test_final_only_policy_is_bound_to_the_exact_round_and_profile():
     from retrain import experiment91 as ex
+    assert ex.ENSEMBLE_MEMBER_ROUNDS['r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104']==ex.LARGE_BINDING
+    assert ex.ENSEMBLE_MEMBER_ROUNDS['r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104']==ex.PAIR_SIGMOID_GAMMA_SMALL_BINDING
     for round_id,profile in ex.ENSEMBLE_MEMBER_ROUNDS.items():
         policy=ex.expected_official_policy({'round_id':round_id},{'candidate_profile':profile})
         assert policy==ex.OFFICIAL_FINAL_ENSEMBLE_ONLY
@@ -31,7 +33,11 @@ def test_member_science_keeps_the_original_recipe_and_final_only_gate():
     ignored={'public_asset_receipt','official_evaluation','comparison_note'}
     for label,base,round_id in (
         ('R246','R172','r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104'),
-        ('R247','R182','r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104')):
+        ('R247','R182','r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104'),
+        ('R248-A','R180','r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104'),
+        ('R248-B','R180','r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104'),
+        ('R249-A','R197','r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104'),
+        ('R249-B','R197','r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104')):
         original=json.loads((ROOT/'configs'/(base+'-SCIENCE.json')).read_text())
         member=json.loads((ROOT/'configs'/(label+'-SCIENCE.json')).read_text())
         assert {k:v for k,v in original.items()if k not in ignored}=={k:v for k,v in member.items()if k not in ignored}
