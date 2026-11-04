@@ -1,0 +1,18 @@
+{
+  "status": "formal_CPU_and_precise_git_deployment_ready",
+  "round_id": "r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "at": 1793801175.5053246,
+  "git_commit": "631ce2012e18c4ef6bee5f57e3fc6a6746195641",
+  "tree_sha": "dd9135aa88bbb81bd297209bc668f5b02389ff3d",
+  "science_sha256": "8c94c3daba018b0f356b361b6ed75a0b774eee9ec45f2881ca6901769bef73d5",
+  "checks": 18,
+  "formal_cpu_sha256": "82f61435d4a78c8c85aa2d7aa1b031698e74fb8482e71c33c3da40f42a8dd748",
+  "actual_initial_tensor_sha256": "3360682ea3aed68301752371888352f31e7a12ab541f8d438e7df4bcd71450e0",
+  "site_sha256": "5cfc9a966f6704bb9d339cd691caffee593471b795fef2b6772539996fdf7435",
+  "deployment_sha256": "87dbf7163a2a955d5db24c2e17102ee2a2e1dc580976d87bd8373bac9beef3fa",
+  "grant_valid_until": 1793844323.0196273,
+  "grant_remaining_seconds": 43147.51308751106,
+  "required_seconds": 31560,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

@@ -1,0 +1,398 @@
+{
+  "schema": 1,
+  "at": 1793801386.5616784,
+  "entries": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-088f56bac8224600b987dd8b86f65527.pt",
+      "device": 1048640,
+      "inode": 19209781631,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794164000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "f338b117b25d59f14e0ee60a2bdf672fc25498a7b0fd492f8cd4bf5380ac223e",
+      "advertised_blob_sha256": "63d96e846dbfe631d2ca191b3e5be1a41fee2063df57892fd57274f8273dbda5",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-351545285fc9479d8ceadc04d86a0180.pt",
+      "device": 1048640,
+      "inode": 19486992760,
+      "size": 792151754,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793797581000000000,
+      "allocated": 792152064,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "6fd8ada32185c0bc7a8b4390e97819cf94e633a4c77e3f5fcb0b44961e3f939e",
+      "advertised_blob_sha256": "4bb57b17a93ae0a45521e7138dd3e6dfdc58fa527d56bad24a7debe91dd6c83b",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3f94c49f5217477faa554117be9cbac2.pt",
+      "device": 1048640,
+      "inode": 19210297471,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794546000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "b406ef5f7da9ea7a60f293abaeeadb228ffa13b6abbe0d1362c2a7fb6e7699cd",
+      "advertised_blob_sha256": "f6c47902136c85197373cf00ee5d0bb1a32957cc64057e384c106fd626e53aea",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-7eb3a69b1ae84b2da38729ec0504fd3a.pt",
+      "device": 1048640,
+      "inode": 19210664831,
+      "size": 792151562,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794924000000000,
+      "allocated": 792152064,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "6b2ddbee5fe02448eb30ef99035349ea0f48e43c688af14e78fcc03aefee1db8",
+      "advertised_blob_sha256": "72152e9bcea4ee1f4e7f7d8a70024dcf7f92130737abfb8b45cd5aa16cffa9d7",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-990a843613954aa9b23b0d2ac2373b30.pt",
+      "device": 1048640,
+      "inode": 19217222271,
+      "size": 792151562,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793796817000000000,
+      "allocated": 792152064,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "0c25e69c3bd9c1b697eab62c3467de45a3b3059dec54978ebc4706254cbe704b",
+      "advertised_blob_sha256": "58499aaf8b3129760397fc336f3b6a2cab15d9ded804d9ce02e6b1c97fdfe8de",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a92280488b4347d0987c34c3efb449c5.pt",
+      "device": 1048640,
+      "inode": 19486986360,
+      "size": 792151754,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793797574000000000,
+      "allocated": 792152064,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "093d7ef6b64cfc283063b9a062d3cadfa480f9ff0dddfa33a5e092ea29ad9dbb",
+      "advertised_blob_sha256": "754510d895c3735fe3fb78e0cb06dc1b4a4c2c9f07cd4e94a11defba1c26ed55",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-adb890ae8a134c2ca7dabff5f389388a.pt",
+      "device": 1048640,
+      "inode": 19479844472,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794539000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "e574ebb1967dd6119e3c11d7d0fe84a6d9d6f0c8a28982095847f7ea32112b94",
+      "advertised_blob_sha256": "351f46285064e4a3642dd5d8de51c2871213af44c2f7add9f5a95c30cf623d79",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-69773eebc34744eea5811574bfe7c99b.pt",
+      "device": 1048640,
+      "inode": 9985365585,
+      "size": 396062907,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793793758000000000,
+      "allocated": 396063232,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "2accc3a82d482bc76dc09e9826c53f9968095f311be733fc09b34b74aaa4d78a",
+      "advertised_blob_sha256": "4176cd794c937fa07c31d5051a9802e6c6bbbfea35d0bcd2b6e444e1f422651c",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-00da04e83cd346f591dd8b9bc41db2fa.pt",
+      "device": 1048640,
+      "inode": 9326967883,
+      "size": 792151434,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794801000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "a9fd6c2eb338a1e2323aa56ea68a5ffbeeaa10b5428c09a8a58364345353e370",
+      "advertised_blob_sha256": "ea7e509b621ccaa599a53e15b7a03985fd2e227c46d859f069dafe251b726f31",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-39552c01035c4551ab2e7332a7364957.pt",
+      "device": 1048640,
+      "inode": 10225754423,
+      "size": 792151882,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793797852000000000,
+      "allocated": 792152064,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "6aa38e764252e2e32686073058c9084836f78d1af6e528004441d809f84321a4",
+      "advertised_blob_sha256": "a049fd9f40790947a9fe63495303d3da22d9a9dd65403b8fe31016e07dd9b85f",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3e2c12fe754f43ce8ba70bcaea11bece.pt",
+      "device": 1048640,
+      "inode": 9326824011,
+      "size": 792151434,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794416000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "3eb2368e04bb857571ce500b56d0fae304aefcd9092dc380ad95b3e7ce969019",
+      "advertised_blob_sha256": "3416c83f91be38e9075023888f4722c8328de3a86c7fd68789642dcf2f5856dd",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-9ddb8b2dd63e4678a87999cf2fc36d56.pt",
+      "device": 1048640,
+      "inode": 9327233867,
+      "size": 792151434,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793795182000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "e7aa30aee1299454170a6624dea1459441f5194f3bde1f0ef3d73657d9c685b6",
+      "advertised_blob_sha256": "d45fd8fd8ca89ae6700ede317687c71076c9b116098d91dbca4e915f024365cb",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-d5fa917bd0bf40edbbdbebd399b831cb.pt",
+      "device": 1048640,
+      "inode": 9329961803,
+      "size": 792151882,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793797846000000000,
+      "allocated": 792152064,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "59f213dcf859a286502d5282ae9e32be3642ef472f78a26b5e5835aa84a1174e",
+      "advertised_blob_sha256": "62fa1d59dfe362baf57ac643ab5d84f567b7e0b85a6b26add7d2d9447ead2687",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e0e34d68885f44578e63a4a3ca034341.pt",
+      "device": 1048640,
+      "inode": 10222151735,
+      "size": 792151434,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793794794000000000,
+      "allocated": 792151552,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "bd508e7678f947b13821a3dd0a225d535685506b85bd80ac37326d72d5068746",
+      "advertised_blob_sha256": "13fdccc929e3dd28381429657afed804369b39257de185ae19b8d9769d2531e2",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-9a24a1d3255a448e971d4308c9718461.pt",
+      "device": 1048640,
+      "inode": 9517193523,
+      "size": 396062971,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793793979000000000,
+      "allocated": 396063232,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "4c94338d5e1bd201a0620fdd0028535449e9ea790aefc0516d54818aafd74a85",
+      "advertised_blob_sha256": "b2ca0a7fe9e83a3cf5ff14b50b5b6865dd5774e5cf0508bae0444c8e3837f24d",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      }
+    }
+  ],
+  "errors": [],
+  "process_scan_denied": [],
+  "active_round": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104",
+  "actual_site": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R246-ready/formal-cpu/package/SITE_BINDING.json",
+    "sha256": "6eb45180bc03259d0ed244031e3afb061f6b20cb22f92406162f9968e206e310"
+  },
+  "source_commit": "631ce2012e18c4ef6bee5f57e3fc6a6746195641",
+  "conclusions": {
+    "R244": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      },
+      "strict_load": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-STRICT-LOAD.json",
+        "sha256": "aeef3d9b28f5ad8c7ddda417f65917ceb478d96077471513239f8b8fb8cce248",
+        "git_blob": "e4540c74abcd5724d9ade17d039283dd9454cd80"
+      },
+      "selected": {
+        "auroc": 0.988116668332348,
+        "ap": 0.8207140622129577,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "error_twice": 19738
+      },
+      "freeze_metadata_sha256": "02834a4ffdd61904f4cd2e2db5d69eaedd741a0358ea932194724563c830a78e",
+      "historical_actual_safe": true
+    },
+    "R245": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      },
+      "strict_load": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-STRICT-LOAD.json",
+        "sha256": "3b63f5bb7561e64107b557148eb4686eeb8be64793e80f021f9a798fef4fbe1c",
+        "git_blob": "0fb7dc101e93752b2c2dfbd1462e7ab307c2c21f"
+      },
+      "selected": {
+        "auroc": 0.9884056540046792,
+        "ap": 0.8364933102855981,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "error_twice": 19258
+      },
+      "freeze_metadata_sha256": "b31d27529c36e45d83f6b82aa4ef265e55b9e81d1bec641a75d019c7ab1492b3",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "checkpoint_loaded": false,
+  "GPU_or_model_command": false,
+  "deleted_files": []
+}

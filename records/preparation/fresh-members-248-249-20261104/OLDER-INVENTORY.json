@@ -1,0 +1,13 @@
+{
+  "status": "read_only_completed_safe_nonselected_inventory",
+  "at": 1793801262.6448553,
+  "rows": [],
+  "skipped_unknown": [],
+  "count": 0,
+  "logical_bytes": 0,
+  "allocated_bytes": 0,
+  "free_bytes": 61299752960,
+  "deleted_files": [],
+  "checkpoint_loaded": false,
+  "official_read": false
+}

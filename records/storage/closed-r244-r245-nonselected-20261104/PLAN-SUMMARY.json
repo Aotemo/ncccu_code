@@ -1,0 +1,69 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "393299c2950539fd4a5b017da3dd235d5dcc1139ffac2468d548a1d1518d852f",
+  "inventory_sha256": "ed7e35c508fe7eb8252f094530aa8b82bab93a268b7454ff9d5631c12846d8c3",
+  "source_commit": "631ce2012e18c4ef6bee5f57e3fc6a6746195641",
+  "candidate_count": 15,
+  "skipped": [],
+  "logical_bytes": 11090095928,
+  "allocated_bytes": 11090099712,
+  "filesystem_free_now": 60505980928,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104"
+  ],
+  "conclusions": {
+    "R244": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-COMPLETION-08ac.json",
+        "sha256": "2397bc6363d5c18c3cdb9589bafa50a00071b92d528e994911eb206daaec24fa",
+        "git_blob": "f4e9864c346ed17caf942c0d11ff0ee6275315db"
+      },
+      "strict_load": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R244/R244-STRICT-LOAD.json",
+        "sha256": "aeef3d9b28f5ad8c7ddda417f65917ceb478d96077471513239f8b8fb8cce248",
+        "git_blob": "e4540c74abcd5724d9ade17d039283dd9454cd80"
+      },
+      "selected": {
+        "auroc": 0.988116668332348,
+        "ap": 0.8207140622129577,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "error_twice": 19738
+      },
+      "freeze_metadata_sha256": "02834a4ffdd61904f4cd2e2db5d69eaedd741a0358ea932194724563c830a78e",
+      "historical_actual_safe": true
+    },
+    "R245": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-COMPLETION-08ac.json",
+        "sha256": "6deed8f499fb6afb5306d58e4fff9467af894f193b4a8c85094231a17460d8f3",
+        "git_blob": "bfdd30ebdc899dcdcf0dda5841f1385e4f1a4041"
+      },
+      "strict_load": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/R245/R245-STRICT-LOAD.json",
+        "sha256": "3b63f5bb7561e64107b557148eb4686eeb8be64793e80f021f9a798fef4fbe1c",
+        "git_blob": "0fb7dc101e93752b2c2dfbd1462e7ab307c2c21f"
+      },
+      "selected": {
+        "auroc": 0.9884056540046792,
+        "ap": 0.8364933102855981,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "error_twice": 19258
+      },
+      "freeze_metadata_sha256": "b31d27529c36e45d83f6b82aa4ef265e55b9e81d1bec641a75d019c7ab1492b3",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/next-248-249-snapshot/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}
