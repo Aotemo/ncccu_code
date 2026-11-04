@@ -18,8 +18,20 @@ from .ema import tensor_digest
 from .finite import all_floating_finite
 from .models import create_model
 from .persistence import atomic_json, canonical_digest, sha256_file
-from .vicreg import gather_embeddings, vicreg_loss
+from .vicreg import gather_embeddings, vicreg_loss, nt_xent_loss
 from . import engine as single
+
+
+NTXENT_RECIPE = {'version': 'fit-ntxent-1600-v1', 'updates': 1600,
+    'global_batch': 64, 'per_rank_batch': 8, 'training_views': 2,
+    'image_size': 512, 'training_scale': [0.85, 1.0],
+    'projector': [768, 1024, 256], 'backbone_lr': 1e-4,
+    'projector_lr': 1e-3, 'weight_decay': 1e-4,
+    'warmup_updates': 160, 'final_lr_factor': 0.01,
+    'gradient_clip': 1.0, 'precision': 'fp32',
+    'loss': 'symmetric_nt_xent', 'temperature': .1,
+    'learning_rng_domain': 'r115-fit-vicreg-1600-v1',
+    'sampling_rng_domain': 'r115-fit-vicreg-1600-v1'}
 
 
 LOCAL_RECIPE = {'version': 'fit-local-photometric-1600-v1', 'updates': 1600,
@@ -52,6 +64,8 @@ def validate_recipe(recipe, job, manifest, world):
         expected = HOG_RECIPE
     if recipe.get('version') == LOCAL_RECIPE['version']:
         expected = LOCAL_RECIPE
+    if recipe.get('version') == NTXENT_RECIPE['version']:
+        expected = NTXENT_RECIPE
     if recipe.get('version') == 'fit-ema-assignment-1600-v1':
         from .ema_assignment import EMA_RECIPE
         expected = EMA_RECIPE
@@ -216,6 +230,7 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
     assignment = domain in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1')
+    contrastive = domain == NTXENT_RECIPE['version']
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -309,6 +324,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                     if t1.shape != expected_global_shape or t2.shape != expected_global_shape:
                         raise ValueError('EMA global teacher geometry differs')
                     loss, assignment_stats = assignment_loss(z1.float(), z2.float(), t1.float(), t2.float(), center)
+                elif contrastive:
+                    loss, contrastive_stats = nt_xent_loss(z1.float(), z2.float(), temperature=recipe['temperature'])
                 else:
                     loss = vicreg_loss(z1.float(), z2.float())
             if ctx.any(not bool(torch.isfinite(loss))):
@@ -344,7 +361,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                             'teacher_momentum': momentum, 'prototype_frozen': prototype_frozen,
                             'prototype_freeze_updates': fit_epoch_updates,
                             'teacher_forward_inputs': 128, 'encoder_view_forwards': 256}
-                           if assignment else {})}) + '\n')
+                           if assignment else {}),
+                        **(dict(contrastive_stats, encoder_view_forwards=128) if contrastive else {})}) + '\n')
                 atomic_json(folder / 'status.json', {'phase': 'fit_only_ssl', 'status': 'running',
                     'successful_updates': update, 'target_updates': updates,
                     'last_loss': float(loss.detach()), 'at': time.time()})
@@ -403,6 +421,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                 'teacher_projector_center_persisted': False,
                 'unique_augmented_views_per_update': 128, 'encoder_view_forwards_per_update': 256}
                if assignment else {}),
+            **(dict(contrastive_stats, unique_augmented_views_per_update=128,
+                    encoder_view_forwards_per_update=128) if contrastive else {}),
             'rng_derivation': rng,
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)

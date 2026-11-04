@@ -1,0 +1,76 @@
+{
+  "status": "three_instance_contrastive_targets_passed_with_exact_unchanged_default_scopes",
+  "at": 1793752481.0207665,
+  "targets": 3,
+  "targets_run_here": 1,
+  "prior_two_passed_targets_reused": [
+    "test_global64_true_pairs_self_exclusion_permutation_and_row_scaling",
+    "test_independent_scalar_oracle_and_both_view_gradient_check"
+  ],
+  "original_partial_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-x1rnn8dk/CPU-RECEIPT.json",
+    "sha256": "f17c79810d8bfe6367adcf8c1f41c4eccc99698611520e09e6793ed0239c7fba"
+  },
+  "legacy_outcomes_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-97k9v39t/CPU-RECEIPT.json",
+    "sha256": "d467028528ac58bae32cfec14553f5155eb7eed5d4a8171e770b7dc5de75b710"
+  },
+  "historical_R107_current_validator_rejection_unchanged": true,
+  "new_candidate_test_scope_corrected_without_runtime_change": true,
+  "source_files": {
+    "runtime/bundle/retrain/vicreg.py": "043892e445c256bd098bde59487303d4723f916bf317ff172d085719a06b5687",
+    "runtime/bundle/retrain/ssl_stage.py": "e3a7300dbd3020e18dd30c6808844f271394dc632cb010786ada458de49a1d89",
+    "runtime/bundle/retrain/experiment91.py": "dbedf5fa46be46d24e26c2cf87516059daed6d25e0d0020775056ada731dd9cd",
+    "tests/test_nt_xent.py": "f84684644126d331cc702ba290f540e6f2553c991b1de98aaf655e1371f9d35d"
+  },
+  "configuration_files": {
+    "configs/R234-SCIENCE.json": "3ee3cbc3ffcb89fed9e3377ff40697025777e1bab367265634aa57d30b27f8aa",
+    "configs/R235-SCIENCE.json": "7328a2f175b4176c1e1313842be23b7296ad2f05df60c91512507700b0fc8a89"
+  },
+  "compiled_affected_files": 4,
+  "unchanged_function_scopes": {
+    "runtime/bundle/retrain/vicreg.py:_GatherEmbeddings": "1e439c478f7b61c8ef6a2ca2b04a87f26654ef3cf74519f04468577f861f82c0",
+    "runtime/bundle/retrain/vicreg.py:gather_embeddings": "f57cec401264daa978f5e3df7c228c9a3bb7ae66917bf9ca8ff4d220ae57b6e4",
+    "runtime/bundle/retrain/vicreg.py:vicreg_loss": "b1f1a411ed395de583f7ecb2123e87bb075beae3527f8d00ca64b86828705fdd",
+    "runtime/bundle/retrain/ssl_stage.py:ssl_phase_completed": "0e9a2450200f7001afb01d06547de96c450e2773ffc8509389ea2836d0ba30a5",
+    "runtime/bundle/retrain/ssl_stage.py:ssl_head_shape": "9d5bf508e3edd932861034be5952153bd8c7cee62b08dc85ccdc1dbda247904d",
+    "runtime/bundle/retrain/ssl_stage.py:ssl_rng_derivation": "f886a8e5ac94ddcded6eb771ca43e7c3eb2adaf65512118cd31c5494a2dcf7ed",
+    "runtime/bundle/retrain/ssl_stage.py:UniformFitSampler": "470a0212cf14ad24257c87044345b5829495fcdcc56a3645bed29214fe7250ca",
+    "runtime/bundle/retrain/ssl_stage.py:SSLModel": "dd5df60f29c573511176e6ad42776f0306f11490603ad4193ee920beebad02f5",
+    "runtime/bundle/retrain/ssl_stage.py:LocalSSLModel": "a11bd57ba0900782bef5da7a99c88b0aa42e3435960e285f6806982572f26f59",
+    "runtime/bundle/retrain/ssl_stage.py:_derived_state": "644554735820b8990665a1d9074c0e89da6dacf1cd65eac6a04e67714605b715",
+    "runtime/bundle/retrain/ssl_stage.py:_non_encoder_state": "9528058b79d22e067aecab61ee66361a000c60425bb9043a96d840f606c445e1",
+    "runtime/bundle/retrain/ssl_stage.py:_factor": "d5cac507716b4e5ab41b6170655c23a427a4f4b6c7313933af5b0759f779c40e",
+    "runtime/bundle/retrain/ssl_stage.py:_optimizer": "f6529f7c080d88cdd6fbf56bf1aad16efc3b00d8d5ec67827318b3415ed98f15",
+    "runtime/bundle/retrain/ssl_stage.py:_wait_barrier": "621ba058020b62fccbcd46d646f1384c7c08e4372889c8eb05dbdfb69841da5f",
+    "runtime/bundle/retrain/ssl_stage.py:load_derived_model": "0e0519cd74e87c517c286ef08f4b9c1ee83a60fb4eadd85e069d1e68c1cd2c9a",
+    "runtime/bundle/retrain/preprocessing.py:bright_center_box": "ae5313e3128c8433513fe6fe26adad144af75733c1f0720e66c7e8eb521f79cf",
+    "runtime/bundle/retrain/preprocessing.py:bright_center_crop": "dc6046413b41b08fff4d6209ec3a6c52b8b93cd7c91c3f8f96b5dce0c117f733",
+    "runtime/bundle/retrain/preprocessing.py:global_native_inset": "dbdc89898869f2ae4e3731e0580efd0eee458b8ef22e1a84ed665147bfaa8cf5",
+    "runtime/bundle/retrain/preprocessing.py:verify_composite_cache_asset": "6287b0a5c86adbbefd6ba5ac30f5dbb9505adab71587609802bdcaaa448229c2",
+    "runtime/bundle/retrain/preprocessing.py:verify_native_cache_asset": "6418b6bb73bd46b9d1f967c910d729739e35fa4bce1370a94851757856f724e9",
+    "runtime/bundle/retrain/preprocessing.py:prepare_image": "6ab6756c6c146ea8b7ea7705861589b1a92eadcb549b05b879b6d3f67581da87",
+    "runtime/bundle/retrain/preprocessing.py:PreparedImageCache": "ea2f650d25c93bb5f7c2b00edf494b495bab5984f064aa2d554a757f2ada1cad"
+  },
+  "unchanged_implementation_files": {
+    "runtime/bundle/retrain/models.py": "760ff84c7cd0545411750fa0c9090ba33fe164c43fc569fd08f3dc075b2a5152",
+    "runtime/bundle/retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a",
+    "runtime/bundle/retrain/engine.py": "6c011077c438d4a2c3c3a5a0794024b194c4bc2222e0bb303e6d59d61f16400e",
+    "runtime/bundle/retrain/distributed_engine.py": "937fae016629d21d17ff4b3dea1b75acb03a4e759a560130995da48448432b7c",
+    "runtime/bundle/retrain/single91.py": "dcd76aed3d173521b0a79e05e4e26f34185b897b12c09a0cb97d5f1beaaa3662",
+    "runtime/bundle/retrain/age.py": "35bc0c460c674f17a0093a138f1599e45826a339dc7ddfe212a906df3752060a",
+    "runtime/bundle/retrain/ema.py": "dd320b3e09782fe34cb7525558b6c84e34c880de2da7f5ee95b0de683a588530",
+    "runtime/bundle/retrain/inference.py": "1a00f003fe5db81627934b2afba2e71af68dafed76810d9ba6fa26835fcb7833",
+    "runtime/bundle/retrain/persistence.py": "652bd30dda544d79b8d653968a1e5290cd52f3db6d5f74786a89921030132c4d",
+    "runtime/r115_ssl_gate.py": "dc0bf3ce7fe0c2a812942f1d04ee6aa7793c1152b7fb36085a41a3c5fb19e869",
+    "runtime/r92_initial_gate.py": "fe2455352c88600f10e0e2ff88e8b4582b0ea55aa906a15a38bcfe02257bf25d"
+  },
+  "original_actual_P8_and_cold_derived_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "026afc2698da61793fe95e2bd4826035500841edfcaf2b29c2b1cfcd7ba3efa8"
+  },
+  "new_public_P8_backward_not_yet_proven": true,
+  "task_images_read": false,
+  "labels_or_age_used_for_loss": false,
+  "GPU_initialized": false
+}

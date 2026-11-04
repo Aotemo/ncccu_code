@@ -1,0 +1,132 @@
+{
+  "status": "actual_public_Small_local_P8_contrastive_backward_passed",
+  "at": 1793752688.5526993,
+  "wall_seconds": 110.88877320289612,
+  "fixture_only_not_for_training": true,
+  "fixture_weight_files_created": false,
+  "site_sha256": "27c87bb7ba4f022c50fadcd0cc897b9b61d82217e53c54781b963e3439d5261c",
+  "science_sha256": "3ee3cbc3ffcb89fed9e3377ff40697025777e1bab367265634aa57d30b27f8aa",
+  "public_initial_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "public_encoder_before": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+  "fixture_encoder_after": "9fe995f20aba1b3d919f8d47faff3006f8e19770252004f78c111d0151f1bf55",
+  "public_source_proof": {
+    "initialization": {
+      "kind": "imagenet",
+      "weights_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+      "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model": "convnext_small",
+      "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+      "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+      "format": "torchvision-1000-state-dict-v1",
+      "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+      "final_norm_eps": 1e-06
+    },
+    "strict_missing_keys": [],
+    "strict_unexpected_keys": [],
+    "public_tensor_count": 344,
+    "public_tensor_sha256": "966da204c7ee0668d6d2e1d51b9fa8fe1df96a9a630b12271a96d00f0a197d97",
+    "full_head_shape": [
+      1000,
+      768
+    ],
+    "all_public_tensors_exact": true,
+    "all_public_tensors_FP32_finite": true
+  },
+  "input_shape": [
+    8,
+    2,
+    3,
+    512,
+    512
+  ],
+  "per_rank_embedding_shape": [
+    8,
+    2,
+    256
+  ],
+  "actual_local_loss_geometry": {
+    "contrastive_logits_shape": [
+      16,
+      16
+    ],
+    "contrastive_anchor_count": 16,
+    "contrastive_negative_views_per_anchor": 14,
+    "contrastive_positive_targets_per_anchor": 1,
+    "contrastive_temperature": 0.1,
+    "contrastive_self_excluded": true
+  },
+  "primary_fit_images": 8,
+  "unique_augmented_views": 16,
+  "encoder_view_forwards": 16,
+  "global64_matrix_tested_independently": true,
+  "actual_distributed_global_geometry_not_tested_on_CPU": true,
+  "gradient_tensors": 346,
+  "loss": 2.451242446899414,
+  "gradient_norm_before_clip": 53.22116470336914,
+  "first_update_LR_factor": 0.00625,
+  "head_age_unchanged": true,
+  "rng_derivation": {
+    "domain": "fit-ntxent-1600-v1",
+    "learning_domain": "r115-fit-vicreg-1600-v1",
+    "sampling_domain": "r115-fit-vicreg-1600-v1",
+    "projector_seed": 13570150246573520987,
+    "model_seeds": [
+      13005124249799044140,
+      6661740416318479282,
+      13873728915670781849,
+      18157558732086183677,
+      9583217829065283376,
+      17562494162834831587,
+      4913364859442271977,
+      10295083306935791202
+    ],
+    "sampler_seed": 14997478083172343433,
+    "loader_seeds": [
+      8224904777078185394,
+      3979332410336687714,
+      15962323943792785982,
+      15653621441068613486,
+      683957702058833869,
+      15617549115797023167,
+      2941004554198952120,
+      8767395967603500588
+    ]
+  },
+  "labels_or_age_used_for_loss": false,
+  "official_read": false,
+  "dev_read_for_loss": false,
+  "GPU_initialized": false,
+  "actual_torch_threads": 12,
+  "actual_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "cold_derived_and_supervised_empty_groups_reused_from_exact_unchanged_scopes": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/ema-assignment-20261103-4e0c/ACTUAL-P8-CPU.json",
+    "sha256": "026afc2698da61793fe95e2bd4826035500841edfcaf2b29c2b1cfcd7ba3efa8"
+  },
+  "new_cold_derived_forward_performed": false
+}

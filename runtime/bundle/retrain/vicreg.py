@@ -1,4 +1,5 @@
-"""Global embedding gather and VICReg-style fit-only loss; no labels, teacher or stop-gradient."""
+"""Differentiable global gather and fit-only embedding losses without labels."""
+import math
 import torch
 import torch.distributed as dist
 
@@ -62,3 +63,24 @@ def vicreg_loss(z1, z2):
 
     covariance = covariance_term(z1) + covariance_term(z2)
     return 25.0 * invariance + 25.0 * variance + covariance
+
+
+def nt_xent_loss(z1, z2, *, temperature):
+    """Symmetric instance prediction; equal row indices identify two image views."""
+    if (z1.dim() != 2 or z1.shape != z2.shape or z1.shape[0] < 2 or z1.shape[1] < 1
+            or not isinstance(temperature, (int, float))
+            or not math.isfinite(temperature) or temperature <= 0):
+        raise ValueError('NT-Xent requires equal NxD views, N>=2 and positive temperature')
+    n = z1.shape[0]
+    values = torch.nn.functional.normalize(torch.cat((z1, z2)), dim=1, eps=1e-12)
+    logits = (values @ values.transpose(0, 1)) / temperature
+    anchors = torch.arange(2 * n, device=logits.device)
+    logits = logits.masked_fill(torch.eye(2 * n, device=logits.device, dtype=torch.bool), -torch.inf)
+    targets = (anchors + n) % (2 * n)
+    loss = (torch.logsumexp(logits, dim=1) - logits[anchors, targets]).mean()
+    return loss, {'contrastive_logits_shape': list(logits.shape),
+                  'contrastive_anchor_count': logits.shape[0],
+                  'contrastive_negative_views_per_anchor': logits.shape[1] - 2,
+                  'contrastive_positive_targets_per_anchor': 1,
+                  'contrastive_temperature': float(temperature),
+                  'contrastive_self_excluded': True}

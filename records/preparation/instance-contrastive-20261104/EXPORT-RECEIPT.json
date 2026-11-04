@@ -1,0 +1,13 @@
+{
+  "status": "only_config_small_checks_and_current_SSL_progress_exported",
+  "at": 1793752774.4891691,
+  "files": {
+    "configs/R235-SCIENCE.json": "7328a2f175b4176c1e1313842be23b7296ad2f05df60c91512507700b0fc8a89",
+    "configs/R234-SCIENCE.json": "3ee3cbc3ffcb89fed9e3377ff40697025777e1bab367265634aa57d30b27f8aa",
+    "records/R232/R232-PROGRESS-ntxent-CPU-ready.json": "08558c4dc51d12c6452459d6698275fefb3cec3616c675efb51d70e5148f66c5",
+    "records/preparation/instance-contrastive-20261104/CPU-CHECKS.json": "087300372ec77f8b80a1595296aeb31552e56092515cc5d24939036082830676",
+    "records/preparation/instance-contrastive-20261104/GREEN-CPU.json": "134cdac051ad4cd49bf4fcec43a1de2fa2a693ae743d4e0b8ecdb37aacd9388f",
+    "records/preparation/instance-contrastive-20261104/ACTUAL-P8-CPU.json": "93ac00abe708243dd49d25e8cdaf21c90c35a5fe608b90ec827ad7ae0d1f3697"
+  },
+  "private_task_images_or_predictions_or_credentials_exported": false
+}
