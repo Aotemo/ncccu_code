@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "at": 1793814124.4636037,
+  "tests": [
+    {
+      "test": "tests/test_r253_r254_seeds.py",
+      "exit_code": 0,
+      "output": "R253/R254 seeds, original recipes and final-only official gate passed\n",
+      "seconds": 4.08540678024292
+    },
+    {
+      "test": "tests/test_r120_seed_replicas.py",
+      "exit_code": 0,
+      "output": "two seed-registration and original-profile targets passed\n",
+      "seconds": 0.14349770545959473
+    },
+    {
+      "test": "tests/test_r252_seed.py",
+      "exit_code": 0,
+      "output": "R252 seed, R201/R202 invariants and final-only official gate passed\n",
+      "seconds": 0.14413833618164062
+    },
+    {
+      "test": "tests/test_ensemble_member_official_gate.py",
+      "exit_code": 0,
+      "output": "final ensemble-only official gate and historical gate passed\n",
+      "seconds": 0.17492318153381348
+    },
+    {
+      "test": "tests/test_mixstyle_r1_identity.py",
+      "exit_code": 0,
+      "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.048s\n\nOK\n",
+      "seconds": 4.193867444992065
+    }
+  ],
+  "experiment91_sha256": "16c087b93a252fe7161173983c692aefc11e3ecb189bb3e859a3799fb8a12684",
+  "new_test_sha256": "aeb5038428f35065a74041820f5b31465b74c5e769fb72f2d70b57dc7af34b31",
+  "GPU_initialized": false,
+  "official_read": false,
+  "formal_CPU_or_GPU": false
+}

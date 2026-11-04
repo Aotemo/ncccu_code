@@ -1,0 +1,13 @@
+{
+  "status": "entry_variant_verified",
+  "at": 1793814134.6443238,
+  "original_sha256": "1971e917e14af87223d6108cd8371ee01e85ecc8758bef3fb5d45f7a8232cf36",
+  "entry_sha256": "3fa4a185e55e4423bd86fd4569e030085bb016e4558f6fddf52d680ed0b03c1e",
+  "changes": [
+    "R254 isolated fixed source",
+    "R254 A/B v2 preparation",
+    "checker pins v6 entry"
+  ],
+  "activation_reserved": false,
+  "GPU_started": false
+}

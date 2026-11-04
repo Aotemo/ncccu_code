@@ -36,6 +36,16 @@ def group_lrs_match(groups, job):
                     for group in groups))
 
 
+def sigmoid_formal_contract(job, science, site):
+    """Keep the sigmoid loss fixed and validate this round's registered official gate."""
+    from retrain import experiment91 as ex
+    from retrain.classification_loss import PAIRWISE_LOSS_KINDS
+    return (job['loss'] == ex.PAIR_SIGMOID_LOSS
+            and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
+            and science.get('official_evaluation') == ex.expected_official_policy(site, science)
+            and job.get('training_views') is None and job.get('native_local_view') is None)
+
+
 def check(name, condition, actual=None):
     CHECKS.append({'name': name, 'passed': bool(condition), 'actual': actual})
     if not condition:
@@ -152,12 +162,8 @@ def main(args):
           and sum(isinstance(module, torch.nn.GELU) and module.approximate == 'none'
                   for module in model.modules()) == contract.get('gelu_modules', contract.get('stochastic_depth_modules', 0)), structure)
     if is_pair_sigmoid:
-        from retrain.classification_loss import PAIRWISE_LOSS_KINDS
         check('fixed_sigmoid_WORLD_loss_and_conditional_official_bound',
-              job['loss'] == ex.PAIR_SIGMOID_LOSS
-              and job['loss']['kind'] in PAIRWISE_LOSS_KINDS
-              and ex.science_configuration().get('official_evaluation') == ex.OFFICIAL_GATE_0996
-              and job.get('training_views') is None and job.get('native_local_view') is None)
+              sigmoid_formal_contract(job, ex.science_configuration(), site))
     if ex.science_configuration()['candidate_profile'] in (ex.HARD_POSITIVE_SMALL_BINDING,ex.HARD_POSITIVE_SMALL_SEED27_BINDING):
         from retrain.classification_loss import PAIRWISE_LOSS_KINDS
         check('fixed_hard_positive_top2_mix05_stable_WORLD_and_official_bound',
