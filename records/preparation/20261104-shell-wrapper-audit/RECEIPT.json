@@ -1,0 +1,31 @@
+{
+  "status": "passed_local_wrapper_failure_audit",
+  "at": 1793809774.4706638,
+  "files": {
+    "assemble-shards.sh": "dadc6570826c11e797b6bc672adf4d0ca9d2467979e0a793085f5136538d35a8",
+    "capture-pod-list.sh": "b10005ba144ac4a8153a8475ccce0b23f3b19eefb83eccce4501583455837328",
+    "fetch-text-files.sh": "db09d68edb29e06351f2f3dd2447cf03c6735df9ae2d42b24c546eb599fe860f",
+    "member-entry-248-249-v2.sh": "8616d9902089e8594d018829d9c4f294cad5543c463965737bf32f092fea9c8e",
+    "member-entry-248-249.sh": "56465ccda816009e4e5d5108108acbd5dd7796570e4e0b46ceb05beaba308c97",
+    "member-entry-250-251-v2.sh": "acb2c4e919e599cf8f643ce47ac970405fac2858eb19835159cd3fcd334d371b",
+    "member-entry-250-251.sh": "7178c856744691cec1a3a12e8b6fcef331f0671ff78cd03b5e564274b3dbcd95",
+    "member-entry-crossbatch-v2.sh": "6c2b862486746cfb93210c0bd0e3250024ded47bc98a472870a3f6625cdd3d19",
+    "member-entry-crossbatch.sh": "6a5adc2b7421de24e3f749ecf112ca10e21ebdcf795d54a482074c41e5f533ae",
+    "member-entry-v2.sh": "1efc0736ae67765d657bec263201c85f84b5e8b10c15a990b8dac47666cb28d1",
+    "member-entry.sh": "0785f99cd655c29dfcf1f6e372c341b3df828b6c01cfb749ac9490c8fcf2ee87",
+    "pod_cpu.sh": "53da72827f5a1638ae87400b8cd4b8be0c01a0fbf6f381565727bdf09b4e39a8",
+    "transfer-new-file.sh": "f06fe156179f653d8d8a819fa4aaae389631e4adfed57feb9b571986cc302b26"
+  },
+  "file_count": 13,
+  "bash_syntax_and_strict_mode": true,
+  "tests": {
+    "ssh_failed_tar_success_propagated": true,
+    "partial_pod_listing_not_transferred": true,
+    "old_missing_cd_defect_reproduced_and_fixed": true,
+    "failed_cpu_gate_blocks_launch": true,
+    "prepared_launch_and_pod_cpu_identity_matched": true
+  },
+  "GPU_initialized": false,
+  "training_signals_sent": false,
+  "live_wrapper_modified_in_pod": false
+}

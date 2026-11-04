@@ -43,6 +43,9 @@ class HardCaseTests(unittest.TestCase):
         self.assertEqual(value, {'pair_count': 5, 'unique_negative_count': 2,
                                  'negative_count_support_at_least_three': 1})
 
+    def test_private_shared_negative_support_counts_each_positive_once(self):
+        self.assertEqual(p3.shared_negative_support([{1, 3}, {1, 3}, {3}]), {1: 2, 3: 3})
+
 
 if __name__ == '__main__':
     unittest.main()

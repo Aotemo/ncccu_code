@@ -78,8 +78,12 @@ def shared_negative_count(positive_scores, negative_scores):
     return len(shared_negative_indices(positive_scores, negative_scores))
 
 
+def shared_negative_support(shared_by_positive):
+    return dict(Counter(index for indices in shared_by_positive for index in indices))
+
+
 def shared_pair_summary(shared_by_positive):
-    support = Counter(index for indices in shared_by_positive for index in indices)
+    support = shared_negative_support(shared_by_positive)
     return {'pair_count': sum(support.values()), 'unique_negative_count': len(support),
             'negative_count_support_at_least_three': sum(count >= 3 for count in support.values())}
 
@@ -223,15 +227,28 @@ def ranks(base, source, packet, output):
         'input_inventory_sha256': sha(inventory_path), 'f03_sha256': sha(f03_path),
         'manifest_sha256': reference['manifest_sha256'], 'models': model_receipts,
         'official_read': False, 'model_loaded': False, 'new_forward': False, 'GPU_initialized': False}
+    fixed_support = shared_negative_support([shared_by_positive[index] for index in fixed])
+    negative_dev_indices = [index for index, label in enumerate(labels) if label == 0]
+    if (len(negative_dev_indices) != 4973 or len(fixed_support) != 603
+            or sum(count >= 3 for count in fixed_support.values()) != 241):
+        raise ValueError('reconstructed fixed20 shared-negative population differs')
+    private_negatives = [{'dev_index': negative_dev_indices[index], 'fixed20_support': count,
+                          'support_at_least_three': count >= 3}
+                         for index, count in sorted(fixed_support.items())]
     output.mkdir(exist_ok=False)
     write(output / 'PRIVATE-RANKS.json', {'rows': list(private.values())})
+    write(output / 'PRIVATE-SHARED-NEGATIVES.json', {'rows': private_negatives,
+          'manifest_sha256': reference['manifest_sha256'], 'f03_sha256': sha(f03_path),
+          'definition': 'negative exceeds fixed positive under all seven members'})
+    summary['private_shared_negative_sha256'] = sha(output / 'PRIVATE-SHARED-NEGATIVES.json')
     write(output / 'SUMMARY-RANKS.json', summary)
     compact = {name: {key: value for key, value in summary['groups'][name].items()
                       if key != 'negative_percentile_median_by_member'}
                for name in ('fixed20', 'remaining_positive', 'reviewed_negative')}
     print(json.dumps({'status': summary['status'], 'population': summary['population'], 'groups': compact,
                       'summary_sha256': sha(output / 'SUMMARY-RANKS.json'),
-                      'private_sha256': sha(output / 'PRIVATE-RANKS.json')}, indent=2), flush=True)
+                      'private_sha256': sha(output / 'PRIVATE-RANKS.json'),
+                      'private_shared_negative_sha256': summary['private_shared_negative_sha256']}, indent=2), flush=True)
 
 
 def main():
