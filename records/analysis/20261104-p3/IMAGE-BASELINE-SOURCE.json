@@ -1,0 +1,25 @@
+{
+  "status": "pushed_p3_files_verified",
+  "at": 1793830969.5744443,
+  "commit": "8a68b4fda3914a377eff9ea5734251d4d09a2d1e",
+  "tree": "aab8255e8acacf9017a825941e1c96e3dcdfc447",
+  "files": {
+    "tools/diagnostics/p3_baseline_compare.py": {
+      "git_blob": "9ff5be7aac2f17510d746729b07a4f86f1167c61",
+      "sha256": "e649cfcfc9bbace8fb1efe9fbab1b8cee3f9268ce4e8de3f3def80d6c12725da",
+      "size": 6453
+    },
+    "tools/diagnostics/p3_hard_case.py": {
+      "git_blob": "46f77408838dbcaa6a42c687da8d0110e391950a",
+      "sha256": "03190294ba7f4ca53d505ef909ac3f37f6a7ede649cb86602f63c3c65d1e5741",
+      "size": 35038
+    },
+    "tests/test_p3_baseline_compare.py": {
+      "git_blob": "12b55a39a61b5d7958073ad0c1e567408dfd1533",
+      "sha256": "8d0799616fbb9772741a1c0124867823a15eea97d739ff7c3ac2fb7c2ae7e581",
+      "size": 1701
+    }
+  },
+  "GPU_initialized": false,
+  "deleted_files": []
+}

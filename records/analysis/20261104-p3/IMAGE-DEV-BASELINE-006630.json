@@ -1,0 +1,36 @@
+{
+  "status": "complete_dev_negative_baseline",
+  "at": 1793831456.0205681,
+  "scanned_count": 6630,
+  "expected_scan_count": 51396,
+  "shared_603_to_fit_positive": {
+    "query_count": 603,
+    "target_count": 1490,
+    "matched_query_count": 43,
+    "matched_fraction": 0.07131011608623548,
+    "candidate_pair_count": 64,
+    "same_original_sha_query_count": 0
+  },
+  "other_4370_to_fit_positive": {
+    "query_count": 4370,
+    "target_count": 1490,
+    "matched_query_count": 395,
+    "matched_fraction": 0.09038901601830664,
+    "candidate_pair_count": 581,
+    "same_original_sha_query_count": 0
+  },
+  "rate_difference": -0.019078899932071153,
+  "rate_ratio": 0.7889245754350609,
+  "dev_positive_to_fit_negative": {
+    "status": "unknown",
+    "reason": "fit negative scan incomplete",
+    "fit_negative_processed": 0,
+    "fit_negative_expected": 44766
+  },
+  "scan_inputs_sha256": "ad4f22763403f0913efd13c9955aac8dc46ac7d9815b6b4290ad7f76be353ab5",
+  "scan_source_sha256": "03190294ba7f4ca53d505ef909ac3f37f6a7ede649cb86602f63c3c65d1e5741",
+  "source_sha256": "e649cfcfc9bbace8fb1efe9fbab1b8cee3f9268ce4e8de3f3def80d6c12725da",
+  "official_read": false,
+  "GPU_initialized": false,
+  "interpretation": "Post-hoc double-perceptual-hash candidates only; similarity does not establish patient identity, leakage, or a label error."
+}
