@@ -1,0 +1,10 @@
+{
+  "status": "published_full_git_tree_verified_not_formal_deployment",
+  "at": 1793803375.6124616,
+  "commit": "2742968868e9c3e5cffd4ae35dbf5c5208eb320c",
+  "tree": "e41f1a000a11d0e98aaa13c1cc33179a40aba9e8",
+  "file_count": 3134,
+  "file_sha256_map_digest": "4b8074515961950ae12b9b86be62e42d68f61462749cb469648fc732f3e5405d",
+  "GPU_initialized": false,
+  "formal_CPU_or_activation_executed": false
+}
