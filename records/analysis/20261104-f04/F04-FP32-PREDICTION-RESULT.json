@@ -1,0 +1,76 @@
+{
+  "status": "F04_fp32_dev_predictions_with_fp16_storage_budget",
+  "at": 1793818426.1362312,
+  "preflight_sha256": "7839b9d9d6f8ac27c2c990d8c23548e9795567a73a9e88412d47ddbfbf60e5f9",
+  "inventory_sha256": "fb861358801e5281d7b426b48a16630063d66d8ac40d3a2d0ced4cf40f5bae8a",
+  "population_count": 5140,
+  "positive_count": 167,
+  "official_read": false,
+  "TTA": false,
+  "forward_calls": 0,
+  "fp16_size_fp32_predictions": {
+    "members": [
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101"
+    ],
+    "weight_bytes": 495097409,
+    "stopped_before": "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029",
+    "metrics": {
+      "error_twice": 16188,
+      "ap": 0.8435746088360473,
+      "auroc": 0.9902539582006307
+    },
+    "normalization": {
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+        "mean": -41.568375320352814,
+        "std": 16.558998314435453
+      },
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+        "mean": -12.771333054145835,
+        "std": 4.543301802872881
+      },
+      "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104": {
+        "mean": -53.73072970750586,
+        "std": 21.385734528377952
+      },
+      "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104": {
+        "mean": -50.80369008629934,
+        "std": 19.83424888353614
+      },
+      "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": {
+        "mean": -18.079126347632577,
+        "std": 5.606855365383561
+      }
+    }
+  },
+  "fp32_size_fp32_predictions_control": {
+    "members": [
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101"
+    ],
+    "weight_bytes": 395858330,
+    "stopped_before": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "metrics": {
+      "error_twice": 16902,
+      "ap": 0.8372310833789093,
+      "auroc": 0.9898240920130381
+    },
+    "normalization": {
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+        "mean": -41.568375320352814,
+        "std": 16.558998314435453
+      },
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+        "mean": -12.771333054145835,
+        "std": 4.543301802872881
+      }
+    }
+  },
+  "limitations": [
+    "No full-dev fp16-stored weight forward has yet been performed.",
+    "The same internal dev was used for member selection; it is not an independent test."
+  ]
+}
