@@ -1,0 +1,58 @@
+{
+  "at": 1793787710.7480175,
+  "complete_sha256": "eba912ec481eeee723a6d85ad28b44dbcc789bd05c12a97f221cfa901d6d6286",
+  "component": {
+    "component_wall_seconds": 4767.848330259323,
+    "deadline_at": 1793815622.1692698,
+    "end_at": 1793792490.2144966,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "1a8bdabcf324fd2296c5f0c6408229e45790a9bd3fbb2d1c138905dbce5db554",
+    "live_owned_ranks": [],
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "phase": "train",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793787722.3661664,
+    "status": "completed"
+  },
+  "cycles": 9,
+  "early_stop": {
+    "bad_cycles": 4,
+    "metric": "internal_dev_auroc",
+    "reference_auroc": 0.9854230810448277,
+    "stopped": true,
+    "variants": [
+      "online",
+      "ema"
+    ]
+  },
+  "freeze_component": {
+    "component_wall_seconds": 57.32249402999878,
+    "deadline_at": 1793792866.8409166,
+    "end_at": 1793792624.1635587,
+    "exit_code": 0,
+    "hard_deadline_met": true,
+    "launch_sha256": "cf78ef4e77dfff7e533ad3a4561f086da0a1874aa44cb255af04ff673a4cfaba",
+    "live_owned_ranks": [],
+    "log_sha256": "ff35da4521a24a25818aa2111418924ffd889cecf69ef2608e173abdbb3da0b3",
+    "phase": "freeze",
+    "reason": null,
+    "signals": [],
+    "start_at": 1793792566.8410647,
+    "status": "completed"
+  },
+  "official_evaluated": false,
+  "official_metrics": null,
+  "official_reason": "threshold_not_met",
+  "official_result_sha256": null,
+  "official_status": "not_run_by_policy",
+  "phase": "complete",
+  "research_only": false,
+  "selected_internal_dev_auroc": 0.9854230810448277,
+  "single_model_freeze_sha256": "7ac3a5246e025c8985dfdfeb922949c6d201562f115b8c74cd032663477fe87e",
+  "status": "completed",
+  "successful_updates": 7200,
+  "target_auroc_at_least_0_999": null,
+  "token": "78555692f482466988786653f4f64198"
+}

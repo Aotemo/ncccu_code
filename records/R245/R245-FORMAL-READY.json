@@ -1,0 +1,17 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+  "git_commit": "976ad8c947b098fb2ab21013bff8e98a034ecb4d",
+  "tree_sha": "ec2a90fe560325261c13625ba0082bad9241cba4",
+  "science_sha256": "a891812e47bcb6add758a9254605742f4780b3175505b6d7e5777c913e735008",
+  "checks": 19,
+  "actual_model_tensor_sha256": "99a8cb3943ff2c4158cd3dd9df3d8736fdd5257d44360ee28c649077dff7d03f",
+  "trainable_tensors": 345,
+  "site_sha256": "1f8e25dc33e0a487c3ba3a3d4804d7713222cbc5d35a4cc29c70921ce42e62b5",
+  "deployment_sha256": "bfa821a5612df794514d9737dd3b22aa300a98f1150ceafb4c4a2d9db95d9ce3",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793793700.625016,
+  "work_root_free_bytes_point_observation": 35689332736,
+  "storage_minimum_bytes_strictly_greater_than": 21474836480
+}

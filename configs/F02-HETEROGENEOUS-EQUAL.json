@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "F02-general-heterogeneous-standardized-equal",
+  "members": ["R120", "R134R1", "R201", "R197", "R135", "R107", "R172", "R180", "R116", "R182", "R154"],
+  "inventory": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/f02-20261104-4e0c/INVENTORY-DRAFT.json",
+    "sha256": "03857689db961a7f8a6dcced12aa55f6760afb338e3f2dfe63ca4b410541199d"
+  },
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "F01_reference": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/f01-20261104-4e0c/analysis-v2/RESULT.json",
+    "sha256": "2be1d9bfe1cb9547b86953dc16b2ab967141b84b3ee62eb4d50390488e19aa0e"
+  },
+  "approved_general_public_weight_sha256": [
+    "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "b27d6640f40b2e9a296b4c4374b0aa89a0bbdf4e6240dd04b9176a9e63044f21",
+    "28f599022b12ab11cd8622e43462c5d6bd66390441c0b6f01f6cc5a0e97dd682",
+    "194e4ac3ac1d7f47d70c8c3312feb49ea78325f125b1b8ad30a2a784bfa3bb87",
+    "e2052f3313bce47b14c404b18b0ca31e3e1f44cf9563cb2c9fe93faa3ac38d42"
+  ],
+  "normalization": "dev_float64_zscore_ddof0",
+  "top_k": 5,
+  "schemes": ["all_equal_z", "top_k_equal_z"],
+  "weights": "equal_within_each_fixed_scheme",
+  "selection": ["auroc_desc", "ap_desc", "member_count_asc", "all_equal_z_first"],
+  "checkpoint_presence_required_for_prediction_research": false,
+  "view": "identity",
+  "TTA": false,
+  "external_medical_pretraining": false,
+  "official_read_or_forward": false
+}

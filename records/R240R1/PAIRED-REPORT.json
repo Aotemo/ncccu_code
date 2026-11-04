@@ -1,0 +1,973 @@
+{
+  "schema_version": 1,
+  "status": "evidence_report",
+  "manifest": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets/fixed-9010-stage1/manifest.json",
+    "sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377"
+  },
+  "count": 5140,
+  "positives": 167,
+  "negatives": 4973,
+  "models": {
+    "R107": {
+      "error_twice": 19200,
+      "ap": 0.8274326888154083,
+      "auroc": 0.9884405731067525,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "tensor_sha256": "b3108d3398091f7bb5574d1d437e7de0ab68e5643000194ebdf5c509cbcaeebd",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json",
+        "sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "sha256": "01a2e3cb8f578359ed0279ce73ef49c7880dc9c9235105ae9a1df919e3457ecd"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "sha256": "22e0be32a8378cbdd65168c701447f8ad06c66c07234b0c796b75d4e40190ee4"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json",
+        "sha256": "b84ab2c676dad4ed76f54796e643d47ba9b6b108a935dabebdead9138a7c93be",
+        "status": "completed",
+        "successful_updates": 6400
+      }
+    },
+    "R120": {
+      "error_twice": 17478,
+      "ap": 0.8313831149805229,
+      "auroc": 0.9894773092062407,
+      "variant": "ema",
+      "cycle": 6,
+      "successful_updates": 4800,
+      "tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json",
+        "sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+        "sha256": "e6f9f640a513e723c29e5fe9ca00c5c93baf6399f68f682229652ad34c5a7ab1"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+        "sha256": "2d81e0b09dd1291a57b48fa00b3111ec484838433df3e63d11801b282e961b27"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json",
+        "sha256": "955a0107c842f5bddb93c485063a60101f5772f576edca3ae77193e5d721cdfb",
+        "status": "completed",
+        "successful_updates": 8000
+      }
+    },
+    "R115": {
+      "error_twice": 22620,
+      "ap": 0.810016977738777,
+      "auroc": 0.9863815501913928,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "tensor_sha256": "66c3870a58f95c1042036f5b5fc2f1777a7c462141cb6cd6c43f544390830889",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/SINGLE-MODEL-FREEZE.json",
+        "sha256": "3d1bc893c7467a0f8a8549284851b44d8fe8e23c034c242ddd35c235c4c13c57"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/outputs/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "sha256": "86b86b72380e9f83d29aa496570740cd1a1355513cb415760f3783cbef8b9494"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/outputs/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "sha256": "d6e724578cfc4164b5631f7609fb47ae0a4b004afafcc9c35f9517050167a1af"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030/evidence/TRAIN_RESULT.json",
+        "sha256": "e88feab4846a53c476c8cfc8976b9db3117b7f01f783a032aef501d45970256f",
+        "status": "completed",
+        "successful_updates": 6400
+      }
+    },
+    "R224": {
+      "error_twice": 23332,
+      "ap": 0.8027262717495176,
+      "auroc": 0.9859528881107682,
+      "variant": "ema",
+      "cycle": 3,
+      "successful_updates": 2400,
+      "tensor_sha256": "699a05af654684bef4cd11dceed06fb7c05e0aa4f8ae567923435bac7b6db00b",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+        "sha256": "ea623777ae7a507d64a05e12efe97a9777699658d471019817b64fe17bc32932"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0003.csv",
+        "sha256": "f0f6cddb18568badb25c341e4997359f3c72df87122fc62e19c4dd5012e13f12"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0003.csv.precision.json",
+        "sha256": "b1f285ae9019ed8a55baddfd094c41c02fcf7e57cb0e7ce2118845fb053b4e40"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+        "sha256": "e8d808a45aca2a9d551aa880d61f147a5ad903acfc159c9b3a5733bb166d9f72",
+        "status": "completed",
+        "successful_updates": 5600
+      }
+    },
+    "R226": {
+      "error_twice": 23436,
+      "ap": 0.8162271393888747,
+      "auroc": 0.9858902745484298,
+      "variant": "ema",
+      "cycle": 10,
+      "successful_updates": 8000,
+      "tensor_sha256": "d4c0d1263fc7fb8b5812ca0b80fcca6f39f2bafd070d20ed7f33812871e082ba",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+        "sha256": "046112c6ee5e0e74612b95f9101ecea9c1992cfaa70626f6fcb1b70e88dfb754"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv",
+        "sha256": "be638a1e4e5cd772f4c5e6da03c1942c659655e03c68cd478321f992bfddf5ed"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv.precision.json",
+        "sha256": "37e3d0bcefee62797e8de5371e76de4259e3e471475febd3ed81ccc1d5ec2758"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+        "sha256": "369d4ce0298ebe389e287273bb42ca0db4b6338a880b28464ae064a4e55fa43f",
+        "status": "completed",
+        "successful_updates": 11200
+      }
+    },
+    "R228": {
+      "error_twice": 25702,
+      "ap": 0.8101778591971989,
+      "auroc": 0.984526021353633,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "tensor_sha256": "f2301444f2cb0567f582b385c6f3fd87491604b657c94f932248b170110340d4",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+        "sha256": "444e48f8cbaa5211c772913ec97739658dd53279e8051d15de0a1ebf15a5d047"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "sha256": "07ed1f6176da6c6902fb435b6c102e379c5c60130fec0c312369b941ac3fc48d"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "sha256": "604d36963cff741b549c2c36b9d83e53323ed06deb8b8b2c5987a82d89f8001c"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+        "sha256": "1ddbcea79371c762a4d1a39da6c3f779b1cc3cad83d1f4aa261eb6a15de40cf0",
+        "status": "completed",
+        "successful_updates": 6400
+      }
+    },
+    "R230": {
+      "error_twice": 22528,
+      "ap": 0.8180667558262131,
+      "auroc": 0.986436939111923,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "tensor_sha256": "49013bd989491e25faeb9e4946a64fcda47f2d8b3aab6b02fd8825ce24866765",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+        "sha256": "1742c2518a7b59b16cbe8a2ab7da1b03bf2be4bf6592036412644530e621d9e8"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "sha256": "b7e9ac91e86e94bae119feed9404753e6031eeb50c98ac968f98ba08687be401"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103/outputs/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "sha256": "525147ee126f609e7264612aa6f7fa9e4e09bd1d514e162dd14ba814448c9020"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+        "sha256": "4d115b0c1cc14fe2c85ad755321667668a12c4fe90ace79c8b1bc3dd904b781a",
+        "status": "completed",
+        "successful_updates": 6400
+      }
+    },
+    "R232": {
+      "error_twice": 28326,
+      "ap": 0.8046405473793247,
+      "auroc": 0.9829462330115558,
+      "variant": "ema",
+      "cycle": 4,
+      "successful_updates": 3200,
+      "tensor_sha256": "98c500e62f6f1ef05a19193fe26186882250aed8fd4de707c7780c63f099c442",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103/SINGLE-MODEL-FREEZE.json",
+        "sha256": "26e48267c6e96b0d058d02bda2717bd66710bbd9b6c8be6328236572a1910738"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103/outputs/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+        "sha256": "afd06ae60b363498c6115382517584314a6f0a9d22a95019597d50e7e69c3426"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103/outputs/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+        "sha256": "a55fad69c7581bbe6121928cd7fd70b762d7b8482a0dce9c043e718b93ab0370"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103/evidence/TRAIN_RESULT.json",
+        "sha256": "93f845a82abe95440d0f15991b5eda5f938c17706d43c0ef9349fb16fb429079",
+        "status": "completed",
+        "successful_updates": 6400
+      }
+    },
+    "R234": {
+      "error_twice": 24466,
+      "ap": 0.8070188576018261,
+      "auroc": 0.9852701594598858,
+      "variant": "ema",
+      "cycle": 7,
+      "successful_updates": 5600,
+      "tensor_sha256": "5f5978eb7ed8f441ae4ba4a6142acbb46e8fcf833fbd174bd6e7ce62a3ab6d22",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "73d993a64db665264b0bb2140e29546df8f9f6223d27c4dfa50aa4c582b10efb"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0007.csv",
+        "sha256": "189ecb82da3bb1f7255658bb92a220c7f4b93965bbe8e54951ce4b186825b252"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0007.csv.precision.json",
+        "sha256": "6f6e6832f16b5502d1b81b2afa1b29d7268cfe4edfa872a59f071f454b8150bc"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+        "sha256": "5be91331e852e03f8a41d1f9256fb27aef0c344e08673f3a85fd814940de4f31",
+        "status": "completed",
+        "successful_updates": 8800
+      }
+    },
+    "R236R2": {
+      "error_twice": 24932,
+      "ap": 0.8104065152313845,
+      "auroc": 0.9849896025363309,
+      "variant": "ema",
+      "cycle": 12,
+      "successful_updates": 9600,
+      "tensor_sha256": "e155a8b888672b3f7ca32babc6e38099a7268770d2033d67cdf23dd8e93cf259",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "5f0a0454188d84af61ff697ae8820362a9ab9e937428a6400e988560c410461c"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0012.csv",
+        "sha256": "e24d05834ab51c41896ce9ef04a8a4b3e1cf5447ebf24bf41f1dea7fe39a1159"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0012.csv.precision.json",
+        "sha256": "d926630a47b6032dbb8de7164c51040fc0206baa66efa50113f6402e7a1c5394"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+        "sha256": "90587844b37049ce093e055822bc3254c5531420c1d4ede14a9989599ab27de7",
+        "status": "completed",
+        "successful_updates": 12800
+      }
+    },
+    "R238": {
+      "error_twice": 24672,
+      "ap": 0.8147244363510374,
+      "auroc": 0.985146136442177,
+      "variant": "ema",
+      "cycle": 5,
+      "successful_updates": 4000,
+      "tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "41f0b7d1ee634a757580f1539f06f0a0780ff1b3ea47b96c1ddcca3d5a82acc2"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+        "sha256": "49f7cbeea602ea97b470ea5205dd6dd26f3935a6cba33f7e5d47311d14a67406"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+        "sha256": "50f713f1f7bc9a87575a81c4ffa963f2b5add1880c41dfdaa960fe0a204ecaa9"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+        "sha256": "0c98669ada1f18f463dbc4f8ff31382687f633628fb09ff77e4097738752782f",
+        "status": "completed",
+        "successful_updates": 7200
+      }
+    },
+    "R240R1": {
+      "error_twice": 24212,
+      "ap": 0.8263818728433374,
+      "auroc": 0.9854230810448277,
+      "variant": "ema",
+      "cycle": 5,
+      "successful_updates": 4000,
+      "tensor_sha256": "ac7783ab3946494b033a26eb1f622be929b7a3f567166cf58dbc78d90f3e24e8",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "7ac3a5246e025c8985dfdfeb922949c6d201562f115b8c74cd032663477fe87e"
+      },
+      "prediction": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+        "sha256": "336d49e9bab6d59484c28be6ddaed2c9877271d381b67f6dcdf61af92b01b4cb"
+      },
+      "precision": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+        "sha256": "465c59d9be8b0622a2f6138b48cff0eae3b0ba0c689acc1cbf0fb78d5a6d88a7"
+      },
+      "completion": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+        "sha256": "e6477c464727078c358e4abb53c3719d70c4a0217fe1987c8b5eed1b3181284c",
+        "status": "completed",
+        "successful_updates": 7200
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "candidate": "R240R1",
+      "reference": "R107",
+      "delta_auroc": -0.003017492061924809,
+      "interval": [
+        -0.006840892917563174,
+        -8.750847390279972e-05
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.0205,
+      "direction": "conditional_negative",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 9600.0,
+          "candidate": 12106.0,
+          "repaired": 2331.0,
+          "introduced": 4837.0,
+          "shared": 7269.0,
+          "net_added": 2506.0
+        },
+        "fixed_positive": {
+          "reference": 6623.0,
+          "candidate": 8822.0,
+          "repaired": 1329.0,
+          "introduced": 3528.0,
+          "shared": 5294.0,
+          "net_added": 2199.0
+        },
+        "remaining_positive": {
+          "reference": 2977.0,
+          "candidate": 3284.0,
+          "repaired": 1002.0,
+          "introduced": 1309.0,
+          "shared": 1975.0,
+          "net_added": 307.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R120",
+      "delta_auroc": -0.004054228161412987,
+      "interval": [
+        -0.010099326783794115,
+        0.00016508306531920692
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.038,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 8739.0,
+          "candidate": 12106.0,
+          "repaired": 2306.0,
+          "introduced": 5673.0,
+          "shared": 6433.0,
+          "net_added": 3367.0
+        },
+        "fixed_positive": {
+          "reference": 5829.0,
+          "candidate": 8822.0,
+          "repaired": 1302.0,
+          "introduced": 4295.0,
+          "shared": 4527.0,
+          "net_added": 2993.0
+        },
+        "remaining_positive": {
+          "reference": 2910.0,
+          "candidate": 3284.0,
+          "repaired": 1004.0,
+          "introduced": 1378.0,
+          "shared": 1906.0,
+          "net_added": 374.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R115",
+      "delta_auroc": -0.0009584691465651662,
+      "interval": [
+        -0.004195198984696988,
+        0.0018970103228091227
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.292,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 11310.0,
+          "candidate": 12106.0,
+          "repaired": 3664.0,
+          "introduced": 4460.0,
+          "shared": 7646.0,
+          "net_added": 796.0
+        },
+        "fixed_positive": {
+          "reference": 7360.0,
+          "candidate": 8822.0,
+          "repaired": 1770.0,
+          "introduced": 3232.0,
+          "shared": 5590.0,
+          "net_added": 1462.0
+        },
+        "remaining_positive": {
+          "reference": 3950.0,
+          "candidate": 3284.0,
+          "repaired": 1894.0,
+          "introduced": 1228.0,
+          "shared": 2056.0,
+          "net_added": -666.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R224",
+      "delta_auroc": -0.0005298070659405241,
+      "interval": [
+        -0.004094023896706797,
+        0.002640847402319847
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.411,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 11666.0,
+          "candidate": 12106.0,
+          "repaired": 4087.0,
+          "introduced": 4527.0,
+          "shared": 7579.0,
+          "net_added": 440.0
+        },
+        "fixed_positive": {
+          "reference": 7720.0,
+          "candidate": 8822.0,
+          "repaired": 2213.0,
+          "introduced": 3315.0,
+          "shared": 5507.0,
+          "net_added": 1102.0
+        },
+        "remaining_positive": {
+          "reference": 3946.0,
+          "candidate": 3284.0,
+          "repaired": 1874.0,
+          "introduced": 1212.0,
+          "shared": 2072.0,
+          "net_added": -662.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R226",
+      "delta_auroc": -0.00046719350360213685,
+      "interval": [
+        -0.00534382672419087,
+        0.0036761385734462885
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.445,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 11718.0,
+          "candidate": 12106.0,
+          "repaired": 4558.0,
+          "introduced": 4946.0,
+          "shared": 7160.0,
+          "net_added": 388.0
+        },
+        "fixed_positive": {
+          "reference": 8000.0,
+          "candidate": 8822.0,
+          "repaired": 2790.0,
+          "introduced": 3612.0,
+          "shared": 5210.0,
+          "net_added": 822.0
+        },
+        "remaining_positive": {
+          "reference": 3718.0,
+          "candidate": 3284.0,
+          "repaired": 1768.0,
+          "introduced": 1334.0,
+          "shared": 1950.0,
+          "net_added": -434.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R228",
+      "delta_auroc": 0.0008970596911946904,
+      "interval": [
+        -0.002319561560570831,
+        0.004222833239613766
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.7115,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 12851.0,
+          "candidate": 12106.0,
+          "repaired": 4790.0,
+          "introduced": 4045.0,
+          "shared": 8061.0,
+          "net_added": -745.0
+        },
+        "fixed_positive": {
+          "reference": 8796.0,
+          "candidate": 8822.0,
+          "repaired": 2679.0,
+          "introduced": 2705.0,
+          "shared": 6117.0,
+          "net_added": 26.0
+        },
+        "remaining_positive": {
+          "reference": 4055.0,
+          "candidate": 3284.0,
+          "repaired": 2111.0,
+          "introduced": 1340.0,
+          "shared": 1944.0,
+          "net_added": -771.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R230",
+      "delta_auroc": -0.001013858067095308,
+      "interval": [
+        -0.0035304717329868868,
+        0.0012270753084620996
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.2075,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 11264.0,
+          "candidate": 12106.0,
+          "repaired": 3143.0,
+          "introduced": 3985.0,
+          "shared": 8121.0,
+          "net_added": 842.0
+        },
+        "fixed_positive": {
+          "reference": 7851.0,
+          "candidate": 8822.0,
+          "repaired": 1735.0,
+          "introduced": 2706.0,
+          "shared": 6116.0,
+          "net_added": 971.0
+        },
+        "remaining_positive": {
+          "reference": 3413.0,
+          "candidate": 3284.0,
+          "repaired": 1408.0,
+          "introduced": 1279.0,
+          "shared": 2005.0,
+          "net_added": -129.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R232",
+      "delta_auroc": 0.002476848033271861,
+      "interval": [
+        -0.0007118078341607795,
+        0.006639987669944702
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.928,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 14163.0,
+          "candidate": 12106.0,
+          "repaired": 5664.0,
+          "introduced": 3607.0,
+          "shared": 8499.0,
+          "net_added": -2057.0
+        },
+        "fixed_positive": {
+          "reference": 10251.0,
+          "candidate": 8822.0,
+          "repaired": 3756.0,
+          "introduced": 2327.0,
+          "shared": 6495.0,
+          "net_added": -1429.0
+        },
+        "remaining_positive": {
+          "reference": 3912.0,
+          "candidate": 3284.0,
+          "repaired": 1908.0,
+          "introduced": 1280.0,
+          "shared": 2004.0,
+          "net_added": -628.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R234",
+      "delta_auroc": 0.00015292158494184527,
+      "interval": [
+        -0.0032093063019346716,
+        0.003103104067352871
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.5555,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 12233.0,
+          "candidate": 12106.0,
+          "repaired": 4247.0,
+          "introduced": 4120.0,
+          "shared": 7986.0,
+          "net_added": -127.0
+        },
+        "fixed_positive": {
+          "reference": 8062.0,
+          "candidate": 8822.0,
+          "repaired": 2106.0,
+          "introduced": 2866.0,
+          "shared": 5956.0,
+          "net_added": 760.0
+        },
+        "remaining_positive": {
+          "reference": 4171.0,
+          "candidate": 3284.0,
+          "repaired": 2141.0,
+          "introduced": 1254.0,
+          "shared": 2030.0,
+          "net_added": -887.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R236R2",
+      "delta_auroc": 0.00043347850849673186,
+      "interval": [
+        -0.0035509415514436036,
+        0.004085685455953241
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.611,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 12466.0,
+          "candidate": 12106.0,
+          "repaired": 4471.0,
+          "introduced": 4111.0,
+          "shared": 7995.0,
+          "net_added": -360.0
+        },
+        "fixed_positive": {
+          "reference": 8638.0,
+          "candidate": 8822.0,
+          "repaired": 2649.0,
+          "introduced": 2833.0,
+          "shared": 5989.0,
+          "net_added": 184.0
+        },
+        "remaining_positive": {
+          "reference": 3828.0,
+          "candidate": 3284.0,
+          "repaired": 1822.0,
+          "introduced": 1278.0,
+          "shared": 2006.0,
+          "net_added": -544.0
+        }
+      }
+    },
+    {
+      "candidate": "R240R1",
+      "reference": "R238",
+      "delta_auroc": 0.0002769446026507083,
+      "interval": [
+        -0.0013680762344203037,
+        0.0020941226334782754
+      ],
+      "confidence": 0.95,
+      "replicates": 2000,
+      "draws": 2000,
+      "method": "paired_percentile",
+      "quantile_method": "linear",
+      "invalid_single_class_draws": 0,
+      "seed": 20261103,
+      "generator": "PCG64",
+      "unit": "stratified_image",
+      "group_count": null,
+      "fraction_delta_gt_zero": 0.6245,
+      "direction": "uncertain",
+      "selection_bias_corrected": false,
+      "error_mass": {
+        "all": {
+          "reference": 12336.0,
+          "candidate": 12106.0,
+          "repaired": 3701.0,
+          "introduced": 3471.0,
+          "shared": 8635.0,
+          "net_added": -230.0
+        },
+        "fixed_positive": {
+          "reference": 8480.0,
+          "candidate": 8822.0,
+          "repaired": 1976.0,
+          "introduced": 2318.0,
+          "shared": 6504.0,
+          "net_added": 342.0
+        },
+        "remaining_positive": {
+          "reference": 3856.0,
+          "candidate": 3284.0,
+          "repaired": 1725.0,
+          "introduced": 1153.0,
+          "shared": 2131.0,
+          "net_added": -572.0
+        }
+      }
+    }
+  ],
+  "fixed_positive_count": 20,
+  "fixed_positive_group_source": {
+    "original_inventory": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/diagnostic-evidence-20261103-a4e2/analysis/INVENTORY.json",
+      "sha256": "7ca09001c88cef22dbdc9ebdfb1a5c2799c21e336dbed6972e086fb02af0ecf1"
+    },
+    "group_file": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/packet/PRIVATE-GROUPS.json",
+      "sha256": "6e6009605e2573db21804280146924dfa3412f56e75002ab480b7d65072a037c"
+    },
+    "private_selection": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/persistent-errors-20261102-a4e2/analysis/PRIVATE-SELECTION.json",
+      "sha256": "702680e97e4164eb62293381285da72086b899b0c0f3c172ed662f6a95180a3b"
+    },
+    "definition": "original_four_anchor_fixed20_unchanged"
+  },
+  "bootstrap_groups": null,
+  "evidence": {
+    "fit_dev": {
+      "R107": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R120": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R115": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R224": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R226": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R228": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R230": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R232": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R234": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R236R2": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R238": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      },
+      "R240R1": {
+        "status": "unknown",
+        "gap": null,
+        "reason": "no_same_selected_fit_predictions"
+      }
+    },
+    "structure": {
+      "status": "unknown",
+      "reviewed_count": null,
+      "reason": "no_source_bound_human_structure_review"
+    }
+  },
+  "causal_diagnosis": "not_identified",
+  "limits": [
+    "Intervals condition on the supplied trained and selected checkpoints; they do not include seed variability.",
+    "Resampling does not remove adaptive selection bias from repeated use of the same dev set.",
+    "Image-level intervals are not patient-level intervals; supplied group IDs are not independently verified patient IDs.",
+    "Pairwise errors share samples; positive-negative pairs are not independent bootstrap observations.",
+    "Intervals are descriptive, unadjusted for multiple comparisons, and do not authorize training or change selected checkpoints.",
+    "Fit/dev gaps and supplied structure annotations alone do not identify a clinical cause, label error or achievable AUROC ceiling."
+  ],
+  "checkpoint_selection_changed": false,
+  "official_read": false,
+  "model_loaded": false,
+  "new_forward": false,
+  "labels_changed": false,
+  "numpy_version": "1.26.4",
+  "source_sha256": {
+    "tools/diagnostics/paired_evidence.py": "ed211542a8987df86fcc88d9538c239bb913b56060b74c831be8bdd4c16bfe90",
+    "tools/diagnostics/persistent_errors.py": "a93ead6c6c538170e6f4e6d2340845128627a668b3b4b3fb3959d252d2533bc5",
+    "runtime/bundle/retrain/n05_metrics.py": "00377a60f40f22324f89a16c8e8933473229736955ff58cf3d2e8d1b8941fee7"
+  }
+}

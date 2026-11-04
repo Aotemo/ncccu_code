@@ -1,0 +1,16 @@
+{
+  "status": "selected_CSV_and_unique_safe_archived_without_new_forward",
+  "at": 1793794047.4952445,
+  "script_sha256": "460677cb7cb96909ed9f254d08bb6bd0ed9be2ccb40f1d3927de322bfcbc5d6a",
+  "baseline_inventory": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/masked-reconstruction-20261103-4e0c/result-inputs/BASELINES.json",
+    "sha256": "11e998dbaef75e1118552b2bd1c2c3a770c96a93e0198e4d5458ae64785b6a3a"
+  },
+  "files": {
+    "PAIRED-INVENTORY.json": "5bc72f5eba5830d2abe2908601702fe69602266e7df1b20cf7d61f1f03aa753d",
+    "PAIRED-REPORT.json": "fe6555c12f3a53192a312c77fb7e6db44c624377150c7eaf1fd98500c1dbb428",
+    "R240R1-COMPLETION.json": "65ca296c7145013e12703bc5a6b7130715feffe820c562a875474c0355060a66",
+    "R240R1-RESULT.json": "7d4746028e919441b8721ee558497f856cc12ca3cf48b7c84882002277d5389b"
+  },
+  "raw_predictions_exported": false
+}

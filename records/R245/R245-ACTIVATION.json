@@ -1,0 +1,8 @@
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+  "observed_at": 1793793759.0,
+  "preflight_sha256": "b651b7bc817c9567d6148eeae825a52f0c6d94e69ba883cc3dc17f01e62a8184",
+  "activation_audit_sha256": "c8cb974a47476680b54c07c84809afa7866f5f5f600a10ec9fa667a4a7e81df9",
+  "GPU_started": false
+}

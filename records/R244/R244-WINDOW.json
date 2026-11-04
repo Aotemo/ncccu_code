@@ -1,0 +1,13 @@
+{
+  "status": "unactivated_full_clock_plus_60s_currently_covered",
+  "at": 1793793588.0988972,
+  "round_id": "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+  "site_sha256": "7e4eb0a4d9d431b8e3d29027d2c50e7b1a72510d76fbdfdb01163e9e31de0932",
+  "remaining_seconds": 42805.24172091484,
+  "required_seconds": 31560,
+  "CPU_and_deployment_reused": true,
+  "GPU_started": false,
+  "formal_clock_created": false,
+  "actual_entry_bash_n_exit_code": 0,
+  "actual_entry_sha256": "19fbca07f4c5750040717c5a7919020154e583582831ac69938d19e4c78ba037"
+}

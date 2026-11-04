@@ -1,0 +1,15 @@
+{
+  "status": "actual_capacity_above_unchanged_admission_minimum",
+  "evidence": {
+    "at": 1793793741.438271,
+    "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+    "free_bytes": 35659972608,
+    "minimum_free_bytes": 21474836480
+  },
+  "at": 1793793741.4382777,
+  "site_sha256": "1f8e25dc33e0a487c3ba3a3d4804d7713222cbc5d35a4cc29c70921ce42e62b5",
+  "round_id": "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+  "activation_reserved": false,
+  "clock_created": false,
+  "GPU_started": false
+}
