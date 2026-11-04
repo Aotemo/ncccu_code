@@ -5,7 +5,7 @@ output.  This tool never reads official data, changes labels, or trains models.
 """
 import argparse
 from bisect import bisect_left, bisect_right
-from collections import Counter
+from collections import Counter, defaultdict
 import hashlib
 import json
 import os
@@ -60,6 +60,59 @@ def image_hashes(image):
 
 def near_duplicate(first, second):
     return (first[0] ^ second[0]).bit_count() <= 4 and (first[1] ^ second[1]).bit_count() <= 4
+
+
+class HashIndex:
+    """Exact candidate generation: <=4 bit changes leave one of five blocks unchanged."""
+    def __init__(self, entries):
+        self.entries = dict(entries)
+        if len(self.entries) != len(entries):
+            raise ValueError('hash index identities must be unique')
+        self.buckets = defaultdict(set)
+        for key, (phash, _) in self.entries.items():
+            for block, shift in enumerate((0, 13, 26, 39, 52)):
+                width = 12 if block == 4 else 13
+                self.buckets[(block, (phash >> shift) & ((1 << width) - 1))].add(key)
+
+    def find(self, query):
+        candidates = set()
+        for block, shift in enumerate((0, 13, 26, 39, 52)):
+            width = 12 if block == 4 else 13
+            candidates.update(self.buckets[(block, (query[0] >> shift) & ((1 << width) - 1))])
+        return sorted(key for key in candidates if near_duplicate(query, self.entries[key]))
+
+
+def quality_thresholds(reference, required=147):
+    keys = ('brightness', 'contrast', 'sharpness', 'field')
+    if len(reference) != required or any(row is None or any(k not in row for k in keys) for row in reference):
+        return None
+    values = {key: [float(row[key]) for row in reference] for key in keys}
+    if any(not np.isfinite(value) for row in values.values() for value in row):
+        return None
+    return {'brightness_low': float(np.quantile(values['brightness'], .05)),
+            'brightness_high': float(np.quantile(values['brightness'], .95)),
+            **{key + '_low': float(np.quantile(values[key], .05)) for key in keys[1:]}}
+
+
+def quality_extreme(features, thresholds):
+    if features is None or thresholds is None:
+        return None
+    flags = [features['brightness'] < thresholds['brightness_low'] or features['brightness'] > thresholds['brightness_high']]
+    flags.extend(features[key] < thresholds[key + '_low'] for key in ('contrast', 'sharpness', 'field'))
+    return sum(flags) >= 2
+
+
+def image_scan_order(fit, dev, fit_labels, priority_dev):
+    if (len(set(fit)) != len(fit) or len(set(dev)) != len(dev) or set(fit) & set(dev)
+            or len(set(priority_dev)) != len(priority_dev)
+            or any(type(i) is not int or not 0 <= i < len(dev) for i in priority_dev)
+            or any(fit_labels.get(i) not in (0, 1) for i in fit)):
+        raise ValueError('invalid disjoint sealed image populations')
+    chosen = set(priority_dev)
+    return ([('dev', i, dev[i]) for i in sorted(chosen)]
+            + [('fit', None, i) for i in sorted(fit) if fit_labels[i] == 1]
+            + [('dev', i, value) for i, value in enumerate(dev) if i not in chosen]
+            + [('fit', None, i) for i in sorted(fit) if fit_labels[i] == 0])
 
 
 def shared_negative_indices(positive_scores, negative_scores):
@@ -251,14 +304,284 @@ def ranks(base, source, packet, output):
                       'private_shared_negative_sha256': summary['private_shared_negative_sha256']}, indent=2), flush=True)
 
 
+def image_inputs(base, site_path, site_sha):
+    """Resolve only previously sealed fit/dev populations and fixed F03 identities."""
+    if sha(site_path) != site_sha:
+        raise ValueError('Pod site binding SHA differs')
+    site = read(site_path)
+    if site['pod']['uid'] != os.environ['NCCCU_POD_UID']:
+        raise ValueError('current Pod UID differs')
+    manifest_path = Path(site['metadata_root']) / 'manifest.json'
+    inv_path = base / 'F03-AFTER-R246/discover/CANDIDATES.json'
+    shared_path = base / 'P3-HARD-CASE/RANKS-v4/PRIVATE-SHARED-NEGATIVES.json'
+    ranks_path = base / 'P3-HARD-CASE/RANKS-v4/PRIVATE-RANKS.json'
+    expected = ((manifest_path, '7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377'),
+                (inv_path, 'a7ab1594e9b8a22430e1afb7a439e2559d59c52bbbcf3fd0b3d3c5bfd567dce4'),
+                (shared_path, 'e040f882865484cacb38350661ce8d4848bd7d9ba1b02e72adb827df4c894667'))
+    if any(sha(path) != digest for path, digest in expected):
+        raise ValueError('sealed manifest or fixed F03 identities differ')
+    manifest, inv, shared, ranks = map(read, (manifest_path, inv_path, shared_path, ranks_path))
+    fit, dev, rows = manifest['fit_indices'], manifest['dev_indices'], manifest['rows']
+    if len(fit) != 46256 or len(dev) != 5140 or sum(rows[i]['label'] == 1 for i in dev) != 167:
+        raise ValueError('sealed population counts differ')
+    fixed = inv['fixed_positive_indices']
+    negatives = shared['rows']
+    if (len(fixed) != 20 or len(set(fixed)) != 20 or any(rows[dev[i]]['label'] != 1 for i in fixed)
+            or len(negatives) != 603 or len({x['dev_index'] for x in negatives}) != 603
+            or sum(x['support_at_least_three'] for x in negatives) != 241
+            or shared['manifest_sha256'] != sha(manifest_path)
+            or shared['f03_sha256'] != '6dbc0638247d6ac4e0a967528113b2d82834daf87ff3bf49861a5309b95b1119'
+            or any(rows[dev[x['dev_index']]]['label'] != 0 for x in negatives)):
+        raise ValueError('fixed 20/603/241 groups differ')
+    ranked = ranks['rows']
+    if (len({x['index'] for x in ranked}) != len(ranked)
+            or any(rows[dev[x['index']]]['name'] != x['name'] or rows[dev[x['index']]]['label'] != x['label'] for x in ranked)
+            or sum(x['reviewed_uncertain'] for x in ranked) != 36):
+        raise ValueError('fixed technical reviews differ')
+    priority = {i for i, global_i in enumerate(dev) if rows[global_i]['label'] == 1}
+    priority.update(x['index'] for x in ranked if x['reviewed_uncertain'])
+    priority.update(x['dev_index'] for x in negatives)
+    order = image_scan_order(fit, dev, {i: rows[i]['label'] for i in fit}, sorted(priority))
+    return {'site': site, 'manifest': manifest, 'inventory': inv, 'shared': shared, 'ranked': ranked,
+            'priority': sorted(priority), 'order': order,
+            'identities': {'manifest_sha256': sha(manifest_path), 'inventory_sha256': sha(inv_path),
+                           'shared_negative_sha256': sha(shared_path), 'ranked_sha256': sha(ranks_path),
+                           'site_sha256': site_sha}}
+
+
+def image_init(base, source, output, site, site_sha):
+    if (os.getpriority(os.PRIO_PROCESS, 0) != 19 or any(os.environ.get(k) != '' for k in
+            ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'))
+            or not output.resolve().is_relative_to((base / 'P3-HARD-CASE').resolve())):
+        raise ValueError('isolated hidden-device P3 output required')
+    inputs = image_inputs(base, site, site_sha)
+    output.mkdir(exist_ok=False)
+    (output / 'parts').mkdir()
+    result = {'status': 'sealed_p3_image_inputs', 'at': time.time(), **inputs['identities'],
+              'source_sha256': sha(source / 'tools/diagnostics/p3_hard_case.py'),
+              'fit_count': 46256, 'dev_count': 5140, 'priority_dev_count': len(inputs['priority']),
+              'order': 'priority dev, fit positive, remaining dev, fit negative',
+              'max_images_per_second': 4, 'unknown_never_replaced': True,
+              'official_read': False, 'GPU_initialized': False, 'forward_calls': 0}
+    write(output / 'INPUTS.json', result)
+    print(json.dumps({**result, 'receipt_sha256': sha(output / 'INPUTS.json')}), flush=True)
+
+
+def image_parts(output, order):
+    entries = []
+    for path in sorted((output / 'parts').glob('part-*.json')):
+        part = read(path)
+        if part['start'] != len(entries) or not part['rows']:
+            raise ValueError('image scan part gap or duplicate')
+        for row in part['rows']:
+            if (row['split'], row['dev_index'], row['global_index']) != order[len(entries)]:
+                raise ValueError('image scan order changed')
+            entries.append(row)
+    return entries
+
+
+def image_scan(base, source, output, site, site_sha, max_images):
+    import io
+    from PIL import ImageOps
+    sys.path.insert(0, str(source / 'runtime/bundle'))
+    sys.path.insert(0, str(source / 'tools/diagnostics'))
+    from retrain.preprocessing import PreparedImageCache, prepare_image
+    from retrain.verification import lexical_path
+    from persistent_errors import image_features
+    if (os.getpriority(os.PRIO_PROCESS, 0) != 19 or any(os.environ.get(k) != '' for k in
+            ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'))
+            or not output.resolve().is_relative_to((base / 'P3-HARD-CASE').resolve())):
+        raise ValueError('isolated hidden-device P3 output required')
+    if type(max_images) is not int or not 1 <= max_images <= 600:
+        raise ValueError('one bounded scan part of 1 to 600 images required')
+    inputs = image_inputs(base, site, site_sha)
+    sealed = read(output / 'INPUTS.json')
+    if (any(sealed[k] != v for k, v in inputs['identities'].items())
+            or sealed['source_sha256'] != sha(source / 'tools/diagnostics/p3_hard_case.py')):
+        raise ValueError('sealed image scan identity changed')
+    order = inputs['order']
+    prior = image_parts(output, order)
+    start = len(prior)
+    if start == len(order):
+        print(json.dumps({'status': 'image_scan_already_complete', 'count': start}), flush=True)
+        return
+    os.environ['TRAIN_IMAGE_CACHE_READONLY'] = '1'
+    data_root = Path(inputs['site']['data_root']).resolve(strict=True)
+    cache = PreparedImageCache(data_root, Path(inputs['site']['prepared_cache']) / 'train/sealed', 512)
+    rows, result = inputs['manifest']['rows'], []
+    started = time.monotonic()
+    for ordinal, (split, dev_index, global_index) in enumerate(order[start:start + max_images]):
+        delay = ordinal * .25 - (time.monotonic() - started)
+        if delay > 0:
+            time.sleep(delay)
+        row = rows[global_index]
+        relative, expected = row['relative_path'], row['sha256']
+        lexical_path(relative, 'train')
+        image, source_kind, error = None, 'unknown', None
+        try:
+            image = cache.read(relative, expected)
+            source_kind = 'sealed_readonly_512_cache'
+        except (OSError, ValueError, KeyError, TypeError, EOFError):
+            try:
+                path = data_root / relative
+                if path.is_symlink() or not path.resolve().is_relative_to(data_root / 'train'):
+                    raise ValueError('source path differs')
+                raw = path.read_bytes()
+                if hashlib.sha256(raw).hexdigest() != expected:
+                    raise ValueError('original source SHA differs')
+                with Image.open(io.BytesIO(raw)) as original:
+                    image = prepare_image(ImageOps.exif_transpose(original).convert('RGB'), 512)
+                source_kind = 'sha_verified_original'
+            except (OSError, ValueError, KeyError, TypeError, EOFError) as exc:
+                error = type(exc).__name__
+        quality = hashes = None
+        if image is not None:
+            ratio = 512 / max(image.size)
+            target = (max(1, round(image.width * ratio)), max(1, round(image.height * ratio)))
+            view = Image.new('RGB', (512, 512))
+            view.paste(image.resize(target, Image.Resampling.BILINEAR),
+                       (round((512 - target[0]) * .5), round((512 - target[1]) * .5)))
+            hashes = [f'{x:016x}' for x in image_hashes(view)]
+            if split == 'dev':
+                try:
+                    features = image_features(view)
+                    quality = {'brightness': features['content_luminance_mean'],
+                               'contrast': features['content_luminance_std'],
+                               'sharpness': features['green_laplacian_variance'],
+                               'field': 1 - features['black_fraction']}
+                except ValueError as exc:
+                    error = type(exc).__name__
+        result.append({'split': split, 'dev_index': dev_index, 'global_index': global_index,
+                       'label': row['label'], 'raw_sha256': expected, 'hashes': hashes,
+                       'quality': quality, 'source': source_kind, 'error': error})
+    path = output / 'parts' / f'part-{start:06d}-{start + len(result) - 1:06d}.json'
+    temporary = path.parent / ('.' + path.name + '.' + str(os.getpid()) + '.tmp')
+    with temporary.open('x') as stream:
+        json.dump({'start': start, 'rows': result}, stream, indent=2, allow_nan=False)
+        stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
+    os.link(temporary, path)
+    temporary.unlink()
+    print(json.dumps({'status': 'image_scan_part_complete', 'start': start, 'count': len(result),
+                      'completed': start + len(result), 'total': len(order),
+                      'unknown': sum(x['hashes'] is None for x in result),
+                      'source_kinds': dict(Counter(x['source'] for x in result)),
+                      'part_sha256': sha(path), 'official_read': False, 'GPU_initialized': False}), flush=True)
+
+
+def image_summary(base, output, site, site_sha):
+    if (os.getpriority(os.PRIO_PROCESS, 0) != 19 or any(os.environ.get(k) != '' for k in
+            ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'))
+            or not output.resolve().is_relative_to((base / 'P3-HARD-CASE').resolve())):
+        raise ValueError('isolated hidden-device P3 output required')
+    inputs = image_inputs(base, site, site_sha)
+    sealed = read(output / 'INPUTS.json')
+    if any(sealed[k] != v for k, v in inputs['identities'].items()):
+        raise ValueError('image scan inputs changed')
+    rows = image_parts(output, inputs['order'])
+    count, total = len(rows), len(inputs['order'])
+    dev = {x['dev_index']: x for x in rows if x['split'] == 'dev'}
+    available = [x for x in rows if x['hashes'] is not None]
+    fixed = set(inputs['inventory']['fixed_positive_indices'])
+    high = {x['dev_index'] for x in inputs['shared']['rows']}
+    high3 = {x['dev_index'] for x in inputs['shared']['rows'] if x['support_at_least_three']}
+    queries = [dev[i] for i in inputs['priority'] if i in dev and dev[i]['hashes'] is not None]
+    def pair(row):
+        return tuple(int(x, 16) for x in row['hashes'])
+    targets = [x for x in available if x['split'] == 'fit' or x['label'] == 0 or x['dev_index'] in fixed]
+    index = HashIndex([(i, pair(x)) for i, x in enumerate(targets)])
+    matches, by_query = [], defaultdict(list)
+    for query in queries:
+        for target_idx in index.find(pair(query)):
+            target = targets[target_idx]
+            if target['global_index'] == query['global_index']:
+                continue
+            item = {'query_dev_index': query['dev_index'], 'target_global_index': target['global_index'],
+                    'target_split': target['split'], 'target_dev_index': target['dev_index'],
+                    'opposite_label': query['label'] != target['label'],
+                    'exact_original_sha': query['raw_sha256'] == target['raw_sha256']}
+            matches.append(item)
+            by_query[query['dev_index']].append(item)
+    def opposite_fit(i):
+        return any(x['target_split'] == 'fit' and x['opposite_label'] for x in by_query[i])
+    def exact_opposite_fit(i):
+        return any(x['target_split'] == 'fit' and x['opposite_label'] and x['exact_original_sha'] for x in by_query[i])
+    def any_fit(i):
+        return any(x['target_split'] == 'fit' for x in by_query[i])
+    def exact_fit(i):
+        return any(x['target_split'] == 'fit' and x['exact_original_sha'] for x in by_query[i])
+    def opposite_any(i):
+        return any(x['opposite_label'] for x in by_query[i])
+    def hard_dev_match(i):
+        return any(x['target_split'] == 'dev' and x['target_dev_index'] in fixed for x in by_query[i])
+    positive = {i for i, gi in enumerate(inputs['manifest']['dev_indices'])
+                if inputs['manifest']['rows'][gi]['label'] == 1}
+    remainder = positive - fixed
+    reference = [dev[i]['quality'] if i in dev else None for i in sorted(remainder)]
+    thresholds = quality_thresholds(reference)
+    def distribution(indices):
+        q = [dev[i]['quality'] for i in sorted(indices) if i in dev and dev[i]['quality'] is not None]
+        return {'available': len(q), 'expected': len(indices), 'median': {
+            k: float(np.median([x[k] for x in q])) if q else None
+            for k in ('brightness', 'contrast', 'sharpness', 'field')}}
+    ranked = {x['index']: x for x in inputs['ranked']}
+    flags = {}
+    for i in fixed:
+        quality = quality_extreme(dev[i]['quality'] if i in dev else None, thresholds)
+        consistent_uncertain = bool(ranked[i]['consensus'] == 'all' and ranked[i]['reviewed_uncertain'])
+        flags[i] = {'opposite_label_candidate': opposite_any(i), 'quality_extreme': quality,
+                    'consistent_below_majority_and_uncertain': consistent_uncertain}
+    details = {'matches': matches, 'hard_positive_flags': flags}
+    private = output / f'PRIVATE-MATCHES-{count:06d}.json'
+    write(private, details)
+    result = {'status': 'complete' if count == total else 'partial', 'processed': count, 'expected': total,
+              'fit_processed': sum(x['split'] == 'fit' for x in rows),
+              'dev_processed': len(dev), 'image_unknown': sum(x['hashes'] is None for x in rows),
+              'fixed20_opposite_label_fit_candidates': sum(opposite_fit(i) for i in fixed),
+              'fixed20_exact_opposite_label_fit_bytes': sum(exact_opposite_fit(i) for i in fixed),
+              'all167_opposite_label_fit_candidates': sum(opposite_fit(i) for i in positive),
+              'all167_any_fit_candidates': sum(any_fit(i) for i in positive),
+              'all167_exact_fit_bytes': sum(exact_fit(i) for i in positive),
+              'shared603_opposite_label_fit_candidates': sum(opposite_fit(i) for i in high),
+              'shared241_opposite_label_fit_candidates': sum(opposite_fit(i) for i in high3),
+              'shared603_exact_opposite_label_fit_bytes': sum(exact_opposite_fit(i) for i in high),
+              'shared603_near_fixed20': sum(hard_dev_match(i) for i in high),
+              'shared241_near_fixed20': sum(hard_dev_match(i) for i in high3),
+              'quality_extreme_fixed20': sum(x['quality_extreme'] is True for x in flags.values()) if thresholds else None,
+              'quality_reference_complete': thresholds is not None,
+              'hard_data_risk_union': sum(any(v is True for v in row.values()) for row in flags.values()) if thresholds else None,
+              'hard_without_risk_and_model_disagreement': sum(
+                  not any(v is True for v in flags[i].values()) and ranked[i]['any_misorder_consensus'] == 'mixed'
+                  for i in fixed) if thresholds else None,
+              'quality': {'fixed20': distribution(fixed), 'remaining147': distribution(remainder),
+                          'shared603': distribution(high), 'shared241': distribution(high3),
+                          'dev_negative': distribution({i for i, gi in enumerate(inputs['manifest']['dev_indices'])
+                                                        if inputs['manifest']['rows'][gi]['label'] == 0})},
+              'private_matches_sha256': sha(private), 'official_read': False, 'GPU_initialized': False,
+              'interpretation': 'Double perceptual hash is a visual candidate only; exact raw SHA proves equal bytes, not labeling error. Partial counts are lower bounds.'}
+    summary = output / f'SUMMARY-{count:06d}.json'
+    write(summary, result)
+    print(json.dumps({**result, 'summary_sha256': sha(summary)}), flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base', type=Path, required=True)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--packet', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--images-stage', choices=('init', 'scan', 'summary'))
+    parser.add_argument('--site', type=Path)
+    parser.add_argument('--site-sha')
+    parser.add_argument('--max-images', type=int, default=200)
     args = parser.parse_args()
-    ranks(args.base, args.source, args.packet, args.output)
+    if args.images_stage == 'init':
+        image_init(args.base, args.source, args.output, args.site, args.site_sha)
+    elif args.images_stage == 'scan':
+        image_scan(args.base, args.source, args.output, args.site, args.site_sha, args.max_images)
+    elif args.images_stage == 'summary':
+        image_summary(args.base, args.output, args.site, args.site_sha)
+    else:
+        ranks(args.base, args.source, args.packet, args.output)
 
 
 if __name__ == '__main__':

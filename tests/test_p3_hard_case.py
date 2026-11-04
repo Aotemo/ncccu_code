@@ -1,6 +1,8 @@
 """Focused checks for the preregistered P3 ranking and hash definitions."""
 import importlib.util
+import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from PIL import Image
@@ -45,6 +47,48 @@ class HardCaseTests(unittest.TestCase):
 
     def test_private_shared_negative_support_counts_each_positive_once(self):
         self.assertEqual(p3.shared_negative_support([{1, 3}, {1, 3}, {3}]), {1: 2, 3: 3})
+
+    def test_hash_index_matches_bruteforce_including_four_bit_boundary(self):
+        values = [(i, ((i * 0x123456789ABCDEF) & ((1 << 64) - 1),
+                       (i * 0xFEDCBA987654321) & ((1 << 64) - 1))) for i in range(100)]
+        values += [(100, (0b1111, 0b1111)), (101, (0b11111, 0))]
+        index = p3.HashIndex(values)
+        for _, query in values:
+            expected = {i for i, value in values if p3.near_duplicate(query, value)}
+            self.assertEqual(set(index.find(query)), expected)
+        self.assertIn(100, index.find((0, 0)))
+        self.assertNotIn(101, index.find((0, 0)))
+
+    def test_quality_extreme_needs_two_predeclared_flags_and_full_reference(self):
+        ref = [{'brightness': float(i), 'contrast': float(i), 'sharpness': float(i), 'field': float(i)}
+               for i in range(10, 20)]
+        thresholds = p3.quality_thresholds(ref, required=10)
+        self.assertTrue(p3.quality_extreme({'brightness': 0., 'contrast': 0., 'sharpness': 15., 'field': 15.}, thresholds))
+        self.assertFalse(p3.quality_extreme({'brightness': 0., 'contrast': 15., 'sharpness': 15., 'field': 15.}, thresholds))
+        self.assertIsNone(p3.quality_thresholds(ref[:-1], required=10))
+        self.assertIsNone(p3.quality_extreme(None, thresholds))
+
+    def test_scan_order_prioritizes_fixed_dev_and_fit_positives_without_duplication(self):
+        result = p3.image_scan_order([3, 1, 2], [5, 4, 6], {1: 1, 2: 0, 3: 1}, [1])
+        self.assertEqual(result, [('dev', 1, 4), ('fit', None, 1), ('fit', None, 3),
+                                  ('dev', 0, 5), ('dev', 2, 6), ('fit', None, 2)])
+        with self.assertRaises(ValueError):
+            p3.image_scan_order([1, 1], [2], {1: 0}, [])
+
+    def test_scan_resume_rejects_changed_order_and_missing_part(self):
+        order = [('dev', 1, 4), ('fit', None, 1)]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'parts').mkdir()
+            first = root / 'parts/part-000000-000000.json'
+            first.write_text(json.dumps({'start': 0, 'rows': [
+                {'split': 'dev', 'dev_index': 1, 'global_index': 4}]}))
+            self.assertEqual(len(p3.image_parts(root, order)), 1)
+            second = root / 'parts/part-000001-000001.json'
+            second.write_text(json.dumps({'start': 1, 'rows': [
+                {'split': 'fit', 'dev_index': None, 'global_index': 3}]}))
+            with self.assertRaises(ValueError):
+                p3.image_parts(root, order)
 
 
 if __name__ == '__main__':
