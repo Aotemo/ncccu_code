@@ -1,0 +1,14 @@
+{
+  "status": "quota_archive_and_seed27_existing_entry_helpers_compile_and_sealed_baseline_check_passed",
+  "at": 1793781941.2509801,
+  "files": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/archive-r240.py": "0215ed021a30d12449c338605369428237f257567e36cf414e6d82101c837861",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/formal-fit-quota-seed27.py": "77ae56fbda77add553ff5fe0e79e9365a95d9c3c0663638fd31c85607d787454",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/formal-fit-supmin-next.py": "5b2ae4364daaa64508b9cd0acf95d9898e79ea5040c47529fa2f0ef4849b9b6d",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/PLAN-R238-CLOSED-STORAGE.py": "ac44987ec4f5de2e5806da096bb551d7629dbf2962493f73e5df4014ddcb0436",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/DELETE-R238-CLOSED-STORAGE.py": "95fc77ae416ce78f58f9525a62e039f4e78a558c624f723da52171becd8bebb7",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/verify-closed-r238.py": "f156f903ce6d8e39eb54f2b8da0adaa005534016c53962d1f4d54c9fa4bbe611"
+  },
+  "future_R238_or_R240_result_read": false,
+  "model_or_checkpoint_or_GPU_load": false
+}

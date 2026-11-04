@@ -8,6 +8,6 @@
 
 38个原函数/类范围和13个整实现文件相同；quota采样器、标签表/gather、原NT-Xent、模型、数据/增强、优化器、derived、启动/保存/评估等未变。按真实源码复用R240 d587adcb的完整1600×64 fit流及实际8双视图/标签对齐、像素SHA442beeb3和原P893ac00ab，不重复这些前向/图片消费或采样。102400主draw、12800正/89600负、46256唯一fit图及原暴露代价保持；新mask本身的数值/梯度已另验，不以旧Gloo充作新loss通过。
 
-两SCI为R242 `9d17076bf9bbd958c743c2b163e80246345c228e096d55f3ad70014ea79855fb`、R243 `196bb155a5dd130a2e74c38ed0ea08f8240c6827d551b51745621bba7bb4ef5d`。当前CPU完成，源码发布后的精确全树与现有technical包仍待，正式CPU/部署/窗口和GPU均未执行，R239/R240/R241原优先与完整门不变，无科学收益声明。[导出](PREPARATION-RECEIPT.json)/guard3443d157仅小证据和两SCI，不含图像、模型或逐例预测。
+两SCI为R242 `9d17076bf9bbd958c743c2b163e80246345c228e096d55f3ad70014ea79855fb`、R243 `196bb155a5dd130a2e74c38ed0ea08f8240c6827d551b51745621bba7bb4ef5d`。源码/config已 `125ceea8e9693157b5a9e2c2e011268092b141a3` 推送/API回读、tree `49b5d19a363664d5fe9ec0b1e7e05cb4a668e8cb`；[2925全树](TRANSFER-VERIFICATION.json)b1067531及[两technical包](TECHNICAL-PACKAGES.json)由guard0d422b43通过，R242 SITE31efbd37、R243为415041a6。正式CPU/部署/窗口和GPU均未执行，R239/R240/R241原优先与完整门不变，无科学收益声明。CPU汇总中的source_published=false为当时检查快照，不改历史原件；上述真实发布与技术包为后续证据。[原导出](PREPARATION-RECEIPT.json)/guard3443d157仅小证据和两SCI，不含图像、模型或逐例预测。
 
 私有范围为`exp-v3/technical-prep/fit-supmin-20261104-4e0c`及4e的metadata helper。原训练/保存/评估/准入/监控链复用；主Agent自审mask、默认旧数学、全局梯度、源范围和原监督，不派生Agent或申请资源。CPU3独占24核0–23/nice19/隐藏GPU，与当前R238的24–119核互斥；原3bd/f22冻结源不改。目标AUROC≥.995/AP>.9及总体raw.999未达。

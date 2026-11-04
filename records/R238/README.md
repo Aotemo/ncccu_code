@@ -1,5 +1,7 @@
 # R238 fit 标签表征适配
 
+08:48 [封存进度](R238-PROGRESS-quota-closeout-ready.json)：监督4400/c5/bad0/0skip，原owner及八rank活跃，临时EMA c5@4000 AUROC .985146136442177/AP .8147244363510374，仍无完整selected；观察CPUc17b720d不加载模型、不做forward。后续正式接续已准备，以下为各阶段证据。
+
 08:14 UTC 后续：[完整适配](R238-SSL-RESULT.json)1600/0skip/dev0，fit标签True、ageFalse；derived encoder `90e0828722a419b3be961b712620a5514704c61d022d1d184a86f20bbf0139d4`，八rank公开head-age不变/原factory RNG恢复。[实际监督初态与首75](R238-SUPERVISED-START.json)280a965a/guard6a9caac6通过：345全训、5空Adam组、原G64P8/448，实际初态6aa100f1。[归档](R238-SUPERVISED-RECEIPT.json)480ea3d6/guard8781ebd9只读metadata。私有r238 env first现为START-OBSERVATION-supervised-2。08:20封存[监督800/0skip、首次评估进行中](R238-PROGRESS-supmin-CPU-ready.json)，尚无选中指标；原observer guard28f8656d exit0，随后的kubectl cat遇EOF，仅以SCP取回同一产物，不重做观察/forward。此前一次监督观察请求因同执行者CPU lease正忙在目标脚本前被拒，未执行观察/改变训练；待CPU结束后原缺失输出的目标才真正运行并得上述首75，不改unknown原件。
 
 2026-11-04 07:55 UTC 已核实原公开权重八 rank 初态和自然首 50 次更新，完整 1600 次适配及后续监督指标仍待。唯一 GPU owner 为 4e；当前私有定位为 `r238-pod-context.env`，首成功证据为 `r238-20261104-4e0c-ready/ACTUAL-START-2.json`，SHA `467ae32d317796434edcf733c182faa9e4bb50174857b965b1ee5aee221cbf00`，CPU guard `3ec3b7227b7c2cee9df427dfe5d6ad0349c9d647eb110750b81b6204a785c4ab`。首观测缺原生文件的 unknown 原件保留，没有重启。

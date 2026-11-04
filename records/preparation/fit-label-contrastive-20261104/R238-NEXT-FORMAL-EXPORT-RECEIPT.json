@@ -1,0 +1,12 @@
+{
+  "status": "small_readiness_and_live_progress_only",
+  "files": {
+    "records/R238/R238-PROGRESS-formal-next-ready.json": "2c63bd3f0aa8a87316b1b8717b125313f8fafaf3722641fc5d38fb55688b313c",
+    "records/preparation/fit-label-contrastive-20261104/R239-FORMAL-READY.json": "ca42c771023cdd47117f7c750814ab3419ffc31189d41dedf7844a2b75cc2050",
+    "records/preparation/fit-label-contrastive-20261104/R239-ENTRY-CPU.json": "98105619305f881ae8dc4e3031a0bc33def2455c351f2d6214c4e34393b57411",
+    "records/preparation/fit-label-contrastive-20261104/FORMAL-READY-VERIFICATION.json": "d5a8ed0ece394a7715fe08b91bf4a9c0c9dba034505817cbf81d9ba56cc57478",
+    "records/preparation/fit-label-quota-20261104/R240-ENTRY-CPU.json": "cc2885548acb98b3f0ace527a725f7825a06478861e1fa186daa12300ae8aae6",
+    "records/preparation/fit-label-quota-20261104/R240-FORMAL-READY.json": "c30b7662f07784103e0c480aabd45c5b2d1348bcfd9c159355c8c463f0e7c50b"
+  },
+  "no_images_predictions_weights_credentials": true
+}
