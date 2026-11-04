@@ -64,6 +64,30 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def verify_historical_load_receipt(name,row,path,expected_sha):
+    """Bind a prior real load using the member's frozen runtime to this inventory."""
+    path=Path(path)
+    if sha(path)!=expected_sha:raise ValueError('historical load receipt SHA differs')
+    receipt=json.loads(path.read_text())
+    if (receipt.get('status')!='actual_blob_and_selected_tensor_loaded_with_original_frozen_runtime'
+            or receipt.get('member')!=name or receipt.get('freeze')!=row['spec']['freeze']
+            or receipt.get('blob_sha256')!=row['selected_blob_sha256']
+            or receipt.get('selected_tensor_sha256')!=row['selected_tensor_sha256']
+            or receipt.get('variant')!=row['selected']['variant']
+            or receipt.get('successful_updates')!=row['selected']['successful_updates']
+            or receipt.get('checkpoint')!=row['selected_checkpoint_candidates'][0]
+            or type(receipt.get('frozen_source_files_verified'))is not int
+            or receipt['frozen_source_files_verified']<1
+            or receipt.get('model_constructed')is not False or receipt.get('forward_calls')!=0
+            or receipt.get('GPU_initialized')is not False or receipt.get('official_read')is not False):
+        raise ValueError('historical load receipt identity differs')
+    checkpoint=receipt['checkpoint']
+    if not Path(checkpoint['path']).is_file()or sha(checkpoint['sidecar']['path'])!=checkpoint['sidecar']['sha256']:
+        raise ValueError('historical loaded checkpoint or pinned sidecar no longer present')
+    return {'receipt':{'path':str(path),'sha256':expected_sha},'checkpoint':checkpoint,
+            'tensor_sha256':receipt['selected_tensor_sha256'],'source_commit':receipt['source_commit']}
+
+
 def write(path,value):
     with Path(path).open('x')as stream:
         json.dump(value,stream,indent=2,allow_nan=False);stream.write('\n')
@@ -222,6 +246,10 @@ def analyze_equal(args):
     work=Path(inv['manifest']['path']).parents[2];out=args.output.resolve()
     if not out.is_relative_to(work/'technical-prep')or out.exists():
         raise ValueError('new isolated technical-prep output required')
+    external={}
+    for name,path,digest in args.historical_load_receipt:
+        if name not in order or name in external:raise ValueError('unique registered historical member required')
+        external[name]=(Path(path),digest)
     out.mkdir(parents=True);vectors={};members={};excluded=[];loadable=[];weight_failures=[]
     for name in order:
         rows=[row for row in inv['members']if row['id']==name]
@@ -258,12 +286,20 @@ def analyze_equal(args):
             weight_failures.append({'id':name,'reason':'unique selected checkpoint missing','type':'MissingCheckpoint'})
             continue
         try:
+            if name in external:
+                members[name]['historical_actual_load']=verify_historical_load_receipt(name,row,*external[name])
+                members[name]['checkpoint_load_verified_by_this_analysis']=True
+                loadable.append(name)
+                print(json.dumps({'stage':'pinned_historical_selected_checkpoint_load_accepted','member':name}),flush=True)
+                continue
             checkpoint=Path(checkpoints[0]['path']);model_site=Path(row['science']['path']).parent/'SITE_BINDING.json'
             payload=load_file(checkpoint,map_location='cpu')
             keys=('NCCCU_SITE_BINDING','NCCCU_SITE_BINDING_SHA256')
             previous={key:os.environ.get(key)for key in keys}
             try:
                 os.environ.update(NCCCU_SITE_BINDING=str(model_site),NCCCU_SITE_BINDING_SHA256=sha(model_site))
+                from retrain import experiment91
+                experiment91._metadata.cache_clear()
                 state=select_variant(payload,selected['variant']);actual_tensor=tensor_digest(state)
             finally:
                 for key,value in previous.items():
@@ -364,6 +400,7 @@ def analyze_equal(args):
         'total_wall_seconds':time.time()-started,
         'limits':['Only two fixed equal schemes; selection still reuses internal dev.',
                   'Weight-loadable subset proves selected blob/tensor loading, not model construction or full deployment readiness.',
+                  'A correction using historical load receipts may have been run after an earlier subset result was seen.',
                   'No official result or overall-goal completion is established.']}
     write(out/'RESULT.json',report)
     print(json.dumps({'status':report['status'],'result_sha256':sha(out/'RESULT.json'),'output':str(out),
@@ -375,6 +412,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('source-root','config','remote-metadata','output'):p.add_argument('--'+name,required=True,type=Path)
     p.add_argument('--git-commit',required=True)
+    p.add_argument('--historical-load-receipt',nargs=3,action='append',default=[],metavar=('MEMBER','PATH','SHA256'))
     args=p.parse_args()
     if args.config.name=='F02-HETEROGENEOUS-EQUAL.json':analyze_equal(args)
     else:analyze(args)
