@@ -1,0 +1,15 @@
+{
+  "status": "observed_handoff_interval",
+  "at": 1793812764.074628,
+  "completion_receipt_sha256": "23079339323370ca412aba4d4f9d61be45698f3c99f5ce03d7b4100f000b4942",
+  "new_site_sha256": "0815729c15ca1a6ab5345dcb888537b91517d1ce55782ace126bd0c82c8326c1",
+  "last_completion_event_at": 1793810398.489947,
+  "safe_observation_at": 1793810692.0985358,
+  "new_owner_spawn_at": 1793812669.996312,
+  "completion_event_to_spawn_seconds": 2271.5063648223877,
+  "safe_observation_to_spawn_seconds": 1977.8977761268616,
+  "continuous_gpu_idle_sampling": false,
+  "interpretation": "event-to-spawn interval, not a measured continuous GPU idle time",
+  "signals_sent": false,
+  "GPU_initialized_by_observer": false
+}

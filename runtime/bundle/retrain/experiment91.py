@@ -57,6 +57,7 @@ PAIR_SIGMOID_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-2
 PAIR_SIGMOID_SEED_REPLICAS = {
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261104-scale085-pairsigmoid-v1': ('R244',20261104,159),
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261105-scale085-pairsigmoid-v1': ('R245',20261105,160),
+    'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261109-scale085-pairsigmoid-v1': ('R254',20261109,164),
 }
 PAIR_SIGMOID_LOWLR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-backbonelr5e5-v1'
 PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-backbonelr5e5-v1'
@@ -84,6 +85,7 @@ LOGIT_SQUARE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earl
 TRI3_DOWNSAMPLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-tri3downsample-v1'
 MIXSTYLE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-v1'
 MIXSTYLE_SMALL_R1_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-mixstyle13-local8-r1-v1'
+MIXSTYLE_SMALL_SEED20261108_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261108-scale085-pairlog-mixstyle13-local8-v1'
 STEM_XY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-stem-rgbxy-v1'
 RAW_GC_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-rawgc-convlinear-v1'
 LION_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-lion10x-v1'
@@ -202,7 +204,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       LAYERWISE_LR_SMALL_BINDING, LAYERWISE_LR_SMALL_R1_BINDING,
                       POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                       TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                      MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
+                      MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                       LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
                       DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
                       GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
@@ -237,6 +239,8 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104': PAIR_SIGMOID_WIDE_SMALL_BINDING,
     'r251-small-quadrant-seed20261106-pairlog-24k-p4-9010-20261104': QUADRANT_MIL_SMALL_SEED20261106_BINDING,
     'r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104': PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,
+    'r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261108_BINDING,
+    'r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261109-scale085-pairsigmoid-v1',
 }
 
 
@@ -291,7 +295,7 @@ def science_configuration():
                 raise ValueError('ensemble member must defer official evaluation')
         if value.get('candidate_profile') == TRI3_DOWNSAMPLE_SMALL_BINDING:
             from .tri3_downsample import TRI3_RULE
-        if value.get('candidate_profile') in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING):
+        if value.get('candidate_profile') in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING):
             from .mixstyle import MIXSTYLE_RULE
         if value.get('candidate_profile') == STEM_XY_SMALL_BINDING:
             from .models import STEM_XY_RULE
@@ -333,7 +337,7 @@ def science_configuration():
                                                        LOGIT_SQUARE_SMALL_BINDING,
                                                        TRI3_DOWNSAMPLE_SMALL_BINDING,
                                                        MIXSTYLE_SMALL_BINDING,
-                                                       MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
+                                                       MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                                                        LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,
                                                        DINOV2_PAIRLOG_BINDING,DINOV2_PAIRLOG_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
                                                        GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
@@ -603,10 +607,10 @@ def science_configuration():
                 or (value.get('candidate_profile') != TRI3_DOWNSAMPLE_SMALL_BINDING
                     and (value.get('job', {}).get('tri3_downsample_policy') is not None
                          or value.get('candidate', {}).get('tri3_downsample_policy') is not None))
-                or (value.get('candidate_profile') not in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING)
+                or (value.get('candidate_profile') not in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING)
                     and (value.get('job', {}).get('mixstyle_policy') is not None
                          or value.get('candidate', {}).get('mixstyle_policy') is not None))
-                or (value.get('candidate_profile') in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING)
+                or (value.get('candidate_profile') in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING)
                     and (value.get('job', {}).get('mixstyle_policy') != MIXSTYLE_RULE
                          or value.get('candidate', {}).get('mixstyle_policy') != MIXSTYLE_RULE
                          or value.get('job', {}).get('loss') != PAIR_LOGISTIC_LOSS
@@ -678,7 +682,7 @@ def candidate_from_configuration(value):
                                         LAYERWISE_LR_SMALL_R1_BINDING,
                                         POINTWISE_LORA8_SMALL_BINDING, LOGIT_SQUARE_SMALL_BINDING,
                                         TRI3_DOWNSAMPLE_SMALL_BINDING, MIXSTYLE_SMALL_BINDING,
-                                        MIXSTYLE_SMALL_R1_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
+                                        MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING, STEM_XY_SMALL_BINDING, RAW_GC_SMALL_BINDING, LION_SMALL_BINDING,
                                         LION_SMALL_SEED27_BINDING, LOCAL_CONTRAST_SMALL_BINDING, LOCAL_CONTRAST_SMALL_SEED27_BINDING,BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_BINDING,NATIVE_BRIGHT_CENTER_SMALL_SEED27_BINDING,GLOBAL_NATIVE_INSET_SMALL_BINDING,
                                         GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                         NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
@@ -917,6 +921,12 @@ def candidate_from_configuration(value):
             from .mixstyle import MIXSTYLE_RULE
             expected.update(id='r134r1-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-mixstyle13-local8-9010',
                             experiment_order=46, mixstyle_policy=MIXSTYLE_RULE)
+        if value['candidate_profile'] == MIXSTYLE_SMALL_SEED20261108_BINDING:
+            from .mixstyle import MIXSTYLE_RULE
+            if value['job'].get('seed') != 20261108:
+                raise ValueError('registered R253 MixStyle seed differs')
+            expected.update(id='r253-convnext-small-imagenet22k-to-1k-24k-p4-seed20261108-scale085-pairlog-mixstyle13-local8-9010',
+                            experiment_order=163, mixstyle_policy=MIXSTYLE_RULE)
         if value['candidate_profile'] == STEM_XY_SMALL_BINDING:
             from .models import STEM_XY_RULE
             expected.update(id='r135-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-stem-rgbxy-9010',
@@ -2159,7 +2169,7 @@ def validate_normalization(value):
             'sites': [{'feature_index': 1, 'feature_name': 'network.features.1', 'channels': 96, 'blocks': 3},
                       {'feature_index': 3, 'feature_name': 'network.features.3', 'channels': 192, 'blocks': 3}],
             'training_only': True, 'persistent_rng_state': False}
-        if (science_configuration()['candidate_profile'] not in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING)
+        if (science_configuration()['candidate_profile'] not in (MIXSTYLE_SMALL_BINDING, MIXSTYLE_SMALL_R1_BINDING, MIXSTYLE_SMALL_SEED20261108_BINDING)
                 or configured['mixstyle_policy'] != MIXSTYLE_RULE
                 or value.get('mixstyle') != expected_mixstyle):
             raise ValueError('actual two-stage rank-local8 MixStyle graph differs')
