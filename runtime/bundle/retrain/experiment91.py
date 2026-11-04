@@ -1769,7 +1769,7 @@ def describe_model(model):
         value={'candidate':candidate(),'batch_norm_modules':sum(isinstance(m,nn.modules.batchnorm._BatchNorm)for m in model.modules()),
             'buffer_count':len(dict(model.named_buffers())),'buffer_sha256':tensor_digest(dict(model.named_buffers())),
             'layer_norms':[{'name':n,'eps':float(m.eps),'normalized_shape':list(m.normalized_shape)}for n,m in model.named_modules()if isinstance(m,nn.LayerNorm)],
-            'head_in_features':candidate()['features'],'head_out_features':1,'dropout':model.classifier[0].p,
+            'head_in_features':model.classifier[-1].in_features,'head_out_features':1,'dropout':model.classifier[0].p,
             'stochastic_depth':[{'name':f'network.blocks.{i}.drop_path{j}','p':getattr(getattr(b,f'drop_path{j}'),'drop_prob',0.),'mode':'row'}
                 for i,b in enumerate(model.network.blocks)for j in(1,2)],'vit_dino3':describe_vit_dino3(model)}
         validate_normalization(value);return value

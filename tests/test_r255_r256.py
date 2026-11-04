@@ -75,7 +75,7 @@ def test_next_identities_are_fixed_and_keep_final_only_official_gate():
 
 
 def test_native_dinov3_forward_uses_fixed_spatial_readout_once():
-    from retrain import age, models
+    from retrain import age, experiment91 as ex, models
     from retrain.config import VIT_DINO3_QUADRANT_RULE
     value = copy.deepcopy(json.loads((ROOT / 'configs/R184R1-SCIENCE.json').read_text())['job'])
     value.update(initialization={'kind': 'random'}, vit_dino3_pool_policy=VIT_DINO3_QUADRANT_RULE,
@@ -85,6 +85,11 @@ def test_native_dinov3_forward_uses_fixed_spatial_readout_once():
     model = models._create_vit_dino3_binary(value, initialize=False).eval()
     assert model.classifier[-1].in_features == 1536 and len(dict(model.named_parameters())) == 165
     assert models.describe_vit_dino3(model)['vit_dino3_pool_policy'] == VIT_DINO3_QUADRANT_RULE
+    science = json.loads((ROOT / 'configs/R184R1-SCIENCE.json').read_text())
+    candidate = copy.deepcopy(science['candidate'])
+    candidate['vit_dino3_pool_policy'] = VIT_DINO3_QUADRANT_RULE
+    with mock.patch.object(ex, 'candidate', return_value=candidate), mock.patch.object(ex, 'science_configuration', return_value=science):
+        assert ex.describe_model(model)['head_in_features'] == 1536
     images = torch.randn(1, 3, 512, 512); ages = torch.tensor([[.3, 1.]])
     with torch.inference_mode():
         native = model.network.forward_features(images)
