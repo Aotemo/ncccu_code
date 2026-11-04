@@ -1,0 +1,9 @@
+{
+  "status": "all_remote_Git_blob_bytes_modes_exact",
+  "git_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "tree_sha": "36eb332e650a14b5007f124d9bf7fd2cd158a3b1",
+  "source_files": 2845,
+  "at": 1793772044.2777514,
+  "affected_checks_reused": 2,
+  "labels_from_fit_CSV_only": true
+}

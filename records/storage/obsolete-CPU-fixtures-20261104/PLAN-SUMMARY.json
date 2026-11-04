@@ -1,0 +1,79 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "a684c6b6558bbdadd348455af21f16664e2de02219056d513bb29b3e7c07de21",
+  "inventory_sha256": "1c9dbb2c049debf9d0cd51cbfae9d3acebb35eca7d52f62952e5acea600a2c77",
+  "source_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "candidate_count": 7,
+  "logical_bytes": 2771504125,
+  "allocated_bytes": 2771506176,
+  "filesystem_free_now": 19716374528,
+  "conclusions": {
+    "r228": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r228-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "a9e08e194881f811ddfcff43310398c14cf2bfc14693b81ae30140d9cbd1bd3f"
+      },
+      "conclusion": "Completed round; its full result is archived. This CPU-only zero-update strict roundtrip fixture is not training initialization.",
+      "future_forward_dependency": false
+    },
+    "r230": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r230-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "b4a5369708b8af328a90943627298cb84b15df1d7c19f419443d9a7c55cdc4c7"
+      },
+      "conclusion": "Completed round; its full result is archived. This CPU-only zero-update strict roundtrip fixture is not training initialization.",
+      "future_forward_dependency": false
+    },
+    "r232": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r232-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "6882c7a27346bf795f1bf17d89668f22a19cdcf2879b8ae1e34592da91b80896"
+      },
+      "conclusion": "Completed round; its full result is archived. This CPU-only zero-update strict roundtrip fixture is not training initialization.",
+      "future_forward_dependency": false
+    },
+    "r234": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "80fde344ad39248c863f49154e3cef17a6aa34c75f2c5be052a4225a0dbd3e8e"
+      },
+      "conclusion": "Completed round; its full result is archived. This CPU-only zero-update strict roundtrip fixture is not training initialization.",
+      "future_forward_dependency": false
+    },
+    "r235": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r235-20261104-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "4f8e5d1967cd47099ebc62119054edb74cf681bfa92186c896cf7158486acceb"
+      },
+      "conclusion": "Conditional round ineligible and never activated; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    },
+    "r236": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236-20261104-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "201ca41ca857051f8c33872404e34cae0188b791923e62976c250f18151d5e0e"
+      },
+      "conclusion": "Activation failed before formal root/clock/launcher; original failure preserved; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    },
+    "r236r1": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r236r1-20261104-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "a3bf6ad8dba790dd82d43ac9d6430afafe88aba32457cc9b4354eddc38283d68"
+      },
+      "conclusion": "Activation failed before formal root/clock/launcher; original failure preserved; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    }
+  },
+  "protected_current_and_next": [
+    "R236R2",
+    "R237",
+    "R238"
+  ],
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2"
+  },
+  "process_scan_denied": [],
+  "deleted_files": []
+}

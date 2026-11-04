@@ -1,0 +1,18 @@
+{
+  "status": "capacity_and_unchanged_active_progress_small_metadata_only",
+  "at": 1793772881.7981718,
+  "files": {
+    "records/R236R2/R236R2-PROGRESS-post-capacity.json": "9355b114a3c7f8358c36b2dbc7e92120347252e20f36b4721f6db0b240828747",
+    "records/storage/obsolete-CPU-fixtures-20261104/SECOND-PLAN-SUMMARY.json": "e921f883fa1ecff9dd2469c181bef9f09f933fafa6e53efe505afe2e91ce3ab4",
+    "records/storage/obsolete-CPU-fixtures-20261104/SECOND-FINAL-CPU-RECEIPT.json": "3fa2541f1ef127c89ef6bc6481a56d87850e0eedd659d826198be6d25ade1d92",
+    "records/storage/obsolete-CPU-fixtures-20261104/SECOND-DELETE-RECEIPT.json": "8439349de8e19dbffc139f5ac88e8b821a86fe8218cfeba835f2d6dd226351e8",
+    "records/storage/obsolete-CPU-fixtures-20261104/SECOND-FINAL-VERIFICATION.json": "83e355a6b4551ff750e914abcbadb11f57fa7cd023f8ce7124454bde4578bc79",
+    "records/storage/obsolete-CPU-fixtures-20261104/SUMMARY.json": "a6e45b51b3fb7973a5eb49a092bfc23a7b843fbade1872c3d7bcebc4c92b68a5"
+  },
+  "second_final_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-a45zeh5p/CPU-RECEIPT.json",
+    "sha256": "58b72f14bf6fea8798b1caa509e2f1d26164d05a526cfa05c366b9a2298028b0"
+  },
+  "private_helper_sha256": "ab49937a5de73e22e8665e8d359e2655dd305b283c9ba7a6721a488ca2b6e017",
+  "GPU_or_model_invoked": false
+}

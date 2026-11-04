@@ -15,5 +15,5 @@
 CPU在独立`technical-prep/fit-label-contrastive-20261104-4e0c`，CPU3独占24核0–23/nice19/隐藏GPU，与当前96训练核互斥。先缺行为RED；独立手算loss/梯度、unique-label退化到原NT-Xent、view/row变换、全同类和稳定对角mask边界；fit-only标签访问trap/非法index及新recipe/全部原监督与学习/采样stream；真实fit8双视图与标签对齐、两rank CPU Gloo的global顺序/梯度对照。未变模型/P8/derived和原像素按精确源码复用真实证据，不追加CPU整模型前向或独立GPU预演；自然真实八rank首更新证明新分支消费。源码push/API回读/全树核对和既有正式链完成后才执行，不热改当前R236R2冻结c800/SITE65bf/clock/token/grant，不派生Agent/申请资源或等待例行审批。
 
 - [x] 两缺行为RED9b6ec1bc、3文件最小实现后两目标/四编译7e07dc7c；真实fit8和标签索引/原像素、旧函数及12文件相同，两rank全局loss/梯度与串行匹配。初整合child0但整树48runnable/24为2f3a8d9b exit2，保留不冒充通过；仅给失败CPU集合通信路径设预导入4线程并加60秒初始化超时，f3fcced0 exit0/峰8/24，无源/数值变化，不复验已过单元/fit路径。原P893ac00ab按相同模型/旧gather/optimizer范围复用，无模型前向或GPU预演；[精简检查](../../records/preparation/fit-label-contrastive-20261104/README.md)d992863f及真实回执。
-- [ ] 代码/配置同步、精确部署及实际入口在当前训练期间备好；保留R237优先。
+- [x] 3bd21524同步/API回读、2845全树89e64c42及R238原链18/18/部署edefb072（guardb2781bcb）完成，R239技术包；两实际入口/容量只读预检与metadata首成功/完整归档/必要闭轮清理helper在当前训练期间准备。R237优先，完整R2门/唯一safe前不选择或激活。
 - [ ] 完整结果、修复与成本，按原门接续/固定第二seed，不提前声称科学收益。

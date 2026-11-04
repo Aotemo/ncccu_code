@@ -1,0 +1,29 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+  "git_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "tree_sha": "36eb332e650a14b5007f124d9bf7fd2cd158a3b1",
+  "science_sha256": "2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea",
+  "deployment_sha256": "edefb07237b687492895d6368f77260d964157f6e81eedb22c9448ff912dbaa6",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793772084.115734,
+  "work_root_free_bytes_point_observation": 20510146560,
+  "storage_minimum_bytes_strictly_greater_than": 21474836480,
+  "formal_CPU_guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-vyaap4tt/CPU-RECEIPT.json",
+    "sha256": "b2781bcb0ebbd3789cc564113ad97385c8a4f918d19d7685ea0391f95b0da265"
+  },
+  "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r238-20261104-4e0c-ready",
+  "activation_called": false,
+  "branch_qualification_not_yet_proven": true,
+  "full_clock_window": {
+    "remaining_seconds": 42679.012635707855,
+    "required_seconds": 31560,
+    "latest_activation_preserving_60s": 1793783692.3138187
+  }
+}

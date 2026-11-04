@@ -2,7 +2,7 @@
 
 完整1600适配及原监督自然交接已核实：[SSL结果](R236R2-SSL-RESULT.json)、[监督初态/首25](R236R2-SUPERVISED-START.json)b902e224和[来源回执](R236R2-SUPERVISED-RECEIPT.json)0d73d0a7/guardec0dee92。1600成功=attempt/0skip/dev0/无label-age，实际强光度/128×128/126负视图/.1/128 encoder-view forward保持，八rank derived9ce9f323、head-age不变；监督完整模型ad1e0533/345全训/5空组及原factory RNG恢复通过，首自然25 loss.60167861、G64P8/448符合原合同，采样实际=登记14997478083172343433。观察者未加载checkpoint/模型或前向；私有当前env first已更新为START-OBSERVATION-supervised-1，原部署不改。
 
-最近封存[监督2450/c3/bad0/0skip](R236R2-PROGRESS-fit-label-checks-ready.json)，原owner及八rank活跃；临时EMA .9799781093353209/AP .8088639385503698，非完整selected。条件R237正式18/18/部署15dc4f71/SITEaf2b092b/guarde8b949d4及整窗已备，未激活，原入口已填；新fit标签关系后备事前b489登记并完成窄CPU与资源重验，来源见[准备记录](../preparation/fit-label-contrastive-20261104/README.md)。
+最近06:12封存[监督5600/c7/bad2/0skip](R236R2-PROGRESS-post-capacity.json)，原owner及八rank活跃；临时EMA c5@4000 .9827042075109784/AP .8161893589432011，非完整selected。较早[4825/c6/bad1](R236R2-PROGRESS-label-branches-ready.json)也保留。条件R237正式18/18/部署15dc4f71/SITEaf2b092b/guarde8b949d4及整窗已备，未激活；fit标签关系后备事前b489登记，源码3bd已同步/API回读、2845全树与R238独立18/18正式部署通过b2781bcb，SITE4bb2/部署edef，R239仅技术包，来源见[准备记录](../preparation/fit-label-contrastive-20261104/README.md)。两实际入口、完整归档/首成功/必要闭轮清理helper均已在本轮训练期间备好，容量在原activation前先只读实测；15个历史CPU fixture已按[真实清单](../storage/obsolete-CPU-fixtures-20261104/README.md)删除，本轮及后备依赖不在候选。
 
 11-04 05:08:50.774 UTC首适配成功，05:09实观自然首75：[实际首成功](R236R2-START.json)3d62e66b/guard8244ae79、[公开初态门](R236R2-SSL-INITIAL-GATE.json)及[八rank](R236R2-SSL-INITIAL-RANKS.json)验证公开50c6f55c/encoder/public张量、空初始优化器和原projector形状。实际64图/128视图、64×256 embedding、128×128矩阵/1同图目标/126负视图/自身排除/.1、128 encoder-view forward和`ssl-strong-color-v1`消费成立，loss/梯度有限；首1 loss5.0321264、首75为1.4136722。完整1600、derived→原监督交接和完整内部指标仍待，不据SSL loss宣布收益。
 
@@ -10,4 +10,4 @@
 
 [实测接续](R236R2-HANDOFF-GAP.json)：R234整轮结束→新dispatch2018.493秒、首1为2121.741秒、自然首25为2138.648秒，均明确超过300秒。包含两次激活存储拒绝、闭轮结果同步和9 checkpoint清理、补存储观测的源码/CPU/部署、Kubernetes EOF和传输；连续GPU利用率未测，不将整个间隔写成已测设备空闲。原R236入口在前轮训练期间已备，R2实际包和新入口在失败后才准备；两者分列，非声称R2已提前全部准备。最初metadata草稿误沿旧字段将R2入口写成提前准备，发布前另存corrected导出修正，原私有草稿保留，不修改冻结运行或重做模型前向。
 
-当前唯一owner845023/start379621036及八rank由实际首成功证明；私有实际定位`goal-20261103-4e0c/r236r2-pod-context.env`，first为ACTUAL-START-2，原r234 env仅历史/CPU继承来源。准备CPU3 78469136独占24核0–23、训练96核24–119互斥；只用任务图片/CSV，适配无标签/age/医学权重/旧teacher。严格完整R107/R120双门后仍优先固定seed27 R237，目标.995/AP>.9及raw.999尚未达到；当前活跃source/clock/token/grant保持冻结。
+当前唯一owner845023/start379621036及八rank由实际首成功证明；私有实际定位`goal-20261103-4e0c/r236r2-pod-context.env`，first现为START-OBSERVATION-supervised-1，ACTUAL-START-2保留适配首成功来源，原r234 env仅历史/CPU继承来源。准备CPU3 78469136独占24核0–23、训练96核24–119互斥；只用任务图片/CSV，本轮适配无标签/age/医学权重/旧teacher。严格完整R107/R120双门后仍优先固定seed27 R237，目标.995/AP>.9及raw.999尚未达到；当前活跃source/clock/token/grant保持冻结。

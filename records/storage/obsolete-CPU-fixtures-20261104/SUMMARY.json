@@ -1,0 +1,33 @@
+{
+  "status": "fifteen_obsolete_CPU_fixtures_removed_actual_manifests_and_protection_verified",
+  "at": 1793772881.779403,
+  "deleted_count": 15,
+  "logical_bytes_removed": 5938938005,
+  "original_allocated_bytes_removed": 5938942976,
+  "protected_current_and_next": [
+    "R236R2",
+    "R237",
+    "R238"
+  ],
+  "protected_keep_models": [
+    "N06",
+    "R17",
+    "R8-C25"
+  ],
+  "private_helper_files": {
+    "PLAN-OTHER-CPU-FIXTURES.py": "578567edb756b733282349ce767810df431ce99bee7c95faf2d8cab8780b907d",
+    "DELETE-OTHER-CPU-FIXTURES.py": "c7f610d3c9b95274f183e6b4913e7ebbe12666873f9714cd1e90dfb30551e6a0",
+    "verify-other-CPU-fixtures.py": "63a688400464f15ae3b949622eecf05b23e0952c40fb11289098c2b52c00047d",
+    "PLAN-R236R2-CLOSED-STORAGE.py": "c7b7207b2301ea1b0cbd06a7699172c8137d84454e4e7a08b298be32acac0953",
+    "DELETE-R236R2-CLOSED-STORAGE.py": "09021112a729a9dc2b2a9fb52eb31b85b86b47f664656ceacbd546b98e0d5eb0",
+    "verify-closed-r236r2.py": "97687ec27fb94ef37c5c711720a22c01cbf3e1f9761b295f1a80d84a9f0c347b"
+  },
+  "work_root_free_bytes_point_observation": 25652363264,
+  "storage_precheck_still_required_before_actual_activation": true,
+  "six_current_round_cleanup_helper_compilations_in_second_plan_guard_passed": true,
+  "signals_or_training_lock": false,
+  "old_safe_repolled": false,
+  "blob_rehashed_or_loaded": false,
+  "metadata_sidecars_and_indices_preserved": true,
+  "raw_or_shared_cache_or_public_weights_touched": false
+}

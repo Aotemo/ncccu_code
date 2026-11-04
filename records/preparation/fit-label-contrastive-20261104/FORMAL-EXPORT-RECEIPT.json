@@ -1,0 +1,51 @@
+{
+  "status": "R238_formal_R239_technical_helpers_cleanup_and_current_metadata_verified",
+  "at": 1793772580.8492742,
+  "CPU_evidence": {
+    "R238_formal": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-vyaap4tt/CPU-RECEIPT.json",
+      "sha256": "b2781bcb0ebbd3789cc564113ad97385c8a4f918d19d7685ea0391f95b0da265"
+    },
+    "handoff_helpers": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-hm_voudg/CPU-RECEIPT.json",
+      "sha256": "fa1e4cdc35484f163b0fbbd91c1ac08a2d33630a074b51f280275cb903f5f238"
+    },
+    "CPU_fixture_final": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-uu98wwi9/CPU-RECEIPT.json",
+      "sha256": "4b7bd94237d9a610825ee581a78c6faa9f89a1ef327a4c4d39f7e81c9ee55eae"
+    },
+    "current_progress": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-09smn_mf/CPU-RECEIPT.json",
+      "sha256": "956a9b9da6ce71641d0215002b6a1ff6e6257e059a4b022aabb58679f57f8ad1"
+    }
+  },
+  "files": {
+    "records/R236R2/R236R2-PROGRESS-label-branches-ready.json": "d051c811c47dd6eb374b96e0fe38597dca31106dd083a733b6a0e5e7755b4334",
+    "records/storage/obsolete-CPU-fixtures-20261104/DELETE-RECEIPT.json": "c620e01658d92745026f926c4a522c58d1d8df557ec1000301f26263321d3f38",
+    "records/storage/obsolete-CPU-fixtures-20261104/FINAL-VERIFICATION.json": "c710d53bb2f26fdc3814bb5388e213910182f7df4def8f772fa573f393a58726",
+    "records/storage/obsolete-CPU-fixtures-20261104/PLAN-SUMMARY.json": "33999e4526be07cb9297c0c064307c9665d323ec1a44680f6c87f5f19118cea1",
+    "records/storage/obsolete-CPU-fixtures-20261104/FINAL-CPU-RECEIPT.json": "4328c1a9ce713cc2727b3b473a0cad3ede305043457bcffc24911d5379681c4f",
+    "records/preparation/fit-label-contrastive-20261104/R238-FORMAL-READY.json": "6e6f850cd9be36dcf90daf4bb21c5dbbec4afbb7107f2750b892183d756def82",
+    "records/preparation/fit-label-contrastive-20261104/TRANSFER-VERIFICATION.json": "89e64c42b2457d0a87cbbf4d6d7ca3e0b472f7ff7d2e75aa4671cfe39594f275",
+    "records/preparation/fit-label-contrastive-20261104/HANDOFF-HELPERS-CPU.json": "37479c6bcd40e811cb123f10ed83e92bb5326265d03664e5d274e70d628e7114",
+    "records/preparation/fit-label-contrastive-20261104/R239-TECHNICAL-READY.json": "b6b0c695e23cf34e66326ec25f9ed1ff935aa0a65e60b2d3a8647e4399bb1859"
+  },
+  "capacity_precheck_compiled_and_both_five_step_entry_scripts_bash_n_passed": true,
+  "published_capacity_precheck_helper": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/check-next-capacity.py",
+    "sha256": "b06db60033c03b47e87fda7af3e252514e9fa5292a653276db5b1ad02dcc3736"
+  },
+  "entry_scripts": {
+    "post-r236r2-R237-entry.sh": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/post-r236r2-R237-entry.sh",
+      "sha256": "73963246f4fc5fc8c4ed353eef4ef0083893461e1f8e2d083681e758e6824ee7"
+    },
+    "post-r236r2-R238-entry.sh": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/post-r236r2-R238-entry.sh",
+      "sha256": "8262c964126cb8e2470a546e60410b3c727a57a08f7273f455c3289f72c08c66"
+    }
+  },
+  "helper_script_sha256": "fbef0d78ce0574db9edce79e36679d68164b31745799eacd9bb3805e9e2bdf7c",
+  "GPU_or_model_invoked": false,
+  "raw_predictions_exported": false
+}

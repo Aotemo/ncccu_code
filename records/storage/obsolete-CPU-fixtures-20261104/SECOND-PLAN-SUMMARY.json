@@ -1,0 +1,79 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "0987a6a6b05efb8a5dad315fb3a6c3ba211d14abe251f76857975335718c1c2d",
+  "inventory_sha256": "149bc541474a7ac20ecdf041b507d9d15796d455a1ed3e7bbcc1b859dfcfef6d",
+  "source_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "candidate_count": 8,
+  "logical_bytes": 3167433880,
+  "allocated_bytes": 3167436800,
+  "filesystem_free_now": 22485663744,
+  "conclusions": {
+    "r224": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r224-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "2a19a20d8a0037cd31b7471521b1b433de4d95ee1ff42fd839d87eff7ca0a5b9"
+      },
+      "conclusion": "Completed round; its full result is archived. This CPU-only zero-update strict roundtrip fixture is not training initialization.",
+      "future_forward_dependency": false
+    },
+    "r225": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r225-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "6df95111e2b106c9fd0f038af8aca907daa083233c4e013f80ab0ee52d979068"
+      },
+      "conclusion": "Conditional round ineligible and never activated; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    },
+    "r226": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r226-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "ce2b9681227b962c5a639dcbdf494969af76e48cda0b94df685f6cbd1712aaf6"
+      },
+      "conclusion": "Completed round; its full result is archived. This CPU-only zero-update strict roundtrip fixture is not training initialization.",
+      "future_forward_dependency": false
+    },
+    "r227": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r227-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "7e3741232d3c0a95d48667a6a1ea2e1acabf1b625ac4ff1602b3ece492db308c"
+      },
+      "conclusion": "Conditional round ineligible and never activated; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    },
+    "r229": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r229-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "7a91a4b7aa7edbdc82281fb4b6a7157683308a5cd6f19f2a10bdfeab416bbcdf"
+      },
+      "conclusion": "Conditional round ineligible and never activated; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    },
+    "r231": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r231-20261103-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "2d2732fd879b6abb4971f35febfb938dda3d6bb24957791d81a332f3f9f0d100"
+      },
+      "conclusion": "Conditional round ineligible and never activated; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    },
+    "r233": {
+      "CPU_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r233-20261104-4e0c-ready/formal-cpu/CPU-RECEIPT.json",
+        "sha256": "fc423089e83c09e9a517899897127d9c8b8c6c66303a4e50c0cfd2e93d51212a"
+      },
+      "conclusion": "Conditional round ineligible and never activated; CPU-only strict roundtrip passed.",
+      "future_forward_dependency": false
+    }
+  },
+  "protected_current_and_next": [
+    "R236R2",
+    "R237",
+    "R238"
+  ],
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2"
+  },
+  "process_scan_denied": [],
+  "deleted_files": []
+}

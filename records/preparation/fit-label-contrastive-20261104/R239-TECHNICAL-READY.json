@@ -1,0 +1,18 @@
+{
+  "status": "existing_technical_prepare_only",
+  "at": 1793772580.7963984,
+  "git_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "science_sha256": "1d934cdbfafcc11c4ddb37aaf8f647c63a753441f10477685aa902a13ad8d186",
+  "site": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/r239-technical/package/SITE_BINDING.json",
+    "sha256": "ba77a75a0c03fdce725726f057a3729829a7cdeaa9d522531216788f4606d2d9"
+  },
+  "wall_seconds": 7.487959623336792,
+  "log": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/R239-TECHNICAL.log",
+    "sha256": "16dac26e1fd40a1b475cde948201c547dd42c384ad84120f26ff2ad782d57cb9"
+  },
+  "formal_CPU_or_binding_ready": false,
+  "clock_created": false,
+  "GPU_started": false
+}

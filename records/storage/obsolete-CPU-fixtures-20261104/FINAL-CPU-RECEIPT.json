@@ -1,0 +1,12 @@
+{
+  "status": "final_guard_passed",
+  "guard": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-uu98wwi9/CPU-RECEIPT.json",
+    "sha256": "4b7bd94237d9a610825ee581a78c6faa9f89a1ef327a4c4d39f7e81c9ee55eae"
+  },
+  "verification": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/old-CPU-fixture-storage/FINAL-VERIFICATION.json",
+    "sha256": "c710d53bb2f26fdc3814bb5388e213910182f7df4def8f772fa573f393a58726"
+  },
+  "no_current_or_next_fixture_removed": true
+}

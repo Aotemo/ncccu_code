@@ -1,0 +1,14 @@
+{
+  "status": "seven_metadata_helpers_compile_label_count_cases_65_and_original_baseline_setup_passed",
+  "source_files": {
+    "observe-r236r2-handoff-once.py": "f33b9509f8a21e1eb3059829964eb9c69e5715b38206b023da359adab1dfc574",
+    "archive-r236r2.py": "19bdf123fd71230890aa8411f6c90c9791e4b982533a8c70db03f5548344095c",
+    "observe-fit-label-start.py": "7bd315df12996a24ca4b6d8dc3d126ee61d5217670e699a350435d6623cc7a4d",
+    "OBSERVE-FIT-LABEL-SUPERVISED.py": "0569a32b2652bac43ce8907ed2184afd59beb1b425490bd3a2435fef10ed8282",
+    "PLAN-OLD-CPU-FIXTURES.py": "6575f9aa03b207dd3a82d71bf9ffaf501176a80aab9697d99042441f0ef102ec",
+    "DELETE-OLD-CPU-FIXTURES.py": "56051b4e9c7220203f8db3eef3b6c7691f5af1a17bdff43bcc0b4668d9b69dd4",
+    "verify-old-CPU-fixtures.py": "a06aff642001c3293ad1764244c94c0f09fe49f27cdc857066db1665383a1e2c"
+  },
+  "future_candidate_or_completion_read": false,
+  "GPU_or_model_invoked": false
+}
