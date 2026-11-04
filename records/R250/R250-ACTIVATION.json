@@ -1,0 +1,8 @@
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+  "observed_at": 1793806078.0,
+  "preflight_sha256": "0e2fece13c7a744fc4d1ff631443225b7e1c1d71d6cb4913965e87630107cf6f",
+  "activation_audit_sha256": "a64da686d63ef43f2eaa5dab328abfe0d4172561592d5cc268221bdadfd42ba9",
+  "GPU_started": false
+}

@@ -1,0 +1,30 @@
+{
+  "status": "strict_CPU_model_construction_and_selected_state_loaded",
+  "at": 1793806510.8629293,
+  "member": "R247",
+  "source_commit": "66f4b808a84bd419894cab2fac1b070ff1476c6b",
+  "frozen_source_files_verified": 64,
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "sha256": "0ae42669fad5333ee3a2b7473c8e7e292a70d9456e2b286a2e477ad723b39971"
+  },
+  "site_sha256": "f7d49c2082de5044d209fd3fa4e0968037a8eb18bf25bf3e83a3e85c630f84e4",
+  "checkpoint": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104/outputs/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104-8c-convnext_large-s20261029-b64-p8-fp32/convnext-large/checkpoints/checkpoint-ab3108ccfcbb4438811e803ed66c9500.pt",
+    "sidecar": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104/outputs/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104-8c-convnext_large-s20261029-b64-p8-fp32/convnext-large/checkpoints/checkpoint-ab3108ccfcbb4438811e803ed66c9500.pt.json",
+      "sha256": "8e423bd40043e106ec40cfe288fa65c9bf1a87e6d800a08831a99843c3a83f4d"
+    },
+    "bytes": 3140575178
+  },
+  "blob_sha256": "77e9f0645cde5ba772c1f0f38524a4bde56a884299892377de83c6b3f37abb13",
+  "selected_tensor_sha256": "6eb9f1924100882f6309c7e4d7a2cd1d5c0c18cef7408d56b14506a3bca562f8",
+  "variant": "ema",
+  "successful_updates": 3200,
+  "model_constructed": true,
+  "strict_state_load": true,
+  "device": "cpu",
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

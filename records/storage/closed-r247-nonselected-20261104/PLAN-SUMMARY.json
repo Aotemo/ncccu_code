@@ -1,0 +1,49 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "6281b63b17e95d38dce34babb455ed11390c9aea286dd2fc62c8460972b4b6b2",
+  "inventory_sha256": "bd7c80bcfeb176451bb8d43ba35f4c7f908f21fe1cf23891e6a03bad25e1f81a",
+  "source_commit": "426c9306fd0c90209a401f3b02a21a5eca4b1788",
+  "candidate_count": 7,
+  "skipped": [],
+  "logical_bytes": 20413728183,
+  "allocated_bytes": 20413728768,
+  "filesystem_free_now": 56938725376,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104"
+  ],
+  "conclusions": {
+    "R247": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/R247-PROGRESS-resume-1526.json",
+        "sha256": "9f44acb50a2305ba13ea434a30c6a5c0b04150956676888217135462761bbd91",
+        "git_blob": "b60b348e16f79478baa5b3cae66619aab9cdecd3",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R247-426c930/REMOTE-TREE.json",
+          "sha256": "2c48920478741e5ca6fa341f53d473867ac97a450258d2692c571564d8c2450f"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R247-426c930/REMOTE-COMMIT.json",
+          "sha256": "6f68968521eb6ee0016cda81544b5ee53ba7c9d912ef2f01288e3c7231bfdb4e"
+        }
+      },
+      "selected": {
+        "auroc": 0.9868174369138257,
+        "ap": 0.8119164253097094,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 21896
+      },
+      "freeze_metadata_sha256": "0ae42669fad5333ee3a2b7473c8e7e292a70d9456e2b286a2e477ad723b39971",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/published-2742968/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

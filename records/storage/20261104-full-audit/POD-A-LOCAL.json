@@ -1,0 +1,22 @@
+{
+  "status": "pod_local_capacity_point_sample",
+  "at": 1793806675.4655535,
+  "hostname": "vcjob-2117909060596142082-acfwvv9ejn-44303-worker-0",
+  "pod_uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+  "filesystems": {
+    "/": {
+      "device": 228,
+      "total_bytes": 1889087803392,
+      "used_bytes": 398145921024,
+      "free_bytes": 1394906005504
+    },
+    "/tmp": {
+      "device": 228,
+      "total_bytes": 1889087803392,
+      "used_bytes": 398145921024,
+      "free_bytes": 1394906005504
+    }
+  },
+  "signals_sent": false,
+  "GPU_initialized": false
+}

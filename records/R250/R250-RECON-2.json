@@ -1,0 +1,22 @@
+{
+  "status": "activation_completed_no_dispatch_observed",
+  "at": 1793806362.4987223,
+  "round_id": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+  "site_sha256": "c2be7b76a9e8226afb78d1928faae4b7c88e831886a44c848344e52def933bb9",
+  "chain_sha256": "7a0f6bcd86d89f55a33a57ce5e3676264c6156b4bbd6cdc85711233c0f896dbf",
+  "audit_sha256": "a64da686d63ef43f2eaa5dab328abfe0d4172561592d5cc268221bdadfd42ba9",
+  "activation_exit_sha256": "7515d224017e7648872a24dfbde5a7ca6bef4b30dbe4eceef167a3d2f8b97b35",
+  "deadline_at": 1793837668.762613,
+  "markers_absent": [
+    "dispatch.json",
+    "controller-start.json",
+    "pod-admission.json",
+    "owner.json",
+    "done.json",
+    "controller.log"
+  ],
+  "matching_active_processes": [],
+  "clock_reused": true,
+  "signals_sent": false,
+  "GPU_started_by_observer": false
+}
