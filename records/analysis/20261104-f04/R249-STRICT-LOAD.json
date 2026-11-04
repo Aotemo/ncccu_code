@@ -1,0 +1,30 @@
+{
+  "status": "strict_CPU_model_construction_and_selected_state_loaded",
+  "at": 1793814615.6094012,
+  "member": "R249",
+  "source_commit": "631ce2012e18c4ef6bee5f57e3fc6a6746195641",
+  "frozen_source_files_verified": 64,
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "sha256": "e72bf71ec174975aa2c5f31f9732c316b3ff8ea3d4cdfdb36c973e9b92935112"
+  },
+  "site_sha256": "194544d5e96418efd880481254df2f9f43377d2c08bdcec8fcc5788969aeef82",
+  "checkpoint": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104/outputs/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-15e8b70378a14201b001a5ea8f79eed8.pt",
+    "sidecar": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104/outputs/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-15e8b70378a14201b001a5ea8f79eed8.pt.json",
+      "sha256": "4d92245db9b22ab723bb356cf55cb83478416d9e19763c513fbf64a82dd3c899"
+    },
+    "bytes": 792151946
+  },
+  "blob_sha256": "5ce192e04be6cff9a484309c22132be7fa00213f45c6f2e131705a4ebae771a2",
+  "selected_tensor_sha256": "6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73",
+  "variant": "ema",
+  "successful_updates": 7200,
+  "model_constructed": true,
+  "strict_state_load": true,
+  "device": "cpu",
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

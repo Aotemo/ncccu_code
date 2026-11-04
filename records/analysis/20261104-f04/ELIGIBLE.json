@@ -1,0 +1,130 @@
+{
+  "status": "sealed_candidate_summary_before_any_F04_fusion",
+  "at": 1793814590.2926188,
+  "inventory": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-discovery-1747/CANDIDATES.json",
+    "sha256": "94b9d638e42cb0f2c883af6583c74173c9f45319fd8672fb337e8f74209dd389"
+  },
+  "eligible_pending_strict_load_and_export": [
+    {
+      "round_id": "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "discovery_index": 19,
+      "selected_auroc": 0.9894773092062407,
+      "selected_ap": 0.8313831149805229,
+      "reason": null
+    },
+    {
+      "round_id": "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "discovery_index": 33,
+      "selected_auroc": 0.989123301757635,
+      "selected_ap": 0.8334499172214856,
+      "reason": null
+    },
+    {
+      "round_id": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "discovery_index": 93,
+      "selected_auroc": 0.9889535226751404,
+      "selected_ap": 0.8363466610846791,
+      "reason": null
+    },
+    {
+      "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+      "discovery_index": 92,
+      "selected_auroc": 0.9884706757809537,
+      "selected_ap": 0.8262997760790266,
+      "reason": null
+    },
+    {
+      "round_id": "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+      "discovery_index": 34,
+      "selected_auroc": 0.9884598388182413,
+      "selected_ap": 0.8245256334018152,
+      "reason": null
+    },
+    {
+      "round_id": "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029",
+      "discovery_index": 7,
+      "selected_auroc": 0.9884405731067525,
+      "selected_ap": 0.8274326888154083,
+      "reason": null
+    },
+    {
+      "round_id": "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+      "discovery_index": 89,
+      "selected_auroc": 0.9884056540046792,
+      "selected_ap": 0.8364933102855981,
+      "reason": null
+    },
+    {
+      "round_id": "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104",
+      "discovery_index": 90,
+      "selected_auroc": 0.9882081804619195,
+      "selected_ap": 0.8264419710103553,
+      "reason": null
+    },
+    {
+      "round_id": "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+      "discovery_index": 88,
+      "selected_auroc": 0.988116668332348,
+      "selected_ap": 0.8207140622129577,
+      "reason": null
+    }
+  ],
+  "pending": [],
+  "missing_selected_above_threshold": [
+    {
+      "round_id": "r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031",
+      "discovery_index": 26,
+      "selected_auroc": 0.9886320261146719,
+      "selected_ap": 0.825473259026753,
+      "reason": "selected_checkpoint_missing"
+    },
+    {
+      "round_id": "r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031",
+      "discovery_index": 27,
+      "selected_auroc": 0.9882093845688875,
+      "selected_ap": 0.8282870957132695,
+      "reason": "selected_checkpoint_missing"
+    },
+    {
+      "round_id": "r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+      "discovery_index": 28,
+      "selected_auroc": 0.9884188991813276,
+      "selected_ap": 0.8233186216195478,
+      "reason": "selected_checkpoint_missing"
+    },
+    {
+      "round_id": "r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102",
+      "discovery_index": 53,
+      "selected_auroc": 0.9882081804619195,
+      "selected_ap": 0.8264419710103553,
+      "reason": "selected_checkpoint_missing"
+    },
+    {
+      "round_id": "r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+      "discovery_index": 57,
+      "selected_auroc": 0.9880889738720829,
+      "selected_ap": 0.8240243312217729,
+      "reason": "selected_checkpoint_missing"
+    },
+    {
+      "round_id": "r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102",
+      "discovery_index": 65,
+      "selected_auroc": 0.9884706757809537,
+      "selected_ap": 0.8262997760790266,
+      "reason": "selected_checkpoint_missing"
+    },
+    {
+      "round_id": "r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+      "discovery_index": 67,
+      "selected_auroc": 0.9889535226751404,
+      "selected_ap": 0.8363466610846791,
+      "reason": "selected_checkpoint_missing"
+    }
+  ],
+  "note": "Sorted for presentation; any AUROC ties must use the preregistered F03 and subsequent discovery order.",
+  "model_load_or_export": false,
+  "fusion_computed": false,
+  "GPU_initialized": false,
+  "official_read": false
+}
