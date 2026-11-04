@@ -11,3 +11,10 @@
 R120原提交/所选权重继续保护；R238所选EMA及最小可加载依赖从本页登记起成为临时融合依赖，不能套用旧闭轮记录中当时的`future_forward_dependency=false`直接删除。先核实际路径和SHA，再精确释放其他闭轮checkpoint；不恢复医学来源N06等，不重训或替换缺失成员冒充原模型。当前准备状态：尚未核完新Pod上的融合权重加载，尚无融合指标、冻结权重或官方forward。
 
 R240R1/R242完整结果后可另登记F02扩展候选；它们当前未完成，不读取临时dev决定成员或提前替换F01。现役seed27条件及各自官方门保留原SCIENCE。任何最终融合的成员、权重和推理口径须在官方前冻结，官方5849只对最终方案作一次评估；不据官方逐例结果选择成员/权重，不做TTA。后续运行仍由4e沿原模型推理/保存/评估入口执行，不建立新训练或监控平台。
+
+实施范围（4e内联执行，不派生Agent）：仅新增`tools/diagnostics/ensemble_dev.py`、`configs/F01-LOGIT-GRID.json`和`tests/test_ensemble_dev.py`，复用原`paired_evidence`/`persistence`/`ema`，不改训练、推理或监控入口。准备源码在独立technical-prep，现役C4源保持冻结。
+
+- [x] 用互补排序的可手算例验证21点网格/并列选择，再验证相同排序应保留R120顶点；RED CPU8963fdab因缺行为明确失败，最小实现后两目标GREEN CPU0f05b081通过，未触碰模型或图像。
+- [ ] 新Pod CPU核两个真实blob和EMA tensor、通用源、同一manifest的selected与precision，原指标必须重现；不构建模型或forward。
+- [ ] 必要CPU检查通过后，源码/配置Git同步与精确文件SHA核验，再一次实际21点分析；只导回汇总和小回执。
+- [ ] 报告两类难组的修复/新增错序、实际资源/耗时/限制；完整目标未达则继续，后续GPU接续必须提前准备且不抢当前卡。

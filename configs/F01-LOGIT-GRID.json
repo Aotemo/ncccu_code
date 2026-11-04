@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "F01-general-small-R120-R238-logit-grid",
+  "members": ["R120", "R238"],
+  "inventory": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/fit-label-contrastive-20261104-4e0c/r238-result/PAIRED-INVENTORY.json",
+    "sha256": "4ba0721be692ee3329b9172f5d96227dbab495cdf8d8f9836b739b1202b0389b"
+  },
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "selected_tensor_sha256": {
+    "R120": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+    "R238": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0"
+  },
+  "selected_blob_sha256": {
+    "R120": "25229efdea3a91baeb0b5e5142a470c2a68a15bab9470f92e9de76b1b616cac6",
+    "R238": "1619cdd97dadbc181b7d5877e620b9bcfd360e77ffc6b0eb887d7faa4049185a"
+  },
+  "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+  "rule": "score=(1-w)*R120+w*R238",
+  "weight_denominator": 20,
+  "accumulation_dtype": "float64",
+  "selection": ["auroc_desc", "ap_desc", "R120_weight_desc"],
+  "view": "identity",
+  "TTA": false,
+  "external_medical_pretraining": false,
+  "official_read_or_forward": false
+}
