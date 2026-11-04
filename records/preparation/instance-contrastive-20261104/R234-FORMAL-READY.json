@@ -1,0 +1,40 @@
+{
+  "status": "formal_package_and_actual_Git_deployment_ready",
+  "round_id": "r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+  "git_commit": "56545749d7fde4666515a8c11b786acaf48b81da",
+  "tree_sha": "131b36bb99445ce4c34bd6a9367f2055fc5e974e",
+  "science_sha256": "3ee3cbc3ffcb89fed9e3377ff40697025777e1bab367265634aa57d30b27f8aa",
+  "checks": 18,
+  "actual_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "trainable_tensors": 345,
+  "site_sha256": "c5ad926fd879cd8d792616db791be44e9ac92c68140647837a84db1d6d283be7",
+  "deployment_sha256": "4dfc6395503c788c83172cc5b8a4ae9f88e631a520cdcd8f9e26907fec574762",
+  "formal_clock_created": false,
+  "GPU_started": false,
+  "at": 1793758677.0493512,
+  "ready_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready",
+  "site_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/formal-cpu/package/SITE_BINDING.json",
+  "evidence": {
+    "formal_CPU_guard": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-jcnzd5_z/CPU-RECEIPT.json",
+      "sha256": "35407385c65c6051e5d392ac6f80de9455c55263ddd06809c945252e1c268537"
+    },
+    "source_checks": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/REUSED-CPU-CHECKS.json",
+      "sha256": "66fd5eb267030be391c0334f082449141c0370a8e5a368bdfad3f66d4da713d9"
+    },
+    "deployment": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/DEPLOYMENT.json",
+      "sha256": "4dfc6395503c788c83172cc5b8a4ae9f88e631a520cdcd8f9e26907fec574762"
+    }
+  },
+  "full_clock_window": {
+    "at": 1793758707.1272118,
+    "remaining_seconds": 43137.63344860077,
+    "required_seconds": 31560,
+    "latest_activation_preserving_60s": 1793770284.7596166
+  },
+  "activation_called": false,
+  "dispatch_called": false,
+  "branch_qualification_not_yet_proven": true
+}

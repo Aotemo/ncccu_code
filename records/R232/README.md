@@ -1,5 +1,7 @@
 # R232 固定9600 EMA历史窗口与实际监督交接
 
+02:18 [监督1500快照](R232-PROGRESS-formal-next-ready.json)e27394d0/guardd4388182仍为原owner及八rank活跃，1500成功=attempt/0skip/c1/bad0；首个dev online/EMA均为AUROC .9661043888494878/AP .7346687961376994，仅临时结果，完整selected待。当前训练期间已完成[未启动R233新足额绑定及后备R234正式CPU/精确部署](../preparation/instance-contrastive-20261104/README.md)，actual SITE f5c09d84/c5ad926f，各18/18，均未激活；原四步入口命令已填实际身份，完整双门与唯一actualsafe前不执行。
+
 02:07 [完整适配](R232-SSL-RESULT.json)f4ecae75与[监督交接](R232-SUPERVISED-RECEIPT.json)e781325d已核验：9600成功=attempt、0skip、dev0，仅fit、无标签/age用于适配loss；八rank学生derived64971ebf、教师772df690及center bef7afb9最终各自一致，教师无梯度且teacher/projector/center不持久化。原head-age与监督factory RNG保持，实际监督完整初态8996b216/345全训/5组空AdamW通过原门47bc841c。
 
 [自然监督首25](R232-SUPERVISED-START.json)40bc9926/guard8f2aa998：loss .61780423有限，原G64/P8、448配对及实际采样流=登记保持，owner825876/start377725472和八rank真实活跃、资源mask匹配。元数据归档guard500a4991通过，只读小JSON，没有模型加载、新前向或冻结修改；私有archive helper 7b0f8b5f仅编译回执0182dda7先行。当前私有r232 env的first指针已从SSL首成功改为这一监督proof，历史原件保留。完整内部选点与配对修复/代价仍待；首个dev后完成从未激活R233和后备R234的新正式绑定，未选择或启动分支。
