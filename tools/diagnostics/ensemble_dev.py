@@ -100,7 +100,18 @@ def analyze(args):
             if side.is_file()and json.loads(side.read_text())['sha256']==freeze['blob_sha256']:matches.append(path)
         if len(matches)!=1:raise ValueError('unique actual selected checkpoint missing: '+name)
         checkpoint=matches[0];load_started=time.time();payload=load_file(checkpoint,map_location='cpu')
-        state=select_variant(payload,'ema');actual_tensor=tensor_digest(state)
+        # The historical site identifies this model's EMA rule, never the current
+        # execution Pod. Match the frozen inference entry's model-identity binding.
+        model_site=round_root/'SITE_BINDING.json'
+        keys=('NCCCU_SITE_BINDING','NCCCU_SITE_BINDING_SHA256')
+        previous={key:os.environ.get(key)for key in keys}
+        try:
+            os.environ.update(NCCCU_SITE_BINDING=str(model_site),NCCCU_SITE_BINDING_SHA256=sha(model_site))
+            state=select_variant(payload,'ema');actual_tensor=tensor_digest(state)
+        finally:
+            for key,value in previous.items():
+                if value is None:os.environ.pop(key,None)
+                else:os.environ[key]=value
         if actual_tensor!=selected['tensor_sha256']or payload['successful_updates']!=selected['successful_updates']:
             raise ValueError('actually loaded EMA differs: '+name)
         job=payload['job']
@@ -109,6 +120,7 @@ def analyze(args):
         members[name]={'selected':selected,'checkpoint':{'path':str(checkpoint),'blob_sha256':freeze['blob_sha256'],
                       'EMA_tensor_sha256':actual_tensor,'sidecar_sha256':sha(str(checkpoint)+'.json')},
                       'science_sha256':sha(round_root/'SCIENCE.json'),'public_source':public,
+                      'model_identity_site':{'path':str(model_site),'sha256':sha(model_site),'execution_binding_replaced':False},
                       'current_CPU_load_seconds':time.time()-load_started}
         vectors[name]=scores;del state,payload
         print(json.dumps({'stage':'actual_member_preflight_passed','member':name,'tensor_sha256':actual_tensor}),flush=True)
