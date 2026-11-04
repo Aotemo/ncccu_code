@@ -1,0 +1,87 @@
+{
+  "status": "current_public_source_bound_registered_science",
+  "at": 1793811742.714048,
+  "execution": {
+    "at": "2026-11-04T17:02:22.238875+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909275134578690-acfwvv9ejn-18257-worker-0",
+    "uid": "37e3fb34-c233-4294-b517-e98978cbd016",
+    "container": "vcjob-2117909275134578690-acfwvv9ejn-18257",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/CPU-ALLOCATION.json",
+      "sha256": "421dba135cf04db3209e64b68e5ab4eecc776ed58ff72afb09656626f15d57dc",
+      "executor_id": "08ac5df9-3ab6-41ad-b7b1-ecfba1f8ac92",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "results": [
+    {
+      "member": "R252",
+      "round_id": "r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104",
+      "base_science_sha256": "bb449eb85474e644f61e0f8e40bc9d2780d04d1dc13905fb4da115864c2774a8",
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R252-bind-b/R252-B-SCIENCE.json",
+        "sha256": "5621dc0fe5b2bf9a92d62d2855ee8d02f3cfd810759f900591ce09f8d8ae9c22"
+      },
+      "public_asset_receipt": {
+        "path": "technical-prep/dual-pod-20261104-4e0c/pod-b/public-current/PUBLIC-SMALL-CURRENT.json",
+        "sha256": "4248548433020c2921e45d15135fab847e4b7aa73a87d90aa3a17bfcf88012f8"
+      },
+      "initial_model_tensor_sha256": "5b5ae7aa3de118f98aee9da89e6d289f262eb49db0e25e1000ae6133c529fc1d"
+    }
+  ],
+  "new_seed_initial_receipt_sha256": "8e9dbc26f47c0aa3891523e3875bb9ed00a3503f970ffb873671c066c361996a",
+  "GPU_initialized": false,
+  "forward_calls": 0,
+  "official_read": false
+}
