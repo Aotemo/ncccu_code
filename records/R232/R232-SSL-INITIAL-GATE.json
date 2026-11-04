@@ -1,0 +1,50 @@
+{
+  "at": 1793749958.424898,
+  "device_proof_sha256": "6010f5fb9ef3115baa7432581b34abdc2f609cb3d65f9261cfeb2d2f306d596f",
+  "first_ssl_update_executed": false,
+  "public_encoder_tensor_sha256": "3af1b12cda45c131053933eefdeddac6462f0d970760ba0bfac06b497ee0a40e",
+  "public_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "public_tensor_sha256": "966da204c7ee0668d6d2e1d51b9fa8fe1df96a9a630b12271a96d00f0a197d97",
+  "rank_count": 8,
+  "rank_proof_sha256": "939992ab998547ca8adc70326505357c35a7634b3ffab77d98c64f23214a2380",
+  "recipe": {
+    "backbone_lr": 0.0001,
+    "center_momentum": 0.9,
+    "final_lr_factor": 0.01,
+    "global_batch": 64,
+    "gradient_clip": 1.0,
+    "image_size": 512,
+    "learning_rng_domain": "r115-fit-vicreg-1600-v1",
+    "per_rank_batch": 8,
+    "precision": "fp32",
+    "projector": [
+      768,
+      2048,
+      2048,
+      256,
+      65536
+    ],
+    "projector_lr": 0.001,
+    "prototype_freeze": "first_complete_fit_epoch",
+    "prototype_scale": "fixed_unit",
+    "sampling_rng_domain": "r115-fit-vicreg-1600-v1",
+    "student_temperature": 0.1,
+    "target": "centered_sharpened_stop_gradient_ema_cross_view",
+    "teacher_momentum": [
+      0.9995,
+      1.0
+    ],
+    "teacher_temperature": 0.04,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "training_views": 2,
+    "updates": 9600,
+    "version": "fit-ema-assignment-9600-v1",
+    "warmup_updates": 160,
+    "weight_decay": 0.0001
+  },
+  "ssl_rank0_non_encoder_sha256": "d0fe92f37fedb52d6adfba95816bba41c09141314d362c5d8b46c3a1bb9f8c4f",
+  "status": "completed"
+}

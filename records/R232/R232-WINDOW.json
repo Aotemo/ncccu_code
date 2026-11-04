@@ -1,0 +1,11 @@
+{
+  "status": "unactivated_full_clock_plus_60s_currently_covered",
+  "at": 1793749819.626322,
+  "round_id": "r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+  "site_sha256": "b642d573b7e79ac9851504dd676081051a8b981e452c89b9406f6f29a3377ba3",
+  "remaining_seconds": 41274.98561549187,
+  "required_seconds": 31560,
+  "CPU_and_deployment_reused": true,
+  "GPU_started": false,
+  "formal_clock_created": false
+}

@@ -1,0 +1,28 @@
+{
+  "status": "observed_event_intervals",
+  "previous_round": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+  "next_round": "r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+  "previous_whole_round_ended_at": 1793749628.650622,
+  "previous_whole_round_ended_UTC": "2026-11-03T23:47:08.650622+00:00",
+  "previous_last_train_update_at": 1793749530.1128953,
+  "next_dispatch_at": 1793749871.8884664,
+  "next_first_SSL_success_at": 1793749968.6487901,
+  "next_natural_SSL_25_at": 1793749988.641778,
+  "seconds_end_to_dispatch": 243.2378444671631,
+  "seconds_end_to_first_SSL_success": 339.99816823005676,
+  "seconds_end_to_SSL_25": 359.9911561012268,
+  "seconds_last_old_train_update_to_first_SSL_success": 438.53589487075806,
+  "end_to_first_SSL_within_300_seconds": false,
+  "end_to_SSL25_within_300_seconds": false,
+  "continuous_GPU_utilization_measured": false,
+  "old_safe_proof_reused": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r230-20261103-4e0c-ready/COMPLETION-horizon-handoff-2.json",
+    "sha256": "33c2226b2c30739076065b2b9471871168f0c3e2e5d25e6b50a575c124ff9424"
+  },
+  "old_clock_token_grant_modified": false,
+  "preparation_completed_during_previous_training": true,
+  "no_document_or_approval_wait": true,
+  "one_activation_and_one_entry_call": true,
+  "handoff_delay_cause": "terminal_observation_latency_and_entry_command_composition_plus_required_activation_and_native_initialization",
+  "future_change": "prepare_existing_entry_command_text_during_training_and_wait_for_inflight_safe_observation_without_unrelated_work"
+}
