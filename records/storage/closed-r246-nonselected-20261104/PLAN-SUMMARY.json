@@ -1,0 +1,49 @@
+{
+  "status": "read_only_manifest_ready",
+  "plan_sha256": "9bda82290754c2492bde8180ff278ea4b490d252b7fc5c17a64c0eb7a16f357d",
+  "inventory_sha256": "dfec129ccfaafdb77f4aee07f88da6309d3bf91ab4314cbb7598c805f2e8d151",
+  "source_commit": "0577fafc3f0f8ba8a1021093eda2f48ebfd2bc7b",
+  "candidate_count": 7,
+  "skipped": [],
+  "logical_bytes": 5149001911,
+  "allocated_bytes": 5149002752,
+  "filesystem_free_now": 55388930048,
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104"
+  ],
+  "conclusions": {
+    "R246": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      },
+      "selected": {
+        "auroc": 0.9882081804619195,
+        "ap": 0.8264419710103553,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 19586
+      },
+      "freeze_metadata_sha256": "8c5910920554efc00ee95a930c15ec7b6762b1c49dba1d54e1d919485d7f48b2",
+      "historical_actual_safe": true
+    }
+  },
+  "protected_keep_catalog": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/published-2742968/source-git/records/storage/KEEP-MODELS.json",
+    "sha256": "4cb230ed831d6e9d9816cb3a9a2c76c4569f5850ac7ddfea75fb0b406fddd8c2",
+    "git_blob": "1db4b06c1d6177d43defa3a73b256b7d39a80fc1"
+  },
+  "process_scan_denied": [],
+  "deleted_files": [],
+  "large_blob_identity": "exact stat and committed sidecar SHA/advertised blob SHA; payload not rehashed or loaded"
+}

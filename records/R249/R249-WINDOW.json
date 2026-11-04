@@ -1,0 +1,20 @@
+{
+  "status": "fresh_safe_window_and_capacity_verified",
+  "at": 1793805200.6663685,
+  "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+  "predecessor_safe_sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+  "site_sha256": "194544d5e96418efd880481254df2f9f43377d2c08bdcec8fcc5788969aeef82",
+  "free_bytes": 55392075776,
+  "own_storage_limit_bytes": 12884901888,
+  "other_new_reserved_bytes": 34359738368,
+  "other_active_round": "r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "other_active_size_bytes": 23590253996,
+  "other_active_reserved_bytes": 10769484372,
+  "both_full_quotas_plus_20GiB_and_active_reserve": false,
+  "single_only": true,
+  "grant_remaining_seconds": 39214.06900882721,
+  "required_seconds": 31560,
+  "entry_sha256": "8616d9902089e8594d018829d9c4f294cad5543c463965737bf32f092fea9c8e",
+  "activation_reserved": false,
+  "GPU_started": false
+}

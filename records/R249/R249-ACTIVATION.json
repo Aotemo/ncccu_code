@@ -1,0 +1,8 @@
+{
+  "status": "unique_activation_exit0",
+  "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+  "observed_at": 1793805231.0,
+  "preflight_sha256": "7c7fcf7255a96f5ec20e8e2ed9f4330064ee3472d3d31458d44fd4196e429cff",
+  "activation_audit_sha256": "251200df145f3bb980a586f5f918848a92d590ad841002d5cb94c73761543f14",
+  "GPU_started": false
+}

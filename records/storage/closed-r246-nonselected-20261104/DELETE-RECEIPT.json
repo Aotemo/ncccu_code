@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "status": "completed",
+  "authorization_reference": "c607-20261104-actualsafe-archive-nonselected",
+  "started_at": 1793805417.2906632,
+  "finished_at": 1793805417.4461763,
+  "plan_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R246-CLEANUP-PLAN-0577faf/PLAN.json",
+  "plan_sha256": "9bda82290754c2492bde8180ff278ea4b490d252b7fc5c17a64c0eb7a16f357d",
+  "inventory_sha256": "dfec129ccfaafdb77f4aee07f88da6309d3bf91ab4314cbb7598c805f2e8d151",
+  "deleted_count": 7,
+  "deleted_categories": {
+    "closed_round_checkpoint": {
+      "count": 7,
+      "logical_bytes": 5149001911,
+      "allocated_bytes": 5149002752
+    }
+  },
+  "skipped_during_apply": [],
+  "error": null,
+  "protected_stat_and_small_sha_unchanged": true,
+  "protected_before_sha256": "dba2ae1442447ec5841646eb73fcdfab60cbadf002d2e24fe54126871ff3194f",
+  "protected_after_sha256": "dba2ae1442447ec5841646eb73fcdfab60cbadf002d2e24fe54126871ff3194f",
+  "journal_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R246-CLEANUP-PLAN-0577faf/DELETE-JOURNAL.jsonl",
+  "journal_sha256": "76bba96d59591102202a270f462f449c13ceb5a23ad0611e8370b094c58dcdea",
+  "usage_before": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 482110078976,
+      "used": 426735828992,
+      "free": 55374249984
+    }
+  },
+  "usage_after": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": {
+      "total": 482110078976,
+      "used": 421587320832,
+      "free": 60522758144
+    }
+  },
+  "free_delta_bytes": {
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3": 5148508160
+  },
+  "unlinked_allocated_bytes": 5149002752,
+  "unlinked_logical_bytes": 5149001911,
+  "checkpoint_blob_rehashed_or_loaded": false,
+  "sidecar_index_lock_or_one_shot_modified": false,
+  "open_file_scan_denied": [],
+  "active_candidate_round_owners": [],
+  "protected_current_round": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "current_training_signals_sent": false,
+  "training_lock_acquired": false,
+  "limitations": [
+    "Allocated bytes are pre-unlink st_blocks*512 of unique regular inodes, not a claim of backend physical reclaim.",
+    "Filesystem free delta is a point-in-time observation on a shared filesystem and may include concurrent activity.",
+    "Large checkpoint identity uses exact stat plus actual small sidecar SHA/advertised blob SHA; payload was not rehashed or loaded.",
+    "All manifest exclusions, unknown ownership, raw/shared caches and protected current dependencies remain."
+  ]
+}

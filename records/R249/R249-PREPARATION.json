@@ -1,0 +1,18 @@
+{
+  "status": "formal_CPU_and_precise_git_deployment_ready",
+  "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+  "at": 1793801246.4144628,
+  "git_commit": "631ce2012e18c4ef6bee5f57e3fc6a6746195641",
+  "tree_sha": "dd9135aa88bbb81bd297209bc668f5b02389ff3d",
+  "science_sha256": "6d779f8140fac448a96dde8c6ea830050ba0c251f407f7d7f25b15e44517037a",
+  "checks": 18,
+  "formal_cpu_sha256": "79351253c3d4400b1c2447558070767ddba307b6fc45207880fdab676bfd22b9",
+  "actual_initial_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "site_sha256": "194544d5e96418efd880481254df2f9f43377d2c08bdcec8fcc5788969aeef82",
+  "deployment_sha256": "45fb27c036fa0892ddd13d7e0a54e69f36a9d8b23b4c7689cf06e826563ee549",
+  "grant_valid_until": 1793844413.5649917,
+  "grant_remaining_seconds": 43167.14931488037,
+  "required_seconds": 31560,
+  "formal_clock_created": false,
+  "GPU_started": false
+}

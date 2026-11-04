@@ -1,0 +1,30 @@
+{
+  "status": "strict_CPU_model_construction_and_selected_state_loaded",
+  "at": 1793805291.3925476,
+  "member": "R246",
+  "source_commit": "66f4b808a84bd419894cab2fac1b070ff1476c6b",
+  "frozen_source_files_verified": 64,
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "sha256": "8c5910920554efc00ee95a930c15ec7b6762b1c49dba1d54e1d919485d7f48b2"
+  },
+  "site_sha256": "6eb45180bc03259d0ed244031e3afb061f6b20cb22f92406162f9968e206e310",
+  "checkpoint": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7d6ed8c29844ed1bb1ec1be07daa6b4.pt",
+    "sidecar": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7d6ed8c29844ed1bb1ec1be07daa6b4.pt.json",
+      "sha256": "f69d1bc02be332fd2c8d1643dccf6cfbea2accf8856170db6dfe66d97e07f27c"
+    },
+    "bytes": 792155850
+  },
+  "blob_sha256": "62b87235099bd2aedba2fc3ac55d8c1586bab0b2fe7d478f8531036182fa8834",
+  "selected_tensor_sha256": "daf8e54364e2e61b45ab843f376dc07ea1e31afc8a7df519e554441bbf8559df",
+  "variant": "ema",
+  "successful_updates": 3200,
+  "model_constructed": true,
+  "strict_state_load": true,
+  "device": "cpu",
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "official_read": false
+}

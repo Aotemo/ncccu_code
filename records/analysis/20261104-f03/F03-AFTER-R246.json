@@ -1,0 +1,968 @@
+{
+  "status": "completed_F03_dev_only_fixed_threshold_equal",
+  "id": "F03-general-threshold-standardized-equal",
+  "at": 1793805296.0669367,
+  "git_commit": "631ce2012e18c4ef6bee5f57e3fc6a6746195641",
+  "git_files": {
+    "tools/diagnostics/ensemble_dev.py": "7c382ea0ff0505f70cf271854409d05477a302bf7ea8ff65d40c296d93d4440d",
+    "configs/F03-THRESHOLD-EQUAL.json": "f1e47d8323efcfd95adfa091910b6c04d844e08b6f88f944d06252cbc0b3cad0",
+    "tests/test_ensemble_dev.py": "00426ae7c60eb6fd6aec9b028466118bae7be912394dda95e988f1dfbdba75a8"
+  },
+  "preflight_sha256": "bf52f8d3ef216fe2be26dcf49ed06d0686179c85d1ee8574bae55daae1eb37d3",
+  "members": {
+    "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": {
+      "selected": {
+        "error_twice": 19200,
+        "ap": 0.8274326888154083,
+        "auroc": 0.9884405731067525,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "tensor_sha256": "b3108d3398091f7bb5574d1d437e7de0ab68e5643000194ebdf5c509cbcaeebd",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/SINGLE-MODEL-FREEZE.json",
+          "sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+          "sha256": "01a2e3cb8f578359ed0279ce73ef49c7880dc9c9235105ae9a1df919e3457ecd"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+          "sha256": "22e0be32a8378cbdd65168c701447f8ad06c66c07234b0c796b75d4e40190ee4"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/evidence/TRAIN_RESULT.json",
+          "sha256": "b84ab2c676dad4ed76f54796e643d47ba9b6b108a935dabebdead9138a7c93be",
+          "status": "completed",
+          "successful_updates": 6400
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/SCIENCE.json",
+        "sha256": "32cff474d82ed423af9c47cb83ecf12af376255317601e811d2b3fe5af8b0982"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-d4847d4478c647c89231ebbc25979551.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029/outputs/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-d4847d4478c647c89231ebbc25979551.pt.json",
+          "sha256": "164f8b58886435baf4d944df764c0f787896ab405ea01c8132fa43405f87504b"
+        },
+        "bytes": 792151370
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R107-MODEL-LOAD.json",
+        "sha256": "8a762c568abd3e00a81cad6afaf19868057bb4e792e71ac6394aade6e0f67b43"
+      }
+    },
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+      "selected": {
+        "error_twice": 17478,
+        "ap": 0.8313831149805229,
+        "auroc": 0.9894773092062407,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "tensor_sha256": "f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SINGLE-MODEL-FREEZE.json",
+          "sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+          "sha256": "e6f9f640a513e723c29e5fe9ca00c5c93baf6399f68f682229652ad34c5a7ab1"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+          "sha256": "2d81e0b09dd1291a57b48fa00b3111ec484838433df3e63d11801b282e961b27"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/evidence/TRAIN_RESULT.json",
+          "sha256": "955a0107c842f5bddb93c485063a60101f5772f576edca3ae77193e5d721cdfb",
+          "status": "completed",
+          "successful_updates": 8000
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SCIENCE.json",
+        "sha256": "a612fe234e5d6aab6c4d5be228c47755a097fde016c15bbaba4ebe94b7bab3a8"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5ef58f7de94f4db4a3542a7f182b3463.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/outputs/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5ef58f7de94f4db4a3542a7f182b3463.pt.json",
+          "sha256": "c9ff63d34190c812cfa8d8c568632c18963f7380c5ec4de9d790a6f881736729"
+        },
+        "bytes": 792151690
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/R120-MODEL-LOAD.json",
+        "sha256": "106e727517bf4a4c41200d51fb0d392c522e85d7272e6b2e1b03b5d8a807faa9"
+      }
+    },
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+      "selected": {
+        "error_twice": 18066,
+        "ap": 0.8334499172214856,
+        "auroc": 0.989123301757635,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "tensor_sha256": "1442a625f8596cf8357a9c1d58f4c7b40d998d1dbe9dfc6eb880a193edf10462",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+          "sha256": "524fb6fc568364fe2d25d02c375628cdb41525b87f66b30fce18c4fc5c4a4782"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+          "sha256": "5c1850241834fe4e8cae00584b0520d8e50a3b2c65ef9592f7cbe2b4c4439bfa"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+          "sha256": "d742c787706925ceb86287e499e77b6e946f490add2c1dbfcec7d3f36dd2d645"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json",
+          "sha256": "c7050b1331ae6907fe3850fbd3ad1a980c1666c732664add9b0922e6635c78a9",
+          "status": "completed",
+          "successful_updates": 6400
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SCIENCE.json",
+        "sha256": "875f83957bb2e6b11ce4d6e9ae4bbd7b32df8422e565c3ae9da3d160f464c205"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/outputs/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-18c55dcfa45e484ba7517c2dfdc513df.pt.json",
+          "sha256": "01f7d582143823121e473782408e3b83d0daab2d73819e8d5254e3a75bc04f79"
+        },
+        "bytes": 792155466
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/R134R1-MODEL-LOAD.json",
+        "sha256": "cc0641dff34bc05bedad22c90bbeac146953a20158ebaa7cd96dcfdc58d17281"
+      }
+    },
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": {
+      "selected": {
+        "error_twice": 19168,
+        "ap": 0.8245256334018152,
+        "auroc": 0.9884598388182413,
+        "variant": "ema",
+        "cycle": 10,
+        "successful_updates": 8000,
+        "tensor_sha256": "cfe343da157e330aa6aba024317a09826674ba63d441fd658402bac0f8126a39",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+          "sha256": "52c18f8520eed6abc071b6a26a12e09653fb39b4e8c38aa1074f0e37108550d3"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv",
+          "sha256": "6524675619390f2752b59d0f779ab548275a67892b9c4434ecf6023f109fefff"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0010.csv.precision.json",
+          "sha256": "6fdd4efef46bc9fc50b71f40991a4586cf7b7614471dbae28d5adc5f6b6efe33"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/evidence/TRAIN_RESULT.json",
+          "sha256": "b9060f872a084d0299168ac3432e8fde9c2da3a2343a3f3b29393146d3f81c9d",
+          "status": "completed",
+          "successful_updates": 11200
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/SCIENCE.json",
+        "sha256": "b0e57ced9cd6c6040fe60b0e6d5acd191de274414770d97a643d18a492407dda"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-efd72225e03e454cb239fbddffda5213.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101/outputs/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-efd72225e03e454cb239fbddffda5213.pt.json",
+          "sha256": "6dbab3a5ce12dce03220dd15627cfa9db4e6434e787af2d69242d34a1f4d58da"
+        },
+        "bytes": 792203850
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/R135-MODEL-LOAD.json",
+        "sha256": "9461e11dfc4f8cba7299567440353312efecce710000e8105cc4679a7164c0e8"
+      }
+    },
+    "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": {
+      "selected": {
+        "error_twice": 19738,
+        "ap": 0.8207140622129577,
+        "auroc": 0.988116668332348,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "tensor_sha256": "281453034552bf5c5fbf2ac063efaa308758893cbcb6bab855a2d3e3d01ee183",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+          "sha256": "02834a4ffdd61904f4cd2e2db5d69eaedd741a0358ea932194724563c830a78e"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+          "sha256": "703088034f539845f412d5ff93c680ea878301ea36b83f7d7bbf0e4b67f675bd"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+          "sha256": "e91f0b3d3b07c211e1134346d6be46aa145d83298b517059eb1b8cad538075e5"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+          "sha256": "b2fd07b5c33bb987ba66cf4e5e2f14ddc5ba5ceec3278cea3296f5a2a780e0fd",
+          "status": "completed",
+          "successful_updates": 8000
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/SCIENCE.json",
+        "sha256": "9de116226fa0382f721ba74c3a7c7ef450da9ea99104c1b95eafbfbc08d56a73"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e9d09853e0de45508d627df2dc9684bd.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104/outputs/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261104-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e9d09853e0de45508d627df2dc9684bd.pt.json",
+          "sha256": "c3fc79a4e2f12c78bccad86f73df6a61cbc2532f642d1801a9f05f0d40b429c7"
+        },
+        "bytes": 792151306
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R244-MODEL-LOAD.json",
+        "sha256": "aeef3d9b28f5ad8c7ddda417f65917ceb478d96077471513239f8b8fb8cce248"
+      }
+    },
+    "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": {
+      "selected": {
+        "error_twice": 19258,
+        "ap": 0.8364933102855981,
+        "auroc": 0.9884056540046792,
+        "variant": "ema",
+        "cycle": 6,
+        "successful_updates": 4800,
+        "tensor_sha256": "d464c8a6ba2c38eb43f441dc81830065ce97cbc93d5804d2ecedb3ea5129fe29",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+          "sha256": "b31d27529c36e45d83f6b82aa4ef265e55b9e81d1bec641a75d019c7ab1492b3"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv",
+          "sha256": "b7336d5d8e2a6cecc6ad25f1d957e0c10f7ff691f56575ab951f8bcd06ce77ba"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0006.csv.precision.json",
+          "sha256": "4a07a56bd47772713f11b6a4c5876bfb254a1a0cc94b800d1170b404d4388dea"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+          "sha256": "e77630f99a331c8b793b2bbe5ab702b7030adcd5c8059829a4672682bb22e80a",
+          "status": "completed",
+          "successful_updates": 8000
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/SCIENCE.json",
+        "sha256": "a891812e47bcb6add758a9254605742f4780b3175505b6d7e5777c913e735008"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-71b8c1ddfd4244459c64abe10260bcaa.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104/outputs/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261105-b64-p8-fp32/convnext-small/checkpoints/checkpoint-71b8c1ddfd4244459c64abe10260bcaa.pt.json",
+          "sha256": "e6bec5cd9311040b25afe78247485a3d572d46d4b3ffb30f66d9c5a804fdf023"
+        },
+        "bytes": 792151434
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R245-MODEL-LOAD.json",
+        "sha256": "3b63f5bb7561e64107b557148eb4686eeb8be64793e80f021f9a798fef4fbe1c"
+      }
+    },
+    "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": {
+      "selected": {
+        "error_twice": 19586,
+        "ap": 0.8264419710103553,
+        "auroc": 0.9882081804619195,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "tensor_sha256": "daf8e54364e2e61b45ab843f376dc07ea1e31afc8a7df519e554441bbf8559df",
+        "freeze": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+          "sha256": "8c5910920554efc00ee95a930c15ec7b6762b1c49dba1d54e1d919485d7f48b2"
+        },
+        "prediction": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv",
+          "sha256": "b460bdc2a0989c64132aa7ec1823e602043beeb5394b790458a6012706b97d96"
+        },
+        "precision": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0004.csv.precision.json",
+          "sha256": "15b94bd7c881fbadde3b780c628b2af4bca5993f9c0b6011d3e59a569cb1fa48"
+        },
+        "completion": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+          "sha256": "7c5f215b0c0ff96d66e396cde131f4c08d4656e3d2fd986d9b6851fffbae9352",
+          "status": "completed",
+          "successful_updates": 6400
+        }
+      },
+      "science": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/SCIENCE.json",
+        "sha256": "c43f2df3f8953bb0983d9eb9ea57fcdbc2aaa174620f911331e20bc87c7e7089"
+      },
+      "public_source": {
+        "model": "convnext_small",
+        "format": "torchvision-1000-state-dict-v1",
+        "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+        "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+        "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+        "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+        "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+        "final_norm_eps": 1e-06,
+        "internal_norm_eps": 1e-06,
+        "license_file": "../original/LICENSE-apache-2.0.txt",
+        "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+      },
+      "checkpoint": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7d6ed8c29844ed1bb1ec1be07daa6b4.pt",
+        "sidecar": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7d6ed8c29844ed1bb1ec1be07daa6b4.pt.json",
+          "sha256": "f69d1bc02be332fd2c8d1643dccf6cfbea2accf8856170db6dfe66d97e07f27c"
+        },
+        "bytes": 792155850
+      },
+      "model_load_receipt": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F03-STRICT-LOAD-NEW/R246-STRICT-LOAD.json",
+        "sha256": "ad92a463da93663ee97d838d81f563ac7dc6aec9474e2ccb11eb4c79c754bd5d"
+      }
+    }
+  },
+  "excluded": [
+    {
+      "round_id": "r100-tiny22k-focal2-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9851617898327616
+    },
+    {
+      "round_id": "r101-tiny22k-seed20261029-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9843911613732117
+    },
+    {
+      "round_id": "r102-small22k-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867391699609026
+    },
+    {
+      "round_id": "r103-small22k-seed20261029-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9840901346312001
+    },
+    {
+      "round_id": "r104-small22k-scale085-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9850823187728706
+    },
+    {
+      "round_id": "r105-small22k-scale085-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.987161811506687
+    },
+    {
+      "round_id": "r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9842033206861964
+    },
+    {
+      "round_id": "r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9872328538178018
+    },
+    {
+      "round_id": "r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9855326547789199
+    },
+    {
+      "round_id": "r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9870727075910516
+    },
+    {
+      "round_id": "r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9754398301727533
+    },
+    {
+      "round_id": "r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.6869135246498758
+    },
+    {
+      "round_id": "r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9838264352051979
+    },
+    {
+      "round_id": "r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9875399010946536
+    },
+    {
+      "round_id": "r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9863815501913928
+    },
+    {
+      "round_id": "r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.987677169289011
+    },
+    {
+      "round_id": "r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9850076641408516
+    },
+    {
+      "round_id": "r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.970734180141627
+    },
+    {
+      "round_id": "r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9869089490433972
+    },
+    {
+      "round_id": "r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9874796957462513
+    },
+    {
+      "round_id": "r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867584356723914
+    },
+    {
+      "round_id": "r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9861082179096462
+    },
+    {
+      "round_id": "r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867572315654234
+    },
+    {
+      "round_id": "r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867283329981902
+    },
+    {
+      "round_id": "r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9886320261146719
+    },
+    {
+      "round_id": "r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9882093845688875
+    },
+    {
+      "round_id": "r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9884188991813276
+    },
+    {
+      "round_id": "r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9850016436060114
+    },
+    {
+      "round_id": "r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9809751099048635
+    },
+    {
+      "round_id": "r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.985972153822257
+    },
+    {
+      "round_id": "r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9857614351028487
+    },
+    {
+      "round_id": "r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.987366509691255
+    },
+    {
+      "round_id": "r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9854411426493483
+    },
+    {
+      "round_id": "r139-small22k-seed20261029-scale085-pairlog-localcontrast10-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9844971227863999
+    },
+    {
+      "round_id": "r141-dinov2s14-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9418572868339332
+    },
+    {
+      "round_id": "r143-small22k-seed20261029-scale085-pairlog-brightcenter-half-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9782357665525575
+    },
+    {
+      "round_id": "r144-small22k-seed20261029-scale085-pairlog-nativebright-half-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9754916067723792
+    },
+    {
+      "round_id": "r146-small22k-seed20261029-scale085-pairlog-inset256-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9838457009166867
+    },
+    {
+      "round_id": "r148-small22k-seed20261029-scale085-pairlog-nostoch-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9872244250690254
+    },
+    {
+      "round_id": "r150r1-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9859781743570972
+    },
+    {
+      "round_id": "r152-small22k-seed20261029-scale085-pairlog-global768-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9875928818012477
+    },
+    {
+      "round_id": "r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9836578602296714
+    },
+    {
+      "round_id": "r156-small22k-seed20261029-scale085-pairlog-positive-top2-mix05-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9860275427427871
+    },
+    {
+      "round_id": "r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9864032241168177
+    },
+    {
+      "round_id": "r160-small22k-seed20261029-scale085-batch-aucmargin1-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9842021165792284
+    },
+    {
+      "round_id": "r162-small22k-seed20261029-scale085-pairlog-cosine16-24k-p4-9010-20261102",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9875302682389093
+    },
+    {
+      "round_id": "r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.980575346391472
+    },
+    {
+      "round_id": "r166-deit3-small-seed20261029-scale085-pairlog-meanpatch-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9763103995106509
+    },
+    {
+      "round_id": "r168-small22k-seed20261029-scale085-pairlog-adamw-beta2-095-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9871738525763675
+    },
+    {
+      "round_id": "r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9882081804619195
+    },
+    {
+      "round_id": "r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9855170013883353
+    },
+    {
+      "round_id": "r176-small-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9834218552639342
+    },
+    {
+      "round_id": "r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9861985259322498
+    },
+    {
+      "round_id": "r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9880889738720829
+    },
+    {
+      "round_id": "r182-large-dinov3-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9868174369138257
+    },
+    {
+      "round_id": "r184r1-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9791930315921545
+    },
+    {
+      "round_id": "r186-caformer-s36-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.983750576466211
+    },
+    {
+      "round_id": "r189-vits-dinov3-seed20261029-scale085-pairlog-cls-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.977164111350996
+    },
+    {
+      "round_id": "r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9666919930498946
+    },
+    {
+      "round_id": "r193-small22k-seed20261029-scale085-pairsigmoid-backbonelr5e5-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9838854364466322
+    },
+    {
+      "round_id": "r195-small22k-seed20261029-scale085-pairsigmoid-decay8000-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9861756478998568
+    },
+    {
+      "round_id": "r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9884706757809537
+    },
+    {
+      "round_id": "r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9858601718742286
+    },
+    {
+      "round_id": "r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9889535226751404
+    },
+    {
+      "round_id": "r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9816433892721294
+    },
+    {
+      "round_id": "r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9860335632776274
+    },
+    {
+      "round_id": "r207-small22k-seed29-pairsqhinge-m1q025-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9865633703435679
+    },
+    {
+      "round_id": "r209-small22k-seed29-pairlog-amsgrad-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867066590727653
+    },
+    {
+      "round_id": "r211-small22k-seed29-pairlog-nadam-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.987315937198597
+    },
+    {
+      "round_id": "r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9830353369271913
+    },
+    {
+      "round_id": "r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9706920363977455
+    },
+    {
+      "round_id": "r217-small22k-seed29-pairlog-ema09999-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9875435134155578
+    },
+    {
+      "round_id": "r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9877759060603908
+    },
+    {
+      "round_id": "r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9784452811649976
+    },
+    {
+      "round_id": "r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9859528881107682
+    },
+    {
+      "round_id": "r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9858902745484298
+    },
+    {
+      "round_id": "r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.984526021353633
+    },
+    {
+      "round_id": "r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.986436939111923
+    },
+    {
+      "round_id": "r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9829462330115558
+    },
+    {
+      "round_id": "r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9852701594598858
+    },
+    {
+      "round_id": "r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9849896025363309
+    },
+    {
+      "round_id": "r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.985146136442177
+    },
+    {
+      "round_id": "r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9854230810448277
+    },
+    {
+      "round_id": "r242-small-fitsupminquota1600-seed29-pairlog-24k-p4-9010-20261104",
+      "reason": "below_fixed_selected_auroc_threshold",
+      "selected_auroc": 0.9831400942334113
+    },
+    {
+      "round_id": "r94-tiny22k-lr1e4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9867415781748388
+    },
+    {
+      "round_id": "r95-tiny22k-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9866645153288838
+    },
+    {
+      "round_id": "r96-tiny22k-lr5e5-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.983341180097075
+    },
+    {
+      "round_id": "r97-tiny22k-head5e4-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9854519796120608
+    },
+    {
+      "round_id": "r98-tiny22k-head2e3-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9853363853431284
+    },
+    {
+      "round_id": "r99-tiny22k-drop04-24k-p4-9010-20261029",
+      "reason": "selected_checkpoint_missing",
+      "selected_auroc": 0.9843622628059786
+    }
+  ],
+  "normalization": {
+    "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": {
+      "mean": -12.642142427403204,
+      "std": 4.417544012994015
+    },
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+      "mean": -41.568375320352814,
+      "std": 16.558998314435453
+    },
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+      "mean": -12.771333054145835,
+      "std": 4.543301802872881
+    },
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": {
+      "mean": -18.079126347632577,
+      "std": 5.606855365383561
+    },
+    "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": {
+      "mean": -37.01095253481939,
+      "std": 15.646027351302205
+    },
+    "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": {
+      "mean": -41.70420579789025,
+      "std": 14.772354726226231
+    },
+    "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": {
+      "mean": -10.937677588379772,
+      "std": 5.077409594425866
+    }
+  },
+  "scheme": {
+    "id": "all_equal_z",
+    "members": [
+      "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029",
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+      "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+      "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+      "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104"
+    ],
+    "weights": {
+      "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": 0.14285714285714285,
+      "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": 0.14285714285714285,
+      "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": 0.14285714285714285,
+      "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": 0.14285714285714285,
+      "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": 0.14285714285714285,
+      "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": 0.14285714285714285,
+      "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": 0.14285714285714285
+    },
+    "error_twice": 16508,
+    "ap": 0.8428318302977916,
+    "auroc": 0.9900613010857433
+  },
+  "changes_vs_R120": {
+    "all": {
+      "reference": 8739.0,
+      "candidate": 8254.0,
+      "repaired": 2031.0,
+      "introduced": 1546.0,
+      "shared": 6708.0,
+      "net_added": -485.0
+    },
+    "fixed_positive": {
+      "reference": 5829.0,
+      "candidate": 5745.0,
+      "repaired": 1169.0,
+      "introduced": 1085.0,
+      "shared": 4660.0,
+      "net_added": -84.0
+    },
+    "remaining_positive": {
+      "reference": 2910.0,
+      "candidate": 2509.0,
+      "repaired": 862.0,
+      "introduced": 461.0,
+      "shared": 2048.0,
+      "net_added": -401.0
+    }
+  },
+  "prediction": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F03-AFTER-R246/result/dev-f03-equal.csv",
+    "sha256": "02298e9db34c9c5aad70c1c95b251c037c9634e1cac2ea603c831f50441dbb72"
+  },
+  "count": 5140,
+  "positive_count": 167,
+  "negative_count": 4973,
+  "official_read": false,
+  "TTA": false,
+  "forward_calls": 0,
+  "raw_dev_auroc_0995_met": false,
+  "dev_AP_above_09_met": false,
+  "limits": [
+    "Same internal dev was repeatedly used; result is not independent generalization.",
+    "Actual CPU strict model loading does not replace a final deployed inference validation."
+  ]
+}

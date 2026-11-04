@@ -1,0 +1,389 @@
+{
+  "schema": 1,
+  "created_at": 1793805385.024915,
+  "authorization_reference": "c607-20261104-actualsafe-archive-nonselected",
+  "source_archive_commit": "0577fafc3f0f8ba8a1021093eda2f48ebfd2bc7b",
+  "inventory_sha256": "dfec129ccfaafdb77f4aee07f88da6309d3bf91ab4314cbb7598c805f2e8d151",
+  "candidates": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5e73d33d3ba44acf8c8d937d4fbe268a.pt",
+      "device": 152,
+      "inode": 10504427847,
+      "size": 792155594,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793800708000000000,
+      "allocated": 792155648,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "6deadab7cd7b5bc34bf54548243fcd563d2d702d722a74c0b829a51e17a67cca",
+      "advertised_blob_sha256": "1182cceb98ce46e2d72d02c53b0145e7e79eed51e568793bf40d8edd24f16d96",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a981494881d2439fa43d72a112982f26.pt",
+      "device": 152,
+      "inode": 10504423239,
+      "size": 792155594,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793800700000000000,
+      "allocated": 792155648,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "d0d104c0c110383f54beec329331545624ffe45ab17117aea384e43d041cc6f9",
+      "advertised_blob_sha256": "46cc5e6d6f2a85ccba682aae58d08d982b488cbacd5e8bdaeaa5fac4cf1a550a",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-b53e5b3f4eb542eda0899be8250f346a.pt",
+      "device": 152,
+      "inode": 10503910727,
+      "size": 792155594,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793799981000000000,
+      "allocated": 792155648,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "117d3e32d96b2233f88ce265cf499745c4f766eac6f822fe500b98bdc8ea247b",
+      "advertised_blob_sha256": "d87c614077857fdfe69c1ee17dbc4cbfd3d2f53fe681e8b535618f3d2897d6f4",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c02ed82b14274052bd5848f9f950bdb2.pt",
+      "device": 152,
+      "inode": 10509382727,
+      "size": 792156042,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793805051000000000,
+      "allocated": 792156160,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "2259869005d9f11acf52950569cbd08a9bd2edd0faff25a6b088d20208371411",
+      "advertised_blob_sha256": "91208ecb63bf13f3659bdba493e0b6e5de85ca4b8969722e4bb110216b81c6a4",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c8d6b458291a45b29f548de63ec20eef.pt",
+      "device": 152,
+      "inode": 19224379775,
+      "size": 792155850,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793801430000000000,
+      "allocated": 792156160,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "c403202f57f9c9e2d3a743012582a3d23363a5a85d1e9d20a4d0bd6f9eaf5f44",
+      "advertised_blob_sha256": "17cc8b1cca4fcf1de8551f5caac3c2f4f3a2c20fcebb5cacc4ce1a89d7fca223",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e1269b40d08b4d149ec112ff19415f90.pt",
+      "device": 152,
+      "inode": 19231727487,
+      "size": 792156042,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793805046000000000,
+      "allocated": 792156160,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "3fc5c24d4cccae4bcff0b240e4d99c5d711a6c2c85b4fa307185f843a6565368",
+      "advertised_blob_sha256": "76283a3477c93296736907adaa0191dc18c1573bd93630f89ff94ac22df8289a",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-3a552d27a32b4c5e9c6712b7be014cb7.pt",
+      "device": 152,
+      "inode": 20170388092,
+      "size": 396067195,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793799219000000000,
+      "allocated": 396067328,
+      "regular": true,
+      "symlink": false,
+      "category": "model_or_fixture",
+      "sidecar_sha256": "218268dac0a29a1d649ecf8d489d984179f5c3cdf514847a8fa371427489f329",
+      "advertised_blob_sha256": "80cd090df74ac803ce96193e9aa017adb8f6566cd2333374ffd8562e16806903",
+      "blob_rehashed": false,
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      }
+    }
+  ],
+  "skipped": [],
+  "protected_paths": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7d6ed8c29844ed1bb1ec1be07daa6b4.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104/outputs/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7d6ed8c29844ed1bb1ec1be07daa6b4.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R247-ready/formal-cpu/package/SCIENCE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R247-ready/formal-cpu/package/SITE_BINDING.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R247-ready/formal-cpu/package/TRAIN_CONFIG.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json"
+  ],
+  "protected_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/cache",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/control",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/data",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/R134R1-FIT-CENSUS-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r139-small22k-seed20261029-scale085-pairlog-localcontrast10-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r141-dinov2s14-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r143-small22k-seed20261029-scale085-pairlog-brightcenter-half-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r144-small22k-seed20261029-scale085-pairlog-nativebright-half-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r146-small22k-seed20261029-scale085-pairlog-inset256-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r148-small22k-seed20261029-scale085-pairlog-nostoch-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150r1-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r152-small22k-seed20261029-scale085-pairlog-global768-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r156-small22k-seed20261029-scale085-pairlog-positive-top2-mix05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r160-small22k-seed20261029-scale085-batch-aucmargin1-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r162-small22k-seed20261029-scale085-pairlog-cosine16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r166-deit3-small-seed20261029-scale085-pairlog-meanpatch-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r168-small22k-seed20261029-scale085-pairlog-adamw-beta2-095-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r176-small-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r182-large-dinov3-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184r1-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r186-caformer-s36-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r189-vits-dinov3-seed20261029-scale085-pairlog-cls-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r193-small22k-seed20261029-scale085-pairsigmoid-backbonelr5e5-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r195-small22k-seed20261029-scale085-pairsigmoid-decay8000-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r207-small22k-seed29-pairsqhinge-m1q025-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r209-small22k-seed29-pairlog-amsgrad-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r211-small22k-seed29-pairlog-nadam-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r217-small22k-seed29-pairlog-ema09999-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r242-small-fitsupminquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/submissions",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/tmp"
+  ],
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104"
+  ],
+  "required_current_identity": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R247-ready/formal-cpu/package/SITE_BINDING.json",
+  "current_round": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+  "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+  "conclusions": {
+    "R246": {
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R246-PROGRESS-resume-1512.json",
+        "sha256": "06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf",
+        "git_blob": "5b74b948856da884c833ee3f5e5f2c20e823faf0",
+        "github_archive_tree": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-TREE.json",
+          "sha256": "5d239a2fcb15f61e845420a2f7204bd0572e8c23fed57a09a8d0154c64088227"
+        },
+        "github_archive_commit": {
+          "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/archive-meta-R246-0577faf/REMOTE-COMMIT.json",
+          "sha256": "792c5a575ce4a17dacba14890543109b696aa6716fbcde4e68246336b2a9b8af"
+        }
+      },
+      "selected": {
+        "auroc": 0.9882081804619195,
+        "ap": 0.8264419710103553,
+        "variant": "ema",
+        "cycle": 4,
+        "successful_updates": 3200,
+        "error_twice": 19586
+      },
+      "freeze_metadata_sha256": "8c5910920554efc00ee95a930c15ec7b6762b1c49dba1d54e1d919485d7f48b2",
+      "historical_actual_safe": true
+    }
+  },
+  "sidecar_index_lock_or_one_shot_to_delete": false
+}
