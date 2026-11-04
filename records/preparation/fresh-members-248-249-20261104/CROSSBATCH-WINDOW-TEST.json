@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "at": 1793804076.5219944,
+  "window_sha256": "654d0816739f9552a13c8d64181abfbe291cc9023f8caee8ac707d54e528027d",
+  "entry_sha256": "6a5adc2b7421de24e3f749ecf112ca10e21ebdcf795d54a482074c41e5f533ae",
+  "cases": [
+    "fallback_old_peer",
+    "fallback_new_peer",
+    "stale_old_peer_rejected",
+    "r249_with_r250_peer",
+    "delayed_r248_on_b",
+    "delayed_r248_on_a",
+    "strict_boundary_rejected",
+    "wrong_peer_sha_rejected"
+  ],
+  "synthetic_fixture": true,
+  "fixture_removed": true,
+  "GPU_initialized": false,
+  "activation_or_launch_executed": false
+}

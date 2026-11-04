@@ -22,3 +22,5 @@ Pod B 在隐藏设备的准备池禁用 credential helper 和提示后，匿名 
 [容量入口隔离测试](CAPACITY-WINDOW-TEST.json) `d59257083522a48096ae10949ab775884162f7a0e0f42e696a5001935e5238d5`：Small 或 Large 单轮接续时计入另一活跃轮的剩余上限，等于门槛被拒，另一新轮存在时保留其剩余预算；均为模拟数据、不代表生产容量或实际 activation，临时 fixture 已清除。
 
 现用入口在此基础上复核已有对侧新轮的 SITE/RUNTIME、Pod UID 和 commit；[五项隔离测试](CAPACITY-WINDOW-TEST-v3.json) `2b26c7371302169214698288b3d46c370ef2fa106b15c4eb65dbbadff10aa967` 包含错误对侧 Pod 身份拒绝，仍不替代实际启动前检查。
+
+统筹新容量后备要求优先准备 R250/A，其正式18/18及部署见[回执](../fresh-members-250-251-20261104/R250-A-PREPARATION.json)。跨批接续以同 Pod 前轮安全回执、对侧实际 SITE SHA 与两者各自冻结存储策略计算，八项[隔离测试](CROSSBATCH-WINDOW-TEST.json) `45a5fe3ac2783b00b417e795602ddbb7d1abfe0b41dd5b81687c8c40615724f2` 通过；测试不代替现场核验。14:50 [容量点测](CAPACITY-PROJECTION-1450.json) `fd8414eeb7b86476a9341c1139c332ee854442191e081d8180be9ed31affa476` free `57,390,661,632 B`；后续随训练写入变化。14:51一次 Pod B 只读取回 API 查询 EOF/超时，客户端已退出，回执由同 NFS 的 Pod A 只读取回，Pod B 后续观察成功，未发训练信号。

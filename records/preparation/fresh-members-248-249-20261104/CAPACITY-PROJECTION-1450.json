@@ -1,0 +1,26 @@
+{
+  "status": "current_capacity_point_sample",
+  "at": 1793803826.2810225,
+  "free_bytes": 57390661632,
+  "rounds": {
+    "R246": {
+      "logical_bytes": 5976428252,
+      "files": 248,
+      "vanished_during_scan": 0,
+      "limit_bytes": 12884901888,
+      "remaining_budget_bytes": 6908473636
+    },
+    "R247": {
+      "logical_bytes": 23588862276,
+      "files": 244,
+      "vanished_during_scan": 0,
+      "limit_bytes": 34359738368,
+      "remaining_budget_bytes": 10770876092
+    }
+  },
+  "if_R246_safe_R248_single_required_bytes": 66605450940,
+  "if_R247_safe_R248_single_required_bytes": 62743048484,
+  "future_free_not_guaranteed": true,
+  "signals_sent": false,
+  "GPU_initialized": false
+}
