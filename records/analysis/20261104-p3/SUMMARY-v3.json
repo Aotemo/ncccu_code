@@ -1,0 +1,196 @@
+{
+  "status": "completed_p3_fixed_member_rank_consistency",
+  "at": 1793809382.5114853,
+  "member_count": 7,
+  "population": {
+    "dev": 5140,
+    "positive": 167,
+    "negative": 4973,
+    "fixed20": 20,
+    "reviewed": 36,
+    "unique_targets": 175
+  },
+  "groups": {
+    "fixed20": {
+      "count": 20,
+      "all": 0,
+      "mixed": 0,
+      "none": 20,
+      "negative_percentile_median_by_member": {
+        "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": 0.9600844560627388,
+        "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": 0.9574703398351097,
+        "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": 0.9586768550170923,
+        "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": 0.9699376633822643,
+        "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": 0.9516388497888599,
+        "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": 0.9530464508345063,
+        "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": 0.9566659963804545
+      },
+      "any_misorder_all": 20,
+      "any_misorder_mixed": 0,
+      "any_misorder_none": 0,
+      "shared_strict_negative_positive_count": 20,
+      "shared_strict_negative_count_median": 81.0,
+      "shared_strict_negative_count_max": 581,
+      "shared_strict_pair_summary": {
+        "pair_count": 2629,
+        "unique_negative_count": 603,
+        "negative_count_support_at_least_three": 241
+      }
+    },
+    "remaining_positive": {
+      "count": 147,
+      "all": 0,
+      "mixed": 0,
+      "none": 147,
+      "negative_percentile_median_by_member": {
+        "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": 0.9993967424090087,
+        "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": 0.9995978282726724,
+        "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": 0.9993967424090087,
+        "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": 0.9989945706816811,
+        "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": 0.9995978282726724,
+        "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": 0.9993967424090087,
+        "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": 0.9993967424090087
+      },
+      "any_misorder_all": 82,
+      "any_misorder_mixed": 47,
+      "any_misorder_none": 18,
+      "shared_strict_negative_positive_count": 82,
+      "shared_strict_negative_count_median": 1.0,
+      "shared_strict_negative_count_max": 66,
+      "shared_strict_pair_summary": {
+        "pair_count": 998,
+        "unique_negative_count": 68,
+        "negative_count_support_at_least_three": 57
+      }
+    },
+    "reviewed_positive": {
+      "count": 28,
+      "all": 0,
+      "mixed": 0,
+      "none": 28,
+      "negative_percentile_median_by_member": {
+        "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": 0.9682284335411221,
+        "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": 0.9644078021315101,
+        "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": 0.9675246330182988,
+        "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": 0.9741604665192037,
+        "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": 0.9615926000402172,
+        "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": 0.969233862859441,
+        "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": 0.9650110597225015
+      },
+      "any_misorder_all": 24,
+      "any_misorder_mixed": 2,
+      "any_misorder_none": 2,
+      "shared_strict_negative_positive_count": 24,
+      "shared_strict_negative_count_median": 62.0,
+      "shared_strict_negative_count_max": 581,
+      "shared_strict_pair_summary": {
+        "pair_count": 2709,
+        "unique_negative_count": 603,
+        "negative_count_support_at_least_three": 241
+      }
+    },
+    "reviewed_negative": {
+      "count": 8,
+      "all": 2,
+      "mixed": 4,
+      "none": 2,
+      "negative_percentile_median_by_member": {
+        "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": 0.5048260607279308,
+        "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": 0.3874924592801126,
+        "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": 0.4486225618339031,
+        "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": 0.38980494671224614,
+        "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": 0.4661170319726523,
+        "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": 0.30796300020108586,
+        "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": 0.4593806555399156
+      }
+    },
+    "all_positive": {
+      "count": 167,
+      "all": 0,
+      "mixed": 0,
+      "none": 167,
+      "negative_percentile_median_by_member": {
+        "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": 0.9979891413633621,
+        "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": 0.9987934848180173,
+        "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": 0.9983913130906897,
+        "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": 0.9973858837723708,
+        "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": 0.9993967424090087,
+        "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": 0.9985923989543535,
+        "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": 0.9983913130906897
+      },
+      "any_misorder_all": 102,
+      "any_misorder_mixed": 47,
+      "any_misorder_none": 18,
+      "shared_strict_negative_positive_count": 102,
+      "shared_strict_negative_count_median": 1.0,
+      "shared_strict_negative_count_max": 581,
+      "shared_strict_pair_summary": {
+        "pair_count": 3627,
+        "unique_negative_count": 603,
+        "negative_count_support_at_least_three": 241
+      }
+    }
+  },
+  "shared_strict_pair_denominator": 830491,
+  "nonnegative_seven_member_auroc_upper_bound": 0.995632704026895,
+  "upper_bound_scope": "positive member standardization and nonnegative ensemble weights only; no new members",
+  "interpretation": "All/mixed/none count members below a majority of negatives; negatives are not called mistakes.",
+  "input_inventory_sha256": "a7ab1594e9b8a22430e1afb7a439e2559d59c52bbbcf3fd0b3d3c5bfd567dce4",
+  "f03_sha256": "6dbc0638247d6ac4e0a967528113b2d82834daf87ff3bf49861a5309b95b1119",
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "models": {
+    "r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029": {
+      "freeze_sha256": "ccf40d8eaa4b134c02c67651988a7c584179edb8576d5d88893776b7c9b0f435",
+      "prediction_sha256": "01a2e3cb8f578359ed0279ce73ef49c7880dc9c9235105ae9a1df919e3457ecd",
+      "precision_sha256": "22e0be32a8378cbdd65168c701447f8ad06c66c07234b0c796b75d4e40190ee4",
+      "auroc": 0.9884405731067525,
+      "ap": 0.8274326888154083
+    },
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031": {
+      "freeze_sha256": "5f808304a0e4ae84501525a1634f0ca55ec80e16bcba67342a66e7e211f5bcf2",
+      "prediction_sha256": "e6f9f640a513e723c29e5fe9ca00c5c93baf6399f68f682229652ad34c5a7ab1",
+      "precision_sha256": "2d81e0b09dd1291a57b48fa00b3111ec484838433df3e63d11801b282e961b27",
+      "auroc": 0.9894773092062407,
+      "ap": 0.8313831149805229
+    },
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101": {
+      "freeze_sha256": "524fb6fc568364fe2d25d02c375628cdb41525b87f66b30fce18c4fc5c4a4782",
+      "prediction_sha256": "5c1850241834fe4e8cae00584b0520d8e50a3b2c65ef9592f7cbe2b4c4439bfa",
+      "precision_sha256": "d742c787706925ceb86287e499e77b6e946f490add2c1dbfcec7d3f36dd2d645",
+      "auroc": 0.989123301757635,
+      "ap": 0.8334499172214856
+    },
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101": {
+      "freeze_sha256": "52c18f8520eed6abc071b6a26a12e09653fb39b4e8c38aa1074f0e37108550d3",
+      "prediction_sha256": "6524675619390f2752b59d0f779ab548275a67892b9c4434ecf6023f109fefff",
+      "precision_sha256": "6fdd4efef46bc9fc50b71f40991a4586cf7b7614471dbae28d5adc5f6b6efe33",
+      "auroc": 0.9884598388182413,
+      "ap": 0.8245256334018152
+    },
+    "r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104": {
+      "freeze_sha256": "02834a4ffdd61904f4cd2e2db5d69eaedd741a0358ea932194724563c830a78e",
+      "prediction_sha256": "703088034f539845f412d5ff93c680ea878301ea36b83f7d7bbf0e4b67f675bd",
+      "precision_sha256": "e91f0b3d3b07c211e1134346d6be46aa145d83298b517059eb1b8cad538075e5",
+      "auroc": 0.988116668332348,
+      "ap": 0.8207140622129577
+    },
+    "r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104": {
+      "freeze_sha256": "b31d27529c36e45d83f6b82aa4ef265e55b9e81d1bec641a75d019c7ab1492b3",
+      "prediction_sha256": "b7336d5d8e2a6cecc6ad25f1d957e0c10f7ff691f56575ab951f8bcd06ce77ba",
+      "precision_sha256": "4a07a56bd47772713f11b6a4c5876bfb254a1a0cc94b800d1170b404d4388dea",
+      "auroc": 0.9884056540046792,
+      "ap": 0.8364933102855981
+    },
+    "r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104": {
+      "freeze_sha256": "8c5910920554efc00ee95a930c15ec7b6762b1c49dba1d54e1d919485d7f48b2",
+      "prediction_sha256": "b460bdc2a0989c64132aa7ec1823e602043beeb5394b790458a6012706b97d96",
+      "precision_sha256": "15b94bd7c881fbadde3b780c628b2af4bca5993f9c0b6011d3e59a569cb1fa48",
+      "auroc": 0.9882081804619195,
+      "ap": 0.8264419710103553
+    }
+  },
+  "official_read": false,
+  "model_loaded": false,
+  "new_forward": false,
+  "GPU_initialized": false
+}

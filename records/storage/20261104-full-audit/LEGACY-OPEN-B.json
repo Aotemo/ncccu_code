@@ -1,0 +1,11 @@
+{
+  "status": "safe",
+  "at": 1793809463.9684646,
+  "pod_uid": "37e3fb34-c233-4294-b517-e98978cbd016",
+  "plan_sha256": "44c24a133380723d4d7e3b187eac4404e7d313de16211919cea0b4bc5d6f9df4",
+  "candidate_count": 32,
+  "open_candidates": [],
+  "candidate_owners": [],
+  "denied_pids": [],
+  "signals_sent": false
+}

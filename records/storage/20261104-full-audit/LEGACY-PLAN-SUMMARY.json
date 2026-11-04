@@ -1,0 +1,44 @@
+{
+  "status": "read_only_manifest_pending_both_pod_open_checks",
+  "plan_sha256": "44c24a133380723d4d7e3b187eac4404e7d313de16211919cea0b4bc5d6f9df4",
+  "inventory_sha256": "d532bcbc34274ac388bad753e188e902aa5c82aa50bb22c3be9fbcc26762338a",
+  "reference_audit_sha256": "cfb53b2fd94da3526cb526e324462796b5d6b49a5671ed1e6208a904be34ed3c",
+  "candidate_count": 32,
+  "allocated_bytes": 21510972928,
+  "logical_bytes": 21510966968,
+  "free_bytes": 102751010816,
+  "by_round": {
+    "R107": {
+      "count": 7,
+      "allocated_bytes": 5148973568
+    },
+    "R108": {
+      "count": 7,
+      "allocated_bytes": 5148973568
+    },
+    "R114": {
+      "count": 4,
+      "allocated_bytes": 2772519936
+    },
+    "R120": {
+      "count": 8,
+      "allocated_bytes": 5941125120
+    },
+    "R130": {
+      "count": 3,
+      "allocated_bytes": 1980443136
+    },
+    "R184": {
+      "count": 3,
+      "allocated_bytes": 518937600
+    }
+  },
+  "skipped": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101/outputs/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-806c3832c05e487d88c938245ac1d3e2.pt",
+      "reason": "candidate basename has tracked dependency references",
+      "reference_count": 5
+    }
+  ],
+  "deleted_files": []
+}
