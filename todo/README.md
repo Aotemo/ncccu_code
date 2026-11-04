@@ -1,5 +1,9 @@
 # 当前任务与接续
 
+**11-04 15:26 UTC R247 actualsafe：** 6400 成功/0 skip、c8 bad4 正常早停，selected EMA c4@3200 AUROC `0.9868174369138257`/AP `0.8119164253097094`，done completed、安全 true、官方未读，回执 `9f44acb50a2305ba13ea434a30c6a5c0b04150956676888217135462761bbd91`。低于 F03 单模门槛；R248/A 正在核现场容量及接续，R247 回执取回归档并在容量不足时清理其非 selected，仍不足才接 R250/A。R249/B 已运行，P3 后于接续。
+
+**11-04 15:24 UTC R247：** 6400 成功/0 skip、c8 bad4，训练状态 terminal，但 done 尚无、safe=false、selected 未取得，观察 `5841012b777e560a5bc7eeeda5ec11dcf2d72422c36d49b5d3e0508ff5715c08`；继续等 actualsafe，不能提前启动。R249/B 已首成功，最新 800/0，c1 评估进行中。P3 合同已登记推送，诊断计算尚未执行。
+
 **11-04 15:22 UTC P3：** 用户已批准[固定难例只读诊断](auroc-999/P3-HARD-CASE-DIAGNOSTIC-20261104.md)，合同已登记，尚未执行；仅使用 F03 七成员现有 dev 预测、封存固定20及36例、受核 fit/dev 数据和 20% CPU，样本明细不进 Git。R247 接续始终优先。Pod A 一次 exec EOF 后重新核 UID/Ready 并恢复观察，R247 最近 6350 成功/0 skip、c7 bad3，观察 `c4596e66`；未安全终态。
 
 **11-04 15:19 UTC R249 首成功：** Pod B 八 rank fresh 初态、空 Adam/5组和资源绑定通过，首自然记录 25 次成功 loss `0.9216874241828918`、G64/P8/448对；观察时 125 成功/0 skip，回执 `525e52f212f6b865639ade6860b87b772b6b6c06124f1729378f6ff9575dd7c6`。R246 完成事件至 R249 owner spawn `282.696` 秒，actualsafe 观察至 spawn `176.213` 秒，计时回执 `e5a9989f`；未连续采样 GPU idle，不能将事件差冒称实际空闲。R247 继续运行，完成后按容量合同接续。
