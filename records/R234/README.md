@@ -1,5 +1,11 @@
 # R234 fit-only实例对比目标实际启动与监督交接
 
+完整本轮于11-04 04:33 UTC结束：[结果](R234-RESULT.json)ada69a35、[唯一actualsafe](R234-COMPLETION.json)94f21ed6/guard0678dfc8，原监督8800成功=attempt/0skip/c11/patience4，唯一EMA c7@5600 AUROC **.9852701594598858**、AP **.8070188576018261**、error_twice24466。R107/R120严格双门均false，R235不eligible且未激活；官方5849按原阈值未运行，.995/AP>.9及raw.999未达。原owner835172同出生身份退出、八rank消失、锁无持有者、设备user为空/denied0、八卡busy0；这份safe只复用，不重查原运行。
+
+[固定20及其余147配对](PAIRED-REPORT.json)相对R107：全体错序9600→12233，修复2559/新增5192/净增2633；原固定20为6623→8062，修复1658/新增3097/净增1439；其余147为2977→4171，修复901/新增2095/净增1194。两组均未净修复，少量修复不替代完整AUROC主判。附八个事前比较及2000次PCG64 seed20261103图像分层paired-bootstrap；区间不覆盖患者依赖、seed方差、选点或多重比较，不作临床因果解释。
+
+适配1600次/102400主图/204800增强视图及encoder-view forward、无teacher；SSL首末日志1123.432秒，joint train component5459.039秒，其中start→SSL完成1215.326秒、SSL完成→监督component结束4243.713秒。不因同更新数声称等算法算力；完整结果仅原selected CSV/precision及metadata重算，未加载模型或执行额外前向，归档guardbed1e50d。按事前分支接R236，其一次正式激活因存储不足在时钟/派发前失败，详见[R236失败记录](../R236/README.md)；准备独立R236R1恢复，科学合同及旧失败原件保持。R234无未来forward依赖，checkpoint按已同步结果及实际清单清理，实际删除另记，不将此登记写成已删除。
+
 03:55 [监督4175快照](R234-PROGRESS-strong-color-checks-ready.json)为4175成功=attempt/0skip/c5/bad0，原owner和八rank活跃；临时EMA .9844971227863999/AP .8149208203982412，无完整selected。条件[R235正式包](../preparation/instance-contrastive-20261104/R235-FORMAL-READY.json)18/18、实际公开91507a65/345全训/空优化器和部署de4fd083通过，actual SITE80fc6382/guardcb22f8eb、完整31500+60窗口，未激活；私有post-r234-R235-entry.sh已填实际身份，仍只完整双门后。强光度[R236/R237](../preparation/strong-color-20261104/README.md)仅CPU后备，当前565不改。
 
 [完整SSL](R234-SSL-RESULT.json)615f0061和[监督交接](R234-SUPERVISED-RECEIPT.json)29af7461已核：1600成功=attempt/0skip/dev0，仅fit、无标签/age进入适配loss，八rank derived7de4e305及原head-age一致，实际128×128/1目标/126负视图/自身排除/.1和128 encoder-view forward保持。监督初态74c5a3e6/345全训/5空组及原factory RNG通过ea3a94f1；自然[监督首25](R234-SUPERVISED-START.json)f618327b/guard6a671463符合原G64P8/448、loss .67136627有限、采样实际=登记。归档guard9ad8705e只读小JSON，无新模型加载/前向。先前barrier0记starting、未重启；私有r234 env first现为START-OBSERVATION-supervised-2，历史原件和clock/token/grant保持。以下为启动时点记录。

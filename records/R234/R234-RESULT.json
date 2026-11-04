@@ -1,0 +1,369 @@
+{
+  "status": "completed",
+  "round_id": "r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+  "git_commit": "56545749d7fde4666515a8c11b786acaf48b81da",
+  "science_sha256": "3ee3cbc3ffcb89fed9e3377ff40697025777e1bab367265634aa57d30b27f8aa",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 8800,
+    "attempted_updates": 8800,
+    "skipped_updates": 0,
+    "evaluated_cycle": 11,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.9852701594598858,
+    "ap": 0.8070188576018261,
+    "variant": "ema",
+    "cycle": 7,
+    "successful_updates": 5600,
+    "error_twice": 24466
+  },
+  "recomputed": {
+    "error_twice": 24466,
+    "ap": 0.8070188576018261,
+    "auroc": 0.9852701594598858,
+    "variant": "ema",
+    "cycle": 7,
+    "successful_updates": 5600,
+    "tensor_sha256": "5f5978eb7ed8f441ae4ba4a6142acbb46e8fcf833fbd174bd6e7ce62a3ab6d22",
+    "freeze": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+      "sha256": "73d993a64db665264b0bb2140e29546df8f9f6223d27c4dfa50aa4c582b10efb"
+    },
+    "prediction": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0007.csv",
+      "sha256": "189ecb82da3bb1f7255658bb92a220c7f4b93965bbe8e54951ce4b186825b252"
+    },
+    "precision": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0007.csv.precision.json",
+      "sha256": "6f6e6832f16b5502d1b81b2afa1b29d7268cfe4edfa872a59f071f454b8150bc"
+    },
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+      "sha256": "5be91331e852e03f8a41d1f9256fb27aef0c344e08673f3a85fd814940de4f31",
+      "status": "completed",
+      "successful_updates": 8800
+    }
+  },
+  "changes_vs_R107": {
+    "all": {
+      "reference": 9600.0,
+      "candidate": 12233.0,
+      "repaired": 2559.0,
+      "introduced": 5192.0,
+      "shared": 7041.0,
+      "net_added": 2633.0
+    },
+    "fixed_positive": {
+      "reference": 6623.0,
+      "candidate": 8062.0,
+      "repaired": 1658.0,
+      "introduced": 3097.0,
+      "shared": 4965.0,
+      "net_added": 1439.0
+    },
+    "remaining_positive": {
+      "reference": 2977.0,
+      "candidate": 4171.0,
+      "repaired": 901.0,
+      "introduced": 2095.0,
+      "shared": 2076.0,
+      "net_added": 1194.0
+    }
+  },
+  "changes_vs_R120": {
+    "all": {
+      "reference": 8739.0,
+      "candidate": 12233.0,
+      "repaired": 2282.0,
+      "introduced": 5776.0,
+      "shared": 6457.0,
+      "net_added": 3494.0
+    },
+    "fixed_positive": {
+      "reference": 5829.0,
+      "candidate": 8062.0,
+      "repaired": 1352.0,
+      "introduced": 3585.0,
+      "shared": 4477.0,
+      "net_added": 2233.0
+    },
+    "remaining_positive": {
+      "reference": 2910.0,
+      "candidate": 4171.0,
+      "repaired": 930.0,
+      "introduced": 2191.0,
+      "shared": 1980.0,
+      "net_added": 1261.0
+    }
+  },
+  "changes_vs_R115": {
+    "all": {
+      "reference": 11310.0,
+      "candidate": 12233.0,
+      "repaired": 3260.0,
+      "introduced": 4183.0,
+      "shared": 8050.0,
+      "net_added": 923.0
+    },
+    "fixed_positive": {
+      "reference": 7360.0,
+      "candidate": 8062.0,
+      "repaired": 1792.0,
+      "introduced": 2494.0,
+      "shared": 5568.0,
+      "net_added": 702.0
+    },
+    "remaining_positive": {
+      "reference": 3950.0,
+      "candidate": 4171.0,
+      "repaired": 1468.0,
+      "introduced": 1689.0,
+      "shared": 2482.0,
+      "net_added": 221.0
+    }
+  },
+  "fixed20_count": 20,
+  "remaining_positive_count": 147,
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "conditional_seed27_eligible": false,
+  "next_prepared_branch": "R236",
+  "internal_AUROC_0_995_and_AP_above_0_9": false,
+  "overall_goal_complete": false,
+  "official_evaluated": false,
+  "official_reason": "threshold_not_met",
+  "official_metrics": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 8800,
+      "cycles": 11,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.9852701594598858,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 7,
+        "variant": "ema",
+        "successful_updates": 5600,
+        "error_twice": 24466,
+        "ap": 0.8070188576018261,
+        "auroc": 0.9852701594598858,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0007.csv",
+        "prediction_sha256": "189ecb82da3bb1f7255658bb92a220c7f4b93965bbe8e54951ce4b186825b252",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0007.csv.precision.json",
+        "precision_sha256": "6f6e6832f16b5502d1b81b2afa1b29d7268cfe4edfa872a59f071f454b8150bc",
+        "tensor_sha256": "5f5978eb7ed8f441ae4ba4a6142acbb46e8fcf833fbd174bd6e7ce62a3ab6d22"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 8800,
+      "cycles": 11,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.9852701594598858,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793766814.2112193,
+  "whole_round_ended_at": 1793766809.032616,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r234-20261104-4e0c-ready/COMPLETION-actual-handoff-1.json",
+    "sha256": "94f21ed6c9b00ccd6246ddba9221bd890bb0cf64bf8181da8109db6e17b47896"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-ew4utzes/CPU-RECEIPT.json",
+    "sha256": "0678dfc8282d05c904149688cc38ef5c23cc8f00645e8545f1a54b67d3f12ad3"
+  },
+  "selected_tensor_sha256": "5f5978eb7ed8f441ae4ba4a6142acbb46e8fcf833fbd174bd6e7ce62a3ab6d22",
+  "selected_blob_sha256": "e05966bf20371b33174e17ca828671522c5fc610944795c7baf0211d76de0b4f",
+  "selected_prediction_sha256": "189ecb82da3bb1f7255658bb92a220c7f4b93965bbe8e54951ce4b186825b252",
+  "selected_precision_sha256": "6f6e6832f16b5502d1b81b2afa1b29d7268cfe4edfa872a59f071f454b8150bc",
+  "changes_vs_R224": {
+    "all": {
+      "reference": 11666.0,
+      "candidate": 12233.0,
+      "repaired": 4340.0,
+      "introduced": 4907.0,
+      "shared": 7326.0,
+      "net_added": 567.0
+    },
+    "fixed_positive": {
+      "reference": 7720.0,
+      "candidate": 8062.0,
+      "repaired": 2548.0,
+      "introduced": 2890.0,
+      "shared": 5172.0,
+      "net_added": 342.0
+    },
+    "remaining_positive": {
+      "reference": 3946.0,
+      "candidate": 4171.0,
+      "repaired": 1792.0,
+      "introduced": 2017.0,
+      "shared": 2154.0,
+      "net_added": 225.0
+    }
+  },
+  "changes_vs_R226": {
+    "all": {
+      "reference": 11718.0,
+      "candidate": 12233.0,
+      "repaired": 4735.0,
+      "introduced": 5250.0,
+      "shared": 6983.0,
+      "net_added": 515.0
+    },
+    "fixed_positive": {
+      "reference": 8000.0,
+      "candidate": 8062.0,
+      "repaired": 3168.0,
+      "introduced": 3230.0,
+      "shared": 4832.0,
+      "net_added": 62.0
+    },
+    "remaining_positive": {
+      "reference": 3718.0,
+      "candidate": 4171.0,
+      "repaired": 1567.0,
+      "introduced": 2020.0,
+      "shared": 2151.0,
+      "net_added": 453.0
+    }
+  },
+  "changes_vs_R228": {
+    "all": {
+      "reference": 12851.0,
+      "candidate": 12233.0,
+      "repaired": 4784.0,
+      "introduced": 4166.0,
+      "shared": 8067.0,
+      "net_added": -618.0
+    },
+    "fixed_positive": {
+      "reference": 8796.0,
+      "candidate": 8062.0,
+      "repaired": 3044.0,
+      "introduced": 2310.0,
+      "shared": 5752.0,
+      "net_added": -734.0
+    },
+    "remaining_positive": {
+      "reference": 4055.0,
+      "candidate": 4171.0,
+      "repaired": 1740.0,
+      "introduced": 1856.0,
+      "shared": 2315.0,
+      "net_added": 116.0
+    }
+  },
+  "changes_vs_R230": {
+    "all": {
+      "reference": 11264.0,
+      "candidate": 12233.0,
+      "repaired": 3310.0,
+      "introduced": 4279.0,
+      "shared": 7954.0,
+      "net_added": 969.0
+    },
+    "fixed_positive": {
+      "reference": 7851.0,
+      "candidate": 8062.0,
+      "repaired": 2150.0,
+      "introduced": 2361.0,
+      "shared": 5701.0,
+      "net_added": 211.0
+    },
+    "remaining_positive": {
+      "reference": 3413.0,
+      "candidate": 4171.0,
+      "repaired": 1160.0,
+      "introduced": 1918.0,
+      "shared": 2253.0,
+      "net_added": 758.0
+    }
+  },
+  "changes_vs_R232": {
+    "all": {
+      "reference": 14163.0,
+      "candidate": 12233.0,
+      "repaired": 5431.0,
+      "introduced": 3501.0,
+      "shared": 8732.0,
+      "net_added": -1930.0
+    },
+    "fixed_positive": {
+      "reference": 10251.0,
+      "candidate": 8062.0,
+      "repaired": 3991.0,
+      "introduced": 1802.0,
+      "shared": 6260.0,
+      "net_added": -2189.0
+    },
+    "remaining_positive": {
+      "reference": 3912.0,
+      "candidate": 4171.0,
+      "repaired": 1440.0,
+      "introduced": 1699.0,
+      "shared": 2472.0,
+      "net_added": 259.0
+    }
+  },
+  "cost": {
+    "SSL_successful_updates": 1600,
+    "SSL_primary_images": 102400,
+    "SSL_view_images": 204800,
+    "SSL_encoder_view_forwards": 204800,
+    "SSL_teacher_view_forwards": 0,
+    "SSL_first_to_last_logged_seconds": 1123.432326555252,
+    "joint_train_component_seconds": 5459.03878903389,
+    "train_component_start_to_SSL_finish_seconds": 1215.326115846634,
+    "SSL_finish_to_supervised_component_end_seconds": 4243.712673187256,
+    "component_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/control/train-component-terminal.json",
+      "sha256": "3982128354a8539505762c279373fa3aa259dbc49f8ba226d7ba67b4e9bde488"
+    },
+    "SSL_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+      "sha256": "615f0061756377383121b568c8446944383a24cafc16953e13f8ea6f84f8ec33"
+    },
+    "equal_SSL_updates_not_equal_algorithm_compute": true
+  },
+  "new_forward_or_model_or_checkpoint_load": false,
+  "old_actualsafe_repolled": false,
+  "future_forward_dependency": false
+}
