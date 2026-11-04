@@ -1,0 +1,19 @@
+{
+  "status": "sealed_p3_image_inputs",
+  "at": 1793827459.5183723,
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "inventory_sha256": "a7ab1594e9b8a22430e1afb7a439e2559d59c52bbbcf3fd0b3d3c5bfd567dce4",
+  "shared_negative_sha256": "e040f882865484cacb38350661ce8d4848bd7d9ba1b02e72adb827df4c894667",
+  "ranked_sha256": "09c8a9b569ca6ece7dd7e0b86c5050c338c12beaf5b6ea1445f4a3533cc3c9d3",
+  "site_sha256": "8de16958c72ec061e494cda849558f4968c04b0dd45ff0b28108aa821ed0ed40",
+  "source_sha256": "03190294ba7f4ca53d505ef909ac3f37f6a7ede649cb86602f63c3c65d1e5741",
+  "fit_count": 46256,
+  "dev_count": 5140,
+  "priority_dev_count": 776,
+  "order": "priority dev, fit positive, remaining dev, fit negative",
+  "max_images_per_second": 4,
+  "unknown_never_replaced": true,
+  "official_read": false,
+  "GPU_initialized": false,
+  "forward_calls": 0
+}

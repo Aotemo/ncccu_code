@@ -1,0 +1,78 @@
+{
+  "status": "partial",
+  "processed": 1100,
+  "expected": 51396,
+  "fit_processed": 324,
+  "dev_processed": 776,
+  "image_unknown": 0,
+  "fixed20_opposite_label_fit_candidates": 0,
+  "fixed20_exact_opposite_label_fit_bytes": 0,
+  "all167_opposite_label_fit_candidates": 0,
+  "all167_any_fit_candidates": 9,
+  "all167_exact_fit_bytes": 0,
+  "shared603_opposite_label_fit_candidates": 10,
+  "shared241_opposite_label_fit_candidates": 3,
+  "shared603_exact_opposite_label_fit_bytes": 0,
+  "shared603_near_fixed20": 3,
+  "shared241_near_fixed20": 1,
+  "quality_extreme_fixed20": 0,
+  "quality_reference_complete": true,
+  "hard_data_risk_union": 2,
+  "hard_without_risk_and_model_disagreement": 0,
+  "quality": {
+    "fixed20": {
+      "available": 20,
+      "expected": 20,
+      "median": {
+        "brightness": 66.51442835070439,
+        "contrast": 24.765841855674932,
+        "sharpness": 26.357702748068775,
+        "field": 0.6781501770019531
+      }
+    },
+    "remaining147": {
+      "available": 147,
+      "expected": 147,
+      "median": {
+        "brightness": 87.83619098243841,
+        "contrast": 22.729684289897097,
+        "sharpness": 32.95533318452005,
+        "field": 0.4778404235839844
+      }
+    },
+    "shared603": {
+      "available": 603,
+      "expected": 603,
+      "median": {
+        "brightness": 81.61708877474538,
+        "contrast": 24.26322936618114,
+        "sharpness": 33.476255480001534,
+        "field": 0.6745338439941406
+      }
+    },
+    "shared241": {
+      "available": 241,
+      "expected": 241,
+      "median": {
+        "brightness": 77.54628299105984,
+        "contrast": 24.535690791688612,
+        "sharpness": 29.819234009655204,
+        "field": 0.670135498046875
+      }
+    },
+    "dev_negative": {
+      "available": 609,
+      "expected": 4973,
+      "median": {
+        "brightness": 81.9867844335055,
+        "contrast": 24.249533570519077,
+        "sharpness": 33.476255480001534,
+        "field": 0.6738777160644531
+      }
+    }
+  },
+  "private_matches_sha256": "fb27e7c11593528f6e6a5747eae05da0f603825371bf692bd02dc7d894ed2f3f",
+  "official_read": false,
+  "GPU_initialized": false,
+  "interpretation": "Double perceptual hash is a visual candidate only; exact raw SHA proves equal bytes, not labeling error. Partial counts are lower bounds."
+}
