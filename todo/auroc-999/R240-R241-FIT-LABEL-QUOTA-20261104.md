@@ -16,6 +16,6 @@ R236R2完整过原门仍先R237，否则R238；R238过原门仍先R239。这些�
 
 CPU3独占24核0–23、nice19/隐藏GPU，和96训练核互斥。只做新行为两个必要目标：缺行为RED→八rank索引并集/类quota/原reference顺序与增强seed oracle、重复迭代和跨类排列边界；新recipe/两SCI与原完整监督/学习域一致、旧recipe不变。真实fit双视图/标签对齐与实际配额、128anchor计数做窄验；SupCon损失、原gather、两rank梯度/模型P8无变化则复用已通过证据，不重跑模型或GPU预演。Git同步/API回读/全树与既有正式链、真实自然八rank消费后才能称可运行；技术包可提前，正式窗口在R238监督期间准备。
 
-- [ ] 缺行为RED、最小实现、两必要目标与实际fit消费；未变路径复用。
+- [x] REDc48adc66；两必要runtime文件、两目标/三编译GREEN0a4d78cf及实际fit1600八流/真实8双视图/标签和quota计数d587adcb通过。33旧范围/14文件相同，原Gloo/P8复用，不冒充真实DDP；[汇总](../../records/preparation/fit-label-quota-20261104/README.md)39dc67e8、导出de5cb7d8。
 - [ ] 源码/config同步、技术包，按当前运行进度准备原正式链和具体入口。
 - [ ] 完整结果、修复/新增和代价，按预定门接续；不提前声称科学收益。

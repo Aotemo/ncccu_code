@@ -1,0 +1,34 @@
+{
+  "status": "new_quota_checks_two_configs_and_unchanged_active_progress_only",
+  "at": 1793774119.867291,
+  "CPU_evidence": {
+    "RED": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-wywgo79h/CPU-RECEIPT.json",
+      "sha256": "c48adc662e396c0176454536535438eb9f5ad60385d4eda5ff06b8549ef837fa",
+      "exit_code": 1,
+      "peak_runnable_threads": 24
+    },
+    "GREEN": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-5zjh3oe6/CPU-RECEIPT.json",
+      "sha256": "0a4d78cf39a1cf39d64c0910a0b1a591c36811e802243738176f786fa5c1bb77",
+      "exit_code": 0,
+      "peak_runnable_threads": 24
+    },
+    "actual_fit": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-s7zd47nv/CPU-RECEIPT.json",
+      "sha256": "d587adcbd4c211bdcedba619a5fe4aac6807d383792ad448a8e130193a2f45c7",
+      "exit_code": 0,
+      "peak_runnable_threads": 24
+    }
+  },
+  "files": {
+    "configs/R240-SCIENCE.json": "68d06946deecd95ac60a1c754e9fd49144e5d61d045af667e849f61149a1dad2",
+    "configs/R241-SCIENCE.json": "8f652c4308b2ef1d71e29f8b8459e76fb4ffd46db3c4a121fc9f17708f887993",
+    "records/R236R2/R236R2-PROGRESS-quota-checks-ready.json": "0a5d7f481854e0c2eff73d1b5c72e0435aaa5c63c091a35d735a14af24bfd1ac",
+    "records/preparation/fit-label-quota-20261104/CPU-CHECKS.json": "39dc67e87f1fc70ceedf3ada09523b7c0045a369da4284000c965d1aed200688"
+  },
+  "private_export_helper_sha256": "a570890a98f5c63e26ac3f2c78d014604ef875fe5c20b481a0c75d7ce8d82889",
+  "models_GPU_weights_images_predictions_or_credentials_exported": false,
+  "formal_deployment_or_GPU_started": false,
+  "free_bytes_point_observation": 24855445504
+}

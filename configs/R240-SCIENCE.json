@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-fitlabelquota1600-v1",
+  "initial_model_tensor_sha256": "50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5",
+  "candidate": {
+    "id": "r240-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-fitlabelquota1600-9010",
+    "experiment_order": 155,
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_avgpool_final_LN_dropout_linear_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear"
+  },
+  "public_source": {
+    "model": "convnext_small",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+    "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/small22k-20261029-b/SMALL-HANDOFF.json",
+    "sha256": "929562052131ac0a458efbb99315231d3f157e4c1d6058a8463d0d3d66f92957"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/small22k-fe6b358a/converted/convnext-small-tv-fe6b358a.pt",
+    "public_provenance": "assets/public/small22k-fe6b358a/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "convnext_small",
+    "seed": 20261029,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {}
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Fixed fit-only instance contrastive signal: original R115 uniform fit64/eight per rank, independent original two512 views, MLP768->1024->256,1600 updates, optimizer/LR/clip and original learning/sampling RNG domains. Replace only VICReg objective with symmetric L2-cosine NT-Xent temperature0.1 across128 anchors: other view of same photo target, self excluded,126 other views as negatives. No teacher, queue, labels, age, dev or official used for loss; not full SimCLR replication or equal compute to EMA. Only student encoder/final LN derived; original public head-age, empty supervised Adam/EMA and complete R107 supervision restored. Full internal AUROC primary with AP/fixed20/rest147 repaired and introduced misorders plus actual cost. Fixed seed27 only after original strict R107/R120 gates. No optic-disc crop or pilot coordinates enter training; original official once threshold retained.",
+  "ssl_recipe": {
+    "version": "fit-label-supcon-quota8-1600-v1",
+    "updates": 1600,
+    "global_batch": 64,
+    "per_rank_batch": 8,
+    "training_views": 2,
+    "image_size": 512,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "projector": [
+      768,
+      1024,
+      256
+    ],
+    "backbone_lr": 0.0001,
+    "projector_lr": 0.001,
+    "weight_decay": 0.0001,
+    "warmup_updates": 160,
+    "final_lr_factor": 0.01,
+    "gradient_clip": 1.0,
+    "precision": "fp32",
+    "loss": "supervised_contrastive_out",
+    "temperature": 0.1,
+    "learning_rng_domain": "r115-fit-vicreg-1600-v1",
+    "sampling_rng_domain": "r115-fit-vicreg-1600-v1",
+    "training_photometric": "ssl-strong-color-v1",
+    "label_source": "fit_csv",
+    "sampling_policy": "fit-class-quota-g64-p8-v1",
+    "global_positive_quota": 8
+  },
+  "official_evaluation": {
+    "version": "selected-internal-dev-auroc-0996-v1",
+    "metric": "selected_internal_dev_auroc",
+    "threshold": 0.996,
+    "after": "complete_internal_freeze",
+    "split": "official_valid_5849",
+    "below_status": "not_run_by_policy"
+  }
+}

@@ -42,6 +42,10 @@ FIT_LABEL_RECIPE = dict(STRONG_COLOR_RECIPE, version='fit-label-supcon-1600-v1',
     loss='supervised_contrastive_out', label_source='fit_csv')
 
 
+FIT_LABEL_QUOTA_RECIPE = dict(FIT_LABEL_RECIPE, version='fit-label-supcon-quota8-1600-v1',
+    sampling_policy='fit-class-quota-g64-p8-v1', global_positive_quota=8)
+
+
 def fit_label_table(manifest):
     """Read labels only for the declared fit rows; never read age or dev rows."""
     indices = manifest['fit_indices']
@@ -107,6 +111,8 @@ def validate_recipe(recipe, job, manifest, world):
         expected = STRONG_COLOR_RECIPE
     if recipe.get('version') == FIT_LABEL_RECIPE['version']:
         expected = FIT_LABEL_RECIPE
+    if recipe.get('version') == FIT_LABEL_QUOTA_RECIPE['version']:
+        expected = FIT_LABEL_QUOTA_RECIPE
     if recipe.get('version') == 'fit-ema-assignment-1600-v1':
         from .ema_assignment import EMA_RECIPE
         expected = EMA_RECIPE
@@ -133,7 +139,13 @@ def ssl_phase_completed(receipt, recipe):
             receipt.get('labels_or_age_used_for_loss') is True
             and receipt.get('labels_used_for_loss') is True
             and receipt.get('age_used_for_loss') is False
-            and receipt.get('label_scope') == 'fit_csv')))
+            and receipt.get('label_scope') == 'fit_csv'))
+        and (recipe.get('sampling_policy') != FIT_LABEL_QUOTA_RECIPE['sampling_policy'] or (
+            receipt.get('fit_sampling_policy') == recipe['sampling_policy']
+            and receipt.get('fit_global_positive_quota') == recipe['global_positive_quota']
+            and receipt.get('contrastive_fit_positive_images') == recipe['global_positive_quota']
+            and receipt.get('fit_positive_primary_draws') == recipe['updates'] * recipe['global_positive_quota']
+            and receipt.get('fit_negative_primary_draws') == recipe['updates'] * (recipe['global_batch'] - recipe['global_positive_quota']))))
 
 
 def ssl_head_shape(recipe):
@@ -177,6 +189,30 @@ class UniformFitSampler:
                     for position, index in enumerate(batch[start:start + 8], start)]
                 produced += 1
             epoch += 1
+
+
+class FitClassQuotaSampler:
+    """Reuse the original fit class streams and retain the uniform view-seed formula."""
+    def __init__(self, manifest, *, seed, updates, rank, world=8):
+        if world != 8 or not 0 <= rank < world or type(updates) is not int or updates <= 0:
+            raise ValueError('fit quota sampler requires eight ranks and positive updates')
+        fit_label_table(manifest)
+        from .distributed import RankBatchSampler
+        policy = FIT_LABEL_QUOTA_RECIPE
+        self.reference = RankBatchSampler(manifest['rows'], manifest['fit_indices'],
+            policy['global_batch'] // 2, policy['global_batch'], policy['global_positive_quota'],
+            seed, 0, updates, rank=rank, world_size=world)
+        self.seed, self.updates, self.rank = seed, updates, rank
+        self.width = policy['per_rank_batch']
+
+    def __len__(self):
+        return self.updates
+
+    def __iter__(self):
+        for update, batch in enumerate(self.reference):
+            start = self.rank * self.width
+            yield [(index, _seed(self.seed, 'sample', update, position, index))
+                for position, (index, _) in enumerate(batch, start)]
 
 
 class SSLModel(nn.Module):
@@ -276,9 +312,10 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
     hog = domain == 'fit-masked-hog8-1600-v1'
     local = domain == LOCAL_RECIPE['version']
     assignment = domain in ('fit-ema-assignment-1600-v1', 'fit-ema-assignment-9600-v1')
-    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'])
-    labeled = domain == FIT_LABEL_RECIPE['version']
-    strong_color = domain in (STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'])
+    quota = domain == FIT_LABEL_QUOTA_RECIPE['version']
+    contrastive = domain in (NTXENT_RECIPE['version'], STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'], FIT_LABEL_QUOTA_RECIPE['version'])
+    labeled = recipe.get('label_source') == 'fit_csv'
+    strong_color = domain in (STRONG_COLOR_RECIPE['version'], FIT_LABEL_RECIPE['version'], FIT_LABEL_QUOTA_RECIPE['version'])
     rng = ssl_rng_derivation(recipe, job['seed'], ctx.world_size)
     single._seed(int(job['seed']), ctx.device)
     binary = create_model(job, initialize=True).to(ctx.device)
@@ -330,12 +367,15 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
         training_scale=[0.85, 1.0], training_views=recipe['training_views'], include_labels=False,
         shared_view_geometry=local, training_photometric=recipe.get('training_photometric'))
     labels_by_index = fit_label_table(manifest) if labeled else None
-    sampler = UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
-        updates=updates, rank=ctx.rank, world=ctx.world_size)
+    sampler = (FitClassQuotaSampler(manifest, seed=rng['sampler_seed'],
+        updates=updates, rank=ctx.rank, world=ctx.world_size) if quota else
+        UniformFitSampler(manifest['fit_indices'], seed=rng['sampler_seed'],
+            updates=updates, rank=ctx.rank, world=ctx.world_size))
     loader = DataLoader(dataset, batch_sampler=sampler,
         **single._loader_options(job['workers'], job, persistent=True,
                                  seed=rng['loader_seeds'][ctx.rank]))
     iterator = iter(loader)
+    fit_positive_draws = 0
     try:
         for update in range(1, updates + 1):
             if ctx.any(time.time() >= deadline_at or (stop_event is not None and stop_event.is_set())):
@@ -378,6 +418,13 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
                         labels = gather_fit_labels(labels_by_index, indices, device=ctx.device)
                         loss, contrastive_stats = supervised_contrastive_loss(
                             z1.float(), z2.float(), labels, temperature=recipe['temperature'])
+                        if quota:
+                            actual_positive = contrastive_stats['contrastive_fit_positive_images']
+                            if actual_positive != recipe['global_positive_quota']:
+                                raise ValueError('actual fit class quota differs from registered sampling policy')
+                            fit_positive_draws += actual_positive
+                            contrastive_stats.update(fit_sampling_policy=recipe['sampling_policy'],
+                                fit_global_positive_quota=recipe['global_positive_quota'])
                     else:
                         loss, contrastive_stats = nt_xent_loss(z1.float(), z2.float(), temperature=recipe['temperature'])
                 else:
@@ -482,6 +529,8 @@ def run_ssl(job, manifest, data_root, run_dir, recipe, ctx, *, barrier_path, dea
             **({'labels_used_for_loss': True, 'age_used_for_loss': False, 'label_scope': 'fit_csv',
                 'fit_label_count': len(labels_by_index), 'fit_positive_count': sum(labels_by_index.values()),
                 'fit_label_table_sha256': canonical_digest(sorted(labels_by_index.items()))} if labeled else {}),
+            **({'fit_positive_primary_draws': fit_positive_draws,
+                'fit_negative_primary_draws': updates * recipe['global_batch'] - fit_positive_draws} if quota else {}),
             'rng_derivation': rng,
             'finished_at': time.time()}
         atomic_json(folder / 'SSL-RESULT.json', receipt)
