@@ -17,3 +17,5 @@
 **22:43 修复与 CPU 验证：** [五成员接口清单](../../records/analysis/20261104-f04/HISTORICAL-INTERFACES.json) `78676a5d` 表明 R120/R134R1/R135 使用旧签名，R250/R249 支持新参数；五成员 job 的该字段均为 null，原 runtime 的 512/512、ImageNet 预处理一致。修复只在字段非 null 时传参，旧 runtime 遇到非空配置仍明确报错，不静默丢弃。回归测试修复前按预期失败 `61000100`、修复后通过 `33c4ffe1`，原隔离套件复测通过 `a86f6fbc`。[五成员真实历史数据集检查](../../records/analysis/20261104-f04/HISTORICAL-DATASET.json) `cacca96b` 在 CPU 上使用 manifest 顺序第一张内部 dev，确认修复入口与各自历史默认预处理逐项完全相等；无模型前向/GPU/官方。后续仍需推送、重新完成完整树校验和现场调用；全 dev fp16 指标未知。
 
 **22:48 源码核验：** 修复版已 push/API `df611a8370d931b2cdab9acf811a53f7146d3447`，新隔离源码快照 3396 文件 [完整 tree 核验](../../records/analysis/20261104-f04/GPU-OWNER-TREE.json) `b39e83037ffcb1ee8890077c6f6b66fe3f9014fc2a3d5dda7d2f8d0107d2dd10`。现场调用及安全终态后的 F04 成员复核仍未完成；不阻塞 R261/R262 接续。
+
+**23:08 输入复核：** 在修复版完整树 `df611a8` 上，重新核验五个预选成员的严格加载回执、序列化模型及历史源码、内部 dev manifest 并封存 [GPU 输入](../../records/analysis/20261104-f04/GPU-INPUTS-v2.json) `9ec771835c0e2b666c69d3d03637a6bd97c3bad39df2c3bb6f1de45e21d34846`；CPU 回执 `aef464ec`，无 GPU 或官方前向。该输入是原五成员静态快照，真正派发前仍须以实际安全前轮之后的最新完整候选清单按 F04 规则重筛并确认成员、大小与导出未变，或在变化时重新准备；现场一次性调用尚未验证。

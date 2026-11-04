@@ -1,0 +1,19 @@
+{
+  "status": "detached_activation_and_unique_launch_verified",
+  "at": 1793833605.4334288,
+  "round_id": "r262-small-seed20261118-pairsigmoid-24k-p4-9010-20261104",
+  "site_binding_sha256": "5ad297e1e927b2330d47fa7177ab170d0c47bb641be705b863cda804d657de40",
+  "controller_sha256": "c5e2d2f1806f2e6a5e8d98dfb31a15fc9b2ebf4bc578c7e04c00dcc8064fefe5",
+  "stage_sha256": {
+    "CLAIM": "6284bdf8c64b1883f8cd32d3b554481fef3a70340f04c3653b453c3100712391",
+    "STARTED": "205183c0f7171399fe9d21dd91c5f3bacca9e5c4c75fb1b4c0e3afc4c8f4971c",
+    "ACTIVATION": "5364272b0fecc0eaa1a12e7b79d09f2dff9b5a407315a96f16f28a323fee3a5c",
+    "LAUNCH": "14feced25eae7416a15d9d1c8ee2f9fafc130b65f602df73033d7b87d7dbdf3f",
+    "RESULT": "fd85a3101295649780a0e4424e96e3ba965526bf5a581294399949058dd3d696"
+  },
+  "activation_seconds": 51,
+  "launch_seconds": 2,
+  "dispatch_sha256": "ad6723935deb33fffeb3f2db8a1406d285613b62b2038ba251eb058982926fa7",
+  "signals_sent": false,
+  "GPU_initialized_by_observer": false
+}
