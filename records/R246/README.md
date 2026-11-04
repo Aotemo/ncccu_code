@@ -1,5 +1,7 @@
 # R246：R172全图与四局部配方的独立fresh
 
+[完整及安全终态](R246-COMPLETION-08ac.json)：6400 成功/6400 尝试、0 skip，8 次评估、连续 4 次未提升正常早停；唯一 selected EMA c4@3200 内部 AUROC `0.9882081804619195`、AP `0.8264419710103553`、error_twice `19586`，与历史 R172 数值一致。done completed、原 owner 和 rank 退出且资源安全；官方未读。回执 SHA `06af623283e1c091787978d3694d83ac0c9908a0911ab070c6009c2c90e6a6bf`。可部署资格还须通过完整模型构造加载，F03 将按预登记规则重算。
+
 唯一owner在Pod B接续R244 safe后，按固定R172科学值从通用Small公开源fresh训练。实际[正式CPU与精确部署](R246-PREPARATION.json)18/18，CPU SHA `3c74fc535f85f12d390605acfe4157aa40f0da0c70ebf1759de6d52ccc2b859c`、部署 `25bb358dd1c7b1e3e9205d5d01d6c51ea590a44ba63597a6b8f19249a6849f32`，Git `66f4b808`；[唯一activation](R246-ACTIVATION.json) audit `cfc7e2380d5402dbe1dce435bb62aa137bcd5432cf5fe04a5b7436c22c928c82`。
 
 [真实八rank及首成功](R246-START.json)证明fresh tensor `50c6f55c53f5656a2daff9f9bc1b83f4a34c821bf9a377aedf8c3462e0f027b5`、345参数/5空Adam组、G64/P8/448对及训练资源绑定；首25 loss `0.7223862409591675`，观测时50成功/0 skip，回执SHA `e985fcb1d77bfae70df017ac6200b511e4849519f32d171c6ba4219d9f6ba584`。该首25 loss与原R172记录相同，不据此断言后续轨迹或完整结果。官方留给最终冻结方案，当前仅运行快照。
