@@ -1,6 +1,8 @@
 # R238 fit 标签表征适配
 
-08:48 [封存进度](R238-PROGRESS-quota-closeout-ready.json)：监督4400/c5/bad0/0skip，原owner及八rank活跃，临时EMA c5@4000 AUROC .985146136442177/AP .8147244363510374，仍无完整selected；观察CPUc17b720d不加载模型、不做forward。后续正式接续已准备，以下为各阶段证据。
+09:12 UTC 已完整结束：[完整结果](R238-RESULT.json)为7200次成功更新、c9、连续4轮无提升、0skip；唯一内部dev选中EMA c5@4000，AUROC **0.985146136442177**、AP **0.8147244363510374**。严格R107/R120门均false，完整R236R2门true，R239不eligible，官方未运行。[唯一安全终态](R238-COMPLETION.json)SHA `4f40fa9b2daa04c736c7d0a21d059e46457aaad9d6826cc70e54a8d72aab9546`已在旧Pod存续时实核，不再重查；[只读归档](ARCHIVE-RECEIPT.json)无新模型forward。
+
+[固定20/其余147的配对报告](PAIRED-REPORT.json)相对R107分别修复1456/802、引入3313/1681对错序，总错序12336，较R107净增2736。1600个适配批次的189个单类别批次为冻结sampler的合同重建，与全部65个已有生产标签计数一致；不是逐批生产实测，不据loss诊断坍缩。所选tensor SHA `9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0`，结果JSON SHA `6b43e7626b761109f2fa4797dfab68a7e59dc527c10602bb2d8da59e5a964251`。用户随后重建了两个8卡Pod；旧R240只记录已派发后Pod NotFound/完成状态unknown，新接续使用独立R240R1及R242身份，见[双Pod任务](../../todo/exp-v3-dual-pod/README.md)。下文为历史阶段证据。
 
 08:14 UTC 后续：[完整适配](R238-SSL-RESULT.json)1600/0skip/dev0，fit标签True、ageFalse；derived encoder `90e0828722a419b3be961b712620a5514704c61d022d1d184a86f20bbf0139d4`，八rank公开head-age不变/原factory RNG恢复。[实际监督初态与首75](R238-SUPERVISED-START.json)280a965a/guard6a9caac6通过：345全训、5空Adam组、原G64P8/448，实际初态6aa100f1。[归档](R238-SUPERVISED-RECEIPT.json)480ea3d6/guard8781ebd9只读metadata。私有r238 env first现为START-OBSERVATION-supervised-2。08:20封存[监督800/0skip、首次评估进行中](R238-PROGRESS-supmin-CPU-ready.json)，尚无选中指标；原observer guard28f8656d exit0，随后的kubectl cat遇EOF，仅以SCP取回同一产物，不重做观察/forward。此前一次监督观察请求因同执行者CPU lease正忙在目标脚本前被拒，未执行观察/改变训练；待CPU结束后原缺失输出的目标才真正运行并得上述首75，不改unknown原件。
 

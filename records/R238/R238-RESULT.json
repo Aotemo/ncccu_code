@@ -1,0 +1,466 @@
+{
+  "status": "completed",
+  "round_id": "r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+  "git_commit": "3bd21524c46b242e7206d6766e91ea1c313314a8",
+  "science_sha256": "2527b844f05c97a00cdbbc029afacef906ac6c7415def4d4ad32899c45859e2c",
+  "progress": {
+    "status": "completed",
+    "phase": null,
+    "successful_updates": 7200,
+    "attempted_updates": 7200,
+    "skipped_updates": 0,
+    "evaluated_cycle": 9,
+    "stop_reason": null,
+    "termination_reason": "early_stopping",
+    "early_bad_cycles": 4
+  },
+  "selected_internal_dev": {
+    "auroc": 0.985146136442177,
+    "ap": 0.8147244363510374,
+    "variant": "ema",
+    "cycle": 5,
+    "successful_updates": 4000,
+    "error_twice": 24672
+  },
+  "recomputed": {
+    "error_twice": 24672,
+    "ap": 0.8147244363510374,
+    "auroc": 0.985146136442177,
+    "variant": "ema",
+    "cycle": 5,
+    "successful_updates": 4000,
+    "tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+    "freeze": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+      "sha256": "41f0b7d1ee634a757580f1539f06f0a0780ff1b3ea47b96c1ddcca3d5a82acc2"
+    },
+    "prediction": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+      "sha256": "49f7cbeea602ea97b470ea5205dd6dd26f3935a6cba33f7e5d47311d14a67406"
+    },
+    "precision": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+      "sha256": "50f713f1f7bc9a87575a81c4ffa963f2b5add1880c41dfdaa960fe0a204ecaa9"
+    },
+    "completion": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/evidence/TRAIN_RESULT.json",
+      "sha256": "0c98669ada1f18f463dbc4f8ff31382687f633628fb09ff77e4097738752782f",
+      "status": "completed",
+      "successful_updates": 7200
+    }
+  },
+  "changes_vs_R107": {
+    "all": {
+      "reference": 9600.0,
+      "candidate": 12336.0,
+      "repaired": 2258.0,
+      "introduced": 4994.0,
+      "shared": 7342.0,
+      "net_added": 2736.0
+    },
+    "fixed_positive": {
+      "reference": 6623.0,
+      "candidate": 8480.0,
+      "repaired": 1456.0,
+      "introduced": 3313.0,
+      "shared": 5167.0,
+      "net_added": 1857.0
+    },
+    "remaining_positive": {
+      "reference": 2977.0,
+      "candidate": 3856.0,
+      "repaired": 802.0,
+      "introduced": 1681.0,
+      "shared": 2175.0,
+      "net_added": 879.0
+    }
+  },
+  "changes_vs_R120": {
+    "all": {
+      "reference": 8739.0,
+      "candidate": 12336.0,
+      "repaired": 2314.0,
+      "introduced": 5911.0,
+      "shared": 6425.0,
+      "net_added": 3597.0
+    },
+    "fixed_positive": {
+      "reference": 5829.0,
+      "candidate": 8480.0,
+      "repaired": 1411.0,
+      "introduced": 4062.0,
+      "shared": 4418.0,
+      "net_added": 2651.0
+    },
+    "remaining_positive": {
+      "reference": 2910.0,
+      "candidate": 3856.0,
+      "repaired": 903.0,
+      "introduced": 1849.0,
+      "shared": 2007.0,
+      "net_added": 946.0
+    }
+  },
+  "changes_vs_R115": {
+    "all": {
+      "reference": 11310.0,
+      "candidate": 12336.0,
+      "repaired": 3234.0,
+      "introduced": 4260.0,
+      "shared": 8076.0,
+      "net_added": 1026.0
+    },
+    "fixed_positive": {
+      "reference": 7360.0,
+      "candidate": 8480.0,
+      "repaired": 1832.0,
+      "introduced": 2952.0,
+      "shared": 5528.0,
+      "net_added": 1120.0
+    },
+    "remaining_positive": {
+      "reference": 3950.0,
+      "candidate": 3856.0,
+      "repaired": 1402.0,
+      "introduced": 1308.0,
+      "shared": 2548.0,
+      "net_added": -94.0
+    }
+  },
+  "fixed20_count": 20,
+  "remaining_positive_count": 147,
+  "strictly_beats_R107": false,
+  "strictly_beats_R120": false,
+  "strictly_beats_R236R2": true,
+  "conditional_seed27_eligible": false,
+  "next_prepared_branch": "R240",
+  "internal_AUROC_0_995_and_AP_above_0_9": false,
+  "overall_goal_complete": false,
+  "official_evaluated": false,
+  "official_reason": "threshold_not_met",
+  "official_metrics": null,
+  "terminal": {
+    "done": {
+      "status": "completed",
+      "phase": "complete",
+      "error": null,
+      "live_owned_ranks": []
+    },
+    "train": {
+      "status": "completed",
+      "phase": null,
+      "successful_updates": 7200,
+      "cycles": 9,
+      "early_stop": {
+        "bad_cycles": 4,
+        "metric": "internal_dev_auroc",
+        "reference_auroc": 0.985146136442177,
+        "stopped": true,
+        "variants": [
+          "online",
+          "ema"
+        ]
+      },
+      "error": null
+    },
+    "train_component": {
+      "exit_code": 0,
+      "signals": []
+    },
+    "freeze": {
+      "status": null,
+      "selected": {
+        "cycle": 5,
+        "variant": "ema",
+        "successful_updates": 4000,
+        "error_twice": 24672,
+        "ap": 0.8147244363510374,
+        "auroc": 0.985146136442177,
+        "prediction_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv",
+        "prediction_sha256": "49f7cbeea602ea97b470ea5205dd6dd26f3935a6cba33f7e5d47311d14a67406",
+        "precision_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/predictions/ema/dev-cycle-0005.csv.precision.json",
+        "precision_sha256": "50f713f1f7bc9a87575a81c4ffa963f2b5add1880c41dfdaa960fe0a204ecaa9",
+        "tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0"
+      },
+      "variant": "ema"
+    },
+    "round": {
+      "status": "completed",
+      "phase": "complete",
+      "successful_updates": 7200,
+      "cycles": 9,
+      "official_status": "not_run_by_policy",
+      "official_reason": "threshold_not_met",
+      "official_evaluated": false,
+      "selected_internal_dev_auroc": 0.985146136442177,
+      "official_metrics": null,
+      "target_auroc_at_least_0_999": null,
+      "error": null
+    },
+    "official": null
+  },
+  "actual_safe": true,
+  "observed_at": 1793783584.5455537,
+  "whole_round_ended_at": 1793783535.9736311,
+  "proof": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/r238-20261104-4e0c-ready/PROGRESS-terminal-a.json",
+    "sha256": "4f40fa9b2daa04c736c7d0a21d059e46457aaad9d6826cc70e54a8d72aab9546"
+  },
+  "CPU_receipt": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/goal-20261103-4e0c/tasks/4e0ce707-5c70-493a-8e54-796363eb740f-_gqef3o4/CPU-RECEIPT.json",
+    "sha256": "f606f1ca98a3bc18208b84e12dfe6579ac2958fd1429da42548a24b4933ace07"
+  },
+  "selected_tensor_sha256": "9dd1b065970457ebc1db13b3159630cd1c1bdcdba4179cf546930c4538ffdfc0",
+  "selected_blob_sha256": "1619cdd97dadbc181b7d5877e620b9bcfd360e77ffc6b0eb887d7faa4049185a",
+  "selected_prediction_sha256": "49f7cbeea602ea97b470ea5205dd6dd26f3935a6cba33f7e5d47311d14a67406",
+  "selected_precision_sha256": "50f713f1f7bc9a87575a81c4ffa963f2b5add1880c41dfdaa960fe0a204ecaa9",
+  "changes_vs_R224": {
+    "all": {
+      "reference": 11666.0,
+      "candidate": 12336.0,
+      "repaired": 3692.0,
+      "introduced": 4362.0,
+      "shared": 7974.0,
+      "net_added": 670.0
+    },
+    "fixed_positive": {
+      "reference": 7720.0,
+      "candidate": 8480.0,
+      "repaired": 2093.0,
+      "introduced": 2853.0,
+      "shared": 5627.0,
+      "net_added": 760.0
+    },
+    "remaining_positive": {
+      "reference": 3946.0,
+      "candidate": 3856.0,
+      "repaired": 1599.0,
+      "introduced": 1509.0,
+      "shared": 2347.0,
+      "net_added": -90.0
+    }
+  },
+  "changes_vs_R226": {
+    "all": {
+      "reference": 11718.0,
+      "candidate": 12336.0,
+      "repaired": 4579.0,
+      "introduced": 5197.0,
+      "shared": 7139.0,
+      "net_added": 618.0
+    },
+    "fixed_positive": {
+      "reference": 8000.0,
+      "candidate": 8480.0,
+      "repaired": 2995.0,
+      "introduced": 3475.0,
+      "shared": 5005.0,
+      "net_added": 480.0
+    },
+    "remaining_positive": {
+      "reference": 3718.0,
+      "candidate": 3856.0,
+      "repaired": 1584.0,
+      "introduced": 1722.0,
+      "shared": 2134.0,
+      "net_added": 138.0
+    }
+  },
+  "changes_vs_R228": {
+    "all": {
+      "reference": 12851.0,
+      "candidate": 12336.0,
+      "repaired": 4350.0,
+      "introduced": 3835.0,
+      "shared": 8501.0,
+      "net_added": -515.0
+    },
+    "fixed_positive": {
+      "reference": 8796.0,
+      "candidate": 8480.0,
+      "repaired": 2695.0,
+      "introduced": 2379.0,
+      "shared": 6101.0,
+      "net_added": -316.0
+    },
+    "remaining_positive": {
+      "reference": 4055.0,
+      "candidate": 3856.0,
+      "repaired": 1655.0,
+      "introduced": 1456.0,
+      "shared": 2400.0,
+      "net_added": -199.0
+    }
+  },
+  "changes_vs_R230": {
+    "all": {
+      "reference": 11264.0,
+      "candidate": 12336.0,
+      "repaired": 2940.0,
+      "introduced": 4012.0,
+      "shared": 8324.0,
+      "net_added": 1072.0
+    },
+    "fixed_positive": {
+      "reference": 7851.0,
+      "candidate": 8480.0,
+      "repaired": 1806.0,
+      "introduced": 2435.0,
+      "shared": 6045.0,
+      "net_added": 629.0
+    },
+    "remaining_positive": {
+      "reference": 3413.0,
+      "candidate": 3856.0,
+      "repaired": 1134.0,
+      "introduced": 1577.0,
+      "shared": 2279.0,
+      "net_added": 443.0
+    }
+  },
+  "changes_vs_R232": {
+    "all": {
+      "reference": 14163.0,
+      "candidate": 12336.0,
+      "repaired": 5408.0,
+      "introduced": 3581.0,
+      "shared": 8755.0,
+      "net_added": -1827.0
+    },
+    "fixed_positive": {
+      "reference": 10251.0,
+      "candidate": 8480.0,
+      "repaired": 3790.0,
+      "introduced": 2019.0,
+      "shared": 6461.0,
+      "net_added": -1771.0
+    },
+    "remaining_positive": {
+      "reference": 3912.0,
+      "candidate": 3856.0,
+      "repaired": 1618.0,
+      "introduced": 1562.0,
+      "shared": 2294.0,
+      "net_added": -56.0
+    }
+  },
+  "changes_vs_R234": {
+    "all": {
+      "reference": 12233.0,
+      "candidate": 12336.0,
+      "repaired": 4198.0,
+      "introduced": 4301.0,
+      "shared": 8035.0,
+      "net_added": 103.0
+    },
+    "fixed_positive": {
+      "reference": 8062.0,
+      "candidate": 8480.0,
+      "repaired": 2413.0,
+      "introduced": 2831.0,
+      "shared": 5649.0,
+      "net_added": 418.0
+    },
+    "remaining_positive": {
+      "reference": 4171.0,
+      "candidate": 3856.0,
+      "repaired": 1785.0,
+      "introduced": 1470.0,
+      "shared": 2386.0,
+      "net_added": -315.0
+    }
+  },
+  "changes_vs_R236R2": {
+    "all": {
+      "reference": 12466.0,
+      "candidate": 12336.0,
+      "repaired": 4780.0,
+      "introduced": 4650.0,
+      "shared": 7686.0,
+      "net_added": -130.0
+    },
+    "fixed_positive": {
+      "reference": 8638.0,
+      "candidate": 8480.0,
+      "repaired": 3128.0,
+      "introduced": 2970.0,
+      "shared": 5510.0,
+      "net_added": -158.0
+    },
+    "remaining_positive": {
+      "reference": 3828.0,
+      "candidate": 3856.0,
+      "repaired": 1652.0,
+      "introduced": 1680.0,
+      "shared": 2176.0,
+      "net_added": 28.0
+    }
+  },
+  "cost": {
+    "SSL_successful_updates": 1600,
+    "SSL_primary_images": 102400,
+    "SSL_view_images": 204800,
+    "SSL_encoder_view_forwards": 204800,
+    "SSL_teacher_view_forwards": 0,
+    "SSL_first_to_last_logged_seconds": 1127.2226955890656,
+    "joint_train_component_seconds": 4691.042584180832,
+    "train_component_start_to_SSL_finish_seconds": 1221.3231964111328,
+    "SSL_finish_to_supervised_component_end_seconds": 3469.719387769699,
+    "component_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/control/train-component-terminal.json",
+      "sha256": "e3767f21b2fa9a10fcaaff42720a9177a4d2757a92367c2d8ea11367292827fe"
+    },
+    "SSL_receipt": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104/outputs/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/ssl-stage/SSL-RESULT.json",
+      "sha256": "5145519d536f57ba0f87b28d46561b8cd72a30c2e2b2dacf78a9eb605188a241"
+    },
+    "equal_SSL_updates_not_equal_algorithm_compute": true,
+    "fit_label_sampling": {
+      "method": "frozen_UniformFitSampler_contract_reconstruction_from_fit_only_labels",
+      "all_1600_actual_batches_independently_observed": false,
+      "logged_batches": 65,
+      "all_logged_batch_label_counts_match_reconstruction": true,
+      "sampler_seed": 14997478083172343433,
+      "positive_primary_draws": 3320,
+      "negative_primary_draws": 99080,
+      "positive_images_per_batch_histogram": {
+        "0": 189,
+        "1": 423,
+        "2": 445,
+        "3": 301,
+        "4": 149,
+        "5": 59,
+        "6": 25,
+        "7": 9
+      },
+      "single_class_batches_without_opposite_class_negatives": 189,
+      "unique_fit_images": 46256,
+      "unique_fit_positive_images": 1490,
+      "unique_fit_negative_images": 44766,
+      "positive_exposure_histogram": {
+        "1": 1,
+        "2": 1148,
+        "3": 341
+      },
+      "negative_exposure_histogram": {
+        "1": 80,
+        "2": 35058,
+        "3": 9628
+      },
+      "age_or_dev_label_used_for_reconstruction": false,
+      "actual_full_stream_not_claimed": true
+    },
+    "labels_used_for_representation_loss": true,
+    "age_used_for_representation_loss": false,
+    "label_scope": "fit_csv"
+  },
+  "new_forward_or_model_or_checkpoint_load": false,
+  "old_actualsafe_repolled": false,
+  "future_forward_dependency": false,
+  "capacity_point_observation": {
+    "at": 1793783641.9010947,
+    "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+    "free_bytes": 23756537856,
+    "activation_requires_strictly_more_than_bytes": 21474836480
+  }
+}
