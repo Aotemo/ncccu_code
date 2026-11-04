@@ -1,0 +1,16 @@
+{
+  "status": "F04_shell_transport_cpu_isolation_passed",
+  "at": 1793835777.6555216,
+  "cases": [
+    "missing_options_rejected",
+    "duplicate_option_rejected",
+    "snapshot_transport_failure_stops_dispatch",
+    "dispatch_transport_failure_not_retried",
+    "two_readonly_stub_calls_only"
+  ],
+  "fixture_removed": true,
+  "real_ssh_or_kubectl": false,
+  "GPU_initialized": false,
+  "dispatch_executed": false,
+  "source_sha256": "96d201065c0cb5fc1856c00ec21381158aa2f0cb4f2299a0ca4b8818c7013837"
+}
