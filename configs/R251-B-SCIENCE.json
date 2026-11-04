@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "candidate_profile": "single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261106-scale085-pairlog-corner288max05-v1",
+  "initial_model_tensor_sha256": "16f453c2ab3c6864703c826831050a694623f20ff77a52924314d4bcde811809",
+  "candidate": {
+    "id": "r251-convnext-small-imagenet22k-to-1k-24k-p4-seed20261106-scale085-pairlog-corner288max05-9010",
+    "experiment_order": 161,
+    "model": "convnext_small",
+    "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "readout": "native_global512_half_corner288_max_half_plus_age",
+    "features": 768,
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "batch_norm_modules": 0,
+    "batch_norm_buffers": 0,
+    "attention_pool": null,
+    "weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+    "stochastic_depth": 0.1,
+    "head_initialization": "torch.nn.Linear_native",
+    "head_lr_scope": "last_linear",
+    "quadrant_mil_policy": {
+      "version": "global512-corner288-max05-v1",
+      "global_size": 512,
+      "local_size": 288,
+      "corners": [
+        [
+          0,
+          0
+        ],
+        [
+          224,
+          0
+        ],
+        [
+          0,
+          224
+        ],
+        [
+          224,
+          224
+        ]
+      ],
+      "order": "TL_TR_BL_BR",
+      "global_weight": 0.5,
+      "local_weight": 0.5,
+      "local_reduction": "max_first_fixed_order",
+      "network_calls": 2,
+      "age_position": "after_image_aggregation_once"
+    }
+  },
+  "public_source": {
+    "model": "convnext_small",
+    "format": "torchvision-1000-state-dict-v1",
+    "revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+    "source_url": "https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k/resolve/fe6b358aa409414cdb522ae3d43a2c9922f7cc1b/pytorch_model.bin",
+    "training_data": "ImageNet-22K pretraining -> ImageNet-1K fine-tuning",
+    "original_sha256": "c912f45cd738512978a900cc8aefade65bc44e507321f0144378a2d98aa5e914",
+    "sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+    "final_norm_eps": 1e-06,
+    "internal_norm_eps": 1e-06,
+    "license_file": "../original/LICENSE-apache-2.0.txt",
+    "provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b"
+  },
+  "public_asset_receipt": {
+    "path": "technical-prep/dual-pod-20261104-4e0c/pod-b/public-current/PUBLIC-SMALL-CURRENT.json",
+    "sha256": "4248548433020c2921e45d15135fab847e4b7aa73a87d90aa3a17bfcf88012f8"
+  },
+  "structure": {
+    "features": 768,
+    "public_state_tensors": 344,
+    "backbone_state_tensors": 342,
+    "backbone_parameters": 49454688,
+    "layer_norms": 41,
+    "gelu_modules": 36,
+    "stochastic_depth_modules": 36,
+    "full_head_shape": [
+      1000,
+      768
+    ]
+  },
+  "paths": {
+    "data_root": "data/glaucoma_first",
+    "train_identity": "assets/train_identity.json",
+    "metadata_root": "assets/fixed-9010-stage1",
+    "public_weight": "assets/public/small22k-fe6b358a/converted/convnext-small-tv-fe6b358a.pt",
+    "public_provenance": "assets/public/small22k-fe6b358a/converted/provenance.json",
+    "prepared_cache": "shared-assets/prepared512-v2-pillow12.3.0",
+    "official_manifest": "assets/official-valid-sealed.json"
+  },
+  "job": {
+    "name": "convnext-small",
+    "model": "convnext_small",
+    "seed": 20261106,
+    "training_scale": [
+      0.85,
+      1.0
+    ],
+    "loss": {
+      "version": "binary-pairwise-logistic-v1",
+      "kind": "binary_pairwise_logistic",
+      "temperature": 1.0,
+      "reduction": "mean",
+      "dtype": "float32",
+      "scope": "global_batch"
+    },
+    "image_size": 512,
+    "prepared_size": 512,
+    "physical_batch": 32,
+    "effective_batch": 64,
+    "positive_per_batch": 8,
+    "precision": "fp32",
+    "cycles": 30,
+    "warmup_cycles": 2,
+    "min_cycles": 1,
+    "patience": 4,
+    "min_delta": 0.0,
+    "stop_after_cycles": 0,
+    "backbone_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "normalization": "imagenet",
+    "final_norm_eps": 1e-06,
+    "head_lr_scope": "last_linear",
+    "mixup": null,
+    "attention_pool": null,
+    "initial_checkpoint": null,
+    "frozen_bn": false,
+    "benchmark_warmup": 50,
+    "benchmark_updates": 100,
+    "checkpoint_seconds": 300,
+    "checkpoint_updates": 0,
+    "log_every": 25,
+    "prefetch_factor": 2,
+    "workers": 0,
+    "eval_workers": 0,
+    "split": {},
+    "quadrant_mil_policy": {
+      "version": "global512-corner288-max05-v1",
+      "global_size": 512,
+      "local_size": 288,
+      "corners": [
+        [
+          0,
+          0
+        ],
+        [
+          224,
+          0
+        ],
+        [
+          0,
+          224
+        ],
+        [
+          224,
+          224
+        ]
+      ],
+      "order": "TL_TR_BL_BR",
+      "global_weight": 0.5,
+      "local_weight": 0.5,
+      "local_reduction": "max_first_fixed_order",
+      "network_calls": 2,
+      "age_position": "after_image_aggregation_once"
+    }
+  },
+  "data_split": {
+    "kind": "holdout",
+    "seed": 20261024,
+    "valid_fraction": 0.1,
+    "inner_fraction": 0.1,
+    "include_valid": false,
+    "fold": 0,
+    "folds": 3
+  },
+  "schedule": {
+    "steps_per_cycle": 800,
+    "total_updates": 24000,
+    "warmup_updates": 1600,
+    "stop_after_updates": 24000
+  },
+  "early_stopping": {
+    "metric": "internal_dev_auroc",
+    "mode": "max",
+    "variants": [
+      "online",
+      "ema"
+    ],
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "official_manifest_sha256": "592c74933a64fae94ce0a212d55f526bc124e196c1ed4b75511a0b6d2ba48284",
+  "comparison_note": "Fresh independent R251 ensemble member; original R172 job retained except the registered new seed. Official evaluation deferred to the final frozen ensemble only.",
+  "official_evaluation": {
+    "version": "final-frozen-ensemble-only-v1",
+    "split": "official_valid_5849",
+    "member_round_evaluation": false
+  }
+}

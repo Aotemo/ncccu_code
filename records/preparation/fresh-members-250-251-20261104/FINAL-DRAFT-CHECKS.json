@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "b7347ff7e23fe185fbb7faea36e1aa4020161fdf3e459801003e0be73e5426d2",
+    "tests/test_r172_seed_replica.py": "5d709f51c6918507007ea1480ad557bfc6fd8082428f5cf14ce4e61355aae2b7",
+    "tests/test_r120_seed_replicas.py": "6a465080b564e5152a780f2aa79b123952a00ded93c314001ea1c8c56202d943",
+    "tests/test_ensemble_member_official_gate.py": "33056924feb50e1c643c47be15dae0cd8b6d04c5264033400f740159be798c17"
+  },
+  "science_files": {
+    "R250-A": "e7fe1a0ef640ba321aeb5e6f08033376c13e67ab5befa2de49f8fd8b316bfa8d",
+    "R251-A": "d37f0aedaa67c555282544a3a102b442bc9aed39e958bca27bcf176a0730930e",
+    "R250-B": "4505315f0c10fbd63a5fb6413a6da5cbc3f13ace39f51ee58751a4e90565bc90",
+    "R251-B": "c4394a41fad251f8b8b59fbc27b7b22178a38e75ea24848067a6bd58659a7bb4"
+  },
+  "tests": [
+    {
+      "test": "tests/test_r172_seed_replica.py",
+      "exit_code": 0,
+      "output": "new quadrant seed, historical recipes and final-only gate passed\n",
+      "wall_seconds": 0.16211414337158203
+    },
+    {
+      "test": "tests/test_r120_seed_replicas.py",
+      "exit_code": 0,
+      "output": "two seed-registration and original-profile targets passed\n",
+      "wall_seconds": 0.13808369636535645
+    },
+    {
+      "test": "tests/test_ensemble_member_official_gate.py",
+      "exit_code": 0,
+      "output": "final ensemble-only official gate and historical gate passed\n",
+      "wall_seconds": 0.16066622734069824
+    }
+  ],
+  "GPU_initialized": false,
+  "real_data_or_official_read": false,
+  "source_published": false,
+  "formal_cpu_passed": false
+}

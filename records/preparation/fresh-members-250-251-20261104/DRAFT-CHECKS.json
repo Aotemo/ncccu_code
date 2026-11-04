@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "source_files": {
+    "runtime/bundle/retrain/experiment91.py": "b7347ff7e23fe185fbb7faea36e1aa4020161fdf3e459801003e0be73e5426d2",
+    "tests/test_r172_seed_replica.py": "5d709f51c6918507007ea1480ad557bfc6fd8082428f5cf14ce4e61355aae2b7",
+    "tests/test_r120_seed_replicas.py": "6a465080b564e5152a780f2aa79b123952a00ded93c314001ea1c8c56202d943",
+    "tests/test_ensemble_member_official_gate.py": "94eaada4eb92dd057c858739d313b16a8f511381e33d8d49190b4a81b72cff54"
+  },
+  "tests": [
+    {
+      "test": "tests/test_r172_seed_replica.py",
+      "exit_code": 0,
+      "output": "new quadrant seed, historical recipes and final-only gate passed\n",
+      "wall_seconds": 0.19497156143188477
+    },
+    {
+      "test": "tests/test_r120_seed_replicas.py",
+      "exit_code": 0,
+      "output": "two seed-registration and original-profile targets passed\n",
+      "wall_seconds": 0.1458146572113037
+    },
+    {
+      "test": "tests/test_ensemble_member_official_gate.py",
+      "exit_code": 0,
+      "output": "final ensemble-only official gate and historical gate passed\n",
+      "wall_seconds": 0.18004083633422852
+    }
+  ],
+  "GPU_initialized": false,
+  "real_data_or_official_read": false,
+  "source_published": false,
+  "formal_cpu_passed": false
+}

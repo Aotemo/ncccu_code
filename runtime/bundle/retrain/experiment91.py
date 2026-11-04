@@ -177,6 +177,9 @@ BASE_CLIP_STORAGE16_BINDING = 'single-convnext-base-clip-768f3849-fixed-9010-24k
 BASE_CLIP_STORAGE16_SEED27_BINDING = 'single-convnext-base-clip-768f3849-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-storage16-r175-v1'
 QUADRANT_MIL_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-corner288max05-v1'
 QUADRANT_MIL_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-corner288max05-v1'
+QUADRANT_MIL_SMALL_SEED20261106_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261106-scale085-pairlog-corner288max05-v1'
+QUADRANT_MIL_SMALL_BINDINGS = (QUADRANT_MIL_SMALL_BINDING, QUADRANT_MIL_SMALL_SEED27_BINDING,
+                              QUADRANT_MIL_SMALL_SEED20261106_BINDING)
 PAIR_SIGMOID_LOSS = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
                      'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32',
                      'scope': 'global_batch'}
@@ -215,7 +218,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,
                       DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING,
                       ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
-                      BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
+                      BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,*QUADRANT_MIL_SMALL_BINDINGS,
                       BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
                       PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*LARGE_VARIANT_BINDINGS)
 OFFICIAL_GATE_0996 = {'version': 'selected-internal-dev-auroc-0996-v1',
@@ -230,6 +233,8 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r247r1-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_BINDING,
     'r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104': LARGE_BINDING,
     'r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104': PAIR_SIGMOID_GAMMA_SMALL_BINDING,
+    'r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104': PAIR_SIGMOID_WIDE_SMALL_BINDING,
+    'r251-small-quadrant-seed20261106-pairlog-24k-p4-9010-20261104': QUADRANT_MIL_SMALL_SEED20261106_BINDING,
 }
 
 
@@ -343,7 +348,7 @@ def science_configuration():
                                                        COSINE_HEAD_SMALL_SEED27_BINDING,DEIT3_SMALL_BINDING,DEIT3_SMALL_SEED27_BINDING,DEIT3_MEANPATCH_BINDING,
                                                        DEIT3_MEANPATCH_SEED27_BINDING,ADAMW_BETA2_SMALL_BINDING,
                                                        ADAMW_BETA2_SMALL_SEED27_BINDING,BASE_CLIP_BINDING,
-                                                       BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,
+                                                       BASE_CLIP_SEED27_BINDING,BASE_CLIP_STORAGE16_BINDING,*QUADRANT_MIL_SMALL_BINDINGS,
                                                        BASE_CLIP_STORAGE16_SEED27_BINDING,SMALL_DINO3_BINDING,SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,
                                                        PAIR_BCE_MIX_SMALL_SEED27_BINDING,*VIT_DINO3_BINDINGS,*CAFORMER_BINDINGS,*LARGE_VARIANT_BINDINGS)
                     and value.get('official_evaluation') != expected_official_policy(site,value))
@@ -370,10 +375,10 @@ def science_configuration():
                 or (value.get('candidate_profile')in(ADAMW_AMSGRAD_SMALL_BINDING,ADAMW_AMSGRAD_SMALL_SEED27_BINDING)
                     and (value.get('job',{}).get('adamw_amsgrad_policy')!='adamw-amsgrad-v1'
                          or value.get('candidate',{}).get('adamw_amsgrad_policy')!='adamw-amsgrad-v1'))
-                or (value.get('candidate_profile') not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
+                or (value.get('candidate_profile') not in QUADRANT_MIL_SMALL_BINDINGS
                     and (value.get('job',{}).get('quadrant_mil_policy')is not None
                          or value.get('candidate',{}).get('quadrant_mil_policy')is not None))
-                or (value.get('candidate_profile') in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
+                or (value.get('candidate_profile') in QUADRANT_MIL_SMALL_BINDINGS
                     and (value.get('job',{}).get('quadrant_mil_policy')!=QUADRANT_MIL_RULE
                          or value.get('candidate',{}).get('quadrant_mil_policy')!=QUADRANT_MIL_RULE))
                 or (value.get('candidate_profile')not in VIT_DINO3_CLS_BINDINGS
@@ -684,7 +689,7 @@ def candidate_from_configuration(value):
                                         SMALL_384_SEED27_BINDING,AUC_MARGIN_SMALL_BINDING,
                                         AUC_MARGIN_SMALL_SEED27_BINDING,COSINE_HEAD_SMALL_BINDING,COSINE_HEAD_SMALL_SEED27_BINDING,
                                         ADAMW_BETA2_SMALL_BINDING,ADAMW_BETA2_SMALL_SEED27_BINDING,
-                                        QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING,SMALL_DINO3_BINDING,
+                                        *QUADRANT_MIL_SMALL_BINDINGS,SMALL_DINO3_BINDING,
                                         SMALL_DINO3_SEED27_BINDING,PAIR_BCE_MIX_SMALL_BINDING,PAIR_BCE_MIX_SMALL_SEED27_BINDING):
         expected = {'id': 'r113-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-freezeearly-9010',
             'experiment_order': 23, 'model': 'convnext_small',
@@ -1040,17 +1045,21 @@ def candidate_from_configuration(value):
                         'mixstyle_policy','tri3_downsample_policy','output_regularization','attention_pool','stage3_residual',
                         'freeze_features_before','final_downsample_stride','training_views','training_rotation','training_photometric'))):
                 raise ValueError('fixed Small DINOv3 backbone/original512 pairlog recipe differs')
-        if value['candidate_profile'] in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING):
+        if value['candidate_profile'] in QUADRANT_MIL_SMALL_BINDINGS:
             from .config import QUADRANT_MIL_RULE
             expected.update(id='r172-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-corner288max05-9010',
                 experiment_order=84,readout='native_global512_half_corner288_max_half_plus_age',quadrant_mil_policy=QUADRANT_MIL_RULE)
             if value['candidate_profile']==QUADRANT_MIL_SMALL_SEED27_BINDING:
                 expected.update(id='r173-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-corner288max05-9010',experiment_order=85)
+            elif value['candidate_profile']==QUADRANT_MIL_SMALL_SEED20261106_BINDING:
+                expected.update(id='r251-convnext-small-imagenet22k-to-1k-24k-p4-seed20261106-scale085-pairlog-corner288max05-9010',experiment_order=161)
+            expected_seed = {QUADRANT_MIL_SMALL_SEED27_BINDING: 20261027,
+                             QUADRANT_MIL_SMALL_SEED20261106_BINDING: 20261106}.get(value['candidate_profile'], 20261029)
             if (source.get('revision')!='fe6b358aa409414cdb522ae3d43a2c9922f7cc1b'
                     or source.get('sha256')!='7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610'
                     or value['job'].get('loss')!=PAIR_LOGISTIC_LOSS
                     or (value['job'].get('model'),value['job'].get('seed'),value['job'].get('image_size'),value['job'].get('prepared_size'),
-                        value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=('convnext_small',20261027 if value['candidate_profile']==QUADRANT_MIL_SMALL_SEED27_BINDING else 20261029,512,512,64,8)
+                        value['job'].get('effective_batch'),value['job'].get('positive_per_batch'))!=('convnext_small',expected_seed,512,512,64,8)
                     or any(value['job'].get(k)is not None for k in ('adamw_beta2_policy','deit_pool_policy','cosine_head_policy',
                         'input_preprocessing','optimizer_policy','gradient_centralization_policy','gradient_clip_policy',
                         'head_warmup_policy','layerwise_lr_policy','low_rank_policy','stem_xy_policy','mixstyle_policy',
@@ -2090,7 +2099,7 @@ def validate_normalization(value):
     configured = science_configuration()['job']
     if configured.get('quadrant_mil_policy') is not None:
         from .config import QUADRANT_MIL_RULE
-        if (science_configuration()['candidate_profile'] not in (QUADRANT_MIL_SMALL_BINDING,QUADRANT_MIL_SMALL_SEED27_BINDING)
+        if (science_configuration()['candidate_profile'] not in QUADRANT_MIL_SMALL_BINDINGS
                 or configured['quadrant_mil_policy']!=QUADRANT_MIL_RULE
                 or value.get('quadrant_mil')!={'policy':QUADRANT_MIL_RULE,'network_calls':2,
                     'shared_network':True,'parameters_added':0}):
