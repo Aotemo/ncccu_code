@@ -5,3 +5,5 @@
 范围：新增 `tools/activation/async_handoff.sh` 和 `tests/test_async_handoff.py`；现有私有跨批入口只改派发末段，仍复用原窗口容量核验、实时 Pod 身份与现场快照。Pod 内使用单个独占目录做不可重置的派发占位，随后 `nohup`/`setsid`；activation 沿既有 CPU guard、隐藏设备和准备池执行，其退出码为零才调用既有显式设备可见的 GPU launch。每阶段各留起止时间与退出码；失败、未完成或客户端超时只读对账，不自动重试。输出不含 token，详细日志留私有路径。
 
 已在已核验 Pod 的准备池隔离测试：缺实现时预期失败，CPU 回执 `1ccb139e`；五项成功链、activation 失败不启动、launch 失败、并发与重复派发、脱离客户端继续执行、旧轮拒绝通过，CPU 回执 `e647b2ff`。测试使用隐藏设备的假命令，未做 GPU 前向。推送、API 回读、按内容哈希精确部署及真实 R254 接续仍待；各轮原有正式 CPU、精确源码部署及现场容量门不得跳过。
+
+随后源码 push/API `bb65a443`，与隔离测试版本逐字节一致的独立部署回执 `d4b3316a`。R254/B 容量门通过后首次实际后台执行，activation `62 s`、launch `6 s`、均 exit0；步骤与唯一 dispatch 核验 `d2712b0a`。真实八 rank、fresh 初态和首成功观察 `92d32503`；未改活跃冻结部署。R252 完成事件到 owner spawn `354.351 s`、安全观察到 spawn `225.237 s`，回执 `aec8f7ab`；未连续采样 GPU idle。
