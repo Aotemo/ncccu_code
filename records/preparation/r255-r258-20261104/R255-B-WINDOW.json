@@ -1,0 +1,22 @@
+{
+  "status": "cross_batch_safe_window_and_capacity_verified",
+  "at": 1793821831.9596598,
+  "round_id": "r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104",
+  "predecessor_safe_sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+  "site_sha256": "149f3ce5a2384e32074540affa3eddb433f381adc388259b19ac816de67e54e1",
+  "peer_round_id": "r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104",
+  "peer_site_sha256": "2a61bffd15f2908721efc18f73a853f254be6c835478000954d4af28e8fdb46b",
+  "peer_safe": false,
+  "peer_observed_size_bytes": 2012093447,
+  "peer_storage_limit_bytes": 12884901888,
+  "peer_reserved_bytes": 10872808441,
+  "peer_vanished_during_scan": 0,
+  "own_storage_limit_bytes": 12884901888,
+  "free_bytes": 92434071552,
+  "required_free_bytes": 45232546809,
+  "grant_remaining_seconds": 42473.72121620178,
+  "required_seconds": 31560,
+  "entry_sha256": "c5e2d2f1806f2e6a5e8d98dfb31a15fc9b2ebf4bc578c7e04c00dcc8064fefe5",
+  "activation_reserved": false,
+  "GPU_started": false
+}

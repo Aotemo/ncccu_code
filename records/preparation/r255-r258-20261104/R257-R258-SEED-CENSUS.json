@@ -1,0 +1,16 @@
+{
+  "status": "read_only_seed_census_and_public_asset",
+  "at": 1793821619.8259573,
+  "tested_seeds": [
+    20261113,
+    20261114
+  ],
+  "rounds_scanned": 117,
+  "seed_hits": [],
+  "unknown": [],
+  "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+  "public_provenance_sha256": "8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b",
+  "medical_pretraining": false,
+  "signals_sent": false,
+  "GPU_initialized": false
+}

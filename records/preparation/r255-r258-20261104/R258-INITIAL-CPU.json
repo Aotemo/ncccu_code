@@ -1,0 +1,84 @@
+{
+  "status": "new_seed_actual_public_fresh_CPU_factory_tensor_derived_not_formal_admission",
+  "at": 1793821947.7670205,
+  "round_id": "r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104",
+  "seed": 20261114,
+  "execution": {
+    "at": "2026-11-04T19:52:18.711775+00:00",
+    "scope": "compute_pod_cpu",
+    "namespace": "acfwvv9ejn",
+    "pod": "vcjob-2117909060596142082-acfwvv9ejn-44303-worker-0",
+    "uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+    "container": "vcjob-2117909060596142082-acfwvv9ejn-44303",
+    "python": "/usr/local/python3.12/bin/python3.12",
+    "python_version": "3.12.7",
+    "nice": 19,
+    "gpu_visibility": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "HIP_VISIBLE_DEVICES": "",
+      "ROCR_VISIBLE_DEVICES": ""
+    },
+    "thread_limits": {
+      "OMP_NUM_THREADS": "12",
+      "MKL_NUM_THREADS": "12",
+      "OPENBLAS_NUM_THREADS": "12"
+    },
+    "cpu_allocation": {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/CPU-ALLOCATION-1840.json",
+      "sha256": "873d205afd147554bb963b75c1c9278fe0a5d7652398e4ddcc28ac879986bf33",
+      "executor_id": "08ac5df9-3ab6-41ad-b7b1-ecfba1f8ac92",
+      "threads": 12,
+      "channel_mask": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "global_allocation_validated_by": "owner CPU execution channel"
+    },
+    "dependencies": {
+      "torch": "2.10.0+das.opt1.dtk2604.2607011947.g91a580",
+      "torchvision": "0.25.0+das.opt1.dtk2604.torch2100.2607021704.g7ffc50",
+      "numpy": "1.26.4",
+      "Pillow": "12.3.0",
+      "timm": "1.0.27"
+    }
+  },
+  "initial_model_tensor_sha256": "0196ca08036edd138115867410d8f566cb713b8c22ce9b3149d37aba9141c735",
+  "public_asset_receipt": {
+    "path": "technical-prep/dual-pod-20261104-4e0c/pod-a/public-current/PUBLIC-SMALL-CURRENT.json",
+    "sha256": "e25d549adfe272449807536ca2f44b0e7e7c1de7ad43d4ac2a776bfdb81687c4"
+  },
+  "provisional_source_sha256_before_removal": "53f7b16f8169497f0749d0101f097759304bc21184c9f58cb519993110a4208b",
+  "configuration": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/R258-INITIAL-A/R258-PROVISIONAL-SCIENCE.json",
+    "sha256": "899bdb3402ae20e693b0af58c13dd3b2592426949f976a15b76eb577f51d0175"
+  },
+  "same_original_job_except_seed": true,
+  "GPU_initialized": false,
+  "forward_calls": 0,
+  "factory_and_digest_seconds": 4.915233373641968,
+  "provisional_package_never_formal_or_GPU": true
+}

@@ -1,0 +1,18 @@
+{
+  "status": "formal_CPU_and_precise_git_deployment_ready",
+  "round_id": "r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104",
+  "at": 1793821567.5288439,
+  "git_commit": "9beac2d679553a3f0d9aca0fcabea562d4fc28a5",
+  "tree_sha": "166f0b112e66336e0a1eecdb778da46e05efab97",
+  "science_sha256": "6c9c084fb07e64b5190b01184521544d733862209203247f6e57d9ad2af35936",
+  "checks": 19,
+  "formal_cpu_sha256": "23f7aabaa96fc40f36938569a35e009f04d552c3fa04b9836f4cbf7be2a3d946",
+  "actual_initial_tensor_sha256": "5dc3df1236c963a56d86a4844c26c32ec305604717e464169e31d47aa840244c",
+  "site_sha256": "f9e6253e7822d19a5d8e7fcd2fb5ebd368f7babb8f8e4fe603b3e227f776430b",
+  "deployment_sha256": "629209d807782f43770320422fff3add3a9b81efef81f576ae33693ec9eaeabe",
+  "grant_valid_until": 1793864742.676151,
+  "grant_remaining_seconds": 43175.14596247673,
+  "required_seconds": 31560,
+  "formal_clock_created": false,
+  "GPU_started": false
+}
