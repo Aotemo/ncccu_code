@@ -1,0 +1,19 @@
+{
+  "status": "completed_blind_fit_geometry_gate",
+  "count": 64,
+  "required": 63,
+  "complete": 50,
+  "complete_with_margin": 47,
+  "algorithm_unknown_or_fallback": 12,
+  "review_unknown": 6,
+  "center_error_px_median": 11.832762530298218,
+  "passed": false,
+  "blind_seal_sha256": "3b491f36c79f306643bfda7bdcd0ff4087fb0f661fb246997baeee9030fb3410",
+  "private_result_sha256": "51eb9ef8d2490bde6307fed9f044c6b7dc047030a3c5115d283dfb1fcaba8a5c",
+  "source_sha256": "dc9e8d90e1b0d5c67bc5595d0d3a689e3545539f47e6bbbb54edfffaf1cbe7e7",
+  "official_read": false,
+  "model_loaded": false,
+  "forward_calls": 0,
+  "GPU_initialized": false,
+  "limitation": "AI technical rough boxes, not expert segmentation; native mapping unvalidated"
+}

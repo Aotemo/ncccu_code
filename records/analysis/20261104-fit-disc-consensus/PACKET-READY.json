@@ -1,0 +1,13 @@
+{
+  "status": "blind_packet_ready_unreviewed",
+  "count": 64,
+  "available": 64,
+  "sheets": 16,
+  "private_members_sha256": "2a24a2a40fe2f01454c6a45e150cedb5330c830d4fd47f069ceaae88eb088d19",
+  "packet_sha256": "531e63d997949bff7ca26c41f9dc8bc6d00a9ea380ac362e3fd42bf584c1f4bc",
+  "source_sha256": "dc9e8d90e1b0d5c67bc5595d0d3a689e3545539f47e6bbbb54edfffaf1cbe7e7",
+  "official_read": false,
+  "model_loaded": false,
+  "forward_calls": 0,
+  "GPU_initialized": false
+}

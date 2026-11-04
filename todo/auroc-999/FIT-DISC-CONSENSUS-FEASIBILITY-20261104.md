@@ -11,3 +11,5 @@
 预计最小实现范围：`runtime/bundle/retrain/preprocessing.py` 新增未接入训练的固定一致性函数、`tests/test_disc_localization.py` 增独立合成几何/退让检查，复用 `tools/diagnostics/structure_review.py` 的 fit-only packet，在本执行者独立 exp-v3 technical-prep 留名单、图像、粗框及预测；Git 仅记录本合同、源码、测试和汇总/小型回执。先完成盲封材料与技术粗框，再预测；不使用任何外部医学权重/图片，不能修改标签或回灌训练。当前仅登记，未抽样、未预测、未通过几何门；GPU接续与 R255/R256 准备优先。
 
 **21:10 实施范围细化，仍未读取本留出集：** 为避免修改训练代码，把固定一致性和盲封入口放在独立 `tools/diagnostics/fit_disc_consensus.py`、对应合成窄测 `tests/test_fit_disc_consensus.py`；复用现有只读 512 缓存、`ImageDataset._image_tensor` 生产视图、既有两个定位器与旧盲审输出格式。缓存缺失时仅回退核对 SHA 的 fit 原图，缺项明确记 unknown；限制最多 4 张/s。留出名单、无定位预测的匿名图像和64项人工技术粗框先后独立封存，输入身份与粗框封存 SHA 经核对后才计算该固定方法。窄测旧代码因入口不存在预期失败（CPU `3a04b5d9`），隔离草稿通过 4/4（CPU `9f153695`）；尚无真实包、粗框或定位结果。任何样本级图片、索引、框和预测均只留 exp-v3，不进 Git。
+
+**21:22 结果：未过门。** 无预测盲包 64/64 可用（`0f5b65b3`），64 项非专家技术粗框先封存 `3b491f36`，其中 6 项 unknown；预测结果完整包含 50/64、含固定余量 47/64，算法 unknown/回退 12，未达 ≥63/64（结果 `9f48aa31`）。12 个算法回退本身已将按原规则可通过数限制至最多52，独立于粗框不确定性；人工通过保持几何的 JPEG 显示副本审阅，不是专家分割。源码 push/API `3229e07`，完整 3357 文件 tree `c8814b91`。不调阈值或重试，不进入 A/B 训练；原图映射和临床性能未验证。精简证据见[汇总](../../records/analysis/20261104-fit-disc-consensus/README.md)。
