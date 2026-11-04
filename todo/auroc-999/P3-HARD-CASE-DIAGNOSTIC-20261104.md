@@ -19,4 +19,6 @@
 
 - 仓库允许新增本合同 `todo/auroc-999/P3-HARD-CASE-DIAGNOSTIC-20261104.md`、最小只读诊断 `tools/diagnostics/p3_hard_case.py`、必要算法检查 `tests/test_p3_hard_case.py`、`records/analysis/20261104-p3/README.md`、`SUMMARY.json`、`RECEIPT.json`，以及更新 `todo/README.md`；不改训练入口、科学配置或现役冻结包。
 - 私有输出限定在 `/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/P3-HARD-CASE/`：样本映射、逐例分位、图像质量、哈希与近重复对、分批进度/日志；它们不进入 Git。仓库只收聚合结论、小型真实回执与必要分析代码/测试，不收图像、逐样本预测、哈希全表、权重或压缩包。
-- 在代码/配置正式同步、Pod 内窄测试及精确来源验证后执行；结果分阶段记录覆盖、失败/unknown 和 SHA。F03 原七成员冻结，不把后续训练结果插入本诊断。当前仅登记，尚无 P3 结果。
+- 在代码/配置正式同步、Pod 内窄测试及精确来源验证后执行；结果分阶段记录覆盖、失败/unknown 和 SHA。F03 原七成员冻结，不把后续训练结果插入本诊断。登记时尚无 P3 结果，后续状态见下文。
+
+**15:52 预核：** Pod A 只读核验 5140 dev 中 167 正/4973 负、fit 46256，36 例封存映射及盲态评语通过，36 例为 28 正/8 负，固定20全在其中；七成员 F03 输入、manifest 和身份匹配，回执 `670ab89e6703853e7b9d0a5e84884bad100bdaadde8bc86ae50d8d022b9cba70`。排名/平分同分、七成员一致性和双 hash 判据的 3 项 Pod CPU 窄测通过 `6e1b39e6b2cd559132ffb491f595717dd0b1de0b4e439bd1f44cddd539e7c6b3`；结果尚未执行。大规模图像读取暂不与全量存储盘点并行。
