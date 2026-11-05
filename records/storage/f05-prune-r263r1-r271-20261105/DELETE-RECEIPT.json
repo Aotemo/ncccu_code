@@ -1,0 +1,202 @@
+{
+  "at": 1793880010.5062718,
+  "status": "deleted_non_selected",
+  "deleted": [
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5b8cf80cbc7b4e04917cf425e7395d3a.pt",
+      "size": 792155722
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6044a8213f3e44fd96c6999b6d878a0e.pt",
+      "size": 792155722
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/checkpoints/checkpoint-9c2d0d59b568411c94128142ea382bc6.pt",
+      "size": 792155210
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/checkpoints/checkpoint-aa760390d31d4560bdcb7ff2d16ba349.pt",
+      "size": 792155274
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/checkpoints/checkpoint-dad611f69fb24c63bcd1d1d772b77c61.pt",
+      "size": 792155210
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ef4c3023c30f4d328d228cd6b001dce9.pt",
+      "size": 792155210
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104/outputs/r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261119-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-c4e3d550e2b548bb98215ab1b408c8d7.pt",
+      "size": 396066811
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6b398cb6d0f64341b2d0a2301ef175f1.pt",
+      "size": 792151306
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/checkpoints/checkpoint-72b5b7b54e124a30b11413fdf7e9a82e.pt",
+      "size": 792151306
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c41fe2f2ec5b40ab89898b7088a6195b.pt",
+      "size": 792151306
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c7e387cbe8bc4d50adcd5ca229f10d30.pt",
+      "size": 792151754
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c9758624146e4658899ed9115ec68a70.pt",
+      "size": 792151754
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ddae9f081b794e8cb7254cbbf324ccdb.pt",
+      "size": 792151306
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104/outputs/r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261120-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-01e47552d6034e39a2d8f276b61d951f.pt",
+      "size": 396062843
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3450ead50c6d421ea3dbcbaa5df97dc2.pt",
+      "size": 792105290
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5bf625d4c7a549a3ac34b7059a7b3916.pt",
+      "size": 792105290
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6873e5662a654dcdb141ed056bd2f0cc.pt",
+      "size": 792105546
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ebd61c0dd3d842a9bda8d3eda15b3ba5.pt",
+      "size": 792105290
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-f5ccd1ec7b28427693a7a5f0f038bf53.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-3f09fcdf03fc41aa927b06ac0125e97f.pt",
+      "size": 396063099
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-1aff5676b4bd4f5497a28ce848989b02.pt",
+      "size": 792105546
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-4212bd6bc2e542e5a63b5439569df485.pt",
+      "size": 792105802
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-80ee2c81c4e34f0d98b4cc3af241a92c.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-846709d89ca043fc8cdcd7307bd5c90d.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ce644cdcdb1e4811ac558a972ca1d5a5.pt",
+      "size": 792105802
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-f3b59082a30445eda1a91bda67f085cc.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-f20436a4da7744708676abb4d70d2357.pt",
+      "size": 396063099
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-0d9b140d37664819a3d4c17de3f44b69.pt",
+      "size": 792105802
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-1511dae841c1487ebf9eafa5f55f5c6f.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-25589f8c7286474081e90e773b4fb2dd.pt",
+      "size": 792105802
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-7661622338f54f4ba74794b3bb10290b.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a7568670e6094391aa2a4db6aed44550.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/checkpoints/checkpoint-fa2327c253dd46faa7a5b5143d6d44ff.pt",
+      "size": 792105354
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105/outputs/r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261029-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-ae25ee6fb44a44148fbf1624afd86135.pt",
+      "size": 396063099
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/checkpoints/checkpoint-09cb3018f63d4740ad504cb5738fc6a0.pt",
+      "size": 792151562
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/checkpoints/checkpoint-1c1fd411fff14dbc801b684232ddd65f.pt",
+      "size": 792152010
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/checkpoints/checkpoint-657c9aa439c24d2eb3c548eeb8b9ceca.pt",
+      "size": 792151562
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/checkpoints/checkpoint-be4bbaafc8814084839d4d202aeab524.pt",
+      "size": 792151562
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/checkpoints/checkpoint-bf335e955cff4e64bc31fa1109581ed9.pt",
+      "size": 792151818
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ead9cdfa902e4e13994ca44698e584d0.pt",
+      "size": 792152010
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105/outputs/r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261122-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-cbf10124c2324d34914bb9cc8b50d0f4.pt",
+      "size": 396063163
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/checkpoints/checkpoint-04766314f7c04e699de7c983e600b82d.pt",
+      "size": 792151690
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/checkpoints/checkpoint-0cde70faa20448589ce4777a28a84602.pt",
+      "size": 792151882
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3b25a1465b284dcfa1b393ef24f6b185.pt",
+      "size": 792151690
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/checkpoints/checkpoint-46e01a0af0a5430cab1dc2ce50d0d090.pt",
+      "size": 792151690
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/checkpoints/checkpoint-8115e3d7886248a2940f39c8722a25e8.pt",
+      "size": 792152138
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a088627c40dc44868ff52e4fa380fd8d.pt",
+      "size": 792152138
+    },
+    {
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105/outputs/r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105-8c-convnext_small-s20261123-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-489f0417693640c6bcb75d3fd64a590e.pt",
+      "size": 396063227
+    }
+  ],
+  "deleted_count": 48,
+  "deleted_bytes": 35249901175,
+  "protected_unchanged": true,
+  "plan_sha256": "6dd6931e4dbf7ec64c946288df2fc1d967a3a2ce491156847ca252dd55c81a66"
+}

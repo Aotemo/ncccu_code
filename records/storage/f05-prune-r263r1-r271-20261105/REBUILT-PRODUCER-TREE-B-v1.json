@@ -1,0 +1,15 @@
+{
+  "at": 1793880286.6727438,
+  "status": "producer_tree_rebuilt_from_published_archive_verified",
+  "pod_uid": "04203d31-96b5-415d-b126-a30f3ac6107f",
+  "source_root": "/tmp/technical-prep/37e3fb34-c233-4294-b517-e98978cbd016/F05-OOF-B-published-b62-v1/source-git",
+  "archive": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-OOF-B-b62-published-v1/SOURCE.tar.gz",
+    "sha256": "1b3b2c1ea5f4596fac148942f21e2fed18d837c47db80b235042d7ecaeba4d90"
+  },
+  "commit": "b62bdddbb2b552f0d384058de49af85d2c9c1d84",
+  "tree": "68658ed75501c00f6558e4e8f92a71c2370929a3",
+  "producer_pod_uid": "37e3fb34-c233-4294-b517-e98978cbd016",
+  "file_count": 3534,
+  "worker_sha256": "b249c370624b2b98e572e4a27c15484f351e34ac805550f2f2a2ac846192014c"
+}
