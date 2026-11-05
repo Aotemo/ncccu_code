@@ -16,6 +16,7 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'runtime/bundle'))
 
 OLD_MEMBERS_SHA = '3602cf733c5542d7a5e5c8b0b469fb205212431456598d45ec9c8b82d59dbf90'
+CONSENSUS_MEMBERS_SHA = '2a24a2a40fe2f01454c6a45e150cedb5330c830d4fd47f069ceaae88eb088d19'
 MANIFEST_SHA = '7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377'
 
 
@@ -96,7 +97,7 @@ def require_context(root):
     return root
 
 
-def prepare(root, site_path, site_sha, old_path):
+def prepare(root, site_path, site_sha, old_path, *, consensus_path=None):
     import io
     import numpy as np
     import torch
@@ -117,11 +118,23 @@ def prepare(root, site_path, site_sha, old_path):
     fit = manifest['fit_indices']
     if len(fit) != 46256 or len(old['selected_global_indices']) != 96:
         raise ValueError('fit or excluded sample count differs')
-    selected = choose_fit(fit, old['selected_global_indices'], 64, 20261112)
+    excluded = old['selected_global_indices']
+    seed = 20261112
+    if consensus_path is not None:
+        if sha(consensus_path) != CONSENSUS_MEMBERS_SHA:
+            raise ValueError('previous consensus holdout identity differs')
+        previous = json.loads(Path(consensus_path).read_text())['selected_global_indices']
+        if len(previous) != 64 or set(previous) & set(excluded):
+            raise ValueError('previous holdouts must be disjoint')
+        excluded = excluded + previous
+        seed = 20261124
+    selected = choose_fit(fit, excluded, 64, seed)
     root.mkdir(exist_ok=False)
     private = {'manifest_sha256': MANIFEST_SHA, 'excluded_sha256': OLD_MEMBERS_SHA,
-               'random_seed': 20261112, 'selected_global_indices': selected,
+               'random_seed': seed, 'selected_global_indices': selected,
                'selection_uses_labels_age_scores': False, 'official_read': False}
+    if consensus_path is not None:
+        private['excluded_consensus_sha256'] = CONSENSUS_MEMBERS_SHA
     write_new(root / 'PRIVATE-MEMBERS.json', private)
     visible = root / 'reviewer'
     visible.mkdir()
@@ -168,7 +181,14 @@ def prepare(root, site_path, site_sha, old_path):
         view.save(image_path)
         cases.append({'alias': alias, 'image': image_path.name, 'sha256': sha(image_path),
                       'available': image is not None})
-        private_rows.append({'alias': alias, 'global_index': index, 'source': source, 'error': error})
+        valid_rect = None
+        if image is not None:
+            ratio = 512 / max(image.size)
+            width, height = (max(1, round(value * ratio)) for value in image.size)
+            left, top = round((512 - width) * .5), round((512 - height) * .5)
+            valid_rect = [left, top, left + width, top + height]
+        private_rows.append({'alias': alias, 'global_index': index, 'source': source, 'error': error,
+                             'valid_rect': valid_rect})
     sheets = []
     for start in range(0, 64, 4):
         canvas = Image.new('RGB', (1024, 1072), (25, 25, 25))
@@ -187,6 +207,7 @@ def prepare(root, site_path, site_sha, old_path):
     result = {'status': 'blind_packet_ready_unreviewed', 'count': 64,
               'available': sum(x['available'] for x in cases), 'sheets': len(sheets),
               'private_members_sha256': sha(root / 'PRIVATE-MEMBERS.json'),
+              'private_mapping_sha256': sha(root / 'PRIVATE-MAPPING.json'),
               'packet_sha256': sha(visible / 'PACKET.json'), 'source_sha256': sha(__file__),
               'official_read': False, 'model_loaded': False, 'forward_calls': 0, 'GPU_initialized': False}
     write_new(root / 'PACKET-READY.json', result)
