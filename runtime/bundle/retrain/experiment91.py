@@ -115,6 +115,7 @@ GLOBAL_NATIVE_SIX_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k
 GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-native6-v1'
 GLOBAL_768_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-global768-v1'
 GLOBAL_768_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-global768-v1'
+GLOBAL_768_SIGMOID_SEED20261122_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261122-scale085-pairsigmoid-global768-v1'
 SWIN_V2_SMALL_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-v1'
 SWIN_V2_SMALL_SEED27_BINDING = 'single-swin-v2-small-db3a0c7e-fixed-9010-24k-earlystop-seed20261027-scale085-pairlog-v1'
 HARD_POSITIVE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-positive-top2-mix05-v1'
@@ -221,7 +222,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                       NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                       GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
-                      GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
+                      GLOBAL_768_SMALL_SEED27_BINDING,GLOBAL_768_SIGMOID_SEED20261122_BINDING,SWIN_V2_SMALL_BINDING,
                       SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                       HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                       PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
@@ -263,6 +264,7 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r263-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261119_BINDING,
     'r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261119_BINDING,
     'r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261120-scale085-pairsigmoid-v1',
+    'r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105': GLOBAL_768_SIGMOID_SEED20261122_BINDING,
     'r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105': PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
 }
 
@@ -366,7 +368,7 @@ def science_configuration():
                                                        GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                                        NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                                                        GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
-                                                       GLOBAL_768_SMALL_SEED27_BINDING,SWIN_V2_SMALL_BINDING,
+                                                       GLOBAL_768_SMALL_SEED27_BINDING,GLOBAL_768_SIGMOID_SEED20261122_BINDING,SWIN_V2_SMALL_BINDING,
                                                        SWIN_V2_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                                        HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                                        PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
@@ -467,7 +469,7 @@ def science_configuration():
                     and (value.get('job',{}).get('input_preprocessing')!=GLOBAL_NATIVE_SIX_RULE
                          or value.get('candidate',{}).get('input_preprocessing')!=GLOBAL_NATIVE_SIX_RULE
                          or not isinstance(value.get('composite_cache_receipt'),dict)))
-                or (value.get('candidate_profile') in (GLOBAL_768_SMALL_BINDING,GLOBAL_768_SMALL_SEED27_BINDING)
+                or (value.get('candidate_profile') in (GLOBAL_768_SMALL_BINDING,GLOBAL_768_SMALL_SEED27_BINDING,GLOBAL_768_SIGMOID_SEED20261122_BINDING)
                     and (value.get('job',{}).get('image_size')!=768
                          or value.get('job',{}).get('prepared_size')!=768
                          or not isinstance(value.get('prepared_cache_receipt'),dict)))
@@ -539,7 +541,7 @@ def science_configuration():
                          or value.get('job', {}).get('stage3_residual') is not None
                          or value.get('job', {}).get('gradient_clip_policy') != ROLEWISE_CLIP_RULE
                          or value.get('candidate', {}).get('gradient_clip_policy') != value.get('job', {}).get('gradient_clip_policy')))
-                or (value.get('candidate_profile') in (PAIR_SIGMOID_SMALL_BINDING,
+                or (value.get('candidate_profile') in (GLOBAL_768_SIGMOID_SEED20261122_BINDING,PAIR_SIGMOID_SMALL_BINDING,
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,*PAIR_SIGMOID_SEED_REPLICAS,PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                                        PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
@@ -713,7 +715,7 @@ def candidate_from_configuration(value):
                                         GLOBAL_NATIVE_INSET_SMALL_SEED27_BINDING,NO_MODEL_STOCH_SMALL_BINDING,
                                         NO_MODEL_STOCH_SMALL_SEED27_BINDING,GLOBAL_NATIVE_SIX_SMALL_BINDING,
                                         GLOBAL_NATIVE_SIX_SMALL_SEED27_BINDING,GLOBAL_768_SMALL_BINDING,
-                                        GLOBAL_768_SMALL_SEED27_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
+                                        GLOBAL_768_SMALL_SEED27_BINDING,GLOBAL_768_SIGMOID_SEED20261122_BINDING,HARD_POSITIVE_SMALL_BINDING,HARD_NEGATIVE_SMALL_BINDING,
                                         HARD_NEGATIVE_SMALL_SEED27_BINDING,PAIR_SQUARED_HINGE_SMALL_BINDING,
                                         PAIR_SQUARED_HINGE_SMALL_SEED27_BINDING,ADAMW_AMSGRAD_SMALL_BINDING,
                                         ADAMW_AMSGRAD_SMALL_SEED27_BINDING,NADAM_SMALL_BINDING,NADAM_SMALL_SEED27_BINDING,
@@ -1045,6 +1047,16 @@ def candidate_from_configuration(value):
         if value['candidate_profile']==GLOBAL_768_SMALL_SEED27_BINDING:
             expected.update(id='r153-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairlog-global768-9010',
                             experiment_order=65)
+        if value['candidate_profile']==GLOBAL_768_SIGMOID_SEED20261122_BINDING:
+            expected.update(id='r270-convnext-small-imagenet22k-to-1k-24k-p4-seed20261122-scale085-pairsigmoid-global768-9010',
+                            experiment_order=180)
+            fixed = {'model':'convnext_small', 'seed':20261122, 'image_size':768,
+                     'prepared_size':768, 'effective_batch':64, 'positive_per_batch':8,
+                     'normalization':'imagenet', 'precision':'fp32', 'training_scale':[0.85,1.0],
+                     'backbone_lr':1e-4, 'head_lr':1e-3, 'weight_decay':1e-4,
+                     'dropout':0.2, 'stochastic_depth':0.1, 'loss':PAIR_SIGMOID_LOSS}
+            if any(value['job'].get(key) != expected_value for key,expected_value in fixed.items()):
+                raise ValueError('fixed R270 global-768 sigmoid recipe differs')
         if value['candidate_profile']==HARD_POSITIVE_SMALL_BINDING:
             expected.update(id='r156-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairlog-positive-top2-mix05-9010',
                             experiment_order=68)

@@ -116,7 +116,7 @@ def main(args):
     is_stem_xy = job.get('stem_xy_policy') is not None
     from retrain.config import GLOBAL_NATIVE_SIX_RULE
     is_native6 = job.get('input_preprocessing')==GLOBAL_NATIVE_SIX_RULE
-    is_global768 = ex.science_configuration()['candidate_profile'] in (ex.GLOBAL_768_SMALL_BINDING,ex.GLOBAL_768_SMALL_SEED27_BINDING)
+    is_global768 = ex.science_configuration()['candidate_profile'] in (ex.GLOBAL_768_SMALL_BINDING,ex.GLOBAL_768_SMALL_SEED27_BINDING,ex.GLOBAL_768_SIGMOID_SEED20261122_BINDING)
     is_raw_gc = job.get('gradient_centralization_policy') is not None
     is_lion = job.get('optimizer_policy') is not None
     structure = ex.describe_model(model); public = model.public_initialization_receipt
