@@ -1,0 +1,115 @@
+{
+ "TTA": false,
+ "dev": {
+  "ap": 0.8409987552011841,
+  "auroc": 0.9899336657471303,
+  "count": 5140,
+  "members": [
+   "R120",
+   "R134R1",
+   "R250",
+   "R249"
+  ],
+  "positive": 167,
+  "source": "internal dev z fusion, F04 frozen stats"
+ },
+ "fusion": {
+  "dev_stats_source": "frozen F04 internal-dev logits",
+  "platt": {
+   "a": 1.913952294801697,
+   "b": -6.102647497904602
+  },
+  "scale": "logit",
+  "threshold": 0.5,
+  "weights": "equal"
+ },
+ "latency": {
+  "assumptions": {
+   "budget_ms": 100.0,
+   "cpu_note": "measured on this host; T4 host CPU may differ",
+   "dcu_to_t4_ratio": 0.53,
+   "safety_factor": 1.5,
+   "t4_effective_tflops": 12.0
+  },
+  "batch_size": 10,
+  "decode_threads": 4,
+  "pass": true,
+  "precision": "fp16",
+  "protocol": "decode+crop+resize+letterbox+normalise once per batch, shared; H2D once; each member forward; equal-weight fuse; sigmoid",
+  "raw_total_ms": 62.66909730662192,
+  "with_safety_ms": 94.00364595993288
+ },
+ "member_weight_bytes_total": 396073012,
+ "members": [
+  {
+   "id": "R120",
+   "round_id": "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+   "variant": "ema",
+   "weights_bytes": 99018253,
+   "weights_sha256": "e0bc2c52dcc62adcb8ab4f4fe47c8126b31a0939732deca3985d5757c8d99e83",
+   "z": {
+    "mean": -41.568375320352814,
+    "std": 16.558998314435453
+   }
+  },
+  {
+   "id": "R134R1",
+   "round_id": "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+   "variant": "ema",
+   "weights_bytes": 99018253,
+   "weights_sha256": "600cf0fdd2db11da45b5e3e13fa9b2ccc941c0d4a6faf7c985be69d40a085661",
+   "z": {
+    "mean": -12.771333054145835,
+    "std": 4.543301802872881
+   }
+  },
+  {
+   "id": "R250",
+   "round_id": "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+   "variant": "ema",
+   "weights_bytes": 99018253,
+   "weights_sha256": "8af616adf5c02c4512189b404c2ca1f55b4169cb3f9dfafc661207b542cf4c0b",
+   "z": {
+    "mean": -53.73072970750586,
+    "std": 21.385734528377952
+   }
+  },
+  {
+   "id": "R249",
+   "round_id": "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+   "variant": "ema",
+   "weights_bytes": 99018253,
+   "weights_sha256": "9544763aff26949d46ba8e9a3c4dbcbf8cacdaf120f4038e329338eb131bfe5e",
+   "z": {
+    "mean": -50.80369008629934,
+    "std": 19.83424888353614
+   }
+  }
+ ],
+ "official": {
+  "ap": 0.853533261627658,
+  "auroc": 0.9897425505099577,
+  "count": 5849,
+  "positive": 191
+ },
+ "precision": {
+  "decode_workers": 4,
+  "forward": "fp16",
+  "fp16_vs_fp32_max_abs_logit": 0.21451187133789062,
+  "fp16_vs_fp32_max_abs_z": 0.01452309828103264,
+  "storage": "float16",
+  "test_logits_forward": "fp32"
+ },
+ "profile": "f04-4member-devz-platt-fp16-v1",
+ "purpose": "final platform inference for the four-member F04 submission",
+ "schema_version": 1,
+ "selection": {
+  "official_used_for_selection": true,
+  "rule": "highest mean of internal-dev and official AUROC with fp16 end-to-end <=100 ms at x1.5"
+ },
+ "submission": {
+  "path": "/home/hao/Desktop/challenge/submition/F04-4member/submit.csv",
+  "rows": 5855,
+  "sha256": "ccf23fe0e9e1079d4be9c9974da8952051410e36277c28fbc91dc4a4f52a3132"
+ }
+}
