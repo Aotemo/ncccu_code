@@ -25,3 +25,20 @@
 ## 交接记录
 
 - 执行 Agent：`08ac5df9-3ab6-41ad-b7b1-ecfba1f8ac92`，Ter执行 profile（codex gpt-6.1-terra，max，full-access），由 c607 创建于 2026-11-04；接管时间与首个提交由其在 todo/README.md 页首登记。
+
+## 2026-11-05 新增 CPU 准备助手（用户批准）
+
+- 助手：`516d5fca-10fc-4fd7-ae00-1d772f025c94`（Ter执行 profile），工作区 git worktree `/home/hao/.paseo/worktrees/0vbeo4hh/helper-cpu-prep`，分支 `helper/cpu-prep-20261105`。
+- 职责：仅 CPU/准备池工作（A2 注意力定位可行性、汤模式评估代码、标签清洗/蒸馏训练代码与 CPU 测试）；不 activation/launch、不发训练信号、不派 GPU、不读官方。
+- Git：只 push helper/* 分支；08ac 审阅后合并到 main，合并前不得部署。08ac 仍是唯一 GPU owner 与 main 唯一写入者。
+- CPU：每 Pod 24 核准备池拆分互斥 12/12（08ac 0–11，助手 12–23），allocation 与 context 路径由 08ac 生成后登记于下方。
+
+（08ac 在此登记助手 allocation SHA 与 context 文件路径）
+
+### 2026-11-05 07:35 UTC 双 Pod 12/12 实核与上下文
+
+- A UID `04203d31-96b5-415d-b126-a30f3ac6107f`、B UID `37e3fb34-c233-4294-b517-e98978cbd016`；当前两 Pod 分别实测 effective `120` CPU、cgroup quota `12000000/100000`、Python `3.12.7`，每 Pod 准备总额 24。两份新 allocation 均固定 08ac `0–11`、516d `12–23`、每人 12 线程，互不重叠；训练池使用其既有冻结 80% 分配，不热改。
+- A allocation `/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/F05-DUAL-PREP-ALLOCATION-v1.json`，SHA `d0eb7b718b747f7188ba93dc14bd335ef0032079ae0fbdfd31f5449ac36b31af`；B allocation `/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/F05-DUAL-PREP-ALLOCATION-v1.json`，SHA `eef8b24fd7c99817ecbee503d52a0eef76f1996db447440263f21724727dd9fd`。均在 2026-11-05 13:32:22 UTC 前有效；到期前由 08ac 重新实测并发放，不沿用过期 allocation。
+- 助手环境文件：[Pod A](/home/hao/Desktop/challenge/work/takeover-20261104-08ac/helper-pod-a-prep.env)、[Pod B](/home/hao/Desktop/challenge/work/takeover-20261104-08ac/helper-pod-b-prep.env)。它们只引用已有本机绑定、不复制凭据，并设置助手唯一 executor ID、对应 allocation/SHA 及独立 `NCCCU_HELPER_PREP_ROOT=/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/helper-20261105-516d`；源码/测试仅在助手 worktree，实际 Pod 产物只写其独立 technical-prep。每次仍须由 `tools/environment/pod_cpu.sh` 核 UID/Ready/容器、资源 policy 与 guard 后，在隐藏设备、nice 19 的 12–23 mask 内执行；不要沿用旧 24 核准备入口或用 0–11 运行助手辅助进程。
+- 08ac 自用上下文为 `/home/hao/Desktop/challenge/work/takeover-20261104-08ac/pod-a-dual-owner-prep.env` 和 `pod-b-dual-owner-prep.env`；原 `pod-a-soup-prep.env`/`pod-b-train-prep.env` 已转接新额度，旧文件副本只作历史记录。08ac 通过助手上下文在 A/B 实际 probe，均为 12 线程、mask 12–23、GPU 未初始化，CPU 回执分别 `9fa98a5c480388e7d534c887b340fe4195e9aab5138f75702ab43b9ee1f6e985` / `35270da40dc88922f38975f4981ec9cde65dc34d7119e5f5ddd3fa5525f3e47e`；这两次 probe 由 08ac 执行，不冒称助手本人执行。
+- 助手专责 A2、汤模式、清洗/蒸馏所需 `classification_loss.py`、`distributed_engine.py`、`data.py`、`config.py` 及其测试；08ac 专责三折 `f05_oof.py`、`f05_oof_assets.py`、`f05_folds.py`、`experiment91.py`、`pipeline.py`、`tools/activation/prepare.py`。共享接口由助手写入 `HELPER-*` 说明后由 08ac 接线；合并前不得部署助手代码。两方共用已有 SSH 并发限制，避免同时启动多条重 I/O。
