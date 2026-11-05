@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'runtime/bundle'))
@@ -111,6 +112,7 @@ class CleanDistillTest(unittest.TestCase):
         self.assertEqual(result['thresholds'], [.95, .95])
         self.assertEqual(result['confident_joint'], [[1, 1], [1, 1]])
         self.assertEqual(result['suspicious_positions'], [0, 3])
+        self.assertEqual(f05_confident_joint([0, 1], [np.float64(.1), np.float64(.9)])['thresholds'], [.95, .95])
         for labels, probs in (([0, 0], [.1, .2]), ([0, 1], [.1, float('nan')]),
                               ([0, 1], [.1, 1.1])):
             with self.assertRaises(ValueError):

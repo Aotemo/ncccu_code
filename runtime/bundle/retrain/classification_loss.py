@@ -1,5 +1,6 @@
 """Explicit binary losses and WORLD pairwise gather; validation imports no Torch."""
 import math
+import numbers
 
 OUTPUT_REGULARIZATION_RULE = {
     'version': 'global-raw-logit-square01-v1', 'coefficient': .1,
@@ -197,9 +198,11 @@ def f05_confident_joint(labels, calibrated_p1):
     if (not labels or len(labels) != len(probabilities)
             or any(type(label) is not int or label not in (0, 1) for label in labels)
             or set(labels) != {0, 1}
-            or any(type(p) not in (int, float) or not math.isfinite(p) or not 0 <= p <= 1
+            or any(isinstance(p, bool) or not isinstance(p, numbers.Real)
+                   or not math.isfinite(p) or not 0 <= p <= 1
                    for p in probabilities)):
         raise ValueError('finite calibrated fit-only probabilities and both classes required')
+    probabilities = [float(p) for p in probabilities]
     by_class = [[(1 - p if label == 0 else p) for label, p in zip(labels, probabilities) if label == cls]
                 for cls in (0, 1)]
     thresholds = [max(.95, sum(values) / len(values)) for values in by_class]
