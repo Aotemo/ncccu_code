@@ -1,6 +1,7 @@
 """F05 target-rule and real two-rank CPU WORLD gradient checks, using synthetic data."""
 import json
 import copy
+import hashlib
 from pathlib import Path
 import sys
 import tempfile
@@ -157,4 +158,8 @@ class CleanDistillTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    paths = ('runtime/bundle/retrain/classification_loss.py', 'runtime/bundle/retrain/data.py',
+             'runtime/bundle/retrain/distributed_engine.py', 'tests/test_f05_clean_distill.py')
+    print(json.dumps({'source_sha256': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+                                        for name in paths}}), flush=True)
     unittest.main()

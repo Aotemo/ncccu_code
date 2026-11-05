@@ -1,5 +1,6 @@
 """CPU-only synthetic isolation checks for the explicit F05 soup dev mode."""
 import copy
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -99,4 +100,8 @@ class SoupDevTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    paths = ('tools/diagnostics/f04_gpu_full_dev.py', 'tools/diagnostics/f05_soup_dev.py',
+             'tests/test_f05_soup_gpu.py')
+    print(json.dumps({'source_sha256': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+                                        for name in paths}}), flush=True)
     unittest.main()

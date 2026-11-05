@@ -1,5 +1,7 @@
 """Synthetic checks for the fixed A2 gate; no patient images or models."""
 import unittest
+import hashlib
+import json
 from pathlib import Path
 import sys
 
@@ -95,4 +97,9 @@ class AttentionGateTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    root = Path(__file__).resolve().parents[1]
+    paths = ('tools/diagnostics/fit_disc_attention.py', 'tools/diagnostics/fit_disc_consensus.py',
+             'tests/test_fit_disc_attention.py')
+    print(json.dumps({'source_sha256': {name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+                                        for name in paths}}), flush=True)
     unittest.main()
