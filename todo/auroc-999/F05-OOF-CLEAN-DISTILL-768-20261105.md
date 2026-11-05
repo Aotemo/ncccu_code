@@ -35,6 +35,8 @@
 
 R265–R267 共用一个包含三折 profile 的源码 commit，先核验并部署 R265/B；同一 Pod 的后续折复用同一全树源码快照，按各折 SCIENCE 和数据身份重新完成正式检查。版本化 SCIENCE 的 `f05_fold` 必须固定版本、折号、原始 metadata 根、原始 freeze/manifest SHA、三折封存路径/SHA、派生 freeze SHA；运行时验证这些字段、当前 site 的派生根与 round/profile 对应关系，并重算原始/派生/封存身份、角色和 fit-only age。正式准备同时将原始 metadata 根与现有迁移回执中的 stage1 根精确比对；非折 profile 不得携带该字段。
 
+R265/B 第一次正式准备中，技术准备通过但 `prepare_gpu_site.py` 的原始 relocation 路径匹配拒绝了派生折 metadata；失败日志 SHA `cba8e60b899436f3ea27604113ffe18959077dce08381815e915ca5cfffce0cb`，未进入正式 CPU/部署。额外受影响文件仅为 `tools/activation/prepare_gpu_site.py` 与现有折绑定测试：仅在已注册折上复核派生 metadata 与 relocation 的原始 stage1、封存分组和 SHA 后替代该单项路径匹配，其他资产路径和非折行为不变；旧失败目录保留。
+
 三折改动的合成检查在旧五折代码下预期失败（CPU `008d9f1c3795c0a8018d48ece1397ec584227ff23d41b4fe8c202ef955bd052f`），修改后 11/11 通过（CPU `d7eadb396860397865ef547579c317b32ccbd10e0415fe3e0b3cb4acfe1de2b9`），覆盖一次 held-out、组隔离、正例均衡、fold age 及错误身份拒绝。这只证明合成样本和元数据核心，真实三折分组、正式训练绑定、CPU 18/18 与部署尚未完成。
 
 补充旧五折状态拒绝检查后，三折、元数据派生和角色绑定 11/11 再通过（CPU `fd49a4c8f3c8548403d95ae2e6de19b05d48da4f77de603b72c286fc1ce528f2`）；仍待真实分组及完整正式链。

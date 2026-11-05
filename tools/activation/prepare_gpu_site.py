@@ -30,6 +30,19 @@ def write(path, value):
         json.dump(value, stream, indent=2, allow_nan=False); stream.write('\n')
 
 
+def verify_fold_relocation(site, science, relocation):
+    """Keep the original relocation binding for a registered OOF fold."""
+    from retrain.f05_folds import validate_fold_configuration, verify_bound_fold
+    if validate_fold_configuration(site, science) is None:
+        return False
+    try:
+        base_root = relocation['paths']['stage1_root']
+    except (KeyError, TypeError) as error:
+        raise ValueError('original stage1 relocation binding required') from error
+    verify_bound_fold(site, science, base_root)
+    return True
+
+
 def verify_native_guard(receipt_path, receipt_sha256, resource_policy, work_root):
     from retrain.site_binding import evidence_path
     receipt_path = evidence_path(receipt_path, work_root)
@@ -126,6 +139,8 @@ def main():
                        'public_weight': 'public_pretrained', 'public_provenance': 'public_metadata',
                        'train_identity': 'train_identity', 'prepared_cache': 'prepared_cache_root',
                        'official_manifest': 'official_manifest'}
+    if verify_fold_relocation(site, science, relocation):
+        mapping.pop('metadata_root')
     if public_asset:
         mapping.pop('public_weight'); mapping.pop('public_provenance')
     from retrain.preprocessing import verify_native_cache_asset,verify_composite_cache_asset

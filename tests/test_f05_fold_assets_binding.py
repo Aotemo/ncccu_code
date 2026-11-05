@@ -132,6 +132,15 @@ class FoldAssetsBindingTests(unittest.TestCase):
                             {'paths':{'stage1_root':str(self.base_root)}}))
             with self.assertRaises(ValueError):
                 prepare.verify_fold_migration(site, science, {'paths':{'stage1_root':str(self.fold_root)}})
+            spec = importlib.util.spec_from_file_location('fold_gpu_site', root / 'tools/activation/prepare_gpu_site.py')
+            gpu_site = importlib.util.module_from_spec(spec); spec.loader.exec_module(gpu_site)
+            self.assertTrue(hasattr(gpu_site, 'verify_fold_relocation'), 'GPU site must bind relocation')
+            self.assertTrue(gpu_site.verify_fold_relocation(site, science,
+                            {'paths':{'stage1_root':str(self.base_root)}}))
+            with self.assertRaises(ValueError):
+                gpu_site.verify_fold_relocation(site, science, {'paths':{'stage1_root':str(self.fold_root)}})
+            self.assertFalse(gpu_site.verify_fold_relocation(site,
+                             {'candidate_profile':'original-non-fold'}, {'paths':{'stage1_root':str(self.base_root)}}))
             from retrain import experiment91 as ex
             site['science'] = {'configuration':{'sha256':'f' * 64}}
             science['schedule'] = {'steps_per_cycle':800, 'total_updates':24000,
