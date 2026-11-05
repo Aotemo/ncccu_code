@@ -2,10 +2,17 @@
 import json
 import copy
 import hashlib
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+
+# A two-rank CPU test must subdivide the one guarded executor allocation.
+# Set these before NumPy/Torch imports and before multiprocessing children import
+# this module, so each process cannot start a full allocation-sized BLAS pool.
+for name in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
+    os.environ[name] = '1'
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +26,9 @@ from retrain.classification_loss import (classification_loss, f05_confident_join
 from retrain.data import F05_BASE_MANIFEST_SHA, F05_THREE_FOLD_SHA, validate_f05_target_table
 from retrain.distributed_engine import f05_train_batch_loss
 
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
+
 SPEC = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
         'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch'}
 INPUTS = [[.2, 1.], [1.5, .8]]
@@ -27,8 +37,6 @@ AUXILIARY = {'clean': [[.25, 1.], [1., .25]], 'distill': [[.1, .8], [.2, .7]]}
 
 
 def _world_worker(rank, rendezvous, result_dir):
-    torch.set_num_threads(1)
-    torch.set_num_interop_threads(1)
     dist.init_process_group('gloo', init_method='file://' + rendezvous, rank=rank, world_size=2)
     try:
         result = {}

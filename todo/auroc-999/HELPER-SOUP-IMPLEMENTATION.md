@@ -16,3 +16,5 @@
 `prepare-soup` 接受 `--source-root`、`--remote-metadata`、`--git-commit`、`--f04-inputs`、三次 `--soup-receipt` 与新 `--output`；后三个汤回执按版本化配置核验。具体 GPU owner 入口仍承接原完整 site/safe/window/ready 参数；汤模式不重筛 F04 成员，也不读取或消耗 F04 官方路径。
 
 缓存按各汤的历史 standalone/site 身份绑定并核可见性；不能要求与下一训练轮的缓存路径相同，例如下一轮 768 的缓存与汤的 512 缓存不同。基础 data root 仍与当次执行 site 核对。
+
+B 准备池的汤入口合成隔离检查 **5/5** 通过，guard 回执 `fdd65968a1d1b53317000347139a7f45ca1a75920b220f256c5f466a802243e9`；既有 F04 监督入口回归通过，guard 回执 `b26bbbaaf1f2e722915737cade8dbb1198bbe339cd83d3147c2d1089fffc0188`，其中官方分支仅用合成 fixture，未读取真实官方数据。实际 `f04_gpu_full_dev.py` SHA `8499adf00aacb7f37eca58df341d8481dca1e7d908e4d3f689fbf23c9329dc5f`，`f05_soup_dev.py` SHA `2c5ac33d20ad2a0136efe458bf2516571887519d80ad7ccce198aa60b3effac1`，测试文件 SHA `18314e6b83a8431f9ffeb99bf542769a6cb3643a493e1666307761bdc1c0e03a`。仍无本入口真实汤资产检查、正式 GPU 全 dev 或替换结果。
