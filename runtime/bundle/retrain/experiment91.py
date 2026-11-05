@@ -276,7 +276,7 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[1],
     'r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[2],
     'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105': F05_CLEAN_PROFILE,
-    'r268r1-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105': F05_CLEAN_PROFILE,
+    'r268-r1-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105': F05_CLEAN_PROFILE,
     'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105': F05_DISTILL_PROFILE,
     'r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105': GLOBAL_768_SIGMOID_SEED20261122_BINDING,
     'r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105': PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
@@ -289,7 +289,7 @@ def validate_f05_training_science(value, site=None):
     profiles = {
         F05_CLEAN_PROFILE: ('clean', 20261201, (
             'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105',
-            'r268r1-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105')),
+            'r268-r1-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105')),
         F05_DISTILL_PROFILE: ('distill', 20261202, (
             'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105',)),
     }

@@ -76,7 +76,7 @@ class F05TrainingBindingTest(unittest.TestCase):
             self.assertEqual(experiment91.candidate_from_configuration(value), value['candidate'])
             self.assertEqual(experiment91.validate_f05_training_science(value, {'round_id': round_id}), value['f05_targets'])
             if round_id.startswith('r268-'):
-                alias = round_id.replace('r268-', 'r268r1-', 1)
+                alias = round_id.replace('r268-', 'r268-r1-', 1)
                 self.assertEqual(experiment91.validate_f05_training_science(value, {'round_id': alias}), value['f05_targets'])
             for mutation in ('summary', 'mode', 'seed', 'initial', 'round', 'dropout', 'schedule', 'patience'):
                 broken = copy.deepcopy(value); site = {'round_id': round_id}
