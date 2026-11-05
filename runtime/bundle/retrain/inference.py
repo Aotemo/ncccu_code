@@ -247,6 +247,18 @@ def _forward(model, images, device, precision, age_features=None):
     return probabilities
 
 
+def preprocess_batch(dataset, indices, *, workers=1, pool=None):
+    """Decode/preprocess one batch; threads preserve the serial per-index output."""
+    indices = list(indices)
+    if workers <= 1:
+        return [dataset[index] for index in indices]
+    if pool is None:
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=workers) as local:
+            return list(local.map(dataset.__getitem__, indices))
+    return list(pool.map(dataset.__getitem__, indices))
+
+
 def _reserve_outputs(*paths):
     for path in paths:
         path = Path(path)
@@ -273,7 +285,8 @@ def _csv_output(destination, fields):
 
 
 def run_prediction(source, data_root, output, *, device='cpu', checkpoint='best',
-                   expected_count=5855, threshold=None, batch_size=32, precision=None, model_factory=None, variant=None):
+                   expected_count=5855, threshold=None, batch_size=32, precision=None, model_factory=None, variant=None,
+                   decode_workers=4):
     import torch
     if not isinstance(batch_size, int) or batch_size <= 0:
         raise ValueError('batch_size must be a positive integer')
@@ -286,10 +299,12 @@ def run_prediction(source, data_root, output, *, device='cpu', checkpoint='best'
     dataset = ImageDataset(data_root, rows, runtime['image_size'], False, runtime['normalization'],
                            prepared_size=runtime['prepared_size'],age=job.get('age'),
                            input_preprocessing=job.get('input_preprocessing'))
+    from concurrent.futures import ThreadPoolExecutor
+    pool = ThreadPoolExecutor(max_workers=decode_workers) if decode_workers and decode_workers > 1 else None
     with _csv_output(output, ['Image_name', 'Probability', 'Pred_Label']) as (writer, _):
         for start in range(0, len(rows), batch_size):
             stop = min(start + batch_size, len(rows))
-            batch=[dataset[index] for index in range(start,stop)]
+            batch=preprocess_batch(dataset, range(start,stop), workers=decode_workers or 1, pool=pool)
             images=torch.stack([item[0] for item in batch])
             from .age import enabled
             ages=torch.stack([item[3] for item in batch]) if enabled(job) else None
@@ -297,7 +312,10 @@ def run_prediction(source, data_root, output, *, device='cpu', checkpoint='best'
             for row, probability in zip(rows[start:stop], probabilities):
                 writer.writerow({'Image_name': row['name'], 'Probability': probability,
                                  'Pred_Label': int(probability >= runtime['threshold'])})
+    if pool is not None:
+        pool.shutdown()
     report = dict(count=len(rows), threshold=runtime['threshold'], inference=runtime, source=origin,
+                  decode_workers=decode_workers,
                   output_sha256=sha256_file(output), input_csv_sha256=sha256_file(Path(data_root) / 'test.csv'),
                   test_label_values_read=False, device=str(selected_device))
     atomic_json(sidecar, report)

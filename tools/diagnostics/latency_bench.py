@@ -179,7 +179,8 @@ def _load_batch(dataset, indices, *, decode_threads=1, pool=None):
     if decode_threads > 1:
         if pool is None:
             raise ValueError('thread pool required for parallel decode')
-        items = list(pool.map(dataset.__getitem__, indices))
+        inference, _ = _bundle_imports()
+        items = inference.preprocess_batch(dataset, indices, workers=decode_threads, pool=pool)
     else:
         items = [dataset[index] for index in indices]
     images = torch.stack([item[0] for item in items])
