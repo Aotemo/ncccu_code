@@ -78,7 +78,10 @@ def main(args):
     import torch
     # The explicit allocation is the hard limit; no extra thread headroom.
     torch.set_num_threads(int(os.environ['NCCCU_CPU_THREADS']))
-    torch.set_num_interop_threads(1)
+    try:
+        torch.set_num_interop_threads(1)
+    except RuntimeError:
+        pass
     check('CPU_only_before_model', not torch.cuda.is_initialized())
     from retrain import experiment91 as ex
     from retrain.engine import _optimizer, _lr_factor

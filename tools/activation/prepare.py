@@ -17,7 +17,10 @@ def limit_cpu_threads():
     count = int(raw)
     import torch
     torch.set_num_threads(count)
-    torch.set_num_interop_threads(1)
+    try:
+        torch.set_num_interop_threads(1)
+    except RuntimeError:
+        pass
     return count
 
 
