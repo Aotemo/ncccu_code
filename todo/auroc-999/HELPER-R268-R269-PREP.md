@@ -25,3 +25,11 @@ B Pod 12–23、显式隐藏设备、nice 19 的独立源码副本上：
 3. 选两 Pod 的对应模板，仅填实际 SUMMARY SHA（如改 v2，则同步更新相对目录）；形成正式 SCIENCE 并提交/推送，按既有链生成新的 site/package。prepare 从已核 main 独立重算三折标定和两个目标，自动生成固定验证回执与两个目标 SHA。若任一源缺失、重算不一致或完整 fit 覆盖不符，停止准备。
 4. 逐 Pod 确认 R268/R269 尚无旧实际轮次、clock、token、claim，seed 未用，核当前 Pod UID、对应公共资产和资源拓扑；完成正式 CPU 18/18、部署/容量/设备检查。该项不可由上面的合成回执代替。
 5. 由唯一 GPU owner 按互斥资源与各 Pod 安全终态执行既有接续；逐 rank 严格初态及首成功回执后再视为训练可运行。无任何一次官方样本读取、TTA 或医学预训练来源。
+
+## 与 main b62 的最小整合审阅
+
+main `b62bdddbb2b552f0d384058de49af85d2c9c1d84` 中，上述七个接线源码文件及 `tests/test_f05_clean_distill.py` 与本助手原始基线 `a004c08` 相同；因此待审入范围可直接依据 helper commit `bb220a3`：七个接线源码、两个测试、四个 SCIENCE 模板及本说明。`classification_loss.py` 和 OOF target consumer 在 b62 已与 helper 相同，无需覆盖；现有 OOF GPU 入口由 08ac 维护。
+
+08ac 主工作区的未提交本地 checkpoint/cache 草稿也修改 `tools/activation/prepare.py`：其局部存储准备与本提交的 F05 目标验证分别位于不同辅助函数和调用点。整合时须逐项保留实际采用的两侧改动；当前 **10/10 + DDP 4/4 不覆盖两功能同包**，如采用该草稿，须对最终合并树补同包合成和受影响 I/O 窄测。不能用 b62 或 helper 单侧证据代替最终树检查。
+
+正式 CPU prepare 对每个新轮次各自独立核三折 selected 字节及父回执、重算完整训练子集标定和两个目标表，再将结果固定到该轮 `evidence/F05-OOF-VERIFICATION.json`；之后每个 rank 只核回执、SUMMARY、所需目标表和完整 fit 对齐，不重复读取三折 checkpoint。两次正式 prepare 的真实读取时长和共享存储压力尚未测量，不应假定可忽略。真实 SUMMARY、两轮历史身份及 seed、最终树和正式 18/18 均未在本记录中声明通过。
