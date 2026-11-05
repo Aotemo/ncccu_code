@@ -50,6 +50,13 @@ def test_fixed_devices_and_exact_dev_coverage():
     rejects(lambda: gpu.canonical_member(rows, indices, packets, 2))
 
 
+def test_selected_variant_preserves_online_or_ema_identity():
+    assert gpu.selected_variant({'selected': {'variant': 'ema'}}) == 'ema'
+    assert gpu.selected_variant({'selected': {'variant': 'online'}}) == 'online'
+    rejects(lambda: gpu.selected_variant({'selected': {'variant': 'unknown'}}))
+    rejects(lambda: gpu.selected_variant({'selected': {}}))
+
+
 def test_predecessor_requires_recent_complete_safety():
     now = time.time()
     safe = {'phase': 'terminal', 'observed_at': now, 'first_success_receipt_read': True,
@@ -199,6 +206,7 @@ def test_detached_controller_records_failure_without_retry():
 
 if __name__ == '__main__':
     test_fixed_devices_and_exact_dev_coverage()
+    test_selected_variant_preserves_online_or_ema_identity()
     test_predecessor_requires_recent_complete_safety()
     test_eight_rank_barrier_rejects_missing_reused_and_dead_processes()
     test_worker_release_requires_its_exact_pinned_proof_and_live_owner()

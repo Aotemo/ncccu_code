@@ -13,15 +13,15 @@ from f04_export_member import construct_member, eligible_row, verify_published
 from f04_size_ensemble import sha
 
 
-def export_metadata(job, model_sha256, tensor_sha256):
+def export_metadata(job, model_sha256, tensor_sha256, *, variant='ema'):
     """Build the existing frozen-inference format, including the age contract."""
-    if (not isinstance(job, dict) or not job.get('model')
+    if (not isinstance(job, dict) or not job.get('model') or variant not in ('ema', 'online')
             or not all(re.fullmatch(r'[0-9a-f]{64}', value or '')
                        for value in (model_sha256, tensor_sha256))):
         raise ValueError('complete model and state identities are required')
     return {'format': 'glaucoma-frozen-inference-v1', 'model_sha256': model_sha256,
             'job': copy.deepcopy(job), 'age': copy.deepcopy(job.get('age')),
-            'checkpoint': {'variant': 'ema', 'tensor_sha256': tensor_sha256},
+            'checkpoint': {'variant': variant, 'tensor_sha256': tensor_sha256},
             'inference': {'threshold': .5, 'precision': 'fp32'}}
 
 
@@ -93,12 +93,14 @@ def main():
     os.link(weight_path, output / 'model.pt', follow_symlinks=False)
     if not os.path.samefile(weight_path, output / 'model.pt') or sha(output / 'model.pt') != weight['sha256']:
         raise ValueError('fp16 hard-link identity differs')
-    metadata = export_metadata(job, weight['sha256'], state_sha)
+    selected_variant = row['selected']['variant']
+    metadata = export_metadata(job, weight['sha256'], state_sha, variant=selected_variant)
     with (output / 'model.json').open('x') as stream:
         json.dump(metadata, stream, indent=2, allow_nan=False); stream.write('\n')
-    loaded, loaded_job, _, origin, device = _load_model(output, device='cpu', variant='ema')
+    loaded, loaded_job, _, origin, device = _load_model(output, device='cpu', variant=selected_variant)
     if (loaded_job != job or str(device) != 'cpu' or origin['model_sha256'] != weight['sha256']
-            or origin['tensor_sha256'] != state_sha or tensor_digest(loaded.state_dict()) != restored_sha):
+            or origin['variant'] != selected_variant or origin['tensor_sha256'] != state_sha
+            or tensor_digest(loaded.state_dict()) != restored_sha):
         raise ValueError('checkpoint-free model construction or strict state differs')
     size = int(job['image_size'])
     synthetic = torch.zeros((1, 3, size, size), dtype=torch.float32)
@@ -114,6 +116,7 @@ def main():
               'at': time.time(), 'round_id': args.round_id, 'execution': context,
               'git_commit': args.git_commit, 'git_files': git_files,
               'preflight_sha256': args.preflight_sha256, 'inventory_sha256': args.inventory_sha256,
+              'selected_variant': selected_variant,
               'export_receipt_sha256': export_ref['sha256'], 'frozen_source_commit': runtime['git_commit'],
               'model': {'path': str(output / 'model.pt'), 'bytes': weight['bytes'],
                         'sha256': weight['sha256'], 'fp16_tensor_sha256': state_sha,

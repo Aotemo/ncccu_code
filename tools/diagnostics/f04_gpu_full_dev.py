@@ -50,6 +50,15 @@ def build_plan(members):
     return result
 
 
+def selected_variant(member):
+    if not isinstance(member, dict) or not isinstance(member.get('selected'), dict):
+        raise ValueError('selected member identity is required')
+    variant = member['selected'].get('variant')
+    if variant not in ('online', 'ema'):
+        raise ValueError('selected member variant must be online or ema')
+    return variant
+
+
 def require_safe_predecessor(safe, expected_root, now):
     at = safe.get('observed_at')
     if (safe.get('phase') != 'terminal' or safe.get('formal_root') != str(expected_root)
@@ -96,6 +105,72 @@ def validate_current_preflight(refreshed, current, current_sha, safe, inputs):
         if reason is None or len(excluded) != 1:
             raise ValueError('eligible predecessor is absent from the refreshed F04 selection')
     return refreshed
+
+
+def validate_final_screening(refreshed, current, current_sha, sealed_safes, live_safe, inputs, now):
+    """Bind the one final census to both finished rounds and a fresh device proof."""
+    def require_identities(safe):
+        identity = safe.get('identity')
+        if not isinstance(identity, dict) or not isinstance(identity.get('owner_expected'), dict):
+            raise ValueError('completed owner identity is required')
+        ranks = identity.get('ranks_expected')
+        if not isinstance(ranks, list) or len(ranks) != 8:
+            raise ValueError('eight completed rank identities are required')
+        processes = [identity['owner_expected'], *ranks]
+        if (any(not isinstance(item, dict) or type(item.get('pid')) is not int or item['pid'] <= 0
+                or not str(item.get('start_ticks', '')).isdecimal() for item in processes)
+                or len({item['pid'] for item in processes}) != 9):
+            raise ValueError('distinct pid and start-tick identities are required')
+    if not isinstance(sealed_safes, list) or len(sealed_safes) != 2:
+        raise ValueError('both completed training safety proofs are required')
+    roots = set()
+    for safe in sealed_safes:
+        root, at = safe.get('formal_root'), safe.get('observed_at')
+        if not isinstance(root, str) or root in roots or type(at) not in (int, float):
+            raise ValueError('distinct completed training identities are required')
+        require_safe_predecessor(safe, root, at)
+        require_identities(safe)
+        validate_current_preflight(refreshed, current, current_sha, safe, inputs)
+        roots.add(root)
+    live_root = live_safe.get('formal_root')
+    if live_root not in roots:
+        raise ValueError('fresh device proof is not for a sealed finished training round')
+    require_safe_predecessor(live_safe, live_root, now)
+    require_identities(live_safe)
+    earlier = next(safe for safe in sealed_safes if safe['formal_root'] == live_root)
+    if (live_safe.get('selected') != earlier.get('selected')
+            or live_safe.get('identity', {}).get('owner_expected') != earlier.get('identity', {}).get('owner_expected')
+            or live_safe.get('identity', {}).get('ranks_expected') != earlier.get('identity', {}).get('ranks_expected')):
+        raise ValueError('fresh proof differs from the frozen finished owner/ranks or selected member')
+    return refreshed
+
+
+def load_final_lineage(path, expected_sha, expected_rounds):
+    """Read the two immutable actualsafe receipts prescribed by the final policy."""
+    value = read_pinned(path, expected_sha)
+    refs = value.get('safeties')
+    if (value.get('status') != 'F04_final_two_training_safeties_sealed'
+            or value.get('official_read') is not False or not isinstance(refs, list) or len(refs) != 2
+            or not isinstance(expected_rounds, list) or len(expected_rounds) != 2
+            or len(set(expected_rounds)) != 2):
+        raise ValueError('fixed final two-round safety lineage required')
+    safes = []
+    for ref in refs:
+        if not isinstance(ref, dict) or not Path(ref.get('path', '')).is_absolute():
+            raise ValueError('pinned actualsafe path required')
+        safes.append(read_pinned(ref['path'], ref.get('sha256')))
+    if [Path(safe.get('formal_root', '')).name for safe in safes] != expected_rounds:
+        raise ValueError('final training rounds differ from the fixed policy')
+    return safes
+
+
+def final_lineage_options(path, digest):
+    if path is None and digest is None:
+        return {}
+    if (path is None or not Path(path).is_absolute()
+            or not isinstance(digest, str) or re.fullmatch(r'[0-9a-f]{64}', digest) is None):
+        raise ValueError('final lineage path and SHA must be supplied together')
+    return {'final-lineage': str(path), 'final-lineage-sha256': digest}
 
 
 def validate_evaluation_window(window, safe_sha, site_sha, round_id, now, free, *, reserve=1024 ** 3):
@@ -319,6 +394,10 @@ def prepare(args):
                 or model['sha256'] != exported['exports']['fp16']['sha256']
                 or metadata_path.is_symlink() or sha(metadata_path) != metadata['sha256']):
             raise ValueError('standalone model or source receipt differs')
+        variant = selected_variant(row)
+        if (record.get('selected_variant', 'ema') != variant
+                or json.loads(metadata_path.read_text()).get('checkpoint', {}).get('variant') != variant):
+            raise ValueError('standalone selected variant differs from its original contract')
         freeze = read_pinned(exported['freeze']['path'], exported['freeze']['sha256'])
         root = Path(exported['freeze']['path']).parent; bundle = root / 'bundle'
         for relative, expected in freeze['source_files'].items():
@@ -428,9 +507,10 @@ def worker(args):
     precision = importlib.import_module('_f04_current_guard.precision')
     runtime_guard = importlib.import_module('_f04_current_guard.fresh')
     precision.configure(precision.RULE)
-    model, job, _, origin, actual_device = _load_model(model_path.parent, device=device_name, variant='ema')
+    variant = selected_variant(member)
+    model, job, _, origin, actual_device = _load_model(model_path.parent, device=device_name, variant=variant)
     if (str(actual_device) != device_name or origin.get('model_sha256') != member['model']['sha256']
-            or origin.get('tensor_sha256') != member['model']['fp16_tensor_sha256']):
+            or origin.get('variant') != variant or origin.get('tensor_sha256') != member['model']['fp16_tensor_sha256']):
         raise ValueError('strict historical runtime or fp16 state differs')
     model.eval()
     assignments = batch_assignments(indices, 8, assignment['rank'], assignment['world'])
@@ -580,7 +660,24 @@ def owner(args):
         raise ValueError('fixed F04 input inventory differs')
     refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
     current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
-    validate_current_preflight(refreshed, current_inventory, args.current_inventory_sha256, safe, inputs)
+    final_options = final_lineage_options(getattr(args, 'final_lineage', None),
+                                          getattr(args, 'final_lineage_sha256', None))
+    if final_options:
+        sys.path.insert(0, str(source / 'tools/diagnostics'))
+        from f04_bounded_fusion import verify_blob
+        policy_path = source / 'configs/F04-FINAL-FREEZE-20261104.json'
+        verify_blob(source, args.remote_metadata, 'configs/F04-FINAL-FREEZE-20261104.json')
+        policy = json.loads(policy_path.read_text())
+        if (policy.get('version') != 'f04-final-freeze-20261104-v1'
+                or policy.get('max_fp16_member_weight_bytes') != 500_000_000
+                or policy.get('official_evaluations_allowed') != 1 or policy.get('tta') is not False):
+            raise ValueError('published final F04 policy differs')
+        safes = load_final_lineage(args.final_lineage, args.final_lineage_sha256,
+                                   policy.get('last_training_rounds'))
+        validate_final_screening(refreshed, current_inventory, args.current_inventory_sha256,
+                                 safes, safe, inputs, time.time())
+    else:
+        validate_current_preflight(refreshed, current_inventory, args.current_inventory_sha256, safe, inputs)
     ready_root = args.next_ready.resolve(strict=True)
     prep = read_pinned(ready_root / 'PREPARATION-RESULT.json', args.next_preparation_sha256)
     cpu_path = ready_root / 'formal-cpu/CPU-RECEIPT.json'
@@ -599,9 +696,10 @@ def owner(args):
     grant_ref = site['cpu_execution']['allocation_receipt']
     grant = read_pinned(grant_ref['path'], grant_ref['sha256'])
     clock = json.loads((ready_root / 'formal-cpu/package/CLOCK_POLICY.json').read_text())
+    required_lease = 60 if final_options else clock['total_seconds'] + 60
     if (not time.time() < args.deadline_at <= time.time() + 1800
-            or grant['valid_until'] - args.deadline_at < clock['total_seconds'] + 60):
-        raise ValueError('evaluation would consume the successor training lease')
+            or grant['valid_until'] - args.deadline_at < required_lease):
+        raise ValueError('evaluation exceeds the available resource lease')
     for member in inputs['members']:
         model, metadata = member['model'], member['metadata']
         standalone = read_pinned(member['receipt']['path'], member['receipt']['sha256'])
@@ -699,6 +797,8 @@ def owner(args):
                       'comparison': metrics, 'supervisor': result, 'admission': admission,
                       'released_ranks': released, 'device_handles_after': users, 'resources_after': resources,
                       'TTA': False, 'official_read': False, 'training_executed': False}
+            if final_options:
+                report['final_lineage_sha256'] = args.final_lineage_sha256
             write_new(output / 'SUMMARY.json', report)
             print(json.dumps({'status': report['status'], 'summary_sha256': sha(output / 'SUMMARY.json')}), flush=True)
     except Exception as error:
@@ -718,6 +818,8 @@ OWNER_TEXT_OPTIONS = ('site-sha256', 'safe-sha256', 'tree-proof-sha256', 'git-co
 
 def dispatch(args):
     """Claim and start one detached controller; a transport timeout never permits a retry."""
+    final_options = final_lineage_options(getattr(args, 'final_lineage', None),
+                                          getattr(args, 'final_lineage_sha256', None))
     source = args.source_root.resolve(strict=True)
     if source != Path(__file__).resolve().parents[2]:
         raise ValueError('published F04 source differs')
@@ -744,6 +846,7 @@ def dispatch(args):
             or args.output.resolve() != claim / 'evaluation' or claim.exists() or claim.is_symlink()):
         raise ValueError('fresh isolated one-shot evaluation claim required')
     request = {name: str(getattr(args, name.replace('-', '_'))) for name in (*OWNER_PATH_OPTIONS, *OWNER_TEXT_OPTIONS)}
+    request.update(final_options)
     request.update(deadline_at=args.deadline_at, source_sha256=sha(__file__))
     request_sha = reserve_evaluation_attempt(claim, request)
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'controller',
@@ -776,6 +879,9 @@ def controller(args):
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'owner']
     for name in (*OWNER_PATH_OPTIONS, *OWNER_TEXT_OPTIONS):
         argv.extend(['--' + name, request[name]])
+    for name, value in final_lineage_options(request.get('final-lineage'),
+                                              request.get('final-lineage-sha256')).items():
+        argv.extend(['--' + name, value])
     argv.extend(['--deadline-at', str(request['deadline_at']), '--controller-pid', str(os.getpid()),
                  '--controller-start-ticks', current['start_ticks']])
     try:
@@ -823,6 +929,8 @@ def main():
             run.add_argument('--' + name, type=Path, required=True)
         for name in OWNER_TEXT_OPTIONS:
             run.add_argument('--' + name, required=True)
+        run.add_argument('--final-lineage', type=Path)
+        run.add_argument('--final-lineage-sha256')
         run.add_argument('--deadline-at', type=float, required=True)
         if mode == 'owner':
             run.add_argument('--controller-pid', type=int, required=True)

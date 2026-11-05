@@ -1,0 +1,13 @@
+{
+  "version": "f04-final-freeze-20261104-v1",
+  "last_training_rounds": [
+    "r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104",
+    "r262-small-seed20261118-pairsigmoid-24k-p4-9010-20261104"
+  ],
+  "max_fp16_member_weight_bytes": 500000000,
+  "fp16_auroc_drop_report_threshold": 0.0005,
+  "official_evaluations_allowed": 1,
+  "official_count": 5849,
+  "official_positive_count": 191,
+  "tta": false
+}

@@ -1,0 +1,275 @@
+"""Frozen F04 ensemble identity and one irreversible official reservation.
+
+This adapter never opens official input by itself. The existing GPU evaluation
+chain may read it only after validating the canonical reservation.
+"""
+import hashlib
+import copy
+import json
+import math
+import os
+from pathlib import Path, PurePosixPath
+import re
+import time
+
+
+def sha(path):
+    digest = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _sha256(value):
+    return isinstance(value, str) and re.fullmatch(r'[0-9a-f]{64}', value) is not None
+
+
+def _finite(value):
+    return type(value) in (int, float) and math.isfinite(value)
+
+
+def validate_final_freeze(value):
+    if (not isinstance(value, dict) or value.get('format') != 'f04-final-frozen-v1'
+            or value.get('status') != 'F04_ensemble_final_frozen'
+            or value.get('official_evaluations_allowed') != 1
+            or value.get('official_metadata_used_for_selection') is not False
+            or value.get('TTA') is not False):
+        raise ValueError('complete final F04 freeze without official selection or TTA required')
+    members = value.get('members')
+    if not isinstance(members, list) or len(members) != 5:
+        raise ValueError('the five fixed final members are required')
+    names, paths, total = set(), set(), 0
+    for member in members:
+        if not isinstance(member, dict):
+            raise ValueError('member identity must be an object')
+        name, model, metadata, normalization = (member.get('round_id'), member.get('model'),
+                                                 member.get('metadata'), member.get('normalization'))
+        if (not isinstance(name, str) or not name or name in names
+                or not isinstance(model, dict) or not isinstance(metadata, dict)
+                or not isinstance(normalization, dict)):
+            raise ValueError('unique member with complete inference identity required')
+        for item in (model, metadata):
+            path = item.get('path')
+            if (not isinstance(path, str) or not Path(path).is_absolute() or path in paths
+                    or not _sha256(item.get('sha256'))):
+                raise ValueError('distinct absolute pinned inference files required')
+            paths.add(path)
+        if (not _sha256(model.get('fp16_tensor_sha256')) or type(model.get('bytes')) is not int
+                or model['bytes'] <= 0 or not _finite(normalization.get('mean'))
+                or not _finite(normalization.get('std')) or normalization['std'] <= 0):
+            raise ValueError('fp16 tensor, exact bytes and finite dev moments required')
+        names.add(name)
+        total += model['bytes']
+    if type(value.get('weight_bytes')) is not int or value['weight_bytes'] != total or total > 500_000_000:
+        raise ValueError('final serialized member weights exceed or differ from the size limit')
+    official = value.get('official')
+    if (not isinstance(official, dict) or not isinstance(official.get('manifest_path'), str)
+            or not Path(official['manifest_path']).is_absolute()
+            or not _sha256(official.get('manifest_sha256'))
+            or not isinstance(official.get('data_root'), str) or not Path(official['data_root']).is_absolute()):
+        raise ValueError('the frozen official manifest and data-root identities are required')
+    dev = value.get('full_dev')
+    if (not isinstance(dev, dict) or dev.get('count') != 5140 or dev.get('positive') != 167
+            or dev.get('official_read') is not False or not _sha256(dev.get('summary_sha256'))
+            or any(not _finite(dev.get(key)) or not 0 <= dev[key] <= 1
+                   for key in ('fp32_auroc', 'fp16_auroc', 'fp16_ap'))):
+        raise ValueError('complete pinned internal fp16 and fp32 validation required')
+    if dev['fp32_auroc'] - dev['fp16_auroc'] > .0005:
+        raise ValueError('fp16 AUROC decline requires coordinator decision before freeze')
+    return value
+
+
+def freeze_from_verified_dev(inputs, preflight, summary, identity, official, runtime):
+    """Build a fixed freeze only from the final five-member full-dev GPU receipt."""
+    if (not isinstance(identity, dict) or any(not _sha256(identity.get(name)) for name in
+            ('inputs_sha256', 'preflight_sha256', 'lineage_sha256', 'summary_sha256'))
+            or not isinstance(inputs, dict) or inputs.get('status') != 'F04_full_dev_gpu_inputs_sealed_no_GPU'
+            or inputs.get('official_read') is not False or inputs.get('TTA') is not False
+            or not isinstance(preflight, dict)
+            or preflight.get('status') != 'F04_fp16_size_members_sealed_before_blend'
+            or preflight.get('official_read') is not False or not isinstance(summary, dict)
+            or summary.get('status') != 'F04_full_internal_dev_fp16_storage_evaluated'
+            or summary.get('inputs_sha256') != identity['inputs_sha256']
+            or summary.get('current_preflight_sha256') != identity['preflight_sha256']
+            or summary.get('final_lineage_sha256') != identity['lineage_sha256']
+            or summary.get('dev_count') != 5140 or summary.get('dev_positive') != 167
+            or summary.get('TTA') is not False or summary.get('official_read') is not False
+            or summary.get('training_executed') is not False
+            or summary.get('supervisor', {}).get('status') != 'completed'
+            or summary.get('device_handles_after') != []):
+        raise ValueError('pinned final internal-dev evaluation and its lineage are required')
+    released = summary.get('released_ranks')
+    cards = summary.get('resources_after', {}).get('cards')
+    if (not isinstance(released, list) or len(released) != 8
+            or any(not isinstance(row, dict) or row.get('inactive') is not True
+                   or type(row.get('pid')) is not int or row['pid'] <= 0
+                   or not str(row.get('start_ticks', '')).isdecimal() for row in released)
+            or len({row['pid'] for row in released}) != 8
+            or not isinstance(cards, list) or len(cards) != 8
+            or any(not isinstance(card, dict) or card.get('busy_percent') != 0
+                   or type(card.get('vram_used_bytes')) is not int
+                   or not 0 <= card['vram_used_bytes'] < 64 * 1024 ** 2 for card in cards)):
+        raise ValueError('all eight evaluation ranks and devices must be released')
+    members = inputs.get('members')
+    if not isinstance(members, list) or len(members) != 5 or any(not isinstance(row, dict) for row in members):
+        raise ValueError('five fixed inference members are required')
+    ids = [member.get('round_id') for member in members]
+    if (len(set(ids)) != 5 or any(not isinstance(name, str) or not name for name in ids)
+            or preflight.get('fp16', {}).get('members') != ids
+            or preflight.get('fp16', {}).get('bytes') != inputs.get('weight_bytes')
+            or summary.get('weight_bytes') != inputs.get('weight_bytes')):
+        raise ValueError('final selected order and serialized total changed')
+    comparison = summary.get('comparison', {})
+    fp32 = comparison.get('fp32', {}).get('metrics', {})
+    half = comparison.get('fp16', {})
+    metrics, norms = half.get('metrics', {}), half.get('normalization', {})
+    if not isinstance(norms, dict) or set(norms) != set(ids):
+        raise ValueError('one full-dev fp16 normalization per selected member is required')
+    final_members = []
+    for member in members:
+        selected, source = member.get('selected'), member.get('freeze')
+        if (not isinstance(selected, dict) or selected.get('variant') not in ('ema', 'online')
+                or type(selected.get('cycle')) is not int or selected['cycle'] < 1
+                or type(selected.get('successful_updates')) is not int or selected['successful_updates'] < 1
+                or not _sha256(selected.get('tensor_sha256')) or not isinstance(source, dict)
+                or not isinstance(source.get('path'), str) or not Path(source['path']).is_absolute()
+                or not _sha256(source.get('sha256')) or not isinstance(member.get('bundle'), str)
+                or not Path(member['bundle']).is_absolute() or member.get('data_root') != official.get('data_root')):
+            raise ValueError('the exact selected variant and historical inference runtime are required')
+        item = copy.deepcopy(member)
+        item['normalization'] = copy.deepcopy(norms[member['round_id']])
+        final_members.append(item)
+    if (not isinstance(runtime, dict)
+            or any(not isinstance(runtime.get(name), str) or not re.fullmatch(r'[0-9a-f]{40}', runtime[name])
+                   for name in ('code_commit', 'code_tree'))
+            or any(not _sha256(runtime.get(name)) for name in ('gpu_owner_sha256', 'official_adapter_sha256'))
+            or any(not isinstance(runtime.get(name), str) or not runtime[name]
+                   for name in ('python_version', 'torch_version', 'pillow_version'))):
+        raise ValueError('pinned inference source and runtime versions are required')
+    frozen = {'format': 'f04-final-frozen-v1', 'status': 'F04_ensemble_final_frozen',
+              'official_evaluations_allowed': 1, 'official_metadata_used_for_selection': False,
+              'TTA': False, 'weight_bytes': inputs['weight_bytes'], 'members': final_members,
+              'full_dev': {'count': 5140, 'positive': 167, 'fp32_auroc': fp32.get('auroc'),
+                           'fp32_ap': fp32.get('ap'), 'fp16_auroc': metrics.get('auroc'),
+                           'fp16_ap': metrics.get('ap'), 'official_read': False,
+                           'summary_sha256': identity['summary_sha256']},
+              'identity': copy.deepcopy(identity), 'official': copy.deepcopy(official),
+              'runtime': copy.deepcopy(runtime)}
+    return validate_final_freeze(frozen)
+
+
+def reserve_official_once(freeze_path, freeze_sha256, work_root, output_root):
+    """Exclusively reserve the fixed final directory before any official read."""
+    work = Path(work_root).resolve(strict=True)
+    directory = work / 'final' / 'F04-20261104'
+    freeze_path = Path(freeze_path)
+    if (directory.is_symlink() or not directory.is_dir() or directory.resolve() != directory
+            or freeze_path.is_symlink() or freeze_path.resolve(strict=True) != directory / 'FREEZE.json'
+            or not _sha256(freeze_sha256) or sha(freeze_path) != freeze_sha256):
+        raise ValueError('canonical pinned final freeze required')
+    output = Path(output_root).resolve()
+    if not output.is_relative_to(directory) or output == directory:
+        raise ValueError('official output must stay under the unique final directory')
+    frozen = json.loads(freeze_path.read_text())
+    validate_final_freeze(frozen)
+    marker = directory / 'OFFICIAL-ONCE.json'
+    record = {'status': 'reserved_do_not_retry', 'at': time.time(),
+              'freeze_sha256': freeze_sha256, 'freeze_path': str(freeze_path.resolve()),
+              'output_root': str(output), 'official_read_before_reservation': False}
+    with marker.open('x') as stream:
+        json.dump(record, stream, indent=2, allow_nan=False)
+        stream.write('\n')
+        stream.flush()
+        os.fsync(stream.fileno())
+    return marker
+
+
+def validate_official_population(manifest, records, csv_sha256):
+    """Validate already-read official inputs against the existing sealed contract."""
+    rows = manifest.get('rows') if isinstance(manifest, dict) else None
+    if (not isinstance(manifest, dict) or manifest.get('training_eligible') is not False
+            or 'fit_indices' in manifest or not _sha256(csv_sha256)
+            or manifest.get('source_identity', {}).get('valid_csv_sha256') != csv_sha256
+            or not isinstance(rows, list) or len(rows) != 5849 or len(records) != 5849):
+        raise ValueError('complete isolated official manifest and CSV identity required')
+    names, positive = set(), 0
+    for row, record in zip(rows, records):
+        if not isinstance(row, dict) or not isinstance(record, dict):
+            raise ValueError('official row must be an object')
+        name, relative, label = row.get('name'), row.get('relative_path'), row.get('label')
+        if (not isinstance(name, str) or not name or name.casefold() in names
+                or not isinstance(relative, str) or '\\' in relative
+                or len(PurePosixPath(relative).parts) != 2 or PurePosixPath(relative).parts[0] != 'valid'
+                or PurePosixPath(relative).name.casefold() != name.casefold()
+                or type(label) is not int or label not in (0, 1) or not _sha256(row.get('sha256'))
+                or any(key not in row or row[key] != record.get(key) for key in ('name', 'label', 'age'))):
+            raise ValueError('official row identity, label, age or path differs')
+        names.add(name.casefold())
+        positive += label
+    if positive != 191:
+        raise ValueError('official class coverage differs from 191 positive and 5658 negative')
+    return rows
+
+
+def read_official_inputs_once(freeze_path, freeze_sha256, work_root, output_root,
+                              manifest_path, manifest_sha256, data_root, read_csv):
+    """Reserve the one input read before opening the official manifest or CSV."""
+    work = Path(work_root).resolve(strict=True)
+    directory = work / 'final' / 'F04-20261104'
+    freeze = Path(freeze_path)
+    marker = directory / 'OFFICIAL-ONCE.json'
+    if (freeze.is_symlink() or freeze.resolve(strict=True) != directory / 'FREEZE.json'
+            or not _sha256(freeze_sha256) or sha(freeze) != freeze_sha256
+            or marker.is_symlink() or not marker.is_file()):
+        raise ValueError('canonical official reservation is missing or differs')
+    frozen = validate_final_freeze(json.loads(freeze.read_text()))
+    reservation = json.loads(marker.read_text())
+    output = Path(output_root).resolve()
+    if (reservation.get('status') != 'reserved_do_not_retry'
+            or reservation.get('freeze_sha256') != freeze_sha256
+            or reservation.get('freeze_path') != str(freeze.resolve())
+            or reservation.get('output_root') != str(output)
+            or reservation.get('official_read_before_reservation') is not False):
+        raise ValueError('official reservation does not match the frozen attempt')
+    official = frozen['official']
+    if (str(manifest_path) != official['manifest_path'] or manifest_sha256 != official['manifest_sha256']
+            or str(data_root) != official['data_root'] or not callable(read_csv)):
+        raise ValueError('official input arguments differ from the final freeze')
+    read_marker = directory / 'OFFICIAL-INPUT-READ-ONCE.json'
+    with read_marker.open('x') as stream:
+        json.dump({'status': 'reserved_do_not_retry', 'at': time.time(),
+                   'freeze_sha256': freeze_sha256, 'output_root': str(output)}, stream)
+        stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
+    manifest = Path(manifest_path)
+    if manifest.is_symlink() or not _sha256(manifest_sha256) or sha(manifest) != manifest_sha256:
+        raise ValueError('sealed official manifest identity differs')
+    sealed = json.loads(manifest.read_text())
+    records, csv_sha = read_csv(Path(data_root), 'valid')
+    return {'rows': validate_official_population(sealed, records, csv_sha),
+            'csv_sha256': csv_sha, 'manifest_sha256': manifest_sha256}
+
+
+def ensemble_with_frozen_moments(frozen, vectors):
+    """Apply only the already-frozen internal-dev moments; never fit on official data."""
+    import numpy as np
+    validate_final_freeze(frozen)
+    members = frozen['members']
+    if not isinstance(vectors, dict) or set(vectors) != {row['round_id'] for row in members}:
+        raise ValueError('all and only frozen member vectors are required')
+    normalized = []
+    length = None
+    for member in members:
+        values = np.asarray(vectors[member['round_id']], dtype=np.float64)
+        if values.ndim != 1 or not len(values) or not np.isfinite(values).all():
+            raise ValueError('finite one-dimensional member scores required')
+        if length is None:
+            length = len(values)
+        if len(values) != length:
+            raise ValueError('member score coverage differs')
+        moments = member['normalization']
+        normalized.append((values - moments['mean']) / moments['std'])
+    scores = np.stack(normalized).mean(axis=0, dtype=np.float64)
+    if not np.isfinite(scores).all():
+        raise ValueError('nonfinite fused score')
+    return scores.tolist()
