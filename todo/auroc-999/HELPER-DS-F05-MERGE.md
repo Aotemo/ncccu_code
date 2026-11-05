@@ -1,6 +1,6 @@
 # DS 助手：helper/cpu-prep-20261105 → main 的 F05 合并清单
 
-状态：**代码与说明已整理到 `helper/ds-20261105`，等待 DS执行2 审阅合并；尚未在 Pod 运行合成测试（allocation 未登记）。** 基线为当前 `origin/main` `c304d67`（本分支 `c304d67` 之上）。本文只记录逐项判断与理由；不声称任何检查已通过。
+状态：**代码与说明已整理到 `helper/ds-20261105`，已在 Pod A 准备池通过合成窄测，等待 DS执行2 审阅合并。** 基线为当前 `origin/main` `c304d67`（本分支 `c304d67` 之上）。本文只记录逐项判断与理由；不回写任何未实核的结论。
 
 ## 判断口径
 
@@ -45,5 +45,5 @@
 ## 验证状态
 
 - 本机仅做只读文本核对：确认助手快照相对 main 只有加法、无 main 侧修复被覆盖；`paired_evidence._reference/_selected`、`retrain.site_binding.verify_rank_devices`、`retrain.parallel_evaluation.canonical_predictions`、`f04_size_ensemble.compare_predictions` 在 main 均存在；无 `f05_oof_gpu` 等已移除模块的引用。
-- **未运行任何 Python/测试**。按 AGENTS.md，合成测试须在 Pod 12–23 准备池执行；需 08ac 先把本人 allocation 与 context 登记到 `COORDINATION-20261104.md`，之后补 `tests/test_f05_final_selection.py`、`tests/test_f05_fold_candidates.py` 及既有 F04/F05 回归的窄测回执。
-- 助手原回执（20/20、`83506e52…`；折发现 6/6、`230f69aa…`）只覆盖其自身快照与合成 fixture，不代替本分支在最终 main 全树上的检查。
+- 2026-11-05 Pod A 实测：`git archive` 的 `382dd6d` 全树 3562 文件在 12–23、nice 19、隐藏设备、12 线程下运行，`tests/test_f05_final_selection.py` **20/20**、`tests/test_f05_fold_candidates.py` **6/6**、`tests/test_test_submission_aggregate.py` **5/5**，0 skip、0 failure，CPU guard exit 0，回执 `140d7e75c2ab613cd61ec856594639986b91ecb9431faf7260046b6942d7f48d`。Pod 内实算的源码 SHA 与本清单一致：选员 `328b6db475ac93499efc2d469ba898964a3dc69610ef70b1df0de1ae0e4e3d36`、折发现 `0e8c0ad4f41937a05146cca20096a6a8a18730d62a79c106a641823f9e823f10`、对应测试 `396fdf2dbe2e103b8feb6e5dce3333e86b1a2da3014ff95fffe82facef60094d` / `5d3ea3c4fcde359e4c3aee126e3a12f4cdcfea3143d88a30a4fe3834811ce40e`；基线 `f05_folds.py` `78dc9797…`、`paired_evidence.py` `ed211542…`、`site_binding.py` `e1e2198e…`、`parallel_evaluation.py` `fa5b9319…`。
+- 这只证明合成 fixture 与纯函数行为，不证明真实三折资产、`verify_augmented` 在发现入口的接线、真实选员、fp16 分片或 `fuse` producer；上述仍需 08ac 合并后在最终 main 全树与真实资产上核验。
