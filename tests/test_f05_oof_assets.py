@@ -17,6 +17,16 @@ assets = importlib.util.module_from_spec(spec); spec.loader.exec_module(assets)
 
 
 class FoldAssetsTests(unittest.TestCase):
+    def test_metadata_derivation_rejects_stale_or_five_fold_policy(self):
+        policy = {'base_manifest_sha256':'a' * 64, 'sealed_folds_sha256':'b' * 64,
+                  'folds':3, 'fold_seed':20261121, 'official_read':False}
+        self.assertTrue(assets.validate_registered_policy(policy, 'a' * 64, 'b' * 64))
+        for key, wrong in (('folds', 5), ('sealed_folds_sha256', 'c' * 64),
+                           ('fold_seed', 20261122), ('official_read', True)):
+            changed = dict(policy, **{key:wrong})
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                assets.validate_registered_policy(changed, 'a' * 64, 'b' * 64)
+
     def test_fold_files_bind_train_dev_age_original_and_independent_seal(self):
         base = fixture(); fold = f05_oof.build_fold_manifests(base, 20261121)[0]
         schedule = b'{"steps_per_cycle":800}\n'

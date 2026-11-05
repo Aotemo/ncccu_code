@@ -3,6 +3,7 @@
   "status": "registered_before_three_fold_results",
   "method": "fixed-fit-only-content-group-label-age-size-v1",
   "base_manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "sealed_folds_sha256": "eb880273832b81be61830a069d5ae9ba8dc2e52be4af2f911f7a6b1ec9e7f6d8",
   "superseded_five_fold_sha256": "a637bac2034ff53a8564ba8f298ca9cf6215af9b9e4d9839bbff86cd0290203f",
   "fold_seed": 20261121,
   "folds": 3,
