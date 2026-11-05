@@ -138,8 +138,8 @@
   "f05_targets": {
     "version": "f05-oof-training-v1",
     "mode": "clean",
-    "summary_relative_path": "technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v1/SUMMARY.json",
-    "summary_sha256": "9c5567b08e49d5823f1fbf398a0b828ff91f5e3f68de18cecc802501f2311c2a"
+    "summary_relative_path": "technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v5/SUMMARY.json",
+    "summary_sha256": "c922e70af87d79d6f174a22d601b84ae6334df1b4e1b0fc90aebec8c1ca023cc"
   },
   "comparison_note": "F05 registered R120 recipe with fresh seed and the independently verified fit-only OOF clean objective. No official data or external medical pretraining is used.",
   "official_evaluation": {
