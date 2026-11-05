@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "version": "f05-uniform-soup-dev-20261105-v1",
+  "base_manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "groups": ["r120", "r134r1", "r201"],
+  "soup_receipt_sha256": {
+    "r120": "dd0bb77831963ddd1c94ad547783336e084fbfb304bde0c7184cb32d517a0f0a",
+    "r134r1": "8c048f2774cbdcc170dfa472009fd3ec978e888c21b2ae8d0c2497d34f1a8595",
+    "r201": "0416ab0283f8530f791c8fd2fae81e4ac4f247e1f5e2a1c43bc072f9b5314c60"
+  },
+  "standalone_receipt_sha256": {
+    "r120": "87b3405558711ec8bf824e1e1d822cd6177b94b83357cbd8164987329fc396bb",
+    "r134r1": "b65b4f842486d90e73e55deac7731223dc03f7d2775ce55437e9d45e740fac91",
+    "r201": "ac24d1f4bd1cdc1304471b24493058ece79d0e2f8b9bb0249c81f1738b09abc4"
+  },
+  "precisions": ["fp32", "fp16"],
+  "ranks_per_group": [3, 3, 2],
+  "batch_size": 8,
+  "f04_freeze_sha256": "cf5ce24aeb854876d5143dd24ae045e50fabe12412700ca8a3c4a6329eec5ad3",
+  "f04_internal_fp16_summary_sha256": "341d8b9ce798276747cd8e77ed1d5b161be404ed1d6e99014017ec0b77eb23cc",
+  "preview": "all_three_soups_replace_each_of_five_f04_members_once_per_precision",
+  "preview_selection": false,
+  "normalization": "dev_population_zscore_equal_weight",
+  "max_total_fp16_weight_bytes": 500000000,
+  "dev_count": 5140,
+  "dev_positive": 167,
+  "official_read": false,
+  "tta": false
+}

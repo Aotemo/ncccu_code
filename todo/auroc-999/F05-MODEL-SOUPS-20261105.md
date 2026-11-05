@@ -21,3 +21,7 @@
 2026-11-05，三组 13/13 父权重均按各自冻结 runtime 严格构造，layout 均为 `99043aa9b52d8508bdc1da015d77cd1c0bf51975f4e2be5c1ccb0380f58af19b`；两批回执 `b06b471cc43efd64fd32980d424e0ddcf6782c13b46a5ed197cee4a9ab13dd5e`、`b8d6b19745805480a0959833c111475cff947aac90aa3cbbc62dd134a6db9d20`。逐组除 seed 外的 SCIENCE job、来源、分割、计划、结构、age 与非浮点状态一致，兼容性回执 `c4006d72b94867d4fe2b4bc5c683de6140ca6b9d6c034cffbafd93feedad887c`。等权浮点64累加/整型严格一致/原状态不变等 5 项隔离检查通过，CPU 回执 `bf28b1568809bdcef0a4519bf6ab094cba01f5cc6e0f77c596d7605001ef6229`；当时尚未创建真实汤或计算汤 dev 指标。
 
 R120 族五父模型的均匀汤随后已真实生成；[血缘回执](../../records/analysis/20261105-f05/R120-UNIFORM-SOUP.json) SHA `dd0bb77831963ddd1c94ad547783336e084fbfb304bde0c7184cb32d517a0f0a`、独立严格加载及合成前向回执 `R120-UNIFORM-STANDALONE.json`。fp32 文件 `197,929,229 B`，fp16 文件 `99,018,317 B`；均未读取真实 dev，尚无 AUROC/AP。R134R1 族 CPU 创建进行中，R201 族待做；贪心汤和 GPU 全 dev 均未执行。
+
+## 三个均匀汤的全 dev 推理与替换预览
+
+c607 要求优先利用空闲 Pod 评估三组均匀汤的 fp32 与 fp16。结果读取前固定配置 [F05-SOUP-DEV-20261105.json](../../configs/F05-SOUP-DEV-20261105.json)：R120/R134R1/R201 三组及其汤与 standalone 回执 SHA 固定，八设备按 `3/3/2` 分片；每组每种存储精度分别对全部 5140 条原 dev 做一次单视图前向，报告各自 AUROC/AP、精度差异，样本级数据仅存 exp-v3。使用原 F04 内部全量前向中五成员预测，对每个汤分别替换 F04 的每一个成员，列出全部 `3×5` 个替换组合及对应精度口径的 AUROC/AP 和实际 fp16 权重总字节；dev 均值/总体标准差 z 等权。fp32 口径使用原 selected 的 fp32 dev 预测；fp16 口径使用 F04 已完成的内部 fp16 各成员分片预测。若原分片不可核验则该口径标 unknown，不借用官方预测。以上是事后研究预览，不据此增删或选定 F05 成员；F05 最终融合仍须在所有授权方向结束后按预登记固定规则单独封存。仅改现有 `tools/diagnostics/f04_gpu_full_dev.py`、对应窄测试和小型输入准备辅助，复用完整 GPU 设备/锁/进程/存储/80:20 门；不得消费或重置 F04 官方 claim，不读官方数据。
