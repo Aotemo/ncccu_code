@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "cpu_fractions": {
+    "validation": "1/1",
+    "training": "0/1"
+  },
+  "idle_borrow": {
+    "enabled": true,
+    "safe_proof_max_age_seconds": 120,
+    "device_check_interval_seconds": 5,
+    "idle_vram_bytes_exclusive": 67108864
+  },
+  "native_affinity_environment": {
+    "AMD_CPU_AFFINITY": "1",
+    "HSA_OVERRIDE_CPU_AFFINITY_DEBUG": "0",
+    "NCCL_IGNORE_CPU_AFFINITY": "0"
+  },
+  "rank_threads": 1,
+  "interop_threads": 1,
+  "loader_workers": 1,
+  "gpu_allocation_max_seconds": 43200,
+  "native_affinity_guard_source": "runtime/native/cpu_affinity.c"
+}

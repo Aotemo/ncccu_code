@@ -226,5 +226,116 @@ class CPUBudgetTest(unittest.TestCase):
                 budget.parse_cpuset(invalid)
 
 
+class IdleBorrowTest(unittest.TestCase):
+    def setUp(self):
+        self.value = {'schema_version': 1, 'cpu_fractions': {'validation': '1/1', 'training': '0/1'},
+            'idle_borrow': {'enabled': True, 'safe_proof_max_age_seconds': 120,
+                            'device_check_interval_seconds': 5, 'idle_vram_bytes_exclusive': 67108864},
+            'native_affinity_environment': {'AMD_CPU_AFFINITY': '1', 'HSA_OVERRIDE_CPU_AFFINITY_DEBUG': '0',
+                                            'NCCL_IGNORE_CPU_AFFINITY': '0'},
+            'rank_threads': 1, 'interop_threads': 1, 'loader_workers': 1}
+        self.policy = {'path': '/fixture/idle-policy.json', 'sha256': 'a' * 64, 'value': self.value}
+        self.identity = {'NCCCU_POD_UID': 'fixture-uid'}
+        self.pcis = [f'0000:{i:02x}:00.0' for i in range(8)]
+        self.site = {'pod': {'uid': 'fixture-uid'}, 'work_root': '/work', 'round_root': '/work/rounds/finished',
+                     'gpus': [{'pci': pci} for pci in self.pcis]}
+        self.proof = {'phase': 'terminal', 'formal_root': '/work/rounds/finished', 'observed_at': 1000,
+            'signals_sent': False, 'model_forward_executed': False, 'official_read': False,
+            'first_success_receipt_read': True, 'done': {'present': True, 'status': 'completed'},
+            'identity': {'owner_expected': {'pid': 1, 'start_ticks': '1'}, 'owner_status': 'exited',
+                         'owner': {'active': False, 'readable': True},
+                         'ranks_expected': [{'pid': i + 2, 'start_ticks': str(i + 2)} for i in range(8)],
+                         'ranks': [{'active': False, 'readable': True} for _ in range(8)]},
+            'safety': {'safe': True, 'device_users': [], 'device_scan_denied': 0,
+                       'lock': {'readable': True, 'holders': []}, 'all_expected_cards_seen': True,
+                       'cards': [{'pci': pci, 'busy_percent': 0} for pci in self.pcis]}}
+        self.live = {'device_users': [], 'device_scan_denied': 0, 'active_terminal_processes': [],
+                     'lock': {'readable': True, 'holders': []},
+                     'cards': [{'pci': pci, 'busy_percent': 0, 'vram_used_bytes': 0} for pci in self.pcis]}
+
+    def test_idle_policy_grants_only_live_effective_cores(self):
+        budget.validate_resource_policy(self.value)
+        resources = {'available': list(range(128)), 'effective_cpu_fraction': '120',
+                     'effective_cpus': 120.0, 'max_total_threads': 120,
+                     'validation_mask': list(range(120)), 'resource_policy': self.policy}
+        allocation = budget.build_allocation(resources, ['sole-owner'], self.identity, now=1000, valid_seconds=600)
+        self.assertEqual(allocation['allocations']['sole-owner'], {'threads': 120, 'mask': list(range(120))})
+        self.assertEqual(budget.validate_allocation(allocation, resources, self.identity, 'sole-owner', now=1001)['threads'], 120)
+        altered = copy.deepcopy(self.value); del altered['idle_borrow']
+        with self.assertRaises(ValueError): budget.validate_resource_policy(altered)
+
+    def test_idle_evidence_requires_fresh_complete_terminal_and_live_devices(self):
+        budget.validate_idle_evidence(self.site, self.proof, self.identity, self.live,
+                                      now=1001, max_age=120, max_vram=67108864)
+        cases = []
+        changed = copy.deepcopy(self.proof); changed['observed_at'] = 800; cases.append((self.site, changed, self.live))
+        changed = copy.deepcopy(self.proof); changed['identity']['ranks'][0]['active'] = True; cases.append((self.site, changed, self.live))
+        changed = copy.deepcopy(self.site); changed['pod']['uid'] = 'other'; cases.append((changed, self.proof, self.live))
+        changed = copy.deepcopy(self.live); changed['device_users'] = [{'pid': 99}]; cases.append((self.site, self.proof, changed))
+        changed = copy.deepcopy(self.live); changed['device_scan_denied'] = 1; cases.append((self.site, self.proof, changed))
+        changed = copy.deepcopy(self.live); changed['lock']['holders'] = ['gpu-owner']; cases.append((self.site, self.proof, changed))
+        changed = copy.deepcopy(self.live); changed['cards'][0]['busy_percent'] = 1; cases.append((self.site, self.proof, changed))
+        changed = copy.deepcopy(self.live); changed['cards'][0]['vram_used_bytes'] = 67108864; cases.append((self.site, self.proof, changed))
+        for site, proof, live in cases:
+            with self.subTest(site=site, proof=proof, live=live), self.assertRaises(ValueError):
+                budget.validate_idle_evidence(site, proof, self.identity, live, now=1001, max_age=120, max_vram=67108864)
+
+    def test_idle_references_are_explicit_pinned_and_live_checked(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); site = root / 'site.json'; safety = root / 'safety.json'
+            site.write_text(json.dumps(self.site)); safety.write_text(json.dumps(self.proof))
+            environment = {'NCCCU_CPU_IDLE_SITE': str(site), 'NCCCU_CPU_IDLE_SITE_SHA256': budget.sha(site),
+                           'NCCCU_CPU_IDLE_SAFETY': str(safety), 'NCCCU_CPU_IDLE_SAFETY_SHA256': budget.sha(safety)}
+            with patch.dict(os.environ, environment, clear=True), \
+                 patch.object(budget, 'snapshot_idle_devices', return_value=self.live):
+                found = budget.read_idle_reference(self.policy, self.identity, now=1001)
+                self.assertEqual(found['references']['site']['sha256'], budget.sha(site))
+                with self.assertRaises(ValueError): budget.read_idle_reference(self.policy, self.identity, now=1201)
+                safety.write_text('{}')
+                with self.assertRaises(ValueError): budget.read_idle_reference(self.policy, self.identity, now=1001)
+
+    def test_gpu_binding_rejects_idle_only_policy(self):
+        sys.path.insert(0, str(ROOT / 'runtime/bundle'))
+        from retrain import site_binding
+        with self.assertRaises(ValueError): site_binding.validate_resource_policy(self.value)
+
+    def test_idle_task_stops_its_own_group_if_devices_stop_being_idle(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); policy_path = root / 'policy.json'; policy_path.write_text(json.dumps(self.value))
+            policy = {'path': str(policy_path), 'sha256': budget.sha(policy_path), 'value': self.value}
+            resources = {'available': list(range(120)), 'effective_cpu_fraction': '120', 'effective_cpus': 120.0,
+                         'max_total_threads': 120, 'validation_mask': list(range(120)), 'resource_policy': policy}
+            allocation = budget.build_allocation(resources, ['owner'], self.identity, now=1000, valid_seconds=600)
+            allocation['guard_sha256'] = budget.sha(budget.__file__)
+            allocation['idle_references'] = {'site': {'path': '/site', 'sha256': 'a' * 64},
+                                              'safety': {'path': '/safe', 'sha256': 'b' * 64}}
+            path = root / 'allocation.json'; path.write_text(json.dumps(allocation))
+            args = argparse.Namespace(allocation=path, allocation_sha=budget.sha(path), owner='owner',
+                                      operation='run', script=Path('/fixture/test.py'), script_args=[])
+            child = Mock(pid=987); child.poll.side_effect = [None, 3]
+            states = [{'threads': 1, 'runnable_threads': 1, 'live_pids': [987], 'affinity_violations': []},
+                      {'threads': 0, 'runnable_threads': 0, 'live_pids': [], 'affinity_violations': []}]
+            environment = {'CUDA_VISIBLE_DEVICES': '', 'HIP_VISIBLE_DEVICES': '', 'ROCR_VISIBLE_DEVICES': ''}
+            with patch.dict(os.environ, environment, clear=True), \
+                 patch.object(budget, 'load_resource_policy', return_value=policy), \
+                 patch.object(budget, 'measure', return_value=resources), \
+                 patch.object(budget, 'identity', return_value=self.identity), \
+                 patch.object(budget.time, 'time', return_value=1001), \
+                 patch.object(budget.time, 'sleep'), patch.object(budget.os, 'sched_setaffinity'), \
+                 patch.object(budget.os, 'open', return_value=12345), patch.object(budget.os, 'close'), \
+                 patch.object(budget.fcntl, 'flock'), patch.object(budget.subprocess, 'Popen', return_value=child) as spawn, \
+                 patch.object(budget, 'snapshot_tree', side_effect=states), \
+                 patch.object(budget, 'read_idle_reference', side_effect=[{'live': self.live}, ValueError('GPU busy')]), \
+                 patch.object(budget.os, 'killpg') as terminate, patch('builtins.print'):
+                self.assertEqual(budget.run_task(args), 2)
+                terminate.assert_called_once_with(987, budget.signal.SIGTERM)
+                self.assertTrue(spawn.call_args.kwargs['start_new_session'])
+            receipt_path, = root.glob('tasks/owner-*/CPU-RECEIPT.json')
+            receipt = json.loads(receipt_path.read_text())
+            self.assertTrue(receipt['signals_sent'])
+            self.assertEqual(receipt['signals_scope'], 'own_cpu_task_process_group')
+            self.assertEqual(receipt['idle_interruption']['message'], 'GPU busy')
+
+
 if __name__ == '__main__':
     unittest.main()

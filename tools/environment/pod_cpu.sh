@@ -7,7 +7,7 @@ usage() {
 Usage:
   pod_cpu.sh discover SSH_TARGET [NAMESPACE]
   pod_cpu.sh interpreters SSH_TARGET NAMESPACE POD EXPECTED_UID
-  pod_cpu.sh budget SSH_TARGET NAMESPACE POD EXPECTED_UID PYTHON GUARD OUTPUT VALID_SECONDS OWNER_A OWNER_B
+  pod_cpu.sh budget SSH_TARGET NAMESPACE POD EXPECTED_UID PYTHON GUARD OUTPUT VALID_SECONDS OWNER_A [OWNER_B]
   pod_cpu.sh probe SSH_TARGET NAMESPACE POD EXPECTED_UID PYTHON
   pod_cpu.sh run SSH_TARGET NAMESPACE POD EXPECTED_UID PYTHON SCRIPT [ARG...]
 
@@ -28,7 +28,7 @@ shift 2
 case "$operation" in
   discover) [[ $# -le 1 ]] || usage ;;
   interpreters) [[ $# -eq 3 ]] || usage ;;
-  budget) [[ $# -eq 9 ]] || usage ;;
+  budget) [[ $# -eq 8 || $# -eq 9 ]] || usage ;;
   probe) [[ $# -eq 4 ]] || usage ;;
   run) [[ $# -ge 5 ]] || usage ;;
   *) usage ;;
@@ -41,7 +41,9 @@ ssh_options=(-T -o BatchMode=yes -o ConnectTimeout=15 -o ConnectionAttempts=1)
 remote_command='bash -s --'
 for argument in "$operation" "${NCCCU_CONTAINER:-}" "${NCCCU_CPU_GUARD:-}" \
   "${NCCCU_CPU_ALLOCATION:-}" "${NCCCU_EXECUTOR_ID:-}" "${NCCCU_CPU_ALLOCATION_SHA256:-}" \
-  "${NCCCU_RESOURCE_POLICY:-}" "${NCCCU_RESOURCE_POLICY_SHA256:-}" "$@"; do
+  "${NCCCU_RESOURCE_POLICY:-}" "${NCCCU_RESOURCE_POLICY_SHA256:-}" \
+  "${NCCCU_CPU_IDLE_SITE:-}" "${NCCCU_CPU_IDLE_SITE_SHA256:-}" \
+  "${NCCCU_CPU_IDLE_SAFETY:-}" "${NCCCU_CPU_IDLE_SAFETY_SHA256:-}" "$@"; do
   printf -v quoted '%q' "$argument"
   remote_command+=" $quoted"
 done
@@ -56,7 +58,11 @@ executor=$5
 cpu_allocation_sha=$6
 resource_policy=$7
 resource_policy_sha=$8
-shift 8
+idle_site=$9
+idle_site_sha=${10}
+idle_safety=${11}
+idle_safety_sha=${12}
+shift 12
 
 if [[ "$operation" == discover ]]; then
   namespace_args=()
@@ -114,13 +120,21 @@ cpu_env=(env CUDA_VISIBLE_DEVICES= HIP_VISIBLE_DEVICES= ROCR_VISIBLE_DEVICES=
   NCCCU_CONTAINER="$container" NCCCU_PYTHON="$python")
 [[ -z "$resource_policy" ]] || cpu_env+=(NCCCU_RESOURCE_POLICY="$resource_policy"
   NCCCU_RESOURCE_POLICY_SHA256="$resource_policy_sha")
+if [[ -n "$idle_site$idle_site_sha$idle_safety$idle_safety_sha" ]]; then
+  [[ -n "$idle_site" && "$idle_site_sha" =~ ^[0-9a-f]{64}$ && -n "$idle_safety" \
+     && "$idle_safety_sha" =~ ^[0-9a-f]{64}$ ]] || exit 2
+  cpu_env+=(NCCCU_CPU_IDLE_SITE="$idle_site" NCCCU_CPU_IDLE_SITE_SHA256="$idle_site_sha"
+            NCCCU_CPU_IDLE_SAFETY="$idle_safety" NCCCU_CPU_IDLE_SAFETY_SHA256="$idle_safety_sha")
+fi
 
 if [[ "$operation" == budget ]]; then
   # This standard-library-only bootstrap measures the allocation before any model import.
-  guard=$1; output=$2; valid_seconds=$3; owner_a=$4; owner_b=$5
+  guard=$1; output=$2; valid_seconds=$3; owner_a=$4
+  owners=(--owner "$owner_a")
+  if [[ $# -eq 5 ]]; then owners+=(--owner "$5"); fi
   [[ "$guard" == /* && "$guard" == *.py && "$output" == /* ]] || exit 2
   exec "${pod_exec[@]}" "${cpu_env[@]}" nice -n 19 "$python" -B "$guard" plan \
-    --output "$output" --valid-seconds "$valid_seconds" --owner "$owner_a" --owner "$owner_b"
+    --output "$output" --valid-seconds "$valid_seconds" "${owners[@]}"
 fi
 
 [[ "$cpu_guard" == /* && "$cpu_guard" == *.py && "$cpu_allocation" == /* && -n "$executor" \
