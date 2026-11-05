@@ -77,6 +77,7 @@ PAIR_SIGMOID_DECAY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24
 PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-decay8000-v1'
 PAIR_SIGMOID_GAMMA_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-gamma075-v1'
 PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-gamma075-v1'
+R272_GAMMA_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261203-scale085-pairsigmoid-gamma075-v1'
 PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-wd005-v1'
 PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-wd005-v1'
 PAIR_SIGMOID_WIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-wide2-peakgrad-v1'
@@ -215,7 +216,7 @@ SUPPORTED_BINDINGS = (BINDING_VERSION, FIT_BN_BINDING_VERSION, FROZEN_SMALL_BIND
                       PAIR_SIGMOID_SMALL_SEED27_BINDING, *PAIR_SIGMOID_SEED_REPLICAS, PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                       PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING, PAIR_SIGMOID_DECAY_SMALL_BINDING,
                       PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING, PAIR_SIGMOID_GAMMA_SMALL_BINDING,
-                      PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING, PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
+                      PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING, R272_GAMMA_BINDING, PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
                       PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING, PAIR_SIGMOID_WIDE_SMALL_BINDING,
                       PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING, PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING, PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING, PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING, PHOTO_IDENTITY_SMALL_BINDING,
                       NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
@@ -415,7 +416,7 @@ def science_configuration():
                                                        PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                                        PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
-                                                       PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
+                                                       PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,R272_GAMMA_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
                                                        PHOTO_IDENTITY_SMALL_BINDING,
                                                        NO_AGE_SMALL_BINDING, CONTENT_POOL_SMALL_BINDING,
@@ -454,7 +455,7 @@ def science_configuration():
                 or type(value.get('age_enabled', True)) is not bool
                 or ((value.get('candidate_profile')in(PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING))
                     != (value.get('job',{}).get('lr_decay_updates')is not None))
-                or ((value.get('candidate_profile')in(PAIR_SIGMOID_GAMMA_SMALL_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING))
+                or ((value.get('candidate_profile')in(PAIR_SIGMOID_GAMMA_SMALL_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,R272_GAMMA_BINDING))
                     != (value.get('job',{}).get('training_photometric')=='gamma-reciprocal075-v1'))
                 or ((value.get('candidate_profile')in(PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING))
                     != (value.get('job',{}).get('loss')==PAIR_WIDE_SIGMOID_LOSS))
@@ -613,7 +614,7 @@ def science_configuration():
                                                        PAIR_SIGMOID_SMALL_SEED27_BINDING,*PAIR_SIGMOID_SEED_REPLICAS,PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                                        PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
-                                                       PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
+                                                       PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,R272_GAMMA_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
                                                        PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING)
                     and value.get('job', {}).get('loss') != PAIR_SIGMOID_LOSS)
                 or (value.get('candidate_profile') in (AUC_MARGIN_SMALL_BINDING,AUC_MARGIN_SMALL_SEED27_BINDING)
@@ -769,7 +770,7 @@ def candidate_from_configuration(value):
                                         PAIR_SIGMOID_LOWLR_SMALL_BINDING,
                                         PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_BINDING,
                                         PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
-                                        PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
+                                        PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,R272_GAMMA_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
                                         PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
                                         PHOTO_IDENTITY_SMALL_BINDING, NO_AGE_SMALL_BINDING,
                                         CONTENT_POOL_SMALL_BINDING, STAGE3_RESIDUAL_SMALL_BINDING,
@@ -859,11 +860,11 @@ def candidate_from_configuration(value):
                             experiment_order=order)
         if value['candidate_profile'] in (PAIR_SIGMOID_LOWLR_SMALL_BINDING,PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,
                 PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_BINDING,
-                PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
+                PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,R272_GAMMA_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,
                 PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING):
             seed27=value['candidate_profile']in(PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING)
             short_decay=value['candidate_profile']in(PAIR_SIGMOID_DECAY_SMALL_BINDING,PAIR_SIGMOID_DECAY_SMALL_SEED27_BINDING)
-            gamma=value['candidate_profile']in(PAIR_SIGMOID_GAMMA_SMALL_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING)
+            gamma=value['candidate_profile']in(PAIR_SIGMOID_GAMMA_SMALL_BINDING,PAIR_SIGMOID_GAMMA_SMALL_SEED27_BINDING,R272_GAMMA_BINDING)
             strong_decay=value['candidate_profile']in(PAIR_SIGMOID_WEIGHT_DECAY_SMALL_BINDING,PAIR_SIGMOID_WEIGHT_DECAY_SMALL_SEED27_BINDING)
             wide=value['candidate_profile']in(PAIR_SIGMOID_WIDE_SMALL_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED27_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING,PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING)
             expected.update(id='r202-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-wide2-peakgrad-9010' if wide and seed27 else
@@ -881,13 +882,15 @@ def candidate_from_configuration(value):
                 expected.update(id='r259-convnext-small-imagenet22k-to-1k-24k-p4-seed20261115-scale085-pairsigmoid-wide2-peakgrad-9010',experiment_order=169)
             if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING:
                 expected.update(id='r271-convnext-small-imagenet22k-to-1k-24k-p4-seed20261123-scale085-pairsigmoid-wide2-peakgrad-9010',experiment_order=181)
+            if value['candidate_profile']==R272_GAMMA_BINDING:
+                expected.update(id='r272-convnext-small-imagenet22k-to-1k-24k-p4-seed20261203-scale085-pairsigmoid-gamma075-9010',experiment_order=179)
             if short_decay:expected['lr_decay_updates']=8000
             if strong_decay:expected.update(id='r200-convnext-small-imagenet22k-to-1k-24k-p4-seed20261027-scale085-pairsigmoid-wd005-9010' if seed27 else 'r199-convnext-small-imagenet22k-to-1k-24k-p4-seed20261029-scale085-pairsigmoid-wd005-9010',experiment_order=113 if seed27 else 112,weight_decay=.05)
             if ((value['job'].get('model'),value['job'].get('seed'),value['job'].get('normalization'),
                     value['job'].get('image_size'),value['job'].get('prepared_size'),value['job'].get('effective_batch'),
                     value['job'].get('positive_per_batch'),value['job'].get('backbone_lr'),value['job'].get('head_lr'),
                     value['job'].get('weight_decay'),value['job'].get('lr_decay_updates'))!=
-                    ('convnext_small',20261123 if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING else 20261115 if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING else 20261107 if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING else 20261027 if seed27 else 20261029,'imagenet',512,512,64,8,
+                    ('convnext_small',20261203 if value['candidate_profile']==R272_GAMMA_BINDING else 20261123 if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING else 20261115 if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261115_BINDING else 20261107 if value['candidate_profile']==PAIR_SIGMOID_WIDE_SMALL_SEED20261107_BINDING else 20261027 if seed27 else 20261029,'imagenet',512,512,64,8,
                      1e-4 if short_decay or gamma or strong_decay or wide else 5e-5,1e-3,.05 if strong_decay else 1e-4,8000 if short_decay else None)
                     or value['job'].get('loss')!=(PAIR_WIDE_SIGMOID_LOSS if wide else PAIR_SIGMOID_LOSS)
                     or value['job'].get('training_photometric')!=('gamma-reciprocal075-v1'if gamma else None)
