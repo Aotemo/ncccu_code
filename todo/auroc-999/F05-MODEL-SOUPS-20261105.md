@@ -27,3 +27,7 @@ R120 族五父模型的均匀汤随后已真实生成；[血缘回执](../../rec
 ## 三个均匀汤的全 dev 推理与替换预览
 
 c607 要求优先利用空闲 Pod 评估三组均匀汤的 fp32 与 fp16。结果读取前固定配置 [F05-SOUP-DEV-20261105.json](../../configs/F05-SOUP-DEV-20261105.json)：R120/R134R1/R201 三组及其汤与 standalone 回执 SHA 固定，八设备按 `3/3/2` 分片；每组每种存储精度分别对全部 5140 条原 dev 做一次单视图前向，报告各自 AUROC/AP、精度差异，样本级数据仅存 exp-v3。使用原 F04 内部全量前向中五成员预测，对每个汤分别替换 F04 的每一个成员，列出全部 `3×5` 个替换组合及对应精度口径的 AUROC/AP 和实际 fp16 权重总字节；dev 均值/总体标准差 z 等权。fp32 口径使用原 selected 的 fp32 dev 预测；fp16 口径使用 F04 已完成的内部 fp16 各成员分片预测。若原分片不可核验则该口径标 unknown，不借用官方预测。以上是事后研究预览，不据此增删或选定 F05 成员；F05 最终融合仍须在所有授权方向结束后按预登记固定规则单独封存。仅改现有 `tools/diagnostics/f04_gpu_full_dev.py`、对应窄测试和小型输入准备辅助，复用完整 GPU 设备/锁/进程/存储/80:20 门；不得消费或重置 F04 官方 claim，不读官方数据。
+
+## 2026-11-05 14:40 UTC 三汤 dev 改走 CPU 准备池（c607 决定，任务已交助手经统筹转发）
+
+两 Pod GPU 均在训练，三汤完整 dev 评估改在助手 12–23 准备池以 CPU 执行，作为 F05 候选筛选证据；GPU full-dev fp16 复核仍按原规则在入选后进行。执行前须过两门：(a) 用同一 CPU 路径对 R120 selected 单模复现该轮 cycle 6 的逐样本 dev 预测与 AUROC/AP，不一致即判定与既有 GPU 评估链不一致并停止；(b) 64 张 batch-8 预热计时，3×5140×t > 3 小时即停止并报估算。通过后对 `F05-SOUPS-v1/{r120,r134r1,r201}/fp32` 各做一次 5140 单视图前向，输出与 `dev-cycle-0006.csv` 同列格式的 CSV 与 METRICS（含模型/CSV/manifest SHA、commit、线程、耗时、GPU_initialized=false、official_read=false、TTA=false）；样本级仅存 exp-v3/helper 根目录。线程固定 12、interop 1，nice 19、隐藏设备、mask 12–23；不读官方、不改训练/选员入口、不触碰两 Pod 的 round 目录。
