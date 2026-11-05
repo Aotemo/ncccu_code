@@ -111,6 +111,33 @@ def cmd_test(args):
     print(json.dumps(receipt | {'receipt_sha256': write_new(args.receipt, json.dumps(receipt, indent=1, sort_keys=True) + '\n')}, indent=1))
 
 
+def cmd_filter(args):
+    """Keep only the held-out fold rows of a full official prediction CSV."""
+    folds = json.loads(Path(args.folds).read_text())
+    held = [row for row in folds['rows'] if row['fold'] == args.fold]
+    rows = list(csv.DictReader(Path(args.full).open(newline='')))
+    if len(rows) != 5849:
+        raise SystemExit('full official prediction rows differ')
+    by_name = {row['name'].casefold(): row for row in rows}
+    if len(by_name) != 5849:
+        raise SystemExit('duplicate names in full prediction')
+    path = Path(args.output)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('x', newline='', encoding='utf-8') as stream:
+        writer = csv.writer(stream)
+        writer.writerow(['name', 'label', 'logit'])
+        for row in held:
+            match = by_name.get(row['name'].casefold())
+            if match is None or int(match['label']) != int(row['label']):
+                raise SystemExit('held-out coverage/label differs: ' + row['name'])
+            writer.writerow([row['name'], int(row['label']), match['logit']])
+    receipt = {'status': 'f06_fold_heldout_extracted', 'fold': args.fold,
+               'full': str(args.full), 'full_sha256': sha(args.full),
+               'heldout': str(path), 'heldout_sha256': sha(path),
+               'rows': len(held), 'positive': sum(int(row['label']) for row in held)}
+    print(json.dumps(receipt | {'receipt_sha256': write_new(args.receipt, json.dumps(receipt, indent=1, sort_keys=True) + '\n')}, indent=1))
+
+
 def _read_scores(path, *, need_label):
     names, values, labels = [], [], []
     with Path(path).open(newline='', encoding='utf-8') as stream:
@@ -253,6 +280,12 @@ def main():
     evaluate.add_argument('--device', required=True)
     evaluate.add_argument('--csv-path', required=True)
     evaluate.add_argument('--receipt', required=True)
+    filt = sub.add_parser('filter')
+    filt.add_argument('--folds', required=True)
+    filt.add_argument('--fold', type=int, required=True)
+    filt.add_argument('--full', required=True)
+    filt.add_argument('--output', required=True)
+    filt.add_argument('--receipt', required=True)
     test = sub.add_parser('test')
     test.add_argument('--export', required=True)
     test.add_argument('--fold', type=int, required=True)
@@ -271,7 +304,7 @@ def main():
     fuse.add_argument('--metadata', required=True)
     fuse.add_argument('--receipt', required=True)
     args = parser.parse_args()
-    {'manifest': cmd_manifest, 'evaluate': cmd_evaluate, 'test': cmd_test,
+    {'manifest': cmd_manifest, 'evaluate': cmd_evaluate, 'filter': cmd_filter, 'test': cmd_test,
      'fuse': cmd_fuse}[args.command](args)
     return 0
 
