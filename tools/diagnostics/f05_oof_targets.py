@@ -282,12 +282,22 @@ def verify_fold_input(base_ref, folds_ref, parent_ref, *, work_root, allow_fixtu
         raise ValueError('complete pinned fold evidence is required') from error
 
 
+CALIBRATION_THREADS = 8
+CALIBRATION_THREAD_POLICY = {'library_threads': CALIBRATION_THREADS, 'processes': 1,
+                             'torch_threads': None, 'implementation': 'threadpoolctl-threadpool_limits-v1'}
+
+
 def fit_fold_calibration(verified):
-    """Fit on every fold-training row with unit sample weight, then map heldout."""
+    """Fit on every fold-training row with unit sample weight, then map heldout.
+
+    The library thread count is pinned so the fitted coefficients and the target
+    tables are reproducible independent of the caller's BLAS/OpenMP defaults.
+    """
     import numpy as np
     import sklearn
     from sklearn.exceptions import ConvergenceWarning
     from sklearn.linear_model import LogisticRegression
+    from threadpoolctl import threadpool_limits
     train, heldout = verified['train_rows'], verified['heldout_rows']
     labels = [row['label'] for row in train]
     if not train or not heldout or set(labels) != {0, 1}:
@@ -298,7 +308,7 @@ def fit_fold_calibration(verified):
         raise ValueError('finite training logits required')
     weights = np.ones(len(train), dtype=np.float64)
     model = LogisticRegression(C=1000, solver='lbfgs', max_iter=1000, tol=1e-8, random_state=20261121)
-    with warnings.catch_warnings(record=True) as caught:
+    with warnings.catch_warnings(record=True) as caught, threadpool_limits(CALIBRATION_THREADS):
         warnings.simplefilter('always', ConvergenceWarning)
         model.fit(x, y, sample_weight=weights)
     if (any(issubclass(w.category, ConvergenceWarning) for w in caught)
@@ -307,7 +317,8 @@ def fit_fold_calibration(verified):
             or not np.isfinite(model.coef_).all() or not np.isfinite(model.intercept_).all()):
         raise ValueError('fold calibration did not converge to finite binary parameters')
     hold = np.asarray([row['logit'] for row in heldout], dtype=np.float64).reshape(-1, 1)
-    probabilities = model.predict_proba(hold)[:, 1]
+    with threadpool_limits(CALIBRATION_THREADS):
+        probabilities = model.predict_proba(hold)[:, 1]
     if not np.isfinite(probabilities).all() or np.any(probabilities < 0) or np.any(probabilities > 1):
         raise ValueError('finite heldout probabilities in [0,1] required')
     receipt = {'format': 'f05-fold-calibration-v1', 'fold': verified['fold'], 'round_id': verified['round_id'],
@@ -320,6 +331,7 @@ def fit_fold_calibration(verified):
                'training_count': len(train), 'class_counts': [labels.count(0), labels.count(1)],
                'weight_per_sample': 1.0, 'weight_sum': float(weights.sum()), 'classes': [0, 1],
                'config': {'C': 1000, 'solver': 'lbfgs', 'max_iter': 1000, 'tol': 1e-8, 'random_state': 20261121},
+               'thread_policy': dict(CALIBRATION_THREAD_POLICY),
                'coef': float(model.coef_[0, 0]), 'intercept': float(model.intercept_[0]),
                'iterations': int(model.n_iter_[0]), 'converged': True, 'sklearn_version': sklearn.__version__}
     return receipt, {row['index']: float(prob) for row, prob in zip(heldout, probabilities)}

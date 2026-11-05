@@ -9,6 +9,12 @@
 - 每个折模型仅对其 held-out fit 单视图前向一次，合并必须精确覆盖所有原 fit 行一次、模型/折/文件 SHA 与标签对齐，缺项、重复或损坏为失败/unknown。OOF 原始 logits、标定软标签与逐样本映射只存 exp-v3；不进入 Git。
 - pairwise 损失不固定 logit 的绝对零点，直接对原始 logit 取 sigmoid 并以 0.95 判定会受任意平移影响。为每个折固定一个仅用该折**全部训练子集**的标定：按原 manifest 全局行索引升序，对该折每个训练行用该折 selected 模型做一次单视图前向；不抽样。原合同按训练集真实类比例修正分层抽样，使用全量训练集时此比例修正得到各行权重均为 `1`，均值为 `1`、总和为该折训练样本数；原合同没有反比例类别平衡。以这些权重拟合一维 `LogisticRegression(C=1000, solver='lbfgs', max_iter=1000, tol=1e-8, random_state=20261121)`，并用此映射转换该折 held-out 分数。两类缺失、训练索引缺漏/重复、拟合未收敛或输出非有限值均为失败，不改阈值或退回原始 sigmoid。标定模型和模型训练均不接触本折 held-out 标签；标定样本属于该折训练集，可能过度自信，须明确报告，不称作医学确诊或严格校准概率。封存完整训练索引身份、类比例、权重归一化、selected 模型及预测分片身份、系数、截距和收敛状态；样本级索引与输出只留 exp-v3。该全量及归一化裁定在任何 OOF 或标定分数产生前作出，替代原每类最多 1024 行抽样的文本。
 
+## 标定线程策略（2026-11-05 c607 裁定后登记，在任何 v4 结果读取前）
+
+- 一维 `LogisticRegression` 的拟合与 `predict_proba` 一律在 `threadpoolctl.threadpool_limits(8)` 内执行，单进程、串行调用，不修改调用方的 `OMP/MKL/OPENBLAS_NUM_THREADS`（Guard 要求的 `NCCCU_CPU_THREADS=24` 环境保持不变），Torch 不参与标定。策略常量与 `thread_policy` 字段固定写入每折 `f05-fold-calibration-v1` 回执，生成器与正式 prepare 共用同一函数，因此两侧得到同一组浮点结果。
+- 采用该策略后任务树 runnable 峰值应稳定低于 24，Guard 必须 `exit_code=0`。2026-11-05 的 v1（原生 24 线程）虽然目标表两次运行一致，但 Guard 记录 runnable 峰值 33，按 R251/A 先例判为失败、不予采用；v1/v2/v3 目录与回执保留，不改写。
+- 新版本为 `F05-OOF-TARGETS-v4`：合同固定线程策略后独立运行两次，要求 `CALIBRATION-0/1/2`、`CLEAN-TARGETS-private`、`DISTILL-TARGETS-private` 的 SHA 完全一致、两次 Guard 均 `exit_code=0`；SUMMARY 因执行时间与回执不同可不同，采用首次成功者。R268/R269 四份 SCIENCE 指向 v4 的 SUMMARY 与目标表。
+
 ## 置信筛查与清洗重训
 
 事前固定二分类 confident-joint 规则：对每个 OOF 行令 `p1=该折训练子集拟合的标定映射(logit)`、`p0=1-p1`；对类 `j∈{0,1}` 以原标注为 j 的 fit 行计算 `t_j=max(0.95, mean(p_j | observed_label=j))`。当某行 `p_j≥t_j` 时将其记为预测类 j 的高置信项（若两个类同时符合则取概率较大者；完全相等且均符合记 unknown，不任意决断）；其余为未确认项。统计 `C[原标注, 高置信预测类]`，非对角线行标为可疑。该规则是基于 OOF 的置信分歧候选，不等同专家确诊错标；报告阈值、矩阵、数目、比例与来源，不手工改标签。清洗主方案只对上述 fit 样本赋固定权重 0.25，其他为 1；原 R120 pairwise sigmoid 的正负对权重为两样本权重乘积，按权重和归一化。无候选时仍按原合同如实报告，不能事后改阈值。新模型 fresh，数据、age、优化器和唯一 dev selector 沿 R120，科学配置及影响范围另作正式部署绑定。
