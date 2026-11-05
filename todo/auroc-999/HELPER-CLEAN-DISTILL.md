@@ -15,3 +15,5 @@
 ## 合成测试状态
 
 首次 B guarded 双 rank 检查中，测试进程输出 4/4 OK、child exit 0，但 guard 回执 `5601cf8d3bd3259f3253497a264f6cb928aebedcdbe1992163a9c7d8136c839e` 总 exit **2**：affinity 均在 12–23，峰值 runnable 线程 24 超过助手份额 12，故本次整体为失败，不作为通过证据。测试在导入 NumPy/Torch 前将各进程 BLAS/OMP 及 Torch intra/interop 降至 1 后须以新源码身份重测；不调整实际 allocation，原回执保留。
+
+线程限制后的独立快照重测 **4/4**，guard exit 0、回执 `c499f41dfd48a91e68c3eb447d93dde623da62fdb97ae1a175524118c4066343`。覆盖 confident-joint 与目标表身份/越界拒绝、加权 pairwise 和蒸馏方程、双 rank Gloo WORLD 顺序及 DDP 梯度与单进程完整批次一致、单 rank 缺目标时全 rank 同步拒绝。实际 `classification_loss.py` SHA `712d4829a25899b298d85cfb7409f69b8686825214b80852d362942418073db0`，`data.py` SHA `f87a161efdb9633387238d1a8127642094d893e83696bba86aa9844013d91b27`，`distributed_engine.py` SHA `c7c2a7eab770aeab29feb5a686c0bb5cd5a88dd9cf5b447a8259c7fc7ef541c5`，测试 SHA `e0112634de295ce1b2571dbfaf7eb94adb32f6c3d961bef3dcfefdf2482ab5ef`。这些合成证据不证明真实 OOF、标定来源、主循环接线或正式训练准入。
