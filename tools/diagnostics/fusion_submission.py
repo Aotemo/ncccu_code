@@ -1,9 +1,11 @@
 """Fuse sealed member test scores into a submittable CSV (CPU, no official labels).
 
-Fixed rule: standardise every member by its internal-dev mean and population
-standard deviation, average the standardised scores with the manifest weights,
-fit a deterministic one-dimensional Platt map on the fused internal-dev score,
-and apply that map to the fused test score.
+Fixed rule: every member is fused on the logit scale. Members declare
+``score_column`` (default: logit when present); probability-only files are
+converted with log(p)-log1p(-p) and saturated rows are rejected rather than
+clipped. Scores are standardised by the declared internal-dev logit moments,
+averaged with the manifest weights, and a deterministic Platt map fitted on the
+fused dev score is applied to the fused test score.
 """
 import argparse
 import csv
@@ -36,27 +38,41 @@ def _field(fieldnames, wanted):
     return None
 
 
-def load_scores(path, *, need_label=False):
-    """Read a name/probability CSV, keeping file order and rejecting duplicates."""
+def logit_from_probability(value, where):
+    """Recover a float64 logit from a probability without clipping saturated rows."""
+    if not math.isfinite(value) or value <= 0.0 or value >= 1.0:
+        raise ValueError('cannot recover logit from saturated probability in ' + where)
+    return math.log(value) - math.log1p(-value)
+
+
+def load_scores(path, *, need_label=False, score_column=None):
+    """Read names plus a logit-scale score; probability-only files are converted."""
     path = Path(path)
     names, values, labels = [], [], []
     with path.open(newline='', encoding='utf-8') as stream:
         reader = csv.DictReader(stream)
         name_field = _field(reader.fieldnames, NAME_FIELDS)
-        value_field = _field(reader.fieldnames, PROBABILITY_FIELDS)
+        if score_column is not None:
+            score_field = _field(reader.fieldnames, (str(score_column).lower(),))
+            if score_field is None:
+                raise ValueError('declared score column absent in ' + str(path))
+        else:
+            score_field = _field(reader.fieldnames, ('logit', 'probability', 'score'))
         label_field = _field(reader.fieldnames, ('label',))
-        if name_field is None or value_field is None or (need_label and label_field is None):
-            raise ValueError('name, probability and label columns required in ' + str(path))
+        if name_field is None or score_field is None or (need_label and label_field is None):
+            raise ValueError('name, score and label columns required in ' + str(path))
+        is_probability = score_field.lower() in ('probability', 'score')
         for row in reader:
             name = (row[name_field] or '').strip()
             if not name:
                 raise ValueError('empty image name in ' + str(path))
             try:
-                value = float(row[value_field])
+                raw = float(row[score_field])
             except (TypeError, ValueError) as error:
-                raise ValueError('numeric probability required in ' + str(path)) from error
-            if not math.isfinite(value) or not 0 <= value <= 1:
-                raise ValueError('probability outside [0,1] in ' + str(path))
+                raise ValueError('numeric score required in ' + str(path)) from error
+            if not math.isfinite(raw):
+                raise ValueError('finite score required in ' + str(path))
+            value = logit_from_probability(raw, str(path)) if is_probability else raw
             names.append(name)
             values.append(value)
             if need_label:
@@ -71,7 +87,8 @@ def load_scores(path, *, need_label=False):
         raise ValueError('unique image names required in ' + str(path))
     return {'path': str(path), 'sha256': sha(path), 'names': names,
             'values': np.asarray(values, dtype=np.float64),
-            'labels': np.asarray(labels, dtype=np.int64) if need_label else None}
+            'labels': np.asarray(labels, dtype=np.int64) if need_label else None,
+            'score_field': score_field, 'score_scale': 'probability->logit' if is_probability else 'logit'}
 
 
 def moments(values):
@@ -108,13 +125,13 @@ def fit_platt(scores, labels):
         raise ValueError('two-class aligned dev scores required')
     if not np.isfinite(scores).all():
         raise ValueError('finite dev scores required')
-    model = LogisticRegression(C=1.0, solver='lbfgs', max_iter=1000, tol=1e-10, random_state=20261105)
+    model = LogisticRegression(C=1e6, solver='lbfgs', max_iter=1000, tol=1e-10, random_state=20261105)
     model.fit(scores, labels)
     slope, intercept = float(model.coef_[0, 0]), float(model.intercept_[0])
     if not math.isfinite(slope) or not math.isfinite(intercept) or slope <= 0:
         raise ValueError('positive finite Platt parameters required')
-    return {'format': 'platt-one-dimensional-v1', 'slope': slope, 'intercept': intercept,
-            'config': {'C': 1.0, 'solver': 'lbfgs', 'max_iter': 1000, 'tol': 1e-10,
+    return {'format': 'platt-one-dimensional-v1', 'scale': 'logit', 'slope': slope, 'intercept': intercept,
+            'config': {'C': 1e6, 'solver': 'lbfgs', 'max_iter': 1000, 'tol': 1e-10,
                        'random_state': 20261105, 'feature': 'fused_dev_score'},
             'dev_count': int(scores.shape[0]), 'dev_positive': int(labels.sum())}
 
@@ -167,7 +184,11 @@ def read_members(manifest, *, allow_fixture=False):
                 raise ValueError('exact {path, sha256} reference required for ' + key)
             if sha(reference['path']) != reference['sha256']:
                 raise ValueError('member file bytes differ from the pinned SHA: ' + reference['path'])
-        test, dev = load_scores(row['test']['path']), load_scores(row['dev']['path'], need_label=True)
+        column = row.get('score_column')
+        if column is not None and not isinstance(column, str):
+            raise ValueError('string score_column required')
+        test = load_scores(row['test']['path'], score_column=column)
+        dev = load_scores(row['dev']['path'], need_label=True, score_column=column)
         mean, std = float(row['dev_mean']), float(row['dev_std'])
         actual_mean, actual_std = moments(dev['values'])
         if (abs(actual_mean - mean) > 1e-9 or abs(actual_std - std) > 1e-9) and not allow_fixture:
@@ -176,6 +197,7 @@ def read_members(manifest, *, allow_fixture=False):
             raise ValueError('exactly ' + str(TEST_ROWS) + ' test rows required: ' + row['id'])
         members.append({'id': row['id'], 'weight': float(row.get('weight', 1.0)),
                         'test': test, 'dev': dev, 'dev_mean': mean, 'dev_std': std,
+                        'score_column': column, 'score_scale': dev['score_scale'],
                         'dev_moments_observed': {'mean': actual_mean, 'std': actual_std}})
     if any(member['weight'] <= 0 or not math.isfinite(member['weight']) for member in members):
         raise ValueError('positive finite member weights required')
@@ -302,7 +324,11 @@ def main():
                 'members': [{'id': member['id'], 'weight': member['weight'],
                              'test': {'path': member['test']['path'], 'sha256': member['test']['sha256']},
                              'dev': {'path': member['dev']['path'], 'sha256': member['dev']['sha256']},
-                             'dev_mean': member['dev_mean'], 'dev_std': member['dev_std']}
+                             'dev_mean': member['dev_mean'], 'dev_std': member['dev_std'],
+                             'score_column': member['score_column'],
+                             'test_score_field': member['test']['score_field'],
+                             'dev_score_field': member['dev']['score_field'],
+                             'score_scale': member['score_scale']}
                             for member in members],
                 'manifest': {'path': str(args.members), 'sha256': sha(args.members)},
                 'normalization': result['normalization'], 'platt': result['platt'],

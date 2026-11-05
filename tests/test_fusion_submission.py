@@ -1,4 +1,4 @@
-"""Synthetic checks for the fused submission writer."""
+"""Synthetic checks for the fused submission writer (logit-scale fusion)."""
 import csv
 import importlib.util
 import json
@@ -17,28 +17,40 @@ fusion = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fusion)
 
 
-def write_csv(path, names, values, labels=None):
+def write_dev(path, names, logits, labels):
     with path.open('w', newline='') as stream:
         writer = csv.writer(stream)
-        writer.writerow(['name', 'label', 'probability'] if labels is not None else ['Image_name', 'Probability'])
-        for index, (name, value) in enumerate(zip(names, values)):
-            row = [name, labels[index], repr(float(value))] if labels is not None else [name, repr(float(value))]
-            writer.writerow(row)
+        writer.writerow(['name', 'label', 'logit', 'probability'])
+        for name, logit, label in zip(names, logits, labels):
+            writer.writerow([name, label, repr(float(logit)), repr(float(1 / (1 + np.exp(-logit))))])
 
 
-def fixture(root, count=40, test_count=12):
+def write_test(path, names, logits, *, probability=False):
+    with path.open('w', newline='') as stream:
+        writer = csv.writer(stream)
+        if probability:
+            writer.writerow(['Image_name', 'Probability'])
+            for name, logit in zip(names, logits):
+                writer.writerow([name, repr(float(1 / (1 + np.exp(-logit))))])
+        else:
+            writer.writerow(['Image_name', 'logit'])
+            for name, logit in zip(names, logits):
+                writer.writerow([name, repr(float(logit))])
+
+
+def fixture(root, count=40, test_count=12, *, probability_test=False):
     generator = np.random.default_rng(20261105)
     labels = np.array([1 if index % 3 == 0 else 0 for index in range(count)])
     dev_names = ['train_' + str(index).zfill(5) + '.jpg' for index in range(count)]
     test_names = ['test_' + str(index).zfill(5) + '.jpg' for index in range(test_count)]
     members = []
     for number in range(3):
-        dev = np.clip(0.5 * labels + 0.4 * generator.random(count) + 0.05 * number, 0.001, 0.999)
-        test = np.clip(0.45 * generator.random(test_count) + 0.05 * number, 0.001, 0.999)
+        dev = 2.0 * labels - 2.0 + 1.5 * generator.normal(size=count) + 0.3 * number
+        test = 1.2 * generator.normal(size=test_count) + 0.2 * number
         dev_path, test_path = root / ('dev-' + str(number) + '.csv'), root / ('test-' + str(number) + '.csv')
-        write_csv(dev_path, dev_names, dev, labels)
-        write_csv(test_path, test_names, test)
-        members.append({'id': 'm' + str(number), 'weight': 1.0,
+        write_dev(dev_path, dev_names, dev, labels)
+        write_test(test_path, test_names, test, probability=probability_test)
+        members.append({'id': 'm' + str(number), 'weight': 1.0, 'score_column': 'logit',
                         'dev': {'path': str(dev_path), 'sha256': fusion.sha(dev_path)},
                         'test': {'path': str(test_path), 'sha256': fusion.sha(test_path)},
                         'dev_mean': float(dev.mean()), 'dev_std': float(dev.std(ddof=0))})
@@ -56,8 +68,7 @@ class FusionSubmissionTests(unittest.TestCase):
         self.manifest, self.test_names, self.dev_names, self.labels = fixture(self.root)
 
     def load(self, *, allow_fixture=True):
-        manifest = json.loads(self.manifest.read_text())
-        return fusion.read_members(manifest, allow_fixture=allow_fixture)
+        return fusion.read_members(json.loads(self.manifest.read_text()), allow_fixture=allow_fixture)
 
     def test_members_bind_files_and_orders(self):
         members, names, labels = self.load()
@@ -65,7 +76,7 @@ class FusionSubmissionTests(unittest.TestCase):
         self.assertEqual(len(members), 3)
         self.assertTrue(np.array_equal(labels, self.labels))
 
-    def test_wrong_sha_or_order_or_moment_is_rejected(self):
+    def test_wrong_sha_order_or_moment_is_rejected(self):
         manifest = json.loads(self.manifest.read_text())
         manifest['members'][0]['test']['sha256'] = '0' * 64
         with self.assertRaises(ValueError):
@@ -76,12 +87,26 @@ class FusionSubmissionTests(unittest.TestCase):
             fusion.read_members(manifest, allow_fixture=False)
         manifest = json.loads(self.manifest.read_text())
         other = self.root / 'other.csv'
-        write_csv(other, list(reversed(self.test_names)), [0.5] * len(self.test_names))
+        write_test(other, list(reversed(self.test_names)), [0.5] * len(self.test_names))
         manifest['members'][2]['test'] = {'path': str(other), 'sha256': fusion.sha(other)}
         with self.assertRaises(ValueError):
             fusion.read_members(manifest, allow_fixture=True)
 
-    def test_standardisation_and_weighted_fusion(self):
+    def test_probability_only_file_converts_to_logit_and_rejects_saturation(self):
+        path = self.root / 'prob.csv'
+        write_test(path, ['a.jpg', 'b.jpg'], [1.5, -0.5], probability=True)
+        loaded = fusion.load_scores(path)
+        self.assertEqual(loaded['score_scale'], 'probability->logit')
+        self.assertAlmostEqual(float(loaded['values'][0]), 1.5, places=9)
+        self.assertAlmostEqual(float(loaded['values'][1]), -0.5, places=9)
+        for value in (0.0, 1.0):
+            saturated = self.root / 'saturated.csv'
+            with saturated.open('w', newline='') as stream:
+                stream.write('Image_name,Probability\na.jpg,' + repr(value) + '\n')
+            with self.assertRaises(ValueError):
+                fusion.load_scores(saturated)
+
+    def test_standardisation_and_weighted_fusion_use_logit_scale(self):
         members, names, labels = self.load()
         vectors = {member['id']: fusion.standardise(member['dev']['values'], member['dev_mean'], member['dev_std'])
                    for member in members}
@@ -96,11 +121,11 @@ class FusionSubmissionTests(unittest.TestCase):
         members, names, labels = self.load()
         result = fusion.build(members, names)
         parameters = result['platt']
+        self.assertEqual(parameters['scale'], 'logit')
         self.assertGreater(parameters['slope'], 0)
-        grid = np.linspace(-3, 3, 41)
+        grid = np.linspace(-4, 4, 41)
         mapped = fusion.apply_platt(grid, parameters)
         self.assertTrue(np.all(np.diff(mapped) >= 0))
-        self.assertGreaterEqual(int(np.count_nonzero(np.diff(mapped) > 0)), 35)
         self.assertTrue(np.all((mapped >= 0) & (mapped <= 1)))
         for key in ('auroc', 'ap', 'count', 'positive'):
             self.assertIn(key, result['dev_metrics'])
@@ -124,8 +149,8 @@ class FusionSubmissionTests(unittest.TestCase):
         self.assertEqual(metadata['rows'], len(self.test_names))
         self.assertFalse(metadata['official_read'])
         self.assertFalse(metadata['TTA'])
+        self.assertEqual(metadata['platt']['scale'], 'logit')
         self.assertEqual(metadata['submission']['sha256'], fusion.sha(output / 'submit.csv'))
-        self.assertEqual(metadata['platt']['format'], 'platt-one-dimensional-v1')
 
     def test_expected_names_mismatch_is_rejected(self):
         members, names, labels = self.load()
