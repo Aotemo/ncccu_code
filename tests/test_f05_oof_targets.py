@@ -81,6 +81,10 @@ def synthetic_fixture(root):
             'selected': selected, 'blob_sha256': checkpoint_ref['sha256'],
             'experiment91': {'manifest_sha256': train_ref['sha256']}, 'source_files': {}})
         completion = _write(directory, 'TRAIN_RESULT.json', {'status': 'completed', 'successful_updates': 800})
+        safe = _write(directory, 'SAFE.json', {'fixture_only': True, 'phase': 'terminal',
+            'formal_root': str(directory), 'done': {'present': True, 'status': 'completed'},
+            'safety': {'safe': True}, 'first_success_receipt_read': True, 'signals_sent': False,
+            'model_forward_executed': False, 'official_read': False})
         site = _write(directory, 'SITE_BINDING.json', {'fixture_only': True, 'round_id': round_id})
         science = _write(directory, 'SCIENCE.json', {'fixture_only': True, 'round_id': round_id})
         tree = _write(directory, 'LOCAL-TREE.json', {'fixture_only': True})
@@ -121,13 +125,17 @@ def synthetic_fixture(root):
                 packet = {'rank': rank, 'device_rank': rank, 'member': round_id, 'fold': number,
                           'role': role, 'error': None, 'records': records,
                           'proof_sha256': proofs[rank]['sha256'], 'input_sha256': inputs['sha256'],
+                          'model_load': {'selected_model_sha256': checkpoint_ref['sha256'],
+                                         'selected_tensor_sha256': selected['tensor_sha256'],
+                                         'variant': variant, 'successful_updates': 800,
+                                         'strict_state_load': True, 'storage': 'fp32'},
                           'TTA': False, 'official_read': False}
                 rank_refs.append(_write(directory, f'{role}-rank-{rank}.json', packet))
             packets[role] = rank_refs
         receipt = {'format': 'f05-fold-inference-receipt-v1', 'status': 'completed_fit_only_selected_logits',
                    'fold': number, 'round_id': round_id, 'base_manifest_sha256': base_ref['sha256'],
                    'folds_sha256': folds_ref['sha256'], 'training_manifest': train_ref, 'site': site,
-                   'science': science, 'freeze': freeze, 'completion': completion,
+                   'science': science, 'freeze': freeze, 'completion': completion, 'safe': safe,
                    'checkpoint': checkpoint_ref, 'sidecar': sidecar,
                    'age_contract_sha256': sealed_rows[number]['age']['contract_sha256'],
                    'selected': selected, 'producer_inputs': inputs, 'worker_spec': worker_spec,
@@ -160,6 +168,82 @@ class OOFTargetTests(unittest.TestCase):
                     self.assertEqual(score['role_indices_sha256'], canonical_digest([r['index'] for r in rows]))
                     self.assertEqual(receipt['forward_counts'][role], len(rows))
 
+    @unittest.skipIf(targets is None, 'consumer not implemented')
+    def test_full_train_calibration_and_fit_only_tables(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = synthetic_fixture(directory)
+            base = json.loads(Path(fixture['base']['path']).read_text())
+            sealed = json.loads(Path(fixture['folds']['path']).read_text())
+            verified = [targets.verify_fold_input(fixture['base'], fixture['folds'], parent,
+                                                 work_root=directory, allow_fixture=True)
+                        for parent in fixture['parents']]
+            results = []
+            for item in verified:
+                calibration, probabilities = targets.fit_fold_calibration(item)
+                expected_count = len(sealed['folds'][item['fold']]['fit_indices'])
+                self.assertEqual(calibration['training_count'], expected_count)
+                self.assertEqual(calibration['weight_per_sample'], 1.0)
+                self.assertEqual(calibration['weight_sum'], float(expected_count))
+                self.assertTrue(calibration['converged'])
+                self.assertEqual(calibration['classes'], [0, 1])
+                self.assertEqual(calibration['selected_model_sha256'], item['selected_model_sha256'])
+                reference = _write(Path(directory), f'calibration-{item["fold"]}.json', calibration)
+                results.append({'verified': item, 'calibration': calibration,
+                                'calibration_sha256': reference['sha256'], 'probabilities': probabilities})
+            clean, distilled, summary = targets.build_target_tables(base, sealed, results,
+                base_sha=fixture['base']['sha256'], folds_sha=fixture['folds']['sha256'])
+            self.assertEqual([r['index'] for r in clean['rows']], base['fit_indices'])
+            self.assertEqual([r['index'] for r in distilled['rows']], base['fit_indices'])
+            self.assertTrue(all(r['weight'] in (.25, 1.) for r in clean['rows']))
+            self.assertTrue(all(0 <= r['soft_target'] <= 1 for r in distilled['rows']))
+            self.assertEqual(summary['fit_count'], len(base['fit_indices']))
+            self.assertEqual([s['fold'] for s in clean['fold_sources']], [0, 1, 2])
+            self.assertEqual([s['selected_model_sha256'] for s in clean['fold_sources']],
+                             [i['selected_model_sha256'] for i in verified])
+            self.assertEqual(verified[1]['selected_variant'], 'online')
+            self.assertEqual(verified[0]['selected_variant'], 'ema')
+            broken = copy.deepcopy(results)
+            broken[0]['probabilities'].pop(next(iter(broken[0]['probabilities'])))
+            with self.assertRaises(ValueError):
+                targets.build_target_tables(base, sealed, broken,
+                    base_sha=fixture['base']['sha256'], folds_sha=fixture['folds']['sha256'])
+            broken = copy.deepcopy(results)
+            first = next(iter(broken[0]['probabilities']))
+            broken[0]['probabilities'][first] = 1.0 - broken[0]['probabilities'][first]
+            with self.assertRaises(ValueError):
+                targets.build_target_tables(base, sealed, broken,
+                    base_sha=fixture['base']['sha256'], folds_sha=fixture['folds']['sha256'])
+            broken = copy.deepcopy(results)
+            broken[0]['calibration']['coef'] += 1
+            with self.assertRaises(ValueError):
+                targets.build_target_tables(base, sealed, broken,
+                    base_sha=fixture['base']['sha256'], folds_sha=fixture['folds']['sha256'])
+
+    @unittest.skipIf(targets is None, 'consumer not implemented')
+    def test_rejects_stale_score_wrong_variant_and_missing_train_row(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = synthetic_fixture(directory)
+            first = fixture['parents'][0]
+            parent = json.loads(Path(first['path']).read_text())
+            wrong = copy.deepcopy(parent)
+            wrong['selected']['variant'] = 'online'
+            forged = _write(Path(directory), 'wrong-variant.json', wrong)
+            with self.assertRaises(ValueError):
+                targets.verify_fold_input(fixture['base'], fixture['folds'], forged,
+                                          work_root=directory, allow_fixture=True)
+            score_ref = parent['scores']['train']
+            score_path = Path(score_ref['path'])
+            score = json.loads(score_path.read_text())
+            score['rows'].pop()
+            _write(score_path.parent, score_path.name, score)
+            with self.assertRaises(ValueError):
+                targets.verify_fold_input(fixture['base'], fixture['folds'], first,
+                                          work_root=directory, allow_fixture=True)
+
 
 if __name__ == '__main__':
+    files = ('tools/diagnostics/f05_oof_targets.py', 'tests/test_f05_oof_targets.py',
+             'runtime/bundle/retrain/classification_loss.py', 'runtime/bundle/retrain/data.py',
+             'runtime/bundle/retrain/f05_folds.py', 'runtime/bundle/retrain/parallel_evaluation.py')
+    print(json.dumps({'source_sha256': {name: _ref(ROOT / name)['sha256'] for name in files}}), flush=True)
     unittest.main()
