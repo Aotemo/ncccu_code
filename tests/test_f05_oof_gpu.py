@@ -16,6 +16,11 @@ from retrain.parallel_evaluation import batch_assignments
 from test_f05_oof import fixture
 import f05_oof
 
+GPU_MODULE = Path(os.environ.get('NCCCU_F04_MODULE', ROOT / 'tools/diagnostics/f04_gpu_full_dev.py'))
+gpu_spec = importlib.util.spec_from_file_location('f04_gpu_full_dev', GPU_MODULE)
+gpu = importlib.util.module_from_spec(gpu_spec)
+gpu_spec.loader.exec_module(gpu)
+
 MODULE = Path(os.environ.get('NCCCU_OOF_MODULE', ROOT / 'tools/diagnostics/f05_oof_gpu.py'))
 if MODULE.is_file():
     spec = importlib.util.spec_from_file_location('f05_oof_gpu', MODULE)
@@ -109,14 +114,69 @@ class FitOnlyOOFGPUTests(unittest.TestCase):
             with self.subTest(candidate=cases.index(candidate)), self.assertRaises((ValueError, KeyError)):
                 self.score('train', candidate)
 
+    def test_evaluation_window_reserves_the_full_live_peer_budget(self):
+        gib = 1024 ** 3
+        peer_site = {'round_id': 'r266', 'round_root': '/work/rounds/r266', 'pod': {'uid': 'peer'}}
+        peer = {'phase': 'running', 'formal_root': peer_site['round_root'], 'observed_at': 100.,
+                'identity': {'owner_status': 'active', 'rank_status': ['active'] * 8},
+                'signals_sent': False, 'model_forward_executed': False, 'official_read': False}
+        window = {'status': 'f05_evaluation_capacity_verified', 'at': 100.,
+                  'predecessor_safe_sha256': 'a' * 64, 'site_sha256': 'b' * 64,
+                  'peer_observation_sha256': 'c' * 64, 'peer_site_sha256': 'd' * 64,
+                  'peer_round_id': 'r266', 'peer_reserved_bytes': 12 * gib,
+                  'peer_storage_limit_bytes': 12 * gib, 'required_free_bytes': 33 * gib,
+                  'free_bytes': 40 * gib, 'training_activated': False,
+                  'GPU_started': False, 'official_read': False}
+        options = {'safe_sha': 'a' * 64, 'site_sha': 'b' * 64,
+                   'peer_observation_sha': 'c' * 64, 'peer_site_sha': 'd' * 64,
+                   'current_uid': 'current', 'now': 110., 'free': 40 * gib, 'peer_limit': 12 * gib}
+        oof_gpu.validate_evaluation_window(window, peer, peer_site, **options)
+        changes = [dict(window, peer_reserved_bytes=0), dict(window, at=-30.),
+                   dict(window, official_read=True), dict(window, training_activated=True),
+                   dict(window, required_free_bytes=32 * gib)]
+        for changed in changes:
+            with self.assertRaises(ValueError):
+                oof_gpu.validate_evaluation_window(changed, peer, peer_site, **options)
+        with self.assertRaises(ValueError):
+            oof_gpu.validate_evaluation_window(window, peer, peer_site, **dict(options, free=33 * gib))
+        with self.assertRaises(ValueError):
+            oof_gpu.validate_evaluation_window(window, dict(peer, phase='unknown'), peer_site, **options)
+        with self.assertRaises(ValueError):
+            oof_gpu.validate_evaluation_window(window, peer, dict(peer_site, pod={'uid': 'current'}), **options)
+
 
 class ImplementationExistsTest(unittest.TestCase):
     def test_oof_gpu_helper_exists(self):
         self.assertIsNotNone(oof_gpu, 'fit-only OOF GPU helper has not yet been implemented')
 
 
+class OOFModeOptionsTest(unittest.TestCase):
+    def test_fit_only_mode_never_accepts_soup_or_official_paths(self):
+        gpu.validate_oof_options(True, False, None, None, None, None)
+        gpu.validate_oof_options(False, True, None, None, None, None)
+        for args in ((True, True, None, None, None, None),
+                     (True, False, '/official', None, None, None),
+                     (True, False, None, 'a' * 64, None, None),
+                     (True, False, None, None, '/final', None),
+                     (True, False, None, None, None, 'b' * 64)):
+            with self.assertRaises(ValueError):
+                gpu.validate_oof_options(*args)
+
+    def test_standalone_evaluation_cannot_enter_official_or_untyped_mode(self):
+        gpu.validate_standalone_options(True, True, False, None, None, None, None)
+        gpu.validate_standalone_options(True, False, True, None, None, None, None)
+        gpu.validate_standalone_options(False, False, False, None, None, None, None)
+        for args in ((True, False, False, None, None, None, None),
+                     (True, True, True, None, None, None, None),
+                     (True, True, False, '/official', None, None, None),
+                     (True, False, True, None, None, '/final', None)):
+            with self.assertRaises(ValueError):
+                gpu.validate_standalone_options(*args)
+
+
 if __name__ == '__main__':
     print(json.dumps({'test_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                       'module_sha256': hashlib.sha256(MODULE.read_bytes()).hexdigest()
-                      if MODULE.is_file() else None}), flush=True)
+                      if MODULE.is_file() else None,
+                      'gpu_source_sha256': hashlib.sha256(GPU_MODULE.read_bytes()).hexdigest()}), flush=True)
     unittest.main()

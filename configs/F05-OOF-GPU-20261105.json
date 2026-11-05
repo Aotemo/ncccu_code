@@ -1,0 +1,20 @@
+{
+  "version": "f05-fit-only-oof-gpu-20261105-v1",
+  "base_manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "folds_sha256": "eb880273832b81be61830a069d5ae9ba8dc2e52be4af2f911f7a6b1ec9e7f6d8",
+  "folds": 3,
+  "rounds": ["R265", "R266", "R267"],
+  "population_order": ["train", "heldout"],
+  "world_size": 8,
+  "batch_size": 8,
+  "view": "identity",
+  "model_mode": "eval",
+  "storage": "fp32",
+  "original_fit_count": 46256,
+  "dev_count": 5140,
+  "minimum_free_bytes": 21474836480,
+  "evaluation_reserve_bytes": 1073741824,
+  "tta": false,
+  "dev_read": false,
+  "official_read": false
+}

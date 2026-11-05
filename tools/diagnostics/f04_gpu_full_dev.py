@@ -57,6 +57,23 @@ def validate_soup_options(soup_mode, official_path, official_sha, final_path, fi
         raise ValueError('soup mode cannot consume official or F04 final-lineage options')
 
 
+def validate_oof_options(oof_mode, soup_mode, official_path, official_sha, final_path, final_sha):
+    if type(oof_mode) is not bool or type(soup_mode) is not bool:
+        raise ValueError('explicit boolean evaluation modes required')
+    if oof_mode and (soup_mode or any(value is not None for value in
+                                      (official_path, official_sha, final_path, final_sha))):
+        raise ValueError('fit-only OOF cannot consume soup, official, or F04 final-lineage options')
+
+
+def validate_standalone_options(standalone, soup_mode, oof_mode, official_path, official_sha,
+                                final_path, final_sha):
+    if any(type(value) is not bool for value in (standalone, soup_mode, oof_mode)):
+        raise ValueError('explicit boolean evaluation modes required')
+    if standalone and (soup_mode == oof_mode or any(value is not None for value in
+                         (official_path, official_sha, final_path, final_sha))):
+        raise ValueError('standalone admission is limited to one internal evaluation mode')
+
+
 def selected_variant(member):
     if not isinstance(member, dict) or not isinstance(member.get('selected'), dict):
         raise ValueError('selected member identity is required')
@@ -295,6 +312,44 @@ def validate_evaluation_window(window, safe_sha, site_sha, round_id, now, free, 
             or required <= 0 or reserve <= 0 or recorded <= required + reserve or free <= required + reserve):
         raise ValueError('fresh protected next-round/peer capacity window required')
     return window
+
+
+def validate_standalone_window(window, safe, site, args, source):
+    """Recheck the peer and capacity for an internal evaluation without a successor launch."""
+    sys.path.insert(0, str(source / 'tools/diagnostics'))
+    from f04_bounded_fusion import verify_blob
+    verify_blob(source, args.remote_metadata, 'tools/diagnostics/f05_oof_gpu.py')
+    import f05_oof_gpu as oof
+    peer_ref, site_ref, policy_ref = (window.get(name) for name in
+                                      ('peer_observation', 'peer_site', 'peer_storage_policy'))
+    if any(not isinstance(ref, dict) or set(ref) != {'path', 'sha256'}
+           for ref in (peer_ref, site_ref, policy_ref)):
+        raise ValueError('pinned peer observation, site and storage policy required')
+    peer = read_pinned(peer_ref['path'], peer_ref['sha256'])
+    peer_site = read_pinned(site_ref['path'], site_ref['sha256'])
+    policy = read_pinned(policy_ref['path'], policy_ref['sha256'])
+    peer_root = Path(peer_site['round_root'])
+    previous_root = Path(safe['formal_root'])
+    previous_site_path = previous_root / 'SITE_BINDING.json'
+    previous_site = json.loads(previous_site_path.read_text())
+    previous_runtime = json.loads((previous_root / 'RUNTIME_BINDING.json').read_text())
+    peer_runtime = json.loads((peer_root / 'RUNTIME_BINDING.json').read_text())
+    if (previous_site_path.is_symlink() or previous_site.get('pod', {}).get('uid') != site['pod']['uid']
+            or previous_runtime.get('site_binding_sha256') != sha(previous_site_path)
+            or Path(site_ref['path']) != peer_root / 'SITE_BINDING.json'
+            or peer_runtime.get('site_binding_sha256') != site_ref['sha256']
+            or peer_runtime.get('git_commit') != peer_site.get('git_commit')
+            or peer_site.get('round_id') != site.get('round_id')
+            or peer_site.get('round_root') != site.get('round_root')
+            or Path(policy_ref['path']) != peer_root / 'STORAGE_POLICY.json'
+            or policy.get('schema_version') != 1 or not isinstance(policy.get('round_overrides'), dict)
+            or window.get('git_commit') != args.git_commit):
+        raise ValueError('evaluation package, predecessor or peer provenance differs')
+    limit = policy['round_overrides'].get(peer_site['round_id'], policy.get('default_round_storage_limit_bytes'))
+    return oof.validate_evaluation_window(window, peer, peer_site, safe_sha=args.safe_sha256,
+        site_sha=args.site_sha256, peer_observation_sha=peer_ref['sha256'],
+        peer_site_sha=site_ref['sha256'], current_uid=site['pod']['uid'], now=time.time(),
+        free=shutil.disk_usage(site['work_root']).free, peer_limit=limit)
 
 
 def validate_proof_barrier(proofs, launches, parent, verify_devices, identity):
@@ -645,8 +700,25 @@ def worker(args):
         raise ValueError('worker member identity is ambiguous')
     member = matching[0]
     soup_mode = spec.get('soup_mode', False)
+    oof_mode = spec.get('oof_mode', False)
+    validate_oof_options(oof_mode, soup_mode, spec.get('official'), None, None, None)
     if type(soup_mode) is not bool or (soup_mode and spec.get('official') is not None):
         raise ValueError('soup mode is internal dev only')
+    if oof_mode:
+        bundle = Path(member['bundle']).resolve(strict=True)
+        bind_member_runtime(member)
+        sys.path.insert(0, str(bundle))
+        # Load the historical package before importing the OOF helper; its
+        # relative retrain imports must resolve to the selected fold runtime.
+        import retrain.inference
+        helper_path = root / 'tools/diagnostics/f05_oof_gpu.py'
+        if helper_path.is_symlink() or sha(helper_path) != spec.get('oof_helper_sha256'):
+            raise ValueError('published OOF worker helper differs')
+        helper_spec = importlib.util.spec_from_file_location('_f05_oof_worker', helper_path)
+        helper = importlib.util.module_from_spec(helper_spec)
+        helper_spec.loader.exec_module(helper)
+        return helper.worker(sys.modules[__name__], spec, sealed, assignment, rank,
+                             own_sha, parent, output, device_name, torch)
     rows, indices, official = evaluation_population(sealed, member, spec, release, output)
     bundle = Path(member['bundle']).resolve(strict=True)
     bind_member_runtime(member)
@@ -840,9 +912,18 @@ def owner(args):
             or proof.get('GPU_initialized') is not False or verify_own_blob(source, args.remote_metadata) != sha(__file__)):
         raise ValueError('published full-tree proof differs')
     soup_mode = getattr(args, 'soup_mode', False)
+    oof_mode = getattr(args, 'oof_mode', False)
+    standalone_eval = getattr(args, 'standalone_eval', False)
     validate_soup_options(soup_mode, getattr(args, 'official_freeze', None),
                           getattr(args, 'official_freeze_sha256', None),
                           getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
+    validate_oof_options(oof_mode, soup_mode, getattr(args, 'official_freeze', None),
+                         getattr(args, 'official_freeze_sha256', None),
+                         getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
+    validate_standalone_options(standalone_eval, soup_mode, oof_mode,
+                                getattr(args, 'official_freeze', None),
+                                getattr(args, 'official_freeze_sha256', None),
+                                getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
     official_freeze = load_official_freeze(args, source)
     if official_freeze is not None:
         final_dir = Path(site['work_root']) / 'final/F04-20261104'
@@ -850,7 +931,19 @@ def owner(args):
                 or official_freeze['official']['data_root'] != site['data_root']):
             raise ValueError('official freeze is not the canonical data-bound record')
     inputs = read_pinned(args.inputs, args.inputs_sha256)
-    if soup_mode:
+    if oof_mode:
+        sys.path[:0] = [str(source / 'runtime/bundle'), str(source / 'tools/diagnostics')]
+        from f04_bounded_fusion import verify_blob
+        for name in ('tools/diagnostics/f05_oof_gpu.py', 'configs/F05-OOF-GPU-20261105.json'):
+            verify_blob(source, args.remote_metadata, name)
+        import f05_oof_gpu as oof
+        oof_policy = json.loads((source / 'configs/F05-OOF-GPU-20261105.json').read_text())
+        oof.validate_inputs(inputs, oof_policy)
+        if (inputs.get('git_commit') != args.git_commit or inputs.get('source_root') != str(source)
+                or proof.get('source_root') != str(source) or proof.get('pod_uid') != site['pod']['uid']):
+            raise ValueError('fold inputs and published Pod-local source proof differ')
+        oof.verify_assets(sys.modules[__name__], inputs, work_root=site['work_root'], pod_uid=site['pod']['uid'])
+    elif soup_mode:
         sys.path.insert(0, str(source / 'tools/diagnostics'))
         from f04_bounded_fusion import verify_blob
         for name in ('tools/diagnostics/f05_soup_dev.py', 'configs/F05-SOUP-DEV-20261105.json'):
@@ -880,12 +973,12 @@ def owner(args):
             or inputs.get('official_read') is not False):
         raise ValueError('fixed F04 input inventory differs')
     refreshed = current_inventory = None
-    if not soup_mode:
+    if not soup_mode and not oof_mode:
         refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
         current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
-    if soup_mode:
+    if soup_mode or oof_mode:
         # The fixed F04 freeze supplies the research baseline. Re-screening
         # F04 candidates after the predecessor is irrelevant to soup inference.
         pass
@@ -915,19 +1008,28 @@ def owner(args):
             or sha(cpu_path) != prep.get('formal_cpu_sha256') or sha(deployment) != prep.get('deployment_sha256')
             or cpu.get('exit_code') != 0 or len(cpu.get('checks', [])) < 18
             or any(x.get('passed') is not True for x in cpu['checks'])
-            or Path(site['round_root']).exists() or (ready_root / 'activation-audit').exists()):
+            or (not standalone_eval and Path(site['round_root']).exists())
+            or (ready_root / 'activation-audit').exists()):
         raise ValueError('fresh successor formal preparation differs')
     window = read_pinned(args.window, args.window_sha256)
-    validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
-                               time.time(), shutil.disk_usage(site['work_root']).free)
+
+    def check_window():
+        if standalone_eval:
+            return validate_standalone_window(window, safe, site, args, source)
+        return validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
+                                          time.time(), shutil.disk_usage(site['work_root']).free)
+
+    check_window()
     grant_ref = site['cpu_execution']['allocation_receipt']
     grant = read_pinned(grant_ref['path'], grant_ref['sha256'])
     clock = json.loads((ready_root / 'formal-cpu/package/CLOCK_POLICY.json').read_text())
-    required_lease = 60 if final_options else clock['total_seconds'] + 60
+    required_lease = 60 if final_options or standalone_eval else clock['total_seconds'] + 60
     if (not time.time() < args.deadline_at <= time.time() + 1800
             or grant['valid_until'] - args.deadline_at < required_lease):
         raise ValueError('evaluation exceeds the available resource lease')
     for member in inputs['members']:
+        if oof_mode:
+            continue  # All fold assets were independently checked above.
         if soup_mode:
             soup.verify_assets(sys.modules[__name__], member)
             continue
@@ -954,8 +1056,7 @@ def owner(args):
     require_safe_predecessor(safe, safe['formal_root'], time.time())
     guard.verify_live(site, pod_uid=snapshot.get('metadata', {}).get('uid'), ready=ready,
                       observed_at=args.pod_live.stat().st_mtime)
-    validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
-                               time.time(), shutil.disk_usage(site['work_root']).free)
+    check_window()
     admission = activate.admit_now(ready_root / 'formal-cpu/package', site, previous)
     output = args.output.resolve()
     allowed_root = (Path(site['work_root']) / 'technical-prep' if official_freeze is None
@@ -971,9 +1072,11 @@ def owner(args):
             'site_binding': str(args.site), 'site_binding_sha256': args.site_sha256,
             'parent': parent, 'deadline_at': args.deadline_at,
             'devices': ['cuda:' + str(i) for i in range(8)],
-            'soup_mode': soup_mode,
+            'soup_mode': soup_mode, 'oof_mode': oof_mode,
             'cpu_masks': site['cpu_execution']['rank_masks'],
             'cpu_width': len(site['cpu_execution']['rank_masks'][0])}
+    if oof_mode:
+        spec['oof_helper_sha256'] = sha(source / 'tools/diagnostics/f05_oof_gpu.py')
     if official_freeze is not None:
         spec['official'] = {'freeze_path': str(args.official_freeze),
                             'freeze_sha256': args.official_freeze_sha256}
@@ -986,8 +1089,7 @@ def owner(args):
         with persistence.RunLock(guard.instance_lock(site)):
             import run_round
             require_safe_predecessor(safe, safe['formal_root'], time.time())
-            validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
-                                       time.time(), shutil.disk_usage(site['work_root']).free)
+            check_window()
             if run_round.device_users_before_start():
                 raise RuntimeError('device handle appeared after acquiring the instance lock')
             resources = run_round.runtime_safety_snapshot()
@@ -1028,15 +1130,19 @@ def owner(args):
                 if time.time() >= idle_until:
                     raise RuntimeError('accelerator release remains unknown after evaluation')
                 time.sleep(.5)
-            metrics = (soup.aggregate(sys.modules[__name__], source, inputs, output, args.inputs_sha256)
+            metrics = (oof.aggregate(sys.modules[__name__], inputs, output, args.inputs, args.inputs_sha256,
+                                     args.tree_proof, args.tree_proof_sha256)
+                       if oof_mode else soup.aggregate(sys.modules[__name__], source, inputs, output, args.inputs_sha256)
                        if soup_mode else aggregate_packets(source, inputs, output, args.inputs_sha256, official_freeze))
             report = {'status': ('F04_official_once_evaluated' if official_freeze is not None
+                                 else 'F05_fit_only_fold_inference_completed' if oof_mode
                                  else 'F05_uniform_soups_full_internal_dev_evaluated' if soup_mode
                                  else 'F04_full_internal_dev_fp16_storage_evaluated'), 'at': time.time(),
                       'inputs_sha256': args.inputs_sha256,
-                      'current_preflight_sha256': None if soup_mode else args.current_preflight_sha256,
+                      'current_preflight_sha256': None if soup_mode or oof_mode else args.current_preflight_sha256,
                       'predecessor_safe_sha256': args.safe_sha256, 'site_sha256': args.site_sha256,
-                      'weight_bytes': inputs['weight_bytes'], 'dev_count': 5140, 'dev_positive': 167,
+                      'weight_bytes': None if oof_mode else inputs['weight_bytes'],
+                      'dev_count': 0 if oof_mode else 5140, 'dev_positive': 0 if oof_mode else 167,
                       ('official_result' if official_freeze is not None else 'comparison'): metrics,
                       'supervisor': result, 'admission': admission,
                       'released_ranks': released, 'device_handles_after': users, 'resources_after': resources,
@@ -1068,9 +1174,17 @@ OWNER_TEXT_OPTIONS = ('site-sha256', 'safe-sha256', 'tree-proof-sha256', 'git-co
 def dispatch(args):
     """Claim and start one detached controller; a transport timeout never permits a retry."""
     soup_mode = getattr(args, 'soup_mode', False)
+    oof_mode = getattr(args, 'oof_mode', False)
+    standalone = getattr(args, 'standalone_eval', False)
     validate_soup_options(soup_mode, getattr(args, 'official_freeze', None),
                           getattr(args, 'official_freeze_sha256', None),
                           getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
+    validate_oof_options(oof_mode, soup_mode, getattr(args, 'official_freeze', None),
+                         getattr(args, 'official_freeze_sha256', None),
+                         getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
+    validate_standalone_options(standalone, soup_mode, oof_mode, getattr(args, 'official_freeze', None),
+                                getattr(args, 'official_freeze_sha256', None),
+                                getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
     official_options = official_freeze_options(getattr(args, 'official_freeze', None),
@@ -1094,8 +1208,11 @@ def dispatch(args):
     safe = read_pinned(args.safe, args.safe_sha256)
     require_safe_predecessor(safe, safe['formal_root'], time.time())
     window = read_pinned(args.window, args.window_sha256)
-    validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
-                               time.time(), shutil.disk_usage(site['work_root']).free)
+    if standalone:
+        validate_standalone_window(window, safe, site, args, source)
+    else:
+        validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
+                                   time.time(), shutil.disk_usage(site['work_root']).free)
     claim = args.claim_dir.resolve()
     if official_options:
         frozen = load_official_freeze(args, source)
@@ -1111,7 +1228,8 @@ def dispatch(args):
         raise ValueError('fresh isolated one-shot evaluation claim required')
     request = {name: str(getattr(args, name.replace('-', '_'))) for name in (*OWNER_PATH_OPTIONS, *OWNER_TEXT_OPTIONS)}
     request.update(final_options); request.update(official_options)
-    request.update(deadline_at=args.deadline_at, source_sha256=sha(__file__), soup_mode=soup_mode)
+    request.update(deadline_at=args.deadline_at, source_sha256=sha(__file__), soup_mode=soup_mode,
+                   oof_mode=oof_mode, standalone_eval=standalone)
     request_sha = reserve_evaluation_attempt(claim, request)
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'controller',
             '--claim-dir', str(claim), '--request-sha256', request_sha]
@@ -1136,11 +1254,19 @@ def controller(args):
     claim = args.claim_dir.resolve(strict=True)
     request = read_pinned(claim / 'REQUEST.json', args.request_sha256)
     soup_mode = request.get('soup_mode', False)
+    oof_mode = request.get('oof_mode', False)
+    standalone = request.get('standalone_eval', False)
     if (request.get('source_sha256') != sha(__file__)
             or Path(request['source-root']).resolve(strict=True) != Path(__file__).resolve().parents[2]
             or Path(request['output']).resolve() != claim / 'evaluation'
-            or type(soup_mode) is not bool):
+            or any(type(value) is not bool for value in (soup_mode, oof_mode, standalone))):
         raise ValueError('detached request/source differs')
+    validate_oof_options(oof_mode, soup_mode, request.get('official-freeze'),
+                         request.get('official-freeze-sha256'), request.get('final-lineage'),
+                         request.get('final-lineage-sha256'))
+    validate_standalone_options(standalone, soup_mode, oof_mode, request.get('official-freeze'),
+                                request.get('official-freeze-sha256'), request.get('final-lineage'),
+                                request.get('final-lineage-sha256'))
     current = process_identity(os.getpid())
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'owner']
     for name in (*OWNER_PATH_OPTIONS, *OWNER_TEXT_OPTIONS):
@@ -1155,6 +1281,10 @@ def controller(args):
         if 'official-freeze' in request or 'final-lineage' in request:
             raise ValueError('soup controller cannot consume F04 official/final options')
         argv.append('--soup-mode')
+    if oof_mode:
+        argv.append('--oof-mode')
+    if standalone:
+        argv.append('--standalone-eval')
     argv.extend(['--deadline-at', str(request['deadline_at']), '--controller-pid', str(os.getpid()),
                  '--controller-start-ticks', current['start_ticks']])
     try:
@@ -1206,6 +1336,20 @@ def main():
         soups.add_argument('--' + name, type=Path, required=True)
     soups.add_argument('--git-commit', required=True)
     soups.add_argument('--soup-receipt', type=Path, action='append', required=True)
+    oof_inputs = modes.add_parser('prepare-oof')
+    for name in ('source-root', 'remote-metadata', 'tree-proof', 'execution-site',
+                 'safe', 'local-dir', 'output'):
+        oof_inputs.add_argument('--' + name, type=Path, required=True)
+    for name in ('git-commit', 'tree-proof-sha256', 'execution-site-sha256', 'safe-sha256'):
+        oof_inputs.add_argument('--' + name, required=True)
+    oof_inputs.add_argument('--fold', type=int, choices=(0, 1, 2), required=True)
+    evaluation_window = modes.add_parser('prepare-eval-window')
+    for name in ('source-root', 'remote-metadata', 'tree-proof', 'site', 'safe',
+                 'peer-site', 'peer-observation', 'output'):
+        evaluation_window.add_argument('--' + name, type=Path, required=True)
+    for name in ('git-commit', 'tree-proof-sha256', 'site-sha256', 'safe-sha256',
+                 'peer-site-sha256', 'peer-observation-sha256'):
+        evaluation_window.add_argument('--' + name, required=True)
     child = modes.add_parser('worker')
     child.add_argument('--worker-spec', type=Path, required=True)
     child.add_argument('--worker-spec-sha256', required=True)
@@ -1221,6 +1365,8 @@ def main():
         run.add_argument('--official-freeze', type=Path)
         run.add_argument('--official-freeze-sha256')
         run.add_argument('--soup-mode', action='store_true')
+        run.add_argument('--oof-mode', action='store_true')
+        run.add_argument('--standalone-eval', action='store_true')
         run.add_argument('--deadline-at', type=float, required=True)
         if mode == 'owner':
             run.add_argument('--controller-pid', type=int, required=True)
@@ -1231,12 +1377,23 @@ def main():
     detached.add_argument('--claim-dir', type=Path, required=True)
     detached.add_argument('--request-sha256', required=True)
     args = parser.parse_args()
-    if args.mode == 'prepare-soup':
+    if args.mode in ('prepare-soup', 'prepare-oof', 'prepare-eval-window'):
         from f04_bounded_fusion import verify_blob
-        verify_blob(args.source_root.resolve(strict=True), args.remote_metadata,
-                    'tools/diagnostics/f05_soup_dev.py')
-        import f05_soup_dev
-        f05_soup_dev.prepare(sys.modules[__name__], args)
+        if args.mode == 'prepare-soup':
+            verify_blob(args.source_root.resolve(strict=True), args.remote_metadata,
+                        'tools/diagnostics/f05_soup_dev.py')
+            import f05_soup_dev
+            f05_soup_dev.prepare(sys.modules[__name__], args)
+        elif args.mode == 'prepare-oof':
+            verify_blob(args.source_root.resolve(strict=True), args.remote_metadata,
+                        'tools/diagnostics/f05_oof_gpu.py')
+            import f05_oof_gpu
+            f05_oof_gpu.prepare(sys.modules[__name__], args)
+        else:
+            verify_blob(args.source_root.resolve(strict=True), args.remote_metadata,
+                        'tools/diagnostics/f05_oof_gpu.py')
+            import f05_oof_gpu
+            f05_oof_gpu.prepare_evaluation_window(sys.modules[__name__], args)
     else:
         {'prepare': prepare, 'worker': worker, 'owner': owner, 'dispatch': dispatch,
          'controller': controller}[args.mode](args)
