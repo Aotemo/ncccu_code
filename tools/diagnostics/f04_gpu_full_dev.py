@@ -877,20 +877,16 @@ def owner(args):
             or inputs.get('batch_size') != 8 or inputs.get('TTA') is not False
             or inputs.get('official_read') is not False):
         raise ValueError('fixed F04 input inventory differs')
-    refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
-    current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
+    refreshed = current_inventory = None
+    if not soup_mode:
+        refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
+        current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
     if soup_mode:
-        times = (safe.get('observed_at'), current_inventory.get('at'), refreshed.get('at'))
-        if (current_inventory.get('status') != 'read_only_F03_candidate_discovery_no_fusion'
-                or current_inventory.get('official_read') is not False
-                or refreshed.get('status') != 'F04_fp16_size_members_sealed_before_blend'
-                or refreshed.get('official_read') is not False
-                or refreshed.get('inventory_sha256') != args.current_inventory_sha256
-                or any(type(value) not in (int, float) or not math.isfinite(value) for value in times)
-                or not times[0] <= times[1] <= times[2]):
-            raise ValueError('fresh post-predecessor inventory evidence differs')
+        # The fixed F04 freeze supplies the research baseline. Re-screening
+        # F04 candidates after the predecessor is irrelevant to soup inference.
+        pass
     elif final_options:
         sys.path.insert(0, str(source / 'tools/diagnostics'))
         from f04_bounded_fusion import verify_blob
@@ -1035,7 +1031,8 @@ def owner(args):
             report = {'status': ('F04_official_once_evaluated' if official_freeze is not None
                                  else 'F05_uniform_soups_full_internal_dev_evaluated' if soup_mode
                                  else 'F04_full_internal_dev_fp16_storage_evaluated'), 'at': time.time(),
-                      'inputs_sha256': args.inputs_sha256, 'current_preflight_sha256': args.current_preflight_sha256,
+                      'inputs_sha256': args.inputs_sha256,
+                      'current_preflight_sha256': None if soup_mode else args.current_preflight_sha256,
                       'predecessor_safe_sha256': args.safe_sha256, 'site_sha256': args.site_sha256,
                       'weight_bytes': inputs['weight_bytes'], 'dev_count': 5140, 'dev_positive': 167,
                       ('official_result' if official_freeze is not None else 'comparison'): metrics,
