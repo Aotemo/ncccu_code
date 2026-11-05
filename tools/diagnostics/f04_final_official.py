@@ -5,11 +5,14 @@ chain may read it only after validating the canonical reservation.
 """
 import hashlib
 import copy
+import argparse
 import json
 import math
 import os
+import platform
 from pathlib import Path, PurePosixPath
 import re
+import sys
 import time
 
 
@@ -159,6 +162,72 @@ def freeze_from_verified_dev(inputs, preflight, summary, identity, official, run
     return validate_final_freeze(frozen)
 
 
+def freeze_from_pinned_receipts(inputs_path, inputs_sha, preflight_path, preflight_sha,
+                                summary_path, summary_sha, lineage_sha, official, runtime):
+    """Build only from exact, durable internal-dev receipts; never read official data."""
+    def read(path, digest):
+        path = Path(path)
+        if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+                or not _sha256(digest) or sha(path) != digest):
+            raise ValueError('pinned internal F04 receipt differs')
+        return json.loads(path.read_text())
+    inputs = read(inputs_path, inputs_sha)
+    preflight = read(preflight_path, preflight_sha)
+    summary = read(summary_path, summary_sha)
+    identity = {'inputs_path': str(inputs_path), 'inputs_sha256': inputs_sha,
+                'preflight_path': str(preflight_path), 'preflight_sha256': preflight_sha,
+                'summary_path': str(summary_path), 'summary_sha256': summary_sha,
+                'lineage_sha256': lineage_sha}
+    return freeze_from_verified_dev(inputs, preflight, summary, identity, official, runtime)
+
+
+def verify_member_assets(frozen):
+    """Recheck all final fp16 files, selected variants, age and historical code."""
+    validate_final_freeze(frozen)
+    verified = []
+    for member in frozen['members']:
+        model, metadata = member['model'], member['metadata']
+        model_path, metadata_path = Path(model['path']), Path(metadata['path'])
+        selected, historical = member.get('selected'), member.get('freeze')
+        bundle = Path(member.get('bundle', ''))
+        if (not isinstance(selected, dict) or selected.get('variant') not in ('ema', 'online')
+                or not isinstance(historical, dict) or not isinstance(historical.get('path'), str)
+                or not _sha256(historical.get('sha256')) or not bundle.is_absolute() or bundle.is_symlink()
+                or not bundle.is_dir() or model_path.parent != metadata_path.parent
+                or model_path.name != 'model.pt' or metadata_path.name != 'model.json'
+                or model_path.is_symlink() or metadata_path.is_symlink()
+                or not model_path.is_file() or not metadata_path.is_file()
+                or model_path.stat().st_size != model['bytes'] or sha(model_path) != model['sha256']
+                or sha(metadata_path) != metadata['sha256']):
+            raise ValueError('frozen inference files or selected source differ')
+        data = json.loads(metadata_path.read_text())
+        if (data.get('format') != 'glaucoma-frozen-inference-v1'
+                or data.get('model_sha256') != model['sha256']
+                or data.get('checkpoint', {}).get('variant') != selected['variant']
+                or data.get('checkpoint', {}).get('tensor_sha256') != model['fp16_tensor_sha256']
+                or not isinstance(data.get('job'), dict) or data.get('age') != data['job'].get('age')):
+            raise ValueError('frozen model metadata, variant, tensor or age contract differs')
+        freeze_path = Path(historical['path'])
+        if freeze_path.is_symlink() or not freeze_path.is_file() or sha(freeze_path) != historical['sha256']:
+            raise ValueError('historical selected freeze differs')
+        prior = json.loads(freeze_path.read_text())
+        if (any(prior.get('selected', {}).get(key) != selected.get(key)
+                for key in ('variant', 'cycle', 'successful_updates', 'tensor_sha256'))
+                or not isinstance(prior.get('source_files'), dict) or not prior['source_files']):
+            raise ValueError('historical selected identity or source manifest differs')
+        for relative, expected in prior['source_files'].items():
+            path = PurePosixPath(relative)
+            if (path.is_absolute() or not path.parts or any(part in ('', '.', '..') for part in path.parts)
+                    or not _sha256(expected)):
+                raise ValueError('historical source path or digest is invalid')
+            actual = bundle.joinpath(*path.parts)
+            if (any(bundle.joinpath(*path.parts[:i]).is_symlink() for i in range(1, len(path.parts) + 1))
+                    or not actual.is_file() or sha(actual) != expected):
+                raise ValueError('historical inference source differs')
+        verified.append(member['round_id'])
+    return verified
+
+
 def reserve_official_once(freeze_path, freeze_sha256, work_root, output_root):
     """Exclusively reserve the fixed final directory before any official read."""
     work = Path(work_root).resolve(strict=True)
@@ -273,3 +342,95 @@ def ensemble_with_frozen_moments(frozen, vectors):
     if not np.isfinite(scores).all():
         raise ValueError('nonfinite fused score')
     return scores.tolist()
+
+
+def seal_from_published_receipts(args):
+    """Create the one canonical freeze using only published code and internal receipts."""
+    source = args.source_root.resolve(strict=True)
+    if source != Path(__file__).resolve().parents[2]:
+        raise ValueError('explicit published source differs')
+    sys.path[:0] = [str(source / 'tools/pretraining'), str(source / 'tools/diagnostics')]
+    from source_chain import cpu_context
+    from f04_bounded_fusion import verify_blob
+    import f04_gpu_full_dev as gpu
+    cpu = cpu_context()
+    proof = gpu.read_pinned(args.tree_proof, args.tree_proof_sha256)
+    ref = json.loads((args.remote_metadata / 'REMOTE-REF.json').read_text())
+    commit = json.loads((args.remote_metadata / 'REMOTE-COMMIT.json').read_text())
+    tree = json.loads((args.remote_metadata / 'REMOTE-TREE.json').read_text())
+    if (proof.get('status') != 'published_full_git_tree_verified_not_formal_deployment'
+            or proof.get('commit') != args.git_commit or proof.get('tree') != args.git_tree
+            or ref.get('ref') != 'refs/heads/main' or ref.get('object', {}).get('sha') != args.git_commit
+            or commit.get('sha') != args.git_commit or commit.get('tree', {}).get('sha') != args.git_tree
+            or tree.get('sha') != args.git_tree or tree.get('truncated') is not False
+            or proof.get('GPU_initialized') is not False):
+        raise ValueError('published full-tree receipt differs')
+    adapter_sha = verify_blob(source, args.remote_metadata, 'tools/diagnostics/f04_final_official.py')
+    owner_sha = verify_blob(source, args.remote_metadata, 'tools/diagnostics/f04_gpu_full_dev.py')
+    verify_blob(source, args.remote_metadata, 'configs/F04-FINAL-FREEZE-20261104.json')
+    if (adapter_sha != sha(__file__) or
+            verify_blob(source, args.remote_metadata, 'records/analysis/20261104-f04/GPU-INPUTS-v3.json')
+            != args.inputs_sha256):
+        raise ValueError('published freeze code or GPU inputs differ')
+    policy = json.loads((source / 'configs/F04-FINAL-FREEZE-20261104.json').read_text())
+    safes = gpu.load_final_lineage(args.final_lineage, args.final_lineage_sha256,
+                                   policy.get('last_training_rounds'))
+    inputs = gpu.read_pinned(args.inputs, args.inputs_sha256)
+    inventory = gpu.read_pinned(args.current_inventory, args.current_inventory_sha256)
+    preflight = gpu.read_pinned(args.current_preflight, args.current_preflight_sha256)
+    for safe in safes:
+        gpu.validate_current_preflight(preflight, inventory, args.current_inventory_sha256, safe, inputs)
+    site = gpu.read_pinned(args.site, args.site_sha256)
+    config = site.get('science', {}).get('configuration', {})
+    science = gpu.read_pinned(config.get('path', ''), config.get('sha256', ''))
+    if (policy.get('max_fp16_member_weight_bytes') != 500_000_000
+            or policy.get('official_evaluations_allowed') != 1 or policy.get('tta') is not False
+            or site.get('data_root') != inputs['members'][0]['data_root']
+            or not _sha256(science.get('official_manifest_sha256'))
+            or not Path(site.get('official_manifest', '')).is_absolute()):
+        raise ValueError('published final policy or official metadata identity differs')
+    official = {'manifest_path': site['official_manifest'],
+                'manifest_sha256': science['official_manifest_sha256'], 'data_root': site['data_root']}
+    import PIL
+    import torch
+    if torch.cuda.is_initialized():
+        raise ValueError('freeze preparation must not initialize a GPU')
+    runtime = {'code_commit': args.git_commit, 'code_tree': args.git_tree,
+               'gpu_owner_sha256': owner_sha, 'official_adapter_sha256': adapter_sha,
+               'python_version': platform.python_version(), 'torch_version': str(torch.__version__),
+               'pillow_version': PIL.__version__}
+    frozen = freeze_from_pinned_receipts(args.inputs, args.inputs_sha256,
+        args.current_preflight, args.current_preflight_sha256, args.summary, args.summary_sha256,
+        args.final_lineage_sha256, official, runtime)
+    verified = verify_member_assets(frozen)
+    directory = Path(site['work_root']) / 'final/F04-20261104'
+    directory.mkdir(parents=True, exist_ok=True)
+    if directory.is_symlink() or directory.resolve() != directory:
+        raise ValueError('canonical final directory differs')
+    if any((directory / name).exists() for name in ('OFFICIAL-ONCE.json', 'OFFICIAL-INPUT-READ-ONCE.json')):
+        raise ValueError('official evaluation already claimed or read')
+    path = directory / 'FREEZE.json'
+    with path.open('x') as stream:
+        json.dump(frozen, stream, indent=2, allow_nan=False); stream.write('\n')
+        stream.flush(); os.fsync(stream.fileno())
+    print(json.dumps({'status': 'F04_final_frozen_before_official', 'freeze': str(path),
+        'freeze_sha256': sha(path), 'members': verified, 'weight_bytes': frozen['weight_bytes'],
+        'fp16_auroc': frozen['full_dev']['fp16_auroc'], 'fp16_ap': frozen['full_dev']['fp16_ap'],
+        'official_read': False, 'GPU_initialized': False, 'cpu_uid': cpu['uid']}), flush=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('mode', choices=['freeze'])
+    for name in ('source-root', 'remote-metadata', 'tree-proof', 'inputs', 'current-preflight',
+                 'current-inventory', 'summary', 'final-lineage', 'site'):
+        parser.add_argument('--' + name, type=Path, required=True)
+    for name in ('tree-proof-sha256', 'inputs-sha256', 'current-preflight-sha256',
+                 'current-inventory-sha256', 'summary-sha256', 'final-lineage-sha256', 'site-sha256',
+                 'git-commit', 'git-tree'):
+        parser.add_argument('--' + name, required=True)
+    seal_from_published_receipts(parser.parse_args())
+
+
+if __name__ == '__main__':
+    main()

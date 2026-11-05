@@ -182,6 +182,111 @@ def test_supervised_barrier_releases_only_complete_live_proofs():
         gpu.guard_modules, gpu.process_identity = original_modules, original_identity
 
 
+def test_official_options_require_both_freeze_path_and_digest():
+    assert gpu.official_freeze_options(None, None) == {}
+    options = gpu.official_freeze_options('/work/final/F04-20261104/FREEZE.json', 'a' * 64)
+    assert options['official-freeze-sha256'] == 'a' * 64
+    rejects(lambda: gpu.official_freeze_options('/work/FREEZE.json', None))
+    rejects(lambda: gpu.official_freeze_options(None, 'a' * 64))
+    rejects(lambda: gpu.official_freeze_options('/work/FREEZE.json', 'bad'))
+
+
+def test_official_pre_release_hook_runs_once_only_after_all_proofs():
+    parent = {'pid': 90, 'start_ticks': '987'}
+    fake_guard = types.SimpleNamespace(verify_rank_devices=lambda proofs, site: None)
+    fake_persistence = types.SimpleNamespace(atomic_json=lambda path, value: path.write_text(json.dumps(value)))
+    identity = lambda pid: {'pid': pid, 'start_ticks': str(200 + pid - 100),
+                            'parent_pid': 90, 'active': True}
+    with patch.object(gpu, 'guard_modules', return_value=(fake_guard, None, fake_persistence, None)), \
+         patch.object(gpu, 'process_identity', side_effect=identity):
+        for failure in (False, True):
+            with tempfile.TemporaryDirectory() as temporary:
+                output = Path(temporary); (output / 'proofs').mkdir(); (output / 'processes').mkdir()
+                for i in range(8):
+                    proof = {'rank': i, 'pid': 100 + i, 'start_ticks': str(200 + i), 'parent': parent,
+                             'device': 'cuda:' + str(i), 'world_size': 8}
+                    (output / 'proofs' / f'rank-{i}.json').write_text(json.dumps(proof))
+                    (output / 'processes' / f'rank-{i}-launch.json').write_text(json.dumps(
+                        {'pid': 100 + i, 'start_ticks': str(200 + i)}))
+                calls = []
+                def hook():
+                    calls.append(1)
+                    if failure:
+                        raise ValueError('synthetic official input failed')
+                    return {'rows_sha256': 'b' * 64}
+                stop = threading.Event()
+                gpu.release_supervised_ranks(output, output / 'spec', 'a' * 64, {}, parent,
+                                             time.time() + 1, stop, before_release=hook)
+                assert calls == [1]
+                assert (output / 'RELEASE.json').exists() is not failure
+                assert stop.is_set() is failure
+                if not failure:
+                    assert json.loads((output / 'RELEASE.json').read_text())['official']['rows_sha256'] == 'b' * 64
+
+
+def test_official_reduction_requires_exact_once_coverage_and_frozen_moments():
+    from retrain.parallel_evaluation import batch_assignments
+    with tempfile.TemporaryDirectory() as temporary:
+        output = Path(temporary); (output / 'packets').mkdir()
+        names = ['member-' + str(i) for i in range(5)]
+        rows = [{'name': f'image-{i}', 'label': int(i < 191), 'relative_path': f'valid/image-{i}'}
+                for i in range(5849)]
+        population = output / 'OFFICIAL-ROWS-private.json'
+        population.write_text(json.dumps({'rows': rows, 'manifest_sha256': 'a' * 64, 'csv_sha256': 'b' * 64}))
+        proof_sha = {str(i): str(i) * 64 for i in range(8)}
+        (output / 'RELEASE.json').write_text(json.dumps({'proof_sha256': proof_sha, 'official': {
+            'rows_path': str(population), 'rows_sha256': gpu.sha(population)}}))
+        plan = gpu.build_plan(names)
+        inputs = {'members': [{'round_id': name} for name in names], 'plan': plan}
+        members = []
+        for i, name in enumerate(names):
+            members.append({'round_id': name,
+                'model': {'path': f'/models/{i}', 'sha256': str(i) * 64, 'bytes': 99_000_000,
+                          'fp16_tensor_sha256': str(i + 5) * 64},
+                'metadata': {'path': f'/metadata/{i}', 'sha256': 'a' * 64},
+                'normalization': {'mean': float(i), 'std': float(i + 1)}})
+        frozen = {'format': 'f04-final-frozen-v1', 'status': 'F04_ensemble_final_frozen',
+            'official_evaluations_allowed': 1, 'official_metadata_used_for_selection': False,
+            'TTA': False, 'weight_bytes': 495_000_000, 'members': members,
+            'official': {'manifest_path': '/data/valid.json', 'manifest_sha256': 'c' * 64, 'data_root': '/data'},
+            'full_dev': {'count': 5140, 'positive': 167, 'fp32_auroc': .9902, 'fp16_auroc': .9901,
+                         'fp16_ap': .84, 'official_read': False, 'summary_sha256': 'b' * 64}}
+        member = dict(members[0], selected={'variant': 'ema'}, freeze={'path': '/history'},
+                      bundle='/bundle', site={'path': '/site'}, data_root='/data', cache='/cache')
+        frozen['members'][0].update({key: member[key] for key in ('selected', 'freeze', 'bundle', 'site', 'data_root')})
+        frozen_path = output / 'FREEZE.json'; frozen_path.write_text(json.dumps(frozen))
+        spec = {'official': {'freeze_path': str(frozen_path), 'freeze_sha256': gpu.sha(frozen_path)}}
+        release = {'official': {'freeze_sha256': gpu.sha(frozen_path),
+                    'rows_path': str(population), 'rows_sha256': gpu.sha(population)}}
+        actual_rows, indices, is_official = gpu.evaluation_population({}, member, spec, release, output)
+        assert is_official and len(actual_rows) == len(indices) == 5849
+        rejects(lambda: gpu.evaluation_population({}, dict(member, bundle='/wrong'), spec, release, output))
+        rejects(lambda: gpu.evaluation_population({}, member, spec, {'official': {}}, output))
+        with patch.dict(os.environ, {'TRAIN_IMAGE_CACHE': '/train', 'TRAIN_GLOBAL_IMAGE_CACHE': '/global'}):
+            gpu.bind_evaluation_cache(member, True, output)
+            assert 'TRAIN_IMAGE_CACHE' not in os.environ and 'TRAIN_GLOBAL_IMAGE_CACHE' not in os.environ
+            assert os.environ['TRAIN_VERIFICATION_CACHE'] == str(output / 'verified-official-images')
+        for assignment in plan:
+            records = []
+            for ordinal, batch in batch_assignments(list(range(len(rows))), 8,
+                                                     assignment['rank'], assignment['world']):
+                for offset, index in enumerate(batch):
+                    records.append({'index': index, 'rank': assignment['rank'], 'batch': ordinal, 'offset': offset,
+                        'name': rows[index]['name'], 'label': rows[index]['label'],
+                        'logit': float(rows[index]['label']), 'probability': .75 if rows[index]['label'] else .25})
+            rank = assignment['device_rank']
+            packet = {'device_rank': rank, 'member': assignment['member'], 'rank': assignment['rank'],
+                      'error': None, 'input_sha256': 'd' * 64, 'proof_sha256': proof_sha[str(rank)],
+                      'TTA': False, 'official_read': True, 'records': records}
+            (output / 'packets' / f'rank-{rank}.json').write_text(json.dumps(packet))
+        result = gpu.aggregate_packets(ROOT, inputs, output, 'd' * 64, frozen)
+        assert result['count'] == 5849 and result['positive'] == 191
+        assert result['metrics']['auroc'] == 1 and result['metrics']['ap'] == 1
+        path = output / 'packets/rank-0.json'; packet = json.loads(path.read_text())
+        packet['records'].append(packet['records'][0]); path.write_text(json.dumps(packet))
+        rejects(lambda: gpu.aggregate_packets(ROOT, inputs, output, 'd' * 64, frozen))
+
+
 def test_dispatch_claim_is_once_only_and_does_not_spawn():
     with tempfile.TemporaryDirectory() as temporary:
         claim = Path(temporary) / 'attempt'
@@ -233,6 +338,9 @@ if __name__ == '__main__':
     test_evaluation_window_requires_recent_target_and_capacity_with_reserve()
     test_full_dev_comparison_preserves_fixed_members_and_detects_change()
     test_supervised_barrier_releases_only_complete_live_proofs()
+    test_official_options_require_both_freeze_path_and_digest()
+    test_official_pre_release_hook_runs_once_only_after_all_proofs()
+    test_official_reduction_requires_exact_once_coverage_and_frozen_moments()
     test_dispatch_claim_is_once_only_and_does_not_spawn()
     test_hidden_device_dispatch_stops_before_reserving_claim()
     test_detached_controller_records_failure_without_retry()

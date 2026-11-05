@@ -199,6 +199,67 @@ def final_lineage_options(path, digest):
     return {'final-lineage': str(path), 'final-lineage-sha256': digest}
 
 
+def official_freeze_options(path, digest):
+    """Keep the irreversible official branch explicitly pinned and opt-in."""
+    if path is None and digest is None:
+        return {}
+    if (not path or not Path(path).is_absolute()
+            or not isinstance(digest, str) or not re.fullmatch(r'[0-9a-f]{64}', digest)):
+        raise ValueError('official freeze path and SHA must be supplied together')
+    return {'official-freeze': str(path), 'official-freeze-sha256': digest}
+
+
+def load_official_freeze(args, source):
+    """Rebuild the committed final freeze from its pinned internal-only receipts."""
+    options = official_freeze_options(getattr(args, 'official_freeze', None),
+                                       getattr(args, 'official_freeze_sha256', None))
+    if not options:
+        return None
+    if not final_lineage_options(getattr(args, 'final_lineage', None),
+                                 getattr(args, 'final_lineage_sha256', None)):
+        raise ValueError('official inference requires the final two-round lineage')
+    sys.path.insert(0, str(source / 'tools/diagnostics'))
+    from f04_bounded_fusion import verify_blob
+    from f04_final_official import freeze_from_verified_dev
+    freeze = read_pinned(args.official_freeze, args.official_freeze_sha256)
+    if (verify_blob(source, args.remote_metadata, 'records/analysis/20261104-f04/F04-FINAL-FREEZE.json')
+            != args.official_freeze_sha256
+            or verify_blob(source, args.remote_metadata, 'tools/diagnostics/f04_final_official.py')
+            != freeze.get('runtime', {}).get('official_adapter_sha256')
+            or sha(__file__) != freeze.get('runtime', {}).get('gpu_owner_sha256')):
+        raise ValueError('published official freeze or inference code differs')
+    identity = freeze.get('identity', {})
+    if (identity.get('inputs_sha256') != args.inputs_sha256
+            or identity.get('preflight_sha256') != args.current_preflight_sha256
+            or identity.get('lineage_sha256') != args.final_lineage_sha256
+            or not isinstance(identity.get('summary_path'), str)
+            or not Path(identity['summary_path']).is_absolute()):
+        raise ValueError('official freeze does not bind the final internal-dev receipts')
+    summary = read_pinned(identity['summary_path'], identity.get('summary_sha256'))
+    inputs = read_pinned(args.inputs, args.inputs_sha256)
+    preflight = read_pinned(args.current_preflight, args.current_preflight_sha256)
+    rebuilt = freeze_from_verified_dev(inputs, preflight, summary, identity,
+                                       freeze.get('official'), freeze.get('runtime'))
+    if rebuilt != freeze:
+        raise ValueError('official freeze differs from its verified internal-dev inputs')
+    return freeze
+
+
+def prepare_official_rows(source, freeze_path, freeze_sha, work_root, output):
+    """Claim once and cache the pinned 5849-row manifest only after device proof."""
+    sys.path[:0] = [str(source / 'runtime/bundle'), str(source / 'tools/diagnostics')]
+    from f04_final_official import reserve_official_once, read_official_inputs_once
+    from retrain.data import _read_csv
+    frozen = read_pinned(freeze_path, freeze_sha)
+    official = frozen['official']
+    reserve_official_once(freeze_path, freeze_sha, work_root, output)
+    population = read_official_inputs_once(freeze_path, freeze_sha, work_root, output,
+        Path(official['manifest_path']), official['manifest_sha256'], Path(official['data_root']), _read_csv)
+    path = Path(output) / 'OFFICIAL-ROWS-private.json'
+    write_new(path, population)
+    return {'rows_path': str(path), 'rows_sha256': sha(path), 'freeze_sha256': freeze_sha}
+
+
 def export_inventory(old, old_sha, current, current_sha, reference):
     if not isinstance(reference, dict):
         raise ValueError('pinned member export reference required')
@@ -330,6 +391,44 @@ def evaluation_dataset(dataset_class, data_root, rows, job):
     if job.get('input_preprocessing') is not None:
         options['input_preprocessing'] = job['input_preprocessing']
     return dataset_class(data_root, rows, int(job['image_size']), False, **options)
+
+
+def evaluation_population(sealed, member, spec, release, output):
+    """Resolve only the population already released to the admitted worker."""
+    official = spec.get('official')
+    if official is None:
+        manifest = read_pinned(sealed['manifest']['path'], sealed['manifest']['sha256'])
+        rows, indices = manifest['rows'], manifest['dev_indices']
+        if (len(indices) != 5140 or len(set(indices)) != 5140
+                or sum(rows[i]['label'] == 1 for i in indices) != 167
+                or any(not rows[i]['relative_path'].startswith('train/') for i in indices)):
+            raise ValueError('only the complete sealed internal dev is permitted')
+        return rows, indices, False
+    frozen = read_pinned(official['freeze_path'], official['freeze_sha256'])
+    frozen_members = [item for item in frozen['members'] if item['round_id'] == member['round_id']]
+    released = release.get('official', {})
+    if (len(frozen_members) != 1
+            or any(frozen_members[0].get(key) != member.get(key)
+                   for key in ('selected', 'model', 'metadata', 'freeze', 'bundle', 'site', 'data_root'))
+            or released.get('freeze_sha256') != official['freeze_sha256']
+            or released.get('rows_path') != str(output / 'OFFICIAL-ROWS-private.json')):
+        raise ValueError('official worker member or released input identity differs')
+    population = read_pinned(released['rows_path'], released.get('rows_sha256'))
+    rows = population['rows']; indices = list(range(len(rows)))
+    if (len(rows) != 5849 or sum(row['label'] == 1 for row in rows) != 191
+            or any(not row['relative_path'].startswith('valid/') for row in rows)):
+        raise ValueError('complete sealed official population required')
+    return rows, indices, True
+
+
+def bind_evaluation_cache(member, official, output):
+    if not official:
+        os.environ['TRAIN_IMAGE_CACHE'] = str(Path(member['cache']) / 'train/sealed')
+        os.environ['TRAIN_IMAGE_CACHE_READONLY'] = '1'
+    else:
+        os.environ.pop('TRAIN_IMAGE_CACHE', None)
+        os.environ.pop('TRAIN_GLOBAL_IMAGE_CACHE', None)
+        os.environ['TRAIN_VERIFICATION_CACHE'] = str(output / 'verified-official-images')
 
 
 def compare_full_dev(labels, fp32, fp16, members):
@@ -523,8 +622,8 @@ def worker(args):
                 or time.time() >= spec['deadline_at']):
             raise RuntimeError('owner or deadline failed before supervised release')
         time.sleep(.05)
-    validate_worker_release(json.loads(release_path.read_text()), rank, own_sha,
-                            args.worker_spec_sha256, parent, process_identity)
+    release = json.loads(release_path.read_text())
+    validate_worker_release(release, rank, own_sha, args.worker_spec_sha256, parent, process_identity)
     sealed = read_pinned(spec['inputs']['path'], spec['inputs']['sha256'])
     assignment = sealed['plan'][rank]
     if assignment['device_rank'] != rank:
@@ -539,12 +638,7 @@ def worker(args):
             or model_path.stat().st_size != member['model']['bytes']
             or sha(model_path) != member['model']['sha256'] or sha(metadata_path) != member['metadata']['sha256']):
         raise ValueError('immutable exported inference state differs')
-    manifest = read_pinned(sealed['manifest']['path'], sealed['manifest']['sha256'])
-    rows, indices = manifest['rows'], manifest['dev_indices']
-    if (len(indices) != 5140 or len(set(indices)) != 5140
-            or sum(rows[i]['label'] == 1 for i in indices) != 167
-            or any(not rows[i]['relative_path'].startswith('train/') for i in indices)):
-        raise ValueError('only the complete sealed internal dev is permitted')
+    rows, indices, official = evaluation_population(sealed, member, spec, release, output)
     bundle = Path(member['bundle']).resolve(strict=True)
     bind_member_runtime(member)
     sys.path.insert(0, str(bundle))
@@ -553,8 +647,7 @@ def worker(args):
     from retrain.data import ImageDataset
     from retrain.age import unpack_batch, forward
     from torch.utils.data import DataLoader
-    os.environ['TRAIN_IMAGE_CACHE'] = str(Path(member['cache']) / 'train/sealed')
-    os.environ['TRAIN_IMAGE_CACHE_READONLY'] = '1'
+    bind_evaluation_cache(member, official, output)
     precision = importlib.import_module('_f04_current_guard.precision')
     runtime_guard = importlib.import_module('_f04_current_guard.fresh')
     precision.configure(precision.RULE)
@@ -583,14 +676,14 @@ def worker(args):
                 logits.cpu().tolist(), probabilities.cpu().tolist(), assignment['rank'], ordinal))
     packet = {'rank': assignment['rank'], 'device_rank': rank, 'member': assignment['member'],
               'error': None, 'records': records, 'proof_sha256': own_sha,
-              'input_sha256': spec['inputs']['sha256'], 'TTA': False, 'official_read': False}
+              'input_sha256': spec['inputs']['sha256'], 'TTA': False, 'official_read': official}
     packet_path = output / 'packets' / ('rank-' + str(rank) + '.json')
     write_new(packet_path, packet)
     print(json.dumps({'status': 'worker_completed', 'rank': rank, 'records': len(records),
                       'packet_sha256': sha(packet_path)}), flush=True)
 
 
-def release_supervised_ranks(output, spec_path, spec_sha, site, parent, deadline, stop):
+def release_supervised_ranks(output, spec_path, spec_sha, site, parent, deadline, stop, before_release=None):
     """Run alongside the existing supervisor; failed or dead ranks never receive a release."""
     guard, _, persistence, _ = guard_modules(Path(__file__).resolve().parents[2])
     proofs_root, launches_root = output / 'proofs', output / 'processes'
@@ -610,6 +703,10 @@ def release_supervised_ranks(output, spec_path, spec_sha, site, parent, deadline
                 release = {'status': 'all_rank_device_proofs_passed', 'at': time.time(), 'parent': parent,
                            'spec_sha256': spec_sha,
                            'proof_sha256': {str(i): sha(path) for i, path in enumerate(proof_paths)}}
+                if before_release is not None:
+                    release['official'] = before_release()
+                    if stop.is_set() or time.time() >= deadline:
+                        raise RuntimeError('owner stopped before the official input release')
                 path = output / 'RELEASE.json'
                 if path.exists():
                     raise FileExistsError('one-shot proof release already exists')
@@ -623,18 +720,27 @@ def release_supervised_ranks(output, spec_path, spec_sha, site, parent, deadline
         stop.set()
 
 
-def aggregate_packets(source, inputs, output, inputs_sha):
-    """Reduce only the sealed internal-dev shards; row-level predictions remain private."""
+def aggregate_packets(source, inputs, output, inputs_sha, official_freeze=None):
+    """Reduce complete sealed shards; row-level predictions remain private."""
     import numpy as np
     sys.path[:0] = [str(source / 'runtime/bundle'), str(source / 'tools/diagnostics')]
-    import paired_evidence
-    reference = paired_evidence._reference(inputs['manifest'])
-    manifest = read_pinned(inputs['manifest']['path'], inputs['manifest']['sha256'])
-    rows, indices = manifest['rows'], manifest['dev_indices']
-    if len(indices) != 5140 or len(reference['dev']) != 5140:
-        raise ValueError('complete sealed dev required')
-    packets = []
     release = json.loads((output / 'RELEASE.json').read_text())
+    if official_freeze is None:
+        import paired_evidence
+        reference = paired_evidence._reference(inputs['manifest'])
+        manifest = read_pinned(inputs['manifest']['path'], inputs['manifest']['sha256'])
+        rows, indices = manifest['rows'], manifest['dev_indices']
+        if len(indices) != 5140 or len(reference['dev']) != 5140:
+            raise ValueError('complete sealed dev required')
+    else:
+        released = release.get('official', {})
+        if released.get('rows_path') != str(output / 'OFFICIAL-ROWS-private.json'):
+            raise ValueError('official release is missing the private population')
+        population = read_pinned(released['rows_path'], released.get('rows_sha256'))
+        rows = population['rows']; indices = list(range(len(rows)))
+        if len(rows) != 5849 or sum(row['label'] == 1 for row in rows) != 191:
+            raise ValueError('complete sealed official population required')
+    packets = []
     for rank in range(8):
         path = output / 'packets' / ('rank-' + str(rank) + '.json')
         packet = json.loads(path.read_text())
@@ -643,23 +749,31 @@ def aggregate_packets(source, inputs, output, inputs_sha):
                 or packet.get('rank') != expected['rank'] or packet.get('error') is not None
                 or packet.get('input_sha256') != inputs_sha
                 or packet.get('proof_sha256') != release.get('proof_sha256', {}).get(str(rank))
-                or packet.get('TTA') is not False or packet.get('official_read') is not False):
+                or packet.get('TTA') is not False or packet.get('official_read') is not (official_freeze is not None)):
             raise ValueError('worker shard identity differs')
         packets.append(packet)
     before, after = {}, {}
     members = [row['round_id'] for row in inputs['members']]
     for member in inputs['members']:
         name = member['round_id']
-        selected = member['selected']
-        spec = {'freeze': member['freeze'], 'completion': selected['completion']}
-        old, details, _ = paired_evidence._selected(spec, reference)
-        if any(details[key] != selected[key] for key in ('variant', 'cycle', 'successful_updates', 'tensor_sha256')):
-            raise ValueError('original selected member changed')
+        if official_freeze is None:
+            selected = member['selected']
+            spec = {'freeze': member['freeze'], 'completion': selected['completion']}
+            old, details, _ = paired_evidence._selected(spec, reference)
+            if any(details[key] != selected[key] for key in ('variant', 'cycle', 'successful_updates', 'tensor_sha256')):
+                raise ValueError('original selected member changed')
+            before[name] = old
         group = [packet for packet in packets if packet['member'] == name]
         world = next(row['world'] for row in inputs['plan'] if row['member'] == name)
         predictions = canonical_member(rows, indices, group, world)
-        before[name] = old
         after[name] = [float(row['logit']) for row in predictions]
+    if official_freeze is not None:
+        from f04_final_official import ensemble_with_frozen_moments
+        from retrain.n05_metrics import metrics
+        scores = ensemble_with_frozen_moments(official_freeze, after)
+        values = metrics([{'label': row['label'], 'logit': score} for row, score in zip(rows, scores)])
+        return {'metrics': values, 'count': len(rows), 'positive': 191,
+                'manifest_sha256': population['manifest_sha256'], 'csv_sha256': population['csv_sha256']}
     result = compare_full_dev([row['label'] for row in reference['dev']], before, after, members)
     if any(not np.isfinite(value) for group in result['members'].values()
            for value in (group['max_abs_logit_difference'], group['max_abs_z_score_difference'])):
@@ -701,6 +815,12 @@ def owner(args):
             or remote_tree.get('sha') != args.git_tree or remote_tree.get('truncated') is not False
             or proof.get('GPU_initialized') is not False or verify_own_blob(source, args.remote_metadata) != sha(__file__)):
         raise ValueError('published full-tree proof differs')
+    official_freeze = load_official_freeze(args, source)
+    if official_freeze is not None:
+        final_dir = Path(site['work_root']) / 'final/F04-20261104'
+        if (Path(args.official_freeze) != final_dir / 'FREEZE.json'
+                or official_freeze['official']['data_root'] != site['data_root']):
+            raise ValueError('official freeze is not the canonical data-bound record')
     inputs = read_pinned(args.inputs, args.inputs_sha256)
     if (inputs.get('status') != 'F04_full_dev_gpu_inputs_sealed_no_GPU'
             or inputs.get('plan') != build_plan([x['round_id'] for x in inputs['members']])
@@ -779,7 +899,9 @@ def owner(args):
                                time.time(), shutil.disk_usage(site['work_root']).free)
     admission = activate.admit_now(ready_root / 'formal-cpu/package', site, previous)
     output = args.output.resolve()
-    if not output.is_relative_to(Path(site['work_root']) / 'technical-prep') or output.exists():
+    allowed_root = (Path(site['work_root']) / 'technical-prep' if official_freeze is None
+                    else Path(site['work_root']) / 'final/F04-20261104/OFFICIAL-ATTEMPT')
+    if not output.is_relative_to(allowed_root) or output.exists():
         raise ValueError('fresh isolated evaluation attempt required')
     output.mkdir(parents=True)
     (output / 'proofs').mkdir(); (output / 'packets').mkdir()
@@ -792,6 +914,9 @@ def owner(args):
             'devices': ['cuda:' + str(i) for i in range(8)],
             'cpu_masks': site['cpu_execution']['rank_masks'],
             'cpu_width': len(site['cpu_execution']['rank_masks'][0])}
+    if official_freeze is not None:
+        spec['official'] = {'freeze_path': str(args.official_freeze),
+                            'freeze_sha256': args.official_freeze_sha256}
     spec_path = output / 'WORKER-SPEC.json'; write_new(spec_path, spec); spec_sha = sha(spec_path)
     tasks = [{'name': 'rank-' + str(i), 'argv': [sys.executable, '-B', '-u', str(Path(__file__).resolve()),
         'worker', '--worker-spec', str(spec_path), '--worker-spec-sha256', spec_sha, '--rank', str(i)]}
@@ -809,8 +934,11 @@ def owner(args):
             if len(resources['cards']) != 8 or any(card['busy_percent'] != 0 or card['vram_used_bytes'] >= 64 * 1024 ** 2
                                                    for card in resources['cards']):
                 raise RuntimeError('accelerators not idle after acquiring the instance lock')
+            before_release = None if official_freeze is None else lambda: prepare_official_rows(
+                source, args.official_freeze, args.official_freeze_sha256, site['work_root'], output)
             barrier = threading.Thread(target=release_supervised_ranks,
-                args=(output, spec_path, spec_sha, site, parent, min(args.deadline_at, time.time() + 180), stop), daemon=True)
+                args=(output, spec_path, spec_sha, site, parent, min(args.deadline_at, time.time() + 180), stop),
+                kwargs={'before_release': before_release}, daemon=True)
             barrier.start()
             from retrain.fresh import start_runtime_guard
             monitor = start_runtime_guard(args.deadline_at, stop,
@@ -840,23 +968,30 @@ def owner(args):
                 if time.time() >= idle_until:
                     raise RuntimeError('accelerator release remains unknown after evaluation')
                 time.sleep(.5)
-            metrics = aggregate_packets(source, inputs, output, args.inputs_sha256)
-            report = {'status': 'F04_full_internal_dev_fp16_storage_evaluated', 'at': time.time(),
+            metrics = aggregate_packets(source, inputs, output, args.inputs_sha256, official_freeze)
+            report = {'status': ('F04_official_once_evaluated' if official_freeze is not None
+                                 else 'F04_full_internal_dev_fp16_storage_evaluated'), 'at': time.time(),
                       'inputs_sha256': args.inputs_sha256, 'current_preflight_sha256': args.current_preflight_sha256,
                       'predecessor_safe_sha256': args.safe_sha256, 'site_sha256': args.site_sha256,
                       'weight_bytes': inputs['weight_bytes'], 'dev_count': 5140, 'dev_positive': 167,
-                      'comparison': metrics, 'supervisor': result, 'admission': admission,
+                      ('official_result' if official_freeze is not None else 'comparison'): metrics,
+                      'supervisor': result, 'admission': admission,
                       'released_ranks': released, 'device_handles_after': users, 'resources_after': resources,
-                      'TTA': False, 'official_read': False, 'training_executed': False}
+                      'TTA': False, 'official_read': official_freeze is not None, 'training_executed': False}
+            if official_freeze is not None:
+                report['official_freeze_sha256'] = args.official_freeze_sha256
             if final_options:
                 report['final_lineage_sha256'] = args.final_lineage_sha256
             write_new(output / 'SUMMARY.json', report)
             print(json.dumps({'status': report['status'], 'summary_sha256': sha(output / 'SUMMARY.json')}), flush=True)
     except Exception as error:
         if not (output / 'FAILURE.json').exists():
+            official_read = (False if official_freeze is None or not
+                (Path(site['work_root']) / 'final/F04-20261104/OFFICIAL-INPUT-READ-ONCE.json').exists()
+                else 'unknown')
             write_new(output / 'FAILURE.json', {'status': 'failed', 'at': time.time(),
                                                'type': type(error).__name__, 'message': str(error),
-                                               'official_read': False})
+                                               'official_read': official_read})
         raise
 
 
@@ -871,6 +1006,8 @@ def dispatch(args):
     """Claim and start one detached controller; a transport timeout never permits a retry."""
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
+    official_options = official_freeze_options(getattr(args, 'official_freeze', None),
+                                                getattr(args, 'official_freeze_sha256', None))
     source = args.source_root.resolve(strict=True)
     if source != Path(__file__).resolve().parents[2]:
         raise ValueError('published F04 source differs')
@@ -893,11 +1030,20 @@ def dispatch(args):
     validate_evaluation_window(window, args.safe_sha256, args.site_sha256, site['round_id'],
                                time.time(), shutil.disk_usage(site['work_root']).free)
     claim = args.claim_dir.resolve()
-    if (not claim.is_relative_to(Path(site['work_root']) / 'technical-prep')
-            or args.output.resolve() != claim / 'evaluation' or claim.exists() or claim.is_symlink()):
+    if official_options:
+        frozen = load_official_freeze(args, source)
+        final_dir = Path(site['work_root']) / 'final/F04-20261104'
+        allowed = (claim == final_dir / 'OFFICIAL-ATTEMPT'
+                   and Path(args.official_freeze) == final_dir / 'FREEZE.json'
+                   and frozen['official']['data_root'] == site['data_root']
+                   and not (final_dir / 'OFFICIAL-ONCE.json').exists()
+                   and not (final_dir / 'OFFICIAL-INPUT-READ-ONCE.json').exists())
+    else:
+        allowed = claim.is_relative_to(Path(site['work_root']) / 'technical-prep')
+    if (not allowed or args.output.resolve() != claim / 'evaluation' or claim.exists() or claim.is_symlink()):
         raise ValueError('fresh isolated one-shot evaluation claim required')
     request = {name: str(getattr(args, name.replace('-', '_'))) for name in (*OWNER_PATH_OPTIONS, *OWNER_TEXT_OPTIONS)}
-    request.update(final_options)
+    request.update(final_options); request.update(official_options)
     request.update(deadline_at=args.deadline_at, source_sha256=sha(__file__))
     request_sha = reserve_evaluation_attempt(claim, request)
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'controller',
@@ -933,6 +1079,9 @@ def controller(args):
     for name, value in final_lineage_options(request.get('final-lineage'),
                                               request.get('final-lineage-sha256')).items():
         argv.extend(['--' + name, value])
+    for name, value in official_freeze_options(request.get('official-freeze'),
+                                                request.get('official-freeze-sha256')).items():
+        argv.extend(['--' + name, value])
     argv.extend(['--deadline-at', str(request['deadline_at']), '--controller-pid', str(os.getpid()),
                  '--controller-start-ticks', current['start_ticks']])
     try:
@@ -951,13 +1100,20 @@ def controller(args):
                 code = process.wait(timeout=30)
             except subprocess.TimeoutExpired:
                 process.kill(); code = process.wait()
+        official_read = (False if 'official-freeze' not in request or not
+            (Path(request['official-freeze']).parent / 'OFFICIAL-INPUT-READ-ONCE.json').exists()
+            else ('true' if code == 0 else 'unknown'))
+        if official_read == 'true':
+            official_read = True
         write_new(claim / 'RESULT.json', {'status': 'owner_exit0' if code == 0 else 'owner_failed',
                                          'at': time.time(), 'exit_code': code,
-                                         'request_sha256': args.request_sha256, 'official_read': False})
+                                         'request_sha256': args.request_sha256, 'official_read': official_read})
     except Exception as error:
+        official_read = (False if 'official-freeze' not in request or not
+            (Path(request['official-freeze']).parent / 'OFFICIAL-INPUT-READ-ONCE.json').exists() else 'unknown')
         write_new(claim / 'RESULT.json', {'status': 'controller_failed', 'at': time.time(),
                                          'type': type(error).__name__, 'message': str(error),
-                                         'request_sha256': args.request_sha256, 'official_read': False})
+                                         'request_sha256': args.request_sha256, 'official_read': official_read})
         raise
 
 
@@ -984,6 +1140,8 @@ def main():
             run.add_argument('--' + name, required=True)
         run.add_argument('--final-lineage', type=Path)
         run.add_argument('--final-lineage-sha256')
+        run.add_argument('--official-freeze', type=Path)
+        run.add_argument('--official-freeze-sha256')
         run.add_argument('--deadline-at', type=float, required=True)
         if mode == 'owner':
             run.add_argument('--controller-pid', type=int, required=True)

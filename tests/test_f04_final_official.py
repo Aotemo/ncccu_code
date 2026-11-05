@@ -1,10 +1,15 @@
 """CPU fixtures for one frozen F04 ensemble and its single official reservation."""
 import importlib.util
+import contextlib
+import io
 import json
 import math
 from pathlib import Path
+import sys
 import tempfile
+import types
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = ROOT / 'tools/diagnostics/f04_final_official.py'
@@ -164,6 +169,112 @@ class FinalOfficialTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             final.freeze_from_verified_dev(inputs, dict(preflight, fp16={'members': ids[::-1], 'bytes': base['weight_bytes']}),
                                            summary, identity, base['official'], runtime)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); a = root / 'inputs.json'; b = root / 'preflight.json'; c = root / 'summary.json'
+            a.write_text(json.dumps(inputs)); b.write_text(json.dumps(preflight))
+            pinned_summary = dict(summary, inputs_sha256=final.sha(a), current_preflight_sha256=final.sha(b))
+            c.write_text(json.dumps(pinned_summary))
+            pinned = final.freeze_from_pinned_receipts(a, final.sha(a), b, final.sha(b), c, final.sha(c),
+                                                       '3' * 64, base['official'], runtime)
+            self.assertEqual(pinned['identity']['summary_path'], str(c))
+            self.assertEqual(pinned['full_dev']['summary_sha256'], final.sha(c))
+            sys.path.insert(0, str(ROOT / 'tools/diagnostics'))
+            import f04_bounded_fusion
+            import f04_gpu_full_dev as gpu
+            freeze_path = root / 'freeze.json'; freeze_path.write_text(json.dumps(pinned))
+            args = types.SimpleNamespace(official_freeze=freeze_path, official_freeze_sha256=final.sha(freeze_path),
+                final_lineage=root / 'lineage.json', final_lineage_sha256='3' * 64, remote_metadata=root,
+                inputs=a, inputs_sha256=final.sha(a), current_preflight=b, current_preflight_sha256=final.sha(b))
+            real_sha = gpu.sha
+            def fake_sha(path):
+                return runtime['gpu_owner_sha256'] if Path(path) == Path(gpu.__file__) else real_sha(path)
+            def fake_blob(source, metadata, name):
+                return (args.official_freeze_sha256 if name.endswith('F04-FINAL-FREEZE.json')
+                        else runtime['official_adapter_sha256'])
+            with patch.object(gpu, 'sha', side_effect=fake_sha), \
+                 patch.object(f04_bounded_fusion, 'verify_blob', side_effect=fake_blob):
+                self.assertEqual(gpu.load_official_freeze(args, ROOT), pinned)
+                with self.assertRaises(ValueError):
+                    gpu.load_official_freeze(types.SimpleNamespace(**{**vars(args),
+                        'final_lineage_sha256': '9' * 64}), ROOT)
+            c.write_text('{}')
+            with self.assertRaises(ValueError):
+                final.freeze_from_pinned_receipts(a, final.sha(a), b, final.sha(b), c, '4' * 64,
+                                                  '3' * 64, base['official'], runtime)
+
+    def test_final_weights_metadata_and_historical_sources_are_pinned(self):
+        self.assertTrue(hasattr(final, 'verify_member_assets'), 'final inference asset verification must exist')
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); frozen = frozen_fixture(); total = 0
+            for index, member in enumerate(frozen['members']):
+                directory = root / str(index); directory.mkdir()
+                weight = directory / 'model.pt'; weight.write_bytes(('model-' + str(index)).encode())
+                variant = 'online' if index == 1 else 'ema'
+                selected = {'variant': variant, 'cycle': 2, 'successful_updates': 1600,
+                            'tensor_sha256': 'd' * 64}
+                metadata = directory / 'model.json'
+                metadata.write_text(json.dumps({'format': 'glaucoma-frozen-inference-v1',
+                    'model_sha256': final.sha(weight), 'job': {'model': 'convnext_small', 'age': None}, 'age': None,
+                    'checkpoint': {'variant': variant, 'tensor_sha256': member['model']['fp16_tensor_sha256']}}))
+                bundle = directory / 'bundle'; bundle.mkdir()
+                source_file = bundle / 'model.py'; source_file.write_text('example source\n')
+                historical = directory / 'HISTORICAL.json'
+                historical.write_text(json.dumps({'selected': selected, 'source_files': {'model.py': final.sha(source_file)}}))
+                member['model'].update(path=str(weight), sha256=final.sha(weight), bytes=weight.stat().st_size)
+                member['metadata'] = {'path': str(metadata), 'sha256': final.sha(metadata)}
+                member.update(selected=selected, bundle=str(bundle),
+                              freeze={'path': str(historical), 'sha256': final.sha(historical)})
+                total += weight.stat().st_size
+            frozen['weight_bytes'] = total
+            final.verify_member_assets(frozen)
+            Path(frozen['members'][0]['model']['path']).write_bytes(b'tampered')
+            with self.assertRaises(ValueError):
+                final.verify_member_assets(frozen)
+
+    def test_published_freeze_writer_is_canonical_and_exclusive(self):
+        sys.path[:0] = [str(ROOT / 'tools/pretraining'), str(ROOT / 'tools/diagnostics')]
+        import source_chain
+        import f04_bounded_fusion
+        import f04_gpu_full_dev as gpu
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); meta = root / 'metadata'; meta.mkdir()
+            commit, tree = '1' * 40, '2' * 40
+            (meta / 'REMOTE-REF.json').write_text(json.dumps({'ref': 'refs/heads/main', 'object': {'sha': commit}}))
+            (meta / 'REMOTE-COMMIT.json').write_text(json.dumps({'sha': commit, 'tree': {'sha': tree}}))
+            (meta / 'REMOTE-TREE.json').write_text(json.dumps({'sha': tree, 'truncated': False}))
+            def put(name, obj):
+                path = root / name; path.write_text(json.dumps(obj)); return path
+            proof = put('proof.json', {'status': 'published_full_git_tree_verified_not_formal_deployment',
+                                       'commit': commit, 'tree': tree, 'GPU_initialized': False})
+            inputs = put('inputs.json', {'members': [{'data_root': str(root)}]})
+            inventory = put('inventory.json', {}); preflight = put('preflight.json', {})
+            science = put('science.json', {'official_manifest_sha256': 'c' * 64})
+            site = put('site.json', {'work_root': str(root), 'data_root': str(root),
+                        'official_manifest': str(root / 'valid.json'),
+                        'science': {'configuration': {'path': str(science), 'sha256': final.sha(science)}}})
+            args = types.SimpleNamespace(source_root=ROOT, remote_metadata=meta, tree_proof=proof,
+                tree_proof_sha256=final.sha(proof), git_commit=commit, git_tree=tree, inputs=inputs,
+                inputs_sha256=final.sha(inputs), current_inventory=inventory,
+                current_inventory_sha256=final.sha(inventory), current_preflight=preflight,
+                current_preflight_sha256=final.sha(preflight), site=site, site_sha256=final.sha(site),
+                final_lineage=root / 'lineage.json', final_lineage_sha256='3' * 64,
+                summary=root / 'summary.json', summary_sha256='4' * 64)
+            def blob(source, metadata, name):
+                if name.endswith('f04_final_official.py'): return final.sha(MODULE)
+                if name.endswith('GPU-INPUTS-v3.json'): return args.inputs_sha256
+                return 'd' * 64
+            with patch.object(source_chain, 'cpu_context', return_value={'uid': 'fixture'}), \
+                 patch.object(f04_bounded_fusion, 'verify_blob', side_effect=blob), \
+                 patch.object(gpu, 'load_final_lineage', return_value=[]), \
+                 patch.object(final, 'freeze_from_pinned_receipts', return_value=frozen_fixture()), \
+                 patch.object(final, 'verify_member_assets', return_value=['fixture'] * 5), \
+                 contextlib.redirect_stdout(io.StringIO()):
+                final.seal_from_published_receipts(args)
+                canonical = root / 'final/F04-20261104/FREEZE.json'
+                self.assertTrue(canonical.is_file())
+                self.assertFalse((canonical.parent / 'OFFICIAL-ONCE.json').exists())
+                with self.assertRaises(FileExistsError):
+                    final.seal_from_published_receipts(args)
 
     def test_official_population_must_match_sealed_csv_and_full_class_counts(self):
         rows = [{'name': f'image-{i}', 'label': int(i < 191), 'age': '50',
