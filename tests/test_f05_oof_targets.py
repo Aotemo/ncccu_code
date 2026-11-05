@@ -70,13 +70,14 @@ def synthetic_fixture(root):
         round_id = f'r{265 + number}-small-f05fold{number}-seed20261029-pairsigmoid-24k-p4-9010-20261105'
         train = f05_oof.training_manifest(fold)
         train_ref = _write(directory, 'training-manifest.json', train)
-        checkpoint = directory / 'fixture-checkpoint.pt'
+        checkpoint = directory / ('checkpoint-' + format(number + 1, '032x') + '.pt')
         checkpoint.write_bytes(('synthetic checkpoint ' + str(number)).encode('utf-8'))
         checkpoint_ref = _ref(checkpoint)
         variant = 'online' if number == 1 else 'ema'
         selected = {'variant': variant, 'tensor_sha256': str(number + 1) * 64,
                     'successful_updates': 800}
-        sidecar = _write(directory, 'fixture-checkpoint.pt.json', {'sha256': checkpoint_ref['sha256']})
+        sidecar = _write(directory, checkpoint.name + '.json', {'file': checkpoint.name,
+            'format': 'retraining-container-checkpoint', 'format_version': 1, 'sha256': checkpoint_ref['sha256']})
         freeze = _write(directory, 'SINGLE-MODEL-FREEZE.json', {
             'cpu_fixture_only': True, 'precision': 'fp32', 'view': 'identity',
             'selected': selected, 'blob_sha256': checkpoint_ref['sha256'],
@@ -283,6 +284,20 @@ class OOFTargetTests(unittest.TestCase):
                     targets._verify_published_source(metadata, proof, commit, root, {'uid': 'fixture-uid'})
             finally:
                 targets.SOURCE = original
+
+    @unittest.skipIf(targets is None, 'consumer not implemented')
+    def test_sidecar_matches_observed_checkpoint_metadata_schema(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = synthetic_fixture(directory)
+            parent = json.loads(Path(fixture['parents'][0]['path']).read_text())
+            sidecar_path = Path(parent['sidecar']['path'])
+            metadata = json.loads(sidecar_path.read_text())
+            metadata['format_version'] = 2
+            parent['sidecar'] = _write(sidecar_path.parent, sidecar_path.name, metadata)
+            altered = _write(Path(parent['freeze']['path']).parent, 'WRONG-PARENT.json', parent)
+            with self.assertRaises(ValueError):
+                targets.verify_fold_input(fixture['base'], fixture['folds'], altered,
+                                          work_root=directory, allow_fixture=True)
 
 
 if __name__ == '__main__':

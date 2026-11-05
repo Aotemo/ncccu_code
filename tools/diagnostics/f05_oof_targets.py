@@ -176,6 +176,9 @@ def _verify_fold_input(base_ref, folds_ref, parent_ref, *, work_root, allow_fixt
             or selected['variant'] not in ('online', 'ema') or not _is_sha(selected['tensor_sha256'])
             or type(selected['successful_updates']) is not int or selected['successful_updates'] <= 0
             or sidecar.get('sha256') != parent['checkpoint']['sha256']
+            or sidecar.get('file') != Path(parent['checkpoint']['path']).name
+            or sidecar.get('format') != 'retraining-container-checkpoint'
+            or type(sidecar.get('format_version')) is not int or sidecar['format_version'] != 1
             or freeze.get('blob_sha256') != parent['checkpoint']['sha256']
             or freeze.get('experiment91', {}).get('manifest_sha256') != parent['training_manifest']['sha256']
             or freeze.get('precision') != 'fp32' or freeze.get('view') != 'identity'
