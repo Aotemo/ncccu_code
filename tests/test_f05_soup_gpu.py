@@ -21,7 +21,10 @@ class SoupDevTest(unittest.TestCase):
                   'soup_receipt_sha256': {name: 'b' * 64 for name in names},
                   'standalone_receipt_sha256': {name: 'c' * 64 for name in names},
                   'ranks_per_group': [3, 3, 2], 'batch_size': 8, 'dev_count': 5140,
-                  'dev_positive': 167, 'official_read': False, 'tta': False}
+                  'dev_positive': 167, 'official_read': False, 'tta': False,
+                  'preview': 'all_three_soups_replace_each_of_five_f04_members_once_per_precision',
+                  'preview_selection': False, 'normalization': 'dev_population_zscore_equal_weight',
+                  'max_total_fp16_weight_bytes': 500000000}
         members = [{'round_id': name, 'soup': {'sha256': 'b' * 64},
                     'receipt': {'sha256': 'c' * 64}, 'exports': {'fp32': {}, 'fp16': {}}} for name in names]
         inputs = {'status': 'F05_uniform_soup_dev_inputs_sealed_no_GPU', 'members': members,

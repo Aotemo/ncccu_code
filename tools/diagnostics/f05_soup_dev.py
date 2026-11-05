@@ -25,6 +25,10 @@ def validate_inputs(inputs, policy):
             or policy.get('groups') != GROUPS or policy.get('precisions') != PRECISIONS
             or policy.get('ranks_per_group') != [3, 3, 2] or policy.get('batch_size') != 8
             or policy.get('dev_count') != 5140 or policy.get('dev_positive') != 167
+            or policy.get('preview') != 'all_three_soups_replace_each_of_five_f04_members_once_per_precision'
+            or policy.get('preview_selection') is not False
+            or policy.get('normalization') != 'dev_population_zscore_equal_weight'
+            or policy.get('max_total_fp16_weight_bytes') != 500000000
             or policy.get('official_read') is not False or policy.get('tta') is not False
             or inputs.get('status') != 'F05_uniform_soup_dev_inputs_sealed_no_GPU'
             or [item.get('round_id') for item in members] != GROUPS
