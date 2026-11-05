@@ -31,9 +31,16 @@ torch.set_num_interop_threads(1)
 
 SPEC = {'version': 'binary-pairwise-sigmoid-v1', 'kind': 'binary_pairwise_sigmoid',
         'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch'}
-INPUTS = [[.2, 1.], [1.5, .8]]
-LABELS = [[0., 1.], [0., 1.]]
-AUXILIARY = {'clean': [[.25, 1.], [1., .25]], 'distill': [[.1, .8], [.2, .7]]}
+INPUTS = [[(index - 31.5) / 16 for index in range(rank * 32, (rank + 1) * 32)]
+          for rank in range(2)]
+# G64/P8, with no local positives on rank 0, verifies true WORLD alignment.
+LABELS = [[0.] * 32, [0.] * 24 + [1.] * 8]
+AUXILIARY = {
+    'clean': [[.25 if index % 7 == 0 else 1. for index in range(rank * 32, (rank + 1) * 32)]
+              for rank in range(2)],
+    'distill': [[(index + 1) / 65 for index in range(rank * 32, (rank + 1) * 32)]
+                for rank in range(2)],
+}
 
 
 def _world_worker(rank, rendezvous, result_dir):
@@ -52,7 +59,7 @@ def _world_worker(rank, rendezvous, result_dir):
             global_labels = gather_f05_auxiliary(labels)
             global_auxiliary = gather_f05_auxiliary(auxiliary)
             table = dict(enumerate(sum(AUXILIARY[mode], [])))
-            loss = f05_train_batch_loss(logits, labels, torch.tensor([rank * 2, rank * 2 + 1]),
+            loss = f05_train_batch_loss(logits, labels, torch.arange(rank * 32, (rank + 1) * 32),
                                         table, SPEC, mode=mode)
             loss.backward()
             result[mode] = {'loss': loss.item(), 'gradient': layer.weight.grad.item(),
@@ -157,6 +164,7 @@ class CleanDistillTest(unittest.TestCase):
                     layer.weight.fill_(.5)
                 images = torch.tensor(sum(INPUTS, []), dtype=torch.float32).reshape(-1, 1)
                 labels = torch.tensor(sum(LABELS, []), dtype=torch.float32)
+                self.assertEqual((labels.numel(), int(labels.sum())), (64, 8))
                 auxiliary = torch.tensor(sum(AUXILIARY[mode], []), dtype=torch.float32)
                 expected = f05_pairwise_objective(layer(images).reshape(-1), labels, auxiliary, SPEC, mode=mode)
                 expected.backward()
