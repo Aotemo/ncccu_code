@@ -28,6 +28,8 @@ N06/FLAIR 眼底预训练不作为初始化、蒸馏教师、BN、融合成员�
 
 ## F05 固定融合及官方边界
 
+**2026-11-05 三折发现裁定（在三折 dev 指标用于 F05 选员之前）：** R265–R267 不因使用派生训练 manifest 而被遗漏或特殊排除。候选发现须独立核原始 manifest、封存三折 SHA、该折 `SITE_BINDING`／`RUNTIME_BINDING`／SCIENCE、派生训练 manifest 的登记 SHA，并用 `f05_folds.verify_bound_fold` 证明原始 dev 全部 5140 行及索引未改变；selected 的内部 dev 预测按实际派生 manifest 身份验真，再与原 dev 同序核对。发现行沿原 F03 `science`、`spec.freeze/completion`、`selected` 和 checkpoint 结构，另附 `fold_binding={fold,site,runtime_binding,training_manifest}`，各引用固定路径及 SHA。绑定合法者与其他成员统一执行单模 AUROC ≥0.988、严格加载和实际 fp16 文件总字节 ≤500,000,000 的固定规则；绑定缺失/不一致为 unknown，不冒充无候选。其他 manifest 不符的轮次应明确登记跳过原因，不再静默遗漏。拟在现有候选发现链做必要扩展，影响 `tools/diagnostics/ensemble_dev.py` 或最小辅助 `tools/diagnostics/f05_fold_candidates.py`、选员辅助 `tools/diagnostics/f05_final_selection.py` 及相应窄测试；不改训练或现役部署。正式候选和最终规则仍须在新 F05 融合结果读取前封存。
+
 在上述全部方向达到终态且任何 F05 新融合结果读取前，登记和封存可部署候选发现、单模内部 dev AUROC 门槛、同分顺序、按实际 fp16 权重字节的 ≤500,000,000 B 选择规则以及 z 等权计算；原则上沿 F04 的 ≥0.988、单模 AUROC 降序贪心纳入及越限停止规则，具体完整候选身份和贪心汤偏差在封存合同时写明。不可依据官方结果或融合错例更改候选、权重或规则。最终候选全 dev fp16 前向并与相同成员 fp32 结果比较，固定权重 SHA、内部 dev moments、推理代码和环境并提交；使用与 F04 分离的全局 F05 单次 claim，仅一次官方 5849，内外指标分列。F04 的官方 claim 不重置、不复用。
 
 本文件只记录授权和总边界；不代表模型汤可加载、CPU 借用已经生效、新训练或 F05 官方评估已经执行。
