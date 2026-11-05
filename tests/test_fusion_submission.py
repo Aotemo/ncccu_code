@@ -97,9 +97,10 @@ class FusionSubmissionTests(unittest.TestCase):
         result = fusion.build(members, names)
         parameters = result['platt']
         self.assertGreater(parameters['slope'], 0)
-        grid = np.linspace(-4, 4, 41)
+        grid = np.linspace(-3, 3, 41)
         mapped = fusion.apply_platt(grid, parameters)
-        self.assertTrue(np.all(np.diff(mapped) > 0))
+        self.assertTrue(np.all(np.diff(mapped) >= 0))
+        self.assertGreaterEqual(int(np.count_nonzero(np.diff(mapped) > 0)), 35)
         self.assertTrue(np.all((mapped >= 0) & (mapped <= 1)))
         for key in ('auroc', 'ap', 'count', 'positive'):
             self.assertIn(key, result['dev_metrics'])

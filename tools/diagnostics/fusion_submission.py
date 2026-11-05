@@ -108,13 +108,13 @@ def fit_platt(scores, labels):
         raise ValueError('two-class aligned dev scores required')
     if not np.isfinite(scores).all():
         raise ValueError('finite dev scores required')
-    model = LogisticRegression(C=1e6, solver='lbfgs', max_iter=1000, tol=1e-10, random_state=20261105)
+    model = LogisticRegression(C=1.0, solver='lbfgs', max_iter=1000, tol=1e-10, random_state=20261105)
     model.fit(scores, labels)
     slope, intercept = float(model.coef_[0, 0]), float(model.intercept_[0])
     if not math.isfinite(slope) or not math.isfinite(intercept) or slope <= 0:
         raise ValueError('positive finite Platt parameters required')
     return {'format': 'platt-one-dimensional-v1', 'slope': slope, 'intercept': intercept,
-            'config': {'C': 1e6, 'solver': 'lbfgs', 'max_iter': 1000, 'tol': 1e-10,
+            'config': {'C': 1.0, 'solver': 'lbfgs', 'max_iter': 1000, 'tol': 1e-10,
                        'random_state': 20261105, 'feature': 'fused_dev_score'},
             'dev_count': int(scores.shape[0]), 'dev_positive': int(labels.sum())}
 
