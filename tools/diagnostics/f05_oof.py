@@ -59,11 +59,35 @@ def main():
     parser.add_argument('--base-manifest', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--work-root', type=Path, required=True)
+    parser.add_argument('--tree-proof', type=Path, required=True)
+    parser.add_argument('--tree-proof-sha256', required=True)
+    parser.add_argument('--remote-metadata', type=Path, required=True)
+    parser.add_argument('--git-commit', required=True)
     args = parser.parse_args()
     if (os.getpriority(os.PRIO_PROCESS, 0) != 19 or any(os.environ.get(key) != '' for key in
             ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'))):
         raise ValueError('hidden-device Pod preparation required')
     source = Path(__file__).resolve().parents[2]
+    if args.tree_proof.is_symlink() or sha(args.tree_proof) != args.tree_proof_sha256:
+        raise ValueError('published local source proof differs')
+    proof = json.loads(args.tree_proof.read_text())
+    ref = json.loads((args.remote_metadata / 'REMOTE-REF.json').read_text())
+    commit = json.loads((args.remote_metadata / 'REMOTE-COMMIT.json').read_text())
+    tree = json.loads((args.remote_metadata / 'REMOTE-TREE.json').read_text())
+    if (proof.get('status') != 'published_full_git_tree_verified_not_formal_deployment'
+            or proof.get('commit') != args.git_commit or proof.get('tree') != tree.get('sha')
+            or proof.get('source_root') != str(source) or proof.get('pod_uid') != os.environ.get('NCCCU_POD_UID')
+            or ref.get('object', {}).get('sha') != args.git_commit or commit.get('sha') != args.git_commit
+            or commit.get('tree', {}).get('sha') != tree.get('sha') or tree.get('truncated') is not False):
+        raise ValueError('exact published Pod-local source identity required')
+    blobs = {entry['path']: entry for entry in tree['tree'] if entry.get('type') == 'blob'}
+    for name in ('tools/diagnostics/f05_oof.py', 'configs/F05-FOLDS-5.json',
+                 'runtime/bundle/retrain/data.py', 'runtime/bundle/retrain/age.py'):
+        path = source / name; raw = path.read_bytes()
+        digest = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+        mode = '100755' if path.stat().st_mode & 0o111 else '100644'
+        if path.is_symlink() or name not in blobs or blobs[name]['sha'] != digest or blobs[name]['mode'] != mode:
+            raise ValueError('fold implementation differs from published Git: ' + name)
     config = json.loads((source / 'configs/F05-FOLDS-5.json').read_text())
     if args.base_manifest.is_symlink() or sha(args.base_manifest) != config['base_manifest_sha256']:
         raise ValueError('sealed original fit/dev manifest differs')

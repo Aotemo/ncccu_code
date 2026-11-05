@@ -1,0 +1,71 @@
+{
+  "status": "sealed_prior_actualsafe_and_selected_bindings",
+  "at": 1793851796.8778958,
+  "inventory_sha256": "ed36d336905b47eb929cdeb1bf8bc348d4f516c274474e467a88d0a5586e02f3",
+  "records": [
+    {
+      "label": "R251",
+      "round_id": "r251-small-quadrant-seed20261106-pairlog-24k-p4-9010-20261104",
+      "safe": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/R251-PROGRESS-1815.json",
+        "sha256": "5b941291893fa2a6b567d1926843fb5e59a59d81600056e26ba02e68f67f28a9"
+      },
+      "selected_blob_sha256": "4df70bbad027e1771d5e2bb5105691867a9ee9373450cada4ed49bacf85d162a",
+      "selected_tensor_sha256": "52bdb0c2da70d05b7eb01834e0a52653b2959d5d85150a384543d295fe53d777",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r251-small-quadrant-seed20261106-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "bf3df448412615011e64998a666ddd5d42175e9ee3173f49733581b1fd98e285"
+      },
+      "actualsafe": true
+    },
+    {
+      "label": "R252",
+      "round_id": "r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104",
+      "safe": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R252-PROGRESS-1831.json",
+        "sha256": "a6fd63807222f347acbf7a3ca08dc5f9603e2273dae6407517db5e947c669f59"
+      },
+      "selected_blob_sha256": "4d9e36e26afb5c3ee656113ad7ee7e01aef067146c811ab356702a08226909e2",
+      "selected_tensor_sha256": "59c685fb854f67f9207131c31931047751ddfbe14479008e4510972cd1423904",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "e9767bfc6085b7eb190ef9a81a831ef56f4291a5c0b9184d4e17d52e4f60b950"
+      },
+      "actualsafe": true
+    },
+    {
+      "label": "R261",
+      "round_id": "r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104",
+      "safe": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-a/R261-PROGRESS-20261105T003308Z.json",
+        "sha256": "83d5b8038bff48f6ec10b6d4684028f57434400665227096d41bc99cce3a0ea3"
+      },
+      "selected_blob_sha256": "d8aeef3791e4ccd796ba4189f325c518024c9b6101eebd3478894662cb735ba9",
+      "selected_tensor_sha256": "8d904abddce4d319cb6bd9b797ab83387fcbb547b82e66b0039a43ad15eb74cd",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "7afcab15c530fc95d175ba6add63339816b358b8bf44a431430a06e06f3b5741"
+      },
+      "actualsafe": true
+    },
+    {
+      "label": "R262",
+      "round_id": "r262-small-seed20261118-pairsigmoid-24k-p4-9010-20261104",
+      "safe": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/pod-b/R262-PROGRESS-20261105T003143Z.json",
+        "sha256": "ef4c1568e9bbc048353903a8a445cb3ae3c798e96c243902b35aec3859d4fb99"
+      },
+      "selected_blob_sha256": "6215e7db2af82f281cb1facc42dd1a330ce7fdf834a67ed316e617157fefbeeb",
+      "selected_tensor_sha256": "d52cd5fd45bc05711496c93063460194f7a815f6678e06b32b688a19d44e4205",
+      "freeze": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r262-small-seed20261118-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+        "sha256": "6fbd9b5dad9e90185509ffe9ac8caf98329243c638887558ce331ba715a8c910"
+      },
+      "actualsafe": true
+    }
+  ],
+  "unknown": [],
+  "official_read": false,
+  "GPU_initialized": false,
+  "signals_sent": false
+}
