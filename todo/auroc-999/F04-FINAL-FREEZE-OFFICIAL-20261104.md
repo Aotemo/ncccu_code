@@ -28,3 +28,11 @@
 **最终新成员准备边界：** 原 `f04_bounded_fusion.py` 要求全部导出指向同一旧 inventory，因此 R261/R262 若首次符合门槛会被错误阻塞。必要范围补充该文件、`f04_gpu_full_dev.py` / `f04_standalone_member.py` 对每成员来源 inventory 的精确绑定及相应测试：老成员继续核旧库存与未变 selected，新成员只绑定两轮安全后封存的新库存和其真实严格导出；预先注册的排序、容量、权重和结果计算规则不改。
 
 **00:31 UTC 固定规则兼容验证：** 新/旧 inventory 分成员绑定的三组新增用例先按预期失败 `5ace4126`；修复后与全 dev 设备监督、严格变体、官方 claim 和历史接口共六组 CPU 检查通过 `d763dc67`。未读取最终两轮完整结果、未运行 GPU 或真实官方。
+
+**00:36 UTC 最终名单封存：** R261 actualsafe `83d5b803`、EMA `.9871726485/.8243995414`；R262 actualsafe `ef4c1568`、EMA `.9864923280/.8280825226`，均低于 `.988`。两轮安全 lineage `68fdbc90`；其后唯一最终发现 112 轮、0 unknown（`ed36d336`），固定规则预筛 `2c70bdde` 封存 R120/R134R1/R250/R249/R135，fp16 权重 `495097409 B`。原 fp32 dev 预测 AUROC `.9902539582` / AP `.8435746088`（`e5c18a1f`），不是 fp16 全量或官方结果。源码 `0db1b98` 的 3433 文件完整 tree `78821709`，最终 lineage 的本机 transport 八项假 SSH 隔离测试 `2f4893c4`；准备在现有 Pod 做完整内部 dev fp16。
+
+**00:41 UTC 首次 dev attempt 失败：** 容量窗口 `3a6ce384` 后 controller 已启动，但 owner 对五份权重和历史源码完成校验后、`admit_now` / rank 创建之前，发现安全回执超过 120 秒而退出；`RESULT.json` `28db6b2c`、exit 1，evaluation 目录不存在，controller 已退出为 zombie、owner 已退出，无 rank 或官方前向。原因是容量核验、单独哈希与两次 SSH 叠加了传输延迟。原 attempt 保留；拟通过容量工具在写完文件时直接回报 SHA，以及把 Pod 快照和派发合并在一次 SSH 中缩短时间，仍重做实时 Pod/安全/容量/设备检查、独立新 attempt 并先做 CPU 假连接测试，不放宽 120 秒门。
+
+**00:57 UTC 第二次 dev attempt 失败：** 新鲜安全 `4abab1ca`、容量窗口 `4baa0303`，单次 controller `e81738bd`；八 rank 设备屏障通过 `841b6edf` 后全部构造模型失败，0 packets，`FAILURE` `c6d80507`、controller exit1 `b3a95fd5`。八份 rank 日志均停在历史 `create_model/validate_job`，报告当前 R263 site 的 SCIENCE 与对应历史 profile/LR 不符；未进入图片前向、未读官方。失败后 A 再核安全及设备释放 `320131ea`。此前 CPU 实际数据集接口探测未覆盖 worker 的当前 site 环境；补充回归旧版按预期失败 `542b9d99`，修复须在设备证明后、导入历史 runtime 前绑定每成员封存 site/SHA，并以五个真实模型逐个 CPU 严格构造验证。两次失败均保留，不重置 claim。
+
+**01:07 UTC 历史配置实测：** 修复版从当前 R263 site 环境出发，逐成员绑定其冻结 site/SCIENCE 并用历史 runtime 加载各自 fp16 文件，五个真实模型均 CPU 严格构造成功，0 前向、GPU 未初始化、官方未读（`f1b71e16`）；实际测试源码 SHA `83e97cf1`。仍需回归通过、源码 push 与完整树核验后才可新建内部 dev attempt。准备 CPU 新 allocation A/B 分别 `934a1bc2` / `0c3dfa5b`，验证互斥 `cc060085` / `b008c4fe`；B 随后的两次 SSH 握手在派发前被远端关闭，P3 暂停于 21830/51396、0 unknown。

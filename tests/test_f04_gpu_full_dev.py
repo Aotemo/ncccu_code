@@ -57,6 +57,24 @@ def test_selected_variant_preserves_online_or_ema_identity():
     rejects(lambda: gpu.selected_variant({'selected': {}}))
 
 
+def test_historical_runtime_rebinds_the_pinned_member_site():
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary); bundle = root / 'bundle'; bundle.mkdir()
+        science = root / 'SCIENCE.json'; science.write_text(json.dumps({'candidate_profile': 'historical'}))
+        site = root / 'SITE_BINDING.json'
+        site.write_text(json.dumps({'work_root': str(root), 'data_root': '/data',
+            'science': {'configuration': {'path': str(science), 'sha256': gpu.sha(science)}}}))
+        member = {'bundle': str(bundle), 'freeze': {'path': str(root / 'FREEZE.json')},
+                  'site': {'path': str(site), 'sha256': gpu.sha(site)}, 'data_root': '/data'}
+        with patch.dict(os.environ, {'NCCCU_SITE_BINDING': '/current/site',
+                                     'NCCCU_SITE_BINDING_SHA256': 'a' * 64}):
+            gpu.bind_member_runtime(member)
+            assert os.environ['NCCCU_SITE_BINDING'] == str(site)
+            assert os.environ['NCCCU_SITE_BINDING_SHA256'] == gpu.sha(site)
+            bad = {**member, 'site': {'path': str(site), 'sha256': '0' * 64}}
+            rejects(lambda: gpu.bind_member_runtime(bad))
+
+
 def test_predecessor_requires_recent_complete_safety():
     now = time.time()
     safe = {'phase': 'terminal', 'observed_at': now, 'first_success_receipt_read': True,
@@ -207,6 +225,7 @@ def test_detached_controller_records_failure_without_retry():
 if __name__ == '__main__':
     test_fixed_devices_and_exact_dev_coverage()
     test_selected_variant_preserves_online_or_ema_identity()
+    test_historical_runtime_rebinds_the_pinned_member_site()
     test_predecessor_requires_recent_complete_safety()
     test_eight_rank_barrier_rejects_missing_reused_and_dead_processes()
     test_worker_release_requires_its_exact_pinned_proof_and_live_owner()

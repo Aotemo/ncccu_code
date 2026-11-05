@@ -59,6 +59,32 @@ def selected_variant(member):
     return variant
 
 
+def bind_member_runtime(member):
+    """Use the member's pinned historical science after current-device admission."""
+    if (not isinstance(member, dict) or not isinstance(member.get('site'), dict)
+            or not isinstance(member.get('freeze'), dict) or not isinstance(member.get('bundle'), str)):
+        raise ValueError('historical member site, bundle and freeze are required')
+    freeze = Path(member['freeze'].get('path', ''))
+    site_path = Path(member['site'].get('path', ''))
+    bundle = Path(member['bundle'])
+    if (not freeze.is_absolute() or not site_path.is_absolute() or not bundle.is_absolute()
+            or site_path != freeze.parent / 'SITE_BINDING.json' or bundle != freeze.parent / 'bundle'
+            or site_path.is_symlink() or bundle.is_symlink() or not bundle.is_dir()):
+        raise ValueError('historical site and bundle paths differ from the selected freeze')
+    site = read_pinned(site_path, member['site'].get('sha256'))
+    science = site.get('science', {}).get('configuration', {})
+    science_path = Path(science.get('path', ''))
+    work = Path(site.get('work_root', ''))
+    if (site.get('data_root') != member.get('data_root') or not work.is_absolute()
+            or not science_path.is_absolute() or science_path.is_symlink()
+            or not science_path.resolve().is_relative_to(work.resolve())):
+        raise ValueError('historical data or scientific configuration path differs')
+    read_pinned(science_path, science.get('sha256'))
+    os.environ['NCCCU_SITE_BINDING'] = str(site_path)
+    os.environ['NCCCU_SITE_BINDING_SHA256'] = member['site']['sha256']
+    return site
+
+
 def require_safe_predecessor(safe, expected_root, now):
     at = safe.get('observed_at')
     if (safe.get('phase') != 'terminal' or safe.get('formal_root') != str(expected_root)
@@ -520,6 +546,7 @@ def worker(args):
             or any(not rows[i]['relative_path'].startswith('train/') for i in indices)):
         raise ValueError('only the complete sealed internal dev is permitted')
     bundle = Path(member['bundle']).resolve(strict=True)
+    bind_member_runtime(member)
     sys.path.insert(0, str(bundle))
     from retrain.inference import _load_model
     from retrain.parallel_evaluation import batch_assignments
