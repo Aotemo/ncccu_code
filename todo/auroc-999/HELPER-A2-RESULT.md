@@ -1,0 +1,13 @@
+# A2 CPU 准备状态（helper/cpu-prep-20261105）
+
+已按 A2 合同准备代码草稿。本人受 guard 约束的 A/B 12 核 probe 分别通过，回执 `e42f51609c891b564db0be8304e6d6fd904b6fd9c2974ca87898a3d5024fd4c5` / `92eff8568aaef562b1cf24f4d3dfce07768436ad1a83a1b956de8a8e76ef79cc`，均仅显示 CPU、GPU 未初始化。A 源码传输超时后的远端 tar 处于 D 状态，原次与目标目录保留、状态 unknown；B 已复制已验证的基础树并叠加助手代码用于合成检查。当前没有抽样、盲包、粗框、模型前向或指标；固定 63/64 门是否通过为 **unknown**。
+
+必要文件范围：新增 `tools/diagnostics/fit_disc_attention.py` 与 `tests/test_fit_disc_attention.py`；为复用既有盲包与对照，窄改 `tools/diagnostics/fit_disc_consensus.py`，增加上批 64 例排除、A2 seed 和准确的居中图像矩形记录，保留原入口默认行为。准备后依次封存无预测包和粗框，分别在独立进程执行原双线索对照及 R120 显著图，再记录实际回执。
+
+B 准备池在经验证的 `00eb266` 树复制件上叠加助手代码后，旧测试快照 **6/6** 合成检查通过，guard 回执 `590ad0b77a6d14360a4dff208e69237c42ff3021574074ad041392872e2728ec`。实际 `fit_disc_attention.py` SHA `ea9f5a363f0a3e696198f96a52a27ed47047b2be729377a598b418647060efaa`，`fit_disc_consensus.py` SHA `50d95a5bc6e141fdb6b409a23e5dd8cf4350c0da90c916be395e8d826c695da3`，当时测试文件 SHA `5cee24e024828c41cb747ad7ebce4ca65de812606b53656de4bef6a993408ecd`。该批未覆盖后来新增的盲包篡改检查；真实 R120 加载、名单抽样和几何门均未运行。正式研究须由 08ac 审阅合并 main、push/API 并精确验证源码后执行。
+
+R265/B 首成功后，在相同基础树的独立新版测试快照上，**7/7** 合成检查通过，含盲包成员、映射及逐张图像身份绑定与篡改拒绝；guard 回执 `470be1f1d0978e0de17ad10356b8ecae630592baf2377b628eea90220b7acf44`，新版测试文件 SHA `568c81abef30d6d99425a4226d7ef75f3715c00cebc0c406283f6301f097f722`，上述两份实际源码 SHA 不变。仍未读取真实图像或加载 R120；已通知 08ac 按四文件范围审阅合并，主分支源码身份与真实研究均待后续完成。
+
+随后按 08ac 指定的 **af1f942** B 已验证三折源码树作为只读基线，复制到助手独立 Pod-local 目录，仅叠加 A2 两源码和测试，保留基线 F04 入口；集成窄测 **7/7**、guard exit 0，回执 `60acd02286cd4680953f63520b97d931e1498726f73406d6bde6eb4f655340fb`。两份 A2 源码实际 SHA 仍为上述 `ea9f5a36…` / `50d95a5b…`；基线 F04 入口 SHA `d1e077931a0ed967dd4f2a6547ed3d9cd8470b2816926016f025265f7ffb1203`，测试 SHA `298473d4a767d83608700dd8c30832c71c76babc7199888d447841168f3e1221`。未读取真实图像、未加载模型；等待 08ac 合并及精确部署后再进行事前固定的盲封。
+
+08ac 后续只读核查报告：同一登录节点已未见该 namespace 的 `kubectl` 客户端；Pod 内原 tar 进程尚未复核，因此该次 A 传输的 Pod 端终态仍是 unknown，原目标保留，不据客户端消失断言完成。
