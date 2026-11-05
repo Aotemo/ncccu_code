@@ -448,10 +448,15 @@ def main():
     parser.add_argument('--threads', type=int, default=0)
     args = parser.parse_args()
     if args.threads > 0:
-        import torch as _torch
-        from threadpoolctl import threadpool_limits
-        _torch.set_num_threads(args.threads)
-        limit = threadpool_limits(args.threads)
+        torch.set_num_threads(args.threads)
+        for key in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS',
+                    'NUMEXPR_NUM_THREADS'):
+            os.environ[key] = str(args.threads)
+        try:
+            from threadpoolctl import threadpool_limits
+            limit = threadpool_limits(args.threads)
+        except ImportError:
+            limit = None
     else:
         limit = None
     if args.output.exists() or args.output.is_symlink():
