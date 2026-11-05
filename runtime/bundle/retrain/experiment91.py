@@ -276,6 +276,7 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[1],
     'r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[2],
     'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105': F05_CLEAN_PROFILE,
+    'r268r1-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105': F05_CLEAN_PROFILE,
     'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105': F05_DISTILL_PROFILE,
     'r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105': GLOBAL_768_SIGMOID_SEED20261122_BINDING,
     'r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105': PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
@@ -286,15 +287,18 @@ def validate_f05_training_science(value, site=None):
     """Pin the two authorized fresh objectives and one versioned OOF summary."""
     profile = value.get('candidate_profile')
     profiles = {
-        F05_CLEAN_PROFILE: ('clean', 20261201, 'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105'),
-        F05_DISTILL_PROFILE: ('distill', 20261202, 'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105'),
+        F05_CLEAN_PROFILE: ('clean', 20261201, (
+            'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105',
+            'r268r1-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105')),
+        F05_DISTILL_PROFILE: ('distill', 20261202, (
+            'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105',)),
     }
     policy = value.get('f05_targets')
     if profile not in profiles:
         if policy is not None:
             raise ValueError('OOF targets require an explicitly registered F05 training profile')
         return None
-    mode, seed, round_id = profiles[profile]
+    mode, seed, round_ids = profiles[profile]
     initial = {
         F05_CLEAN_PROFILE: '6e2e8f4b20c211d3ed446187ddc9ea4803e1d560ed1741b00381213431ae7001',
         F05_DISTILL_PROFILE: 'b14f7c368ab70e6591c25ea6d9ab4c67b563876bb10dcd2050d75127e7d0da2c',
@@ -324,7 +328,7 @@ def validate_f05_training_science(value, site=None):
             or not isinstance(source, dict)
             or source.get('sha256') != '7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610'
             or source.get('provenance_sha256') != '8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b'
-            or (site is not None and site.get('round_id') != round_id)):
+            or (site is not None and site.get('round_id') not in round_ids)):
         raise ValueError('registered F05 round, fresh seed, target summary or initial tensor is unresolved')
     return policy
 
