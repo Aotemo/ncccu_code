@@ -1,0 +1,25 @@
+{
+  "status": "F04_official_once_aggregate",
+  "at": 1793845249.04817,
+  "freeze_sha256": "cf5ce24aeb854876d5143dd24ae045e50fabe12412700ca8a3c4a6329eec5ad3",
+  "official_summary_sha256": "c36dcad6c8a26284a1aba7fb5d3df5a654df0bf14e6cc48b2135e8baa2d2c908",
+  "official_claim_sha256": "5f3aa6a3ee97e6579f987b34ee7ddf050820ebd5797265f029261a600f20ec83",
+  "official_input_claim_sha256": "d0f998f6d2d88d0c713b7bd0c819b0a4a6ffe3eefa482b28fe2646df31335d15",
+  "count": 5849,
+  "positive": 191,
+  "raw_auroc": 0.9894371866550443,
+  "raw_ap": 0.8495332210248918,
+  "internal_dev_fp16_auroc": 0.9902539582006307,
+  "internal_dev_fp16_ap": 0.8435548008659938,
+  "weight_bytes": 495097409,
+  "members": [
+    "r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101"
+  ],
+  "TTA": false,
+  "official_evaluations": 1,
+  "official_used_for_selection": false
+}
