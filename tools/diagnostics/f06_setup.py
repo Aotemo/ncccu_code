@@ -184,6 +184,7 @@ def cmd_spec(args):
     from retrain.precision import RULE as PRECISION_RULE
     cfg = load_config(args.config)
     job, plan, policy = resolve_topology(cfg, available_accelerators=8)
+    plan['stop_after_updates'] = 6000
     if job.get('f06') is None:
         raise SystemExit('F06 job binding required')
     source = load_source(cfg['data']['root'], cfg['data']['identity_path'], True, True,
