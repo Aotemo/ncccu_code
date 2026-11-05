@@ -14,3 +14,5 @@
 4. **最短 GPU 接续：** 让三折正式准备和接续优先；三汤代码窄测通过后由 08ac 审阅并合并 main、push/API 回读及目标 Pod 完整树校验，再以实际三汤/原 F04 身份生成 CPU 输入。待某 Pod 的授权前轮实际安全终态、现场容量及现有 80/20 资源门满足后，08ac 沿现有 supervisor 显式 `--soup-mode` 使用 3/3/2 八 rank，分别单视图评估 fp32/fp16 存储；不要求独立 GPU 预演，也不把研究预览作为 F05 选择。任一检查未知或失败即保留回执、不自动重派；原 F04 官方 claim 不参与。
 
 `prepare-soup` 接受 `--source-root`、`--remote-metadata`、`--git-commit`、`--f04-inputs`、三次 `--soup-receipt` 与新 `--output`；后三个汤回执按版本化配置核验。具体 GPU owner 入口仍承接原完整 site/safe/window/ready 参数；汤模式不重筛 F04 成员，也不读取或消耗 F04 官方路径。
+
+缓存按各汤的历史 standalone/site 身份绑定并核可见性；不能要求与下一训练轮的缓存路径相同，例如下一轮 768 的缓存与汤的 512 缓存不同。基础 data root 仍与当次执行 site 核对。

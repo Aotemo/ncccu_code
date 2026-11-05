@@ -865,8 +865,8 @@ def owner(args):
                 or frozen.get('full_dev', {}).get('summary_sha256') != soup_policy['f04_internal_fp16_summary_sha256']
                 or inputs.get('f04_inputs', {}).get('sha256') != frozen['identity']['inputs_sha256']
                 or inputs.get('weight_bytes') != sum(x['exports']['fp16']['model']['bytes'] for x in inputs['members'])
-                or any(x['data_root'] != site.get('data_root') or x['cache'] != site.get('prepared_cache')
-                       for x in inputs['members'])
+                or any(x['data_root'] != site.get('data_root')
+                       or not Path(x['cache']).is_dir() for x in inputs['members'])
                 or inputs['weight_bytes'] > 500_000_000):
             raise ValueError('published soup or original F04 identity differs')
         original_inputs = read_pinned(inputs['f04_inputs']['path'], inputs['f04_inputs']['sha256'])
