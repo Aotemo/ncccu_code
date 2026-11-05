@@ -25,6 +25,8 @@
 
 拟新增 `configs/F05-FOLDS-3.json`、R265–R267 的版本化 SCIENCE、`tools/diagnostics/f05_oof.py` 及对应测试；必要时小范围修改既有 `runtime/bundle/retrain/data.py`、`experiment91.py`、`pipeline.py`、`distributed_engine.py`、`classification_loss.py`、activation/CPU 验证中对固定 manifest 的绑定。清洗、蒸馏和 768 分别另建版本化配置并复用这些同一训练/保存/评估/监督链。任何新增实际影响文件在实现前补登记；不新建并行训练平台。用户要求尽快占满两 Pod，但正式 CPU、Git 同步、实际设备与容量门不满足时不得派发或虚报可运行。
 
+三折终态后的 fit-only 前向拟在现有 `tools/diagnostics/f04_gpu_full_dev.py` 增加显式受限模式，必要的角色及聚合校验放 `tools/diagnostics/f05_oof_gpu.py`、配置 `configs/F05-OOF-GPU-20261105.json`、窄测 `tests/test_f05_oof_gpu.py`；复用既有八设备监督、一次性 claim、设备/CPU/容量门与历史 runtime，不新建并行监督链。每折以原 manifest 及封存 folds SHA 固定训练/held-out 两个不重叠 population，依次对该折唯一 selected 在两个人群各做一次单视图前向，dev/官方均不可进入；私有分片及聚合结果须绑定原索引、角色、原标签、fold、selected 文件与张量身份、各 rank 设备证明和两种 population 的封存身份。标定仅消费完整训练角色，held-out 仅经已封标定映射转换。进入真实前向前须完成合成拒错测试、Git push、全树、fold 来源/严格加载与现场安全门；前向安排在交接空档，不延误下一折。具体输入/输出字段需与 `f05_oof_targets.py` 的独立血缘校验逐项对齐；样本级文件只留 exp-v3。
+
 **历史五折，已被三折决定取代：** fit 分组五折生成核心曾在 Pod B 完成 3 项合成检查（CPU `740c667c716c4e9d3914b7b65039ce0ae512b2a0d33e074b9d096c630ce7afbe`）。
 
 历史五折真实分组及逐样本索引/age 封存 SHA `a637bac2034ff53a8564ba8f298ca9cf6215af9b9e4d9839bbff86cd0290203f`，CPU `20bcf6e0fd4fd3aa8e287c8e1871b1aab7cfa23f5274f58b76ca7871b848b576`；保留原件及任何已派生元数据作审计，不删除或覆盖。用户改变折数时尚无任何五折训练或 OOF 结果，旧分组作废，不能用于训练或新 OOF。
