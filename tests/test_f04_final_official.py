@@ -154,7 +154,10 @@ class FinalOfficialTest(unittest.TestCase):
                     'lineage_sha256': '3' * 64, 'summary_sha256': '4' * 64}
         runtime = {'code_commit': 'a' * 40, 'code_tree': 'b' * 40,
                    'gpu_owner_sha256': 'c' * 64, 'official_adapter_sha256': 'd' * 64,
-                   'python_version': '3.12.7', 'torch_version': '2.10.0', 'pillow_version': '12.3.0'}
+                   'site_binding_sha256': 'e' * 64, 'site_binding_path': '/site/SITE_BINDING.json',
+                   'python_version': '3.12.7', 'python_executable': '/python',
+                   'torch_version': '2.10.0', 'pillow_version': '12.3.0', 'numpy_version': '2.0.0',
+                   'torchvision_version': '0.20.0', 'torch_hip_version': 'none', 'torch_cuda_version': 'none'}
         frozen = final.freeze_from_verified_dev(inputs, preflight, summary, identity, base['official'], runtime)
         self.assertEqual([row['round_id'] for row in frozen['members']], ids)
         self.assertEqual(frozen['members'][0]['normalization'], norms[ids[0]])
@@ -184,7 +187,8 @@ class FinalOfficialTest(unittest.TestCase):
             freeze_path = root / 'freeze.json'; freeze_path.write_text(json.dumps(pinned))
             args = types.SimpleNamespace(official_freeze=freeze_path, official_freeze_sha256=final.sha(freeze_path),
                 final_lineage=root / 'lineage.json', final_lineage_sha256='3' * 64, remote_metadata=root,
-                inputs=a, inputs_sha256=final.sha(a), current_preflight=b, current_preflight_sha256=final.sha(b))
+                inputs=a, inputs_sha256=final.sha(a), current_preflight=b, current_preflight_sha256=final.sha(b),
+                site=Path(runtime['site_binding_path']), site_sha256=runtime['site_binding_sha256'])
             real_sha = gpu.sha
             def fake_sha(path):
                 return runtime['gpu_owner_sha256'] if Path(path) == Path(gpu.__file__) else real_sha(path)
@@ -192,11 +196,19 @@ class FinalOfficialTest(unittest.TestCase):
                 return (args.official_freeze_sha256 if name.endswith('F04-FINAL-FREEZE.json')
                         else runtime['official_adapter_sha256'])
             with patch.object(gpu, 'sha', side_effect=fake_sha), \
-                 patch.object(f04_bounded_fusion, 'verify_blob', side_effect=fake_blob):
+                 patch.object(f04_bounded_fusion, 'verify_blob', side_effect=fake_blob), \
+                 patch('f04_final_official.environment_fingerprint', return_value={key: runtime[key] for key in (
+                     'python_version', 'python_executable', 'torch_version', 'pillow_version', 'numpy_version',
+                     'torchvision_version', 'torch_hip_version', 'torch_cuda_version')}):
                 self.assertEqual(gpu.load_official_freeze(args, ROOT), pinned)
                 with self.assertRaises(ValueError):
                     gpu.load_official_freeze(types.SimpleNamespace(**{**vars(args),
                         'final_lineage_sha256': '9' * 64}), ROOT)
+                with self.assertRaises(ValueError):
+                    gpu.load_official_freeze(types.SimpleNamespace(**{**vars(args),
+                        'site_sha256': '9' * 64}), ROOT)
+            with self.assertRaises(ValueError):
+                final.validate_runtime_environment(runtime, {**runtime, 'numpy_version': 'wrong'})
             c.write_text('{}')
             with self.assertRaises(ValueError):
                 final.freeze_from_pinned_receipts(a, final.sha(a), b, final.sha(b), c, '4' * 64,

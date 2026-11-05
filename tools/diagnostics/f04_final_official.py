@@ -6,6 +6,7 @@ chain may read it only after validating the canonical reservation.
 import hashlib
 import copy
 import argparse
+import importlib.metadata
 import json
 import math
 import os
@@ -30,6 +31,31 @@ def _sha256(value):
 
 def _finite(value):
     return type(value) in (int, float) and math.isfinite(value)
+
+
+ENVIRONMENT_KEYS = ('python_version', 'python_executable', 'torch_version', 'pillow_version',
+                    'numpy_version', 'torchvision_version', 'torch_hip_version', 'torch_cuda_version')
+
+
+def environment_fingerprint():
+    """Capture inference-affecting versions without initializing an accelerator."""
+    import PIL
+    import torch
+    if torch.cuda.is_initialized():
+        raise ValueError('environment verification must precede GPU initialization')
+    return {'python_version': platform.python_version(), 'python_executable': os.path.realpath(sys.executable),
+            'torch_version': str(torch.__version__), 'pillow_version': PIL.__version__,
+            'numpy_version': importlib.metadata.version('numpy'),
+            'torchvision_version': importlib.metadata.version('torchvision'),
+            'torch_hip_version': str(getattr(torch.version, 'hip', None) or 'none'),
+            'torch_cuda_version': str(getattr(torch.version, 'cuda', None) or 'none')}
+
+
+def validate_runtime_environment(runtime, actual):
+    if (not isinstance(runtime, dict) or not isinstance(actual, dict)
+            or any(not isinstance(runtime.get(key), str) or not runtime[key]
+                   or runtime[key] != actual.get(key) for key in ENVIRONMENT_KEYS)):
+        raise ValueError('frozen inference environment differs')
 
 
 def validate_final_freeze(value):
@@ -146,9 +172,11 @@ def freeze_from_verified_dev(inputs, preflight, summary, identity, official, run
     if (not isinstance(runtime, dict)
             or any(not isinstance(runtime.get(name), str) or not re.fullmatch(r'[0-9a-f]{40}', runtime[name])
                    for name in ('code_commit', 'code_tree'))
-            or any(not _sha256(runtime.get(name)) for name in ('gpu_owner_sha256', 'official_adapter_sha256'))
-            or any(not isinstance(runtime.get(name), str) or not runtime[name]
-                   for name in ('python_version', 'torch_version', 'pillow_version'))):
+            or any(not _sha256(runtime.get(name)) for name in
+                   ('gpu_owner_sha256', 'official_adapter_sha256', 'site_binding_sha256'))
+            or not isinstance(runtime.get('site_binding_path'), str)
+            or not Path(runtime['site_binding_path']).is_absolute()
+            or any(not isinstance(runtime.get(name), str) or not runtime[name] for name in ENVIRONMENT_KEYS)):
         raise ValueError('pinned inference source and runtime versions are required')
     frozen = {'format': 'f04-final-frozen-v1', 'status': 'F04_ensemble_final_frozen',
               'official_evaluations_allowed': 1, 'official_metadata_used_for_selection': False,
@@ -391,14 +419,10 @@ def seal_from_published_receipts(args):
         raise ValueError('published final policy or official metadata identity differs')
     official = {'manifest_path': site['official_manifest'],
                 'manifest_sha256': science['official_manifest_sha256'], 'data_root': site['data_root']}
-    import PIL
-    import torch
-    if torch.cuda.is_initialized():
-        raise ValueError('freeze preparation must not initialize a GPU')
     runtime = {'code_commit': args.git_commit, 'code_tree': args.git_tree,
                'gpu_owner_sha256': owner_sha, 'official_adapter_sha256': adapter_sha,
-               'python_version': platform.python_version(), 'torch_version': str(torch.__version__),
-               'pillow_version': PIL.__version__}
+               'site_binding_path': str(args.site), 'site_binding_sha256': args.site_sha256,
+               **environment_fingerprint()}
     frozen = freeze_from_pinned_receipts(args.inputs, args.inputs_sha256,
         args.current_preflight, args.current_preflight_sha256, args.summary, args.summary_sha256,
         args.final_lineage_sha256, official, runtime)

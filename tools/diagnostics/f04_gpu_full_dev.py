@@ -220,8 +220,13 @@ def load_official_freeze(args, source):
         raise ValueError('official inference requires the final two-round lineage')
     sys.path.insert(0, str(source / 'tools/diagnostics'))
     from f04_bounded_fusion import verify_blob
-    from f04_final_official import freeze_from_verified_dev
+    from f04_final_official import freeze_from_verified_dev, environment_fingerprint, validate_runtime_environment
     freeze = read_pinned(args.official_freeze, args.official_freeze_sha256)
+    runtime = freeze.get('runtime', {})
+    if (runtime.get('site_binding_path') != str(args.site)
+            or runtime.get('site_binding_sha256') != args.site_sha256):
+        raise ValueError('official inference Pod/site differs from the frozen environment')
+    validate_runtime_environment(runtime, environment_fingerprint())
     if (verify_blob(source, args.remote_metadata, 'records/analysis/20261104-f04/F04-FINAL-FREEZE.json')
             != args.official_freeze_sha256
             or verify_blob(source, args.remote_metadata, 'tools/diagnostics/f04_final_official.py')
