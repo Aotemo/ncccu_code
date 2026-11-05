@@ -852,10 +852,10 @@ def owner(args):
     inputs = read_pinned(args.inputs, args.inputs_sha256)
     if soup_mode:
         sys.path.insert(0, str(source / 'tools/diagnostics'))
-        import f05_soup_dev as soup
         from f04_bounded_fusion import verify_blob
         for name in ('tools/diagnostics/f05_soup_dev.py', 'configs/F05-SOUP-DEV-20261105.json'):
             verify_blob(source, args.remote_metadata, name)
+        import f05_soup_dev as soup
         soup_policy = json.loads((source / 'configs/F05-SOUP-DEV-20261105.json').read_text())
         soup.validate_inputs(inputs, soup_policy)
         frozen = read_pinned(source / 'records/analysis/20261104-f04/F04-FINAL-FREEZE.json',
@@ -1233,6 +1233,9 @@ def main():
     detached.add_argument('--request-sha256', required=True)
     args = parser.parse_args()
     if args.mode == 'prepare-soup':
+        from f04_bounded_fusion import verify_blob
+        verify_blob(args.source_root.resolve(strict=True), args.remote_metadata,
+                    'tools/diagnostics/f05_soup_dev.py')
         import f05_soup_dev
         f05_soup_dev.prepare(sys.modules[__name__], args)
     else:
