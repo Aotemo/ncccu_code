@@ -50,6 +50,13 @@ def build_plan(members):
     return result
 
 
+def validate_soup_options(soup_mode, official_path, official_sha, final_path, final_sha):
+    if type(soup_mode) is not bool:
+        raise ValueError('explicit boolean soup mode required')
+    if soup_mode and any(value is not None for value in (official_path, official_sha, final_path, final_sha)):
+        raise ValueError('soup mode cannot consume official or F04 final-lineage options')
+
+
 def selected_variant(member):
     if not isinstance(member, dict) or not isinstance(member.get('selected'), dict):
         raise ValueError('selected member identity is required')
@@ -637,12 +644,9 @@ def worker(args):
     if len(matching) != 1:
         raise ValueError('worker member identity is ambiguous')
     member = matching[0]
-    model_path, metadata_path = Path(member['model']['path']), Path(member['metadata']['path'])
-    if (model_path.parent != metadata_path.parent or model_path.name != 'model.pt'
-            or metadata_path.name != 'model.json' or model_path.is_symlink() or metadata_path.is_symlink()
-            or model_path.stat().st_size != member['model']['bytes']
-            or sha(model_path) != member['model']['sha256'] or sha(metadata_path) != member['metadata']['sha256']):
-        raise ValueError('immutable exported inference state differs')
+    soup_mode = spec.get('soup_mode', False)
+    if type(soup_mode) is not bool or (soup_mode and spec.get('official') is not None):
+        raise ValueError('soup mode is internal dev only')
     rows, indices, official = evaluation_population(sealed, member, spec, release, output)
     bundle = Path(member['bundle']).resolve(strict=True)
     bind_member_runtime(member)
@@ -657,35 +661,50 @@ def worker(args):
     runtime_guard = importlib.import_module('_f04_current_guard.fresh')
     precision.configure(precision.RULE)
     variant = selected_variant(member)
-    model, job, _, origin, actual_device = _load_model(model_path.parent, device=device_name, variant=variant)
-    if (str(actual_device) != device_name or origin.get('model_sha256') != member['model']['sha256']
-            or origin.get('variant') != variant or origin.get('tensor_sha256') != member['model']['fp16_tensor_sha256']):
-        raise ValueError('strict historical runtime or fp16 state differs')
-    model.eval()
     assignments = batch_assignments(indices, 8, assignment['rank'], assignment['world'])
-    dataset = evaluation_dataset(ImageDataset, member['data_root'], rows, job)
-    loader = DataLoader(dataset, batch_sampler=[batch for _, batch in assignments], num_workers=0)
-    records = []
-    with torch.inference_mode():
-        for (ordinal, expected), batch in zip(assignments, loader):
-            parent_now = process_identity(parent['pid'])
-            if (os.getppid() != parent['pid'] or not parent_now.get('active')
-                    or parent_now.get('start_ticks') != str(parent['start_ticks'])
-                    or runtime_guard.runtime_stop_reason(spec['deadline_at'], actual_device) is not None):
-                raise RuntimeError('owner or deadline failed during inference')
-            images, labels, actual_indices, age = unpack_batch(batch, job, actual_device)
-            with torch.autocast(device_type='cuda', enabled=False):
-                logits = forward(model, images, age, job).reshape(-1).float()
-            probabilities = logits.sigmoid()
-            records.extend(worker_batch_records(rows, expected, actual_indices.tolist(), labels.tolist(),
-                logits.cpu().tolist(), probabilities.cpu().tolist(), assignment['rank'], ordinal))
-    packet = {'rank': assignment['rank'], 'device_rank': rank, 'member': assignment['member'],
-              'error': None, 'records': records, 'proof_sha256': own_sha,
-              'input_sha256': spec['inputs']['sha256'], 'TTA': False, 'official_read': official}
-    packet_path = output / 'packets' / ('rank-' + str(rank) + '.json')
-    write_new(packet_path, packet)
-    print(json.dumps({'status': 'worker_completed', 'rank': rank, 'records': len(records),
-                      'packet_sha256': sha(packet_path)}), flush=True)
+    for storage in (('fp32', 'fp16') if soup_mode else (None,)):
+        export = member['exports'][storage] if soup_mode else {'model': member['model'], 'metadata': member['metadata']}
+        model_ref, metadata_ref = export['model'], export['metadata']
+        model_path, metadata_path = Path(model_ref['path']), Path(metadata_ref['path'])
+        if (model_path.parent != metadata_path.parent or model_path.name != 'model.pt'
+                or metadata_path.name != 'model.json' or model_path.is_symlink() or metadata_path.is_symlink()
+                or model_path.stat().st_size != model_ref['bytes']
+                or sha(model_path) != model_ref['sha256'] or sha(metadata_path) != metadata_ref['sha256']):
+            raise ValueError('immutable exported inference state differs')
+        model, job, _, origin, actual_device = _load_model(model_path.parent, device=device_name, variant=variant)
+        tensor_sha = model_ref['tensor_sha256'] if soup_mode else model_ref['fp16_tensor_sha256']
+        if (str(actual_device) != device_name or origin.get('model_sha256') != model_ref['sha256']
+                or origin.get('variant') != variant or origin.get('tensor_sha256') != tensor_sha):
+            raise ValueError('strict historical runtime or stored state differs')
+        model.eval()
+        dataset = evaluation_dataset(ImageDataset, member['data_root'], rows, job)
+        loader = DataLoader(dataset, batch_sampler=[batch for _, batch in assignments], num_workers=0)
+        records = []
+        with torch.inference_mode():
+            for (ordinal, expected), batch in zip(assignments, loader):
+                parent_now = process_identity(parent['pid'])
+                if (os.getppid() != parent['pid'] or not parent_now.get('active')
+                        or parent_now.get('start_ticks') != str(parent['start_ticks'])
+                        or runtime_guard.runtime_stop_reason(spec['deadline_at'], actual_device) is not None):
+                    raise RuntimeError('owner or deadline failed during inference')
+                images, labels, actual_indices, age = unpack_batch(batch, job, actual_device)
+                with torch.autocast(device_type='cuda', enabled=False):
+                    logits = forward(model, images, age, job).reshape(-1).float()
+                probabilities = logits.sigmoid()
+                records.extend(worker_batch_records(rows, expected, actual_indices.tolist(), labels.tolist(),
+                    logits.cpu().tolist(), probabilities.cpu().tolist(), assignment['rank'], ordinal))
+        packet = {'rank': assignment['rank'], 'device_rank': rank, 'member': assignment['member'],
+                  'error': None, 'records': records, 'proof_sha256': own_sha,
+                  'input_sha256': spec['inputs']['sha256'], 'TTA': False, 'official_read': official}
+        suffix = '' if storage is None else '-' + storage
+        if soup_mode:
+            packet['storage_precision'] = storage
+            packet['model_sha256'] = model_ref['sha256']
+        packet_path = output / 'packets' / ('rank-' + str(rank) + suffix + '.json')
+        write_new(packet_path, packet)
+        print(json.dumps({'status': 'worker_completed', 'rank': rank, 'storage': storage,
+                          'records': len(records), 'packet_sha256': sha(packet_path)}), flush=True)
+        del model
 
 
 def release_supervised_ranks(output, spec_path, spec_sha, site, parent, deadline, stop, before_release=None):
@@ -820,6 +839,10 @@ def owner(args):
             or remote_tree.get('sha') != args.git_tree or remote_tree.get('truncated') is not False
             or proof.get('GPU_initialized') is not False or verify_own_blob(source, args.remote_metadata) != sha(__file__)):
         raise ValueError('published full-tree proof differs')
+    soup_mode = getattr(args, 'soup_mode', False)
+    validate_soup_options(soup_mode, getattr(args, 'official_freeze', None),
+                          getattr(args, 'official_freeze_sha256', None),
+                          getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
     official_freeze = load_official_freeze(args, source)
     if official_freeze is not None:
         final_dir = Path(site['work_root']) / 'final/F04-20261104'
@@ -827,18 +850,46 @@ def owner(args):
                 or official_freeze['official']['data_root'] != site['data_root']):
             raise ValueError('official freeze is not the canonical data-bound record')
     inputs = read_pinned(args.inputs, args.inputs_sha256)
-    if (inputs.get('status') != 'F04_full_dev_gpu_inputs_sealed_no_GPU'
+    if soup_mode:
+        sys.path.insert(0, str(source / 'tools/diagnostics'))
+        from f04_bounded_fusion import verify_blob
+        for name in ('tools/diagnostics/f05_soup_dev.py', 'configs/F05-SOUP-DEV-20261105.json'):
+            verify_blob(source, args.remote_metadata, name)
+        import f05_soup_dev as soup
+        soup_policy = json.loads((source / 'configs/F05-SOUP-DEV-20261105.json').read_text())
+        soup.validate_inputs(inputs, soup_policy)
+        soup.validate_execution_data(inputs['members'], site)
+        frozen = read_pinned(source / 'records/analysis/20261104-f04/F04-FINAL-FREEZE.json',
+                             soup_policy['f04_freeze_sha256'])
+        if (inputs.get('git_commit') != args.git_commit
+                or inputs.get('f04_freeze_sha256') != soup_policy['f04_freeze_sha256']
+                or frozen.get('full_dev', {}).get('summary_sha256') != soup_policy['f04_internal_fp16_summary_sha256']
+                or inputs.get('f04_inputs', {}).get('sha256') != frozen['identity']['inputs_sha256']
+                or inputs.get('weight_bytes') != sum(x['exports']['fp16']['model']['bytes'] for x in inputs['members'])
+                or inputs['weight_bytes'] > 500_000_000):
+            raise ValueError('published soup or original F04 identity differs')
+        original_inputs = read_pinned(inputs['f04_inputs']['path'], inputs['f04_inputs']['sha256'])
+        if (original_inputs.get('manifest') != inputs['manifest']
+                or [x['round_id'] for x in original_inputs['members']] != [x['round_id'] for x in frozen['members']]):
+            raise ValueError('frozen F04 internal input differs')
+    elif (inputs.get('status') != 'F04_full_dev_gpu_inputs_sealed_no_GPU'
             or inputs.get('plan') != build_plan([x['round_id'] for x in inputs['members']])
             or inputs.get('weight_bytes', 500_000_001) > 500_000_000
             or inputs.get('dev_count') != 5140 or inputs.get('dev_positive') != 167
             or inputs.get('batch_size') != 8 or inputs.get('TTA') is not False
             or inputs.get('official_read') is not False):
         raise ValueError('fixed F04 input inventory differs')
-    refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
-    current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
+    refreshed = current_inventory = None
+    if not soup_mode:
+        refreshed = read_pinned(args.current_preflight, args.current_preflight_sha256)
+        current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
-    if final_options:
+    if soup_mode:
+        # The fixed F04 freeze supplies the research baseline. Re-screening
+        # F04 candidates after the predecessor is irrelevant to soup inference.
+        pass
+    elif final_options:
         sys.path.insert(0, str(source / 'tools/diagnostics'))
         from f04_bounded_fusion import verify_blob
         policy_path = source / 'configs/F04-FINAL-FREEZE-20261104.json'
@@ -877,6 +928,9 @@ def owner(args):
             or grant['valid_until'] - args.deadline_at < required_lease):
         raise ValueError('evaluation exceeds the available resource lease')
     for member in inputs['members']:
+        if soup_mode:
+            soup.verify_assets(sys.modules[__name__], member)
+            continue
         model, metadata = member['model'], member['metadata']
         standalone = read_pinned(member['receipt']['path'], member['receipt']['sha256'])
         refreshed_export = refreshed['exports'].get(member['round_id'], {})
@@ -917,6 +971,7 @@ def owner(args):
             'site_binding': str(args.site), 'site_binding_sha256': args.site_sha256,
             'parent': parent, 'deadline_at': args.deadline_at,
             'devices': ['cuda:' + str(i) for i in range(8)],
+            'soup_mode': soup_mode,
             'cpu_masks': site['cpu_execution']['rank_masks'],
             'cpu_width': len(site['cpu_execution']['rank_masks'][0])}
     if official_freeze is not None:
@@ -973,10 +1028,13 @@ def owner(args):
                 if time.time() >= idle_until:
                     raise RuntimeError('accelerator release remains unknown after evaluation')
                 time.sleep(.5)
-            metrics = aggregate_packets(source, inputs, output, args.inputs_sha256, official_freeze)
+            metrics = (soup.aggregate(sys.modules[__name__], source, inputs, output, args.inputs_sha256)
+                       if soup_mode else aggregate_packets(source, inputs, output, args.inputs_sha256, official_freeze))
             report = {'status': ('F04_official_once_evaluated' if official_freeze is not None
+                                 else 'F05_uniform_soups_full_internal_dev_evaluated' if soup_mode
                                  else 'F04_full_internal_dev_fp16_storage_evaluated'), 'at': time.time(),
-                      'inputs_sha256': args.inputs_sha256, 'current_preflight_sha256': args.current_preflight_sha256,
+                      'inputs_sha256': args.inputs_sha256,
+                      'current_preflight_sha256': None if soup_mode else args.current_preflight_sha256,
                       'predecessor_safe_sha256': args.safe_sha256, 'site_sha256': args.site_sha256,
                       'weight_bytes': inputs['weight_bytes'], 'dev_count': 5140, 'dev_positive': 167,
                       ('official_result' if official_freeze is not None else 'comparison'): metrics,
@@ -1009,6 +1067,10 @@ OWNER_TEXT_OPTIONS = ('site-sha256', 'safe-sha256', 'tree-proof-sha256', 'git-co
 
 def dispatch(args):
     """Claim and start one detached controller; a transport timeout never permits a retry."""
+    soup_mode = getattr(args, 'soup_mode', False)
+    validate_soup_options(soup_mode, getattr(args, 'official_freeze', None),
+                          getattr(args, 'official_freeze_sha256', None),
+                          getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
     official_options = official_freeze_options(getattr(args, 'official_freeze', None),
@@ -1049,7 +1111,7 @@ def dispatch(args):
         raise ValueError('fresh isolated one-shot evaluation claim required')
     request = {name: str(getattr(args, name.replace('-', '_'))) for name in (*OWNER_PATH_OPTIONS, *OWNER_TEXT_OPTIONS)}
     request.update(final_options); request.update(official_options)
-    request.update(deadline_at=args.deadline_at, source_sha256=sha(__file__))
+    request.update(deadline_at=args.deadline_at, source_sha256=sha(__file__), soup_mode=soup_mode)
     request_sha = reserve_evaluation_attempt(claim, request)
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'controller',
             '--claim-dir', str(claim), '--request-sha256', request_sha]
@@ -1073,9 +1135,11 @@ def controller(args):
     """Retain owner exit status after transport disconnect; no automatic restart."""
     claim = args.claim_dir.resolve(strict=True)
     request = read_pinned(claim / 'REQUEST.json', args.request_sha256)
+    soup_mode = request.get('soup_mode', False)
     if (request.get('source_sha256') != sha(__file__)
             or Path(request['source-root']).resolve(strict=True) != Path(__file__).resolve().parents[2]
-            or Path(request['output']).resolve() != claim / 'evaluation'):
+            or Path(request['output']).resolve() != claim / 'evaluation'
+            or type(soup_mode) is not bool):
         raise ValueError('detached request/source differs')
     current = process_identity(os.getpid())
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'owner']
@@ -1087,6 +1151,10 @@ def controller(args):
     for name, value in official_freeze_options(request.get('official-freeze'),
                                                 request.get('official-freeze-sha256')).items():
         argv.extend(['--' + name, value])
+    if soup_mode:
+        if 'official-freeze' in request or 'final-lineage' in request:
+            raise ValueError('soup controller cannot consume F04 official/final options')
+        argv.append('--soup-mode')
     argv.extend(['--deadline-at', str(request['deadline_at']), '--controller-pid', str(os.getpid()),
                  '--controller-start-ticks', current['start_ticks']])
     try:
@@ -1133,6 +1201,11 @@ def main():
     initial.add_argument('--standalone-receipt', type=Path, action='append', required=True)
     initial.add_argument('--current-inventory', type=Path)
     initial.add_argument('--current-inventory-sha256')
+    soups = modes.add_parser('prepare-soup')
+    for name in ('source-root', 'remote-metadata', 'f04-inputs', 'output'):
+        soups.add_argument('--' + name, type=Path, required=True)
+    soups.add_argument('--git-commit', required=True)
+    soups.add_argument('--soup-receipt', type=Path, action='append', required=True)
     child = modes.add_parser('worker')
     child.add_argument('--worker-spec', type=Path, required=True)
     child.add_argument('--worker-spec-sha256', required=True)
@@ -1147,6 +1220,7 @@ def main():
         run.add_argument('--final-lineage-sha256')
         run.add_argument('--official-freeze', type=Path)
         run.add_argument('--official-freeze-sha256')
+        run.add_argument('--soup-mode', action='store_true')
         run.add_argument('--deadline-at', type=float, required=True)
         if mode == 'owner':
             run.add_argument('--controller-pid', type=int, required=True)
@@ -1157,8 +1231,15 @@ def main():
     detached.add_argument('--claim-dir', type=Path, required=True)
     detached.add_argument('--request-sha256', required=True)
     args = parser.parse_args()
-    {'prepare': prepare, 'worker': worker, 'owner': owner, 'dispatch': dispatch,
-     'controller': controller}[args.mode](args)
+    if args.mode == 'prepare-soup':
+        from f04_bounded_fusion import verify_blob
+        verify_blob(args.source_root.resolve(strict=True), args.remote_metadata,
+                    'tools/diagnostics/f05_soup_dev.py')
+        import f05_soup_dev
+        f05_soup_dev.prepare(sys.modules[__name__], args)
+    else:
+        {'prepare': prepare, 'worker': worker, 'owner': owner, 'dispatch': dispatch,
+         'controller': controller}[args.mode](args)
 
 
 if __name__ == '__main__':
