@@ -27,6 +27,36 @@ def write(path, value):
         json.dump(value, stream, indent=2, allow_nan=False); stream.write('\n')
 
 
+def prepare_f05_targets(source, site, science, package):
+    """Independently verify the OOF chain once, before a package can be admitted."""
+    from retrain import experiment91 as ex
+    from retrain.data import verify_f05_oof_for_training
+    policy = ex.validate_f05_training_science(science, site)
+    if policy is None:
+        return None
+    import importlib.util
+    verifier_path = Path(source) / 'tools/diagnostics/f05_oof_targets.py'
+    if verifier_path.is_symlink() or not verifier_path.is_file():
+        raise ValueError('published F05 OOF verifier is missing')
+    specification = importlib.util.spec_from_file_location('_f05_prepared_oof_targets', verifier_path)
+    verifier = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(verifier)
+    work = Path(site['work_root']).resolve(strict=True)
+    summary = {'path': str(work / policy['summary_relative_path']), 'sha256': policy['summary_sha256']}
+    proof = verify_f05_oof_for_training(summary, work, verifier=verifier)
+    if proof['manifest_digest'] != ex.binding()['manifest_digest']:
+        raise ValueError('verified OOF and training manifest identities differ')
+    mode = policy['mode']
+    target_name = 'CLEAN-TARGETS-private.json' if mode == 'clean' else 'DISTILL-TARGETS-private.json'
+    if Path(proof['targets'][mode]['path']) != Path(summary['path']).parent / target_name:
+        raise ValueError('verified F05 target is not in the fixed OOF output directory')
+    proof_path = Path(package) / 'evidence/F05-OOF-VERIFICATION.json'
+    write(proof_path, proof)
+    return {'version': 'f05-oof-training-v1', 'mode': mode, 'summary': summary,
+            'verification': {'path': str(Path(site['round_root']) / 'evidence/F05-OOF-VERIFICATION.json'),
+                             'sha256': sha(proof_path)}, 'target': proof['targets'][mode]}
+
+
 def science_binding_path(source, binding, work_root):
     source = Path(source)
     if binding is None:
@@ -195,6 +225,9 @@ def build(args):
     job.update(age=ex.resolved_age_spec(), experiment91=ex.binding(),
         initialization={'kind': ex.public_source().get('kind','imagenet'), 'format': ex.public_source()['format'],
             'path': site['public_weight'], 'provenance': site['public_provenance'], 'sha256': ex.public_source()['sha256']})
+    f05_binding = prepare_f05_targets(source, site, science, package)
+    if f05_binding is not None:
+        job['f05_targets'] = f05_binding
     if job['initialization']['format'] in ('torchvision-convnext-small-dinov3-backbone-state-dict-v1',
                                           'torchvision-convnext-large-dinov3-backbone-state-dict-v1'):
         job['initialization']['expected_backbone_state_keys']=342
@@ -236,6 +269,8 @@ def build(args):
         'official_manifest_content_read': False}
     if composite is not None:
         assets['global_prepared512_cache']={'remote_root':composite['global_cache_root'],'prepared_size':512,'read_only':True,'pillow':'12.3.0'}
+    if f05_binding is not None:
+        assets['f05_targets'] = f05_binding
     write(package / 'ASSETS.json', assets)
     return package, cfg, resolved, topology, execution, source_digest
 

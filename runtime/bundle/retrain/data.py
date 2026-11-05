@@ -107,6 +107,144 @@ def validate_f05_target_table(base, folds, table, verified_sources, calibrated_o
     return result, candidate
 
 
+def _f05_pinned_json(reference, work_root):
+    """Read one regular, work-root-bound JSON object while hashing its actual bytes."""
+    if (not isinstance(reference, dict) or set(reference) != {'path', 'sha256'}
+            or not isinstance(reference['path'], str) or not isinstance(reference['sha256'], str)
+            or len(reference['sha256']) != 64 or any(c not in '0123456789abcdef' for c in reference['sha256'])):
+        raise ValueError('explicit F05 path and SHA required')
+    root = Path(work_root).resolve(strict=True)
+    path = Path(reference['path'])
+    if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+            or not path.resolve(strict=True).is_relative_to(root)):
+        raise ValueError('F05 evidence must be a regular file inside the work root')
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != reference['sha256']:
+        raise ValueError('F05 evidence bytes differ from the fixed SHA')
+    try:
+        value = json.loads(raw)
+    except (UnicodeError, json.JSONDecodeError) as error:
+        raise ValueError('F05 evidence is not valid JSON') from error
+    if not isinstance(value, dict):
+        raise ValueError('F05 evidence must be a JSON object')
+    return value
+
+
+def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixture=False,
+                                fit_count=46256, dev_count=5140):
+    """Independently reconstruct three selected folds, calibrations and both fit tables.
+
+    This is the CPU preparation step. ``verifier`` is the published existing
+    f05_oof_targets module, which checks selected checkpoints, supervised rank
+    packets, fit roles and score provenance. A summary cannot authorize itself.
+    """
+    from .persistence import canonical_digest
+    try:
+        summary = _f05_pinned_json(summary_ref, work_root)
+        if (summary.get('status') != 'completed_fit_only_oof_targets'
+                or summary.get('official_read') is not False or summary.get('dev_read') is not False
+                or (allow_fixture and summary.get('fixture_only') is not True)
+                or (not allow_fixture and summary.get('fixture_only') is True)):
+            raise ValueError('completed fit-only OOF target summary required')
+        inputs = summary['inputs']
+        base_ref, folds_ref, parents = inputs['base'], inputs['folds'], inputs['parents']
+        if (base_ref['sha256'] != F05_BASE_MANIFEST_SHA or folds_ref['sha256'] != F05_THREE_FOLD_SHA
+                or not isinstance(parents, list) or len(parents) != 3
+                or not isinstance(summary.get('calibrations'), list) or len(summary['calibrations']) != 3):
+            raise ValueError('fixed original manifest, threefold seal and all three sources required')
+        base = _f05_pinned_json(base_ref, work_root)
+        folds = _f05_pinned_json(folds_ref, work_root)
+        verified = [verifier.verify_fold_input(base_ref, folds_ref, ref, work_root=work_root,
+                                               allow_fixture=allow_fixture) for ref in parents]
+        if ([value['fold'] for value in verified] != [0, 1, 2]
+                or summary.get('heldout_score_sha256') != [value['heldout_score_sha256'] for value in verified]):
+            raise ValueError('three selected fold sources must be in registered order')
+        results, probabilities = [], {}
+        for item, calibration_ref in zip(verified, summary['calibrations']):
+            recorded = _f05_pinned_json(calibration_ref, work_root)
+            calibration, values = verifier.fit_fold_calibration(item)
+            if recorded != calibration or set(probabilities) & set(values):
+                raise ValueError('reconstructed full-train calibration or held-out coverage differs')
+            probabilities.update(values)
+            results.append({'verified': item, 'calibration': calibration,
+                            'calibration_sha256': calibration_ref['sha256'], 'probabilities': values})
+        clean, distilled, aggregate = verifier.build_target_tables(base, folds, results,
+            base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'])
+        references = {'clean': summary['clean_targets'], 'distill': summary['distill_targets']}
+        sources = clean['fold_sources']
+        for mode, expected in (('clean', clean), ('distill', distilled)):
+            actual = _f05_pinned_json(references[mode], work_root)
+            if actual != expected:
+                raise ValueError('target table does not reproduce independently verified OOF')
+            validate_f05_target_table(base, folds, actual, sources, probabilities,
+                base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'],
+                fit_count=fit_count, dev_count=dev_count)
+        if any(summary.get(key) != value for key, value in aggregate.items()):
+            raise ValueError('OOF aggregate differs from independent reconstruction')
+        return {'format': 'f05-oof-training-verification-v1',
+                'status': 'independently_verified_complete_fit_oof', 'fixture_only': bool(allow_fixture),
+                'summary': summary_ref, 'base': base_ref, 'folds': folds_ref, 'targets': references,
+                'fold_sources': sources, 'parent_sha256': [ref['sha256'] for ref in parents],
+                'calibration_sha256': [ref['sha256'] for ref in summary['calibrations']],
+                'manifest_digest': canonical_digest(base), 'fit_count': fit_count, 'dev_count': dev_count,
+                'official_read': False, 'dev_read': False}
+    except (KeyError, TypeError, IndexError, AttributeError, OSError) as error:
+        raise ValueError('complete pinned F05 OOF provenance is required') from error
+
+
+def load_f05_training_targets(binding, manifest, *, work_root, allow_fixture=False,
+                              fit_count=46256, dev_count=5140):
+    """Each rank checks the prepared receipt and only its selected fit target file."""
+    from .persistence import canonical_digest
+    try:
+        if (not isinstance(binding, dict) or set(binding) != {'version', 'mode', 'summary', 'verification', 'target'}
+                or binding['version'] != 'f05-oof-training-v1' or binding['mode'] not in ('clean', 'distill')):
+            raise ValueError('fixed F05 training target binding required')
+        proof = _f05_pinned_json(binding['verification'], work_root)
+        summary = _f05_pinned_json(binding['summary'], work_root)
+        mode = binding['mode']
+        if (proof.get('format') != 'f05-oof-training-verification-v1'
+                or proof.get('status') != 'independently_verified_complete_fit_oof'
+                or proof.get('fixture_only') is not allow_fixture
+                or proof.get('summary') != binding['summary'] or proof.get('targets', {}).get(mode) != binding['target']
+                or summary.get('status') != 'completed_fit_only_oof_targets'
+                or summary.get(mode + '_targets') != binding['target']
+                or proof.get('base', {}).get('sha256') != F05_BASE_MANIFEST_SHA
+                or proof.get('folds', {}).get('sha256') != F05_THREE_FOLD_SHA
+                or proof.get('fit_count') != fit_count or proof.get('dev_count') != dev_count
+                or proof.get('official_read') is not False or proof.get('dev_read') is not False
+                or summary.get('official_read') is not False or summary.get('dev_read') is not False
+                or proof.get('manifest_digest') != canonical_digest(manifest)):
+            raise ValueError('fixed F05 CPU provenance receipt, manifest or target differs')
+        rows, fit, dev = manifest['rows'], manifest['fit_indices'], manifest['dev_indices']
+        if (len(fit) != fit_count or len(dev) != dev_count or len(set(fit)) != fit_count
+                or len(set(dev)) != dev_count or set(fit) & set(dev)
+                or set(fit) | set(dev) != set(range(len(rows)))):
+            raise ValueError('complete original fit/dev population required')
+        table = _f05_pinned_json(binding['target'], work_root)
+        if (table.get('format') != 'f05-fit-oof-targets-v1' or table.get('mode') != mode
+                or table.get('base_manifest_sha256') != F05_BASE_MANIFEST_SHA
+                or table.get('folds_sha256') != F05_THREE_FOLD_SHA
+                or table.get('fold_sources') != proof.get('fold_sources')):
+            raise ValueError('fit target schema or verified selected/calibration sources differ')
+        entries, key = table['rows'], 'weight' if mode == 'clean' else 'soft_target'
+        if not isinstance(entries, list) or len(entries) != fit_count:
+            raise ValueError('complete fit target rows required')
+        result = {}
+        for index, entry in zip(sorted(fit), entries):
+            value = entry.get(key)
+            if (set(entry) != {'index', 'label', 'fold', key} or type(entry['index']) is not int
+                    or entry['index'] != index or type(entry['label']) is not int
+                    or entry['label'] != rows[index]['label'] or type(entry['fold']) is not int
+                    or entry['fold'] not in (0, 1, 2) or type(value) not in (int, float)
+                    or not math.isfinite(value) or (value not in (.25, 1.) if mode == 'clean' else not 0 <= value <= 1)):
+                raise ValueError('fit target index, original label, fold or value differs')
+            result[index] = float(value)
+        return result
+    except (KeyError, TypeError, IndexError, AttributeError, OSError) as error:
+        raise ValueError('complete independently prepared F05 training target binding required') from error
+
+
 def _digest(value):
     raw = json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False,
                      allow_nan=False).encode('utf-8')

@@ -88,6 +88,8 @@ def _worker(args):
     for sig in (signal.SIGINT, signal.SIGTERM):
         signal.signal(sig, lambda *_: stop.set())
     job = spec['job']
+    if job.get('f05_targets') is not None:
+        raise ValueError('F05 targets require the registered eight-rank fresh training entry')
     job['device'] = args.device
     manifest = json.loads(Path(spec['manifest_path']).read_text())
     result = run_training(job, manifest, spec['data_root'], spec['run_dir'], spec['identity'],
@@ -96,6 +98,8 @@ def _worker(args):
 
 
 def run(cfg):
+    if any(job.get('f05_targets') is not None for job in cfg['jobs']):
+        raise ValueError('F05 targets require the registered eight-rank fresh training entry')
     from retrain.persistence import RunLock, atomic_json, canonical_digest, sha256_file
     from retrain.data import load_source, build_manifest
     from retrain.models import validate_initialization

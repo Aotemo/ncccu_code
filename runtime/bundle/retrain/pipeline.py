@@ -136,6 +136,8 @@ def stage_expectations(plan, source_digest):
                 ['torch', 'torchvision', 'numpy', 'Pillow', 'scikit-learn']}
     for phase in ['benchmark', 'cycle', 'formal']:
         cfg = load_config(plan['stages'][phase], environ={})
+        if any(job.get('f05_targets') is not None for job in cfg['jobs']):
+            raise ValueError('F05 targets require the registered eight-rank fresh training entry')
         mode = 'benchmark' if phase == 'benchmark' else 'train'
         if cfg['mode'] != mode or str(Path(cfg['output_root'])/cfg['run_name']) != plan['outputs'][phase]:
             raise ValueError('stage mode/output differs from expected plan contract')
