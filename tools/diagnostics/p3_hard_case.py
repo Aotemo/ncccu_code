@@ -6,6 +6,7 @@ output.  This tool never reads official data, changes labels, or trains models.
 import argparse
 from bisect import bisect_left, bisect_right
 from collections import Counter, defaultdict
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 import hashlib
 import json
 import os
@@ -113,6 +114,67 @@ def image_scan_order(fit, dev, fit_labels, priority_dev):
             + [('fit', None, i) for i in sorted(fit) if fit_labels[i] == 1]
             + [('dev', i, value) for i, value in enumerate(dev) if i not in chosen]
             + [('fit', None, i) for i in sorted(fit) if fit_labels[i] == 0])
+
+
+def p3_next_workers(workers, ceiling, latency_p95, d_ratio, low_streak):
+    """Apply the preregistered NFS feedback policy to the next batch."""
+    if (type(workers) is not int or type(ceiling) is not int or not 1 <= workers <= ceiling
+            or type(low_streak) is not int or low_streak < 0
+            or not np.isfinite(latency_p95) or latency_p95 < 0
+            or not np.isfinite(d_ratio) or not 0 <= d_ratio <= 1):
+        raise ValueError('invalid adaptive scan feedback')
+    pause = latency_p95 > 5 or d_ratio >= .5
+    if latency_p95 > 2 or d_ratio >= .25:
+        return max(1, workers // 2), 0, pause
+    if latency_p95 < .25 and d_ratio < .1:
+        low_streak += 1
+        if low_streak >= 2:
+            return min(ceiling, workers + 8), 0, pause
+        return workers, low_streak, pause
+    return workers, 0, pause
+
+
+def p3_d_ratio(threads):
+    """Read only the scanner's live native worker states from procfs."""
+    states = []
+    for thread in threads:
+        if not thread.is_alive() or thread.native_id is None:
+            continue
+        try:
+            value = (Path('/proc/self/task') / str(thread.native_id) / 'stat').read_text()
+        except FileNotFoundError:
+            continue
+        states.append(value.rsplit(')', 1)[1].split()[0])
+    return sum(state == 'D' for state in states) / len(states) if states else 0.0
+
+
+def p3_parallel_batch(items, worker, workers, d_sampler=p3_d_ratio):
+    """Bound submissions, stop adding work on acute D pressure, retain order."""
+    if not items or len(items) > 64 or type(workers) is not int or not 1 <= workers:
+        raise ValueError('one batch of at most 64 items and a positive worker count required')
+    completed, pending, latencies = {}, {}, []
+    next_index, peak_d, emergency = 0, 0.0, False
+    with ThreadPoolExecutor(max_workers=workers, thread_name_prefix='p3-scan') as pool:
+        while pending or (next_index < len(items) and not emergency):
+            while not emergency and next_index < len(items) and len(pending) < workers:
+                future = pool.submit(worker, items[next_index])
+                pending[future] = next_index
+                next_index += 1
+            ratio = d_sampler(pool._threads)
+            if not np.isfinite(ratio) or not 0 <= ratio <= 1:
+                raise ValueError('invalid scanner worker D-state sample')
+            peak_d = max(peak_d, ratio)
+            emergency |= ratio >= .5
+            done, _ = wait(pending, timeout=.1, return_when=FIRST_COMPLETED)
+            for future in done:
+                value, latency = future.result()
+                if not np.isfinite(latency) or latency < 0:
+                    raise ValueError('invalid cache read latency')
+                completed[pending.pop(future)] = value
+                latencies.append(latency)
+    if set(completed) != set(range(next_index)) or not completed:
+        raise ValueError('incomplete adaptive scan batch')
+    return [completed[index] for index in range(next_index)], latencies, peak_d
 
 
 def shared_negative_indices(positive_scores, negative_scores):
@@ -380,9 +442,68 @@ def image_parts(output, order):
     return entries
 
 
-def image_scan(base, source, output, site, site_sha, max_images):
+def image_scan_row(item, row, cache, data_root, prepare_image, lexical_path, image_features):
+    """The same sealed-image, hash and quality definitions for either scanner."""
     import io
     from PIL import ImageOps
+    split, dev_index, global_index = item
+    relative, expected = row['relative_path'], row['sha256']
+    lexical_path(relative, 'train')
+    image, source_kind, error = None, 'unknown', None
+    started = time.monotonic()
+    try:
+        image = cache.read(relative, expected)
+        source_kind = 'sealed_readonly_512_cache'
+    except (OSError, ValueError, KeyError, TypeError, EOFError):
+        try:
+            path = data_root / relative
+            if path.is_symlink() or not path.resolve().is_relative_to(data_root / 'train'):
+                raise ValueError('source path differs')
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != expected:
+                raise ValueError('original source SHA differs')
+            with Image.open(io.BytesIO(raw)) as original:
+                image = prepare_image(ImageOps.exif_transpose(original).convert('RGB'), 512)
+            source_kind = 'sha_verified_original'
+        except (OSError, ValueError, KeyError, TypeError, EOFError) as exc:
+            error = type(exc).__name__
+    read_seconds = time.monotonic() - started
+    quality = hashes = None
+    if image is not None:
+        ratio = 512 / max(image.size)
+        target = (max(1, round(image.width * ratio)), max(1, round(image.height * ratio)))
+        view = Image.new('RGB', (512, 512))
+        view.paste(image.resize(target, Image.Resampling.BILINEAR),
+                   (round((512 - target[0]) * .5), round((512 - target[1]) * .5)))
+        hashes = [f'{x:016x}' for x in image_hashes(view)]
+        if split == 'dev':
+            try:
+                features = image_features(view)
+                quality = {'brightness': features['content_luminance_mean'],
+                           'contrast': features['content_luminance_std'],
+                           'sharpness': features['green_laplacian_variance'],
+                           'field': 1 - features['black_fraction']}
+            except ValueError as exc:
+                error = type(exc).__name__
+    return ({'split': split, 'dev_index': dev_index, 'global_index': global_index,
+             'label': row['label'], 'raw_sha256': expected, 'hashes': hashes,
+             'quality': quality, 'source': source_kind, 'error': error}, read_seconds)
+
+
+def image_write_part(output, start, result):
+    if not result:
+        raise ValueError('cannot publish an empty image scan part')
+    path = output / 'parts' / f'part-{start:06d}-{start + len(result) - 1:06d}.json'
+    temporary = path.parent / ('.' + path.name + '.' + str(os.getpid()) + '.tmp')
+    with temporary.open('x') as stream:
+        json.dump({'start': start, 'rows': result}, stream, indent=2, allow_nan=False)
+        stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
+    os.link(temporary, path)
+    temporary.unlink()
+    return path
+
+
+def image_scan(base, source, output, site, site_sha, max_images):
     sys.path.insert(0, str(source / 'runtime/bundle'))
     sys.path.insert(0, str(source / 'tools/diagnostics'))
     from retrain.preprocessing import PreparedImageCache, prepare_image
@@ -410,62 +531,95 @@ def image_scan(base, source, output, site, site_sha, max_images):
     cache = PreparedImageCache(data_root, Path(inputs['site']['prepared_cache']) / 'train/sealed', 512)
     rows, result = inputs['manifest']['rows'], []
     started = time.monotonic()
-    for ordinal, (split, dev_index, global_index) in enumerate(order[start:start + max_images]):
+    for ordinal, item in enumerate(order[start:start + max_images]):
         delay = ordinal * .25 - (time.monotonic() - started)
         if delay > 0:
             time.sleep(delay)
-        row = rows[global_index]
-        relative, expected = row['relative_path'], row['sha256']
-        lexical_path(relative, 'train')
-        image, source_kind, error = None, 'unknown', None
-        try:
-            image = cache.read(relative, expected)
-            source_kind = 'sealed_readonly_512_cache'
-        except (OSError, ValueError, KeyError, TypeError, EOFError):
-            try:
-                path = data_root / relative
-                if path.is_symlink() or not path.resolve().is_relative_to(data_root / 'train'):
-                    raise ValueError('source path differs')
-                raw = path.read_bytes()
-                if hashlib.sha256(raw).hexdigest() != expected:
-                    raise ValueError('original source SHA differs')
-                with Image.open(io.BytesIO(raw)) as original:
-                    image = prepare_image(ImageOps.exif_transpose(original).convert('RGB'), 512)
-                source_kind = 'sha_verified_original'
-            except (OSError, ValueError, KeyError, TypeError, EOFError) as exc:
-                error = type(exc).__name__
-        quality = hashes = None
-        if image is not None:
-            ratio = 512 / max(image.size)
-            target = (max(1, round(image.width * ratio)), max(1, round(image.height * ratio)))
-            view = Image.new('RGB', (512, 512))
-            view.paste(image.resize(target, Image.Resampling.BILINEAR),
-                       (round((512 - target[0]) * .5), round((512 - target[1]) * .5)))
-            hashes = [f'{x:016x}' for x in image_hashes(view)]
-            if split == 'dev':
-                try:
-                    features = image_features(view)
-                    quality = {'brightness': features['content_luminance_mean'],
-                               'contrast': features['content_luminance_std'],
-                               'sharpness': features['green_laplacian_variance'],
-                               'field': 1 - features['black_fraction']}
-                except ValueError as exc:
-                    error = type(exc).__name__
-        result.append({'split': split, 'dev_index': dev_index, 'global_index': global_index,
-                       'label': row['label'], 'raw_sha256': expected, 'hashes': hashes,
-                       'quality': quality, 'source': source_kind, 'error': error})
-    path = output / 'parts' / f'part-{start:06d}-{start + len(result) - 1:06d}.json'
-    temporary = path.parent / ('.' + path.name + '.' + str(os.getpid()) + '.tmp')
-    with temporary.open('x') as stream:
-        json.dump({'start': start, 'rows': result}, stream, indent=2, allow_nan=False)
-        stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
-    os.link(temporary, path)
-    temporary.unlink()
+        scanned, _ = image_scan_row(item, rows[item[2]], cache, data_root,
+                                    prepare_image, lexical_path, image_features)
+        result.append(scanned)
+    path = image_write_part(output, start, result)
     print(json.dumps({'status': 'image_scan_part_complete', 'start': start, 'count': len(result),
                       'completed': start + len(result), 'total': len(order),
                       'unknown': sum(x['hashes'] is None for x in result),
                       'source_kinds': dict(Counter(x['source'] for x in result)),
                       'part_sha256': sha(path), 'official_read': False, 'GPU_initialized': False}), flush=True)
+
+
+def image_scan_adaptive(base, source, original_source, output, site, site_sha, max_images):
+    """Resume sealed P3 parts with bounded workers and NFS feedback."""
+    import fcntl
+    from threadpoolctl import threadpool_limits
+    sys.path.insert(0, str(source / 'runtime/bundle'))
+    sys.path.insert(0, str(source / 'tools/diagnostics'))
+    from retrain.preprocessing import PreparedImageCache, prepare_image
+    from retrain.verification import lexical_path
+    from persistent_errors import image_features
+    if (os.getpriority(os.PRIO_PROCESS, 0) != 19 or any(os.environ.get(k) != '' for k in
+            ('CUDA_VISIBLE_DEVICES', 'HIP_VISIBLE_DEVICES', 'ROCR_VISIBLE_DEVICES'))
+            or not output.resolve().is_relative_to((base / 'P3-HARD-CASE').resolve())):
+        raise ValueError('isolated hidden-device P3 output required')
+    if type(max_images) is not int or not 1 <= max_images <= 51396:
+        raise ValueError('a bounded number of images is required')
+    threads = int(os.environ['NCCCU_CPU_THREADS'])
+    mask = json.loads(os.environ['NCCCU_CPU_MASK'])
+    if threads < 2 or len(mask) != threads or set(mask) != os.sched_getaffinity(0):
+        raise ValueError('explicit CPU allocation with at least two cores required')
+    inputs = image_inputs(base, site, site_sha)
+    sealed = read(output / 'INPUTS.json')
+    if (any(sealed[k] != v for k, v in inputs['identities'].items())
+            or not original_source.is_absolute() or original_source.is_symlink()
+            or sealed['source_sha256'] != sha(original_source)
+            or sha(__file__) != sha(source / 'tools/diagnostics/p3_hard_case.py')):
+        raise ValueError('sealed input or source identity changed')
+    order = inputs['order']
+    prior = image_parts(output, order)
+    start = len(prior)
+    if start == len(order):
+        print(json.dumps({'status': 'image_scan_already_complete', 'count': start}), flush=True)
+        return
+    lock_path = output / '.adaptive-scan.lock'
+    descriptor = os.open(lock_path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    try:
+        fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        # Recheck after acquiring the new scanner's lease; old scanner must already be stopped.
+        if len(image_parts(output, order)) != start:
+            raise ValueError('another scanner changed the sealed parts')
+        os.environ['TRAIN_IMAGE_CACHE_READONLY'] = '1'
+        data_root = Path(inputs['site']['data_root']).resolve(strict=True)
+        cache = PreparedImageCache(data_root, Path(inputs['site']['prepared_cache']) / 'train/sealed', 512)
+        rows = inputs['manifest']['rows']
+        ceiling = threads - 1
+        workers, low_streak, danger_streak = min(16, ceiling), 0, 0
+        end = min(start + max_images, len(order))
+        unknown = 0
+        def scan(item):
+            return image_scan_row(item, rows[item[2]], cache, data_root,
+                                  prepare_image, lexical_path, image_features)
+        with threadpool_limits(limits=1):
+            while start < end:
+                result, latencies, d_ratio = p3_parallel_batch(order[start:min(end, start + 64)], scan, workers)
+                path = image_write_part(output, start, result)
+                start += len(result)
+                unknown += sum(x['hashes'] is None for x in result)
+                p95 = float(np.quantile(latencies, .95))
+                next_workers, low_streak, pause = p3_next_workers(workers, ceiling, p95, d_ratio, low_streak)
+                danger_streak = danger_streak + 1 if pause else 0
+                print(json.dumps({'status': 'adaptive_p3_part_complete', 'completed': start,
+                    'total': len(order), 'count': len(result), 'workers': workers, 'next_workers': next_workers,
+                    'read_seconds_p95': p95, 'worker_d_ratio_peak': d_ratio,
+                    'unknown_so_far_this_run': unknown, 'part_sha256': sha(path),
+                    'official_read': False, 'GPU_initialized': False}), flush=True)
+                workers = next_workers
+                if danger_streak >= 3:
+                    raise RuntimeError('NFS pressure persisted for three batches; remaining rows unknown')
+                if pause and start < end:
+                    time.sleep(30)
+        print(json.dumps({'status': 'adaptive_p3_bounded_run_complete', 'completed': start,
+                          'total': len(order), 'unknown_this_run': unknown,
+                          'official_read': False, 'GPU_initialized': False}), flush=True)
+    finally:
+        os.close(descriptor)
 
 
 def image_summary(base, output, site, site_sha):
@@ -569,15 +723,21 @@ def main():
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--packet', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--images-stage', choices=('init', 'scan', 'summary'))
+    parser.add_argument('--images-stage', choices=('init', 'scan', 'scan-adaptive', 'summary'))
     parser.add_argument('--site', type=Path)
     parser.add_argument('--site-sha')
+    parser.add_argument('--original-source', type=Path)
     parser.add_argument('--max-images', type=int, default=200)
     args = parser.parse_args()
     if args.images_stage == 'init':
         image_init(args.base, args.source, args.output, args.site, args.site_sha)
     elif args.images_stage == 'scan':
         image_scan(args.base, args.source, args.output, args.site, args.site_sha, args.max_images)
+    elif args.images_stage == 'scan-adaptive':
+        if args.original_source is None:
+            raise ValueError('the original sealed scanner source is required')
+        image_scan_adaptive(args.base, args.source, args.original_source, args.output,
+                            args.site, args.site_sha, args.max_images)
     elif args.images_stage == 'summary':
         image_summary(args.base, args.output, args.site, args.site_sha)
     else:

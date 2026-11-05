@@ -3,6 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import time
 import unittest
 
 from PIL import Image
@@ -89,6 +90,51 @@ class HardCaseTests(unittest.TestCase):
                 {'split': 'fit', 'dev_index': None, 'global_index': 3}]}))
             with self.assertRaises(ValueError):
                 p3.image_parts(root, order)
+
+    def test_adaptive_workers_obey_declared_latency_and_d_state_policy(self):
+        self.assertEqual(p3.p3_next_workers(16, 119, 0.1, 0.0, 0), (16, 1, False))
+        self.assertEqual(p3.p3_next_workers(16, 119, 0.1, 0.0, 1), (24, 0, False))
+        self.assertEqual(p3.p3_next_workers(16, 119, 2.1, 0.0, 0), (8, 0, False))
+        self.assertEqual(p3.p3_next_workers(16, 119, 0.1, 0.25, 0), (8, 0, False))
+        self.assertEqual(p3.p3_next_workers(1, 119, 5.1, 0.0, 0), (1, 0, True))
+        self.assertEqual(p3.p3_next_workers(16, 119, 0.1, 0.5, 0), (8, 0, True))
+        self.assertEqual(p3.p3_next_workers(115, 119, 0.1, 0.0, 1), (119, 0, False))
+
+    def test_adaptive_batch_preserves_order_and_stops_submitting_on_emergency(self):
+        def worker(index):
+            time.sleep((3 - index % 3) * 0.002)
+            return index, 0.01
+        results, _, seen = p3.p3_parallel_batch(list(range(12)), worker, 3, lambda _: 0.0)
+        self.assertEqual(results, list(range(12)))
+        self.assertEqual(seen, 0.0)
+        results, _, seen = p3.p3_parallel_batch(list(range(12)), worker, 3, lambda _: 0.5)
+        self.assertEqual(results, list(range(3)))
+        self.assertEqual(seen, 0.5)
+
+    def test_adaptive_batch_propagates_failed_worker(self):
+        def bad(index):
+            raise ValueError('fixture failure')
+        with self.assertRaisesRegex(ValueError, 'fixture failure'):
+            p3.p3_parallel_batch([0], bad, 1, lambda _: 0.0)
+
+    def test_adaptive_rows_match_serial_hash_and_quality(self):
+        image = Image.new('RGB', (48, 32), (40, 90, 150))
+        class Cache:
+            def read(self, relative, expected):
+                return image.copy()
+        def features(view):
+            return {'content_luminance_mean': 42., 'content_luminance_std': 7.,
+                    'green_laplacian_variance': 3., 'black_fraction': .2}
+        items = [('dev', 2, 0), ('fit', None, 1), ('dev', 4, 2)]
+        rows = [{'relative_path': 'train/example', 'sha256': 'a' * 64, 'label': i % 2} for i in range(3)]
+        def scan(item):
+            return p3.image_scan_row(item, rows[item[2]], Cache(), Path('/fixture'),
+                                     lambda source, size: source, lambda *args: None, features)
+        serial = [scan(item)[0] for item in items]
+        parallel, _, _ = p3.p3_parallel_batch(items, scan, 2, lambda _: 0.0)
+        self.assertEqual(parallel, serial)
+        self.assertEqual(serial[0]['quality']['field'], .8)
+        self.assertIsNone(serial[1]['quality'])
 
 
 if __name__ == '__main__':
