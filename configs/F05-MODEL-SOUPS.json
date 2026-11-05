@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "method": "uniform_all_compatible_selected_states_v1",
+  "accumulation_dtype": "float64",
+  "output_dtype": "float32",
+  "nonfloating": "require_equal",
+  "inventory_sha256": "ed36d336905b47eb929cdeb1bf8bc348d4f516c274474e467a88d0a5586e02f3",
+  "compatibility_sha256": "c4006d72b94867d4fe2b4bc5c683de6140ca6b9d6c034cffbafd93feedad887c",
+  "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610",
+  "public_revision": "fe6b358aa409414cdb522ae3d43a2c9922f7cc1b",
+  "groups": {
+    "r120": ["r120", "r254", "r256", "r258", "r262"],
+    "r134r1": ["r134r1", "r253", "r257", "r260", "r261"],
+    "r201": ["r250", "r252", "r259"]
+  },
+  "official_read": false,
+  "TTA": false
+}

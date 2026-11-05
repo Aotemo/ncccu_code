@@ -17,3 +17,5 @@
 每个主汤与每次次方案尝试复用既有严格加载、八设备监督和内部 dev 评估入口；每图固定单视图一次，无官方读取。按现有身份、设备、20 GiB 容量及 80/20 互斥门，先 CPU 测试、提交 push 和精确部署；任一 Pod 安全终态即可安排，不因审计或文档等待。F05 最终融合候选与选择门须在读取任何新的 F05 融合结果前另行封存；该汤合同不授权直接选最终融合或官方评估。
 
 拟最小影响 `configs/F05-MODEL-SOUPS.json`、`tools/diagnostics/f05_model_soup.py`、对应测试，以及为通用汤模型复用既有 GPU dev 监督所必需的 `tools/diagnostics/f04_gpu_full_dev.py` / 窄测试；不复制训练平台，不改 F04 冻结快照。先盘点来源与权重，再决定具体必要函数；以上文件范围若需扩展先登记理由。
+
+2026-11-05，三组 13/13 父权重均按各自冻结 runtime 严格构造，layout 均为 `99043aa9b52d8508bdc1da015d77cd1c0bf51975f4e2be5c1ccb0380f58af19b`；两批回执 `b06b471cc43efd64fd32980d424e0ddcf6782c13b46a5ed197cee4a9ab13dd5e`、`b8d6b19745805480a0959833c111475cff947aac90aa3cbbc62dd134a6db9d20`。逐组除 seed 外的 SCIENCE job、来源、分割、计划、结构、age 与非浮点状态一致，兼容性回执 `c4006d72b94867d4fe2b4bc5c683de6140ca6b9d6c034cffbafd93feedad887c`。等权浮点64累加/整型严格一致/原状态不变等 5 项隔离检查通过，CPU 回执 `bf28b1568809bdcef0a4519bf6ab094cba01f5cc6e0f77c596d7605001ef6229`；尚未创建真实汤或计算汤 dev 指标。

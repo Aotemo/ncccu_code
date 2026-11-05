@@ -12,7 +12,7 @@ SSH 包装的 4 项隔离检查已在 Pod A 通过：并发五次实际最多两
 
 ## 已推送源码的本地快照
 
-每次使用指定已推送 commit 的 `git archive` 单文件和 GitHub 原始 ref/commit/完整 tree 回读；在 Pod 内核 tar SHA，将其解包到该 Pod 唯一 `/tmp` 私有新目录，只允许常规文件/目录、拒绝链接和路径穿越，再以原 `freeze_deployment.verify_tree` 对整棵本地树逐文件核 Git blob、mode、文件集合和 SHA。冻结结果、tar 身份与环境/Pod UID 回执仍存 NFS。不得把同名但未核验的本地树当部署；Pod 或本地盘变化须重新核。必要范围拟为 `tools/activation/freeze_deployment.py`、一个最小本地快照解包验证 helper 及针对路径/篡改/树的窄测试；先核现有 formal package、site binding 与输出路径限制，完整树校验强度不降。
+每次使用指定已推送 commit 的 `git archive` 单文件和 GitHub 原始 ref/commit/完整 tree 回读；在 Pod 内核 tar SHA，将其解包到该 Pod 唯一 `/tmp` 私有新目录，只允许常规文件/目录、拒绝链接和路径穿越，再以原 `freeze_deployment.verify_tree` 对整棵本地树逐文件核 Git blob、mode、文件集合和 SHA。冻结结果、tar 身份与环境/Pod UID 回执仍存 NFS。不得把同名但未核验的本地树当部署；Pod 或本地盘变化须重新核。必要范围拟为 `tools/activation/freeze_deployment.py`、`tools/activation/local_snapshot.py`、`tests/test_local_snapshot.py` 及现有针对路径/篡改/树的窄测试；先核现有 formal package、site binding 与输出路径限制，完整树校验强度不降。
 
 调用链核对发现 `tools/activation/activate.py::verify_deployment` 也要求源码位于 work root；因此本地源码的正式部署兼容范围增加该现有函数及对应窄测试。仅以显式、NFS 留存并绑定当前 Pod UID、commit/tree、tar SHA 和非 NFS 本地挂载的完整树回执放行 `/tmp/technical-prep/<UID>/.../source-git`；无回执仍执行原 work-root 限制。`prepare.py` 原要求路径含 `technical-prep`，本路径满足，不为绕过证据降低检查。
 
