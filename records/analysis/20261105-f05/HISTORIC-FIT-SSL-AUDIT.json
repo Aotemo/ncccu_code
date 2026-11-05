@@ -1,0 +1,201 @@
+{
+  "status": "historic_fit_ssl_provenance_audit",
+  "at": 1793850286.7323496,
+  "rounds": [
+    {
+      "round": "R115",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "cda4a61cdcefbe3b9db36c8d4797c323b98629055ec45d423daa27de2369e772",
+      "frozen_runtime_sha256": "3d1bc893c7467a0f8a8549284851b44d8fe8e23c034c242ddd35c235c4c13c57",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "9ee436b1970e5e79bb7a86e9031b9c291af10b5850e929cbed4ed809b7cc5bb1",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "1b32a73e7657b228ef1dd793c2a0009d90a395e2054df762e974a2a8ce39aad1",
+        "retrain/data.py": "e6751aae19c540398ecbf575a20427da74e077e360c2aa527e70cb566c0c4e70"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R224",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "b3d952fa38771b497f9bfc4244d643564449313ba76b1afb410cc083a2d5bc3b",
+      "frozen_runtime_sha256": "ea623777ae7a507d64a05e12efe97a9777699658d471019817b64fe17bc32932",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "0f4eed58095dd57122d134a133dc7ea298cb60b1abe270e488415cbde6327a6a",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "d0c8b231ddfd230780948b11143d441d35a097ff9f4bc3946024afe75e24020b",
+        "retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R226",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "d5605a85c7058b005e1bfca756d57f7aadf575c42e91ae3b1a54ba4047876f47",
+      "frozen_runtime_sha256": "046112c6ee5e0e74612b95f9101ecea9c1992cfaa70626f6fcb1b70e88dfb754",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "1c4e2d58e7ec177ee56170499c0c34c618b8ad1abd967fc950eff98e132a7a41",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "94b69350b3cc389b5ca68395b7b56e805666a4245250352ac8e9f0f989233bf7",
+        "retrain/data.py": "6bb91974f5d566a5a6a9fe8ba4c24939ead86a7d757fbb9ca55f89a46fc65bb4"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R228",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "ddbcfa0a5d89af20e00c01c62eb2fcfcb32a8d437b934becf0dde6dc1f07bd52",
+      "frozen_runtime_sha256": "444e48f8cbaa5211c772913ec97739658dd53279e8051d15de0a1ebf15a5d047",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "84b5108e54f790be241252cc419ca2637f92980236a8174cc5f502e08375a601",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "7b7f1a125c781e6634f801aa7ff07d7a40d8b91ca71b71cef592c00cf1595244",
+        "retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R230",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "a310ec771989602fedaa84c2bb2ee7c28b98ca06f660bc8652f20904c62127ee",
+      "frozen_runtime_sha256": "1742c2518a7b59b16cbe8a2ab7da1b03bf2be4bf6592036412644530e621d9e8",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "d0385fcd2bd179be73b1283301a1e09e1d9a0a70e3ceeb44a0d5c3cb815b0bfa",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "409ed756d88ca2f7beef9ddc87bdaedff917ff8ae68d6b5b035b81e8e4129b84",
+        "retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R232",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "f4ecae75b483c9ae4500f5d3fc6d34857a8921618524990f9c3b26485c9e7ac8",
+      "frozen_runtime_sha256": "26e48267c6e96b0d058d02bda2717bd66710bbd9b6c8be6328236572a1910738",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "b642d573b7e79ac9851504dd676081051a8b981e452c89b9406f6f29a3377ba3",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "7ae119c6377e1c1e2bb4777570de32d733859eb4691a785fc53fbdb671f9f52d",
+        "retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a"
+      },
+      "successful_updates": 9600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R234",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "615f0061756377383121b568c8446944383a24cafc16953e13f8ea6f84f8ec33",
+      "frozen_runtime_sha256": "73d993a64db665264b0bb2140e29546df8f9f6223d27c4dfa50aa4c582b10efb",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "c5ad926fd879cd8d792616db791be44e9ac92c68140647837a84db1d6d283be7",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "e3a7300dbd3020e18dd30c6808844f271394dc632cb010786ada458de49a1d89",
+        "retrain/data.py": "fc2eda810689d18546d302c22b37e57e33cb475c603c0c627e07af90b597ac5a"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R236R2",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "8b8cf2d7f0189b74832beb6edd7354c642dc18ad048b28d8146d3f834535ae9d",
+      "frozen_runtime_sha256": "5f0a0454188d84af61ff697ae8820362a9ab9e937428a6400e988560c410461c",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "65bf85257318ff0f378bddf55d3327a3c405733a953be969fcd3f4f5e250ff43",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "2b0b0f061736e121491d746292542c688267882e0acb330e074922871b16f77c",
+        "retrain/data.py": "dd792e48d0a6ec9a4f15553cc28c7b31a7e2f5439bf674c5dfc4158e74d91a73"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R238",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "5145519d536f57ba0f87b28d46561b8cd72a30c2e2b2dacf78a9eb605188a241",
+      "frozen_runtime_sha256": "41f0b7d1ee634a757580f1539f06f0a0780ff1b3ea47b96c1ddcca3d5a82acc2",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "4bb2a3ddddd2bda5f532e06ed9e6205b13dc1a879577c46477f0f98fbfb272ea",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "d79c8b023fe431e603e69fb3ed24b41b4cf8d1cdfdb1eda038939fd949c0ae68",
+        "retrain/data.py": "dd792e48d0a6ec9a4f15553cc28c7b31a7e2f5439bf674c5dfc4158e74d91a73"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R240R1",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "3f79bc1e13c3cbebb6773c6ecc20c4cb8f5ed4639da5ad6069c7c510f58ff1dd",
+      "frozen_runtime_sha256": "7ac3a5246e025c8985dfdfeb922949c6d201562f115b8c74cd032663477fe87e",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "349d1597bc74f6cb69204fd52235856995a294438b5cd896f983b37b59b4f643",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "20a0967c5bdd09708aa9f227afea332775c4f74d8971da58fdfd452dabe0dee0",
+        "retrain/data.py": "dd792e48d0a6ec9a4f15553cc28c7b31a7e2f5439bf674c5dfc4158e74d91a73"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    },
+    {
+      "round": "R242",
+      "status": "evidence_supports_competition_fit_only",
+      "receipt_sha256": "e142f3d72ef14efa487d4c0b0f64ea56425ed54e4f8fdc86cb3b58bf9d4378ab",
+      "frozen_runtime_sha256": "52d681855d16e7a6b4cfa72320a4440465f2470ec7138a63ccf930bbf8a4b6db",
+      "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+      "site_sha256": "525ac08a909281566efc219183b6c75939ecccfedc1ce853091c578c85eacb05",
+      "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+      "source_file_sha256": {
+        "retrain/ssl_stage.py": "20a0967c5bdd09708aa9f227afea332775c4f74d8971da58fdfd452dabe0dee0",
+        "retrain/data.py": "dd792e48d0a6ec9a4f15553cc28c7b31a7e2f5439bf674c5dfc4158e74d91a73"
+      },
+      "successful_updates": 1600,
+      "dev_evaluations": 0,
+      "fit_indices_only": true,
+      "public_weight_sha256": "7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610"
+    }
+  ],
+  "complete_count": 11,
+  "unknown_count": 0,
+  "fit_count": 46256,
+  "dev_count": 5140,
+  "manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "scope_limit": "receipts and pinned runtime/paths, not a complete operating-system network trace",
+  "GPU_initialized": false,
+  "official_read": false
+}

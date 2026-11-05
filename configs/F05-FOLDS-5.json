@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "method": "fixed-fit-only-content-group-label-age-size-v1",
+  "base_manifest_sha256": "7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377",
+  "fold_seed": 20261121,
+  "folds": 5,
+  "training_seed": 20261029,
+  "fit_count": 46256,
+  "dev_count": 5140,
+  "rounds": ["R265", "R266", "R267", "R268", "R269"],
+  "age_statistics": "each_fold_training_subset_only",
+  "official_read": false
+}

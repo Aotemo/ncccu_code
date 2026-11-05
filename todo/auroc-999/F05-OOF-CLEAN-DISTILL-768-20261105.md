@@ -24,3 +24,5 @@
 ## 最小范围与实施门
 
 拟新增 `configs/F05-FOLDS-5.json`、R265–R269 的版本化 SCIENCE、`tools/diagnostics/f05_oof.py` 及对应测试；必要时小范围修改既有 `runtime/bundle/retrain/data.py`、`experiment91.py`、`pipeline.py`、`distributed_engine.py`、`classification_loss.py`、activation/CPU 验证中对固定 manifest 的绑定。清洗、蒸馏和 768 分别另建版本化配置并复用这些同一训练/保存/评估/监督链。任何新增实际影响文件在实现前补登记；不新建并行训练平台。用户要求尽快占满两 Pod，但正式 CPU、Git 同步、实际设备与容量门不满足时不得派发或虚报可运行。
+
+2026-11-05，fit 分组五折生成核心在 Pod B 完成 3 项合成检查（分组与 dev 隔离、fit 恰好覆盖一次、折内 age，CPU 回执 `740c667c716c4e9d3914b7b65039ce0ae512b2a0d33e074b9d096c630ce7afbe`）；真实 fit 分折、各折版本化元数据、SCIENCE 及正式训练入口仍未生成或核验，GPU 尚未派发。

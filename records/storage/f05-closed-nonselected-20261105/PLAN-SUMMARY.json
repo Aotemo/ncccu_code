@@ -1,0 +1,45 @@
+{
+  "status": "read_only_manifest_ready_pending_both_pod_open_checks",
+  "plan_sha256": "971063cd58118263022a4c185fa895ca59da27e6856362b312fdd4e497aff79d",
+  "inventory_sha256": "5712e0ebce63ffe809f2976cb53b8e4c0cf1db8faa2f952d7302e79d34672450",
+  "candidate_count": 60,
+  "allocated_bytes": 41014253568,
+  "logical_bytes": 41014234533,
+  "free_bytes": 39142293504,
+  "by_round": {
+    "R253": {
+      "count": 7,
+      "allocated_bytes": 5149001216
+    },
+    "R254": {
+      "count": 7,
+      "allocated_bytes": 5148973568
+    },
+    "R255": {
+      "count": 8,
+      "allocated_bytes": 2594885632
+    },
+    "R256": {
+      "count": 8,
+      "allocated_bytes": 5941125632
+    },
+    "R257": {
+      "count": 8,
+      "allocated_bytes": 5941157376
+    },
+    "R258": {
+      "count": 7,
+      "allocated_bytes": 5148974592
+    },
+    "R259": {
+      "count": 7,
+      "allocated_bytes": 5148977152
+    },
+    "R260": {
+      "count": 8,
+      "allocated_bytes": 5941158400
+    }
+  },
+  "skipped": [],
+  "deleted_files": []
+}

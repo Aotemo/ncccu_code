@@ -1,0 +1,1428 @@
+{
+  "schema": 1,
+  "created_at": 1793851007.2997625,
+  "authorization_reference": "c607-20261104-actualsafe-archive-nonselected",
+  "source_archive_commit": "9f4158c78cf0f2a7b1b6d61bcfd51d0e6af119af",
+  "inventory_sha256": "5712e0ebce63ffe809f2976cb53b8e4c0cf1db8faa2f952d7302e79d34672450",
+  "candidates": [
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3aad9fcb80234d11a4fd32e8be9b4eee.pt",
+      "device": 152,
+      "inode": 9271311447,
+      "size": 792155466,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793820451000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "e3b434e3f1da624788f6ed9d4611de791220d38dd3e5e657046a8452405bfbf2",
+      "advertised_blob_sha256": "bc70e0bc9476ef3d30288b1b2f1c393752fd0df4a5341a51b634922def2d699a",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-71152fa6ef504761baf8e291cfb75e38.pt",
+      "device": 152,
+      "inode": 20939161956,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793817377000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "4e7f37106246042dd8d45d8c36137be1f15bbd895cc7b152f272b91eb77d5aa5",
+      "advertised_blob_sha256": "b87937fcc4c62d5e398ea374345c826a01edec9a78fd23c05ad0f4784ea95e97",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-9ef3f5b625834b84896c08fd6057dd7c.pt",
+      "device": 152,
+      "inode": 9270189143,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793817383000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "7f91e28a4e0eef6b44a12a04af8be9504524ad35bb5acffa571c4a37a7487816",
+      "advertised_blob_sha256": "ea6416ed470b7a092b2093ab28724c499411540650135893311e06c4484db0fc",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-bc303c3d691745318cb0338ef1304891.pt",
+      "device": 152,
+      "inode": 9271308375,
+      "size": 792155466,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793820444000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "5a0dbabb9946e3829ec88fa27b42b33649dcdf81f06b54194804eecb6cbea65f",
+      "advertised_blob_sha256": "d587b0bbfd9df873b338bc06fc737c9a8179dc5f198bb3895a47a2c312127c0c",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c74212daa12e4c6db10b0f3d84d78314.pt",
+      "device": 152,
+      "inode": 9270035543,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793816997000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "0d3bf2965d281f1756f125f613b91779e9b96336c5a89194373b969474d02c23",
+      "advertised_blob_sha256": "cf3bf6d675a5cf2299490f5505ef4f4ca30caf5dea12abc946a885ef86d7b43f",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-d17ad71aa25b4e079e9b858912452818.pt",
+      "device": 152,
+      "inode": 20939457636,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793817765000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "ac2e7e110a03b59b85dbd9232115eb4ad7d070000de687d1cfdbadc05a795679",
+      "advertised_blob_sha256": "5ac7aaea4edec5845ecf1165806ddd38d6c37452798c4ba925a9f62da9ec083a",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R253",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-6c102cfdc97945e396018d5602b0e8f5.pt",
+      "device": 152,
+      "inode": 19391515261,
+      "size": 396066875,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793816558000000000,
+      "allocated": 396067328,
+      "sidecar_sha256": "43d5d4b56b18077711e67ed3c0c9266ecdbd98509371924db3764b30f7b822f8",
+      "advertised_blob_sha256": "18b32599dffed655f10e8ca49a3743e685e6fda07e72384bc2bed5e5a1032c15",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-0b2b6f4724954ec8930ce025389076ae.pt",
+      "device": 152,
+      "inode": 9656900378,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793818253000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "65aba5ec540da7deaf746ae73c58136523638b08232562d9a0f200a6b7777072",
+      "advertised_blob_sha256": "aae95551ec16d77facc9f2d9de328d4bf3110be18c27ebd2a2d6354185fc1101",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6a72e33f67d04813954e10c16586ddbf.pt",
+      "device": 152,
+      "inode": 20199170940,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793817878000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "64c89046b0986a4f2841a56353f02779de34806876dd7c793d8bd5996a9d6542",
+      "advertised_blob_sha256": "d59408d0a2493f82abb26d9cdad80a23a65d226e99756b6d79f64532bb6eb1ad",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-9225ca2952fd48c3a1d908ca262cc8ec.pt",
+      "device": 152,
+      "inode": 9656903706,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793818260000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "5fa53d5132d5229899d61f5e82f06d6fe83ff0d9de2c7d06768fb55462f7527c",
+      "advertised_blob_sha256": "47835f4d1d332224ecd202edc5c2d42a35f03427e7f3d72ccbab4b074a0f11fd",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-b5c76242aa474f95a2eeb322777bc74c.pt",
+      "device": 152,
+      "inode": 20201853820,
+      "size": 792151562,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793821676000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "18c89d281ba57a8df3c574655c056eb87705621964d5224c0bad39c053b42f38",
+      "advertised_blob_sha256": "54220d4c916b9dd6e3617df95f32beea134f27a23fbe9893afdfc4756a1f6587",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c41c2bd25f29488aab7c95bbe5192bad.pt",
+      "device": 152,
+      "inode": 20201852028,
+      "size": 792151562,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793821669000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "5e0eb6d106c6b4b332a6bd356a87ead3ded649b8c80b6ececae8a9e2132a1349",
+      "advertised_blob_sha256": "44bb4cda97087d4a5e67cb7888f874395fe2d10f0ee9c1c43e18ab8fee6d489d",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-f6d9069453a24d8b87f4fdb4f3c50cd5.pt",
+      "device": 152,
+      "inode": 9657001754,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793818639000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "0a743053f940263936edaee7b7ccc685dc696cb6a95b4d3fbabcdebfebdb85ce",
+      "advertised_blob_sha256": "793cda4f1a789503ba3b464230d8de2e4307848b175043264e6d2e1349ed523f",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R254",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-6b1ce73eafec43f5a89eea1887d8222b.pt",
+      "device": 152,
+      "inode": 10133265717,
+      "size": 396062907,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793817452000000000,
+      "allocated": 396063232,
+      "sidecar_sha256": "506c809b4c187fc2da74427e9966c671b6f080ed02cb5edeee49cf09c951b203",
+      "advertised_blob_sha256": "90944c7f503f5467265f6b1e910edca1dac31df21f99688706b13b011367a776",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-26278eea3e6a49f79452a0c223783a80.pt",
+      "device": 152,
+      "inode": 10540027411,
+      "size": 345984813,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793824166000000000,
+      "allocated": 345985024,
+      "sidecar_sha256": "493a3e680f1075a1f35c375588bd87604a07509445624eadde40ccd8437543ac",
+      "advertised_blob_sha256": "f734a7c13849ed8f0f16c4f53be124390127cde7398e8dff45a46fc253930f50",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-32719377688040938223aafb0c735583.pt",
+      "device": 152,
+      "inode": 10539504147,
+      "size": 345984365,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822237000000000,
+      "allocated": 345984512,
+      "sidecar_sha256": "04daa53c64ac9c51d38d14886b7b4048c761d67e35acf8e543b17e22aa4c57ef",
+      "advertised_blob_sha256": "ad1b3c0dd2e29f26a9f404ba881107ca5f22c56102eeeb60b8c511668b8546ff",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-9b09177412ad4f4e923550ea8e0bee52.pt",
+      "device": 152,
+      "inode": 10540026131,
+      "size": 345984813,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793824163000000000,
+      "allocated": 345985024,
+      "sidecar_sha256": "8536c8da34f019334361e61fb43973a5e226331d19e1284dde49e5d7bc904fd5",
+      "advertised_blob_sha256": "d9e4aeab62aa20bbfa2666a1108dbafc1f8405dcb9e1a6e377ddca387e1055a5",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-a7125246ae564666b6df89c643202362.pt",
+      "device": 152,
+      "inode": 10539577619,
+      "size": 345984813,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822448000000000,
+      "allocated": 345985024,
+      "sidecar_sha256": "d394736071a26a7efbb8654e3f4ebcc6de6cc4549363c1ef8a55b84e88228ca6",
+      "advertised_blob_sha256": "2701bd9ba5b146202eee3b6d1d605bae61fa7ac99ef753f0665f216ddfad0a3d",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-d3e6c5291fdd4a11b98d936902386719.pt",
+      "device": 152,
+      "inode": 10539578643,
+      "size": 345984813,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822450000000000,
+      "allocated": 345985024,
+      "sidecar_sha256": "225b284ac0c9f6dcb83f201528035b36da6f8abbc2d768f5e85170f21d61b722",
+      "advertised_blob_sha256": "52e0e643a2088d5b74f143749a9a99a27d897bce20a1c3d017d6dc5a9fd3c3da",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-f1f028f512ad48588ba5a80cf66b2b78.pt",
+      "device": 152,
+      "inode": 10539656467,
+      "size": 345984365,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822662000000000,
+      "allocated": 345984512,
+      "sidecar_sha256": "b0eb35976b184256dd635edbf2616e4c1c726b8ed001191a08d6c71f68970fc1",
+      "advertised_blob_sha256": "8f2a5d784fb91528ae92349a8ca119f9d52f98ae958c908d240447dfb53dee9e",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-f707d02f313e4e5384e801620a9ac265.pt",
+      "device": 152,
+      "inode": 10539852819,
+      "size": 345984557,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793823517000000000,
+      "allocated": 345985024,
+      "sidecar_sha256": "290163da8bd384908a6fe018b9a2d44c58a91192964117bfb195c02a5b6188d9",
+      "advertised_blob_sha256": "7d5faf80f74fcebf6b5479adde6043f59abd9ddf73418d93c389e1398dbf22ca",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R255",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/initial-checkpoint/checkpoint-18844a38211d4e63954e8f80c8e44490.pt",
+      "device": 152,
+      "inode": 9323423771,
+      "size": 172991371,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822004000000000,
+      "allocated": 172991488,
+      "sidecar_sha256": "75cb18e72fac2c7f641e107298514fad68c2294b9801ab41e24bf21a8299081e",
+      "advertised_blob_sha256": "77ea1f6f8c14fa14d099548802c393fad54d389ab0af0a1fa7234de86ca4cd77",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-059dcd8b368d440a8bf49380647a7ea6.pt",
+      "device": 152,
+      "inode": 10259963202,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793821803000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "9e7d9e0fad26ef432dc0b022944830ab56c31b950292159ed4fcda7f422a7845",
+      "advertised_blob_sha256": "5186bbe85075f51ebcd4fdb4636655974f5b45a39bf9a9a9ba65e42ea2748234",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3a1434c217b5475e8e506624e11f4352.pt",
+      "device": 152,
+      "inode": 10260126274,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822178000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "1a6b3e4f81e0a5c05dd6a8ce45830098bc4855a80539510616fad0ddac0643bf",
+      "advertised_blob_sha256": "751d74781decb4fedc4a1f21073678933e64c48297e06f056be01cf8e85ee335",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-4b9915202db44ede9258386fdd55ba56.pt",
+      "device": 152,
+      "inode": 20882315367,
+      "size": 792151754,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793824482000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "6b4d530fd66d6e6cad9862635a7ac96b3dd975abb0350bca1fbec3e9539099d0",
+      "advertised_blob_sha256": "05f0461756f91dae9068e09799b123563290819631745ee5a493b6e906e058c3",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-5ab0e93caebd46e7ba4e62fe496a69c3.pt",
+      "device": 152,
+      "inode": 10260570946,
+      "size": 792151562,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793823711000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "b58edcb5b1f138cd650df8163d428f596cdbfae849c3466c1031a451bf329355",
+      "advertised_blob_sha256": "9b9e881ced756eec03f09f8569f25d9b7ba07676d75e36f035007097f62152e5",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6487cb09cdb74ff6b20d68d9cbefa21d.pt",
+      "device": 152,
+      "inode": 20880461671,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822185000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "767c37b82b31b7a8fa83937e9e33cd5151094394f6d35a9db7179f333a27a34d",
+      "advertised_blob_sha256": "b12510355e4870a7fcb11a6331157b8f75bec00e9e6fe803e50694f740b18e5c",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ac251d8973f44cc7b3ff7c3a5f603d99.pt",
+      "device": 152,
+      "inode": 10260848450,
+      "size": 792151754,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793824489000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "fccac04bebed12b145e5065f645d0402141eedbbe116328541c304493aba711c",
+      "advertised_blob_sha256": "062188a6f9335c80e62bccaa08a0418f013c9c5d92ece247f3a32825e0b79071",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e9499e5de51842dcae66afd7da49e78e.pt",
+      "device": 152,
+      "inode": 20880737895,
+      "size": 792151306,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793822563000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "3a2c749a45735da84abec6e1c350b4cff7e97baf179ff3439ac1b466082785a0",
+      "advertised_blob_sha256": "4195b6c591798268b426ca127bb4c00ca9b6ba0bb2e2612188088249ecca7d69",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R256",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-b7586d8da2f64bf9984ec964d10280d0.pt",
+      "device": 152,
+      "inode": 9701418825,
+      "size": 396062907,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793821350000000000,
+      "allocated": 396063232,
+      "sidecar_sha256": "0df2db2f17f444a0501233788517cd565fec099cac54d1b1e67ef4dad4f6c795",
+      "advertised_blob_sha256": "21846a85c625cb63ebddf48a079b1d7505bdce8065ebca554955d9a1c41733f2",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3c90aa2e6813418f8f9877829d644482.pt",
+      "device": 152,
+      "inode": 19714052974,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793825998000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "ab10094e9384b9a5e0b288ae75b69f515c95dd8943058ae52a8b0c185f2dfa64",
+      "advertised_blob_sha256": "498eb63badd61813107fa694b3f00b3dcaf9783790fa368af857ce86a4158dd3",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-7ac2126dffde4d42a887696387daa4df.pt",
+      "device": 152,
+      "inode": 20023484283,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793825238000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "099e243f27965f593f16e3cefd308c6f0a1e287f1cc64e2bb7544e57cbd604a4",
+      "advertised_blob_sha256": "f6a0c282f6163a0af8e6fa24fa8f67dbc354175a5015238ff653bc1cd3c7cefe",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-8aa46d5b3be44b809ffe74b5f86d7734.pt",
+      "device": 152,
+      "inode": 20026079867,
+      "size": 792155722,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793828282000000000,
+      "allocated": 792156160,
+      "sidecar_sha256": "5d8ce6590d2acaaba205156eeca19143425c0d0773a763603e37f92dbe15fee7",
+      "advertised_blob_sha256": "65f16863c93ad89086f9f03fc978b4aa9cc25ae031453b9e9b0ca09084347135",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ba9fbe0f831f48028b6e99e380a0ad65.pt",
+      "device": 152,
+      "inode": 19713386862,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793825231000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "ad711d05bda6d046c1688d1bac0f761ab9673d25f5d40c092f9ea1394b62b00b",
+      "advertised_blob_sha256": "9b4114465ea0210162ddda4298307ef65a08a170d04b497cab5da84cb6b6d9c4",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-c8199499e9bf4984afae842e1d3bc317.pt",
+      "device": 152,
+      "inode": 19713741422,
+      "size": 792155466,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793825618000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "830121849521b8d4e24ed16e4a9c4de5b7b581d8e44a13b76f2afb40480a952e",
+      "advertised_blob_sha256": "cbd24285ed314ddf3ffade6e3e3e1840c02291c60bbf34346940c54836689b12",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-d434f2dad0414c3fb5be5d6f87331ca6.pt",
+      "device": 152,
+      "inode": 20026082683,
+      "size": 792155722,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793828287000000000,
+      "allocated": 792156160,
+      "sidecar_sha256": "d90f836d4ff813cb98abaea78d04c0429c3e8db5876440d9abfe5782eb74102b",
+      "advertised_blob_sha256": "c8966ce472ede6e7cf540441dbbcac37e20464ab433032cd3263b2a1e1a07b91",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-fd65b6b6830348ed85a9a7a70c28c1c4.pt",
+      "device": 152,
+      "inode": 19712889454,
+      "size": 792155274,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793824854000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "6204a8df01d284f516f0a09479f203f0d90917a2423349c28bd9e3d340765c6f",
+      "advertised_blob_sha256": "ee1055cec69ab35cb9896ad28a42f1d98935124ae10b5321cfdae1a1fa34a429",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R257",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-0c377d738a384dca9ae0c9138e4e5eb9.pt",
+      "device": 152,
+      "inode": 20230765661,
+      "size": 396066811,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793824443000000000,
+      "allocated": 396066816,
+      "sidecar_sha256": "40638f776114202c698a2a090161f20ddb48850e6f2133dfa3a926fa7cdf6abe",
+      "advertised_blob_sha256": "555dca9f71e5fb6b4c624fa56fe067cb567deedab83dc357e14d4cd083fcdfad",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-051fa40e30264437b61607dc8d1a9892.pt",
+      "device": 152,
+      "inode": 9321177403,
+      "size": 792151370,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793825646000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "602a93b80fca910b41bc9951f38a3e79b12669bbae45ba268da7ebf13e7602fb",
+      "advertised_blob_sha256": "668b386b55cfa48397d5440de615a981166256ed5dede8069a70337541840f67",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-1737944f74d24b768330618f5fcc5442.pt",
+      "device": 152,
+      "inode": 9321438523,
+      "size": 792151434,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793826409000000000,
+      "allocated": 792151552,
+      "sidecar_sha256": "60ed62832a2d6b797f5fcbb75b058934b703ced73d56e2ae598b7118f28f73d7",
+      "advertised_blob_sha256": "2b47d29b5c3d0a2e97e11a9cd984b5f352c74c8d6356dc1b8a9ba3ddb642b0bc",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-218d7c541b0d4987b5858b4c8c854bee.pt",
+      "device": 152,
+      "inode": 9322131003,
+      "size": 792151818,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793828704000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "b04d73d12b9c281ea70342aad05aa66ef37e084fc9d1e01392ed287283f52371",
+      "advertised_blob_sha256": "684e3e2658d4698cb6550b9a10bb860ae4fd4d3b232866f5d1440a2a59bf45e2",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-7c560567caf145f88a04200581d0a19b.pt",
+      "device": 152,
+      "inode": 10012870737,
+      "size": 792151818,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793828697000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "347b757a965736ff0188323e80d1f4f8a558d7a62dae723e428b8ebe84ca26e8",
+      "advertised_blob_sha256": "9b094d7b9825682b321d11293d75927d97271340bb1534b08acf91154a13f7f8",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-ebd58b2314504adf99871164d3c95b61.pt",
+      "device": 152,
+      "inode": 10011667281,
+      "size": 792151818,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793826029000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "8ce05164e41aa81b93f9759a2e22034fdee914cb81cf801a6388efc90a13f52d",
+      "advertised_blob_sha256": "ff423af3a45fb46104506d85f27f77e6a09ce3e93197210869cefe860181d1c8",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-f03c2258b2cf4e15a19ff089d0d7e641.pt",
+      "device": 152,
+      "inode": 9321328955,
+      "size": 792151818,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793826022000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "745550e437d3c7ce628d04099b3f0818c36acfcf76bbd85ee00d9d8f44733eb3",
+      "advertised_blob_sha256": "0a2143893d9baaaa61ccba28bca0b919e89d49e3b54969f98e45b9c8281466c7",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R258",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-6bff39f1b7944e2988e6a1b0ae6d0332.pt",
+      "device": 152,
+      "inode": 16485973337,
+      "size": 396062971,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793825201000000000,
+      "allocated": 396063232,
+      "sidecar_sha256": "6f868e97f296f1add1d16ecc7e5fc17bcb87b8b472e4db0ae2e425b9942fe02f",
+      "advertised_blob_sha256": "a92f64bbb24e374d5528c01d04da5bb285da1c9b1fc05d3951c05360dce5d127",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-1cb3b80123b6478c86ec39fef477be76.pt",
+      "device": 152,
+      "inode": 9979232810,
+      "size": 792151690,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829438000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "2fb571ac424148867d59ee73f9d68b2d8921e0fce703a6dac36c9a05d2ea8b0a",
+      "advertised_blob_sha256": "4f32f75d4ac47a467467935bfb7f77ca98008c0bae3cd764723d8fe0641c0b4c",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-74da347fe8bc436989fb9cbfa7f97e2a.pt",
+      "device": 152,
+      "inode": 9222896430,
+      "size": 792151690,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829056000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "cc5fbfa5502d0ff6d388ad9c971fdfcbfd150d62eec79cf5fa89d184e88d3c25",
+      "advertised_blob_sha256": "709ce58903682c891a810de2bf92fa419a2f5d9ddb2aefe2ae134f33712445cd",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-78ad5a5e0afb4c9eb16e129e55d44574.pt",
+      "device": 152,
+      "inode": 9223023918,
+      "size": 792151690,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829815000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "044b80a6f020d9806dbe6aad4559fa28f05376558e55f05bd0a469dff1876d29",
+      "advertised_blob_sha256": "d6c2db8c1d65f4ae8fd958e3b889111f5f3ca6204e518c5e653910e740a8d954",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-8ecda8e9eaa247dc8a738098c55a41de.pt",
+      "device": 152,
+      "inode": 9222970414,
+      "size": 792151690,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829431000000000,
+      "allocated": 792152064,
+      "sidecar_sha256": "ef58255bb5c2c98fa56285a5cc87d7aa9ecf78585da0f27904d58403c22ef8ac",
+      "advertised_blob_sha256": "ea9dfd52a86ae512e6ecaf1360e5d4805f72b06443b2e40f11fcfdf4e1fa3d87",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-d33bf1c4daee4f5e9818eefaf2d65c7a.pt",
+      "device": 152,
+      "inode": 9980250666,
+      "size": 792152138,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793833234000000000,
+      "allocated": 792152576,
+      "sidecar_sha256": "5038358085b94dfb9e0cb27d1a254b4b765567d4b6821b196de18e52fe58ec30",
+      "advertised_blob_sha256": "d0fef1a56f5ea50981f9d87b57757961481a4657e57990c7800dd2c1941f6b0a",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-f2a97b70765c403caa7de6a418d582f4.pt",
+      "device": 152,
+      "inode": 9224034350,
+      "size": 792152138,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793833227000000000,
+      "allocated": 792152576,
+      "sidecar_sha256": "8d0d277b0131eacc1c189b21317689df32d68dc4562f69e4a1a027943423383b",
+      "advertised_blob_sha256": "f1e00575774fca99760d0f68599ebc49850fa9a3905021085389076b5a4faf83",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R259",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-390608654231457bb57ca6c8a4d0aa7e.pt",
+      "device": 152,
+      "inode": 20065886322,
+      "size": 396063291,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793828612000000000,
+      "allocated": 396063744,
+      "sidecar_sha256": "11ab3bc4a814c7d25eb91a3fc3c28ff770c6ace71df32c6086b53eff0a1a52b9",
+      "advertised_blob_sha256": "b4f84380f840487eab74ef6008dc21cdf7c9be8adbd9d33aa4d613f72671a534",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-16591238f55e44bb870daa7d9bef0fb4.pt",
+      "device": 152,
+      "inode": 20567748453,
+      "size": 792155210,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793830366000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "e8ad546f775a0572bcc87f10bc09c5c755119f33cdff84a2c3cd935a3798b7ff",
+      "advertised_blob_sha256": "d5ea37faaa212f2add033042a9b0dfec582a9a3e3dfa850ec45651c141768b5c",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-24a8bd1559014f169dec4aa8a83c0b69.pt",
+      "device": 152,
+      "inode": 20567505253,
+      "size": 792155658,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829980000000000,
+      "allocated": 792156160,
+      "sidecar_sha256": "5d004f56972e170005613e65071b3c0f75e5abf25c168ebb3419469701d11a83",
+      "advertised_blob_sha256": "e435966f3bf875fd3ed3daaa51a1bedeee928dc43a6cbf5231c97e3f8edc03f6",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-49e9e3e62428415fa686e89bbda4b1a6.pt",
+      "device": 152,
+      "inode": 20569212261,
+      "size": 792155658,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793832689000000000,
+      "allocated": 792156160,
+      "sidecar_sha256": "ff4e62ecd7a2255cb994d34835ac6799f8144a522cc63eb24038f17332efa404",
+      "advertised_blob_sha256": "36ba87a697d70c3efd44f16fc97c24a2f349df0ea842c358f6207ae84c2d36a5",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-6bb16df0e5dc4b85959ea4eda2a8697b.pt",
+      "device": 152,
+      "inode": 9223332910,
+      "size": 792155210,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793830751000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "8debf2e1acd5290c64b55520583621f40d5a566e8ce28feeeb3d14b14547de3c",
+      "advertised_blob_sha256": "bf74aa4ec1b75136c13f1b4d798f47348b26c203e2746da152520369821f4f5d",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a06e4bad3da44abc9a870f8f4f433747.pt",
+      "device": 152,
+      "inode": 9222993966,
+      "size": 792155210,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829591000000000,
+      "allocated": 792155648,
+      "sidecar_sha256": "05bdab1929bd5fff21e8a4de1a2c3d8b48a0fab9fabb5d836c1d6d0ab2310ac4",
+      "advertised_blob_sha256": "a2956f6a58a5f8b34a02f1136f9aa9d305202671149dd3c2742dfb34cf0842cf",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-dbb0e5a9317348f6aa1c16d1ec62ad45.pt",
+      "device": 152,
+      "inode": 20569210725,
+      "size": 792155658,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793832682000000000,
+      "allocated": 792156160,
+      "sidecar_sha256": "9499115a6455550a4752fa303a17e68bd3b3ac5308fbcc79ae762cea719b9e7d",
+      "advertised_blob_sha256": "8773b9126dca6e73f1f5bea17296438258eba4ffb7f721ccd18c8bdeb7332f09",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-e2954e80c1ae4e57a68ecb4ebe475dd2.pt",
+      "device": 152,
+      "inode": 9223059246,
+      "size": 792155658,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829973000000000,
+      "allocated": 792156160,
+      "sidecar_sha256": "e8034d35b7beb2c8da1dd21328371246e558774c64dd05c3524e31078c000643",
+      "advertised_blob_sha256": "53056972eefd14a14baf4de317c5daf59b47d785c7140ad7e211d556d0635c8c",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    },
+    {
+      "label": "R260",
+      "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/initial-checkpoint/checkpoint-f87a974121364c38a5237e1c7a45fd14.pt",
+      "device": 152,
+      "inode": 9536632627,
+      "size": 396066811,
+      "mode": 33188,
+      "nlink": 1,
+      "mtime_ns": 1793829146000000000,
+      "allocated": 396066816,
+      "sidecar_sha256": "f6386308e2bf759a10d64ea2496791d499ace198d2fb00b9b445c6ee8740a8d6",
+      "advertised_blob_sha256": "fb8757baa5d83ddcf73e772eea92171364fb98b8f2e4d1f576b4ab28be8221eb",
+      "delete_kind": "closed_round_checkpoint",
+      "archived_result": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      }
+    }
+  ],
+  "skipped": [],
+  "protected_paths": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r17/outputs/r17-4c-tiny-a25-b64-focal2-fp32-ema/convnext-tiny/checkpoints/checkpoint-3605c1e0daa54e9c8245f8c1a46f1afb.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc998-20261025/coordination-huazhong8-20261025/r8/outputs/r8-6c-c25-image-ema/convnext-tiny/checkpoints/checkpoint-13b0fefa45b04850b77228c0cfb751c8.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v2/auroc999-20261027/rounds/N06/outputs/n06-4c-flairr50-s20261027-b64-p8-fp32-fixedbn-ema/flair-resnet50/checkpoints/checkpoint-db81bb8873024958ad67a8a4fc5cd55f.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-cc9a8599bd364c768bfa2be96063eac5.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-cc9a8599bd364c768bfa2be96063eac5.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-bfe45054129848d3a84cd144834c5a36.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-bfe45054129848d3a84cd144834c5a36.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-8e5b065d24db4c87b8032cc873885cf4.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-8e5b065d24db4c87b8032cc873885cf4.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-332fc46fc037436087c44b1a5b21a64a.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-332fc46fc037436087c44b1a5b21a64a.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-934e2774e1424df8a2ec0ed2d001e01b.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-934e2774e1424df8a2ec0ed2d001e01b.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-b704773ecda94451b3d3af8c1a6e277f.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-b704773ecda94451b3d3af8c1a6e277f.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a70705c047e44526af3cfdff528ae3b6.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a70705c047e44526af3cfdff528ae3b6.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3cf74e82b81c4ac9bc24ca404554e7bf.pt",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3cf74e82b81c4ac9bc24ca404554e7bf.pt.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/storage/KEEP-MODELS.json"
+  ],
+  "protected_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/assets",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/cache",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/control",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/data",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/final",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/R134R1-FIT-CENSUS-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r100-tiny22k-focal2-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r101-tiny22k-seed20261029-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r102-small22k-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r103-small22k-seed20261029-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r104-small22k-scale085-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r105-small22k-scale085-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r106-small22k-seed20261029-scale085-views2-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r107-small22k-seed20261029-scale085-pairlog-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r108-small22k-seed20261027-scale085-pairlog-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r109-small22k-seed20261029-scale085-pairlog-pos4-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r110-small22k-seed20261029-scale085-pairlog-sd0-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r111-r50-imagenetv2-seed20261029-publicbn-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r112-r50-imagenetv2-seed20261029-fitbn-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r113-small22k-seed20261029-freezeearly-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r114r1-small22k-seed20261029-scale085-pairlog-laststride1-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r115-small22k-seed20261029-scale085-pairlog-fitssl1600-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r116-base22k-seed20261029-scale085-pairlog-24k-p4-9010-20261030",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r117-swinbase22k-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r118-resnet50-dino-seed20261029-fixedbn-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r121-small22k-seed20261027-scale085-pairsigmoid-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r122-small22k-seed20261029-scale085-pairlog-photoidentity-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r123-small22k-seed20261029-scale085-pairlog-noage-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r124r1-small22k-seed20261029-scale085-pairlog-contentpool-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r125-small22k-seed20261029-scale085-pairlog-stage3residual-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r126-small22k-seed20261029-scale085-pairlog-roleclip1-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r127-small22k-seed20261029-scale085-pairlog-rotationidentity-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r128-small22k-seed20261029-scale085-pairlog-headwarmup1600-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r129-small22konly-seed20261029-scale085-pairlog-24k-p4-9010-20261031",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r130r1-small22k-seed20261029-scale085-pairlog-layerdecay08-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r131-small22k-seed20261029-scale085-pairlog-pointwise-lora8-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r132-small22k-seed20261029-scale085-pairlog-logitsquare01-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r133-small22k-seed20261029-scale085-pairlog-tri3downsample-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r135-small22k-seed20261029-scale085-pairlog-stem-rgbxy-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r136-small22k-seed20261029-scale085-pairlog-rawgc-convlinear-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r137-small22k-seed20261029-scale085-pairlog-lion10x-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r139-small22k-seed20261029-scale085-pairlog-localcontrast10-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r141-dinov2s14-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r143-small22k-seed20261029-scale085-pairlog-brightcenter-half-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r144-small22k-seed20261029-scale085-pairlog-nativebright-half-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r146-small22k-seed20261029-scale085-pairlog-inset256-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r148-small22k-seed20261029-scale085-pairlog-nostoch-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r150r1-small22k-seed20261029-scale085-pairlog-native6-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r152-small22k-seed20261029-scale085-pairlog-global768-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r154-swinv2small1k-seed20261029-scale085-pairlog-24k-p4-9010-20261101",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r156-small22k-seed20261029-scale085-pairlog-positive-top2-mix05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r158-small22kpublic384-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r160-small22k-seed20261029-scale085-batch-aucmargin1-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r162-small22k-seed20261029-scale085-pairlog-cosine16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r164-deit3-small-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r166-deit3-small-seed20261029-scale085-pairlog-meanpatch-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r168-small22k-seed20261029-scale085-pairlog-adamw-beta2-095-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r170-baseclip-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r172-small22k-seed20261029-scale085-pairlog-corner288max05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r174-baseclip-seed20261029-scale085-pairlog-storage16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r176-small-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r178-small-seed20261029-scale085-pairlog-bce-mix05-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r180-large22k-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r182-large-dinov3-seed20261029-scale085-pairlog-storage32-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r184r1-vits-dinov3-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r186-caformer-s36-seed20261029-scale085-pairlog-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r189-vits-dinov3-seed20261029-scale085-pairlog-cls-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r191-vitb-dinov3-seed20261029-scale085-pairlog-cls-storage16-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r193-small22k-seed20261029-scale085-pairsigmoid-backbonelr5e5-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r195-small22k-seed20261029-scale085-pairsigmoid-decay8000-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r197-small22k-seed20261029-scale085-pairsigmoid-gamma075-24k-p4-9010-20261102",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r199-small22k-seed20261029-scale085-pairsigmoid-wd005-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r201-small22k-seed20261029-scale085-pairsigmoid-wide2-peakgrad-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r203-vitb-dinov3-seed20261029-pairlog-cls-lr1e5-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r205-small22k-seed29-pairlog-neg14mix05-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r207-small22k-seed29-pairsqhinge-m1q025-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r209-small22k-seed29-pairlog-amsgrad-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r211-small22k-seed29-pairlog-nadam-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r213-effv2rws-seed29-publicbn-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r215-siglip2-vitb16-seed29-publicmap-unit-pairlog-storage24-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r217-small22k-seed29-pairlog-ema09999-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r219-small12k-seed29-public384-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r1-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r221r2-eva02-base-seed29-native512pad6-clip-pairlog-storage16-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r224-small-fitmim1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r226-small-fithog1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r228-small-fitlocal1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r230-small-fitassign1600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r232-small-fitassign9600-seed29-pairlog-24k-p4-9010-20261103",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r234-small-fitntxent1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r236r2-small-fitntxentcolor1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r238-small-fitlabelcon1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r240r1-small-fitlabelquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r242-small-fitsupminquota1600-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r244-small-r120replica-seed20261104-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r245-small-r120replica-seed20261105-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r246-small-quadrant-seed29-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r247-large-dinov3-seed29-pairlog-storage32-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r248-large22k-seed29-pairlog-storage32-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r251-small-quadrant-seed20261106-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r252-small-wide2-seed20261107-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r262-small-seed20261118-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r93-tiny22k-9010-20261028",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r94-tiny22k-lr1e4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r95-tiny22k-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r96-tiny22k-lr5e5-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r97-tiny22k-head5e4-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r98-tiny22k-head2e3-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r99-tiny22k-drop04-24k-p4-9010-20261029",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/submissions",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/tmp"
+  ],
+  "candidate_round_roots": [
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104",
+    "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104"
+  ],
+  "work_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3",
+  "proofs": {
+    "R253": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R253-A-SAFE.json",
+        "sha256": "56a69d956b7e58bcc1c14bafd5582046513aef5ca4779290d3d26b0768e3c514",
+        "git_blob": "2c8c9ffc0e261fb04d4d1f693e87ec1a1fa6101d"
+      },
+      "freeze_sha256": "d70a7cd0b336820c3c2083905b9cae749de5d1cbc2ae743dbb6a971457138f14",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104/outputs/r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261108-b64-p8-fp32/convnext-small/checkpoints/checkpoint-cc9a8599bd364c768bfa2be96063eac5.pt",
+      "selected_blob_sha256": "7b0d7bd32f09a470914dd63ece0116df46143d79fff77ad13639eaeef24d11fa",
+      "selected_sidecar_sha256": "4297743cb92a9584b4abf49077f60d8601864d13e2d2bfaca808370c7845e957",
+      "candidate_count": 7
+    },
+    "R254": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R254-B-SAFE.json",
+        "sha256": "6b289755d46d341428499ae2b7d9caab3ee9b9698f11f54daa9b799250adee99",
+        "git_blob": "7a625e404be285020a9963acf695bd67e9d12e92"
+      },
+      "freeze_sha256": "6d0b4dafa349d774b1ecc71cbc4f99007e062c568569381536715f774972f907",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104/outputs/r254-small-seed20261109-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261109-b64-p8-fp32/convnext-small/checkpoints/checkpoint-bfe45054129848d3a84cd144834c5a36.pt",
+      "selected_blob_sha256": "c879057d1f94c661c7a7c5c75d6a73d947ad8c042187a31860e52c8c0fe9312c",
+      "selected_sidecar_sha256": "6a207208a7bde5ee74c52bd08d849ab77dd6e9d0cac066e674adcd2d13660068",
+      "candidate_count": 7
+    },
+    "R255": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R255-B-SAFE.json",
+        "sha256": "29d27ef6a787ab62e1ff30b150eb413f4da595f31b6530b339c0238382b2cbb7",
+        "git_blob": "3c04ef6aa976b9872da18987651588db1a90f9d2"
+      },
+      "freeze_sha256": "82740f2a1661ee1863f8baf562e9ccbf2e124d81087700065932729b62e04f3b",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104/outputs/r255-vits16-dinov3-seed20261110-quadrantpool-pairlog-24k-p4-9010-20261104-8c-vit_dino3_small-s20261110-b64-p8-fp32/vit-dino3-small/checkpoints/checkpoint-8e5b065d24db4c87b8032cc873885cf4.pt",
+      "selected_blob_sha256": "59007fe60090434dcdd47203dddcc0ff55d6496ab857c10d366fc423c97b40a8",
+      "selected_sidecar_sha256": "3e92b152108caa3a85fc73c856061535c6ac0765eb077fa5c1868c74019d0b7d",
+      "candidate_count": 8
+    },
+    "R256": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r255-r258-20261104/R256-A-SAFE.json",
+        "sha256": "eed0cc8b56736684360516c59ef7be28f284f8773d49e422a1468a2385e5b360",
+        "git_blob": "7582bcc2567b0ec90ac9aacdf7e312fca4ac2a06"
+      },
+      "freeze_sha256": "c3ae58194dcb2b16ed33de1e2c90a62af87b567a6a59d86fa97bba0eb5b3605a",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104/outputs/r256-small-seed20261111-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261111-b64-p8-fp32/convnext-small/checkpoints/checkpoint-332fc46fc037436087c44b1a5b21a64a.pt",
+      "selected_blob_sha256": "7f1b0bb2e8ebebefc852963623ba5a6a493f5934bf05191b9a47c7e5c4db04e0",
+      "selected_sidecar_sha256": "bc89c31f0ee199fe8b43bea7ec9722c9b56fdc53f31b47da26a6759003fdf69b",
+      "candidate_count": 8
+    },
+    "R257": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R257-B-SAFE.json",
+        "sha256": "e69c1e7b09ed2df5b98a477b97b18ddd8500acf3717a743f30f7fd8383d03e76",
+        "git_blob": "2f52e049c5719661da7941af04216f168f9f5104"
+      },
+      "freeze_sha256": "e426204aa4b3e6ab0e2bdbac4fb3de42b843673a9dfdb0a9e66e9e0af66e1f4c",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104/outputs/r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261113-b64-p8-fp32/convnext-small/checkpoints/checkpoint-934e2774e1424df8a2ec0ed2d001e01b.pt",
+      "selected_blob_sha256": "aab5540ea63adaff80261776340d41a16a0a716f9ef74b9aa666d8d6ddd3f3b2",
+      "selected_sidecar_sha256": "e27e4d34475af2c4ba959a63e904a33767a19cda44c0990dc4e9a7abb35669f5",
+      "candidate_count": 8
+    },
+    "R258": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/preparation/r259-r260-20261104/R258-A-SAFE.json",
+        "sha256": "677c5a90a5a607d103d2407dac6acec408cf417152bd68f9e4dfdd06def81883",
+        "git_blob": "98c554f83042d384ce36eb39380662bde4b41b60"
+      },
+      "freeze_sha256": "6fdfb65fa05348c608100f95ab71560bf51a272ccafbe09de01adf97e36518d8",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104/outputs/r258-small-seed20261114-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261114-b64-p8-fp32/convnext-small/checkpoints/checkpoint-b704773ecda94451b3d3af8c1a6e277f.pt",
+      "selected_blob_sha256": "348543fe4fd25ba93d174890077c4a20a084f54f93a38e795e41fdceeea86391",
+      "selected_sidecar_sha256": "7b48a2eeb1bf71c8dcb39c89d5f4f6a65818a3ddeef061858a1de3de3c538623",
+      "candidate_count": 7
+    },
+    "R259": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R259/R259-COMPLETION-08ac.json",
+        "sha256": "e51f43bc0997c346a8d6cb1458ce5ed6f810e7c59001524288f3c9bd4c3673e0",
+        "git_blob": "791b09b4afb76bb204c15665f4c2afd23e080511"
+      },
+      "freeze_sha256": "40061b4f2c82a74c706c80818c950c6fd46fae42202eb0db8b14b9344f3777be",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104/outputs/r259-small-wide2-seed20261115-pairsigmoid-24k-p4-9010-20261104-8c-convnext_small-s20261115-b64-p8-fp32/convnext-small/checkpoints/checkpoint-a70705c047e44526af3cfdff528ae3b6.pt",
+      "selected_blob_sha256": "d45f2f45134ba629b1148a564d9b91a5221498d16ee6eaa35b3f8d4b494dcd75",
+      "selected_sidecar_sha256": "3bbecfab4ede09f58f986d107dcb5bde5e8b494026cea0f2b184f9b57721f9e2",
+      "candidate_count": 7
+    },
+    "R260": {
+      "archive": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-IDLE-PUBLISHED-v1/source-git/records/R260/R260-COMPLETION-08ac.json",
+        "sha256": "496a904b15c700ff13b47d1d74bcd51aee6bfc86f682d9275f534c4157226b23",
+        "git_blob": "3247760cef1515e98ccff01829905f6319e89e79"
+      },
+      "freeze_sha256": "bdb4a96241ecb728cebeab11deaea18ed74d40fdf109d243c71be24757287b3e",
+      "selected_path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104/outputs/r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104-8c-convnext_small-s20261116-b64-p8-fp32/convnext-small/checkpoints/checkpoint-3cf74e82b81c4ac9bc24ca404554e7bf.pt",
+      "selected_blob_sha256": "f7a2f56e46749788434f082c01bedcb03af6c633e6e181c8251ff0c0c4d973df",
+      "selected_sidecar_sha256": "3e478727f73457caf0c5951220764db77690d5e2240d55663a687328003495db",
+      "candidate_count": 8
+    }
+  },
+  "sidecar_index_lock_or_one_shot_to_delete": false
+}
