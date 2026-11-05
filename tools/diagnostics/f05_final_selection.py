@@ -32,9 +32,13 @@ def _sha(path):
     return result.hexdigest()
 
 
+def _is_sha(value):
+    return isinstance(value, str) and re.fullmatch('[0-9a-f]{64}', value) is not None
+
+
 def _pinned(reference):
     if (not isinstance(reference, dict) or not isinstance(reference.get('path'), str)
-            or not re.fullmatch('[0-9a-f]{64}', reference.get('sha256', ''))):
+            or not _is_sha(reference.get('sha256'))):
         raise ValueError('explicit pinned receipt required')
     path = Path(reference['path'])
     if path.is_symlink() or not path.is_file() or _sha(path) != reference['sha256']:
@@ -90,8 +94,7 @@ def verify_round_export(row, receipt_ref, *, inventory_sha, approved, adaptation
                 or f03_candidate_gate(row, THRESHOLD, approved)[0] != 'eligible'
                 or len(row.get('checkpoint_candidates', [])) != 1
                 or row['selected'].get('variant') not in ('online', 'ema')
-                or not re.fullmatch('[0-9a-f]{64}', row['selected'].get('tensor_sha256', ''))
-                or not re.fullmatch('[0-9a-f]{64}', inventory_sha or '')):
+                or not _is_sha(row['selected'].get('tensor_sha256')) or not _is_sha(inventory_sha)):
             raise ValueError('eligible unique non-medical selected candidate required')
         exported = _pinned(receipt_ref)
         checkpoint = row['checkpoint_candidates'][0]
@@ -164,7 +167,7 @@ def verify_round_export(row, receipt_ref, *, inventory_sha, approved, adaptation
             path = Path(weight['path'])
             if (path.is_symlink() or not path.is_file() or type(weight['bytes']) is not int
                     or weight['bytes'] <= 0 or path.stat().st_size != weight['bytes']
-                    or not re.fullmatch('[0-9a-f]{64}', weight.get('sha256', ''))
+                    or not _is_sha(weight.get('sha256'))
                     or _sha(path) != weight['sha256']):
                 raise ValueError('complete strictly reloaded exported weight is missing or changed')
             sizes[precision + '_bytes'] = weight['bytes']
@@ -172,7 +175,7 @@ def verify_round_export(row, receipt_ref, *, inventory_sha, approved, adaptation
                 'variant': row['selected']['variant'], 'tensor_sha256': row['selected']['tensor_sha256'],
                 'selected_blob_sha256': row['selected_blob_sha256'], 'export_receipt_sha256': receipt_ref['sha256'],
                 'fp16_sha256': exported['exports']['fp16']['sha256'], **sizes}
-    except (KeyError, TypeError, IndexError, OSError) as error:
+    except (KeyError, TypeError, IndexError, AttributeError, OSError) as error:
         raise ValueError('complete independently pinned selected/export evidence required') from error
 
 
@@ -288,8 +291,7 @@ def verify_soup_export(discovery, evidence, *, approved, allow_fixture=False):
 def screen_candidates(candidates, evidence, *, inventory_sha, soup_catalog_sha, approved, allow_fixture=False):
     """Report unknown evidence explicitly; never treat it as a loadable member."""
     if (not isinstance(candidates, list) or not isinstance(evidence, dict)
-            or not re.fullmatch('[0-9a-f]{64}', inventory_sha or '')
-            or not re.fullmatch('[0-9a-f]{64}', soup_catalog_sha or '')
+            or not _is_sha(inventory_sha) or not _is_sha(soup_catalog_sha)
             or any(item.get('order') != i for i, item in enumerate(candidates))
             or len({item.get('id') for item in candidates}) != len(candidates)
             or not set(evidence) <= {item.get('id') for item in candidates}):
@@ -303,13 +305,36 @@ def screen_candidates(candidates, evidence, *, inventory_sha, soup_catalog_sha, 
         if _forbidden_id(name):
             excluded.append({'id': name, 'reason': 'medical_pretraining_forbidden'}); continue
         if kind == 'round':
-            selected_auroc = (row.get('selected') or {}).get('auroc')
+            status = row.get('status')
+            if status in ('unknown_or_excluded', 'selected_checkpoint_ambiguous'):
+                unknown.append({'id': name, 'reason': status}); continue
+            if status == 'selected_checkpoint_missing':
+                selected = row.get('selected')
+                spec = row.get('spec')
+                if not isinstance(selected, dict) or not isinstance(spec, dict):
+                    unknown.append({'id': name, 'reason': 'missing_checkpoint_inventory_inconsistent'}); continue
+                value = selected.get('auroc')
+                if (row.get('checkpoint_candidates') != [] or type(value) not in (int, float)
+                        or not math.isfinite(value) or not 0 <= value <= 1
+                        or selected.get('variant') not in ('online', 'ema')
+                        or not _is_sha(selected.get('tensor_sha256'))
+                        or not _is_sha(row.get('selected_blob_sha256'))
+                        or not isinstance(spec.get('freeze'), dict)
+                        or not isinstance(row.get('science'), dict)):
+                    unknown.append({'id': name, 'reason': 'missing_checkpoint_inventory_inconsistent'}); continue
+                excluded.append({'id': name, 'reason': 'selected_checkpoint_missing'}); continue
+            if status != 'prediction_verified_weight_pending':
+                unknown.append({'id': name, 'reason': 'unrecognized_or_incomplete_discovery'}); continue
+            if not isinstance(row.get('selected'), dict):
+                unknown.append({'id': name, 'reason': 'incomplete_candidate_discovery'}); continue
+            selected_auroc = row['selected'].get('auroc')
             if (type(selected_auroc) in (int, float) and math.isfinite(selected_auroc)
                     and 0 <= selected_auroc < THRESHOLD):
                 excluded.append({'id': name, 'reason': 'below_fixed_selected_auroc_threshold'}); continue
-            if row.get('status') == 'selected_checkpoint_missing':
-                unknown.append({'id': name, 'reason': 'selected_checkpoint_missing'}); continue
-            state, reason = f03_candidate_gate(row, THRESHOLD, approved)
+            try:
+                state, reason = f03_candidate_gate(row, THRESHOLD, approved)
+            except (KeyError, TypeError, AttributeError):
+                unknown.append({'id': name, 'reason': 'incomplete_candidate_discovery'}); continue
             if state == 'excluded':
                 excluded.append({'id': name, 'reason': reason}); continue
             if state == 'pending':

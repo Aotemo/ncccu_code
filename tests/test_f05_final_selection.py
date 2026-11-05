@@ -234,12 +234,31 @@ class F05FinalSelectionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 final.freeze_selection(screen)
             missing['status'] = 'selected_checkpoint_missing'
-            missing['selected']['auroc'] = .987
+            missing['checkpoint_candidates'] = []
             screen = final.screen_candidates(candidates, {row['round_id']: receipt},
                 inventory_sha='e' * 64, soup_catalog_sha='d' * 64,
                 approved={'a' * 64: 'general'}, allow_fixture=True)
             self.assertFalse(screen['unknown'])
-            self.assertEqual(screen['excluded'][0]['reason'], 'below_fixed_selected_auroc_threshold')
+            self.assertEqual(screen['excluded'][0]['reason'], 'selected_checkpoint_missing')
+            for status in ('unknown_or_excluded', 'selected_checkpoint_ambiguous'):
+                missing['status'] = status
+                missing['selected']['auroc'] = .987
+                screen = final.screen_candidates(candidates, {row['round_id']: receipt},
+                    inventory_sha='e' * 64, soup_catalog_sha='d' * 64,
+                    approved={'a' * 64: 'general'}, allow_fixture=True)
+                self.assertEqual([item['id'] for item in screen['unknown']], [missing['round_id']])
+            missing['status'] = 'selected_checkpoint_missing'
+            missing['checkpoint_candidates'] = [{'path': '/contradiction'}]
+            screen = final.screen_candidates(candidates, {row['round_id']: receipt},
+                inventory_sha='e' * 64, soup_catalog_sha='d' * 64,
+                approved={'a' * 64: 'general'}, allow_fixture=True)
+            self.assertEqual(screen['unknown'][0]['reason'], 'missing_checkpoint_inventory_inconsistent')
+            missing['checkpoint_candidates'] = []
+            missing['selected']['tensor_sha256'] = None
+            screen = final.screen_candidates(candidates, {row['round_id']: receipt},
+                inventory_sha='e' * 64, soup_catalog_sha='d' * 64,
+                approved={'a' * 64: 'general'}, allow_fixture=True)
+            self.assertEqual(screen['unknown'][0]['reason'], 'missing_checkpoint_inventory_inconsistent')
 
     @unittest.skipIf(final is None, 'selector not implemented')
     def test_task_fit_adaptation_needs_its_own_matching_provenance(self):
@@ -318,7 +337,6 @@ class F05FinalSelectionTests(unittest.TestCase):
         self.assertEqual(result['metrics']['auroc'], 1.)
         with self.assertRaises(ValueError):
             final.fuse_internal_dev([1, 0, 1, 0], {'a': [1, 1, 1, 1]}, ['a'])
-
 
 if __name__ == '__main__':
     paths = ('tools/diagnostics/f05_final_selection.py', 'tests/test_f05_final_selection.py',
