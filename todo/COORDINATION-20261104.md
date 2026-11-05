@@ -65,3 +65,15 @@
 - **R268/A 失败（13:07:16）**：`resource_guard:budget:FileNotFoundError`——`run_round.py::tree_bytes` 遍历 `outputs/` 时，初始化临时目录 `.…initializing-5a5e3e05…/code` 恰被重命名，`lstat` 抛错；component exit -15。失败回执 `control/done.json`、`train-component-terminal.json`（`713df5f6…`）保留；clock/token 已消费，未重置。属资源测量竞态，非科学参数或数据问题。
 - 本轮 CPU 准备池改为互斥 12/12：主 `6e2460bb…` mask 0–11、助手 `5ae33039…` mask 12–23，A allocation `…/takeover-20261105-ds2/pod-a/CPU-ALLOCATION-20261105T1320Z.json` SHA `e5f1806c3dc2dfa27ca3613651c240e688caf8116aa707cf21d447cfbbe25023`，B allocation `…/pod-b/CPU-ALLOCATION-20261105T1320Z.json` SHA `5e005c0dc9d38ab4df1b4484a55844eb404df52af60182a1c1fdb21b9f8bf039`，valid_until ≈1793889570。助手 context：`/home/hao/Desktop/challenge/work/takeover-20261105-ds2/helper-pod-a-prep.env`、`helper-pod-b-prep.env`；助手 NFS 根 `…/technical-prep/helper-20261105-5ae33039`。GPU 训练维持 80/20，准备任务只用自己的 12 核。
 - 助手分支 `helper/ds-20261105`（fc2a4df、382dd6d）待主执行者审阅；其说明不合并旧版 `f05_oof_targets.py`（须保留 main 的 CALIBRATION_THREADS=8/threadpool_limits）与依赖仓库外私有快照的 short_chain 测试。
+
+## 2026-11-05 14:20 UTC R268-R1 首成功与 R269/B 状态
+
+- R268/A 失败根因：`runtime/run_round.py::tree_bytes` 在 `os.walk` 列出 `outputs/…initializing-5a5e3e05…/code` 后、`real_directory` lstat 前该目录被原子重命名，`FileNotFoundError` 终止 component（exit -15）。失败回执 `control/done.json`、`train-component-terminal.json`（`713df5f6…`）保留，clock/token 未重置。
+- 修复 `e455f7c`：目录项 lstat 消失与 os.walk 的 `FileNotFoundError/NotADirectoryError` 均跳过，计入 `SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances']`，`budget.scan_unknown_leaves` 一并计入；其他错误仍 fatal；每轮扫描重置计数。Pod A 0–11 隔离 RED（HEAD 2 用例失败）→ GREEN（4/4，guard `dd9e2db…`）。
+- 合并 `85ca56e`：helper/ds-20261105 四个提交（F05 三折候选/选员、提交集聚合、P3 重合），未合旧 `f05_oof_targets.py` 与 short_chain 私有快照测试。
+- R268-R1 身份登记 `696b4d7`：`experiment91.ENSEMBLE_MEMBER_ROUNDS` 与 `validate_f05_training_science` 增加 `r268-r1-…` 别名，指向同一 F05_CLEAN_PROFILE（seed 20261201、初态 `6e2e8f4b…`）；命名满足 async_handoff 的 `^r[0-9]+-[A-Za-z0-9-]+$`。别名窄测 Pod A OK（guard `3c777bfd…`）。
+- R268-R1 正式准备（源码 696b4d7，3564 文件，tree `d6e8dc66…`，proof `afaf6bca…`，archive `…`）：TECHNICAL 0 / FORMAL-SITE 0 / FORMAL-CPU 19/19（receipt `606deef4…`）/ DEPLOYMENT 0（`6152d881…`）；PREPARATION `3a4165d0…`，site `6338e798…`，grant 至 1793930520。safe window：free 78,126,252,032 ≥ required 40,473,725,157，8 卡 0%，回执 CPU `24cbefb7…`。
+- 开训：14:10:36 launch exit0（`91dc8b0a…`），8 rank 14:12:21 全部在位；14:17:29 rank-0 记录 `successful_updates=500`、`skipped=false`、8 rank 输入齐全，GPU 采样最高 100%。首成功回执 `R268-R1-A-ready-v1/START-OBSERVATION-first-v2.json`（v1 保留，v2 补齐 launch SHA）。
+- A 空闲区间：13:07:16 失败 → 14:10:36 新身份 launch，63m20s；原因为竞态修复（RED/GREEN）、helper 分支合并、别名登记与两轮完整重新准备（7c5501f 一次因 round 命名不符 async_handoff 正则而在派发前 exit 2，未建 clock）。
+- 资源：A/B 准备池新 allocation `20261105T1407Z`（A `a212c86c…`，B `2b29e66b…` 对应 1340Z）均为 12/12，主 0–11、助手 12–23。两次正式 CPU 的 guard 任务回执 exit 2（`runnable_thread_budget_respected=false`，峰值 15 > 12，child exit 0、affinity_violations 空）；如实记录，准备证据仍为 19/19。
+- R269/B：8 worker 继续运行、无 done；旧 run_round 不热改，仅监控。
