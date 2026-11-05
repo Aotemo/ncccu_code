@@ -260,6 +260,7 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261117_BINDING,
     'r262-small-seed20261118-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261118-scale085-pairsigmoid-v1',
     'r263-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261119_BINDING,
+    'r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261119_BINDING,
     'r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261120-scale085-pairsigmoid-v1',
 }
 

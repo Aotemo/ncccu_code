@@ -84,6 +84,23 @@ def verify_local_source(source, uid):
     return mount_type(source)
 
 
+def verify_local_receipt(source, uid, commit, tree, receipt, files):
+    """Require the archived whole-tree proof for this exact Pod-local snapshot."""
+    verify_local_source(source, uid)
+    if (not isinstance(receipt, dict)
+            or receipt.get('status') != 'published_full_git_tree_verified_not_formal_deployment'
+            or receipt.get('source_root') != str(source) or receipt.get('pod_uid') != uid
+            or receipt.get('commit') != commit or receipt.get('tree') != tree
+            or not re.fullmatch(r'[0-9a-f]{40}', commit or '')
+            or not re.fullmatch(r'[0-9a-f]{40}', tree or '')
+            or not re.fullmatch(r'[0-9a-f]{64}', receipt.get('archive', {}).get('sha256', ''))
+            or not isinstance(files, dict) or receipt.get('file_count') != len(files)
+            or receipt.get('file_sha256_map_digest') != hashlib.sha256(
+                json.dumps(files, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+            or receipt.get('GPU_initialized') is not False):
+        raise ValueError('local source full-tree receipt differs')
+
+
 def own_published_files(metadata, helper_root):
     entries = {row['path']: row for row in metadata['tree'] if row.get('type') == 'blob'}
     for name in ('tools/activation/local_snapshot.py', 'tools/activation/freeze_deployment.py'):

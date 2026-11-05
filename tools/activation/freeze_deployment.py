@@ -1,6 +1,7 @@
 """Bind a CPU-built package to actual bytes from the verified remote Git tree."""
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -57,6 +58,8 @@ def main():
                  'remote-commit', 'remote-commit-json', 'remote-commit-json-sha256',
                  'prep-root', 'package-manifest-sha256', 'output'):
         parser.add_argument('--' + name, required=True)
+    parser.add_argument('--local-source-proof')
+    parser.add_argument('--local-source-proof-sha256')
     args = parser.parse_args()
     source = Path(args.source_root).resolve(strict=True); prep = Path(args.prep_root).resolve(strict=True)
     require(re.fullmatch('[0-9a-f]{40}', args.git_commit) and args.git_commit == args.remote_commit,
@@ -86,8 +89,22 @@ def main():
     site = validate_site(site); require_cpu_channel(site)
     require(site.get('scope') == 'formal_exp_v3' and site['git_commit'] == args.git_commit
             and site.get('source_state', {}).get('kind') == 'remote_commit_frozen', 'formal remote source binding required')
-    for path in (source, prep, Path(args.remote_tree), Path(args.remote_commit_json), Path(args.output)):
+    require(bool(args.local_source_proof) == bool(args.local_source_proof_sha256),
+            'local source proof and SHA must be supplied together')
+    for path in (prep, Path(args.remote_tree), Path(args.remote_commit_json), Path(args.output)):
         evidence_path(path, site['work_root'])
+    if args.local_source_proof:
+        proof_path = evidence_path(args.local_source_proof, Path(site['work_root']) / 'technical-prep')
+        require(re.fullmatch('[0-9a-f]{64}', args.local_source_proof_sha256)
+                and sha(proof_path) == args.local_source_proof_sha256, 'local source proof SHA differs')
+        helper = source / 'tools/activation/local_snapshot.py'
+        require(files.get('tools/activation/local_snapshot.py') == sha(helper), 'local source helper differs')
+        spec = importlib.util.spec_from_file_location('verified_local_snapshot', helper)
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        module.verify_local_receipt(source, site['pod']['uid'], args.git_commit, args.tree_sha,
+                                    json.loads(proof_path.read_text()), files)
+    else:
+        evidence_path(source, site['work_root'])
     require('technical-prep' in source.parts and 'technical-prep' in Path(args.output).parts,
             'frozen source and deployment evidence must remain in technical-prep')
     result = {'schema_version': 1, 'status': 'frozen_from_remote_commit', 'scope': 'formal_exp_v3',
@@ -97,6 +114,8 @@ def main():
         'remote_tree_metadata': {'path': args.remote_tree, 'sha256': args.remote_tree_sha256},
         'remote_commit_metadata': {'path': args.remote_commit_json, 'sha256': args.remote_commit_json_sha256},
         'GPU_started': False, 'formal_clock_created': False}
+    if args.local_source_proof:
+        result['local_source_proof'] = {'path': args.local_source_proof, 'sha256': args.local_source_proof_sha256}
     with Path(args.output).open('x') as stream:
         json.dump(result, stream, indent=2, allow_nan=False); stream.write('\n')
     print(json.dumps({'status': result['status'], 'receipt': args.output, 'sha256': sha(args.output),

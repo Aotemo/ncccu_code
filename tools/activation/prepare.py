@@ -27,6 +27,23 @@ def write(path, value):
         json.dump(value, stream, indent=2, allow_nan=False); stream.write('\n')
 
 
+def science_binding_path(source, binding, work_root):
+    source = Path(source)
+    if binding is None:
+        return source
+    binding, work_root = Path(binding), Path(work_root)
+    if (not binding.is_absolute() or not work_root.is_absolute() or binding.is_symlink()
+            or not binding.is_file() or not binding.resolve().is_relative_to(work_root.resolve() / 'technical-prep')
+            or sha(binding) != sha(source)):
+        raise ValueError('science binding must be an exact regular technical-prep byte copy')
+    for parent in (binding.parent, *binding.parents):
+        if parent == work_root.parent:
+            break
+        if parent.is_symlink():
+            raise ValueError('science binding cannot traverse a symlink')
+    return binding
+
+
 def parser():
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument('--source-root', type=Path, required=True)
@@ -35,6 +52,7 @@ def parser():
     result.add_argument('--output', type=Path, required=True)
     result.add_argument('--site-binding', type=Path)
     result.add_argument('--site-binding-sha256')
+    result.add_argument('--science-binding-path', type=Path)
     result.add_argument('--work-root', type=Path)
     result.add_argument('--round-id')
     result.add_argument('--git-base')
@@ -90,10 +108,13 @@ def build(args):
     from retrain.site_binding import load_site, require_cpu_channel
     if bool(args.site_binding) != bool(args.site_binding_sha256):
         raise ValueError('site binding path and SHA must be supplied together')
-    site = (load_site(args.site_binding, expected_sha256=args.site_binding_sha256)
-            if args.site_binding else technical_site(args, science, science_path))
+    site = load_site(args.site_binding, expected_sha256=args.site_binding_sha256) if args.site_binding else None
+    work_root = site['work_root'] if site else args.work_root
+    science_reference = science_binding_path(science_path, args.science_binding_path, work_root)
+    if site is None:
+        site = technical_site(args, science, science_reference)
     require_cpu_channel(site)
-    if site['science'].get('configuration') != {'path': str(science_path), 'sha256': sha(science_path)}:
+    if site['science'].get('configuration') != {'path': str(science_reference), 'sha256': sha(science_path)}:
         raise ValueError('site science pin must identify this exact Git source configuration')
     if sha(args.asset_receipt) != args.asset_receipt_sha256:
         raise ValueError('explicit migrated-asset receipt SHA differs')

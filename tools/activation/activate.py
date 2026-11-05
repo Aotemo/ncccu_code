@@ -1,6 +1,7 @@
 """Activate one explicitly frozen formal package once; never start GPU work."""
 import argparse
 import hashlib
+import importlib.util
 import json
 import math
 import os
@@ -99,9 +100,23 @@ def verify_deployment(value, site, manifest, manifest_sha, package, prep):
             and value.get('remote_url') == 'https://github.com/Aotemo/ncccu_code'
             and value.get('pod_uid') == site['pod']['uid']
             and value.get('package_manifest_sha256') == manifest_sha, 'remote Git/frozen deployment evidence differs')
-    source = evidence_path(value['source_root'], site['work_root'])
-    require(source.is_dir(), 'frozen repository source root missing')
     files = value['files']
+    local_ref = value.get('local_source_proof')
+    if local_ref is None:
+        source = evidence_path(value['source_root'], site['work_root'])
+    else:
+        require(isinstance(local_ref, dict) and set(local_ref) == {'path', 'sha256'},
+                'explicit local full-tree proof required')
+        proof = pinned(local_ref['path'], local_ref['sha256'], Path(site['work_root']) / 'technical-prep')
+        source = Path(value['source_root'])
+        helper = source / 'tools/activation/local_snapshot.py'
+        require(helper.is_file() and not helper.is_symlink()
+                and files.get('tools/activation/local_snapshot.py') == sha(helper),
+                'verified local source helper differs')
+        spec = importlib.util.spec_from_file_location('frozen_local_snapshot', helper)
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        module.verify_local_receipt(source, site['pod']['uid'], site['git_commit'], value.get('tree_sha'), proof, files)
+    require(source.is_dir(), 'frozen repository source root missing')
     required = {'runtime/' + name: digest for name, digest in manifest['files'].items() if name.endswith('.py')}
     required.update({'tools/activation/' + name: sha(prep / name)
                      for name in ('activate.py', 'activate_audit.py', 'site_preflight.py')})

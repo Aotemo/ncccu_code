@@ -123,6 +123,60 @@ class ActivationBindingTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             activation.verify_deployment(deployment, self.site, self.manifest, '1' * 64, self.package, self.prep)
 
+    def test_local_source_requires_exact_uid_bound_full_tree_proof(self):
+        uid = self.site['pod']['uid']
+        parent = Path('/tmp/technical-prep') / uid
+        parent.mkdir(parents=True, exist_ok=True)
+        local = tempfile.TemporaryDirectory(prefix='activation-fixture-', dir=parent)
+        self.addCleanup(local.cleanup)
+        source = Path(local.name) / 'source-git'; source.mkdir()
+        files = {}
+        for relative, digest in self.manifest['files'].items():
+            if relative.endswith('.py'):
+                target = source / 'runtime' / relative; target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes((self.package / relative).read_bytes()); files['runtime/' + relative] = digest
+        for name in ('activate.py', 'activate_audit.py', 'site_preflight.py'):
+            target = source / 'tools/activation' / name; target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes((self.prep / name).read_bytes()); files['tools/activation/' + name] = activation.sha(target)
+        helper = source / 'tools/activation/local_snapshot.py'
+        helper.write_bytes((ROOT / 'tools/activation/local_snapshot.py').read_bytes())
+        files['tools/activation/local_snapshot.py'] = activation.sha(helper)
+        proof = self.prep / 'LOCAL-TREE.json'
+        proof.write_text(json.dumps({'status': 'published_full_git_tree_verified_not_formal_deployment',
+            'source_root': str(source), 'pod_uid': uid, 'commit': self.site['git_commit'],
+            'tree': 'b' * 40, 'archive': {'sha256': 'c' * 64}, 'GPU_initialized': False,
+            'file_count': len(files), 'file_sha256_map_digest': hashlib.sha256(
+                json.dumps(files, sort_keys=True, separators=(',', ':')).encode()).hexdigest()}))
+        deployment = {'schema_version': 1, 'status': 'frozen_from_remote_commit', 'scope': 'formal_exp_v3',
+            'git_commit': self.site['git_commit'], 'remote_commit': self.site['git_commit'],
+            'remote_url': 'https://github.com/Aotemo/ncccu_code', 'pod_uid': uid,
+            'tree_sha': 'b' * 40, 'source_root': str(source), 'files': files,
+            'local_source_proof': {'path': str(proof), 'sha256': activation.sha(proof)},
+            'package_manifest_sha256': '1' * 64}
+        activation.verify_deployment(deployment, self.site, self.manifest, '1' * 64, self.package, self.prep)
+        wrong = copy.deepcopy(deployment); wrong['local_source_proof']['sha256'] = '0' * 64
+        with self.assertRaises(ValueError):
+            activation.verify_deployment(wrong, self.site, self.manifest, '1' * 64, self.package, self.prep)
+        wrong = copy.deepcopy(deployment); wrong['pod_uid'] = '00000000-0000-4000-8000-000000000000'
+        with self.assertRaises(ValueError):
+            activation.verify_deployment(wrong, self.site, self.manifest, '1' * 64, self.package, self.prep)
+        wrong = copy.deepcopy(deployment); wrong.pop('local_source_proof')
+        with self.assertRaises(ValueError):
+            activation.verify_deployment(wrong, self.site, self.manifest, '1' * 64, self.package, self.prep)
+        wrong = copy.deepcopy(deployment); wrong['files']['unrelated'] = 'e' * 64
+        with self.assertRaises(ValueError):
+            activation.verify_deployment(wrong, self.site, self.manifest, '1' * 64, self.package, self.prep)
+        valid_proof = proof.read_text()
+        changed = json.loads(valid_proof); changed['tree'] = 'd' * 40
+        proof.write_text(json.dumps(changed))
+        wrong = copy.deepcopy(deployment); wrong['local_source_proof']['sha256'] = activation.sha(proof)
+        with self.assertRaises(ValueError):
+            activation.verify_deployment(wrong, self.site, self.manifest, '1' * 64, self.package, self.prep)
+        proof.write_text(valid_proof)
+        helper.write_text('# changed after verified snapshot\n')
+        with self.assertRaises(ValueError):
+            activation.verify_deployment(deployment, self.site, self.manifest, '1' * 64, self.package, self.prep)
+
     def gpu_receipt(self):
         proofs = [{'rank': rank, 'pid': 100 + rank, 'world_size': 8, 'device': 'cuda:' + str(rank),
             'physical_pci': card['pci'], 'total_memory_bytes': 4096,

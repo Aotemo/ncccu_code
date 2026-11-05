@@ -8,7 +8,7 @@ import time
 import unittest
 
 
-SCRIPT = Path(os.environ.get("NCCCU_ASYNC_SCRIPT", Path(__file__).with_name("ASYNC-HANDOFF-TEST.sh")))
+SCRIPT = Path(os.environ.get("NCCCU_ASYNC_SCRIPT", Path(__file__).resolve().parents[1] / "tools/activation/async_handoff.sh"))
 
 
 class AsyncHandoffTests(unittest.TestCase):
@@ -27,6 +27,9 @@ class AsyncHandoffTests(unittest.TestCase):
 set -euo pipefail
 if [[ $2 == */fake-guard.py ]]; then
   [[ -z ${CUDA_VISIBLE_DEVICES-unset} && -z ${HIP_VISIBLE_DEVICES-unset} && -z ${ROCR_VISIBLE_DEVICES-unset} ]]
+  if [[ "$*" == *"/validate_launch_pod.py"* ]]; then
+    exit "${FAKE_LIVE_RC:-0}"
+  fi
   printf 'activation\\n' >> "$FAKE_MARKER"
   if [[ -n ${FAKE_ACTIVATION_WAIT_FILE-} ]]; then
     for _ in {1..100}; do
@@ -60,6 +63,10 @@ exit "$FAKE_LAUNCH_RC"
         path = self.ready / "ASYNC-HANDOFF" / "RESULT.json"
         deadline = time.monotonic() + 15
         while not path.is_file() and time.monotonic() < deadline:
+            request = self.ready / "ASYNC-HANDOFF" / "LIVE-REQUEST.json"
+            snapshot = self.ready / "POD-LIVE-LAUNCH.json"
+            if request.is_file() and not snapshot.exists():
+                snapshot.write_text("{}\n")
             time.sleep(.05)
         self.assertTrue(path.is_file(), "detached result did not arrive")
         return json.loads(path.read_text())
@@ -86,6 +93,14 @@ exit "$FAKE_LAUNCH_RC"
         self.assertNotEqual(second.returncode, 0)
         self.assertEqual((self.root / "calls").read_text().splitlines(), ["activation", "launch"])
 
+    def test_invalid_post_activation_snapshot_never_launches(self):
+        self.env["FAKE_LIVE_RC"] = "21"
+        self.assertEqual(self.dispatch().returncode, 0)
+        self.assertEqual(self.result()["status"], "live_snapshot_invalid")
+        self.assert_stage("LIVE-VALIDATION", 21)
+        self.assertFalse((self.ready / "ASYNC-HANDOFF" / "LAUNCH.json").exists())
+        self.assertEqual((self.root / "calls").read_text().splitlines(), ["activation"])
+
     def test_concurrent_claims_do_not_double_dispatch(self):
         first = subprocess.Popen(self.args, env=self.env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         second = subprocess.Popen(self.args, env=self.env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -109,6 +124,26 @@ exit "$FAKE_LAUNCH_RC"
         self.assertEqual(self.result()["status"], "launch_failed")
         self.assert_stage("ACTIVATION", 0)
         self.assert_stage("LAUNCH", 19)
+        self.assertEqual((self.root / "calls").read_text().splitlines(), ["activation", "launch"])
+
+    def test_slow_activation_waits_for_new_post_activation_snapshot(self):
+        old = self.ready / "POD-LIVE.json"
+        old_time = time.time() - 105
+        os.utime(old, (old_time, old_time))
+        release = self.root / "release"
+        self.env["FAKE_ACTIVATION_WAIT_FILE"] = str(release)
+        self.assertEqual(self.dispatch().returncode, 0)
+        release.touch()
+        deadline = time.monotonic() + 10
+        activation = self.ready / "ASYNC-HANDOFF" / "ACTIVATION.json"
+        while not activation.exists() and time.monotonic() < deadline:
+            time.sleep(.05)
+        self.assertTrue(activation.is_file())
+        time.sleep(.3)
+        self.assertEqual((self.root / "calls").read_text().splitlines(), ["activation"])
+        self.assertFalse((self.ready / "ASYNC-HANDOFF" / "LAUNCH.json").exists())
+        (self.ready / "POD-LIVE-LAUNCH.json").write_text("{}\n")
+        self.assertEqual(self.result()["status"], "launch_exit0")
         self.assertEqual((self.root / "calls").read_text().splitlines(), ["activation", "launch"])
 
     def test_old_round_is_refused_before_claim(self):

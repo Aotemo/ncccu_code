@@ -20,6 +20,7 @@ site_sha=$7; authorization=$8; devices=$9
 dir=$ready/ASYNC-HANDOFF
 
 if [[ "$mode" == dispatch ]]; then
+  [[ ! -e "$ready/POD-LIVE-LAUNCH.json" ]] || exit 3
   # The claim is never removed or recycled, even after a transport failure.
   mkdir -m 700 "$dir" || exit 3
   printf '{"round_id":"%s","claimed_at_epoch":%s}\n' "$round" "$(date -u +%s)" > "$dir/CLAIM.json"
@@ -64,9 +65,44 @@ if (( activation_rc != 0 )); then
 fi
 
 started=$(date -u +%s)
+printf '{"round_id":"%s","request_at_epoch":%s}\n' "$round" "$started" > "$dir/LIVE-REQUEST.json"
+deadline=$((SECONDS + 120))
+while [[ ! -s "$ready/POD-LIVE-LAUNCH.json" && $SECONDS -lt $deadline ]]; do
+  sleep 1
+done
+if [[ ! -s "$ready/POD-LIVE-LAUNCH.json" ]]; then
+  write_stage LIVE-VALIDATION "$started" "$(date -u +%s)" 124
+  write_result live_snapshot_unavailable 124
+  exit 124
+fi
 set +e
-observed=$(stat -c %Y "$ready/POD-LIVE.json")
+env CUDA_VISIBLE_DEVICES= HIP_VISIBLE_DEVICES= ROCR_VISIBLE_DEVICES= \
+  OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  NCCCU_POD_NAMESPACE="$namespace" NCCCU_POD_NAME="$pod" NCCCU_POD_UID="$uid" \
+  NCCCU_CONTAINER="$container" NCCCU_PYTHON="$python" NCCCU_RESOURCE_POLICY="$policy" \
+  NCCCU_RESOURCE_POLICY_SHA256="$policy_sha" \
+  nice -n 19 "$python" -B "$guard" run --allocation "$allocation" \
+  --allocation-sha "$allocation_sha" --owner "$executor" \
+  "$source_root/tools/activation/validate_launch_pod.py" \
+  --site-binding "$formal/SITE_BINDING.json" --site-binding-sha256 "$site_sha" \
+  --pod-live "$ready/POD-LIVE-LAUNCH.json" --request "$dir/LIVE-REQUEST.json" \
+  --output "$dir/LIVE-VERIFIED.json" > "$dir/LIVE-VALIDATION-private.log" 2>&1
+live_rc=$?
+set -e
+write_stage LIVE-VALIDATION "$started" "$(date -u +%s)" "$live_rc"
+if (( live_rc != 0 )); then
+  write_result live_snapshot_invalid "$live_rc"
+  exit "$live_rc"
+fi
+
+started=$(date -u +%s)
+set +e
+observed=$(stat -c %Y "$ready/POD-LIVE-LAUNCH.json")
 stat_rc=$?
+if (( stat_rc == 0 )); then
+  now=$(date -u +%s)
+  if (( observed > now || now - observed > 45 )); then stat_rc=124; fi
+fi
 if (( stat_rc == 0 )); then
   ( set -C
     env CUDA_VISIBLE_DEVICES="$devices" HIP_VISIBLE_DEVICES="$devices" ROCR_VISIBLE_DEVICES="$devices" \
