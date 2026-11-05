@@ -53,10 +53,23 @@ class MonitorUnknownTest(unittest.TestCase):
             with self.assertRaises(FileNotFoundError):
                 rr.tree_bytes()
 
-    def test_directory_error_still_raises(self):
+    def test_vanished_directory_entry_is_unknown(self):
+        def walk(top, followlinks=False, onerror=None):
+            yield (str(top), ['initializing-5a5e3e05'], [])
+        with mock.patch.object(rr.os, 'walk', walk):
+            self.assertEqual(rr.tree_bytes(), 0)
+        self.assertEqual(rr.SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances'], 1)
+        self.assertEqual(rr.SCAN_DIAGNOSTICS['sample_relative_paths'][0]['stage'], 'lstat')
+
+    def test_walk_error_from_vanished_directory_is_unknown(self):
         error = FileNotFoundError(2, 'No such file or directory', str(self.root / 'control'))
         with mock.patch.object(rr.os, 'walk', phantom_walk([], directory_error=error)):
-            with self.assertRaises(FileNotFoundError):
+            self.assertEqual(rr.tree_bytes(), 0)
+        self.assertEqual(rr.SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances'], 1)
+
+    def test_stable_walk_error_still_raises(self):
+        with mock.patch.object(rr.os, 'walk', phantom_walk([], directory_error=PermissionError(13, 'denied'))):
+            with self.assertRaises(PermissionError):
                 rr.tree_bytes()
 
     def test_missing_round_root_still_raises(self):

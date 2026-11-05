@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parent
 CONTROL=ROOT/'control';EVIDENCE=ROOT/'evidence'
 sys.path.insert(0,str(ROOT/'bundle'))
 from retrain.site_binding import load_site, expected_pcis, verify_gpu_cpu
-SCAN_DIAGNOSTICS={'tolerated_atomic_leaf_disappearances':0,'sample_relative_paths':[]}
+SCAN_DIAGNOSTICS={'tolerated_atomic_leaf_disappearances':0,'tolerated_atomic_directory_disappearances':0,'sample_relative_paths':[]}
 
 def maybe_release(root, atomic, sha):
  if read(Path(root)/'SCIENCE.json').get('ssl_recipe') is not None:
@@ -82,11 +82,28 @@ def real_directory(path):
 def tree_bytes():
  root=Path(ROOT);real_directory(root);total=0
  SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']=0
+ SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances']=0
  SCAN_DIAGNOSTICS['sample_relative_paths']=[]
- def onerror(error):raise error
+ def record_directory_disappearance(stage,path,error):
+  SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances']+=1
+  if len(SCAN_DIAGNOSTICS['sample_relative_paths'])<32:
+   SCAN_DIAGNOSTICS['sample_relative_paths'].append({'stage':stage,'path':str(Path(path).relative_to(root)),'error':str(error)})
+ def onerror(error):
+  # A directory entry listed by os.walk may be renamed or pruned before descent.
+  # Only a vanished entry is tolerated; every other scan error stays fatal.
+  if not isinstance(error,(FileNotFoundError,NotADirectoryError)):raise error
+  SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances']+=1
+  if len(SCAN_DIAGNOSTICS['sample_relative_paths'])<32:
+   SCAN_DIAGNOSTICS['sample_relative_paths'].append({'stage':'walk','path':str(getattr(error,'filename','')),'error':str(error)})
  for base,directories,files in os.walk(root,followlinks=False,onerror=onerror):
   directory=Path(base);real_directory(root);real_directory(directory)
-  for name in directories:real_directory(directory/name)
+  for name in directories:
+   try:real_directory(directory/name)
+   except (FileNotFoundError,NotADirectoryError) as error:
+    # The initializing staging directory is atomically renamed into place; a
+    # listing/lstat race must be counted as unknown, not end the round.
+    record_directory_disappearance('lstat',directory/name,error)
+    continue
   for name in files:
    path=directory/name
    try:info=path.lstat()
@@ -122,7 +139,7 @@ def budget(deadline,minimum_free=17179869184):
  limit=round_storage_limit()
  if free<minimum_free or size>limit:
   raise RuntimeError('round storage limit reached: free_bytes=%d minimum_free_bytes=%d round_bytes=%d round_limit_bytes=%d'%(free,minimum_free,size,limit))
- unknown=SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']
+ unknown=SCAN_DIAGNOSTICS['tolerated_atomic_leaf_disappearances']+SCAN_DIAGNOSTICS['tolerated_atomic_directory_disappearances']
  return {'free_bytes':free,'new_round_bytes':size,'new_round_bytes_exact':unknown==0,
          'scan_unknown_leaves':unknown,'scan_unknown_samples':SCAN_DIAGNOSTICS['sample_relative_paths'][:8]}
 
