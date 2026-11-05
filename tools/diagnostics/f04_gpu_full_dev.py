@@ -50,6 +50,13 @@ def build_plan(members):
     return result
 
 
+def validate_soup_options(soup_mode, official_path, official_sha, final_path, final_sha):
+    if type(soup_mode) is not bool:
+        raise ValueError('explicit boolean soup mode required')
+    if soup_mode and any(value is not None for value in (official_path, official_sha, final_path, final_sha)):
+        raise ValueError('soup mode cannot consume official or F04 final-lineage options')
+
+
 def selected_variant(member):
     if not isinstance(member, dict) or not isinstance(member.get('selected'), dict):
         raise ValueError('selected member identity is required')
@@ -832,11 +839,11 @@ def owner(args):
             or remote_tree.get('sha') != args.git_tree or remote_tree.get('truncated') is not False
             or proof.get('GPU_initialized') is not False or verify_own_blob(source, args.remote_metadata) != sha(__file__)):
         raise ValueError('published full-tree proof differs')
-    official_freeze = load_official_freeze(args, source)
     soup_mode = getattr(args, 'soup_mode', False)
-    if soup_mode and (official_freeze is not None or getattr(args, 'final_lineage', None) is not None
-                      or getattr(args, 'final_lineage_sha256', None) is not None):
-        raise ValueError('soup mode cannot use official or F04 final-lineage options')
+    validate_soup_options(soup_mode, getattr(args, 'official_freeze', None),
+                          getattr(args, 'official_freeze_sha256', None),
+                          getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
+    official_freeze = load_official_freeze(args, source)
     if official_freeze is not None:
         final_dir = Path(site['work_root']) / 'final/F04-20261104'
         if (Path(args.official_freeze) != final_dir / 'FREEZE.json'
@@ -1061,13 +1068,14 @@ OWNER_TEXT_OPTIONS = ('site-sha256', 'safe-sha256', 'tree-proof-sha256', 'git-co
 
 def dispatch(args):
     """Claim and start one detached controller; a transport timeout never permits a retry."""
+    soup_mode = getattr(args, 'soup_mode', False)
+    validate_soup_options(soup_mode, getattr(args, 'official_freeze', None),
+                          getattr(args, 'official_freeze_sha256', None),
+                          getattr(args, 'final_lineage', None), getattr(args, 'final_lineage_sha256', None))
     final_options = final_lineage_options(getattr(args, 'final_lineage', None),
                                           getattr(args, 'final_lineage_sha256', None))
     official_options = official_freeze_options(getattr(args, 'official_freeze', None),
                                                 getattr(args, 'official_freeze_sha256', None))
-    soup_mode = getattr(args, 'soup_mode', False)
-    if soup_mode and (official_options or final_options):
-        raise ValueError('soup mode cannot consume official or F04 final-lineage options')
     source = args.source_root.resolve(strict=True)
     if source != Path(__file__).resolve().parents[2]:
         raise ValueError('published F04 source differs')
@@ -1128,10 +1136,11 @@ def controller(args):
     """Retain owner exit status after transport disconnect; no automatic restart."""
     claim = args.claim_dir.resolve(strict=True)
     request = read_pinned(claim / 'REQUEST.json', args.request_sha256)
+    soup_mode = request.get('soup_mode', False)
     if (request.get('source_sha256') != sha(__file__)
             or Path(request['source-root']).resolve(strict=True) != Path(__file__).resolve().parents[2]
             or Path(request['output']).resolve() != claim / 'evaluation'
-            or type(request.get('soup_mode')) is not bool):
+            or type(soup_mode) is not bool):
         raise ValueError('detached request/source differs')
     current = process_identity(os.getpid())
     argv = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'owner']
@@ -1143,7 +1152,7 @@ def controller(args):
     for name, value in official_freeze_options(request.get('official-freeze'),
                                                 request.get('official-freeze-sha256')).items():
         argv.extend(['--' + name, value])
-    if request['soup_mode']:
+    if soup_mode:
         if 'official-freeze' in request or 'final-lineage' in request:
             raise ValueError('soup controller cannot consume F04 official/final options')
         argv.append('--soup-mode')

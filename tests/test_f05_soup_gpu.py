@@ -43,6 +43,14 @@ class SoupDevTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 soup.build_plan(names)
 
+    def test_explicit_soup_mode_rejects_every_official_or_final_option(self):
+        gpu.validate_soup_options(True, None, None, None, None)
+        gpu.validate_soup_options(False, '/old/official', 'a' * 64, None, None)
+        for args in (('/x', None, None, None), (None, 'a' * 64, None, None),
+                     (None, None, '/lineage', None), (None, None, None, 'b' * 64)):
+            with self.assertRaises(ValueError):
+                gpu.validate_soup_options(True, *args)
+
     def test_preview_uses_all_fixed_replacements_and_actual_byte_sizes(self):
         labels = [0, 1, 0, 1]
         base = {name: [float(i), i + 3., i + 1., i + 4.] for i, name in enumerate('abcde')}
