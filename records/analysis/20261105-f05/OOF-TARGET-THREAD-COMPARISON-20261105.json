@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "status": "descriptive_only_not_used_for_selection",
+  "policy_commit": "a8fb5339e712946fbad701cdc4bcc1722ca26d4b",
+  "adopted": {
+    "directory": "technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v5",
+    "summary_sha256": "c922e70af87d79d6f174a22d601b84ae6334df1b4e1b0fc90aebec8c1ca023cc",
+    "clean_sha256": "6b320631705a1e16cb21bc12fdc6bb840c955a7e9ed713b9ba67b217e8a424d3",
+    "distill_sha256": "830d3c58bd9341f8e13a359ef51699485151e286abfbf80085762d39d174b1dc",
+    "calibration_sha256": [
+      "64e1119be63f868b725e8defab5b24042f996b58b3fa9b56380367074c43e2fa",
+      "40144b9ab05f81fb7e59acac8628ed96cbca8f5a3315b76c93b5583000366714",
+      "39d9dd6f8d8aa26f3010cea05231c9465608d1fc91bf3d967f2d2eb9eee51752"
+    ],
+    "repeat_directory": "technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v5-check",
+    "repeat_calibration_sha256": [
+      "64e1119be63f868b725e8defab5b24042f996b58b3fa9b56380367074c43e2fa",
+      "40144b9ab05f81fb7e59acac8628ed96cbca8f5a3315b76c93b5583000366714",
+      "39d9dd6f8d8aa26f3010cea05231c9465608d1fc91bf3d967f2d2eb9eee51752"
+    ],
+    "two_runs_identical_tables": true,
+    "guard_exit_code_both_runs": 0
+  },
+  "rejected": {
+    "directory": "technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v1",
+    "summary_sha256": "9c5567b08e49d5823f1fbf398a0b828ff91f5e3f68de18cecc802501f2311c2a",
+    "reason": "guard_exit_code_2_task_tree_runnable_peak_33_over_24"
+  },
+  "difference_v1_vs_v5": {
+    "rows": 46256,
+    "max_abs_soft_label_difference": 4.884981308350689e-15,
+    "mean_abs_soft_label_difference": 5.412399145327665e-17,
+    "rows_over_1e-12": 0,
+    "suspicious_count_v1": 204,
+    "suspicious_count_v5": 204,
+    "suspicious_added": 0,
+    "suspicious_removed": 0,
+    "coefficient_difference_order": 1e-15
+  },
+  "thread_policy": {
+    "library_threads": 8,
+    "processes": 1,
+    "torch_threads": null,
+    "implementation": "threadpoolctl-threadpool_limits-v1",
+    "scope": "fit_and_predict_proba_only"
+  },
+  "official_read": false
+}
