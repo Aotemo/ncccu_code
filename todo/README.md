@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**11-05 三折 OOF 与后续：** R267/A actualsafe `7200/7200`、0 skip，selected EMA c5 内部 AUROC `0.9841491358726344` / AP `0.8194830518920132`（`8f97f66f690ff9c04562a5102668669bc1541ce3f4692bb3df634bf97d891919`）。R265/B 的 fit-only OOF 已完成完整 train/heldout 各 8 分片（summary `c24d3401bb741fa41c11e56197c29d335e60b51f2fe07d7557430c79b8c26717`）；R266/B、R267/A 首次派发因安全观察过期在八 rank 前拒绝，未产生分数，原失败保留。正以同一 Pod 内新鲜观察、容量和一次性 claim 的短链接续；R268/R269 训练接线及 SCIENCE 模板准备中，正式包仍缺完整 OOF 及其 SHA，不读官方。
+
 **11-05 R266 已完成，OOF 准备中：** R266/B actualsafe `7200/7200`、0 skip，selected EMA c5/4000 内部 dev AUROC `0.9855266342440797` / AP `0.8237989124176052`（`4ead456541c29e1438d0db326be06f682ac444d61ac64a1058a1b22e7834dcbd`）；R267/A 仍运行。B 端先准备 R265/R266 的 fit-only 完整训练子集标定及 held-out 八 rank 前向，再安排三汤；草稿合成 7/7+14/14（`1777673bf71d7c33f1421d6693bfcf4187a453b1662e541c5cb36e2017b6658e`），真实资产、推送全树与现场准入尚待，未派发或产生 OOF。B 安全终态至接续时间须据实际回执记录。
 
 **11-05 R270→R267：** R270/A actualsafe `8000/8000`、0 skip，selected EMA c6 内部 dev AUROC `0.9861684232580485` / AP `0.8380459555583255`（`c57962efbdd76d04ed4a38f2dd6cc681e2663bf0d1d96b377d4013624454819e`）。R267/A 的八 rank 初态、CPU/设备绑定已过，首成功 `50/50`、0 skip（`de6e40e311994de19ec9c0efa6eeec323cea229969b745c60f4923c7bffe0fa8`）；R270 done→R267 dispatch `193.135 s`、→首更新 `385.975 s`（`17a5d7e88d80cb9a2214c1a73668b2f2df6355807bf1cee99dfeece8c20099e9`），无连续 GPU idle 采样。R266/B 同时运行。三折成员须按已登记派生 manifest 与原 dev 绑定纳入 F05 候选发现；完整 OOF、三汤真实 GPU 全 dev、清洗及蒸馏仍待执行。

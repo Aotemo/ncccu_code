@@ -22,7 +22,8 @@ from .config import job_contract,GLOBAL_NATIVE_SIX_RULE
 from .finite import all_floating_finite
 
 
-def f05_train_batch_loss(logits, labels, indices, validated_targets, specification, *, mode):
+def f05_train_batch_loss(logits, labels, indices, validated_targets, specification, *, mode,
+                         return_global_labels=False):
     """Gather fit-indexed auxiliary data in WORLD order after upstream lineage validation.
 
     The table is not an authorization or source proof. The caller must first
@@ -48,7 +49,24 @@ def f05_train_batch_loss(logits, labels, indices, validated_targets, specificati
     auxiliary = torch.tensor(values, dtype=torch.float32, device=logits.device)
     global_logits, global_labels = gather_pairwise_inputs(logits, labels)
     global_auxiliary = gather_f05_auxiliary(auxiliary)
-    return f05_pairwise_objective(global_logits, global_labels, global_auxiliary, specification, mode=mode)
+    loss = f05_pairwise_objective(global_logits, global_labels, global_auxiliary, specification, mode=mode)
+    return (loss, global_labels) if return_global_labels else loss
+
+
+def training_pairwise_loss(job, logits, labels, indices, validated_targets=None, *, return_global_labels=False):
+    """Keep the original WORLD objective unless a verified F05 target is bound."""
+    policy = job.get('f05_targets')
+    if policy is not None:
+        return f05_train_batch_loss(logits, labels, indices, validated_targets, job['loss'],
+                                    mode=policy.get('mode'), return_global_labels=return_global_labels)
+    if validated_targets is not None:
+        raise ValueError('fit targets require an explicit registered F05 training policy')
+    global_logits, global_targets = gather_pairwise_inputs(logits, labels)
+    if job.get('output_regularization') is None:
+        loss = classification_loss(global_logits, global_targets, job['loss'])
+    else:
+        loss = regularized_pairwise_loss(global_logits, global_targets, job['loss'], job['output_regularization'])
+    return (loss, global_targets) if return_global_labels else loss
 
 
 def validate_parent(parent,spec,identity,job,plan):
@@ -248,6 +266,21 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
     if plan['world_size']!=ctx.world_size or job['physical_batch']!=plan['per_rank_batch']:
         raise ValueError('worker topology differs from sealed identity')
     if canonical_digest(manifest)!=identity['manifest_digest']:raise ValueError('manifest identity differs')
+    f05_targets = None
+    if job.get('f05_targets') is not None:
+        if mode != 'train' or not fresh_spec or not pairwise or ctx.world_size != 8:
+            raise ValueError('F05 fit targets require registered fresh eight-rank pairwise training')
+        from .data import load_f05_training_targets
+        from .site_binding import load_site
+        target_error = None
+        try:
+            f05_targets = load_f05_training_targets(job['f05_targets'], manifest,
+                                                     work_root=load_site()['work_root'])
+        except Exception as error:
+            target_error = type(error).__name__
+        reports = ctx.values({'rank': ctx.rank, 'error': target_error})
+        if len(reports) != ctx.world_size or any(report.get('error') is not None for report in reports):
+            raise ValueError('one or more ranks could not verify the prepared fit target binding')
     if device.type=='cuda':torch.cuda.reset_peak_memory_stats(device)
     negatives=sum(not manifest['rows'][i]['label'] for i in manifest['fit_indices'])
     from .fresh import resolve_steps_per_cycle
@@ -773,12 +806,8 @@ def _run(job,manifest,data_root,folder,identity,ctx,resume,mode,parent_spec,mode
                         logits=forward(model,images,age_features,job,
                             mixstyle_context=mixstyle_context).reshape(-1)
                     if pairwise:
-                        global_logits,global_targets=gather_pairwise_inputs(logits,labels)
-                        if job.get('output_regularization') is None:
-                            loss=classification_loss(global_logits,global_targets,job['loss'])
-                        else:
-                            loss=regularized_pairwise_loss(global_logits,global_targets,job['loss'],
-                                                           job['output_regularization'])
+                        loss,global_targets=training_pairwise_loss(job,logits,labels,indices,f05_targets,
+                                                                 return_global_labels=True)
                     else:
                         loss=classification_loss(logits,labels,job.get('loss'))
                 if sampled_loss is not None:

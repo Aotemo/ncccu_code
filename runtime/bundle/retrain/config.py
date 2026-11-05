@@ -11,6 +11,9 @@ import re
 BUNDLE = Path(__file__).resolve().parents[1]
 MODELS = ('efficientnet_v2_s', 'convnext_tiny', 'dinov2_vits14', 'dinov2_vitb14', 'flair_resnet50', 'resnet50_imagenet', 'convnext_small', 'convnext_base', 'convnext_large', 'swin_base', 'swin_v2_small', 'deit3_small', 'vit_dino3_small', 'vit_dino3_base', 'caformer_s36', 'efficientnetv2_rw_s', 'siglip2_vitb16', 'eva02_base')
 MODES = ('inspect', 'prepare', 'benchmark', 'train')
+F05_CLEAN_PROFILE = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261201-scale085-pairsigmoid-f05clean-v1'
+F05_DISTILL_PROFILE = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261202-scale085-pairsigmoid-f05distill-v1'
+F05_TRAIN_SUMMARY_RELATIVE = 'technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v1/SUMMARY.json'
 ADAMW_AMSGRAD_RULE = 'adamw-amsgrad-v1'
 NADAM_RULE = 'nadam-decoupled-native-v1'
 ADAMW_BETA2_RULE = {'version':'adamw-beta2-095-v1','betas':[.9,.95],'eps':1e-8,
@@ -74,6 +77,21 @@ def _number(value, key, minimum=0, integer=False, maximum=None):
         raise ValueError(f'{key} outside supported range')
 
 
+def validate_f05_training_binding(binding):
+    if binding is None:
+        return None
+    if (not isinstance(binding, dict) or set(binding) != {'version', 'mode', 'summary', 'verification', 'target'}
+            or binding.get('version') != 'f05-oof-training-v1' or binding.get('mode') not in ('clean', 'distill')):
+        raise ValueError('explicit F05 target mode and exact version are required')
+    for name in ('summary', 'verification', 'target'):
+        ref = binding[name]
+        if (not isinstance(ref, dict) or set(ref) != {'path', 'sha256'}
+                or not isinstance(ref.get('path'), str) or not Path(ref['path']).is_absolute()
+                or not isinstance(ref.get('sha256'), str) or re.fullmatch('[0-9a-f]{64}', ref['sha256']) is None):
+            raise ValueError('F05 training references require absolute paths and exact SHA')
+    return binding
+
+
 def default_job(name, model, kind='random'):
     pretrained = kind == 'imagenet'
     job = dict(name=name, model=model, seed=20261025, device='cuda:0', image_size=384,
@@ -100,6 +118,30 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    f05 = validate_f05_training_binding(job.get('f05_targets'))
+    profile = (job.get('experiment91') or {}).get('version')
+    registered_f05 = {F05_CLEAN_PROFILE: ('clean', 20261201), F05_DISTILL_PROFILE: ('distill', 20261202)}
+    if (f05 is None) != (profile not in registered_f05):
+        raise ValueError('F05 target binding and registered scientific profile must appear together')
+    if f05 is not None:
+        expected_mode, expected_seed = registered_f05[profile]
+        if (f05['mode'] != expected_mode or job.get('seed') != expected_seed
+                or (job.get('model'), job.get('precision'), job.get('normalization'),
+                    job.get('image_size'), job.get('prepared_size'), job.get('effective_batch'),
+                    job.get('positive_per_batch'), job.get('cycles'), job.get('warmup_cycles'),
+                    job.get('backbone_lr'), job.get('head_lr'), job.get('weight_decay')) !=
+                   ('convnext_small', 'fp32', 'imagenet', 512, 512, 64, 8, 30, 2, 1e-4, 1e-3, 1e-4)
+                or (job.get('loss') or {}).get('kind') != 'binary_pairwise_sigmoid'
+                or tuple(job.get('training_scale') or ()) != (.85, 1.)
+                or job.get('training_views', 1) not in (None, 1)
+                or any(job.get(key) is not None for key in
+                       ('initial_checkpoint', 'mixup', 'output_regularization', 'input_preprocessing',
+                        'optimizer_policy', 'gradient_clip_policy', 'gradient_centralization_policy',
+                        'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'stem_xy_policy',
+                        'mixstyle_policy', 'tri3_downsample_policy', 'attention_pool', 'stage3_residual',
+                        'freeze_features_before', 'final_downsample_stride', 'training_rotation',
+                        'training_photometric', 'lr_decay_updates'))):
+            raise ValueError('F05 clean/distill requires its fixed R120 fresh single-view recipe')
     if job.get('lr_decay_updates') is not None:
         if (type(job['lr_decay_updates']) is not int or job['lr_decay_updates']!=8000
                 or (job.get('model'),job.get('precision'),job.get('image_size'),job.get('prepared_size'),
@@ -544,7 +586,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','nadam_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','nadam_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates','f05_targets'), 'job')
         job.update(item)
         for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','nadam_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
             if job.get(key) is None:

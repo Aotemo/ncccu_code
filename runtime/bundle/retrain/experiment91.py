@@ -5,10 +5,12 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import re
 
 from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
 from .f05_folds import F05_FOLD_PROFILES, validate_fold_configuration, verify_bound_fold
+from .config import F05_CLEAN_PROFILE, F05_DISTILL_PROFILE
 from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS, PAIR_BCE_MIX_LOSS, PAIR_WIDE_SIGMOID_LOSS, PAIR_HARD_NEGATIVE_LOSS, PAIR_SQUARED_HINGE_LOSS
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
@@ -66,6 +68,8 @@ PAIR_SIGMOID_SEED_REPLICAS = {
     F05_FOLD_PROFILES[0]: ('R265',20261029,175),
     F05_FOLD_PROFILES[1]: ('R266',20261029,176),
     F05_FOLD_PROFILES[2]: ('R267',20261029,177),
+    F05_CLEAN_PROFILE: ('R268',20261201,178),
+    F05_DISTILL_PROFILE: ('R269',20261202,179),
 }
 PAIR_SIGMOID_LOWLR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-backbonelr5e5-v1'
 PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-backbonelr5e5-v1'
@@ -271,9 +275,58 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[0],
     'r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[1],
     'r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[2],
+    'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105': F05_CLEAN_PROFILE,
+    'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105': F05_DISTILL_PROFILE,
     'r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105': GLOBAL_768_SIGMOID_SEED20261122_BINDING,
     'r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105': PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
 }
+
+
+def validate_f05_training_science(value, site=None):
+    """Pin the two authorized fresh objectives and one versioned OOF summary."""
+    profile = value.get('candidate_profile')
+    profiles = {
+        F05_CLEAN_PROFILE: ('clean', 20261201, 'r268-small-f05clean-seed20261201-pairsigmoid-24k-p4-9010-20261105'),
+        F05_DISTILL_PROFILE: ('distill', 20261202, 'r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105'),
+    }
+    policy = value.get('f05_targets')
+    if profile not in profiles:
+        if policy is not None:
+            raise ValueError('OOF targets require an explicitly registered F05 training profile')
+        return None
+    mode, seed, round_id = profiles[profile]
+    initial = {
+        F05_CLEAN_PROFILE: '6e2e8f4b20c211d3ed446187ddc9ea4803e1d560ed1741b00381213431ae7001',
+        F05_DISTILL_PROFILE: 'b14f7c368ab70e6591c25ea6d9ab4c67b563876bb10dcd2050d75127e7d0da2c',
+    }[profile]
+    job = value.get('job')
+    source = value.get('public_source')
+    if (not isinstance(policy, dict)
+            or set(policy) != {'version', 'mode', 'summary_relative_path', 'summary_sha256'}
+            or policy.get('version') != 'f05-oof-training-v1' or policy.get('mode') != mode
+            or not isinstance(policy.get('summary_relative_path'), str)
+            or re.fullmatch(r'technical-prep/takeover-20261104-08ac/F05-OOF-TARGETS-v[1-9][0-9]*/SUMMARY\.json',
+                            policy['summary_relative_path']) is None
+            or not isinstance(policy.get('summary_sha256'), str)
+            or re.fullmatch('[0-9a-f]{64}', policy['summary_sha256']) is None
+            or policy['summary_sha256'] == '0' * 64
+            or value.get('initial_model_tensor_sha256') != initial
+            or not isinstance(job, dict) or job.get('seed') != seed
+            or canonical_digest({key: item for key, item in job.items() if key != 'seed'}) !=
+               '5fd5f1eefccf76efbf5dad25d1b2e4c9211e57b896b302eb3fb6a48bc3b767c7'
+            or value.get('schedule') != {'steps_per_cycle': 800, 'total_updates': 24000,
+                                         'warmup_updates': 1600, 'stop_after_updates': 24000}
+            or value.get('early_stopping') != {'metric': 'internal_dev_auroc', 'mode': 'max',
+                'variants': ['online', 'ema'], 'patience': 4, 'min_delta': 0.0}
+            or value.get('data_split') != {'kind': 'holdout', 'seed': 20261024, 'valid_fraction': .1,
+                'inner_fraction': .1, 'include_valid': False, 'fold': 0, 'folds': 3}
+            or value.get('age_enabled', True) is not True
+            or not isinstance(source, dict)
+            or source.get('sha256') != '7aaea5ce6fe6db953874d9792d3f1711a5cc0193a10d740e023108043918c610'
+            or source.get('provenance_sha256') != '8ea3e957e2381a40e2f8fc5feae5df31d0d8b33faf3bdd3fa5749e64ae98368b'
+            or (site is not None and site.get('round_id') != round_id)):
+        raise ValueError('registered F05 round, fresh seed, target summary or initial tensor is unresolved')
+    return policy
 
 
 def expected_official_policy(site, science):
@@ -322,6 +375,7 @@ def science_configuration():
         if hashlib.sha256(raw).hexdigest() != reference['sha256']:
             raise ValueError('pinned science configuration path/SHA differs')
         value = json.loads(raw)
+        validate_f05_training_science(value, site)
         validate_fold_configuration(site, value)
         if site.get('round_id') in ENSEMBLE_MEMBER_ROUNDS:
             if value.get('official_evaluation')!=expected_official_policy(site,value):
@@ -689,6 +743,7 @@ def science_configuration():
 
 
 def candidate_from_configuration(value):
+    validate_f05_training_science(value)
     if (value.get('candidate_profile')not in LONG_EMA_BINDINGS
             and (value.get('ema_policy')is not None or value.get('candidate',{}).get('ema_policy')is not None)):
         raise ValueError('unregistered longer EMA policy')
@@ -1775,6 +1830,21 @@ def validate_job(job):
         'bn_statistics': configured.get('bn_statistics')}
     init = job.get('initialization', {})
     site = load_site()
+    configured_f05 = validate_f05_training_science(science_configuration(), site)
+    actual_f05 = job.get('f05_targets')
+    if configured_f05 is None:
+        if actual_f05 is not None:
+            raise ValueError('unregistered profile cannot consume F05 targets')
+    else:
+        from .config import validate_f05_training_binding
+        validate_f05_training_binding(actual_f05)
+        summary_path = Path(site['work_root']) / configured_f05['summary_relative_path']
+        target_name = 'CLEAN-TARGETS-private.json' if configured_f05['mode'] == 'clean' else 'DISTILL-TARGETS-private.json'
+        if (actual_f05 is None or actual_f05['mode'] != configured_f05['mode']
+                or actual_f05['summary'] != {'path': str(summary_path), 'sha256': configured_f05['summary_sha256']}
+                or Path(actual_f05['verification']['path']) != Path(site['round_root']) / 'evidence/F05-OOF-VERIFICATION.json'
+                or Path(actual_f05['target']['path']) != summary_path.parent / target_name):
+            raise ValueError('F05 runtime targets do not match the registered summary and prepared receipt')
     if (any(job.get(k) != v for k, v in expected.items()) or job.get('physical_batch') not in (64 // len(site['gpus']), 32)
             or job.get('experiment91') != binding() or job.get('age') != resolved_age_spec()
             or init.get('kind') != public_source().get('kind','imagenet') or init.get('sha256') != public_source()['sha256']

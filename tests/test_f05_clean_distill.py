@@ -24,7 +24,7 @@ from torch.nn.parallel import DistributedDataParallel
 from retrain.classification_loss import (classification_loss, f05_confident_joint,
     f05_pairwise_objective, gather_f05_auxiliary)
 from retrain.data import F05_BASE_MANIFEST_SHA, F05_THREE_FOLD_SHA, validate_f05_target_table
-from retrain.distributed_engine import f05_train_batch_loss
+import retrain.distributed_engine as distributed_engine
 
 torch.set_num_threads(1)
 torch.set_num_interop_threads(1)
@@ -59,15 +59,20 @@ def _world_worker(rank, rendezvous, result_dir):
             global_labels = gather_f05_auxiliary(labels)
             global_auxiliary = gather_f05_auxiliary(auxiliary)
             table = dict(enumerate(sum(AUXILIARY[mode], [])))
-            loss = f05_train_batch_loss(logits, labels, torch.arange(rank * 32, (rank + 1) * 32),
-                                        table, SPEC, mode=mode)
+            job = {'loss': SPEC, 'f05_targets': {'mode': mode}}
+            loss, routed_labels = distributed_engine.training_pairwise_loss(job, logits, labels,
+                torch.arange(rank * 32, (rank + 1) * 32), table, return_global_labels=True)
             loss.backward()
             result[mode] = {'loss': loss.item(), 'gradient': layer.weight.grad.item(),
-                            'labels': global_labels.tolist(), 'auxiliary': global_auxiliary.tolist()}
+                            'labels': global_labels.tolist(), 'routed_labels': routed_labels.tolist(),
+                            'auxiliary': global_auxiliary.tolist()}
+        legacy_loss, legacy_labels = distributed_engine.training_pairwise_loss({'loss': SPEC},
+            logits.detach(), labels, torch.arange(rank * 32, (rank + 1) * 32), return_global_labels=True)
+        result['legacy'] = {'loss': legacy_loss.item(), 'labels': legacy_labels.tolist()}
         try:
-            f05_train_batch_loss(torch.tensor([.1, .2], requires_grad=True),
-                                 torch.tensor([0., 1.]), torch.tensor([rank * 2, rank * 2 + 1]),
-                                 {0: .25, 1: 1., 2: 1.}, SPEC, mode='clean')
+            distributed_engine.training_pairwise_loss({'loss': SPEC, 'f05_targets': {'mode': 'clean'}},
+                torch.tensor([.1, .2], requires_grad=True), torch.tensor([0., 1.]),
+                torch.tensor([rank * 2, rank * 2 + 1]), {0: .25, 1: 1., 2: 1.})
         except ValueError:
             result['missing_target_rejected_on_all_ranks'] = True
         else:
@@ -158,6 +163,12 @@ class CleanDistillTest(unittest.TestCase):
             mp.spawn(_world_worker, args=(rendezvous, temporary), nprocs=2, join=True)
             rank_results = [json.loads(Path(temporary, str(rank) + '.json').read_text()) for rank in range(2)]
             self.assertTrue(all(result['missing_target_rejected_on_all_ranks'] for result in rank_results))
+            all_images = torch.tensor(sum(INPUTS, []), dtype=torch.float32)
+            all_labels = torch.tensor(sum(LABELS, []), dtype=torch.float32)
+            legacy_expected = classification_loss(all_images * .5, all_labels, SPEC)
+            for result in rank_results:
+                self.assertEqual(result['legacy']['labels'], all_labels.tolist())
+                self.assertAlmostEqual(result['legacy']['loss'], legacy_expected.item(), places=6)
             for mode in ('clean', 'distill'):
                 layer = torch.nn.Linear(1, 1, bias=False)
                 with torch.no_grad():
@@ -170,6 +181,7 @@ class CleanDistillTest(unittest.TestCase):
                 expected.backward()
                 for result in rank_results:
                     self.assertEqual(result[mode]['labels'], labels.tolist())
+                    self.assertEqual(result[mode]['routed_labels'], labels.tolist())
                     self.assertEqual(result[mode]['auxiliary'], auxiliary.tolist())
                     self.assertAlmostEqual(result[mode]['loss'], expected.item(), places=6)
                     self.assertAlmostEqual(result[mode]['gradient'], layer.weight.grad.item(), places=6)
