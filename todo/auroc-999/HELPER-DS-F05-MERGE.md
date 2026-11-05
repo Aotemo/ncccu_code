@@ -1,6 +1,6 @@
 # DS 助手：helper/cpu-prep-20261105 → main 的 F05 合并清单
 
-状态：**代码与说明已整理到 `helper/ds-20261105`，已在 Pod A 准备池通过合成窄测，等待 DS执行2 审阅合并。** 基线为当前 `origin/main` `c304d67`（本分支 `c304d67` 之上）。本文只记录逐项判断与理由；不回写任何未实核的结论。
+状态：**已并入 main `85ca56e`，并在合并后的全树通过终态回归（20/20、6/6、5/5、11/11）。** 基线为 `origin/main` `c304d67`。本文只记录逐项判断与理由；不回写任何未实核的结论。
 
 ## 判断口径
 
@@ -46,4 +46,10 @@
 
 - 本机仅做只读文本核对：确认助手快照相对 main 只有加法、无 main 侧修复被覆盖；`paired_evidence._reference/_selected`、`retrain.site_binding.verify_rank_devices`、`retrain.parallel_evaluation.canonical_predictions`、`f04_size_ensemble.compare_predictions` 在 main 均存在；无 `f05_oof_gpu` 等已移除模块的引用。
 - 2026-11-05 Pod A 实测：`git archive` 的 `382dd6d` 全树 3562 文件在 12–23、nice 19、隐藏设备、12 线程下运行，`tests/test_f05_final_selection.py` **20/20**、`tests/test_f05_fold_candidates.py` **6/6**、`tests/test_test_submission_aggregate.py` **5/5**，0 skip、0 failure，CPU guard exit 0，回执 `140d7e75c2ab613cd61ec856594639986b91ecb9431faf7260046b6942d7f48d`。Pod 内实算的源码 SHA 与本清单一致：选员 `328b6db475ac93499efc2d469ba898964a3dc69610ef70b1df0de1ae0e4e3d36`、折发现 `0e8c0ad4f41937a05146cca20096a6a8a18730d62a79c106a641823f9e823f10`、对应测试 `396fdf2dbe2e103b8feb6e5dce3333e86b1a2da3014ff95fffe82facef60094d` / `5d3ea3c4fcde359e4c3aee126e3a12f4cdcfea3143d88a30a4fe3834811ce40e`；基线 `f05_folds.py` `78dc9797…`、`paired_evidence.py` `ed211542…`、`site_binding.py` `e1e2198e…`、`parallel_evaluation.py` `fa5b9319…`。
-- 这只证明合成 fixture 与纯函数行为，不证明真实三折资产、`verify_augmented` 在发现入口的接线、真实选员、fp16 分片或 `fuse` producer；上述仍需 08ac 合并后在最终 main 全树与真实资产上核验。
+- 这只证明合成 fixture 与纯函数行为，不证明真实三折资产、`verify_augmented` 在发现入口的接线、真实选员、fp16 分片或 `fuse` producer；上述仍需在最终 main 全树与真实资产上核验。
+
+## 合并后终态回归（main `85ca56e`）
+
+- DS执行2 已把本分支四个提交 `--no-ff` 合入 main `85ca56e`，前一条为 `e455f7c`（`runtime/run_round.py` 的 transient tree 目录消失容忍）。合并后 `git diff helper/ds-20261105 origin/main --` 对本分支六个代码/测试文件为空，即字节未变，未被合并改动。
+- 2026-11-05 在 Pod A 以新 allocation `…/pod-a/CPU-ALLOCATION-20261105T1340Z.json`（SHA `43d8cf2877ab1529a21bf0ebf1bd7a797278bd947081a28d8e458bf6f355be89`）对 `85ca56e` 的 `git archive` 全树（3564 文件）跑终态回归：`test_f05_final_selection` **20/20**、`test_f05_fold_candidates` **6/6**、`test_test_submission_aggregate` **5/5**、`test_monitor_unknown` **11/11**，0 skip、0 failure，exit 0，CPU guard 回执 `900054133b6518292506f0ea3d8bddb314b4d6e9323b59603a5af4dd5d8eda30`（12 线程、mask 12–23、隐藏设备）。`test_monitor_unknown` 一项是对 `e455f7c` 合并结果的旁证，不是本分支内容。
+- 仍未做：真实三折资产上的 `discover`/`verify_augmented` 集成、真实选员、fp16 分片、`fuse` producer；这些需要 08ac 接线后的真实资产与 GPU 回执，本项不声称通过。
