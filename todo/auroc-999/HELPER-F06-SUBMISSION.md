@@ -52,9 +52,42 @@ python3.12 -B tools/diagnostics/f06_oof_submission.py \
 python3.12 -B -m unittest -v tests.test_f06_oof_submission
 ```
 
+## 延迟（T4，2026-11-05 追加）
+
+`tools/diagnostics/latency_bench.py` 复用提交链：模型由 `retrain.inference._load_model` 构造，
+JPEG 由 `retrain.data.ImageDataset` 按 `run_prediction` 口径解码/裁边/缩放/letterbox/归一化
+（显式关闭 prepared cache，与原图解码一致）。每批只预处理一次，成员共享；各成员前向用
+`torch.cuda.synchronize` 括起计时；等权平均 logits 后 sigmoid。batch=10、预热后重复 ≥5 次取中位数，
+分列 CPU 预处理 / 每成员 GPU / H2D / 融合 / 总每张 ms。FLOPs 用
+`torch.utils.flop_counter.FlopCounterMode`（不可用记 `unknown`）。
+
+估算：`t4_gpu_ms = flops / (effective_TFLOPS·1e12)·1000`（默认 fp16 12、fp32 4.5，写入 assumptions），
+另一路 `dcu_ms = 实测 GPU ms × --dcu-t4-ratio`（默认 1.0，假设值）。总估算 = GPU 估算 + 实测 CPU 预处理
+（`cpu_note` 注明 T4 主机 CPU 可能不同）。判定 `估算×1.5 < 100 ms`，两路已知估算都需通过；并给出
+1/2/3 成员子集的最省估算。
+
+成员清单：
+
+```json
+{"format": "f06-latency-members-v1",
+ "members": [{"id": "m0", "variant": "ema",
+              "model": {"path": "<export dir 或 checkpoint>", "sha256": "<该权重文件 SHA>"}}]}
+```
+
+```bash
+python3.12 -B tools/diagnostics/latency_bench.py --members LATENCY-MEMBERS.json \
+  --images <仅含 jpg 的目录> --device cuda:0 --precision fp16 --batch-size 10 \
+  --repetitions 5 --t4-tflops 12 --dcu-t4-ratio 1.0 --threads 6 --output <fresh>/LATENCY.json
+```
+
+`--images` 只指向解包后的图片目录；`cost_data_test.tar` 同目录的 SSH 密钥/账号文件不读取、不复制。
+
+提交判定接入：`f06_oof_submission.py --latency-report LATENCY.json`。若 OOF 选 F06 但报告 `pass=false`，
+`decision=needs_reduction`、不写 submit.csv，METADATA 记录 3/2/1 子集估算；OOF 本就不足 F04 时仍为 F04。
+
 ## 阻塞（如实记录）
 
 本机静态检查仅 `py_compile`/AST 通过；Pod CPU 内的 RED→GREEN **未执行**：
-`exp-v3/technical-prep/` 下没有发给 `helper-f06-submit`、覆盖 mask 18–23 且未过期的 allocation
-（现有 ds2 1600Z 仅 `6e2460bb` 0–11 与 `5ae33039` 12–23，均非本执行者）。按合同不自签、不复用他人
-allocation；待主执行者签发后在其掩码内以 6 线程、nice 19、隐藏 GPU 运行。
+`exp-v3/technical-prep/` 下仍没有发给 `helper-f06-submit`、覆盖 mask 18–23 且未过期的 allocation
+（ds2 最新仍为 1600Z 的 `6e2460bb` 0–11 与 `5ae33039` 12–23，均非本执行者）。按合同不自签、不复用他人
+allocation；待主执行者签发后在其掩码内以 6 线程、nice 19、隐藏 GPU 运行。GPU 实测（cuda）由主执行者执行。

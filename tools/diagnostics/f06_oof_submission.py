@@ -9,6 +9,8 @@ test submission standardises each fold model's 5855 test logits with the same
 per-fold constants, averages them with equal weight, and applies the
 deterministic Platt map fitted on the OOF fused score. No test labels are read,
 no TTA is used, and the official labels are used only for this OOF decision.
+An optional latency report can downgrade an F06 selection to ``needs_reduction``
+and records the 3/2/1-member subset estimates in METADATA.
 """
 import argparse
 import csv
@@ -30,6 +32,8 @@ OFFICIAL_ROWS = 5849
 TEST_ROWS = 5855
 FOLD_COUNT = 3
 F04_OFFICIAL_AUROC = 0.9894371866550443
+LATENCY_FORMAT = 'f06-latency-bench-v1'
+LATENCY_BUDGET_MS = 100.0
 HEADER = ['Image_name', 'Probability', 'Pred_Label']
 NAME_FIELDS = fusion.NAME_FIELDS
 
@@ -207,6 +211,34 @@ def decide(auroc):
     return 'F06' if float(auroc) > F04_OFFICIAL_AUROC else 'F04'
 
 
+def load_latency_report(path):
+    """Read the T4 latency bench verdict and its 1/2/3-member subset estimates."""
+    path = Path(path)
+    report = json.loads(path.read_text(encoding='utf-8'))
+    if report.get('format') != LATENCY_FORMAT:
+        raise ValueError(LATENCY_FORMAT + ' report required')
+    passed = report.get('pass')
+    if not isinstance(passed, bool):
+        raise ValueError('boolean latency pass flag required')
+    subsets = report.get('subset_estimates')
+    if not isinstance(subsets, dict) or not {'1', '2', '3'} <= set(subsets):
+        raise ValueError('latency report requires 1/2/3 member subset estimates')
+    summary = {}
+    for key in ('1', '2', '3'):
+        entry = subsets[key]
+        if (not isinstance(entry, dict) or not isinstance(entry.get('members'), list)
+                or not isinstance(entry.get('pass'), bool)):
+            raise ValueError('malformed latency subset estimate: ' + key)
+        summary[key] = {'members': entry['members'], 'pass': entry['pass'],
+                        'conservative_total_ms': entry.get('conservative_total_ms'),
+                        'by_flops': entry.get('by_flops'),
+                        'by_dcu_scale': entry.get('by_dcu_scale')}
+    estimates = report.get('estimates') if isinstance(report.get('estimates'), dict) else {}
+    return {'path': str(path), 'sha256': sha(path), 'pass': passed,
+            'subset_estimates': summary, 'assumptions': estimates.get('assumptions'),
+            'budget_ms': LATENCY_BUDGET_MS}
+
+
 def load_reference(path, *, allow_fixture=False):
     """Read the frozen submission order (names only); never uses the score column."""
     path = Path(path)
@@ -270,7 +302,7 @@ def write_output(directory, metadata, submission=None):
 
 
 def execute(folds_path, manifest_path, output, reference_path=None, *, oof_only=False,
-            allow_fixture=False):
+            allow_fixture=False, latency_report_path=None):
     folds = load_folds(folds_path, allow_fixture=allow_fixture)
     manifest = load_manifest(manifest_path, folds)
     fold_array = np.asarray(folds['fold'], dtype=object)
@@ -284,6 +316,9 @@ def execute(folds_path, manifest_path, output, reference_path=None, *, oof_only=
                                             score_column=manifest['entries'][key]['score_column'])
     oof = build_oof(folds, predictions)
     decision = decide(oof['metrics']['auroc'])
+    latency = load_latency_report(latency_report_path) if latency_report_path is not None else None
+    if decision == 'F06' and latency is not None and not latency['pass']:
+        decision = 'needs_reduction'
 
     reference, test_predictions, submission = None, {}, None
     if not oof_only:
@@ -302,13 +337,17 @@ def execute(folds_path, manifest_path, output, reference_path=None, *, oof_only=
             submission = build_submission(oof, folds, test_predictions, reference['names'])
 
     status = ('oof_only' if oof_only else
-              'f06_submission_written' if decision == 'F06' else 'f04_retained_no_submission')
+              'f06_submission_written' if decision == 'F06' else
+              'latency_needs_reduction' if decision == 'needs_reduction' else
+              'f04_retained_no_submission')
     metadata = {
         'format': 'f06-oof-submission-v1', 'status': status, 'decision': decision,
         'decision_rule': {'metric': 'oof_auroc', 'comparison': '>',
                           'f04_official_auroc': F04_OFFICIAL_AUROC,
                           'observed_oof_auroc': oof['metrics']['auroc'],
-                          'f06_selected': decision == 'F06'},
+                          'f06_selected': decision in ('F06', 'needs_reduction'),
+                          'latency_required': latency is not None,
+                          'latency_pass': None if latency is None else latency['pass']},
         'oof': {'count': folds['count'], 'positive': int(folds['labels'].sum()),
                 'metrics': oof['metrics'], 'per_fold': oof['per_fold']},
         'folds': {'path': folds['path'], 'sha256': folds['sha256'], 'counts': folds['counts']},
@@ -329,6 +368,11 @@ def execute(folds_path, manifest_path, output, reference_path=None, *, oof_only=
                              'rows': reference['rows']} if reference is not None else None),
         'platt': (submission['platt'] if submission is not None else None),
         'platt_fit': 'oof_fused_z',
+        'latency': (None if latency is None else {
+            'report': {'path': latency['path'], 'sha256': latency['sha256']},
+            'pass': latency['pass'], 'budget_ms': latency['budget_ms'],
+            'assumptions': latency['assumptions'],
+            'subset_estimates': latency['subset_estimates']}),
         'submission': None,
         'official_read': True,
         'official_read_scope': 'oof_decision_only',
@@ -345,6 +389,7 @@ def main():
     parser.add_argument('--folds', type=Path, required=True)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--reference', type=Path)
+    parser.add_argument('--latency-report', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--oof-only', action='store_true')
     parser.add_argument('--allow-fixture', action='store_true')
@@ -358,7 +403,8 @@ def main():
     else:
         limit = None
     metadata, written = execute(args.folds, args.manifest, args.output, args.reference,
-                                oof_only=args.oof_only, allow_fixture=args.allow_fixture)
+                                oof_only=args.oof_only, allow_fixture=args.allow_fixture,
+                                latency_report_path=args.latency_report)
     if limit is not None:
         limit.unregister()
     print(json.dumps({'status': metadata['status'], 'decision': metadata['decision'],

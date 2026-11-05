@@ -81,6 +81,24 @@ def fixture(root, *, count=60, test_count=12, signal=6.0, seed=20261106):
             'members': members}
 
 
+def _latency_report(root, passed, *, name='latency.json'):
+    subsets = {}
+    for size, members in (('1', ['0']), ('2', ['0', '1']), ('3', ['0', '1', '2'])):
+        subsets[size] = {
+            'members': members, 'pass': passed, 'conservative_total_ms': 60.0,
+            'by_flops': {'gpu_ms_per_image': 20.0, 'total_ms_per_image': 60.0,
+                         'with_safety_ms': 90.0, 'within_budget': passed},
+            'by_dcu_scale': {'gpu_ms_per_image': 30.0, 'total_ms_per_image': 70.0,
+                             'with_safety_ms': 105.0, 'within_budget': passed}}
+    path = Path(root) / name
+    path.write_text(json.dumps({'format': 'f06-latency-bench-v1', 'pass': passed,
+                                'subset_estimates': subsets,
+                                'estimates': {'assumptions': {'t4_effective_tflops': 12.0,
+                                                              'safety_factor': 1.5,
+                                                              'budget_ms': 100.0}}}))
+    return path
+
+
 class F06OofSubmissionTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='f06-oof-')
@@ -307,6 +325,74 @@ class F06OofSubmissionTests(unittest.TestCase):
         self.assertEqual(metadata['status'], 'f04_retained_no_submission')
         self.assertFalse((output / 'submit.csv').exists())
         self.assertIsNone(metadata['platt'])
+
+    def test_latency_failure_marks_needs_reduction_and_lists_subsets(self):
+        report = _latency_report(self.root, False)
+        output = self.root / 'latency-fail'
+        metadata, written = f06.execute(self.data['folds'], self.data['manifest'], output,
+                                        self.data['reference'], allow_fixture=True,
+                                        latency_report_path=report)
+        self.assertIsNone(written)
+        self.assertEqual(metadata['decision'], 'needs_reduction')
+        self.assertEqual(metadata['status'], 'latency_needs_reduction')
+        self.assertFalse((output / 'submit.csv').exists())
+        self.assertFalse(metadata['latency']['pass'])
+        self.assertEqual(set(metadata['latency']['subset_estimates']), {'1', '2', '3'})
+        self.assertEqual(metadata['latency']['report']['sha256'], f06.sha(report))
+        self.assertFalse(metadata['decision_rule']['latency_pass'])
+        for key in ('1', '2', '3'):
+            self.assertIn('members', metadata['latency']['subset_estimates'][key])
+
+    def test_latency_pass_keeps_f06_submission(self):
+        output = self.root / 'latency-pass'
+        metadata, written = f06.execute(self.data['folds'], self.data['manifest'], output,
+                                        self.data['reference'], allow_fixture=True,
+                                        latency_report_path=_latency_report(self.root, True))
+        self.assertEqual(metadata['decision'], 'F06')
+        self.assertEqual(metadata['status'], 'f06_submission_written')
+        self.assertTrue(metadata['latency']['pass'])
+        self.assertIsNotNone(written)
+        self.assertTrue((output / 'submit.csv').exists())
+
+    def test_f04_decision_is_not_overridden_by_a_failing_latency_report(self):
+        root = self.root / 'weak-latency'
+        root.mkdir()
+        data = fixture(root, signal=0.0, seed=7)
+        report = _latency_report(root, False)
+        metadata, written = f06.execute(data['folds'], data['manifest'], root / 'out',
+                                        data['reference'], allow_fixture=True,
+                                        latency_report_path=report)
+        self.assertIsNone(written)
+        self.assertEqual(metadata['decision'], 'F04')
+        self.assertEqual(metadata['status'], 'f04_retained_no_submission')
+        self.assertFalse(metadata['latency']['pass'])
+
+    def test_latency_report_format_and_subsets_are_validated(self):
+        path = self.root / 'bad-latency.json'
+        path.write_text(json.dumps({'format': 'other', 'pass': False, 'subset_estimates': {}}))
+        with self.assertRaises(ValueError):
+            f06.load_latency_report(path)
+        path.write_text(json.dumps({'format': 'f06-latency-bench-v1', 'pass': False,
+                                    'subset_estimates': {'1': {}, '2': {}, '3': {}}}))
+        with self.assertRaises(ValueError):
+            f06.load_latency_report(path)
+        path.write_text(json.dumps({'format': 'f06-latency-bench-v1', 'pass': 'no',
+                                    'subset_estimates': {}}))
+        with self.assertRaises(ValueError):
+            f06.load_latency_report(path)
+
+    def test_cli_latency_report_marks_needs_reduction(self):
+        report = _latency_report(self.root, False)
+        output = self.root / 'cli-latency'
+        command = [sys.executable, '-B', str(SOURCE), '--folds', str(self.data['folds']),
+                   '--manifest', str(self.data['manifest']), '--reference', str(self.data['reference']),
+                   '--latency-report', str(report), '--output', str(output), '--allow-fixture']
+        completed = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        metadata = json.loads((output / 'METADATA.json').read_text())
+        self.assertEqual(metadata['decision'], 'needs_reduction')
+        self.assertFalse((output / 'submit.csv').exists())
+        self.assertEqual(set(metadata['latency']['subset_estimates']), {'1', '2', '3'})
 
     def test_cli_rejects_a_stale_output_directory(self):
         output = self.root / 'used'
