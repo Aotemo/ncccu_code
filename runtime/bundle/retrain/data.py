@@ -18,6 +18,94 @@ import random
 
 from .verification import configured_cache, lexical_path
 
+F05_BASE_MANIFEST_SHA = '7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332eb9409377'
+F05_THREE_FOLD_SHA = 'eb880273832b81be61830a069d5ae9ba8dc2e52be4af2f911f7a6b1ec9e7f6d8'
+
+
+def validate_f05_target_table(base, folds, table, verified_sources, calibrated_oof, *,
+                              base_sha, folds_sha, fit_count=46256, dev_count=5140):
+    """Validate aligned fit targets after independent source and file-SHA verification.
+
+    The caller must derive verified_sources and calibrated_oof from actual
+    pinned selected models, fold-training-only calibration and OOF records.
+    This table validator cannot prove that lineage from self-reported JSON.
+    """
+    from .classification_loss import f05_confident_joint
+
+    def digest(value):
+        return isinstance(value, str) and len(value) == 64 and all(c in '0123456789abcdef' for c in value)
+
+    if (not isinstance(base, dict) or not isinstance(folds, dict) or not isinstance(table, dict)
+            or base_sha != F05_BASE_MANIFEST_SHA or folds_sha != F05_THREE_FOLD_SHA
+            or table.get('format') != 'f05-fit-oof-targets-v1'
+            or table.get('base_manifest_sha256') != base_sha or table.get('folds_sha256') != folds_sha
+            or table.get('mode') not in ('clean', 'distill')
+            or folds.get('status') != 'three_fold_fit_only_indices_sealed_no_training'
+            or folds.get('base_manifest_sha256') != base_sha or folds.get('seed') != 20261121
+            or folds.get('official_read') is not False or folds.get('training_started') is not False):
+        raise ValueError('fixed original manifest, sealed folds, and target schema required')
+    rows, fit, dev = base['rows'], base['fit_indices'], base['dev_indices']
+    if (len(fit) != fit_count or len(dev) != dev_count or len(set(fit)) != len(fit)
+            or len(set(dev)) != len(dev) or set(fit) & set(dev)
+            or set(fit) | set(dev) != set(range(len(rows)))
+            or any(type(i) is not int for i in fit + dev)
+            or any(type(row.get('label')) is not int or row['label'] not in (0, 1)
+                   or not isinstance(row.get('group'), str) or not row['group'] for row in rows)):
+        raise ValueError('exact disjoint original fit and dev population required')
+    if {rows[i]['group'] for i in fit} & {rows[i]['group'] for i in dev}:
+        raise ValueError('original fit and dev groups overlap')
+    sealed = folds.get('folds')
+    if not isinstance(sealed, list) or len(sealed) != 3:
+        raise ValueError('three independently sealed fold roles required')
+    membership = {}
+    for number, fold in enumerate(sealed):
+        if fold.get('fold') != number or fold.get('round') != 'R' + str(265 + number):
+            raise ValueError('fold identity differs')
+        training, held = fold['fit_indices'], fold['audit_indices']
+        if (not training or not held or len(set(training)) != len(training) or len(set(held)) != len(held)
+                or set(training) & set(held) or set(training) | set(held) != set(fit)
+                or any(type(i) is not int for i in training + held)
+                or {rows[i]['group'] for i in training} & {rows[i]['group'] for i in held}):
+            raise ValueError('fold train/held-out roles or groups differ')
+        for index in held:
+            if index in membership:
+                raise ValueError('fit index held out more than once')
+            membership[index] = number
+    if set(membership) != set(fit):
+        raise ValueError('held-out folds must cover each fit row once')
+    sources = table.get('fold_sources')
+    if (not isinstance(verified_sources, list) or sources != verified_sources or len(sources) != 3
+            or any(not isinstance(source, dict) or set(source) !=
+                   {'fold', 'selected_model_sha256', 'calibration_sha256'}
+                   or source['fold'] != number or not digest(source['selected_model_sha256'])
+                   or not digest(source['calibration_sha256']) for number, source in enumerate(sources))):
+        raise ValueError('independently verified selected and calibration identities required')
+    ordered = sorted(fit)
+    entries = table.get('rows')
+    if (not isinstance(entries, list) or len(entries) != len(ordered)
+            or not isinstance(calibrated_oof, dict) or set(calibrated_oof) != set(fit)):
+        raise ValueError('complete fit-only OOF and target coverage required')
+    probabilities = [calibrated_oof[index] for index in ordered]
+    candidate = f05_confident_joint([rows[index]['label'] for index in ordered], probabilities)
+    suspicious = set(candidate['suspicious_positions'])
+    key = 'weight' if table['mode'] == 'clean' else 'soft_target'
+    result = {}
+    for position, (index, entry, probability) in enumerate(zip(ordered, entries, probabilities)):
+        expected_keys = {'index', 'label', 'fold', key}
+        if (not isinstance(entry, dict) or set(entry) != expected_keys
+                or type(entry['index']) is not int or entry['index'] != index
+                or type(entry['label']) is not int or entry['label'] != rows[index]['label']
+                or type(entry['fold']) is not int or entry['fold'] != membership[index]):
+            raise ValueError('target index, held-out fold, or label differs')
+        value = entry[key]
+        if type(value) not in (int, float) or not math.isfinite(value):
+            raise ValueError('finite target required')
+        expected = (.25 if position in suspicious else 1.) if key == 'weight' else probability
+        if value != expected or (key == 'soft_target' and not 0 <= value <= 1):
+            raise ValueError('target does not match the independently calibrated OOF rule')
+        result[index] = float(value)
+    return result, candidate
+
 
 def _digest(value):
     raw = json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False,
