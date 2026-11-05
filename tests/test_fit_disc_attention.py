@@ -2,6 +2,8 @@
 import unittest
 import hashlib
 import json
+import tempfile
+from unittest.mock import patch
 from pathlib import Path
 import sys
 
@@ -10,8 +12,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
 import torch
 
-from tools.diagnostics.fit_disc_attention import grad_cam, locate
+from tools.diagnostics.fit_disc_attention import grad_cam, locate, verify_packet
 from tools.diagnostics.fit_disc_consensus import box_coverage, choose_fit
+from tools.diagnostics import fit_disc_consensus as blind
 
 
 class AttentionGateTest(unittest.TestCase):
@@ -21,6 +24,36 @@ class AttentionGateTest(unittest.TestCase):
         self.assertEqual(chosen, choose_fit(list(reversed(range(1000))), old + prior, 64, 20261124))
         self.assertEqual(len(set(chosen)), 64)
         self.assertFalse(set(chosen) & set(old + prior))
+
+    def test_blind_packet_binds_members_mapping_and_every_image(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); reviewer = root / 'reviewer'; reviewer.mkdir()
+            members = {'random_seed': 20261124, 'excluded_sha256': blind.OLD_MEMBERS_SHA,
+                       'excluded_consensus_sha256': blind.CONSENSUS_MEMBERS_SHA,
+                       'manifest_sha256': blind.MANIFEST_SHA, 'selection_uses_labels_age_scores': False,
+                       'selected_global_indices': list(range(200, 264))}
+            cases, mapping = [], []
+            for index in range(64):
+                alias = f'B{index + 1:03d}'
+                path = reviewer / (alias + '.png'); path.write_bytes(alias.encode())
+                cases.append({'alias': alias, 'image': path.name, 'sha256': blind.sha(path), 'available': True})
+                mapping.append({'alias': alias, 'global_index': 200 + index, 'valid_rect': [0, 0, 512, 512]})
+            packet = {'cases': cases, 'no_algorithm_predictions': True, 'no_labels_age_or_scores': True}
+            for path, contents in ((root / 'PRIVATE-MEMBERS.json', members),
+                                   (root / 'PRIVATE-MAPPING.json', {'rows': mapping}),
+                                   (reviewer / 'PACKET.json', packet)):
+                path.write_text(json.dumps(contents))
+            ready = {'status': 'blind_packet_ready_unreviewed', 'count': 64,
+                     'private_members_sha256': blind.sha(root / 'PRIVATE-MEMBERS.json'),
+                     'private_mapping_sha256': blind.sha(root / 'PRIVATE-MAPPING.json'),
+                     'packet_sha256': blind.sha(reviewer / 'PACKET.json')}
+            (root / 'PACKET-READY.json').write_text(json.dumps(ready))
+            ready_sha = blind.sha(root / 'PACKET-READY.json')
+            with patch.object(blind, 'require_context', side_effect=lambda path: Path(path)):
+                verify_packet(root, ready_sha)
+                (reviewer / 'B001.png').write_bytes(b'changed')
+                with self.assertRaises(ValueError):
+                    verify_packet(root, ready_sha)
 
     def test_localization_and_canvas_edge_clamping(self):
         cam = np.zeros((512, 512))
