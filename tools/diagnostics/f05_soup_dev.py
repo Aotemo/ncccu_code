@@ -104,6 +104,8 @@ def prepare(gpu, args):
     policy = json.loads((source / 'configs/F05-SOUP-DEV-20261105.json').read_text())
     frozen = gpu.read_pinned(source / 'records/analysis/20261104-f04/F04-FINAL-FREEZE.json',
                              policy['f04_freeze_sha256'])
+    if frozen.get('full_dev', {}).get('summary_sha256') != policy.get('f04_internal_fp16_summary_sha256'):
+        raise ValueError('frozen F04 internal dev summary identity differs')
     original = gpu.read_pinned(args.f04_inputs, frozen['identity']['inputs_sha256'])
     if (original.get('status') != 'F04_full_dev_gpu_inputs_sealed_no_GPU'
             or original.get('official_read') is not False or original.get('TTA') is not False

@@ -862,6 +862,7 @@ def owner(args):
                              soup_policy['f04_freeze_sha256'])
         if (inputs.get('git_commit') != args.git_commit
                 or inputs.get('f04_freeze_sha256') != soup_policy['f04_freeze_sha256']
+                or frozen.get('full_dev', {}).get('summary_sha256') != soup_policy['f04_internal_fp16_summary_sha256']
                 or inputs.get('f04_inputs', {}).get('sha256') != frozen['identity']['inputs_sha256']
                 or inputs.get('weight_bytes') != sum(x['exports']['fp16']['model']['bytes'] for x in inputs['members'])
                 or any(x['data_root'] != site.get('data_root') or x['cache'] != site.get('prepared_cache')
