@@ -10,6 +10,9 @@ def resolve_steps_per_cycle(job, negative_count, *, fresh_spec=None) -> int:
     The caller still validates the complete fresh schedule and source identity
     with validate_fresh; the sampler's attempted-update stream is unchanged.
     """
+    if job.get('f06') is not None and fresh_spec is not None:
+        from .experiment91 import F06_BINDING
+        return F06_BINDING['steps_per_cycle']
     if job.get('experiment91') is not None and fresh_spec is not None:
         from .experiment91 import schedule
         return schedule()['steps_per_cycle']
@@ -70,6 +73,8 @@ def validate_fresh(spec, identity, job, topology, steps, *, mode):
             ('convnext_small','torchvision-convnext-small-dinov3-backbone-state-dict-v1'),
             ('convnext_large','torchvision-convnext-large-dinov3-backbone-state-dict-v1')):
         expected_kind='self_supervised'
+    if job.get('initialization',{}).get('kind') == 'checkpoint_warm_start':
+        expected_kind='checkpoint_warm_start'
     if (spec.get('format')!='glaucoma-fresh-init-v1' or spec.get('purpose') not in ('probe','train')
             or (mode=='fresh-probe')!=(spec.get('purpose')=='probe') or mode not in ('fresh-probe','train')
             or not spec.get('plan_version') or len(spec.get('plan_sha256',''))!=64

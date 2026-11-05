@@ -457,6 +457,32 @@ def _partition_groups(rows, indices, fractions, seed):
     return [sorted(part) for part in parts]
 
 
+def read_official_folds(path, expected_sha256):
+    """Load the pre-registered official folds with exact bytes and population."""
+    path = Path(path)
+    if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+            or not isinstance(expected_sha256, str) or len(expected_sha256) != 64
+            or _file_sha(path) != expected_sha256):
+        raise ValueError('registered official folds path/SHA required')
+    value = json.loads(path.read_text(encoding='utf-8'))
+    rows = value.get('rows')
+    if (value.get('format') != 'f06-official-folds-v1' or not isinstance(rows, list)
+            or value.get('population', {}).get('rows') != len(rows)):
+        raise ValueError('official fold file schema differs')
+    result = {}
+    for entry in rows:
+        name = str(entry.get('name', '')).casefold()
+        label, fold = entry.get('label'), entry.get('fold')
+        if (not name or name in result or type(label) is not int or label not in (0, 1)
+                or type(fold) is not int or not 0 <= fold < 3):
+            raise ValueError('official fold row identity differs')
+        result[name] = (label, fold)
+    if (len(result) != len(rows) or value.get('population', {}).get('positive')
+            != sum(label for label, _ in result.values())):
+        raise ValueError('official fold population/labels differ')
+    return result
+
+
 def build_manifest(source, split):
     split = dict(split)
     kind = split.setdefault('kind', 'holdout')
@@ -488,6 +514,36 @@ def build_manifest(source, split):
                 raise ValueError('explicit valid inclusion requires load_source(include_valid=True)')
             rows += list(source['valid_rows'])
         fit = list(range(len(rows)))
+    elif kind == 'official_cv':
+        fold = split.setdefault('fold', 0)
+        fraction = split.setdefault('valid_fraction', .1)
+        if (type(fold) is not int or not 0 <= fold < 3 or not 0 < fraction < 1
+                or split.setdefault('include_valid', False) is not True):
+            raise ValueError('official_cv requires include_valid and a zero-based three-fold id')
+        valid = list(source.get('valid_rows') or [])
+        if not valid:
+            raise ValueError('explicit valid inclusion requires load_source(include_valid=True)')
+        table = read_official_folds(split.get('folds_path'), split.get('folds_sha256'))
+        if len(table) != len(valid):
+            raise ValueError('official fold and valid population differ')
+        fold_of_valid = []
+        for record in valid:
+            key = record['name'].casefold()
+            if key not in table or table[key][0] != int(record['label']):
+                raise ValueError('official fold name/label coverage differs')
+            fold_of_valid.append(table[key][1])
+        expected = split.get('expected_fold_counts')
+        if expected is not None:
+            counts = [(sum(1 for f in fold_of_valid if f == k),
+                       sum(1 for f, r in zip(fold_of_valid, valid) if f == k and int(r['label'])))
+                      for k in range(3)]
+            if counts != [tuple(item) for item in expected]:
+                raise ValueError('official fold counts differ from the registered split')
+        base_fit, _ = _partition_groups(rows, indices, [1 - fraction, fraction], seed)
+        offset = len(rows)
+        rows += valid
+        fit = list(base_fit) + [offset + i for i, assigned in enumerate(fold_of_valid) if assigned != fold]
+        dev = [offset + i for i, assigned in enumerate(fold_of_valid) if assigned == fold]
     else:
         raise ValueError(f'unknown split kind: {kind}')
     if kind != 'refit':

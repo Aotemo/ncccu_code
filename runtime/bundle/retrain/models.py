@@ -302,7 +302,21 @@ def copy_imagenet_materials(source, job, metadata, origin, destination, provenan
             'provenance_sha256': _hash(folder / 'provenance.json')}
 
 
+def validate_warm_start(initialization):
+    """A registered weights-only warm start never claims public-source provenance."""
+    path = Path(initialization['path'])
+    if (not path.is_absolute() or path.is_symlink() or not path.is_file()
+            or _hash(path) != initialization['sha256']):
+        raise ValueError('warm-start weight SHA differs')
+    return {'kind': 'checkpoint_warm_start', 'model': 'convnext_small',
+            'format': 'exported-fp32-state-dict-v1', 'weights_sha256': initialization['sha256'],
+            'tensor_sha256': initialization['tensor_sha256'],
+            'source_model': initialization['source_model']}
+
+
 def validate_initialization(initialization):
+    if initialization.get('kind') == 'checkpoint_warm_start':
+        return validate_warm_start(initialization)
     if initialization.get('format') == 'timm-eva02-base-native448-full1000-pad512-state-dict-v1':
         from .eva02_model import validate_initialization as validate_eva02
         return validate_eva02(initialization)
@@ -954,7 +968,7 @@ def create_model(job, initialize=True):
         raise ValueError('Unsupported backbone: '+name)
     public_receipt = None
     init = job.get('initialization', {'kind': 'random'})
-    if initialize and init['kind'] != 'random':
+    if initialize and init['kind'] not in ('random', 'checkpoint_warm_start'):
         proof = validate_initialization(init)
         if proof['model'] != name:
             raise ValueError('Pretrained provenance model differs from requested architecture')
@@ -1100,4 +1114,18 @@ def create_model(job, initialize=True):
         from .experiment91 import describe_model
         result.candidate_normalization = describe_model(result)
         result.public_initialization_receipt = public_receipt
+    if initialize and init.get('kind') == 'checkpoint_warm_start':
+        from .ema import tensor_digest
+        proof = validate_warm_start(init)
+        state = torch.load(init['path'], map_location='cpu', weights_only=True)
+        current = result.state_dict()
+        if (not isinstance(state, dict) or state.keys() != current.keys()
+                or tensor_digest(state) != init['tensor_sha256']
+                or any(t.dtype != torch.float32 or not bool(torch.isfinite(t).all()) for t in state.values())):
+            raise ValueError('warm-start tensors differ from the registered FP32 state')
+        loaded = result.load_state_dict(state, strict=True)
+        if loaded.missing_keys or loaded.unexpected_keys:
+            raise ValueError('warm-start state is not an exact architecture fit')
+        result.initialization_receipt = {**proof, 'tensor_sha256_verified': True,
+                                         'strict_missing_keys': [], 'strict_unexpected_keys': []}
     return result

@@ -118,6 +118,38 @@ def validate_job(job):
     from .classification_loss import PAIRWISE_LOSS_KINDS, validate_loss, validate_output_regularization_job
     validate_loss(job.get('loss'))
     validate_output_regularization_job(job)
+    f06 = job.get('f06')
+    if f06 is not None:
+        from .experiment91 import F06_BINDING
+        expected = {'version': F06_BINDING['version'], 'fold': f06.get('fold'),
+                    'folds_sha256': F06_BINDING['folds_sha256']}
+        init = job['initialization']
+        if (f06 != expected or type(f06.get('fold')) is not int or not 0 <= f06['fold'] < 3
+                or job.get('seed') != F06_BINDING['seed'] + f06['fold']
+                or (job.get('model'), job.get('precision'), job.get('normalization'),
+                    job.get('image_size'), job.get('prepared_size'), job.get('physical_batch'),
+                    job.get('effective_batch'), job.get('positive_per_batch')) !=
+                   ('convnext_small', 'fp32', 'imagenet', 512, 512, 32, 64, 8)
+                or (job.get('cycles'), job.get('warmup_cycles'), job.get('min_cycles'),
+                    job.get('patience'), job.get('min_delta'), job.get('stop_after_cycles')) !=
+                   (15, 1, 1, 4, 0.0, 0)
+                or (job.get('backbone_lr'), job.get('head_lr'), job.get('weight_decay'),
+                    job.get('dropout'), job.get('stochastic_depth'), job.get('head_lr_scope')) !=
+                   (1e-5, 1e-4, 1e-4, .2, .1, 'last_linear')
+                or (job.get('loss') or {}).get('kind') != 'binary_pairwise_sigmoid'
+                or tuple(job.get('training_scale') or ()) != (.85, 1.)
+                or any(job.get(key) is not None for key in
+                       ('experiment91', 'f05_targets', 'initial_checkpoint', 'mixup', 'output_regularization',
+                        'input_preprocessing', 'optimizer_policy', 'gradient_clip_policy',
+                        'gradient_centralization_policy', 'head_warmup_policy', 'layerwise_lr_policy',
+                        'low_rank_policy', 'stem_xy_policy', 'mixstyle_policy', 'tri3_downsample_policy',
+                        'attention_pool', 'stage3_residual', 'freeze_features_before',
+                        'final_downsample_stride', 'training_rotation', 'training_photometric',
+                        'lr_decay_updates'))
+                or init.get('kind') != 'checkpoint_warm_start'
+                or init.get('tensor_sha256') != F06_BINDING['warm_start_tensor_sha256']
+                or not (job.get('age') or {}).get('enabled')):
+            raise ValueError('F06 official fine-tuning science/identity differs')
     f05 = validate_f05_training_binding(job.get('f05_targets'))
     profile = (job.get('experiment91') or {}).get('version')
     registered_f05 = {F05_CLEAN_PROFILE: ('clean', 20261201), F05_DISTILL_PROFILE: ('distill', 20261202)}
@@ -406,10 +438,20 @@ def validate_job(job):
     if job['head_lr_scope'] not in ('classifier_legacy','last_linear'):
         raise ValueError('head_lr_scope must be explicit classifier_legacy/last_linear')
     init = job['initialization']
-    _unknown(init, ('kind', 'path', 'sha256', 'provenance','format','expected_backbone_state_keys','original_sha256','visual_prefix_removed'), 'initialization')
-    if init.get('kind') not in ('random', 'imagenet', 'self_supervised', 'retinal_vision_language', 'natural_vision_language'):
+    _unknown(init, ('kind', 'path', 'sha256', 'provenance','format','expected_backbone_state_keys','original_sha256','visual_prefix_removed','tensor_sha256','source_model'), 'initialization')
+    if init.get('kind') not in ('random', 'imagenet', 'self_supervised', 'retinal_vision_language', 'natural_vision_language', 'checkpoint_warm_start'):
         raise ValueError('unknown initialization kind')
-    if init['kind'] == 'imagenet':
+    if init['kind'] == 'checkpoint_warm_start':
+        if (init.get('format') != 'exported-fp32-state-dict-v1'
+                or not all(isinstance(init.get(key), str) and Path(init[key]).is_absolute()
+                           and '://' not in init[key] for key in ('path', 'source_model'))
+                or Path(init['path']) == Path(init['source_model'])
+                or not re.fullmatch('[0-9a-f]{64}', init.get('sha256', ''))
+                or not re.fullmatch('[0-9a-f]{64}', init.get('tensor_sha256', ''))
+                or job['model'] != 'convnext_small' or job['normalization'] != 'imagenet'
+                or job.get('experiment91') is not None):
+            raise ValueError('warm start requires exported FP32 Small state and exact provenance')
+    elif init['kind'] == 'imagenet':
         if job['normalization'] != ('clip' if job['model']=='eva02_base' else 'imagenet'):
             raise ValueError('ImageNet weights require the fixed ImageNet normalization')
         if not all(init.get(k) for k in ('path', 'sha256', 'provenance')):
@@ -562,7 +604,8 @@ def load_config(path=None, environ=None, overrides=None):
                output_root='/outputs', data=dict(root='/mnt/data', identity_path=str(BUNDLE/'assets/train_identity.json'),
                verify_images=True, expected_count=51396, expected_valid_count=5849,
                split=dict(kind='holdout', seed=20261024, valid_fraction=.2, folds=3, fold=0,
-                          inner_fraction=.1, include_valid=False)),
+                          inner_fraction=.1, include_valid=False, folds_path=None, folds_sha256=None,
+                          expected_fold_counts=None)),
                execution=dict(devices=['cuda:0', 'cuda:1'], cpu_cores_per_job=14,
                               grace_seconds=90, heartbeat_seconds=60, per_rank_microbatch=0,
                               evaluation_physical_batch=32,legacy_six_card_exception=False,technical_smoke=False))
@@ -586,7 +629,7 @@ def load_config(path=None, environ=None, overrides=None):
             raise ValueError('Every job requires name and model')
         job = default_job(item['name'], item['model'], item.get('initialization', {}).get('kind', 'random'))
         # Omitted optional fields remain absent in legacy checkpoint identities.
-        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','nadam_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates','f05_targets'), 'job')
+        _unknown(item, (*job, 'loss', 'training_scale', 'training_views', 'training_photometric', 'training_rotation', 'head_seed', 'bn_statistics', 'freeze_features_before', 'final_downsample_stride', 'stage3_residual', 'gradient_clip_policy', 'head_warmup_policy', 'layerwise_lr_policy', 'low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','nadam_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates','f05_targets','f06'), 'job')
         job.update(item)
         for key in ('low_rank_policy', 'output_regularization', 'tri3_downsample_policy', 'mixstyle_policy', 'stem_xy_policy', 'gradient_centralization_policy', 'optimizer_policy', 'input_preprocessing', 'cosine_head_policy','deit_pool_policy','adamw_beta2_policy','adamw_amsgrad_policy','nadam_policy','quadrant_mil_policy','vit_dino3_pool_policy','lr_decay_updates'):
             if job.get(key) is None:
@@ -676,8 +719,8 @@ def parse_devices(text):
 
 
 def validate_split(split):
-    if split['kind'] not in ('holdout', 'cv', 'refit'):
-        raise ValueError('split.kind must be holdout/cv/refit')
+    if split['kind'] not in ('holdout', 'cv', 'refit', 'official_cv'):
+        raise ValueError('split.kind must be holdout/cv/refit/official_cv')
     for key in ('valid_fraction', 'inner_fraction'):
         _number(split[key], key, .0001, maximum=.4999)
     for key in ('seed', 'fold'):
@@ -685,8 +728,23 @@ def validate_split(split):
     _number(split['folds'], 'folds', 2, integer=True)
     if split['fold'] >= split['folds']:
         raise ValueError('fold must be less than folds')
-    if not isinstance(split['include_valid'], bool) or (split['include_valid'] and split['kind'] != 'refit'):
-        raise ValueError('Official valid can enter fitting only for an explicit refit')
+    if not isinstance(split['include_valid'], bool) or (
+            split['include_valid'] and split['kind'] not in ('refit', 'official_cv')):
+        raise ValueError('Official valid can enter fitting only for explicit refit/official_cv')
+    if split['kind'] == 'official_cv':
+        if (split['include_valid'] is not True
+                or not isinstance(split.get('folds_path'), str) or not Path(split['folds_path']).is_absolute()
+                or not isinstance(split.get('folds_sha256'), str)
+                or re.fullmatch('[0-9a-f]{64}', split['folds_sha256']) is None
+                or split['folds'] != 3):
+            raise ValueError('official_cv requires an absolute registered folds path/SHA and three folds')
+        expected = split.get('expected_fold_counts')
+        if (expected is not None and (not isinstance(expected, list) or len(expected) != 3
+                or any(not isinstance(item, list) or len(item) != 2
+                       or any(type(value) is not int or value < 0 for value in item) for item in expected))):
+            raise ValueError('official_cv expected fold counts must be three [rows, positive] pairs')
+    elif any(split.get(key) is not None for key in ('folds_path', 'folds_sha256', 'expected_fold_counts')):
+        raise ValueError('fold registration keys belong only to official_cv')
 
 
 def job_contract(job):

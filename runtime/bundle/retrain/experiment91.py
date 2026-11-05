@@ -15,6 +15,17 @@ from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS, 
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
 BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-publicbn-v1'
+# One registered F06 binding shared by the three official folds; the fold id is
+# the only per-run difference. Fold counts come from the registered FOLDS.json
+# (7f07accc...): 1950/1950/1949 rows and 64/64/63 positives over official 5849.
+F06_BINDING = {
+    'version': 'f06-official-ft-v1',
+    'folds_sha256': '7f07accc5865acab57145baf244714b2f8861230b2696d3964cb1bf742bf695e',
+    'warm_start_tensor_sha256': 'f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85',
+    'steps_per_cycle': 400, 'total_updates': 6000, 'warmup_updates': 400,
+    'evaluation_interval': 400, 'patience': 4, 'min_cycles': 1,
+    'seed': 20261106, 'fold_rows': [1950, 1950, 1949], 'fold_positive': [64, 64, 63],
+}
 FIT_BN_BINDING_VERSION = 'single-resnet50-imagenetv2-fixed-9010-24k-earlystop-seed20261029-fitbn-v1'
 FROZEN_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-freezeearly-v1'
 LAST_STRIDE_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairlog-laststride1-v1'

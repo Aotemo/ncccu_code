@@ -85,8 +85,11 @@ def run(args):
     import math,time
     if args.deadline_at is None or not math.isfinite(args.deadline_at) or args.deadline_at<=time.time():
         raise ValueError('fresh runtime requires an unexpired original absolute deadline')
-    if cfg['mode']!='train' or len(cfg['jobs'])!=1 or cfg['data']['split']['kind'] not in ('holdout','cv') or (cfg['data']['split']['kind']=='cv' and not args.manifest) or cfg['data']['split']['include_valid'] or not cfg['data']['verify_images']:
-        raise ValueError('configured fresh entry requires one model and verified holdout')
+    if cfg['mode']!='train' or len(cfg['jobs'])!=1 or cfg['data']['split']['kind'] not in ('holdout','cv','official_cv') or (cfg['data']['split']['kind']=='cv' and not args.manifest) or not cfg['data']['verify_images'] or (cfg['data']['split']['include_valid'] and cfg['data']['split']['kind']!='official_cv'):
+        raise ValueError('configured fresh entry requires one model and verified holdout/official_cv')
+    split=dict(cfg['data']['split']);split.update(cfg['jobs'][0]['split'])
+    if (split['kind']=='official_cv') != (cfg['jobs'][0].get('f06') is not None) or (split['include_valid'] and args.manifest):
+        raise ValueError('official_cv folds and their registered F06 job must appear together')
     if sha256_file(args.plan)!=fresh['plan_sha256']:raise ValueError('frozen PLAN hash differs')
     if fresh.get('cache_readonly_required') and (os.environ.get('TRAIN_IMAGE_CACHE_READONLY')!='1' or not os.environ.get('TRAIN_IMAGE_CACHE')):raise ValueError('sealed read-only cache required')
     import torch
@@ -125,7 +128,7 @@ def run(args):
             manifest=json.loads(Path(args.manifest).read_text())
             if manifest.get('audit_indices') or not manifest.get('fit_indices') or not manifest.get('dev_indices'):raise ValueError('complete sealed fit/dev manifest required')
         else:
-            source=load_source(cfg['data']['root'],cfg['data']['identity_path'],True,False,cfg['data']['expected_count'])
+            source=load_source(cfg['data']['root'],cfg['data']['identity_path'],True,split['include_valid'],cfg['data']['expected_count'])
             split=dict(cfg['data']['split']);split.update(job['split']);manifest=build_manifest(source,split)
         hashes,digest=train.source_identity()
         identity={'format':'glaucoma-retrain-v1','source_digest':digest,'manifest_digest':canonical_digest(manifest),
