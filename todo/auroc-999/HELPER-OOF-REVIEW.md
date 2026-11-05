@@ -12,16 +12,16 @@
 ## 拟按既有链实施的顺序
 
 1. 三轮分别完成且安全终态后，由 08ac 核对应唯一 selected 及原 runtime；核 `FOLDS-private.json` 与原 manifest 的文件 SHA、`verify_roles`、训练 fit 与 audit 互斥/组隔离、原 dev 不进入两类输出，且每个 fit 行只在一个 audit。固定每折 age 统计来自该折训练子集。保存只含身份和聚合的准备回执。
-2. 每折先封存两个互斥 population：全部该折 held-out，以及从该折训练 fit 按类抽出的标定行。合同规定每类最多 1024、seed `20261121 + fold`；具体抽样遍历顺序及样本权重的全局归一化须在读任何新 OOF/标定分数前固定并保留，否则 `LogisticRegression(C=1000)` 的正则化可能受权重整体缩放影响。
+2. 每折先封存两个互斥 population：全部该折 held-out，以及该折**完整训练 fit** 作为标定行。2026-11-05 c607 在任何 OOF 分数前裁定完整训练子集替代原合同每类最多 1024 的抽样；标定权重均为 1，均值为 1、总和等于训练样本数。原分层抽样时的类比例修正不是反比例类平衡，全量时不另做类平衡。训练索引和排序须独立绑定封存折角色。
 3. 由唯一 GPU owner 对既有 `f04_gpu_full_dev.py` 明确添加受封存证据约束的 **fit-only OOF 模式**：单 selected 的八 rank 分片，依序处理上述互斥 population；复用原 barrier、设备/CPU 准入、历史 runtime、严格 selected 加载、单视图和 packet/聚合，不启动另一个监督平台。每个 held-out 行对所属 selected 只前向一次；标定行是该折训练子集、另一次单视图前向。每折输出唯一 identity/claim，超时或通信中断记 unknown，先只读核输出和实际进程，禁止自动重派。此模式拒绝官方/dev population、TTA、错误变体及非 fold 训练 site。
 4. 每个私有 packet/完整汇总绑定 fold/round、base manifest 与 sealed folds SHA、派生训练 manifest 和 age SHA、selected blob/tensor/variant/update、模型严格加载证据、角色和预封样本列表 SHA、rank proof、单视图标识及每行原 manifest index/标签/logit；核每行所属角色、rank 分片、顺序、无重复/缺项/非有限后再对该折输出 receipt SHA。逐样本分数、标定样本、目标表和可疑名单只留 exp-v3，不进 Git。
-5. CPU 下只用该折训练子集的标定标签/分数拟合合同中的加权一维 `LogisticRegression(C=1000, solver='lbfgs', max_iter=1000, tol=1e-8, random_state=20261121)`；核两类与收敛、系数/截距及有限输出。将映射应用到所属 held-out raw logit，再检查三折完整覆盖原 fit 恰一次。`tools/diagnostics/f05_oof_targets.py` 拟将核验后的数据生成 clean/distill 两份 `f05-fit-oof-targets-v1`，来源列表含每折 selected 与标定 SHA；按 [helper 接口合同](HELPER-CLEAN-DISTILL.md) 重算 confident-joint、0.25/1 权重和软标签。
+5. CPU 下只用该折完整训练子集的标定标签/分数，以逐行权重 1 拟合合同中的一维 `LogisticRegression(C=1000, solver='lbfgs', max_iter=1000, tol=1e-8, random_state=20261121)`；核完整训练索引、两类与收敛、系数/截距及有限输出。将映射应用到所属 held-out raw logit，再检查三折完整覆盖原 fit 恰一次。`tools/diagnostics/f05_oof_targets.py` 拟将核验后的数据生成 clean/distill 两份 `f05-fit-oof-targets-v1`，来源列表含每折 selected 与标定 SHA；按 [helper 接口合同](HELPER-CLEAN-DISTILL.md) 重算 confident-joint、0.25/1 权重和软标签。
 6. 08ac 负责在 `runtime/bundle/retrain/experiment91.py`、`pipeline.py`、`distributed_engine.py` 及 `tools/activation/prepare.py` 接入：先独立核完整模型/预测/标定回执和目标文件 bytes，再将实际验证所得 `verified_sources` 与 `calibrated_oof` 交 `data.validate_f05_target_table`。当前表校验本身不证明自报 SHA 对应真实文件；不做这一步不能训练。`f05_train_batch_loss` 在原 WORLD 顺序 gather logits/labels/目标并给出固定损失；接入时须保留原训练循环对 `global_targets` 的统计，避免对 logits 重复 gather 或改变 DDP 梯度缩放。
 
 ## 拟覆盖的隔离验证
 
 - 合成三折与两个受封 population：少一行、重复、错误 rank/fold、组重叠、dev 混入、标签/模型/variant/SHA 不匹配、非有限分数、旧五折和残缺 packet 均拒绝；三折 held-out 的并集恰为 fit，标定只能来自相应 train。
-- 受控合成标定：每类抽样固定、类比例权重和收敛回执；单类、未收敛、非有限、缺标定源/selected 源拒绝；soft target 与映射逐行一致、clean 阈值/矩阵/权重可独立重算。
+- 受控合成标定：每折完整训练索引、逐行权重 1 和收敛回执；单类、未收敛、非有限、缺标定源/selected 源拒绝；soft target 与映射逐行一致、clean 阈值/矩阵/权重可独立重算。
 - 已完成的双 rank G64/P8 数学检查只覆盖目标输入后的 WORLD 顺序和梯度，不证明真实 OOF 的产生、血缘或主循环接线。待实现相关入口后在核验的 Pod 12–23 准备池、隐藏设备运行新窄测；真实前向需 main 合并、完整树及 owner 的现场 GPU 安全门。
 
 ## 实际文件边界
