@@ -23,8 +23,8 @@ def build_fold_manifests(base, seed):
         raise ValueError('base fit/dev population or labels differ')
     if {rows[i]['group'] for i in fit} & {rows[i]['group'] for i in dev}:
         raise ValueError('original content group crosses fit and dev')
-    parts = _partition_groups(rows, fit, [1 / 5] * 5, seed)
-    if len(parts) != 5 or sorted(i for part in parts for i in part) != sorted(fit):
+    parts = _partition_groups(rows, fit, [1 / 3] * 3, seed)
+    if len(parts) != 3 or sorted(i for part in parts for i in part) != sorted(fit):
         raise ValueError('fit groups are not covered exactly once')
     result = []
     for number, held in enumerate(parts):
@@ -36,7 +36,7 @@ def build_fold_manifests(base, seed):
             raise ValueError('fold training/held-out classes or groups differ')
         fold = dict(base)
         fold.update(fit_indices=train, dev_indices=list(dev), audit_indices=list(held),
-                    split={'kind': 'fit_only_5fold', 'seed': seed, 'fold': number, 'folds': 5,
+                    split={'kind': 'fit_only_3fold', 'seed': seed, 'fold': number, 'folds': 3,
                            'base_split': base.get('split')},
                     split_method='content-group-label-age-size-v1')
         fold['counts'] = {name: {'rows': len(indices), 'positive': sum(rows[i]['label'] for i in indices),
@@ -44,6 +44,47 @@ def build_fold_manifests(base, seed):
                           for name, indices in (('fit', train), ('dev', dev), ('audit', held))}
         result.append(fold)
     return result
+
+
+def training_manifest(fold):
+    """Hide the independently sealed held-out role from the training entry."""
+    rows = fold['rows']
+    roles = [fold[name] for name in ('fit_indices', 'dev_indices', 'audit_indices')]
+    if (not all(isinstance(role, list) and role for role in roles)
+            or any(type(index) is not int or not 0 <= index < len(rows) for role in roles for index in role)
+            or any(len(role) != len(set(role)) for role in roles)
+            or len({index for role in roles for index in role}) != sum(map(len, roles))
+            or set(index for role in roles for index in role) != set(range(len(rows)))
+            or {rows[i]['group'] for i in roles[0]} & {rows[i]['group'] for i in roles[2]}):
+        raise ValueError('fold roles are incomplete, overlapping, or share a held-out group')
+    result = dict(fold)
+    result['audit_indices'] = []
+    result['counts'] = dict(fold['counts'])
+    result['counts']['audit'] = {'rows': 0, 'positive': 0, 'groups': 0}
+    return result
+
+
+def verify_sealed_folds(folds, receipt, seed):
+    """Recompute all fold identities before deriving training assets."""
+    from retrain.age import make_spec
+    from retrain.persistence import canonical_digest
+    if (len(folds) != 3 or not isinstance(receipt, dict)
+            or receipt.get('status') != 'three_fold_fit_only_indices_sealed_no_training'
+            or receipt.get('seed') != seed or receipt.get('GPU_initialized') is not False
+            or receipt.get('training_started') is not False or receipt.get('official_read') is not False
+            or not isinstance(receipt.get('folds'), list) or len(receipt['folds']) != 3):
+        raise ValueError('sealed fit-only fold identity differs')
+    for number, (fold, row) in enumerate(zip(folds, receipt['folds'])):
+        expected = {'fold': number, 'round': 'R' + str(265 + number), 'counts': fold['counts'],
+                    'fit_indices': fold['fit_indices'], 'audit_indices': fold['audit_indices'],
+                    'fit_indices_sha256': canonical_digest(fold['fit_indices']),
+                    'audit_indices_sha256': canonical_digest(fold['audit_indices']),
+                    'dev_indices_sha256': canonical_digest(fold['dev_indices']),
+                    'manifest_canonical_sha256': canonical_digest(fold), 'age': make_spec(fold)}
+        if row != expected:
+            raise ValueError('sealed fold roles, age, or dev identity differs')
+        training_manifest(fold)
+    return True
 
 
 def sha(path):
@@ -81,14 +122,14 @@ def main():
             or commit.get('tree', {}).get('sha') != tree.get('sha') or tree.get('truncated') is not False):
         raise ValueError('exact published Pod-local source identity required')
     blobs = {entry['path']: entry for entry in tree['tree'] if entry.get('type') == 'blob'}
-    for name in ('tools/diagnostics/f05_oof.py', 'configs/F05-FOLDS-5.json',
+    for name in ('tools/diagnostics/f05_oof.py', 'configs/F05-FOLDS-3.json',
                  'runtime/bundle/retrain/data.py', 'runtime/bundle/retrain/age.py'):
         path = source / name; raw = path.read_bytes()
         digest = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
         mode = '100755' if path.stat().st_mode & 0o111 else '100644'
         if path.is_symlink() or name not in blobs or blobs[name]['sha'] != digest or blobs[name]['mode'] != mode:
             raise ValueError('fold implementation differs from published Git: ' + name)
-    config = json.loads((source / 'configs/F05-FOLDS-5.json').read_text())
+    config = json.loads((source / 'configs/F05-FOLDS-3.json').read_text())
     if args.base_manifest.is_symlink() or sha(args.base_manifest) != config['base_manifest_sha256']:
         raise ValueError('sealed original fit/dev manifest differs')
     if (not args.output.is_absolute() or args.output.exists()
@@ -99,7 +140,7 @@ def main():
     from retrain.persistence import canonical_digest
     base = json.loads(args.base_manifest.read_text())
     if (len(base['fit_indices']) != config['fit_count'] or len(base['dev_indices']) != config['dev_count']
-            or config['folds'] != 5 or config['official_read'] is not False):
+            or config['folds'] != 3 or config['official_read'] is not False):
         raise ValueError('predeclared population differs')
     folds = build_fold_manifests(base, config['fold_seed'])
     args.output.mkdir()
@@ -112,7 +153,7 @@ def main():
                      'audit_indices_sha256': canonical_digest(fold['audit_indices']),
                      'dev_indices_sha256': canonical_digest(fold['dev_indices']),
                      'manifest_canonical_sha256': canonical_digest(fold), 'age': age})
-    result = {'status': 'five_fold_fit_only_indices_sealed_no_training', 'at': time.time(),
+    result = {'status': 'three_fold_fit_only_indices_sealed_no_training', 'at': time.time(),
               'base_manifest_sha256': config['base_manifest_sha256'], 'seed': config['fold_seed'], 'folds': rows,
               'GPU_initialized': False, 'training_started': False, 'official_read': False}
     output = args.output / 'FOLDS-private.json'

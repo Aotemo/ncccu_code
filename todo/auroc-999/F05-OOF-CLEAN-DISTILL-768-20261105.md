@@ -32,3 +32,7 @@
 接入核查发现原八卡训练入口明确拒绝非空 `audit_indices`。各折训练 manifest 因此从新三折封存分组派生：保留该折 fit 与原 dev、`audit_indices=[]`，held-out 索引只留在 SHA 固定的独立三折封存文件供训练结束后的 OOF 使用；训练 manifest、fold age、原始 manifest 及封存分组在 CPU 和正式配置中逐项绑定。保持原 DDP 的 audit 禁令，不在训练过程计算折外输出。仅新增相应派生与绑定校验，不改变早停或 selector。
 
 派生文件最小范围增加 `tools/diagnostics/f05_oof_assets.py`、`runtime/bundle/retrain/f05_folds.py` 和对应窄测试：前者从已验证原始 manifest、原冻结元数据和新三折封存重算并生成每折 manifest/age/contract/freeze；后者让既有 `experiment91.py` 只在显式版本化 F05 折绑定时接受这些文件，并独立复核 fit、原 dev、held-out、组隔离与 age。未启用 F05 绑定时保留原 `FREEZE_SHA` 检查。`tools/activation/prepare.py` 必须验证新折元数据源自原迁移资产，不把迁移身份匹配简单移除。每折配置与精确部署仍须先 commit、push、18/18 和容量核验。
+
+三折改动的合成检查在旧五折代码下预期失败（CPU `008d9f1c3795c0a8018d48ece1397ec584227ff23d41b4fe8c202ef955bd052f`），修改后 11/11 通过（CPU `d7eadb396860397865ef547579c317b32ccbd10e0415fe3e0b3cb4acfe1de2b9`），覆盖一次 held-out、组隔离、正例均衡、fold age 及错误身份拒绝。这只证明合成样本和元数据核心，真实三折分组、正式训练绑定、CPU 18/18 与部署尚未完成。
+
+补充旧五折状态拒绝检查后，三折、元数据派生和角色绑定 11/11 再通过（CPU `fd49a4c8f3c8548403d95ae2e6de19b05d48da4f77de603b72c286fc1ce528f2`）；仍待真实分组及完整正式链。
