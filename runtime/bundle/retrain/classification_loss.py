@@ -1,5 +1,6 @@
 """Explicit binary losses and WORLD pairwise gather; validation imports no Torch."""
 import math
+import numbers
 
 OUTPUT_REGULARIZATION_RULE = {
     'version': 'global-raw-logit-square01-v1', 'coefficient': .1,
@@ -189,6 +190,81 @@ def regularized_pairwise_loss(logits, targets, specification, output_regularizat
     with torch.autocast(device_type=logits.device.type, enabled=False):
         raw = logits.float().reshape(-1)
         return classification_loss(raw, targets, specification) + policy['coefficient'] * raw.square().mean()
+
+
+def f05_confident_joint(labels, calibrated_p1):
+    """Fixed fit-only OOF candidate rule; returns no medical or label verdict."""
+    labels, probabilities = list(labels), list(calibrated_p1)
+    if (not labels or len(labels) != len(probabilities)
+            or any(type(label) is not int or label not in (0, 1) for label in labels)
+            or set(labels) != {0, 1}
+            or any(isinstance(p, bool) or not isinstance(p, numbers.Real)
+                   or not math.isfinite(p) or not 0 <= p <= 1
+                   for p in probabilities)):
+        raise ValueError('finite calibrated fit-only probabilities and both classes required')
+    probabilities = [float(p) for p in probabilities]
+    by_class = [[(1 - p if label == 0 else p) for label, p in zip(labels, probabilities) if label == cls]
+                for cls in (0, 1)]
+    thresholds = [max(.95, sum(values) / len(values)) for values in by_class]
+    joint = [[0, 0], [0, 0]]
+    suspicious, unknown = [], []
+    for index, (label, p1) in enumerate(zip(labels, probabilities)):
+        p0 = 1 - p1
+        eligible = [cls for cls, value in enumerate((p0, p1)) if value >= thresholds[cls]]
+        if len(eligible) == 2:
+            if p0 == p1:
+                unknown.append(index)
+                continue
+            predicted = int(p1 > p0)
+        elif len(eligible) == 1:
+            predicted = eligible[0]
+        else:
+            continue
+        joint[label][predicted] += 1
+        if predicted != label:
+            suspicious.append(index)
+    return {'thresholds': thresholds, 'confident_joint': joint,
+            'suspicious_positions': suspicious, 'unknown_positions': unknown}
+
+
+def f05_pairwise_objective(logits, targets, auxiliary, specification, *, mode):
+    """Apply the preregistered objective to already aligned WORLD tensors."""
+    import torch
+    from torch.nn import functional as F
+
+    spec = validate_loss(specification)
+    if not spec or spec.get('kind') != 'binary_pairwise_sigmoid' or mode not in ('clean', 'distill'):
+        raise ValueError('F05 requires the fixed sigmoid pairwise loss and explicit mode')
+    raw = logits.float().reshape(-1)
+    labels = targets.detach().reshape(-1)
+    values = auxiliary.detach().to(device=raw.device, dtype=torch.float32).reshape(-1)
+    if (raw.numel() == 0 or labels.shape != raw.shape or values.shape != raw.shape
+            or not bool(torch.isfinite(raw).all()) or not bool(torch.isfinite(values).all())):
+        raise ValueError('finite, aligned WORLD logits, labels and auxiliary values required')
+    positive, negative = labels == 1, labels == 0
+    if not bool(positive.any()) or not bool(negative.any()) or not bool((positive | negative).all()):
+        raise ValueError('binary targets and both WORLD classes required')
+    if mode == 'distill':
+        if not bool(((values >= 0) & (values <= 1)).all()):
+            raise ValueError('calibrated OOF soft targets must be in [0, 1]')
+        return classification_loss(raw, labels, spec) + .25 * F.binary_cross_entropy_with_logits(raw, values)
+    if not bool(((values == .25) | (values == 1)).all()):
+        raise ValueError('cleaning weights must be exactly 0.25 or 1')
+    pair_weights = values[positive, None] * values[negative][None, :]
+    differences = raw[negative][None, :] - raw[positive][:, None]
+    return 2. * (torch.sigmoid(differences) * pair_weights).sum() / pair_weights.sum()
+
+
+def gather_f05_auxiliary(values):
+    """Gather detached auxiliary values in the same WORLD rank order as logits."""
+    import torch
+    import torch.distributed as dist
+    if not dist.is_available() or not dist.is_initialized():
+        raise RuntimeError('F05 auxiliary gather requires the initialized default WORLD group')
+    values = values.detach().reshape(-1).contiguous()
+    parts = [torch.empty_like(values) for _ in range(dist.get_world_size())]
+    dist.all_gather(parts, values)
+    return torch.cat(parts, dim=0)
 
 
 def gather_pairwise_inputs(logits, targets):

@@ -11,7 +11,8 @@ from torch import nn
 from torch.utils.data import DataLoader
 from .data import ImageDataset, flatten_training_views
 from .classification_loss import (PAIRWISE_LOSS_KINDS, classification_loss, gather_pairwise_inputs,
-                                  regularized_pairwise_loss, validate_output_regularization_job)
+                                  regularized_pairwise_loss, validate_output_regularization_job,
+                                  f05_pairwise_objective, gather_f05_auxiliary)
 from .parallel_evaluation import evaluate as parallel_evaluate, recovery_checkpoint_due
 from .distributed import RankBatchSampler,ReferenceBatchNorm
 from . import engine as single
@@ -19,6 +20,35 @@ from .persistence import (CheckpointStore,RunLock,atomic_json,canonical_digest,
                           capture_rng,restore_rng,load_file,sha256_file,CheckpointError)
 from .config import job_contract,GLOBAL_NATIVE_SIX_RULE
 from .finite import all_floating_finite
+
+
+def f05_train_batch_loss(logits, labels, indices, validated_targets, specification, *, mode):
+    """Gather fit-indexed auxiliary data in WORLD order after upstream lineage validation.
+
+    The table is not an authorization or source proof. The caller must first
+    verify all OOF/fold/model/calibration identities and validate the complete
+    table against the original fit manifest before entering training.
+    """
+    import torch.distributed as dist
+    if not dist.is_available() or not dist.is_initialized():
+        raise RuntimeError('F05 batch loss requires an initialized default WORLD group')
+    raw_indices = indices.detach().reshape(-1).cpu().tolist()
+    invalid = (not isinstance(validated_targets, dict) or mode not in ('clean', 'distill')
+               or len(raw_indices) != logits.numel() or labels.numel() != logits.numel()
+               or any(type(index) is not int or index not in validated_targets for index in raw_indices))
+    if not invalid:
+        values = [validated_targets[index] for index in raw_indices]
+        invalid = any(type(value) not in (int, float) or not math.isfinite(value)
+                      or (value not in (.25, 1.) if mode == 'clean' else not 0 <= value <= 1)
+                      for value in values)
+    flag = torch.tensor(int(invalid), dtype=torch.int32, device=logits.device)
+    dist.all_reduce(flag, op=dist.ReduceOp.MAX)
+    if flag.item():
+        raise ValueError('one or more ranks lack valid aligned fit targets')
+    auxiliary = torch.tensor(values, dtype=torch.float32, device=logits.device)
+    global_logits, global_labels = gather_pairwise_inputs(logits, labels)
+    global_auxiliary = gather_f05_auxiliary(auxiliary)
+    return f05_pairwise_objective(global_logits, global_labels, global_auxiliary, specification, mode=mode)
 
 
 def validate_parent(parent,spec,identity,job,plan):
