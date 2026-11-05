@@ -21,4 +21,6 @@
 
 被测实际 SHA：`f04_gpu_full_dev.py` `b249c370624b2b98e572e4a27c15484f351e34ac805550f2f2a2ac846192014c`；`f05_oof_gpu.py` `10e4c0519f01e3f7aec548c4117c5b43ae6de73c13125df22dd65a06cc98f3ee`；配置 `87731284e57440d9edb2b7aa590f69618506ce6b511fb7859b9aedea75cf379a`；owner 测试 `e405d8fb020f9f0499d76c235b19c87d9e7783fae0ce17fb914adafe6207e776`；助手测试 `6ec403044ba83dc88e9670de4caa33cec588804702b08e8a88d8f75f289e72ed`；consumer `7a56b2f905254c2ade4fe56118857e0771646a4e95724b50f63dd74395c1938a`。之前 `1057` 草稿因 controller 括号语法错误导入失败，guard SHA `6203a76575507e70f7f94a36543f97724cffdbc0a8d28e648b4e1c80fb1bd3ea`，已保留，`1101` 使用修正后的新隔离身份。
 
-`prepare` 测试直接覆盖 UID 不符时写入前拒绝与独立 selected 枚举；真实资产准备全路径尚未实证，合成通过不替代实际设备屏障、真实模型逐 rank 严格加载、完整角色输出、main 全树证明或 owner 的安全终态核验。
+随后在相同 1101 源码身份的新独立副本，既有 F04 脚本的 **16 项检查通过**、汤回归 **5/5**、扩展后的独立 OOF 安全测试 **15/15**；guard 回执 SHA `ec06857ca17328c634810c7874107abedab779814c754868b9720bdd588c093c`，新测试 SHA `f1b8da49d7675bdaf5cf47ac5c14728364df626c270725ad59e10c000009bdca`。新增用例以 fake work_root 走通 `prepare`→`validate_inputs`→`verify_assets`，并分别拒绝缺失或重复 selected、源/本地 blob 与 sidecar 损坏、错误 fold/base manifest 或不安全终态；发布树与角色验真处采用受控假实现，不能视作真实资产准备通过。
+
+这些合成结果不替代实际设备屏障、真实模型逐 rank 严格加载、完整角色输出、main 全树证明或 owner 的安全终态核验。

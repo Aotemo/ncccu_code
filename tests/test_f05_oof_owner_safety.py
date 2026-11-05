@@ -135,6 +135,54 @@ def synthetic_aggregate_fixture(root, fault=None):
     return fixture, inputs, inputs_ref, source_parent, output
 
 
+def synthetic_prepare_fixture(root, local_root, uid, fault):
+    """Build a self-contained fake work root for the owner's real prepare path."""
+    root, local_root = Path(root), Path(local_root)
+    existing = local_root / 'existing'; existing.mkdir()
+    source, roles, bound = fake_asset_fixture(root, existing)
+    base_ref = _write(root, 'base-meta/manifest.json', read(source['manifest']))
+    folds = read(source['folds']); folds['base_manifest_sha256'] = base_ref['sha256']
+    folds['folds'][0]['age'] = {'contract_sha256': source['age_contract_sha256']}
+    folds_ref = _write(root, 'technical-prep/FOLDS.json', folds)
+    science = {'f05_fold': {'fold': 1 if fault == 'fold' else 0, 'base_metadata_root': 'base-meta',
+                            'sealed_folds_path': 'technical-prep/FOLDS.json'}}
+    science_ref = _write(root, 'technical-prep/SCIENCE.json', science)
+    round_root = Path(source['freeze']['path']).parent
+    site = read(source['site']); site.update(work_root=str(root), science={'configuration': science_ref})
+    site_ref = _write(round_root, 'SITE_BINDING.json', site)
+    _write(round_root, 'RUNTIME_BINDING.json', {'site_binding_sha256': site_ref['sha256']})
+    safe_ref = source['safe']
+    if fault == 'unsafe':
+        safe = read(safe_ref); safe['safety']['safe'] = False
+        safe_ref = _write(root, 'SAFE.json', safe)
+    checkpoint = Path(source['checkpoint']['path'])
+    sidecar = Path(source['sidecar']['path'])
+    if fault == 'missing':
+        checkpoint.unlink(); sidecar.unlink()
+    elif fault == 'duplicate':
+        second = checkpoint.with_name('checkpoint-duplicate.pt'); second.write_bytes(checkpoint.read_bytes())
+        metadata = read(source['sidecar']); metadata['file'] = second.name
+        _write(second.parent, second.name + '.json', metadata)
+    elif fault == 'source_blob':
+        checkpoint.write_bytes(b'changed synthetic source bytes')
+    elif fault == 'sidecar_name':
+        metadata = read(source['sidecar']); metadata['file'] = '../other.pt'
+        _write(sidecar.parent, sidecar.name, metadata)
+    tree = _write(root, 'TREE.json', {'status': 'published_full_git_tree_verified_not_formal_deployment',
+        'source_root': str(ROOT), 'commit': 'a' * 40, 'pod_uid': uid,
+        'GPU_initialized': False, 'official_read': False})
+    policy = json.loads((ROOT / 'configs/F05-OOF-GPU-20261105.json').read_text())
+    policy.update(base_manifest_sha256='f' * 64 if fault == 'base_manifest' else base_ref['sha256'],
+                  folds_sha256=folds_ref['sha256'])
+    execution_site = {'pod': {'uid': uid}, 'work_root': str(root), 'data_root': site['data_root']}
+    args = types.SimpleNamespace(source_root=ROOT, remote_metadata=root, git_commit='a' * 40,
+        tree_proof=Path(tree['path']), tree_proof_sha256=tree['sha256'],
+        execution_site=root / 'execution-site.json', execution_site_sha256='b' * 64,
+        safe=Path(safe_ref['path']), safe_sha256=safe_ref['sha256'], fold=0,
+        local_dir=local_root / 'prepared-copy', output=root / 'technical-prep/INPUTS.json')
+    return args, policy, execution_site, roles, bound
+
+
 class OwnerSafetyTest(unittest.TestCase):
     def test_selected_sidecar_discovery_rejects_missing_duplicate_and_untrusted_files(self):
         digest = 'a' * 64
@@ -537,6 +585,53 @@ class OwnerSafetyTest(unittest.TestCase):
                     else:
                         with self.assertRaises((ValueError, OSError)):
                             oof.verify_assets(gpu, inputs, work_root=root, pod_uid=uid + '-wrong' if fault == 'uid' else uid)
+
+    def test_prepare_synthetic_success_and_rejects_incomplete_or_changed_sources(self):
+        import f04_bounded_fusion
+        import f04_export_member
+        from retrain import site_binding
+        sys.path.insert(0, str(ROOT / 'tools/pretraining'))
+        import source_chain
+        uid = os.environ['NCCCU_POD_UID']
+        local_base = Path('/tmp/technical-prep') / uid
+        policy_path = ROOT / 'configs/F05-OOF-GPU-20261105.json'
+        original_read_text, original_sha = Path.read_text, gpu.sha
+        for fault in ('none', 'missing', 'duplicate', 'source_blob', 'sidecar_name', 'fold',
+                      'base_manifest', 'unsafe', 'local_blob', 'local_sidecar'):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as directory, \
+                 tempfile.TemporaryDirectory(prefix='helper-owner-prepare-', dir=local_base) as local:
+                root = Path(directory)
+                args, policy, execution_site, roles, bound = synthetic_prepare_fixture(root, local, uid, fault)
+                def read_text(path, *args, **kwargs):
+                    if path == policy_path: return json.dumps(policy)
+                    return original_read_text(path, *args, **kwargs)
+                def sha(path):
+                    path = Path(path)
+                    if ((fault == 'local_blob' and path == args.local_dir / 'checkpoint-toy.pt')
+                            or (fault == 'local_sidecar' and path == args.local_dir / 'checkpoint-toy.pt.json')):
+                        return 'f' * 64
+                    return original_sha(path)
+                with mock.patch.object(Path, 'read_text', new=read_text), \
+                     mock.patch.object(gpu, 'sha', side_effect=sha), \
+                     mock.patch.object(f04_bounded_fusion, 'verify_blob', return_value='c' * 64), \
+                     mock.patch.object(f04_export_member, 'verify_published', return_value={}), \
+                     mock.patch.object(source_chain, 'cpu_context', return_value={'uid': uid}), \
+                     mock.patch.object(site_binding, 'load_site', return_value=execution_site), \
+                     mock.patch.object(oof, 'verified_roles', return_value=roles), \
+                     mock.patch.object(f05_folds, 'verify_bound_fold', return_value=bound):
+                    if fault == 'none':
+                        oof.prepare(gpu, args)
+                        inputs = json.loads(args.output.read_text())
+                        self.assertEqual(inputs['status'], 'F05_fit_only_oof_inputs_sealed_no_GPU')
+                        self.assertEqual(inputs['local_checkpoint']['sha256'], inputs['checkpoint']['sha256'])
+                        self.assertEqual(inputs['selected'], inputs['members'][0]['selected'])
+                        self.assertEqual(oof.validate_inputs(inputs, policy), inputs)
+                        self.assertEqual(oof.verify_assets(gpu, inputs, work_root=root, pod_uid=uid), roles)
+                        self.assertFalse(inputs['dev_read']); self.assertFalse(inputs['official_read'])
+                    else:
+                        with self.assertRaises((ValueError, OSError, KeyError)):
+                            oof.prepare(gpu, args)
+                        self.assertFalse(args.output.exists())
 
     def test_fake_cpu_worker_requires_loaded_identity_and_visits_both_roles_once(self):
         import retrain.inference
