@@ -44,3 +44,5 @@
 官方接续本机 transport 的 7 项假 SSH/Pod 身份、固定冻结路径及出错不重派隔离检查通过 `7d2d627c`；最终冻结构造与固定目录独占的 CPU 假数据检查通过 `8e55331a`。正式 claim 只在八设备证明后、真实官方输入读取之前创建；若 claim 后失败，保留状态并如实报 unknown，不自动重试。
 
 五个历史 runtime 在准备池对合成 valid 图验证了正常哈希、原始图预处理与篡改拒绝，回执 `edfb6c24`；没有读取真实官方数据。最终冻结进一步固定并在启动前复核 Python 路径/版本、torch、torchvision、NumPy、Pillow、HIP/CUDA 版本及 Pod/site 绑定，防止环境漂移。
+
+**最终冻结：** 内部验证后实际生成唯一 `final/F04-20261104/FREEZE.json`，SHA `cf5ce24aeb854876d5143dd24ae045e50fabe12412700ca8a3c4a6329eec5ad3`，构造 CPU 回执 `74cc024e`。固定成员 R120/R134R1/R250/R249/R135；fp16 权重共 495097409 B；固定 dev fp16 AUROC 0.9902539582006307、AP 0.8435548008659938。各成员原 selected、实际 fp16 权重及元数据 SHA、完整 dev fp16 z 常数、推理源码和环境均记录于冻结文件。冻结生成前 3433 文件完整 tree `a6770511`；官方尚未读取，部署和官方 claim 不因冻结登记自动完成。
