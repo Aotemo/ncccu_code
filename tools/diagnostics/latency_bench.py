@@ -175,11 +175,33 @@ def build_dataset(images, job, work_root):
     return dataset, rows, root
 
 
-def _load_batch(dataset, indices):
-    items = [dataset[index] for index in indices]
+def _load_batch(dataset, indices, *, decode_threads=1, pool=None):
+    if decode_threads > 1:
+        if pool is None:
+            raise ValueError('thread pool required for parallel decode')
+        items = list(pool.map(dataset.__getitem__, indices))
+    else:
+        items = [dataset[index] for index in indices]
     images = torch.stack([item[0] for item in items])
     ages = torch.stack([item[3] for item in items]) if len(items[0]) == 4 else None
     return images, ages
+
+
+def assert_parallel_decode_equivalence(dataset, batches, *, decode_threads):
+    """Prove the parallel decode/preprocess output is bit-identical to serial."""
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=decode_threads) as pool:
+        for batch in batches:
+            serial = _load_batch(dataset, batch)
+            parallel = _load_batch(dataset, batch, decode_threads=decode_threads, pool=pool)
+            if not torch.equal(serial[0], parallel[0]):
+                raise ValueError('parallel decode images differ from serial output')
+            if (serial[1] is None) != (parallel[1] is None):
+                raise ValueError('parallel decode age features differ')
+            if serial[1] is not None and not torch.equal(serial[1], parallel[1]):
+                raise ValueError('parallel decode age features differ')
+    return {'checked_batches': len(batches), 'decode_threads': decode_threads,
+            'images_bit_identical': True, 'age_bit_identical': True}
 
 
 def _forward_logits(model, job, images, ages):
@@ -212,7 +234,8 @@ def summarize(records, member_ids):
 
 
 def measure(members, dataset, indices, *, device, precision, batch_size,
-            warmup, repetitions, clock=time.perf_counter, synchronize=None):
+            warmup, repetitions, clock=time.perf_counter, synchronize=None,
+            decode_threads=1):
     """Run warmed batches, returning raw per-batch timings in seconds."""
     if repetitions < 5:
         raise ValueError('at least five timed repetitions required')
@@ -227,11 +250,13 @@ def measure(members, dataset, indices, *, device, precision, batch_size,
         synchronize = synchronize or (lambda: None)
     batches = [indices[start:start + batch_size] for start in range(0, len(indices), batch_size)]
     models = [member['model'].to(device).eval() for member in members]
+    from concurrent.futures import ThreadPoolExecutor
+    pool = ThreadPoolExecutor(max_workers=decode_threads) if decode_threads > 1 else None
 
     def one_batch(indices_batch, record=None):
         total_started = clock() if record is not None else None
         started = clock() if record is not None else None
-        images, ages = _load_batch(dataset, indices_batch)
+        images, ages = _load_batch(dataset, indices_batch, decode_threads=decode_threads, pool=pool)
         if record is not None:
             record['cpu'] = clock() - started
             started = clock()
@@ -273,6 +298,8 @@ def measure(members, dataset, indices, *, device, precision, batch_size,
             record = {}
             one_batch(batch, record)
             records.append(record)
+    if pool is not None:
+        pool.shutdown()
     return records
 
 
@@ -367,7 +394,7 @@ def estimate(members, cpu_ms, *, t4_tflops, dcu_t4_ratio, safety=SAFETY_FACTOR, 
 
 def run_bench(*, members_path, images_path, device='cpu', precision='fp16', batch_size=10,
               warmup=2, repetitions=5, t4_tflops=None, dcu_t4_ratio=1.0,
-              max_images=0, loader=None):
+              max_images=0, loader=None, decode_threads=1):
     if precision not in ('fp16', 'fp32'):
         raise ValueError('precision must be fp16 or fp32')
     if repetitions < 5:
@@ -383,8 +410,12 @@ def run_bench(*, members_path, images_path, device='cpu', precision='fp16', batc
     with tempfile.TemporaryDirectory(prefix='f06-latency-') as work:
         dataset, rows, _ = build_dataset(files, job, work)
         indices = list(range(len(rows)))
+        batches = [indices[start:start + batch_size] for start in range(0, len(indices), batch_size)]
+        equivalence = (assert_parallel_decode_equivalence(dataset, batches, decode_threads=decode_threads)
+                       if decode_threads > 1 else None)
         records = measure(members, dataset, indices, device=target, precision=precision,
-                          batch_size=batch_size, warmup=warmup, repetitions=repetitions)
+                          batch_size=batch_size, warmup=warmup, repetitions=repetitions,
+                          decode_threads=decode_threads)
         summary = summarize(records, [member['id'] for member in members])
         example_images, example_ages = _load_batch(dataset, indices[:min(batch_size, len(indices))])
     flops = {}
@@ -413,7 +444,9 @@ def run_bench(*, members_path, images_path, device='cpu', precision='fp16', batc
                      'preprocessing': 'original JPEG decode with prepared cache disabled, '
                                       'same as run_prediction on the platform',
                      'gpu_timing': 'torch.cuda.synchronize brackets',
-                     'batch_size_allowed_by_platform': 10},
+                     'batch_size_allowed_by_platform': 10,
+                     'decode_threads': decode_threads,
+                     'decode_equivalence': equivalence},
         'hardware': {'device': str(target), 'name': device_name, 'torch': torch.__version__,
                      'cuda': torch.version.cuda, 'hip': torch.version.hip,
                      'gpu_count': torch.cuda.device_count() if target.type == 'cuda' else 0,
@@ -446,7 +479,11 @@ def main():
     parser.add_argument('--t4-tflops', type=float)
     parser.add_argument('--dcu-t4-ratio', type=float, default=1.0)
     parser.add_argument('--threads', type=int, default=0)
+    parser.add_argument('--decode-threads', type=int, default=1,
+                        help='parallel per-image decode/preprocess threads; 1 keeps serial')
     args = parser.parse_args()
+    if args.decode_threads < 1:
+        raise SystemExit('--decode-threads must be >= 1')
     if args.threads > 0:
         torch.set_num_threads(args.threads)
         for key in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS',
@@ -464,7 +501,8 @@ def main():
     report = run_bench(members_path=args.members, images_path=args.images, device=args.device,
                        precision=args.precision, batch_size=args.batch_size, warmup=args.warmup,
                        repetitions=args.repetitions, t4_tflops=args.t4_tflops,
-                       dcu_t4_ratio=args.dcu_t4_ratio, max_images=args.max_images)
+                       dcu_t4_ratio=args.dcu_t4_ratio, max_images=args.max_images,
+                       decode_threads=args.decode_threads)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x', encoding='utf-8') as stream:
         json.dump(report, stream, indent=1, sort_keys=True, allow_nan=False)
