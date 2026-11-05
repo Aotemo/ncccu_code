@@ -24,3 +24,24 @@
 随后在相同 1101 源码身份的新独立副本，既有 F04 脚本的 **16 项检查通过**、汤回归 **5/5**、扩展后的独立 OOF 安全测试 **15/15**；guard 回执 SHA `ec06857ca17328c634810c7874107abedab779814c754868b9720bdd588c093c`，新测试 SHA `f1b8da49d7675bdaf5cf47ac5c14728364df626c270725ad59e10c000009bdca`。新增用例以 fake work_root 走通 `prepare`→`validate_inputs`→`verify_assets`，并分别拒绝缺失或重复 selected、源/本地 blob 与 sidecar 损坏、错误 fold/base manifest 或不安全终态；发布树与角色验真处采用受控假实现，不能视作真实资产准备通过。
 
 这些合成结果不替代实际设备屏障、真实模型逐 rank 严格加载、完整角色输出、main 全树证明或 owner 的安全终态核验。
+
+## main b62 发布原树回归
+
+2026-11-05 在 B Pod UID `37e3fb34-c233-4294-b517-e98978cbd016` 上实时确认 Ready，直接只读 main `b62bdddbb2b552f0d384058de49af85d2c9c1d84` 的已验证发布原树；全树证明 SHA `d538f197fe5daf9148f67f0fb893896b1b38c10ece1a74c85fa5789c1ba9b7f2`。测试驱动和临时文件在助手独立 `/tmp` 目录，没有叠加或覆盖该原树；12–23 mask、nice 19、隐藏设备并限制库线程。
+
+OOF owner **7/7**、发布树现有独立安全测试 **14/14**、F04 **16 项**和汤 **5/5** 均通过，各测试进程结束时 `GPU_INITIALIZED=false`。CPU guard exit 0，回执 SHA `82c0e942bc0ed3c9c0bb8ae61e696c7c582408739810196a2ad8dee2ce2a56be`。此版本的独立安全测试是此前 14 项版本，不把 helper 后续新增的第 15 项伪称已进入该发布树。均为合成数据，未读真实图像、权重或 OOF，不等同真实资产或 GPU 准入。
+
+实际文件 SHA：
+
+| 文件 | SHA-256 |
+| --- | --- |
+| `tools/diagnostics/f04_gpu_full_dev.py` | `b249c370624b2b98e572e4a27c15484f351e34ac805550f2f2a2ac846192014c` |
+| `tools/diagnostics/f05_oof_gpu.py` | `10e4c0519f01e3f7aec548c4117c5b43ae6de73c13125df22dd65a06cc98f3ee` |
+| `tools/diagnostics/f05_soup_dev.py` | `2c5ac33d20ad2a0136efe458bf2516571887519d80ad7ccce198aa60b3effac1` |
+| `tools/diagnostics/f05_oof_targets.py` | `7a56b2f905254c2ade4fe56118857e0771646a4e95724b50f63dd74395c1938a` |
+| `configs/F05-OOF-GPU-20261105.json` | `87731284e57440d9edb2b7aa590f69618506ce6b511fb7859b9aedea75cf379a` |
+| `tests/test_f05_oof_gpu.py` | `e405d8fb020f9f0499d76c235b19c87d9e7783fae0ce17fb914adafe6207e776` |
+| `tests/test_f05_oof_owner_safety.py` | `6ec403044ba83dc88e9670de4caa33cec588804702b08e8a88d8f75f289e72ed` |
+| `tests/test_f05_oof_targets.py` | `7c9922db6aa3994990642816de39fb5f5cf17aa49b5e88783829c4327642f4cf` |
+| `tests/test_f04_gpu_full_dev.py` | `768546547b1b784208c0be408f3f4ac7d5d5230c9e950d1225df20ab9b69e027` |
+| `tests/test_f05_soup_gpu.py` | `18314e6b83a8431f9ffeb99bf542769a6cb3643a493e1666307761bdc1c0e03a` |
