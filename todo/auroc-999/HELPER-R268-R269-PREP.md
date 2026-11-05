@@ -33,3 +33,11 @@ main `b62bdddbb2b552f0d384058de49af85d2c9c1d84` 中，上述七个接线源码�
 08ac 主工作区的未提交本地 checkpoint/cache 草稿也修改 `tools/activation/prepare.py`：其局部存储准备与本提交的 F05 目标验证分别位于不同辅助函数和调用点。整合时须逐项保留实际采用的两侧改动；当前 **10/10 + DDP 4/4 不覆盖两功能同包**，如采用该草稿，须对最终合并树补同包合成和受影响 I/O 窄测。不能用 b62 或 helper 单侧证据代替最终树检查。
 
 正式 CPU prepare 对每个新轮次各自独立核三折 selected 字节及父回执、重算完整训练子集标定和两个目标表，再将结果固定到该轮 `evidence/F05-OOF-VERIFICATION.json`；之后每个 rank 只核回执、SUMMARY、所需目标表和完整 fit 对齐，不重复读取三折 checkpoint。两次正式 prepare 的真实读取时长和共享存储压力尚未测量，不应假定可忽略。真实 SUMMARY、两轮历史身份及 seed、最终树和正式 18/18 均未在本记录中声明通过。
+
+## main 58304 精确树 CPU 合成回归
+
+2026-11-05 在 A Pod UID `04203d31-96b5-415d-b126-a30f3ac6107f` 核验 main `58304ddea98f1d0afc7d319f853da3f287957b28`、tree `b4b2a8ddbf5d40831e87088426da717ff915cb39` 的 3,540 个文件；Pod-local source `/tmp/technical-prep/04203d31-96b5-415d-b126-a30f3ac6107f/F05-TRAIN-A-published-58304-v1/source-git`，全树回执 SHA `e37510e72a928d7feb0e4b3dcf65ae8d1bb738ce309b21d0f8b04196f217fb7f`，组装 guard SHA `9fe283e0a99b5b8d9efacf73bae029988e6d097fecbf493301a3063450562635`。
+
+从该原树依次运行 `tests/test_f05_training_binding.py` **10/10**、`tests/test_f05_clean_distill.py` **4/4**（含 CPU 双 rank Gloo 的 G64/P8 与梯度）、`tests/test_f05_oof_targets.py` **6/6**；12–23、nice 19、隐藏设备，子进程库线程限制为 1，22 个受检文件前后 SHA 一致。CPU guard exit 0、回执 SHA `021d821fa881ace86e0e7494486bb5222b45fe2497315bb11a6dea13b83e747e`。三份测试文件实际 SHA 分别为 `b92548f461ada6c52f3fd3110d9741c4204c732a88edf5b23bd9126195ece8a6`、`3f09c2da071d4152c7d4d8ab228aec5ea87fc9eec3772e29989238146c88908b` 和 `7c9922db6aa3994990642816de39fb5f5cf17aa49b5e88783829c4327642f4cf`；七个训练接线源码实际 SHA 与上文原合成证据一致。四份模板实际 SHA：R268/A `b89d2764519ea3a0ee08f69bbbabc3f64e908dc0b3f26426c4f952f93018f235`、R268/B `91b74e3a60c6f84d56233ca9684a1507b95f8b7288267287a4f17b3b72e3e714`、R269/A `4d7e2a19e606c85dbea77c47e4da991bc27688d093ac50c68984822c6fafbf4f`、R269/B `4fba0b48a8024cf8afc3438cda11e7e234cd29d71d3cb0bc79ee16cb75700b76`。
+
+测试仅使用合成文件；不存在真实 OOF 绑定，不读取真实样本、模型或官方，不派 GPU。测试中的 SHA 占位仅在临时合成 fixture 使用；四份正式模板仍为拒绝执行的占位符，以上结果不等于正式 CPU 18/18。
