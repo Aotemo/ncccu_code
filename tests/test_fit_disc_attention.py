@@ -132,6 +132,7 @@ class AttentionGateTest(unittest.TestCase):
 if __name__ == '__main__':
     root = Path(__file__).resolve().parents[1]
     paths = ('tools/diagnostics/fit_disc_attention.py', 'tools/diagnostics/fit_disc_consensus.py',
+             'tools/diagnostics/f04_gpu_full_dev.py',
              'tests/test_fit_disc_attention.py')
     print(json.dumps({'source_sha256': {name: hashlib.sha256((root / name).read_bytes()).hexdigest()
                                         for name in paths}}), flush=True)
