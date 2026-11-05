@@ -1,0 +1,53 @@
+{
+  "status": "uniform_soup_standalone_strict_synthetic_passed",
+  "at": 1793852793.4458292,
+  "base_member": "r250",
+  "base_variant_for_loader": "ema",
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104/SINGLE-MODEL-FREEZE.json",
+    "sha256": "49351df5a5ccf18bfe48c6f6c2aef5716047f0974a545ca7e82981b7e6ccbb92"
+  },
+  "science": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104/SCIENCE.json",
+    "sha256": "e7fe1a0ef640ba321aeb5e6f08033376c13e67ab5befa2de49f8fd8b316bfa8d"
+  },
+  "site": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104/SITE_BINDING.json",
+    "sha256": "c2be7b76a9e8226afb78d1928faae4b7c88e831886a44c848344e52def933bb9"
+  },
+  "bundle": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r250-small-wide2-seed29-pairsigmoid-24k-p4-9010-20261104/bundle",
+  "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+  "cache": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+  "state_sha256": "cb949231fb12fb76ec591347f9423c9f13d33d0717c74391cc522d98f457f2cc",
+  "exports": {
+    "fp32": {
+      "model": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r201/fp32/model.pt",
+        "sha256": "cb949231fb12fb76ec591347f9423c9f13d33d0717c74391cc522d98f457f2cc",
+        "bytes": 197929229,
+        "tensor_sha256": "a9930ccd292a526cb0ba367964ec57f647fd9bc0b145fd60f18ec037a6b3083e"
+      },
+      "metadata": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r201/fp32/model.json",
+        "sha256": "095ebfbe3331431407ad3879073ad1c82d6608c0aa16942f0919799df137c39f"
+      }
+    },
+    "fp16": {
+      "model": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r201/fp16/model.pt",
+        "sha256": "fef3d8d4930f0dcb9c6e7886019490de0e72ea67eefc867584ddd36d26023c8c",
+        "bytes": 99018317,
+        "tensor_sha256": "cd137bce1b37a2ea22202adeb81e698c6a4f36134ef8d9e363c8fafab4fb710b"
+      },
+      "metadata": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r201/fp16/model.json",
+        "sha256": "04d1aa494d1815b84044702ece83cd60f78a14608d6fcb4e1eb75e1510ef7357"
+      }
+    }
+  },
+  "synthetic_forward_only": true,
+  "GPU_initialized": false,
+  "dev_read": false,
+  "official_read": false,
+  "TTA": false
+}

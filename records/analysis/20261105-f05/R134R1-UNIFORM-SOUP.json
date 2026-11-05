@@ -1,0 +1,66 @@
+{
+  "status": "uniform_soup_created_no_dev_evaluation",
+  "at": 1793851992.3410194,
+  "group": "r134r1",
+  "parents": [
+    {
+      "name": "r134r1",
+      "round_id": "r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101",
+      "science_sha256": "875f83957bb2e6b11ce4d6e9ae4bbd7b32df8422e565c3ae9da3d160f464c205",
+      "selected_blob_sha256": "62cc2ab68be6a657a4a575c9347b12ad0d582d021e23d6062ce6abc1500ea375",
+      "selected_tensor_sha256": "1442a625f8596cf8357a9c1d58f4c7b40d998d1dbe9dfc6eb880a193edf10462",
+      "selected_variant": "ema",
+      "extracted_state_sha256": "304cd7bb3c137423732a546f02f1113c40c9511f0cf84e0fedb22833f97367aa"
+    },
+    {
+      "name": "r253",
+      "round_id": "r253-small-mixstyle-seed20261108-pairlog-24k-p4-9010-20261104",
+      "science_sha256": "f401eeb09554c54935bcf01110399e7cef5be9c6baa195b62d326f31cb0335f9",
+      "selected_blob_sha256": "7b0d7bd32f09a470914dd63ece0116df46143d79fff77ad13639eaeef24d11fa",
+      "selected_tensor_sha256": "419648d6f9a082df1ab5f76fac58cc08108ab29ca435a75864199529285a773c",
+      "selected_variant": "ema",
+      "extracted_state_sha256": "ee159a068741ab177affd07841aeb851ee0cfe0065f189a2492252be49cf14b4"
+    },
+    {
+      "name": "r257",
+      "round_id": "r257-small-mixstyle-seed20261113-pairlog-24k-p4-9010-20261104",
+      "science_sha256": "31a9575923398d12228711b4e215aec3dc3933032c979207a688a0e9f9da5771",
+      "selected_blob_sha256": "aab5540ea63adaff80261776340d41a16a0a716f9ef74b9aa666d8d6ddd3f3b2",
+      "selected_tensor_sha256": "1e7fc3bde4f3fdc9a3205e58c36c7584762a2f7b250cf1ecd85858433422ba50",
+      "selected_variant": "ema",
+      "extracted_state_sha256": "f42f3f8a8a10de5423cf26c2c7f6f4e7beae3d25deb0301f491307d5f8547d5a"
+    },
+    {
+      "name": "r260",
+      "round_id": "r260-small-mixstyle-seed20261116-pairlog-24k-p4-9010-20261104",
+      "science_sha256": "df4605afed770af3661474827b12f3a9b81d5d8ce46ef0e3b65652f4c2341eea",
+      "selected_blob_sha256": "f7a2f56e46749788434f082c01bedcb03af6c633e6e181c8251ff0c0c4d973df",
+      "selected_tensor_sha256": "d294f05db77a38cd76a9303c0cca1d2134a57be3dfce9c9df46636b40760a4b8",
+      "selected_variant": "ema",
+      "extracted_state_sha256": "8b87f22868911239a89ef626da83aec301028c6db0eb89af3e99b0620f5ecc75"
+    },
+    {
+      "name": "r261",
+      "round_id": "r261-small-mixstyle-seed20261117-pairlog-24k-p4-9010-20261104",
+      "science_sha256": "fc8bdff8afcc4fbc090e649fd74578922ba9013510fb765c5e5ebe74a706777d",
+      "selected_blob_sha256": "d8aeef3791e4ccd796ba4189f325c518024c9b6101eebd3478894662cb735ba9",
+      "selected_tensor_sha256": "8d904abddce4d319cb6bd9b797ab83387fcbb547b82e66b0039a43ad15eb74cd",
+      "selected_variant": "ema",
+      "extracted_state_sha256": "6be2e8b26a1f71e0365ba61b815876ff441a8180684436502b9de04e974fba70"
+    }
+  ],
+  "method": "uniform_all_compatible_selected_states_v1",
+  "git_commit": "9f4158c78cf0f2a7b1b6d61bcfd51d0e6af119af",
+  "tree_proof_sha256": "323880552631b254079710594172e9d65461db4b1e8a26b61bf4f1fd45291c69",
+  "inventory_sha256": "ed36d336905b47eb929cdeb1bf8bc348d4f516c274474e467a88d0a5586e02f3",
+  "compatibility_sha256": "c4006d72b94867d4fe2b4bc5c683de6140ca6b9d6c034cffbafd93feedad887c",
+  "average_state_sha256": "c2263433672864078384c40d74d2dfbf2d787a8cd36e536bdad2fe3b642135eb",
+  "standalone": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r134r1/STANDALONE.json",
+    "sha256": "b65b4f842486d90e73e55deac7731223dc03f7d2775ce55437e9d45e740fac91"
+  },
+  "GPU_initialized": false,
+  "dev_read": false,
+  "official_read": false,
+  "TTA": false
+}

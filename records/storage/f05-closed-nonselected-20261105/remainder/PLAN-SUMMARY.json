@@ -1,0 +1,29 @@
+{
+  "status": "read_only_manifest_ready_pending_both_pod_open_checks",
+  "plan_sha256": "879de554e18b991c39c838ae8a6e32c162b68eb0b403f147ecf75b143f93b63a",
+  "inventory_sha256": "5120199124cfe45860884fec5fbb9dbd86c430d17e5f6d3294b7ae31e3cdd0fa",
+  "candidate_count": 30,
+  "allocated_bytes": 22180261376,
+  "logical_bytes": 22180253360,
+  "free_bytes": 79548121088,
+  "by_round": {
+    "R251": {
+      "count": 6,
+      "allocated_bytes": 4356846592
+    },
+    "R252": {
+      "count": 8,
+      "allocated_bytes": 5941129216
+    },
+    "R261": {
+      "count": 8,
+      "allocated_bytes": 5941159424
+    },
+    "R262": {
+      "count": 8,
+      "allocated_bytes": 5941126144
+    }
+  },
+  "skipped": [],
+  "deleted_files": []
+}

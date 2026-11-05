@@ -26,3 +26,5 @@
 拟新增 `configs/F05-FOLDS-5.json`、R265–R269 的版本化 SCIENCE、`tools/diagnostics/f05_oof.py` 及对应测试；必要时小范围修改既有 `runtime/bundle/retrain/data.py`、`experiment91.py`、`pipeline.py`、`distributed_engine.py`、`classification_loss.py`、activation/CPU 验证中对固定 manifest 的绑定。清洗、蒸馏和 768 分别另建版本化配置并复用这些同一训练/保存/评估/监督链。任何新增实际影响文件在实现前补登记；不新建并行训练平台。用户要求尽快占满两 Pod，但正式 CPU、Git 同步、实际设备与容量门不满足时不得派发或虚报可运行。
 
 2026-11-05，fit 分组五折生成核心在 Pod B 完成 3 项合成检查（分组与 dev 隔离、fit 恰好覆盖一次、折内 age，CPU 回执 `740c667c716c4e9d3914b7b65039ce0ae512b2a0d33e074b9d096c630ce7afbe`）；真实 fit 分折、各折版本化元数据、SCIENCE 及正式训练入口仍未生成或核验，GPU 尚未派发。
+
+真实 fit 分折随后在经安全观察的 Pod A 生成并封存：折 0–3 各 fit `37005`、留出 `9251`，折 4 fit `37004`、留出 `9252`；每折留出 298 正例，原 dev 始终 5140 行、167 正例。逐样本索引和每折 age 只在 exp-v3 私有文件，SHA `a637bac2034ff53a8564ba8f298ca9cf6215af9b9e4d9839bbff86cd0290203f`，CPU 回执 `20bcf6e0fd4fd3aa8e287c8e1871b1aab7cfa23f5274f58b76ca7871b848b576`。各折版本化元数据、SCIENCE、训练入口与正式部署仍未完成，GPU 尚未派发。

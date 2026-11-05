@@ -1,0 +1,53 @@
+{
+  "status": "uniform_soup_standalone_strict_synthetic_passed",
+  "at": 1793851989.0782208,
+  "base_member": "r134r1",
+  "base_variant_for_loader": "ema",
+  "freeze": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SINGLE-MODEL-FREEZE.json",
+    "sha256": "524fb6fc568364fe2d25d02c375628cdb41525b87f66b30fce18c4fc5c4a4782"
+  },
+  "science": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SCIENCE.json",
+    "sha256": "875f83957bb2e6b11ce4d6e9ae4bbd7b32df8422e565c3ae9da3d160f464c205"
+  },
+  "site": {
+    "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/SITE_BINDING.json",
+    "sha256": "8bf42228fa7c6d1250ee978829773e8c8cdb07660663a60567397bf42ced3a41"
+  },
+  "bundle": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r134r1-small22k-seed20261029-scale085-pairlog-mixstyle13-local8-24k-p4-9010-20261101/bundle",
+  "data_root": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first",
+  "cache": "/public/home/acfwvv9ejn/SothisAI/exp-v3/shared-assets/prepared512-v2-pillow12.3.0",
+  "state_sha256": "c2263433672864078384c40d74d2dfbf2d787a8cd36e536bdad2fe3b642135eb",
+  "exports": {
+    "fp32": {
+      "model": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r134r1/fp32/model.pt",
+        "sha256": "c2263433672864078384c40d74d2dfbf2d787a8cd36e536bdad2fe3b642135eb",
+        "bytes": 197929229,
+        "tensor_sha256": "f82afe49218cd105e014f6ccd34d13f1ffedea78f45ae89558348400b658bd15"
+      },
+      "metadata": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r134r1/fp32/model.json",
+        "sha256": "401141ad11c674b5aefc93709b75dff9e1f04b2240ec9bb00fcdb5a39a77cb68"
+      }
+    },
+    "fp16": {
+      "model": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r134r1/fp16/model.pt",
+        "sha256": "3a9984fff418624f4817fbecdf6251f239f61a1c706fb869572c0c6ba37a6ed3",
+        "bytes": 99018317,
+        "tensor_sha256": "5ce5432eed008189012fa81f3dae09565d1994f6e868a1eeae2a3330d60b388a"
+      },
+      "metadata": {
+        "path": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/F05-SOUPS-v1/r134r1/fp16/model.json",
+        "sha256": "967d9fc181057cc3f2d7cdd954907cbf8938947b89733cf522c20e4c44a8d06d"
+      }
+    }
+  },
+  "synthetic_forward_only": true,
+  "GPU_initialized": false,
+  "dev_read": false,
+  "official_read": false,
+  "TTA": false
+}
