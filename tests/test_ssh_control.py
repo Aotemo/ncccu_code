@@ -17,7 +17,7 @@ class SSHControlTests(unittest.TestCase):
 set -euo pipefail
 for argument in "$@"; do
   if [[ "$argument" == check ]]; then test -f "$FAKE_STATE/master"; exit; fi
-  if [[ "$argument" == -MNf ]]; then printf 'master\\n' >> "$FAKE_STATE/master_calls"; touch "$FAKE_STATE/master"; exit; fi
+  if [[ "$argument" == -Nf ]]; then printf 'master\\n' >> "$FAKE_STATE/master_calls"; touch "$FAKE_STATE/master"; exit; fi
 done
 exec 9>"$FAKE_STATE/counter.lock"
 flock 9

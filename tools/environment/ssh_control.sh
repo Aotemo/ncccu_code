@@ -42,7 +42,7 @@ done
 [[ "$acquired" == true ]] || { printf 'Timed out waiting for an SSH slot.\n' >&2; exit 75; }
 exec 7>"$state/master.lock"
 key=${target//[^[:alnum:]._-]/_}
-pointer=$state/master-$key.path
+pointer=$state/master-$key-v2.path
 base=${NCCCU_SSH_RETRY_BASE_SECONDS:-1}
 [[ "$base" =~ ^[0-9]+$ ]] || exit 2
 tries=1
@@ -58,7 +58,7 @@ for ((attempt=1; attempt<=tries; attempt++)); do
   else
     socket=$sockdir/ncccu-ssh-$UID-$BASHPID-$RANDOM-%C
     if timeout 30s "$ssh_bin" -S "$socket" -o ControlMaster=yes -o ControlPersist=600 \
-         -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -MNf "${connection[@]}" "$target" \
+         -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -Nf "${connection[@]}" "$target" \
          7>&- 8>&- 9>&-; then
       printf '%s\n' "$socket" > "$pointer.tmp-$BASHPID"
       mv -f -- "$pointer.tmp-$BASHPID" "$pointer"

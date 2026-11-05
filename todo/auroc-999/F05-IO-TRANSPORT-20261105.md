@@ -8,6 +8,8 @@
 
 SSH 包装的 4 项隔离检查已在 Pod A 通过：并发五次实际最多两条、失效 master 新建、非幂等不重试、只读三次有限重试；CPU 回执 SHA `af432b5397d3cf80d56edecd9769069444ed4382efdca58b336fe8f36febda64`。仍须将通过版本 push 后接入本机私有 PATH 并做限时真实连接验证；此前在途连接不受影响。
 
+真实首次连接发现 `ControlMaster=yes` 与 `-M` 叠加进入询问模式，虽回退到独立连接成功却未实际复用；改为 `-Nf` 后第二次真实 SSH 输出 `master session id: 2`，复用成功。修正版 4 项隔离检查回执 SHA `043537abc4ef815bd55cdc2f1f08b86bbc98ed30864518549cb40cf079ef072c`；旧 control socket 留待自身到期，不发送关闭信号。
+
 ## 已推送源码的本地快照
 
 每次使用指定已推送 commit 的 `git archive` 单文件和 GitHub 原始 ref/commit/完整 tree 回读；在 Pod 内核 tar SHA，将其解包到该 Pod 唯一 `/tmp` 私有新目录，只允许常规文件/目录、拒绝链接和路径穿越，再以原 `freeze_deployment.verify_tree` 对整棵本地树逐文件核 Git blob、mode、文件集合和 SHA。冻结结果、tar 身份与环境/Pod UID 回执仍存 NFS。不得把同名但未核验的本地树当部署；Pod 或本地盘变化须重新核。必要范围拟为 `tools/activation/freeze_deployment.py`、一个最小本地快照解包验证 helper 及针对路径/篡改/树的窄测试；先核现有 formal package、site binding 与输出路径限制，完整树校验强度不降。
