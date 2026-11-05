@@ -54,6 +54,17 @@ class SoupDevTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 gpu.validate_soup_options(True, *args)
 
+    def test_soup_cache_does_not_follow_successor_resolution(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            cached_512 = Path(temporary) / 'cached-512'; cached_512.mkdir()
+            member = {'data_root': '/data', 'cache': str(cached_512)}
+            site = {'data_root': '/data', 'prepared_cache': str(Path(temporary) / 'cached-768')}
+            soup.validate_execution_data([member], site)
+            with self.assertRaises(ValueError):
+                soup.validate_execution_data([member], {**site, 'data_root': '/other'})
+            with self.assertRaises(ValueError):
+                soup.validate_execution_data([{**member, 'cache': '/missing-cache'}], site)
+
     def test_preview_uses_all_fixed_replacements_and_actual_byte_sizes(self):
         labels = [0, 1, 0, 1]
         base = {name: [float(i), i + 3., i + 1., i + 4.] for i, name in enumerate('abcde')}

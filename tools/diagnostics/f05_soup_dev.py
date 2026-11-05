@@ -47,6 +47,18 @@ def validate_inputs(inputs, policy):
     return inputs
 
 
+def validate_execution_data(members, site):
+    """Bind data root while allowing the successor's cache resolution to differ."""
+    data_root = site.get('data_root')
+    if not isinstance(data_root, str) or not Path(data_root).is_absolute():
+        raise ValueError('current site data root required')
+    for member in members:
+        cache = member.get('cache')
+        if (member.get('data_root') != data_root or not isinstance(cache, str)
+                or not Path(cache).is_absolute() or not Path(cache).is_dir()):
+            raise ValueError('historical soup data root or cache is unavailable')
+
+
 def verify_assets(gpu, member):
     soup = gpu.read_pinned(member['soup']['path'], member['soup']['sha256'])
     standalone = gpu.read_pinned(member['receipt']['path'], member['receipt']['sha256'])
