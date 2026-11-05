@@ -165,6 +165,7 @@ def _verify_fold_input(base_ref, folds_ref, parent_ref, *, work_root, allow_fixt
         raise ValueError('fold-only age identity differs')
     site = _json(parent['site'], work_root)
     science = _json(parent['science'], work_root)
+    runtime = _json(parent['runtime_binding'], work_root)
     freeze = _json(parent['freeze'], work_root)
     completion = _json(parent['completion'], work_root)
     safe = _json(parent['safe'], work_root)
@@ -178,6 +179,7 @@ def _verify_fold_input(base_ref, folds_ref, parent_ref, *, work_root, allow_fixt
             or freeze.get('blob_sha256') != parent['checkpoint']['sha256']
             or freeze.get('experiment91', {}).get('manifest_sha256') != parent['training_manifest']['sha256']
             or freeze.get('precision') != 'fp32' or freeze.get('view') != 'identity'
+            or runtime.get('site_binding_sha256') != parent['site']['sha256']
             or any(freeze.get('selected', {}).get(key) != value for key, value in selected.items())
             or completion.get('status') != 'completed' or type(completion.get('successful_updates')) is not int
             or completion['successful_updates'] < selected['successful_updates']
@@ -190,17 +192,23 @@ def _verify_fold_input(base_ref, folds_ref, parent_ref, *, work_root, allow_fixt
     if (Path(parent['freeze']['path']).name != 'SINGLE-MODEL-FREEZE.json'
             or Path(parent['completion']['path']).name != 'TRAIN_RESULT.json'
             or Path(parent['completion']['path']).parent not in (frozen_root, frozen_root / 'evidence')
+            or Path(parent['runtime_binding']['path']) != frozen_root / 'RUNTIME_BINDING.json'
+            or Path(parent['sidecar']['path']) != Path(parent['checkpoint']['path'] + '.json')
             or safe.get('formal_root') != str(frozen_root)):
         raise ValueError('selected freeze, completion and safety are not the same round')
     tree = _json(parent['source_tree_proof'], work_root)
     if allow_fixture:
         if not (freeze.get('cpu_fixture_only') is True and site.get('fixture_only') is True
-                and science.get('fixture_only') is True and tree.get('fixture_only') is True):
+                and runtime.get('fixture_only') is True and science.get('fixture_only') is True
+                and tree.get('fixture_only') is True):
             raise ValueError('fixture mode requires explicit synthetic sources')
     else:
         if (freeze.get('cpu_fixture_only') is not False or frozen_root.name != round_id
                 or site.get('round_id') != round_id
                 or Path(parent['site']['path']) != frozen_root / 'SITE_BINDING.json'
+                or not Path(parent['checkpoint']['path']).resolve().is_relative_to((frozen_root / 'outputs').resolve())
+                or any(site.get('science', {}).get('configuration', {}).get(key) != parent['science'][key]
+                       for key in ('path', 'sha256'))
                 or tree.get('status') != 'published_full_git_tree_verified_not_formal_deployment'
                 or tree.get('GPU_initialized') is not False or tree.get('official_read') is not False):
             raise ValueError('real published source and original fold run are required')
@@ -232,10 +240,19 @@ def _verify_fold_input(base_ref, folds_ref, parent_ref, *, work_root, allow_fixt
     proof_refs = parent.get('rank_proofs')
     if not isinstance(proof_refs, list) or len(proof_refs) != 8:
         raise ValueError('eight device proofs required')
+    proofs = []
     for rank, reference in enumerate(proof_refs):
         proof = _json(reference, work_root)
         if proof.get('rank') != rank or release['proof_sha256'].get(str(rank)) != reference['sha256']:
             raise ValueError('rank proof does not match supervised release')
+        proofs.append(proof)
+    if not allow_fixture:
+        from retrain.site_binding import verify_rank_devices
+        evaluation_site = _json({'path': spec['site_binding'], 'sha256': spec['site_binding_sha256']}, work_root)
+        verify_rank_devices(proofs, evaluation_site)
+        if (release.get('parent') != spec.get('parent')
+                or any(proof.get('parent') != spec.get('parent') for proof in proofs)):
+            raise ValueError('supervised rank parent identity differs')
     if not isinstance(parent.get('scores'), dict) or set(parent['scores']) != {'train', 'heldout'}:
         raise ValueError('both fit-only score populations required')
     scores = {role: _scores(parent['scores'][role], role, parent, row, base, work_root)
@@ -330,9 +347,13 @@ def build_target_tables(base, sealed, results, *, base_sha, folds_sha):
                 or calibration.get('train_role_sha256') != verified['train_role_sha256']
                 or calibration.get('parent_sha256') != verified['parent_sha256']
                 or calibration.get('training_count') != len(verified['train_rows'])
+                or calibration.get('class_counts') != [sum(row['label'] == cls for row in verified['train_rows'])
+                                                        for cls in (0, 1)]
                 or calibration.get('weight_per_sample') != 1.0
                 or calibration.get('weight_sum') != float(len(verified['train_rows']))
                 or calibration.get('classes') != [0, 1]
+                or type(calibration.get('iterations')) is not int or not 0 <= calibration['iterations'] < 1000
+                or not isinstance(calibration.get('sklearn_version'), str) or not calibration['sklearn_version']
                 or calibration.get('config') != {'C': 1000, 'solver': 'lbfgs', 'max_iter': 1000,
                                                   'tol': 1e-8, 'random_state': 20261121}
                 or type(calibration.get('coef')) not in (int, float)
@@ -378,6 +399,31 @@ def _write_new(path, value):
     return {'path': str(path), 'sha256': hashlib.sha256(raw).hexdigest()}
 
 
+def _verify_published_source(metadata, proof_ref, commit, work_root, context):
+    """Bind the consumer's source to a published main tree and current Pod."""
+    import re
+    from f04_bounded_fusion import verify_blob
+    proof = _json(proof_ref, work_root)
+    metadata = Path(metadata)
+    ref = json.loads((metadata / 'REMOTE-REF.json').read_text())
+    revision = json.loads((metadata / 'REMOTE-COMMIT.json').read_text())
+    tree = json.loads((metadata / 'REMOTE-TREE.json').read_text())
+    if (not re.fullmatch('[0-9a-f]{40}', commit or '')
+            or proof.get('status') != 'published_full_git_tree_verified_not_formal_deployment'
+            or proof.get('source_root') != str(SOURCE) or proof.get('pod_uid') != context['uid']
+            or proof.get('commit') != commit or proof.get('tree') != tree.get('sha')
+            or proof.get('GPU_initialized') is not False or proof.get('official_read') is not False
+            or ref.get('object', {}).get('sha') != commit or revision.get('sha') != commit
+            or revision.get('tree', {}).get('sha') != tree.get('sha') or tree.get('truncated') is not False):
+        raise ValueError('published full-tree consumer source differs')
+    names = ('tools/diagnostics/f05_oof_targets.py', 'tools/diagnostics/f04_bounded_fusion.py',
+             'tools/pretraining/source_chain.py', 'runtime/bundle/retrain/classification_loss.py',
+             'runtime/bundle/retrain/data.py', 'runtime/bundle/retrain/f05_folds.py',
+             'runtime/bundle/retrain/age.py', 'runtime/bundle/retrain/persistence.py',
+             'runtime/bundle/retrain/parallel_evaluation.py', 'runtime/bundle/retrain/site_binding.py')
+    return {name: verify_blob(SOURCE, metadata, name) for name in names}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base', nargs=2, metavar=('PATH', 'SHA256'), required=True)
@@ -385,12 +431,18 @@ def main():
     parser.add_argument('--parent', nargs=2, action='append', metavar=('PATH', 'SHA256'), required=True)
     parser.add_argument('--work-root', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--source-proof', nargs=2, metavar=('PATH', 'SHA256'), required=True)
+    parser.add_argument('--remote-metadata', type=Path, required=True)
+    parser.add_argument('--git-commit', required=True)
     args = parser.parse_args()
     from source_chain import cpu_context, configure_torch_threads
     context = cpu_context(); configure_torch_threads(context)
     base_ref = dict(zip(('path', 'sha256'), args.base))
     folds_ref = dict(zip(('path', 'sha256'), args.folds))
     parent_refs = [dict(zip(('path', 'sha256'), pair)) for pair in args.parent]
+    source_ref = dict(zip(('path', 'sha256'), args.source_proof))
+    published_files = _verify_published_source(args.remote_metadata, source_ref, args.git_commit,
+                                               args.work_root, context)
     if (base_ref['sha256'] != F05_BASE_MANIFEST_SHA or folds_ref['sha256'] != F05_THREE_FOLD_SHA
             or len(parent_refs) != 3):
         raise ValueError('registered original manifest, three-fold seal and three parents required')
@@ -427,7 +479,8 @@ def main():
         'parents': parent_refs}, calibrations=calibration_refs,
         heldout_score_sha256=[item['heldout_score_sha256'] for item in verified],
         clean_targets=clean_ref, distill_targets=distill_ref, suspicious=suspect_ref,
-        execution=context, limitations=['Calibration uses fold training scores and may be overconfident.',
+        execution=context, source_proof=source_ref, git_commit=args.git_commit, published_files=published_files,
+        limitations=['Calibration uses fold training scores and may be overconfident.',
         'Internal dev selected the fold models; OOF is not an independent generalization estimate.'])
     report_ref = _write_new(output / 'SUMMARY.json', summary)
     print(json.dumps({'status': summary['status'], 'fit_count': summary['fit_count'],

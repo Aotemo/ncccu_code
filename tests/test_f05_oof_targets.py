@@ -9,6 +9,7 @@ import importlib.util
 import json
 import math
 from pathlib import Path
+import shutil
 import sys
 import tempfile
 import unittest
@@ -86,6 +87,8 @@ def synthetic_fixture(root):
             'safety': {'safe': True}, 'first_success_receipt_read': True, 'signals_sent': False,
             'model_forward_executed': False, 'official_read': False})
         site = _write(directory, 'SITE_BINDING.json', {'fixture_only': True, 'round_id': round_id})
+        runtime = _write(directory, 'RUNTIME_BINDING.json', {'fixture_only': True,
+                                                              'site_binding_sha256': site['sha256']})
         science = _write(directory, 'SCIENCE.json', {'fixture_only': True, 'round_id': round_id})
         tree = _write(directory, 'LOCAL-TREE.json', {'fixture_only': True})
         inputs = _write(directory, 'INPUTS.json', {'fixture_only': True, 'fold': number,
@@ -135,7 +138,7 @@ def synthetic_fixture(root):
         receipt = {'format': 'f05-fold-inference-receipt-v1', 'status': 'completed_fit_only_selected_logits',
                    'fold': number, 'round_id': round_id, 'base_manifest_sha256': base_ref['sha256'],
                    'folds_sha256': folds_ref['sha256'], 'training_manifest': train_ref, 'site': site,
-                   'science': science, 'freeze': freeze, 'completion': completion, 'safe': safe,
+                   'science': science, 'runtime_binding': runtime, 'freeze': freeze, 'completion': completion, 'safe': safe,
                    'checkpoint': checkpoint_ref, 'sidecar': sidecar,
                    'age_contract_sha256': sealed_rows[number]['age']['contract_sha256'],
                    'selected': selected, 'producer_inputs': inputs, 'worker_spec': worker_spec,
@@ -231,6 +234,9 @@ class OOFTargetTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 targets.verify_fold_input(fixture['base'], fixture['folds'], forged,
                                           work_root=directory, allow_fixture=True)
+            with self.assertRaises(ValueError):
+                targets.verify_fold_input(fixture['base'], fixture['folds'], first,
+                                          work_root=directory)
             score_ref = parent['scores']['train']
             score_path = Path(score_ref['path'])
             score = json.loads(score_path.read_text())
@@ -239,6 +245,44 @@ class OOFTargetTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 targets.verify_fold_input(fixture['base'], fixture['folds'], first,
                                           work_root=directory, allow_fixture=True)
+
+    @unittest.skipIf(targets is None, 'consumer not implemented')
+    def test_consumer_source_proof_rejects_changed_published_blob(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, metadata = root / 'source-git', root / 'remote'
+            source.mkdir(); metadata.mkdir()
+            names = ('tools/diagnostics/f05_oof_targets.py', 'tools/diagnostics/f04_bounded_fusion.py',
+                     'tools/pretraining/source_chain.py', 'runtime/bundle/retrain/classification_loss.py',
+                     'runtime/bundle/retrain/data.py', 'runtime/bundle/retrain/f05_folds.py',
+                     'runtime/bundle/retrain/age.py', 'runtime/bundle/retrain/persistence.py',
+                     'runtime/bundle/retrain/parallel_evaluation.py', 'runtime/bundle/retrain/site_binding.py')
+            tree_entries = []
+            for name in names:
+                target = source / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / name, target)
+                raw = target.read_bytes()
+                blob = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+                tree_entries.append({'path': name, 'type': 'blob', 'sha': blob,
+                                     'mode': '100755' if target.stat().st_mode & 0o111 else '100644'})
+            commit, tree_id = 'a' * 40, 'b' * 40
+            _write(metadata, 'REMOTE-REF.json', {'object': {'sha': commit}})
+            _write(metadata, 'REMOTE-COMMIT.json', {'sha': commit, 'tree': {'sha': tree_id}})
+            _write(metadata, 'REMOTE-TREE.json', {'sha': tree_id, 'truncated': False, 'tree': tree_entries})
+            proof = _write(root, 'SOURCE-PROOF.json', {'status': 'published_full_git_tree_verified_not_formal_deployment',
+                'source_root': str(source), 'pod_uid': 'fixture-uid', 'commit': commit, 'tree': tree_id,
+                'GPU_initialized': False, 'official_read': False})
+            original = targets.SOURCE
+            try:
+                targets.SOURCE = source
+                actual = targets._verify_published_source(metadata, proof, commit, root, {'uid': 'fixture-uid'})
+                self.assertEqual(set(actual), set(names))
+                (source / names[0]).write_text('# tampered\n')
+                with self.assertRaises(ValueError):
+                    targets._verify_published_source(metadata, proof, commit, root, {'uid': 'fixture-uid'})
+            finally:
+                targets.SOURCE = original
 
 
 if __name__ == '__main__':
