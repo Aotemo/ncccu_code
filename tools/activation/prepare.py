@@ -9,6 +9,18 @@ import shutil
 import sys
 
 
+def limit_cpu_threads():
+    """Match every preparation subprocess to the explicit allocation's core count."""
+    raw = os.environ.get('NCCCU_CPU_THREADS')
+    if not raw or not raw.isdecimal():
+        return None
+    count = int(raw)
+    import torch
+    torch.set_num_threads(count)
+    torch.set_num_interop_threads(1)
+    return count
+
+
 def sha(path):
     digest = hashlib.sha256()
     with Path(path).open('rb') as stream:
@@ -87,6 +99,33 @@ def verify_fold_migration(site, science, migrated):
     return True
 
 
+def prepare_local_checkpoint_storage(site, source, package):
+    """Install only an explicitly pinned per-Pod scratch policy in a new package."""
+    reference = site.get('local_checkpoint_storage')
+    if reference is None:
+        return
+    from retrain.local_checkpoints import POLICY, _local_mount, mapped_directory
+    policy = Path(source) / 'configs/F05-LOCAL-CHECKPOINT-POLICY.json'
+    if (policy.is_symlink() or not policy.is_file() or read(policy) != POLICY
+            or sha(policy) != reference['policy']['sha256']):
+        raise ValueError('versioned local checkpoint policy differs')
+    uid = site['pod']['uid']; round_id = site['round_id']; root = Path(site['round_root'])
+    binding = {'version': POLICY['version'], 'pod_uid': uid, 'round_id': round_id,
+               'round_root': str(root),
+               'local_root': str(Path(POLICY['local_root_prefix']) / uid / POLICY['local_subdirectory'] / round_id)}
+    mapped_directory(root / 'outputs' / 'fixture' / 'checkpoints', binding, site)
+    _local_mount('/tmp')
+    raw = (json.dumps(binding, indent=2, allow_nan=False) + '\n').encode()
+    if (reference['binding']['path'] != str(root / 'LOCAL-CHECKPOINT-BINDING.json')
+            or reference['policy']['path'] != str(root / 'LOCAL-CHECKPOINT-POLICY.json')
+            or hashlib.sha256(raw).hexdigest() != reference['binding']['sha256']):
+        raise ValueError('local checkpoint package reference differs')
+    for name, body in (('LOCAL-CHECKPOINT-BINDING.json', raw),
+                       ('LOCAL-CHECKPOINT-POLICY.json', policy.read_bytes())):
+        with (Path(package) / name).open('xb') as stream:
+            stream.write(body)
+
+
 def parser():
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument('--source-root', type=Path, required=True)
@@ -136,6 +175,7 @@ def technical_site(args, science, science_path):
 
 
 def build(args):
+    limit_cpu_threads()
     source = args.source_root.resolve(strict=True)
     output = args.output.resolve()
     if 'technical-prep' not in output.parts or 'technical-prep' not in source.parts:
@@ -197,6 +237,7 @@ def build(args):
         raise ValueError('current migrated train identity differs')
     output.mkdir(parents=True, exist_ok=False)
     package = output / 'package'; package.mkdir()
+    prepare_local_checkpoint_storage(site, source, package)
     # Old R92 clocks, manifests, evidence and templates are never imported.
     for path in (source / 'runtime').rglob('*.py'):
         target = package / path.relative_to(source / 'runtime')
