@@ -109,12 +109,13 @@ class F06OofSubmissionTests(unittest.TestCase):
         self.manifest = f06.load_manifest(self.data['manifest'], self.folds)
 
     def predictions(self):
+        manifest = f06.load_manifest(self.data['manifest'], self.folds)
         fold_array = np.asarray(self.data['fold'], dtype=object)
         result = {}
         for key in self.folds['fold_ids']:
             mask = fold_array == key
             names = [name for name, value in zip(self.data['names'], self.data['fold']) if value == key]
-            result[key] = f06.load_predictions(self.manifest['entries'][key]['oof'], names,
+            result[key] = f06.load_predictions(manifest['entries'][key]['oof'], names,
                                                labels=self.folds['labels'][mask])
         return result
 
