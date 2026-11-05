@@ -21,8 +21,24 @@
 | R261 | R134R1 汤候选 | A；ImageNet-22k → 1k | SCIENCE SHA 核实；selected 文件存在，严格加载待核 |
 | R252 | R201 汤候选 | A；ImageNet-22k → 1k | SCIENCE SHA 核实；selected 文件存在，严格加载待核 |
 | R259 | R201 汤候选 | A；ImageNet-22k → 1k | SCIENCE SHA 核实；selected 文件存在，严格加载待核 |
+| R263R1 | F05 候选 | 版本化配置声明 A；ImageNet-22k → 1k | fresh 接续沿用 R263 科学配置；实际 selected 文件 SHA、部署加载与最终候选身份待逐项核对 |
+| R264 | F05 候选 | 版本化配置声明 A；ImageNet-22k → 1k | 完整训练记录存在；实际 selected 文件 SHA、部署加载与最终候选身份待逐项核对 |
+| R270 | 768 方向候选 | 版本化配置声明 A；ImageNet-22k → 1k | 768 配方与 fresh 初态已有准备证据；唯一 selected、实际权重 SHA、部署加载和最终身份待终态后核对 |
+| R271 | 新 seed 候选 | 版本化配置声明 A；ImageNet-22k → 1k | B 公开源绑定回执及完整训练记录存在；实际 selected 文件 SHA、部署加载与最终候选身份待逐项核对 |
 
-汤模型的上游为其实际纳入的全部父模型；五折、清洗、蒸馏及 768 模型尚未创建，其真实上游 SHA、训练数据和任务内教师血缘均**待核**，不能提前标为合规。F05 最终候选清单尚未封存，其他可能入围的历史模型也须逐一补审。N06 使用 FLAIR 眼底预训练，按用户规则排除，既不是候选也不是教师或任何训练信号。
+2026-11-05 只读核对上游[模型卡](https://huggingface.co/timm/convnext_small.fb_in22k_ft_in1k)：其披露 ImageNet-22k 预训练及 ImageNet-1k 微调，与 A 一致。上述新增行中的“配置声明”不是对每个最终部署权重的独立字节或加载证明；须以该轮冻结配置、实际 selected、任务数据及严格加载回执完成核验。
+
+三份已记录的均匀汤均继承上表各父模型的 A 来源；下表只引用已有产物回执，**不以父模型来源登记代替最终汤权重和其 dev 评估的核验**。
+
+| 汤及实际回执 | 记录的全部父模型 | fp32 平均状态文件 SHA-256 | 待补 |
+| --- | --- | --- | --- |
+| [R120 均匀汤](R120-UNIFORM-SOUP.json) | R120、R254、R256、R258、R262；其中 R256 为 online selected，其余为 EMA | `1943b980ee5a0ade77bce57595642a3514251fbc473bf7f088ec0d587ae6a472` | 实际部署 fp16 文件身份、全部父源与加载证据、完整 dev 及最终候选门 |
+| [R134R1 均匀汤](R134R1-UNIFORM-SOUP.json) | R134R1、R253、R257、R260、R261，均为 EMA selected | `c2263433672864078384c40d74d2dfbf2d787a8cd36e536bdad2fe3b642135eb` | 实际部署 fp16 文件身份、全部父源与加载证据、完整 dev 及最终候选门 |
+| [R201 均匀汤](R201-UNIFORM-SOUP.json) | R250、R252、R259，均为 EMA selected | `cb949231fb12fb76ec591347f9423c9f13d33d0717c74391cc522d98f457f2cc` | 实际部署 fp16 文件身份、全部父源与加载证据、完整 dev 及最终候选门 |
+
+已有独立合成加载回执所记录的 fp16 模型文件 SHA 分别为 [R120](R120-UNIFORM-STANDALONE.json) `28f3fc555c4d81c02ac2e34f4c06bbcfbeede7d18af96d06068fa1d40d5a24e7`、[R134R1](R134R1-UNIFORM-STANDALONE.json) `3a9984fff418624f4817fbecdf6251f239f61a1c706fb869572c0c6ba37a6ed3`、[R201](R201-UNIFORM-STANDALONE.json) `fef3d8d4930f0dcb9c6e7886019490de0e72ea67eefc867584ddd36d26023c8c`；最终部署时仍须重新绑定实际文件和元数据，不能将历史合成回执写成完整 dev 证据。
+
+三折 R265–R267、未来清洗与蒸馏模型的配置拟沿 A 来源；实际最终 selected/导出 SHA、训练数据和来源须逐产物核实。蒸馏另须绑定仅由本任务合规三折模型、各自折外 fit 分数及折训练子集标定组成的教师血缘；实际教师尚未产生，不预标通过。原五折已由三折取代，不能作为未来教师。F05 最终候选清单尚未封存，其他可能入围的历史模型也须逐一补审。N06 使用 FLAIR 眼底预训练，按用户规则排除，既不是候选也不是教师或任何训练信号。
 
 ## 历史 fit-only 适配核查
 
