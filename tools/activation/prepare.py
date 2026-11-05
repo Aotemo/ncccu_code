@@ -44,6 +44,19 @@ def science_binding_path(source, binding, work_root):
     return binding
 
 
+def verify_fold_migration(site, science, migrated):
+    """Keep the original migration binding when using a derived OOF fold."""
+    from retrain.f05_folds import validate_fold_configuration, verify_bound_fold
+    if validate_fold_configuration(site, science) is None:
+        return False
+    try:
+        base_root = migrated['paths']['stage1_root']
+    except (KeyError, TypeError) as error:
+        raise ValueError('original stage1 migration binding required') from error
+    verify_bound_fold(site, science, base_root)
+    return True
+
+
 def parser():
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument('--source-root', type=Path, required=True)
@@ -130,6 +143,8 @@ def build(args):
         'metadata_root': 'stage1_root', 'public_weight': 'public_pretrained',
         'public_provenance': 'public_metadata', 'prepared_cache': 'prepared_cache_root',
         'official_manifest': 'official_manifest'}
+    if verify_fold_migration(site, science, migrated):
+        mapping.pop('metadata_root')
     if public_asset:
         mapping.pop('public_weight'); mapping.pop('public_provenance')
     from retrain.preprocessing import verify_native_cache_asset,verify_composite_cache_asset

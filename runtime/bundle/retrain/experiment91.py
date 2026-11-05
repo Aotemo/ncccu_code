@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .persistence import canonical_digest, sha256_file
 from .site_binding import load_site
+from .f05_folds import F05_FOLD_PROFILES, validate_fold_configuration, verify_bound_fold
 from .classification_loss import PAIR_HARD_POSITIVE_LOSS, PAIR_AUC_MARGIN_LOSS, PAIR_BCE_MIX_LOSS, PAIR_WIDE_SIGMOID_LOSS, PAIR_HARD_NEGATIVE_LOSS, PAIR_SQUARED_HINGE_LOSS
 
 FREEZE_SHA = '90e063dca3ab22225308043ba4b0de379688675ef00606d00b8b36e2135bc0c6'
@@ -62,6 +63,9 @@ PAIR_SIGMOID_SEED_REPLICAS = {
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261114-scale085-pairsigmoid-v1': ('R258',20261114,168),
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261118-scale085-pairsigmoid-v1': ('R262',20261118,172),
     'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261120-scale085-pairsigmoid-v1': ('R264',20261120,174),
+    F05_FOLD_PROFILES[0]: ('R265',20261029,175),
+    F05_FOLD_PROFILES[1]: ('R266',20261029,176),
+    F05_FOLD_PROFILES[2]: ('R267',20261029,177),
 }
 PAIR_SIGMOID_LOWLR_SMALL_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261029-scale085-pairsigmoid-backbonelr5e5-v1'
 PAIR_SIGMOID_LOWLR_SMALL_SEED27_BINDING = 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261027-scale085-pairsigmoid-backbonelr5e5-v1'
@@ -264,6 +268,9 @@ ENSEMBLE_MEMBER_ROUNDS = {
     'r263-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261119_BINDING,
     'r263-r1-small-mixstyle-seed20261119-pairlog-24k-p4-9010-20261104': MIXSTYLE_SMALL_SEED20261119_BINDING,
     'r264-small-seed20261120-pairsigmoid-24k-p4-9010-20261104': 'single-convnext-small-fe6b358a-fixed-9010-24k-earlystop-seed20261120-scale085-pairsigmoid-v1',
+    'r265-small-f05fold0-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[0],
+    'r266-small-f05fold1-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[1],
+    'r267-small-f05fold2-seed20261029-pairsigmoid-24k-p4-9010-20261105': F05_FOLD_PROFILES[2],
     'r270-small-global768-seed20261122-pairsigmoid-24k-p4-9010-20261105': GLOBAL_768_SIGMOID_SEED20261122_BINDING,
     'r271-small-wide2-seed20261123-pairsigmoid-24k-p4-9010-20261105': PAIR_SIGMOID_WIDE_SMALL_SEED20261123_BINDING,
 }
@@ -315,6 +322,7 @@ def science_configuration():
         if hashlib.sha256(raw).hexdigest() != reference['sha256']:
             raise ValueError('pinned science configuration path/SHA differs')
         value = json.loads(raw)
+        validate_fold_configuration(site, value)
         if site.get('round_id') in ENSEMBLE_MEMBER_ROUNDS:
             if value.get('official_evaluation')!=expected_official_policy(site,value):
                 raise ValueError('ensemble member must defer official evaluation')
@@ -1620,7 +1628,13 @@ def metadata():
 @lru_cache(maxsize=4)
 def _metadata(root):
     root = Path(root)
-    if (root / 'FREEZE.json').is_symlink() or sha256_file(root / 'FREEZE.json') != FREEZE_SHA:
+    science = science_configuration()
+    fold_number = validate_fold_configuration(load_site(), science)
+    freeze_sha = FREEZE_SHA
+    if fold_number is not None:
+        verify_bound_fold(load_site(), science)
+        freeze_sha = science['f05_fold']['derived_freeze_sha256']
+    if (root / 'FREEZE.json').is_symlink() or sha256_file(root / 'FREEZE.json') != freeze_sha:
         raise ValueError('9:1 FREEZE identity differs')
     freeze = json.loads((root / 'FREEZE.json').read_text())
     values = {}
@@ -1657,7 +1671,7 @@ def _metadata(root):
         values['EMA-TINY.json']=copy.deepcopy(EMA_RULE)
     values['binding'] = {'version': science_configuration()['candidate_profile'], 'candidate': candidate(),
         'science_config_sha256': load_site()['science']['configuration']['sha256'],
-        'freeze_sha256': FREEZE_SHA, 'manifest_sha256': c['new_manifest']['sha256'],
+        'freeze_sha256': freeze_sha, 'manifest_sha256': c['new_manifest']['sha256'],
         'manifest_digest': c['new_manifest_canonical_sha256'], 'fit_indices_sha256': c['fit_indices_canonical_sha256'],
         'dev_indices_sha256': c['dev_indices_canonical_sha256'], 'age_contract_sha256': c['age_contract_sha256'],
         'schedule_sha256': c['schedule']['sha256'], 'ema_sha256': canonical_digest(values['EMA-TINY.json']),
