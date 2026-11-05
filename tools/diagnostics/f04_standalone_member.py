@@ -38,6 +38,13 @@ def verify_own_blob(source, metadata):
     return sha(path)
 
 
+def export_inventory_sha(preflight, member):
+    exports = preflight.get('exports', {})
+    if member not in exports or not isinstance(exports[member], dict):
+        raise ValueError('selected member has no fixed export')
+    return exports[member].get('inventory_sha256', preflight.get('old_inventory_sha256'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('source-root', 'remote-metadata', 'inventory', 'preflight', 'output'):
@@ -53,8 +60,8 @@ def main():
     git_files['tools/diagnostics/f04_standalone_member.py'] = verify_own_blob(source, args.remote_metadata)
     preflight = json.loads(args.preflight.read_text())
     if (preflight.get('status') != 'F04_fp16_size_members_sealed_before_blend'
-            or preflight.get('old_inventory_sha256') != args.inventory_sha256
             or args.round_id not in preflight['fp16']['members']
+            or export_inventory_sha(preflight, args.round_id) != args.inventory_sha256
             or preflight['fp16']['bytes'] > 500_000_000):
         raise ValueError('member is not in the sealed size-limited F04 candidate')
     export_ref = preflight['exports'][args.round_id]

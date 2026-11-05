@@ -173,6 +173,17 @@ def final_lineage_options(path, digest):
     return {'final-lineage': str(path), 'final-lineage-sha256': digest}
 
 
+def export_inventory(old, old_sha, current, current_sha, reference):
+    if not isinstance(reference, dict):
+        raise ValueError('pinned member export reference required')
+    selected = reference.get('inventory_sha256', old_sha)
+    if selected == old_sha:
+        return old
+    if current is not None and current_sha is not None and selected == current_sha:
+        return current
+    raise ValueError('export does not bind either sealed discovery')
+
+
 def validate_evaluation_window(window, safe_sha, site_sha, round_id, now, free, *, reserve=1024 ** 3):
     """Keep the prepared next round and the peer's full reserved storage intact."""
     at, required, recorded = window.get('at'), window.get('required_free_bytes'), window.get('free_bytes')
@@ -364,6 +375,16 @@ def prepare(args):
             or preflight.get('old_inventory_sha256') != args.inventory_sha256
             or preflight['fp16']['bytes'] > 500_000_000 or preflight.get('official_read') is not False):
         raise ValueError('fixed F04 preflight differs')
+    current_inventory = None
+    if (args.current_inventory is None) != (args.current_inventory_sha256 is None):
+        raise ValueError('current discovery path and SHA must be supplied together')
+    if args.current_inventory is not None:
+        current_inventory = read_pinned(args.current_inventory, args.current_inventory_sha256)
+        if (preflight.get('inventory_sha256') != args.current_inventory_sha256
+                or current_inventory.get('status') != 'read_only_F03_candidate_discovery_no_fusion'
+                or current_inventory.get('official_read') is not False
+                or current_inventory.get('manifest') != inventory.get('manifest')):
+            raise ValueError('current and original sealed discovery differ')
     members = preflight['fp16']['members']; plan = build_plan(members)
     reference = paired_evidence._reference(inventory['manifest'])
     manifest = read_pinned(inventory['manifest']['path'], inventory['manifest']['sha256'])
@@ -377,14 +398,17 @@ def prepare(args):
         member = record.get('round_id')
         if member not in members or member in receipts:
             raise ValueError('standalone receipt identity differs')
-        row = eligible_row(inventory, member, config['approved_general_public_weight_sha256'])
         ref = preflight['exports'][member]
+        member_inventory = export_inventory(inventory, args.inventory_sha256, current_inventory,
+                                            args.current_inventory_sha256, ref)
+        row = eligible_row(member_inventory, member, config['approved_general_public_weight_sha256'])
+        member_inventory_sha = ref.get('inventory_sha256', args.inventory_sha256)
         exported = read_pinned(ref['path'], ref['sha256'])
         model = record.get('model', {}); metadata = record.get('metadata', {})
         model_path = Path(model['path']); metadata_path = Path(metadata['path'])
         if (record.get('status') != 'F04_fp16_standalone_strict_load_and_synthetic_forward_passed'
                 or record.get('preflight_sha256') != args.preflight_sha256
-                or record.get('inventory_sha256') != args.inventory_sha256
+                or record.get('inventory_sha256') != member_inventory_sha
                 or record.get('export_receipt_sha256') != ref['sha256']
                 or record.get('official_read') is not False or record.get('GPU_initialized') is not False
                 or record.get('dev_read') is not False or record.get('TTA') is not False
@@ -919,6 +943,8 @@ def main():
     for name in ('git-commit', 'inventory-sha256', 'preflight-sha256'):
         initial.add_argument('--' + name, required=True)
     initial.add_argument('--standalone-receipt', type=Path, action='append', required=True)
+    initial.add_argument('--current-inventory', type=Path)
+    initial.add_argument('--current-inventory-sha256')
     child = modes.add_parser('worker')
     child.add_argument('--worker-spec', type=Path, required=True)
     child.add_argument('--worker-spec-sha256', required=True)

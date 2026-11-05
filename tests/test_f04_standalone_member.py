@@ -66,7 +66,21 @@ def test_online_selected_variant_remains_online_and_rejects_ema_alias():
             raise AssertionError('online selected variant must not be presented as EMA')
 
 
+def test_standalone_export_uses_its_member_inventory():
+    preflight = {'old_inventory_sha256': 'old', 'exports': {'old-member': {},
+                 'new-member': {'inventory_sha256': 'new'}}}
+    assert standalone.export_inventory_sha(preflight, 'old-member') == 'old'
+    assert standalone.export_inventory_sha(preflight, 'new-member') == 'new'
+    try:
+        standalone.export_inventory_sha(preflight, 'missing')
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('standalone accepted an unlisted export')
+
+
 if __name__ == '__main__':
     test_strict_checkpoint_free_export_and_tamper_rejection()
     test_online_selected_variant_remains_online_and_rejects_ema_alias()
+    test_standalone_export_uses_its_member_inventory()
     print('F04 standalone strict-load and tamper checks passed', flush=True)

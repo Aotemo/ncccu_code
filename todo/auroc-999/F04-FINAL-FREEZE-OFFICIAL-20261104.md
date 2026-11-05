@@ -24,3 +24,7 @@
 **00:19 UTC selected variant 兼容：** 现有 `f04_standalone_member.py` 与 GPU worker 将导出变体固定成 EMA；现有五成员确为 EMA，但 F04 规则允许原合同 selected，R261/R262 的最终 selected 可能是 online。若 online 入围，必须按原 selected 身份严格导出和加载，不能标成 EMA。将 `tools/diagnostics/f04_standalone_member.py`、对应测试加入影响范围，按 selected 传递 variant，兼容原五成员；候选改变时也须先补齐该成员的真实导出、加载和清单绑定，不复用旧五成员回执冒充新名单。现役冻结包不变。
 
 **00:23 UTC CPU 入口进度：** online 独立导出旧签名按预期失败 `72e0babd`，GPU worker 旧硬编码缺变体选择按预期失败 `b6ead3ca`；修复后双终态绑定、原 GPU 监督、online/EMA 严格加载、冻结构造/官方唯一读取、旧数据集接口与 F04 固定规则六组 CPU 检查通过 `97e2a162`。冻结构造的缺失功能曾按预期失败 `957e8fdf`，官方读取返回结构不匹配失败 `d7763643` 已修复。该证据尚非最终五成员全 dev 结果，官方 GPU 入口仍待集成及隔离测试；无真实官方数据读取。
+
+**最终新成员准备边界：** 原 `f04_bounded_fusion.py` 要求全部导出指向同一旧 inventory，因此 R261/R262 若首次符合门槛会被错误阻塞。必要范围补充该文件、`f04_gpu_full_dev.py` / `f04_standalone_member.py` 对每成员来源 inventory 的精确绑定及相应测试：老成员继续核旧库存与未变 selected，新成员只绑定两轮安全后封存的新库存和其真实严格导出；预先注册的排序、容量、权重和结果计算规则不改。
+
+**00:31 UTC 固定规则兼容验证：** 新/旧 inventory 分成员绑定的三组新增用例先按预期失败 `5ace4126`；修复后与全 dev 设备监督、严格变体、官方 claim 和历史接口共六组 CPU 检查通过 `d763dc67`。未读取最终两轮完整结果、未运行 GPU 或真实官方。

@@ -33,6 +33,16 @@ class FinalLineageTest(unittest.TestCase):
             with self.subTest(path=path, digest=digest), self.assertRaises(ValueError):
                 gpu.final_lineage_options(path, digest)
 
+    def test_export_inventory_can_bind_old_or_new_sealed_discovery(self):
+        self.assertTrue(hasattr(gpu, 'export_inventory'), 'per-member discovery binding must exist')
+        old, new = {'name': 'old'}, {'name': 'new'}
+        self.assertIs(gpu.export_inventory(old, 'old-sha', new, 'new-sha', {}), old)
+        self.assertIs(gpu.export_inventory(old, 'old-sha', new, 'new-sha', {'inventory_sha256': 'new-sha'}), new)
+        with self.assertRaises(ValueError):
+            gpu.export_inventory(old, 'old-sha', new, 'new-sha', {'inventory_sha256': 'unrelated'})
+        with self.assertRaises(ValueError):
+            gpu.export_inventory(old, 'old-sha', None, None, {'inventory_sha256': 'new-sha'})
+
     def test_final_census_follows_both_safe_receipts_and_current_device_proof(self):
         self.assertTrue(hasattr(gpu, 'validate_final_screening'), 'final safety lineage gate must exist')
         now = time.time()

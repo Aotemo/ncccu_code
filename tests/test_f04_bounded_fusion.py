@@ -49,8 +49,24 @@ def test_selected_inventory_identity_cannot_drift():
         else: raise AssertionError('changed candidate was accepted: ' + key)
 
 
+def test_new_completed_candidate_uses_its_own_pinned_discovery():
+    assert hasattr(bounded, 'export_inventory_sha'), 'per-member export inventory binding is required'
+    row = {key: key for key in ('round_id', 'status', 'selected', 'spec', 'science', 'public_source',
+                                'checkpoint_candidates', 'selected_blob_sha256')}
+    assert bounded.export_inventory_sha({}, row, 'old-sha', 'new-sha') == 'new-sha'
+    assert bounded.export_inventory_sha({row['round_id']: row}, dict(row), 'old-sha', 'new-sha') == 'old-sha'
+    changed = dict(row, selected='different')
+    try:
+        bounded.export_inventory_sha({row['round_id']: row}, changed, 'old-sha', 'new-sha')
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('changed previously exported candidate was accepted')
+
+
 if __name__ == '__main__':
     test_fixed_sample_spacing_and_z_scale()
     test_small_sample_ties_and_reordering_are_not_accepted()
     test_selected_inventory_identity_cannot_drift()
+    test_new_completed_candidate_uses_its_own_pinned_discovery()
     print('F04 bounded sample and sealed-candidate checks passed', flush=True)

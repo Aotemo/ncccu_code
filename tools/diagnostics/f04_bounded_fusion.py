@@ -33,6 +33,15 @@ def require_same_candidate(old, new):
         raise ValueError('candidate changed since the sealed export inventory')
 
 
+def export_inventory_sha(old_rows, row, old_sha, new_sha):
+    """Reuse an unchanged old export; bind a new member to the new discovery."""
+    name = row['round_id']
+    if name in old_rows:
+        require_same_candidate(old_rows[name], row)
+        return old_sha
+    return new_sha
+
+
 def compare_fixed_sample(fp32, fp16, fp32_dev_std):
     left = np.asarray(fp32, dtype=np.float64)
     right = np.asarray(fp16, dtype=np.float64)
@@ -131,9 +140,8 @@ def main():
             excluded.append({'round_id': name, 'reason': reason,
                              'selected_auroc': row.get('selected', {}).get('auroc')})
             continue
-        if name not in old_rows:
-            raise ValueError('new eligible candidate lacks sealed strict export: ' + name)
-        require_same_candidate(old_rows[name], row)
+        member_inventory_sha = export_inventory_sha(old_rows, row, args.old_inventory_sha256,
+                                                     args.inventory_sha256)
         short = name.split('-')[0].upper()
         record_name = 'records/analysis/20261104-f04/' + short + '-EXPORT.json'
         git_files[record_name] = verify_blob(source, args.remote_metadata, record_name)
@@ -144,7 +152,7 @@ def main():
         exported = json.loads(receipt.read_text())
         if (exported.get('status') != 'F04_complete_inference_state_exported_and_strictly_reloaded'
                 or exported.get('round_id') != name or exported.get('selected') != row['selected']
-                or exported.get('inventory', {}).get('sha256') != args.old_inventory_sha256
+                or exported.get('inventory', {}).get('sha256') != member_inventory_sha
                 or exported.get('selected_blob_sha256') != row['selected_blob_sha256']
                 or exported.get('model_constructed') is not True or exported.get('official_read') is not False
                 or exported.get('GPU_initialized') is not False or exported['exports'].get('strict_reload') is not True
@@ -161,7 +169,8 @@ def main():
             sizes[precision + '_bytes'] = item['bytes']
         rows.append({'id': name, 'order': order, 'auroc': row['selected']['auroc'], **sizes})
         by_id[name] = row
-        export_refs[name] = {'path': str(receipt), 'sha256': sha(receipt), 'sizes': sizes}
+        export_refs[name] = {'path': str(receipt), 'sha256': sha(receipt), 'sizes': sizes,
+                             'inventory_sha256': member_inventory_sha}
     half = rank_and_cap(rows, 'fp16')
     full = rank_and_cap(rows, 'fp32')
     if not half['members'] or not full['members']:
