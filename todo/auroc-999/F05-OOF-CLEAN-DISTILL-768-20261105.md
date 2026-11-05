@@ -29,6 +29,8 @@
 
 实施顺序：① 对已封 roles 和既有 rank 分片写合成 RED，包括错误折、训练/held-out 交叉、dev 混入、分片缺漏/重复、错误模型/设备证明和非有限值；② 新辅助先复用 `f05_folds.verify_roles` 与 `parallel_evaluation.canonical_predictions` 验证角色及分片并输出版本化私有格式；③ 在现有 supervisor 添加互斥 fit-only 模式，限定单 selected、8 rank、两个固定人群、identity view，拒绝官方参数；④ 以真实 fold 来源、safe 终态、checkpoint 和严格加载证明准备只读输入，在 Pod 运行绿测与原 F04/汤入口回归；⑤ 版本化源码 push/API 与 Pod 精确树后，仅由 GPU owner 在不阻塞下一折的空档运行一次并封存失败/成功回执。助手消费端独立复核结果，不接受仅凭 producer 自报身份。
 
+OOF 评估准入补充：三折之后的清洗/蒸馏正式包依赖尚未生成的 OOF，不能要求一个虚构的新训练轮 ready。fit-only 模式可只读复用当次 Pod 的既有正式准备包作为设备及 80/20 CPU 绑定（如另一 Pod 已实际认领同轮而本 Pod 的对应变体从未 activation），该包只用于评估资源身份，不派发、不激活、不修改其轮次；必须另核其 CPU/部署回执和有效 grant、实时 Pod UID/Ready、当前 Pod 前轮 actualsafe 与设备/实例锁释放、另一 Pod 的真实运行和剩余容量预算、共享盘至少 20 GiB 加评估输出余量。评估用 fresh 独立一次性 claim、限定租期和路径，拒绝官方/开发集/TTA；任何现场状态 unknown 即不派发。只在 `f04_gpu_full_dev.py` 的显式 OOF 分支和 `f05_oof_gpu.py` 增加所需检查/窗口验证，不改现有 F04、汤或训练分支。原有 next-ready「轮次目录尚不存在」和训练完整租期检查不能被无条件放宽；新增分支须有隔离假调用与错误身份、过期、容量不足、peer 未知、锁/设备未释放的 Pod CPU 拒错回归后才可使用。
+
 **历史五折，已被三折决定取代：** fit 分组五折生成核心曾在 Pod B 完成 3 项合成检查（CPU `740c667c716c4e9d3914b7b65039ce0ae512b2a0d33e074b9d096c630ce7afbe`）。
 
 历史五折真实分组及逐样本索引/age 封存 SHA `a637bac2034ff53a8564ba8f298ca9cf6215af9b9e4d9839bbff86cd0290203f`，CPU `20bcf6e0fd4fd3aa8e287c8e1871b1aab7cfa23f5274f58b76ca7871b848b576`；保留原件及任何已派生元数据作审计，不删除或覆盖。用户改变折数时尚无任何五折训练或 OOF 结果，旧分组作废，不能用于训练或新 OOF。
