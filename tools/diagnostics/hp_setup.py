@@ -64,7 +64,7 @@ def cmd_config(args):
     job = {
         'name': 'convnext-small', 'model': 'convnext_small', 'seed': seed,
         'training_scale': [.85, 1.0],
-        'loss': dict(PAIR_SIGMOID_SPEC if args.mode == 'hp' else OHEM_SPEC),
+        'loss': dict(OHEM_SPEC if args.mode == 'ohem' else PAIR_SIGMOID_SPEC),
         'image_size': 512, 'prepared_size': 512, 'physical_batch': 32, 'effective_batch': 64,
         'positive_per_batch': 8, 'precision': 'fp32', 'cycles': 15, 'warmup_cycles': 1,
         'min_cycles': 1, 'patience': 4, 'min_delta': 0.0, 'stop_after_cycles': 0,
