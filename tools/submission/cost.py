@@ -60,6 +60,8 @@ def main():
     parser.add_argument('--config', default=None,
                         help='inference config JSON; default: config.json next to this script')
     parser.add_argument('--device', default='cuda:0')
+    parser.add_argument('--allow-sample', action='store_true',
+                        help='functional validation only: accept fewer than 100 timed images')
     args = parser.parse_args()
     config_path = args.config or str(Path(__file__).resolve().parent / 'config.json')
     config = json.loads(Path(config_path).read_text())
@@ -71,7 +73,7 @@ def main():
     expected = read_submission(args.submission_csv)
     rows_100 = rows_from_directory(args.pictures_100, config.get('ages_csv'))
     rows_5 = rows_from_directory(args.pictures_5, config.get('ages_csv'))
-    if len(rows_100) != 100 or len(rows_5) != 5:
+    if (len(rows_100) != 100 or len(rows_5) != 5) and not args.allow_sample:
         raise SystemExit(f'expected 100 timed and 5 warm-up images, found {len(rows_100)}/{len(rows_5)}')
     dataset = members.dataset(Path(args.pictures_100), rows_100)
     warmup = members.dataset(Path(args.pictures_5), rows_5)
