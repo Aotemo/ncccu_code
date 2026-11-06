@@ -361,10 +361,20 @@ def cmd_combo_draft(args):
         entries.append(entry)
     ranked = sorted([entry for entry in entries if entry.get('mean_auroc') is not None],
                     key=lambda entry: -entry['mean_auroc'])
+    sanity = None
+    if args.sanity_pair:
+        missing = [member for member in args.sanity_pair if member not in members]
+        if missing:
+            raise SystemExit('sanity members absent from members file: ' + ','.join(missing))
+        sanity = {'members': list(args.sanity_pair)}
+        for split in ('dev', 'official'):
+            sanity[split] = score(list(args.sanity_pair), split)
+        if sanity['dev'] and sanity['official']:
+            sanity['mean_auroc'] = (sanity['dev']['auroc'] + sanity['official']['auroc']) / 2.0
     receipt = {'status': 'hp_draft_combo_complete', 'decode': 'draft4', 'z': z,
                'baseline': args.baseline, 'threshold': args.baseline + 0.0005,
                'pairs_evaluated': len(members), 'table': ranked,
-               'best_pair': ranked[0]['members'] if ranked else None,
+               'best_pair': ranked[0]['members'] if ranked else None, 'sanity_pair': sanity,
                'official_read': True, 'official_use': 'authorized_validation_only',
                'test_read': False}
     print(json.dumps(receipt | {'receipt_sha256': write_new(args.output, receipt)}, indent=1)[:6000])
@@ -473,6 +483,7 @@ def main():
     combo_draft.add_argument('--hp-shard-dir', required=True)
     combo_draft.add_argument('--members', required=True)
     combo_draft.add_argument('--baseline', type=float, required=True)
+    combo_draft.add_argument('--sanity-pair', nargs=2, default=None)
     combo_draft.add_argument('--output', required=True)
     args = parser.parse_args()
     {'export': cmd_export, 'forward': cmd_forward, 'combo': cmd_combo,
