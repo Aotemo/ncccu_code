@@ -24,3 +24,7 @@
 ## 执行记录
 
 - 09:22–09:50 UTC：代码实现、常量填入、测试与部署。
+- 09:50 UTC 测试：pre-change 代码 2 failed（RED，`config.py:771 ValueError`）→ 修复后 2 passed（GREEN），均在 Pod A CPU 池内执行。
+- 09:56 UTC commit `8d835d4`（初版），10:20 UTC `2da1ff7`（修正 F11 误用 OHEM loss）。两者均已推送 main。
+- 10:00–10:35 UTC：R249 selected EMA 热启动导出（tensor `6251937d…`、file `f78ab30c…`、345 张量、7200 updates）；生成 F11 config/site/FRESH-SPEC；源码树在 Pod 本地 `/tmp/f11src`（commit `2da1ff7`，NFS 解包过慢，改用本地盘，身份由 source_digest 校验）。
+- 10:57 UTC 开训：8 rank 全部起、GPU ~92%，11:02 UTC 已 200 成功更新、0 skip；loss 1e-13 量级（与 HP 结论一致：R249 已收敛，pairwise 梯度极小）。deadline-at 设到 12:47 UTC。
