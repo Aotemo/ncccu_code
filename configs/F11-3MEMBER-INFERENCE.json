@@ -1,0 +1,98 @@
+{
+ "schema_version": 1,
+ "profile": "f11-r249f11-r269-soup-r120-draft4-fp16-v1",
+ "purpose": "F11 final inference: official 5849 merged into training, three-member draft4 fusion",
+ "decode": "draft",
+ "draft_divisor": 4,
+ "precision": "fp16",
+ "TTA": false,
+ "threshold": 0.5,
+ "ages_csv": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first/test.csv",
+ "bundle": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-f11-official-merge-20261106/outputs/r249-f11-official-merge-20261106-8c-convnext_small-s20261205-b64-p8-fp32/code",
+ "platt": {
+  "a": 1.8340409484650222,
+  "b": -5.816911937923023
+ },
+ "members": [
+  {
+   "id": "R249-F11",
+   "export": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261105-ds2/f11-20261106/eval/F11-EXPORT/fp16",
+   "variant": "online",
+   "model_sha256": "294c7b0ea04a22b711264e420d1db6d802989bbfcc84a978496c8ccd578801c0",
+   "weights_bytes": 99018253,
+   "z": {
+    "mean": -50.99365469747901,
+    "std": 18.480645618868394
+   },
+   "site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104/SITE_BINDING.json",
+   "site_sha256": "194544d5e96418efd880481254df2f9f43377d2c08bdcec8fcc5788969aeef82"
+  },
+  {
+   "id": "R269",
+   "export": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261105-ds2/f07-owner/f10-final/exports/R269",
+   "variant": "ema",
+   "model_sha256": "3f77e91d7ca1dd12038b6b45a722985f44977a83eab80e517473af5a48ba9391",
+   "weights_bytes": 99018253,
+   "z": {
+    "mean": -13.113201576071983,
+    "std": 3.496907618627405
+   },
+   "site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105/SITE_BINDING.json",
+   "site_sha256": "90637f6e6c5517d1c3a6401dacbbcdb820dbba59e4efda9ee56fbcf441235033"
+  },
+  {
+   "id": "SOUP-R120",
+   "export": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261105-ds2/f07-owner/f09-final/exports/SOUP-R120",
+   "variant": "ema",
+   "model_sha256": "28f3fc555c4d81c02ac2e34f4c06bbcfbeede7d18af96d06068fa1d40d5a24e7",
+   "weights_bytes": 99018317,
+   "z": {
+    "mean": -17.23285260796547,
+    "std": 6.279514072682053
+   },
+   "site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SITE_BINDING.json",
+   "site_sha256": "26cae5aefe899351d153dff9c1dd6d685c129dcc0cb578bc73a2f03af409ce43"
+  }
+ ],
+ "member_weight_bytes_total": 297054823,
+ "selection": {
+  "rule": "replace a member when its draft4 dev AUROC >= original dev - 0.0005",
+  "r249_original_dev_auroc": 0.9884580326577892,
+  "f11_member_dev_auroc": 0.9883069172332994,
+  "fusion_dev_auroc": 0.9901817117825479,
+  "fusion_dev_ap": 0.8455330640931619,
+  "official_merged_into_training": true,
+  "official_used_for_selection_or_statistics": false
+ },
+ "submission": {
+  "path": "/home/hao/Desktop/challenge/submition/F11-final/submit.csv",
+  "rows": 5855,
+  "sha256": "4edfb70823be297d5289bf964d6f9d0bab26dde151f4adc524f85aaea8a00753",
+  "positive_labels": 199
+ },
+ "latency": {
+  "protocol": "batch=1 serial, 5 warm-up, 100 images x 3 rounds, fp16",
+  "measured_dcu_ms": 84.3,
+  "round_means_ms": [
+   84.45,
+   84.58,
+   84.02
+  ],
+  "stage_ms": {
+   "read_decode_preprocess": 24.1,
+   "h2d": 0.59,
+   "forward_three_members": 53.7,
+   "post": 0.02
+  },
+  "mismatch_vs_submission": 0,
+  "t4": {
+   "ratio": 0.53,
+   "forward_ms": 28.5,
+   "total_ms": 59.1,
+   "safety": 1.5,
+   "with_safety_ms": 88.6,
+   "budget_ms": 100.0,
+   "pass": true
+  }
+ }
+}
