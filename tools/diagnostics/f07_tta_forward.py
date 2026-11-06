@@ -118,13 +118,16 @@ def run_member(args, member_id, member, split, device, torch, _load_model, _runt
                preprocess_batch, enabled, ImageDataset):
     rows = build_rows(args.data_root, split, args.dev_indices, args.image_map_cache)
     positives = sum(row['label'] for row in rows)
+    if member.get('site'):
+        os.environ['NCCCU_SITE_BINDING'] = member['site']
+        os.environ['NCCCU_SITE_BINDING_SHA256'] = member['site_sha256']
     variant = member.get('variant')
     if variant is None:
         variant = (json.loads((Path(member['export']) / 'model.json').read_text())
                    .get('checkpoint', {}).get('variant'))
     model, job, metadata, origin, selected_device = _load_model(member['export'], device=device,
                                                                 variant=variant)
-    if str(selected_device) != 'cuda':
+    if selected_device.type != 'cuda':
         raise ValueError('model was not placed on the pinned device')
     runtime = _runtime(job, metadata, precision='fp16')
     dataset = ImageDataset(args.data_root, rows, runtime['image_size'], False, runtime['normalization'],
