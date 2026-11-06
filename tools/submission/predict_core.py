@@ -39,6 +39,9 @@ class MemberSet:
         self.ImageDataset = ImageDataset
         self.device = device
         self.decode = config.get('decode', 'draft')
+        self.draft_divisor = int(config.get('draft_divisor', 4))
+        if self.draft_divisor < 1:
+            raise ValueError('draft_divisor must be positive')
         self.platt = config['platt']
         self.members = []
         jobs = None
@@ -68,7 +71,7 @@ class MemberSet:
         torch = self.torch
         parent = self
 
-        divisor = int(config.get('draft_divisor', 2))
+        divisor = self.draft_divisor
 
         class _DirectDataset(self.ImageDataset):
             def _read_image(self, row):

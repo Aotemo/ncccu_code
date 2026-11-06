@@ -28,7 +28,7 @@ def run(config_path, pictures_dir, output_csv, device='cuda'):
         writer.writerow(['Image_name', 'Probability', 'Pred_Label'])
         for index, row in enumerate(rows):
             probability, _ = members.predict_index(dataset[index])
-            writer.writerow([row['name'], f'{probability:.6f}', int(probability >= 0.5)])
+            writer.writerow([row['name'], repr(float(probability)), int(probability >= 0.5)])
         stream.flush()
     return {'rows': len(rows), 'seconds': time.perf_counter() - started,
             'decode': config.get('decode', 'draft'), 'precision': 'fp16'}

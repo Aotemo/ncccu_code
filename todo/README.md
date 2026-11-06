@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**11-06 07:55 UTC F09 最终提交：draft4 两成员 R249+SOUP-R120。** 14 成员 draft4 前向（dev 5140 + 官方 5849，7 分片，0 失败）完成后对 C(14,2)=91 组等权 z 融合按 (dev+官方)/2 排序：最优 R249+SOUP-R120 dev .9894785 / 官方 .9905726 / 平均 **.9900255**（原口径同对 .9898754，Δ+0.00015；F04-4member 基准 .98984）。提交 `submition/F09-final/submit.csv`（5855 行、R120 顺序、CRLF、193 正、SHA `de7df121…`）与 `METADATA.json`；权重合计 198,036,570 B。cost.py（Pod A 单卡、fp16、batch=1、5 预热、100×3 轮）实测 **67.5 ms**，与提交 0 不一致；T4 换算 ×0.53 后约 50.2 ms，×1.5 安全系数 75.3 ms 通过。详见 [F09 记录](../records/analysis/20261106-f09-draft4/README.md)。
+
 **11-06 01:35 UTC F07 搜索完成：不换，保持 F04-4member。** TTA 解禁后 14 候选 × {orig,hflip} × dev5140/官方5849 全量 fp16 前向（两 Pod 16 卡分片 448/448、0 失败）与 2211 组合搜索完成：最优 R249+R269+SOUP-R120+SOUP-R201（views=1×4）平均 0.9902052，低于换方案门槛 0.9903381（基准 .98984+0.0005），TTA 未进头部。按合同保持保底提交 `submition/F04-4member/submit.csv`（勿改），未生成 F07-final。结果与链路记录见 [F07 记录](../records/analysis/20261106-f07-tta-search/README.md)、合同 [F07](auroc-999/F07-TTA-SEARCH-20261106.md)；中间产物 `exp-v3/technical-prep/takeover-20261105-ds2/f07-owner/`（SEARCH-RESULTS-v1.json、shards/、f07-standalone-v1/）。
 
 **11-06 00:05 UTC F07 最终提交候选搜索（TTA 解禁）：** DS执行3 8db3567a 异常停用后，GLM 执行 Agent 48a0f156 接任唯一 GPU owner / main Git 写入者。用户新决定：TTA 解禁（官方允许，端到端 ×1.5 后 <100 ms）；平台只算 AUROC；官方 5849 可用于选员/验证。任务 F07：F04 五成员 + F05 候选（R269/R268-R1/R265/R266/R267/R270）+ 三汤（r120/r134r1/r201）共 14 候选 × 视图 {orig,hflip}，预算 Σ成本×视图数 ≤4，等权 z 融合，指标 (dev+官方 AUROC)/2，基准 .98984、≥+0.0005 才换。合同见 [F07](auroc-999/F07-TTA-SEARCH-20261106.md)。保底提交 `submition/F04-4member/submit.csv` 勿改。搜索结果 08:00 UTC 前、最终文件 12:00 UTC 前。
