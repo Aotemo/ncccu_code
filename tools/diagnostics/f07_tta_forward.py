@@ -22,7 +22,7 @@ def sha(path):
     return digest.hexdigest()
 
 
-def build_rows(root, split, dev_indices_path):
+def build_rows(root, split, dev_indices_path, map_cache=None):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'runtime' / 'bundle'))
     from retrain.data import _image_mapping, _read_csv
     if split == 'dev':
@@ -34,7 +34,23 @@ def build_rows(root, split, dev_indices_path):
         selected = rows
     else:
         raise ValueError('split must be dev or official')
-    mapping = _image_mapping(root, 'train' if split == 'dev' else 'valid')
+    split_dir = 'train' if split == 'dev' else 'valid'
+    mapping = None
+    if map_cache is not None and Path(map_cache).exists():
+        mapping = json.loads(Path(map_cache).read_text()).get(split_dir)
+        if not isinstance(mapping, dict):
+            mapping = None
+    if mapping is None:
+        mapping = _image_mapping(root, split_dir)
+        if map_cache is not None:
+            path = Path(map_cache)
+            merged = json.loads(path.read_text()) if path.exists() else {}
+            if not isinstance(merged, dict):
+                merged = {}
+            merged[split_dir] = mapping
+            temporary = path.with_suffix('.tmp')
+            temporary.write_text(json.dumps(merged))
+            os.replace(temporary, path)
     result = []
     for row in selected:
         key = row['name'].casefold()
@@ -57,6 +73,7 @@ def main():
     parser.add_argument('--out-dir', type=Path, required=True)
     parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--decode-workers', type=int, default=4)
+    parser.add_argument('--image-map-cache', type=Path, default=None)
     args = parser.parse_args()
     if not 0 <= args.shard < args.shards or args.shards < 1:
         raise ValueError('invalid shard identity')
@@ -98,7 +115,7 @@ def main():
 
 def run_member(args, member_id, member, split, device, torch, _load_model, _runtime,
                preprocess_batch, enabled, ImageDataset):
-    rows = build_rows(args.data_root, split, args.dev_indices)
+    rows = build_rows(args.data_root, split, args.dev_indices, args.image_map_cache)
     positives = sum(row['label'] for row in rows)
     model, job, metadata, origin, selected_device = _load_model(member['export'], device=device,
                                                                 variant=member.get('variant'))
