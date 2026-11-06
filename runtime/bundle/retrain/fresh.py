@@ -13,6 +13,9 @@ def resolve_steps_per_cycle(job, negative_count, *, fresh_spec=None) -> int:
     if job.get('f06') is not None and fresh_spec is not None:
         from .experiment91 import F06_BINDING
         return F06_BINDING['steps_per_cycle']
+    if job.get('hp') is not None and fresh_spec is not None:
+        from .config import HP_STEPS_PER_CYCLE
+        return HP_STEPS_PER_CYCLE
     if job.get('experiment91') is not None and fresh_spec is not None:
         from .experiment91 import schedule
         return schedule()['steps_per_cycle']
