@@ -618,6 +618,19 @@ def build_manifest(source, split):
                 raise ValueError('explicit valid inclusion requires load_source(include_valid=True)')
             rows += list(source['valid_rows'])
         fit = list(range(len(rows)))
+    elif kind == 'official_merge':
+        if split.setdefault('include_valid', False) is not True:
+            raise ValueError('official_merge requires explicit official inclusion')
+        valid = list(source.get('valid_rows') or [])
+        if not valid:
+            raise ValueError('explicit valid inclusion requires load_source(include_valid=True)')
+        fraction = split.setdefault('valid_fraction', .1)
+        if not 0 < fraction < 1:
+            raise ValueError('valid_fraction must be between zero and one')
+        base_fit, dev = _partition_groups(rows, indices, [1 - fraction, fraction], seed)
+        offset = len(rows)
+        rows += valid
+        fit = list(base_fit) + [offset + i for i in range(len(valid))]
     elif kind == 'official_cv':
         fold = split.setdefault('fold', 0)
         fraction = split.setdefault('valid_fraction', .1)
