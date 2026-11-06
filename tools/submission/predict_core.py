@@ -126,11 +126,15 @@ def rows_from_directory(pictures_dir, ages_csv=None):
         import csv as _csv
         with Path(ages_csv).open(newline='') as stream:
             for record in _csv.DictReader(stream):
-                ages[record['Image_name']] = str(record.get('Age', '') or '')
+                ages[record['Image_name'].casefold()] = (record['Image_name'],
+                                                         str(record.get('Age', '') or ''))
     rows = []
     for name in names:
-        if ages and name not in ages:
-            raise ValueError('age missing for timing picture: ' + name)
-        rows.append({'name': name, 'relative_path': name, 'label': 0,
-                     'age': ages.get(name, '')})
+        if ages:
+            hit = ages.get(name.casefold())
+            if hit is None:
+                raise ValueError('age missing for timing picture: ' + name)
+            rows.append({'name': hit[0], 'relative_path': name, 'label': 0, 'age': hit[1]})
+        else:
+            rows.append({'name': name, 'relative_path': name, 'label': 0, 'age': ''})
     return rows
