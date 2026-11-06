@@ -47,11 +47,11 @@ def build_rows(root, split, dev_indices_path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--members', type=Path, required=True, help='JSON: id -> {export, variant}')
-    parser.add_argument('--member', required=True)
+    parser.add_argument('--members', type=Path, required=True, help='JSON: id -> {export, variant?, cost?}')
+    parser.add_argument('--member', required=True, help="member id or 'ALL'")
     parser.add_argument('--data-root', type=Path, required=True)
     parser.add_argument('--dev-indices', type=Path, required=True)
-    parser.add_argument('--split', choices=('dev', 'official'), required=True)
+    parser.add_argument('--split', choices=('dev', 'official', 'BOTH'), required=True)
     parser.add_argument('--shard', type=int, required=True)
     parser.add_argument('--shards', type=int, required=True)
     parser.add_argument('--out-dir', type=Path, required=True)
@@ -61,29 +61,53 @@ def main():
     if not 0 <= args.shard < args.shards or args.shards < 1:
         raise ValueError('invalid shard identity')
     members = json.loads(args.members.read_text())
-    if args.member not in members:
+    selected_members = sorted(members) if args.member == 'ALL' else [args.member]
+    if args.member != 'ALL' and args.member not in members:
         raise ValueError('unknown member: ' + args.member)
-    member = members[args.member]
-    rows = build_rows(args.data_root, args.split, args.dev_indices)
-    positives = sum(row['label'] for row in rows)
+    splits = ['dev', 'official'] if args.split == 'BOTH' else [args.split]
     sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'runtime' / 'bundle'))
     import torch
     if torch.cuda.is_initialized():
         raise ValueError('GPU must be initialized only inside the forward loop setup')
     from retrain.inference import _load_model, _runtime, preprocess_batch
     from retrain.age import enabled
+    from retrain.data import ImageDataset
     device = torch.device('cuda')
     torch.cuda.set_device(device)
+    summary = []
+    for member_id in selected_members:
+        member = members[member_id]
+        for split in splits:
+            try:
+                result = run_member(args, member_id, member, split, device, torch,
+                                    _load_model, _runtime, preprocess_batch, enabled, ImageDataset)
+                summary.append(result)
+                print(json.dumps({'status': 'f07_shard_done', 'member': member_id, 'split': split,
+                                  'shard': args.shard, 'rows': result['rows_assigned'],
+                                  'seconds': result['seconds']}), flush=True)
+            except Exception as error:  # member-level failure: skip and record, never fabricate
+                failure = {'status': 'f07_shard_failed', 'member': member_id, 'split': split,
+                           'shard': args.shard, 'error_type': type(error).__name__,
+                           'error': str(error)[:400]}
+                (args.out_dir / f'{split}.{member_id}.shard{args.shard}of{args.shards}.FAILED.json').write_text(
+                    json.dumps(failure, indent=1) + '\n')
+                summary.append(failure)
+                print(json.dumps(failure), flush=True)
+    print(json.dumps({'status': 'f07_rank_done', 'shard': args.shard, 'summary': summary}), flush=True)
+
+
+def run_member(args, member_id, member, split, device, torch, _load_model, _runtime,
+               preprocess_batch, enabled, ImageDataset):
+    rows = build_rows(args.data_root, split, args.dev_indices)
+    positives = sum(row['label'] for row in rows)
     model, job, metadata, origin, selected_device = _load_model(member['export'], device=device,
                                                                 variant=member.get('variant'))
     if str(selected_device) != 'cuda':
         raise ValueError('model was not placed on the pinned device')
     runtime = _runtime(job, metadata, precision='fp16')
-    dataset_args = (args.data_root, rows, runtime['image_size'], False, runtime['normalization'])
-    dataset_kwargs = {'prepared_size': runtime['prepared_size'], 'age': job.get('age'),
-                      'input_preprocessing': job.get('input_preprocessing')}
-    from retrain.data import ImageDataset
-    dataset = ImageDataset(*dataset_args, **dataset_kwargs)
+    dataset = ImageDataset(args.data_root, rows, runtime['image_size'], False, runtime['normalization'],
+                           prepared_size=runtime['prepared_size'], age=job.get('age'),
+                           input_preprocessing=job.get('input_preprocessing'))
     age_on = enabled(job)
     assigned = [index for index in range(len(rows)) if index % args.shards == args.shard]
     model.eval()
@@ -107,8 +131,9 @@ def main():
             flipped = forward(images.flip(-1))
             for position, index in enumerate(chunk):
                 logits[index] = (float(original[position]), float(flipped[position]))
+    del model
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    name = f'{args.split}.{args.member}.shard{args.shard}of{args.shards}'
+    name = f'{split}.{member_id}.shard{args.shard}of{args.shards}'
     output = args.out_dir / (name + '.csv')
     if output.exists():
         raise FileExistsError(output)
@@ -121,16 +146,15 @@ def main():
         stream.flush()
         os.fsync(stream.fileno())
     sidecar = {
-        'member': args.member, 'export': member['export'], 'export_sha256': sha(Path(member['export']) / 'model.pt'),
-        'split': args.split, 'rows_total': len(rows), 'rows_assigned': len(assigned),
+        'member': member_id, 'export': member['export'], 'export_sha256': sha(Path(member['export']) / 'model.pt'),
+        'split': split, 'rows_total': len(rows), 'rows_assigned': len(assigned),
         'positive_total': positives, 'shard': args.shard, 'shards': args.shards,
         'precision': 'fp16', 'batch_size': args.batch_size, 'decode_workers': args.decode_workers,
         'variant': member.get('variant'), 'seconds': round(time.time() - started, 3),
         'csv_sha256': sha(output), 'test_label_values_read': False, 'TTA': 'orig+hflip',
     }
     (args.out_dir / (name + '.json')).write_text(json.dumps(sidecar, indent=1) + '\n')
-    print(json.dumps({'status': 'f07_shard_done', 'member': args.member, 'split': args.split,
-                      'shard': args.shard, 'rows': len(assigned), 'seconds': sidecar['seconds']}), flush=True)
+    return sidecar
 
 
 if __name__ == '__main__':
