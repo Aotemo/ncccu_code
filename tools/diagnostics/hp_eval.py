@@ -281,6 +281,96 @@ def sidecar_name(payload, split, member):
     return f'{split}.{member}.shard{payload["shard"]}of{payload["shards"]}.csv'
 
 
+def load_draft_population(shard_dir, member, split):
+    """Load F09 draft-decode shards: <split>.<member>.draft.shardIofN.{csv,json}."""
+    directory = Path(shard_dir)
+    sidecars = sorted(directory.glob(f'{split}.{member}.draft.shard*.json'))
+    if not sidecars:
+        raise SystemExit(f'no draft shards for {member}/{split} in {directory}')
+    rows = {}
+    total = 0
+    for sidecar in sidecars:
+        payload = json.loads(sidecar.read_text())
+        csv_path = sidecar.with_suffix('.csv')
+        if payload['csv_sha256'] != sha(csv_path):
+            raise SystemExit('draft shard csv sha differs: ' + sidecar.name)
+        if payload.get('decode') not in ('draft-half', 'draft-quarter'):
+            raise SystemExit('unexpected draft decode identity: ' + str(payload.get('decode')))
+        total += payload['rows_assigned']
+        with csv_path.open(newline='') as stream:
+            for record in csv.DictReader(stream):
+                key = record['name'].casefold()
+                if key in rows:
+                    raise SystemExit('duplicate draft row across shards: ' + record['name'])
+                rows[key] = (record['label'], float(record['logit']))
+    if total != len(rows):
+        raise SystemExit(f'{member}/{split} shard rows_assigned {total} differs from rows {len(rows)}')
+    return rows, total
+
+
+def _zstat(values):
+    mean = sum(values) / len(values)
+    variance = sum((value - mean) ** 2 for value in values) / len(values)
+    return {'mean': mean, 'std': math.sqrt(variance)}
+
+
+def cmd_combo_draft(args):
+    """Two-member comparison under the F09 draft4 decode using existing shards."""
+    members = json.loads(Path(args.members).read_text())
+    if not isinstance(members, list) or 'HP' in members:
+        raise SystemExit('members file must be a JSON list of non-HP member ids')
+    order = ['HP'] + members
+    populations = {'dev': {}, 'official': {}}
+    for split in ('dev', 'official'):
+        for member in order:
+            directory = args.hp_shard_dir if member == 'HP' else args.shard_dir
+            rows, _ = load_draft_population(directory, member, split)
+            populations[split][member] = rows
+    dev_keys = sorted(populations['dev']['HP'])
+    z = {}
+    for member in order:
+        rows = populations['dev'][member]
+        if set(rows) != set(dev_keys):
+            raise SystemExit(f'{member} dev coverage differs from HP')
+        z[member] = _zstat([rows[key][1] for key in dev_keys])
+        if z[member]['std'] <= 0:
+            raise SystemExit('degenerate dev logits for ' + member)
+
+    def score(subset, split):
+        rows = populations[split]
+        reference = rows['HP']
+        common = set(reference)
+        for member in subset[1:]:
+            common &= set(rows[member])
+        common = sorted(common)
+        if len(common) != len(reference):
+            return None
+        labels_split = [int(rows[subset[0]][key][0]) for key in common]
+        fused = [sum((rows[member][key][1] - z[member]['mean']) / z[member]['std']
+                     for member in subset) / len(subset) for key in common]
+        return {'auroc': auroc(fused, labels_split), 'ap': ap(fused, labels_split),
+                'rows': len(common)}
+
+    entries = []
+    for subset in [['HP']] + [['HP', member] for member in members]:
+        entry = {'members': subset, 'size': len(subset)}
+        for split in ('dev', 'official'):
+            entry[split] = score(subset, split)
+        if entry['dev'] and entry['official']:
+            entry['mean_auroc'] = (entry['dev']['auroc'] + entry['official']['auroc']) / 2.0
+        entries.append(entry)
+    ranked = sorted([entry for entry in entries if entry.get('mean_auroc') is not None],
+                    key=lambda entry: -entry['mean_auroc'])
+    receipt = {'status': 'hp_draft_combo_complete', 'decode': 'draft4', 'z': z,
+               'baseline': args.baseline, 'threshold': args.baseline + 0.0005,
+               'pairs_evaluated': len(members), 'table': ranked,
+               'best_pair': ranked[0]['members'] if ranked else None,
+               'official_read': True, 'official_use': 'authorized_validation_only',
+               'test_read': False}
+    print(json.dumps(receipt | {'receipt_sha256': write_new(args.output, receipt)}, indent=1)[:6000])
+    print('RECEIPT', args.output)
+
+
 def cmd_combo(args):
     members = json.loads(Path(args.members).read_text())
     frozen = json.loads(Path(args.frozen_z).read_text())
@@ -378,8 +468,15 @@ def main():
     combo.add_argument('--frozen-z', required=True)
     combo.add_argument('--baseline', type=float, required=True)
     combo.add_argument('--output', required=True)
+    combo_draft = sub.add_parser('combo-draft')
+    combo_draft.add_argument('--shard-dir', required=True)
+    combo_draft.add_argument('--hp-shard-dir', required=True)
+    combo_draft.add_argument('--members', required=True)
+    combo_draft.add_argument('--baseline', type=float, required=True)
+    combo_draft.add_argument('--output', required=True)
     args = parser.parse_args()
-    {'export': cmd_export, 'forward': cmd_forward, 'combo': cmd_combo}[args.command](args)
+    {'export': cmd_export, 'forward': cmd_forward, 'combo': cmd_combo,
+     'combo-draft': cmd_combo_draft}[args.command](args)
     return 0
 
 
