@@ -38,3 +38,19 @@
 - 05:2x UTC：site binding（`technical-prep/hp-hardpos-20261106-glmB/site/site-hp-v1/`，Pod B 实测 120 有效核、owner 96/验证 24、control 112–119）+ HP 训练配置 `cfg/HP-TRAIN-CONFIG.json` `d81b2d51…` + fresh spec 验证通过（8 rank、G64/P8、400/6000）。
 - 05:3x–06:0x UTC 三次启动：① 缺 LD_PRELOAD NUMA 守卫失败（无状态创建）；② 直启 build_manifest 与封存 manifest split 键不一致（R268 证明 base manifest `3275aaa3…` 即训练 manifest）→ 改用 `--manifest` 直传 `assets/fixed-9010-stage1/manifest.json` `7cc0f8b7…`；③ 共享 `prepared512-v2-pillow12.3.0` 目录仅 1024 条不完整，改用 F06 只读 cache-union（114,490 文件，含全部 51396 train + 5849 official 条目）。06:0x UTC 第四次启动成功：8 rank 全部在位，8 卡 100%，0 skip。
 - 结论 08:30 UTC 前；OHEM 于 HP 安全终态后同链启动（seed 20261204，loss `binary-pairwise-sigmoid-ohem-top25-v1`，无 f05 目标）。
+
+## 2026-11-06 07:1x–08:0x UTC Pod B 新执行者接管与 HP 终结
+
+- 交接：GLM `b39fbd2c` 会话在 workbuddy 重启后失效并归档；新执行者接管 Pod B（worktree `/home/hao/.paseo/worktrees/0vbeo4hh/exec-hardpos`，分支 `exec/hardpos`），不碰 Pod A、不推 main。
+- HP 训练实际终结于 2800/6000（早停，连续 4 轮无提升，0 skip）。selected = **online c3 @1200**，内部 dev AUROC **0.9888102** / AP 0.81964；EMA 最好 c1 @400 AUROC 0.9887500。
+- selected strict fp16 导出 + 独立回载通过：`eval-v1/HP-EXPORT`，model sha `6de5907e…`、fp16 tensor `ad1f0cb5…`、99,018,253 B；receipt `STANDALONE.json` 4fdfbc6e…
+- draft4 前向（F09 同一 `src-54b9aac`、`NCCCU_DRAFT_DIVISOR=4`、单视图 fp16）完成 dev 5140 + 官方 5849：`eval-v1/hp-draft4-shards/`。
+- draft4 两成员表（(dev+官方)/2，等权 z，dev 统计），`eval-v1/HP-DRAFT4-COMBO-v1.json`（receipt sha 见文件）：
+  - HP 单成员 .9876880（dev .9887320 / 官方 .9866440）
+  - HP+R269 .9897675（dev .9902347 / 官方 .9893002）← HP 最好两成员
+  - HP+SOUP-R120 .9896714、HP+SOUP-R201 .9895654、HP+R250 .9895085、HP+R249 .9894155，其余更低
+  - 基准 F09 最佳两成员 R249+SOUP-R120 **.9900255**（本工具复算完全一致，sanity 通过）；门槛 .9905255
+- **HP 结论：最好 HP 两成员比基准低 0.000258，未达 +0.0005 门槛；HP 不作为替换/新增成员提交。** F09 R249+SOUP-R120 保持。
+- OHEM：`cfg/OHEM-TRAIN-CONFIG.json` `1855f7b7…`（seed 20261204、`binary_pairwise_sigmoid_ohem` top25、无 f05 目标、R120 EMA 热启动）、`run/OHEM-FRESH-SPEC.json` `a9de036e…`、`run/OHEM-PLAN.json` `486785f2…`、site `site/site-ohem-v1b/SITE_BINDING.json` `cc7e67d5…`。07:5x UTC 8 rank 在位、首成功 25/25、0 skip、8 卡 100%；首个 50 更新已记录。训练中，结果待 >400 更新后评估。
+- 启动失败保留：① 直接启（无任务 CPU mask）→ inherited mask 越界；② 缺 `TRAIN_IMAGE_CACHE_READONLY`；③ output_root 未预建。分别修正后第四次启动成功，未重置任何 clock/token/grant。
+- 工具：`tools/diagnostics/hp_eval.py` 新增 `combo-draft`（读 F09 draft shards，两成员等权 z，sanity pair），commit `18e1eb5`/`379679d` 已推送 `origin/exec/hardpos`。
