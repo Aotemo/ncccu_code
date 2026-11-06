@@ -80,14 +80,17 @@ def main():
 
     precision = config.get('precision', 'fp16')
     print(f'[COST] precision={precision} members={len(config["members"])} decode={config.get("decode")}', flush=True)
-    with Path('cost_warmup.log').open('w') as handle:
+    import tempfile
+    scratch = Path(tempfile.mkdtemp(prefix='ncccu-cost-'))
+    print(f'[COST] local scratch {scratch}', flush=True)
+    with (scratch / 'warmup.log').open('w') as handle:
         for index in range(len(rows_5)):
             members.predict_index(warmup[index])
             handle.write(f'{rows_5[index]["name"]}\n')
 
     rounds = []
     mismatched_total = 0
-    with Path('cost_round_predictions.csv').open('w') as handle:
+    with (scratch / 'round_predictions.csv').open('w') as handle:
         for round_index in range(3):
             started = time.perf_counter()
             per_image, mismatched = score_round(members, dataset, rows_100, handle, expected)
