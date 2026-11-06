@@ -204,7 +204,7 @@ def _reconstruct_f05_oof(summary_ref, work_root, verifier, *, allow_fixture=Fals
         probabilities.update(values)
         results.append({'verified': item, 'calibration': calibration,
                         'calibration_sha256': calibration_ref['sha256'], 'probabilities': values})
-    return summary, base_ref, folds_ref, base, folds, results, probabilities
+    return summary, base_ref, folds_ref, base, folds, results, probabilities, parents
 
 
 def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixture=False,
@@ -217,9 +217,9 @@ def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixtu
     """
     from .persistence import canonical_digest
     try:
-        summary, base_ref, folds_ref, base, folds, results, probabilities = _reconstruct_f05_oof(
-            summary_ref, work_root, verifier, allow_fixture=allow_fixture,
-            fit_count=fit_count, dev_count=dev_count)
+        summary, base_ref, folds_ref, base, folds, results, probabilities, parents = \
+            _reconstruct_f05_oof(summary_ref, work_root, verifier, allow_fixture=allow_fixture,
+                                 fit_count=fit_count, dev_count=dev_count)
         clean, distilled, aggregate = verifier.build_target_tables(base, folds, results,
             base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'])
         references = {'clean': summary['clean_targets'], 'distill': summary['distill_targets']}
@@ -263,9 +263,9 @@ def build_f05_hardpos_targets(summary_ref, work_root, *, verifier,
     """
     from .persistence import canonical_digest
     try:
-        summary, base_ref, folds_ref, base, folds, results, probabilities = _reconstruct_f05_oof(
-            summary_ref, work_root, verifier, allow_fixture=False,
-            fit_count=fit_count, dev_count=dev_count)
+        summary, base_ref, folds_ref, base, folds, results, probabilities, parents = \
+            _reconstruct_f05_oof(summary_ref, work_root, verifier, allow_fixture=False,
+                                 fit_count=fit_count, dev_count=dev_count)
         if summary.get('hardpos_targets') is not None or summary.get('hardpos_stats') is not None:
             raise ValueError('the pinned summary must not already carry HP extensions')
         clean, _, _ = verifier.build_target_tables(base, folds, results,

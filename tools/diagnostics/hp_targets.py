@@ -81,8 +81,10 @@ def cmd_verify(args):
     proof = verify_f05_oof_for_training(summary_ref, args.work_root, verifier=verifier)
     if proof.get('targets', {}).get('hardpos') is None:
         raise SystemExit('verified proof lacks the hardpos target reference')
+    proof_bytes = json.dumps(proof, indent=1, sort_keys=True, allow_nan=False).encode() + b'\n'
     receipt = {'status': 'hp_hardpos_targets_verified_not_launched',
-               'summary': summary_ref, 'proof_sha256': sha(json.dumps(proof, sort_keys=True)),
+               'summary': summary_ref,
+               'proof_sha256': hashlib.sha256(proof_bytes).hexdigest(),
                'hardpos_stats': json.loads(Path(summary_ref['path']).read_text())['hardpos_stats'],
                'official_read': False, 'dev_read': False, 'test_read': False}
     print(json.dumps(receipt | {'receipt_sha256': write_new(args.receipt, receipt),
