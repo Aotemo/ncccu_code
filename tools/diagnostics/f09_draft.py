@@ -31,6 +31,7 @@ def draft_open(image_source, prepared_size=None, native_preprocessing=None):
 def make_draft_dataset(dataset_cls, root, rows, image_size, normalization, prepared_size,
                        age=None, input_preprocessing=None):
     """Build dataset_cls-based dataset whose _read_image applies the draft hint."""
+    import inspect
     from retrain.data import _crop_black_border
     from PIL import Image, ImageOps
 
@@ -47,6 +48,10 @@ def make_draft_dataset(dataset_cls, root, rows, image_size, normalization, prepa
                 image = ImageOps.exif_transpose(opened).convert('RGB')
             return _crop_black_border(image)
 
-    return _Draft(root, rows, image_size, False, normalization,
-                  prepared_size=prepared_size, age=age,
-                  input_preprocessing=input_preprocessing)
+    parameters = inspect.signature(dataset_cls.__init__).parameters
+    kwargs = {'prepared_size': prepared_size, 'age': age}
+    if 'input_preprocessing' in parameters:
+        kwargs['input_preprocessing'] = input_preprocessing
+    elif input_preprocessing is not None:
+        raise ValueError('historical dataset cannot honor configured preprocessing')
+    return _Draft(root, rows, image_size, False, normalization, **kwargs)

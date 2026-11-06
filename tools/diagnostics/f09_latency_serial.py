@@ -105,7 +105,11 @@ def main():
             measured_flops = measure_flops(probe, None, 0)
             print(f'[FLOPS] measured {measured_flops / 1e9:.2f} GFLOPs/image/member', flush=True)
         except Exception as error:
-            print(json.dumps({'flops_failed': str(error)[:200]}), flush=True)
+            import traceback
+            traceback.print_exc()
+            measured_flops = 8.7 * (512 / 224) ** 2 * 1e9
+            print(f'[FLOPS] counter failed ({str(error)[:120]}); fallback analytic '
+                  f'{measured_flops / 1e9:.2f} GFLOPs/image/member', flush=True)
         del probe
         torch.cuda.empty_cache()
     for decode in args.decodes:
@@ -114,10 +118,8 @@ def main():
             config['decode'] = decode
             config['members'] = [entry for entry in source['members'] if entry['id'] in group]
             members = MemberSet(config, device)
-            warm_rows = [{'name': row['name'], 'relative_path': row['relative_path'], 'label': 0}
-                         for row in warmup_rows]
-            warm_dataset = members.dataset(args.pictures_5, warm_rows)
-            for index in range(len(warm_rows)):
+            warm_dataset = members.dataset(args.pictures_5, warmup_rows)
+            for index in range(len(warmup_rows)):
                 members.predict_index(warm_dataset[index])
             key = '+'.join(group) + f'@{decode}'
             print('[RUN] ' + key, flush=True)
