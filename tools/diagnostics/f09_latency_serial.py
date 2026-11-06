@@ -70,7 +70,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--members-config', type=Path, required=True)
     parser.add_argument('--configs', required=True,
-                        help="';'-separated member id groups, e.g. 'R120|R120+R134R1'")
+                        help="'|'-separated member id groups, e.g. 'R120|R120+R134R1'")
     parser.add_argument('--pictures-100', type=Path, required=True)
     parser.add_argument('--pictures-5', type=Path, required=True)
     parser.add_argument('--decodes', nargs='+', choices=('full', 'draft'), default=('full', 'draft'))
@@ -82,7 +82,7 @@ def main():
     import torch
     device = torch.device('cuda', 0)
     torch.cuda.set_device(device)
-    groups = [group.split('+') for group in args.configs.split(';')]
+    groups = [group.split('+') for group in args.configs.split('|')]
     rows_100 = rows_from_directory(args.pictures_100, source.get('ages_csv'))
     if len(rows_100) < 1:
         raise SystemExit('no timing pictures found')
