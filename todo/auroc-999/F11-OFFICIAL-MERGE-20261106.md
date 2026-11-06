@@ -24,3 +24,11 @@
 ## 执行记录
 
 - 09:22–09:50 UTC：代码实现、常量填入、测试与部署。
+
+## Pod B：R269-F11（2026-11-06 10:0x–10:3x UTC）
+
+- 按 c607 路线 2：`exec/hardpos` 合并 `origin/main`（`9510a1b`，含 `8d835d4`/`2da1ff7`）后，最小改动登记 R269 热启动：`config.py` 的 `F11_WARM_STARTS` 按 binding.version 查表（R249 `6251937d…`/`f78ab30c…` 保持不变；R269 `3fd623ee…`/`1ff8f94d…`，binding `f11-official-merge-r269-warmstart-v1`），`hp_setup.py` 依据 warm receipt 的 tensor sha 选 binding，`cmd_site` 从 science 文件读取 binding_version。commit **`8ced6861269a9bd664faf31a7c490aabf1e539aa`** 已推 `origin/exec/hardpos`。
+- 回归：`tests/test_f11_official_merge.py` + `tests/test_hp_hardpos.py` 在 Pod B CPU **9 passed**，含 R249 原 binding 通过、R269 新 binding 通过、交叉错配/未知版本/多余键被拒。
+- 配置/规格（Pod B CPU）：config `0acc32ea…`、fresh spec `b73c9868…`、plan `cd4eaa62…`、site `c8552318…`、spec receipt `73625a7e…`；fit=**52105**（46256+5849）、dev=5140/167、negatives=50424、steps/cycle=400、seed=20261205、G64/P8、LR 1e-5/1e-4、patience 4。热启动 = R269 selected EMA（ema@8800，tensor `3fd623ee…`，file `1ff8f94d…`）。source tree `f11-src-8ced686`（87 files，tree `e855e6a6…`，source_digest `347d8d1b…`）。
+- 启动：10:3x UTC 8 rank 在位，首成功 25/25、0 skip，8 卡 90–100%；`--manifest` 不传（F11 由 `load_source`+`official_merge` 自建 manifest，入口会拒绝 include_valid+manifest 组合）。只读 cache-union 复用（51,396+5,849）。
+- 完成后：fp16 严格回载 → draft4 dev 前向 → 报 dev AUROC/AP + 预测路径/SHA；**不用官方做任何统计或选点**（官方已并入训练）。
