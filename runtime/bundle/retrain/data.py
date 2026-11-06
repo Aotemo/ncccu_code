@@ -22,6 +22,39 @@ F05_BASE_MANIFEST_SHA = '7cc0f8b785d7f4b578839eadcca5d45ac724451eea75ed3c8af7332
 F05_THREE_FOLD_SHA = 'eb880273832b81be61830a069d5ae9ba8dc2e52be4af2f911f7a6b1ec9e7f6d8'
 
 
+def f05_hard_positive_rule(labels, probabilities):
+    """Pre-registered HP rule: hard fit positives are the smaller of two candidate sets.
+
+    Set A: fit positives at the lowest 15% of ascending calibrated OOF probability
+    (floor count; equal probabilities broken by original fit order). Set B: fit
+    positives strictly below the nearest-rank 95th percentile of fit-negative OOF
+    probability. The smaller set is selected; equal sizes select set A.
+    """
+    import math
+    labels = list(labels)
+    probabilities = [float(value) for value in probabilities]
+    if (len(labels) != len(probabilities) or not labels
+            or any(label not in (0, 1) for label in labels)
+            or any(not math.isfinite(value) or not 0 <= value <= 1 for value in probabilities)):
+        raise ValueError('binary labels aligned with finite calibrated probabilities required')
+    positives = [position for position, label in enumerate(labels) if label == 1]
+    negatives = [probabilities[position] for position, label in enumerate(labels) if label == 0]
+    if not positives or not negatives:
+        raise ValueError('both fit classes are required')
+    lowest_count = math.floor(.15 * len(positives))
+    set_lowest = set(sorted(positives, key=lambda position: (probabilities[position], position))[:lowest_count])
+    negative_p95 = sorted(negatives)[math.ceil(.95 * len(negatives)) - 1]
+    set_below = {position for position in positives if probabilities[position] < negative_p95}
+    use_lowest = len(set_lowest) <= len(set_below)
+    hard = set_lowest if use_lowest else set_below
+    return hard, {'rule': 'hp-hardpos-v1', 'positive_count': len(positives),
+                  'negative_count': len(negatives), 'lowest_fraction': .15,
+                  'lowest_count': lowest_count, 'negative_p95': negative_p95,
+                  'below_p95_count': len(set_below),
+                  'selection': 'lowest15' if use_lowest else 'below_p95',
+                  'hard_count': len(hard)}
+
+
 def validate_f05_target_table(base, folds, table, verified_sources, calibrated_oof, *,
                               base_sha, folds_sha, fit_count=46256, dev_count=5140):
     """Validate aligned fit targets after independent source and file-SHA verification.
@@ -39,7 +72,7 @@ def validate_f05_target_table(base, folds, table, verified_sources, calibrated_o
             or base_sha != F05_BASE_MANIFEST_SHA or folds_sha != F05_THREE_FOLD_SHA
             or table.get('format') != 'f05-fit-oof-targets-v1'
             or table.get('base_manifest_sha256') != base_sha or table.get('folds_sha256') != folds_sha
-            or table.get('mode') not in ('clean', 'distill')
+            or table.get('mode') not in ('clean', 'distill', 'hardpos')
             or folds.get('status') != 'three_fold_fit_only_indices_sealed_no_training'
             or folds.get('base_manifest_sha256') != base_sha or folds.get('seed') != 20261121
             or folds.get('official_read') is not False or folds.get('training_started') is not False):
@@ -88,7 +121,12 @@ def validate_f05_target_table(base, folds, table, verified_sources, calibrated_o
     probabilities = [calibrated_oof[index] for index in ordered]
     candidate = f05_confident_joint([rows[index]['label'] for index in ordered], probabilities)
     suspicious = set(candidate['suspicious_positions'])
-    key = 'weight' if table['mode'] == 'clean' else 'soft_target'
+    if table['mode'] == 'hardpos':
+        hard, stats = f05_hard_positive_rule([rows[index]['label'] for index in ordered], probabilities)
+        key = 'weight'
+    else:
+        hard, stats = None, None
+        key = 'weight' if table['mode'] == 'clean' else 'soft_target'
     result = {}
     for position, (index, entry, probability) in enumerate(zip(ordered, entries, probabilities)):
         expected_keys = {'index', 'label', 'fold', key}
@@ -100,11 +138,16 @@ def validate_f05_target_table(base, folds, table, verified_sources, calibrated_o
         value = entry[key]
         if type(value) not in (int, float) or not math.isfinite(value):
             raise ValueError('finite target required')
-        expected = (.25 if position in suspicious else 1.) if key == 'weight' else probability
+        if key == 'soft_target':
+            expected = probability
+        elif table['mode'] == 'hardpos':
+            expected = 3. if position in hard else 1.
+        else:
+            expected = .25 if position in suspicious else 1.
         if value != expected or (key == 'soft_target' and not 0 <= value <= 1):
             raise ValueError('target does not match the independently calibrated OOF rule')
         result[index] = float(value)
-    return result, candidate
+    return result, (stats if stats is not None else candidate)
 
 
 def _f05_pinned_json(reference, work_root):
@@ -130,6 +173,40 @@ def _f05_pinned_json(reference, work_root):
     return value
 
 
+def _reconstruct_f05_oof(summary_ref, work_root, verifier, *, allow_fixture=False,
+                         fit_count=46256, dev_count=5140):
+    """Reconstruct pinned fold sources, full-train calibrations and OOF probabilities."""
+    summary = _f05_pinned_json(summary_ref, work_root)
+    if (summary.get('status') != 'completed_fit_only_oof_targets'
+            or summary.get('official_read') is not False or summary.get('dev_read') is not False
+            or (allow_fixture and summary.get('fixture_only') is not True)
+            or (not allow_fixture and summary.get('fixture_only') is True)):
+        raise ValueError('completed fit-only OOF target summary required')
+    inputs = summary['inputs']
+    base_ref, folds_ref, parents = inputs['base'], inputs['folds'], inputs['parents']
+    if (base_ref['sha256'] != F05_BASE_MANIFEST_SHA or folds_ref['sha256'] != F05_THREE_FOLD_SHA
+            or not isinstance(parents, list) or len(parents) != 3
+            or not isinstance(summary.get('calibrations'), list) or len(summary['calibrations']) != 3):
+        raise ValueError('fixed original manifest, threefold seal and all three sources required')
+    base = _f05_pinned_json(base_ref, work_root)
+    folds = _f05_pinned_json(folds_ref, work_root)
+    verified = [verifier.verify_fold_input(base_ref, folds_ref, ref, work_root=work_root,
+                                           allow_fixture=allow_fixture) for ref in parents]
+    if ([value['fold'] for value in verified] != [0, 1, 2]
+            or summary.get('heldout_score_sha256') != [value['heldout_score_sha256'] for value in verified]):
+        raise ValueError('three selected fold sources must be in registered order')
+    results, probabilities = [], {}
+    for item, calibration_ref in zip(verified, summary['calibrations']):
+        recorded = _f05_pinned_json(calibration_ref, work_root)
+        calibration, values = verifier.fit_fold_calibration(item)
+        if recorded != calibration or set(probabilities) & set(values):
+            raise ValueError('reconstructed full-train calibration or held-out coverage differs')
+        probabilities.update(values)
+        results.append({'verified': item, 'calibration': calibration,
+                        'calibration_sha256': calibration_ref['sha256'], 'probabilities': values})
+    return summary, base_ref, folds_ref, base, folds, results, probabilities, parents
+
+
 def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixture=False,
                                 fit_count=46256, dev_count=5140):
     """Independently reconstruct three selected folds, calibrations and both fit tables.
@@ -140,34 +217,9 @@ def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixtu
     """
     from .persistence import canonical_digest
     try:
-        summary = _f05_pinned_json(summary_ref, work_root)
-        if (summary.get('status') != 'completed_fit_only_oof_targets'
-                or summary.get('official_read') is not False or summary.get('dev_read') is not False
-                or (allow_fixture and summary.get('fixture_only') is not True)
-                or (not allow_fixture and summary.get('fixture_only') is True)):
-            raise ValueError('completed fit-only OOF target summary required')
-        inputs = summary['inputs']
-        base_ref, folds_ref, parents = inputs['base'], inputs['folds'], inputs['parents']
-        if (base_ref['sha256'] != F05_BASE_MANIFEST_SHA or folds_ref['sha256'] != F05_THREE_FOLD_SHA
-                or not isinstance(parents, list) or len(parents) != 3
-                or not isinstance(summary.get('calibrations'), list) or len(summary['calibrations']) != 3):
-            raise ValueError('fixed original manifest, threefold seal and all three sources required')
-        base = _f05_pinned_json(base_ref, work_root)
-        folds = _f05_pinned_json(folds_ref, work_root)
-        verified = [verifier.verify_fold_input(base_ref, folds_ref, ref, work_root=work_root,
-                                               allow_fixture=allow_fixture) for ref in parents]
-        if ([value['fold'] for value in verified] != [0, 1, 2]
-                or summary.get('heldout_score_sha256') != [value['heldout_score_sha256'] for value in verified]):
-            raise ValueError('three selected fold sources must be in registered order')
-        results, probabilities = [], {}
-        for item, calibration_ref in zip(verified, summary['calibrations']):
-            recorded = _f05_pinned_json(calibration_ref, work_root)
-            calibration, values = verifier.fit_fold_calibration(item)
-            if recorded != calibration or set(probabilities) & set(values):
-                raise ValueError('reconstructed full-train calibration or held-out coverage differs')
-            probabilities.update(values)
-            results.append({'verified': item, 'calibration': calibration,
-                            'calibration_sha256': calibration_ref['sha256'], 'probabilities': values})
+        summary, base_ref, folds_ref, base, folds, results, probabilities, parents = \
+            _reconstruct_f05_oof(summary_ref, work_root, verifier, allow_fixture=allow_fixture,
+                                 fit_count=fit_count, dev_count=dev_count)
         clean, distilled, aggregate = verifier.build_target_tables(base, folds, results,
             base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'])
         references = {'clean': summary['clean_targets'], 'distill': summary['distill_targets']}
@@ -179,6 +231,15 @@ def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixtu
             validate_f05_target_table(base, folds, actual, sources, probabilities,
                 base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'],
                 fit_count=fit_count, dev_count=dev_count)
+        hardpos_ref = summary.get('hardpos_targets')
+        if hardpos_ref is not None:
+            actual = _f05_pinned_json(hardpos_ref, work_root)
+            _, stats = validate_f05_target_table(base, folds, actual, sources, probabilities,
+                base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'],
+                fit_count=fit_count, dev_count=dev_count)
+            if summary.get('hardpos_stats') != stats:
+                raise ValueError('hard-positive rule statistics differ from the registered summary')
+            references['hardpos'] = hardpos_ref
         if any(summary.get(key) != value for key, value in aggregate.items()):
             raise ValueError('OOF aggregate differs from independent reconstruction')
         return {'format': 'f05-oof-training-verification-v1',
@@ -192,13 +253,54 @@ def verify_f05_oof_for_training(summary_ref, work_root, *, verifier, allow_fixtu
         raise ValueError('complete pinned F05 OOF provenance is required') from error
 
 
+def build_f05_hardpos_targets(summary_ref, work_root, *, verifier,
+                              fit_count=46256, dev_count=5140):
+    """CPU preparation: reconstruct pinned OOF probabilities and derive HP row weights.
+
+    Applies the pre-registered ``f05_hard_positive_rule`` to the independently
+    reconstructed calibrated fit-only OOF and returns the weight table, rule
+    statistics and pinned input identity without writing any file.
+    """
+    from .persistence import canonical_digest
+    try:
+        summary, base_ref, folds_ref, base, folds, results, probabilities, parents = \
+            _reconstruct_f05_oof(summary_ref, work_root, verifier, allow_fixture=False,
+                                 fit_count=fit_count, dev_count=dev_count)
+        if summary.get('hardpos_targets') is not None or summary.get('hardpos_stats') is not None:
+            raise ValueError('the pinned summary must not already carry HP extensions')
+        clean, _, _ = verifier.build_target_tables(base, folds, results,
+            base_sha=base_ref['sha256'], folds_sha=folds_ref['sha256'])
+        sources = clean['fold_sources']
+        rows, ordered = base['rows'], sorted(base['fit_indices'])
+        hard, stats = f05_hard_positive_rule([rows[index]['label'] for index in ordered],
+                                             [probabilities[index] for index in ordered])
+        membership = {}
+        for number, fold in enumerate(folds['folds']):
+            for index in fold['audit_indices']:
+                membership[index] = number
+        table = {'format': 'f05-fit-oof-targets-v1', 'mode': 'hardpos',
+                 'base_manifest_sha256': base_ref['sha256'], 'folds_sha256': folds_ref['sha256'],
+                 'fold_sources': sources,
+                 'rows': [{'index': index, 'label': rows[index]['label'],
+                           'fold': membership[index],
+                           'weight': 3. if position in hard else 1.}
+                          for position, index in enumerate(ordered)]}
+        return {'summary': summary, 'base': base_ref, 'folds': folds_ref,
+                'manifest_digest': canonical_digest(base), 'fit_count': fit_count,
+                'dev_count': dev_count, 'fold_sources': sources,
+                'hardpos_stats': stats, 'table': table}
+    except (KeyError, TypeError, IndexError, AttributeError, OSError) as error:
+        raise ValueError('pinned fit-only OOF reconstruction for hard positives failed') from error
+
+
 def load_f05_training_targets(binding, manifest, *, work_root, allow_fixture=False,
                               fit_count=46256, dev_count=5140):
     """Each rank checks the prepared receipt and only its selected fit target file."""
     from .persistence import canonical_digest
     try:
         if (not isinstance(binding, dict) or set(binding) != {'version', 'mode', 'summary', 'verification', 'target'}
-                or binding['version'] != 'f05-oof-training-v1' or binding['mode'] not in ('clean', 'distill')):
+                or binding['version'] != 'f05-oof-training-v1'
+                or binding['mode'] not in ('clean', 'distill', 'hardpos')):
             raise ValueError('fixed F05 training target binding required')
         proof = _f05_pinned_json(binding['verification'], work_root)
         summary = _f05_pinned_json(binding['summary'], work_root)
@@ -227,9 +329,10 @@ def load_f05_training_targets(binding, manifest, *, work_root, allow_fixture=Fal
                 or table.get('folds_sha256') != F05_THREE_FOLD_SHA
                 or table.get('fold_sources') != proof.get('fold_sources')):
             raise ValueError('fit target schema or verified selected/calibration sources differ')
-        entries, key = table['rows'], 'weight' if mode == 'clean' else 'soft_target'
+        entries, key = table['rows'], 'weight' if mode in ('clean', 'hardpos') else 'soft_target'
         if not isinstance(entries, list) or len(entries) != fit_count:
             raise ValueError('complete fit target rows required')
+        allowed = {'clean': (.25, 1.), 'hardpos': (1., 3.)}.get(mode)
         result = {}
         for index, entry in zip(sorted(fit), entries):
             value = entry.get(key)
@@ -237,7 +340,8 @@ def load_f05_training_targets(binding, manifest, *, work_root, allow_fixture=Fal
                     or entry['index'] != index or type(entry['label']) is not int
                     or entry['label'] != rows[index]['label'] or type(entry['fold']) is not int
                     or entry['fold'] not in (0, 1, 2) or type(value) not in (int, float)
-                    or not math.isfinite(value) or (value not in (.25, 1.) if mode == 'clean' else not 0 <= value <= 1)):
+                    or not math.isfinite(value)
+                    or (value not in allowed if allowed is not None else not 0 <= value <= 1)):
                 raise ValueError('fit target index, original label, fold or value differs')
             result[index] = float(value)
         return result

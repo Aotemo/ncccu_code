@@ -29,6 +29,11 @@ PAIR_WIDE_SIGMOID_LOSS = {
     'version': 'binary-pairwise-sigmoid-wide2-peakgrad-v1', 'kind': 'binary_pairwise_sigmoid_wide',
     'temperature': 2.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
 }
+PAIR_SIGMOID_OHEM_LOSS = {
+    'version': 'binary-pairwise-sigmoid-ohem-top25-v1', 'kind': 'binary_pairwise_sigmoid_ohem',
+    'temperature': 1.0, 'reduction': 'mean', 'dtype': 'float32', 'scope': 'global_batch',
+    'hard_fraction': 0.25, 'tie_break': 'WORLD_pair_row_major_stable',
+}
 PAIR_HARD_NEGATIVE_LOSS = {
     'version': 'binary-pairwise-logistic-negative-top14-mix05-v1',
     'kind': 'binary_pairwise_logistic_hard_negative', 'temperature': 1.0,
@@ -43,7 +48,8 @@ PAIR_SQUARED_HINGE_LOSS = {
 }
 PAIRWISE_LOSS_KINDS = ('binary_pairwise_logistic', 'binary_pairwise_sigmoid',
                        PAIR_HARD_POSITIVE_LOSS['kind'], PAIR_AUC_MARGIN_LOSS['kind'], PAIR_BCE_MIX_LOSS['kind'],
-                       PAIR_WIDE_SIGMOID_LOSS['kind'], PAIR_HARD_NEGATIVE_LOSS['kind'], PAIR_SQUARED_HINGE_LOSS['kind'])
+                       PAIR_WIDE_SIGMOID_LOSS['kind'], PAIR_HARD_NEGATIVE_LOSS['kind'], PAIR_SQUARED_HINGE_LOSS['kind'],
+                       PAIR_SIGMOID_OHEM_LOSS['kind'])
 _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic-v1',
                           'binary_pairwise_sigmoid': 'binary-pairwise-sigmoid-v1',
                           PAIR_HARD_POSITIVE_LOSS['kind']: PAIR_HARD_POSITIVE_LOSS['version'],
@@ -51,7 +57,8 @@ _PAIRWISE_LOSS_VERSIONS = {'binary_pairwise_logistic': 'binary-pairwise-logistic
                           PAIR_BCE_MIX_LOSS['kind']: PAIR_BCE_MIX_LOSS['version'],
                           PAIR_WIDE_SIGMOID_LOSS['kind']: PAIR_WIDE_SIGMOID_LOSS['version'],
                           PAIR_HARD_NEGATIVE_LOSS['kind']: PAIR_HARD_NEGATIVE_LOSS['version'],
-                          PAIR_SQUARED_HINGE_LOSS['kind']: PAIR_SQUARED_HINGE_LOSS['version']}
+                          PAIR_SQUARED_HINGE_LOSS['kind']: PAIR_SQUARED_HINGE_LOSS['version'],
+                          PAIR_SIGMOID_OHEM_LOSS['kind']: PAIR_SIGMOID_OHEM_LOSS['version']}
 
 
 def validate_loss(specification):
@@ -72,6 +79,10 @@ def validate_loss(specification):
             if specification != PAIR_HARD_NEGATIVE_LOSS or type(specification.get('top_negative_count')) is not int:
                 raise ValueError('hard-negative loss requires the fixed top14/mix05/stable-WORLD contract')
             fields = set(PAIR_HARD_NEGATIVE_LOSS)
+        if kind == PAIR_SIGMOID_OHEM_LOSS['kind']:
+            if specification != PAIR_SIGMOID_OHEM_LOSS:
+                raise ValueError('OHEM pairwise sigmoid requires the fixed top25 row-major contract')
+            fields = set(PAIR_SIGMOID_OHEM_LOSS)
         if (set(specification) != fields
                 or specification['version'] != _PAIRWISE_LOSS_VERSIONS[kind]
                 or specification['reduction'] != 'mean' or specification['dtype'] != 'float32'
@@ -165,6 +176,9 @@ def classification_loss(logits, targets, specification=None):
             return (1. - weight) * per_negative.mean() + weight * hardest.mean()
         if specification['kind'] == PAIR_WIDE_SIGMOID_LOSS['kind']:
             return 2. * specification['temperature'] * torch.sigmoid(scaled).mean()
+        if specification['kind'] == PAIR_SIGMOID_OHEM_LOSS['kind']:
+            return ohem_pairwise_values(differences, specification['temperature'],
+                                        specification['hard_fraction']).mean()
         return 2. * torch.sigmoid(scaled).mean()
     bce = F.binary_cross_entropy_with_logits(logits.float(), targets.float(), reduction='none')
     gamma = float(specification['gamma'])
@@ -190,6 +204,18 @@ def regularized_pairwise_loss(logits, targets, specification, output_regularizat
     with torch.autocast(device_type=logits.device.type, enabled=False):
         raw = logits.float().reshape(-1)
         return classification_loss(raw, targets, specification) + policy['coefficient'] * raw.square().mean()
+
+
+def ohem_pairwise_values(differences, temperature, hard_fraction):
+    """WORLD pair values sorted hardest-first, truncated to the registered top share.
+
+    ``hard_fraction`` 1.0 returns every pair in stable row-major order, making the
+    mean identical to the original pairwise sigmoid objective.
+    """
+    import torch
+    values = 2. * torch.sigmoid(differences / temperature).reshape(-1)
+    selected = max(1, math.floor(values.numel() * hard_fraction))
+    return torch.sort(values, descending=True, stable=True).values[:selected]
 
 
 def f05_confident_joint(labels, calibrated_p1):
@@ -233,7 +259,7 @@ def f05_pairwise_objective(logits, targets, auxiliary, specification, *, mode):
     from torch.nn import functional as F
 
     spec = validate_loss(specification)
-    if not spec or spec.get('kind') != 'binary_pairwise_sigmoid' or mode not in ('clean', 'distill'):
+    if not spec or spec.get('kind') != 'binary_pairwise_sigmoid' or mode not in ('clean', 'distill', 'hardpos'):
         raise ValueError('F05 requires the fixed sigmoid pairwise loss and explicit mode')
     raw = logits.float().reshape(-1)
     labels = targets.detach().reshape(-1)
@@ -248,8 +274,10 @@ def f05_pairwise_objective(logits, targets, auxiliary, specification, *, mode):
         if not bool(((values >= 0) & (values <= 1)).all()):
             raise ValueError('calibrated OOF soft targets must be in [0, 1]')
         return classification_loss(raw, labels, spec) + .25 * F.binary_cross_entropy_with_logits(raw, values)
-    if not bool(((values == .25) | (values == 1)).all()):
+    if mode == 'clean' and not bool(((values == .25) | (values == 1)).all()):
         raise ValueError('cleaning weights must be exactly 0.25 or 1')
+    if mode == 'hardpos' and not bool(((values == 1) | (values == 3)).all()):
+        raise ValueError('hard-positive weights must be exactly 1 or 3')
     pair_weights = values[positive, None] * values[negative][None, :]
     differences = raw[negative][None, :] - raw[positive][:, None]
     return 2. * (torch.sigmoid(differences) * pair_weights).sum() / pair_weights.sum()

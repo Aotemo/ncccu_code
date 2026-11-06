@@ -34,13 +34,14 @@ def f05_train_batch_loss(logits, labels, indices, validated_targets, specificati
     if not dist.is_available() or not dist.is_initialized():
         raise RuntimeError('F05 batch loss requires an initialized default WORLD group')
     raw_indices = indices.detach().reshape(-1).cpu().tolist()
-    invalid = (not isinstance(validated_targets, dict) or mode not in ('clean', 'distill')
+    invalid = (not isinstance(validated_targets, dict) or mode not in ('clean', 'distill', 'hardpos')
                or len(raw_indices) != logits.numel() or labels.numel() != logits.numel()
                or any(type(index) is not int or index not in validated_targets for index in raw_indices))
     if not invalid:
         values = [validated_targets[index] for index in raw_indices]
+        allowed = {'clean': (.25, 1.), 'hardpos': (1., 3.)}.get(mode)
         invalid = any(type(value) not in (int, float) or not math.isfinite(value)
-                      or (value not in (.25, 1.) if mode == 'clean' else not 0 <= value <= 1)
+                      or (value not in allowed if allowed is not None else not 0 <= value <= 1)
                       for value in values)
     flag = torch.tensor(int(invalid), dtype=torch.int32, device=logits.device)
     dist.all_reduce(flag, op=dist.ReduceOp.MAX)
