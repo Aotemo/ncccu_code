@@ -91,6 +91,7 @@ def main():
     from retrain.data import ImageDataset
     device = torch.device('cuda', 0)
     torch.cuda.set_device(device)
+    args.out_dir.mkdir(parents=True, exist_ok=True)
     summary = []
     for member_id in selected_members:
         member = members[member_id]
