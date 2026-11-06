@@ -315,30 +315,31 @@ def _zstat(values):
 
 
 def cmd_combo_draft(args):
-    """Two-member comparison under the F09 draft4 decode using existing shards."""
+    """Anchor-member comparison under the F09 draft4 decode using existing shards."""
+    anchor = args.anchor
     members = json.loads(Path(args.members).read_text())
-    if not isinstance(members, list) or 'HP' in members:
-        raise SystemExit('members file must be a JSON list of non-HP member ids')
-    order = ['HP'] + members
+    if not isinstance(members, list) or anchor in members:
+        raise SystemExit('members file must be a JSON list of ids distinct from the anchor')
+    order = [anchor] + members
     populations = {'dev': {}, 'official': {}}
     for split in ('dev', 'official'):
         for member in order:
-            directory = args.hp_shard_dir if member == 'HP' else args.shard_dir
+            directory = args.anchor_shard_dir if member == anchor else args.shard_dir
             rows, _ = load_draft_population(directory, member, split)
             populations[split][member] = rows
-    dev_keys = sorted(populations['dev']['HP'])
+    dev_keys = sorted(populations['dev'][anchor])
     z = {}
     for member in order:
         rows = populations['dev'][member]
         if set(rows) != set(dev_keys):
-            raise SystemExit(f'{member} dev coverage differs from HP')
+            raise SystemExit(f'{member} dev coverage differs from {anchor}')
         z[member] = _zstat([rows[key][1] for key in dev_keys])
         if z[member]['std'] <= 0:
             raise SystemExit('degenerate dev logits for ' + member)
 
     def score(subset, split):
         rows = populations[split]
-        reference = rows['HP']
+        reference = rows[anchor]
         common = set(reference)
         for member in subset[1:]:
             common &= set(rows[member])
@@ -352,7 +353,13 @@ def cmd_combo_draft(args):
                 'rows': len(common)}
 
     entries = []
-    for subset in [['HP']] + [['HP', member] for member in members]:
+    subsets = [[anchor]] + [[anchor, member] for member in members]
+    if args.triple_with:
+        missing = [member for member in args.triple_with if member not in members]
+        if missing:
+            raise SystemExit('triple members absent from members file: ' + ','.join(missing))
+        subsets.append([anchor] + list(args.triple_with))
+    for subset in subsets:
         entry = {'members': subset, 'size': len(subset)}
         for split in ('dev', 'official'):
             entry[split] = score(subset, split)
@@ -371,7 +378,7 @@ def cmd_combo_draft(args):
             sanity[split] = score(list(args.sanity_pair), split)
         if sanity['dev'] and sanity['official']:
             sanity['mean_auroc'] = (sanity['dev']['auroc'] + sanity['official']['auroc']) / 2.0
-    receipt = {'status': 'hp_draft_combo_complete', 'decode': 'draft4', 'z': z,
+    receipt = {'status': 'hp_draft_combo_complete', 'decode': 'draft4', 'anchor': anchor, 'z': z,
                'baseline': args.baseline, 'threshold': args.baseline + 0.0005,
                'pairs_evaluated': len(members), 'table': ranked,
                'best_pair': ranked[0]['members'] if ranked else None, 'sanity_pair': sanity,
@@ -480,8 +487,10 @@ def main():
     combo.add_argument('--output', required=True)
     combo_draft = sub.add_parser('combo-draft')
     combo_draft.add_argument('--shard-dir', required=True)
-    combo_draft.add_argument('--hp-shard-dir', required=True)
+    combo_draft.add_argument('--anchor-shard-dir', required=True)
+    combo_draft.add_argument('--anchor', default='HP')
     combo_draft.add_argument('--members', required=True)
+    combo_draft.add_argument('--triple-with', nargs='+', default=None)
     combo_draft.add_argument('--baseline', type=float, required=True)
     combo_draft.add_argument('--sanity-pair', nargs=2, default=None)
     combo_draft.add_argument('--output', required=True)
