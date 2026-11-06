@@ -25,3 +25,19 @@ T4：前向 54.7×0.53=29.0，整链约 59.3 ms，×1.5 = 89.0 ms（≤100 ms �
 ## F04 对照（未采用）
 
 F04 五成员 fp16 + 完整解码 batch=1：209.6 ms（pre 73.9 / forward 91.6）；Pred_Label 与 F04 CSV 0 不一致、|Δp| max 6.6e-4（≤1e-3），但 T4 ≈166 ms >150 ms，按新口径不予认定，故材料包改用 F10。
+
+## 更正（2026-11-06 14:40 UTC，c607 指出）
+
+初次填写的 D 项把 R269 的教师误写为 F04 五成员融合，已按原始记录更正：
+
+- R269 的软标签来自 **F05 三折 OOF**：折模型 R265(fold0)/R266(fold1)/R267(fold2) 各自只在原 fit 的 2/3 上训练（30836–30838 行），
+  只对留出折（15418–15420 行）单视图前向一次，再经每折一维 LogisticRegression 标定；覆盖原 fit 46256 行、每行恰好一次。
+- 损失 = 原 pairwise sigmoid + 0.25×BCEWithLogits（T=1），实现 `retrain/classification_loss.py:f05_pairwise_objective(mode="distill")`；
+  生成脚本 `tools/diagnostics/f05_oof_targets.py`（折前向/聚合 `f05_oof_gpu.py`、`f05_oof.py`）。
+- 身份：三折 OOF 摘要 `F05-OOF-TARGETS-v5/SUMMARY.json` SHA `c922e70a…`（git `a8fb5339…`）；三折 FOLD-INFERENCE.json SHA 依次
+  `d9ead4f1…`、`abe3ad26…`、`be250583…`。教师权重不参与推理、不计入 500MB。
+- 同时按各成员 SCIENCE 更正 B3 训练增强：training_scale 0.85–1.0 尺度裁剪（中心抖动 0.25–0.75）、0.5 概率水平翻转、
+  ImageNet 归一化；R249 额外 gamma-reciprocal075 光度增强（gamma∈{0.75,1,4/3}），R269 与 SOUP-R120 无该光度项。
+
+重打 zip：`TEAM_最终提交材料.zip`，461,374,373 B，SHA-256 `44f63a0b7513b13304cb86262c6026cc0fe4225d8c030a1592bc9ea6c484167d`；
+包内 submission.csv 仍为 `b70bd76f…`，推理权重 297,054,823 B。
