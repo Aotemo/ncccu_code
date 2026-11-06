@@ -83,10 +83,10 @@ def main():
     device = torch.device('cuda', 0)
     torch.cuda.set_device(device)
     groups = [group.split('+') for group in args.configs.split(';')]
-    rows_100 = rows_from_directory(args.pictures_100)
+    rows_100 = rows_from_directory(args.pictures_100, source.get('ages_csv'))
     if len(rows_100) < 1:
         raise SystemExit('no timing pictures found')
-    warmup_rows = rows_from_directory(args.pictures_5)
+    warmup_rows = rows_from_directory(args.pictures_5, source.get('ages_csv'))
     if len(warmup_rows) != 5:
         raise SystemExit('expected 5 warm-up pictures')
     report = {'protocol': {'rounds': args.rounds, 'warmup_images': 5, 'batch': 1,
