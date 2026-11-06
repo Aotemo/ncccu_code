@@ -85,7 +85,7 @@ def run(args):
     import math,time
     if args.deadline_at is None or not math.isfinite(args.deadline_at) or args.deadline_at<=time.time():
         raise ValueError('fresh runtime requires an unexpired original absolute deadline')
-    if cfg['mode']!='train' or len(cfg['jobs'])!=1 or cfg['data']['split']['kind'] not in ('holdout','cv','official_cv') or (cfg['data']['split']['kind']=='cv' and not args.manifest) or not cfg['data']['verify_images'] or (cfg['data']['split']['include_valid'] and cfg['data']['split']['kind']!='official_cv'):
+    if cfg['mode']!='train' or len(cfg['jobs'])!=1 or cfg['data']['split']['kind'] not in ('holdout','cv','official_cv','official_merge') or (cfg['data']['split']['kind']=='cv' and not args.manifest) or not cfg['data']['verify_images'] or (cfg['data']['split']['include_valid'] and cfg['data']['split']['kind'] not in ('official_cv','official_merge')):
         raise ValueError('configured fresh entry requires one model and verified holdout/official_cv')
     split=dict(cfg['data']['split']);split.update(cfg['jobs'][0]['split'])
     if (split['kind']=='official_cv') != (cfg['jobs'][0].get('f06') is not None) or (split['include_valid'] and args.manifest):

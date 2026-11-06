@@ -20,7 +20,11 @@ OHEM_SPEC = {'version': 'binary-pairwise-sigmoid-ohem-top25-v1', 'kind': 'binary
              'hard_fraction': 0.25, 'tie_break': 'WORLD_pair_row_major_stable'}
 HP_SEED = 20261203
 OHEM_SEED = 20261204
+F11_SEED = 20261205
 SCHEDULE = {'steps_per_cycle': 400, 'total_updates': 6000, 'warmup_updates': 400, 'stop_after_updates': 6000}
+R120_WARM_TENSOR = 'f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85'
+R120_WARM_FILE = '2ac4a025cdef2835127ee619c7f37a6d094b62eefdb1943005437a49e570dfa3'
+F11_WARM = ('6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73', 'f78ab30c559dba43fd3af434b0144ce1f54fae5e4eb2020f1001d1d5002bec6e')
 
 
 def sha(path):
@@ -48,18 +52,19 @@ def bundle_path():
 
 def cmd_config(args):
     warm = json.loads(Path(args.warmstart).read_text())
-    if (warm.get('tensor_sha256') != 'f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85'
+    expected = F11_WARM if args.mode == 'f11' else (R120_WARM_TENSOR, R120_WARM_FILE)
+    if (warm.get('tensor_sha256') != expected[0]
             or sha(warm['path']) != warm['sha256']
-            or warm['sha256'] != '2ac4a025cdef2835127ee619c7f37a6d094b62eefdb1943005437a49e570dfa3'):
+            or warm['sha256'] != expected[1]):
         raise SystemExit('warm-start receipt/bytes differ from the registered R120 EMA export')
     age = json.loads(Path(args.age_contract).read_text())
     if not age.get('enabled') or age['contract']['fit_count'] != 46256:
         raise SystemExit('registered original-fit age contract required')
-    seed = HP_SEED if args.mode == 'hp' else OHEM_SEED
+    seed = {'hp': HP_SEED, 'ohem': OHEM_SEED, 'f11': F11_SEED}[args.mode]
     job = {
         'name': 'convnext-small', 'model': 'convnext_small', 'seed': seed,
         'training_scale': [.85, 1.0],
-        'loss': dict(PAIR_SIGMOID_SPEC if args.mode == 'hp' else OHEM_SPEC),
+        'loss': dict(OHEM_SPEC if args.mode == 'ohem' else PAIR_SIGMOID_SPEC),
         'image_size': 512, 'prepared_size': 512, 'physical_batch': 32, 'effective_batch': 64,
         'positive_per_batch': 8, 'precision': 'fp32', 'cycles': 15, 'warmup_cycles': 1,
         'min_cycles': 1, 'patience': 4, 'min_delta': 0.0, 'stop_after_cycles': 0,
@@ -73,7 +78,9 @@ def cmd_config(args):
         'initialization': {'kind': 'checkpoint_warm_start', 'format': 'exported-fp32-state-dict-v1',
                            'path': warm['path'], 'sha256': warm['sha256'],
                            'tensor_sha256': warm['tensor_sha256'], 'source_model': warm['source_model']},
-        'hp': {'version': 'hp-r120-warmstart-fit-only-v1'},
+        ('hp' if args.mode == 'hp' else ('f11' if args.mode == 'f11' else 'hp')):
+            ({'version': 'hp-r120-warmstart-fit-only-v1'} if args.mode != 'f11'
+             else {'version': 'f11-official-merge-r249-warmstart-v1'}),
     }
     if args.mode == 'hp':
         for name in ('summary', 'verification', 'target'):
@@ -93,8 +100,11 @@ def cmd_config(args):
         'output_root': str(Path(args.round_root) / 'outputs'),
         'data': {'expected_count': 51396, 'expected_valid_count': 5849,
                  'identity_path': args.identity_path, 'root': args.data_root,
-                 'split': {'kind': 'holdout', 'seed': 20261024, 'valid_fraction': .1,
-                           'inner_fraction': .1, 'include_valid': False, 'fold': 0, 'folds': 3},
+                 'split': ({'kind': 'official_merge', 'seed': 20261024, 'valid_fraction': .1,
+                            'inner_fraction': .1, 'include_valid': True, 'fold': 0, 'folds': 3}
+                           if args.mode == 'f11' else
+                           {'kind': 'holdout', 'seed': 20261024, 'valid_fraction': .1,
+                            'inner_fraction': .1, 'include_valid': False, 'fold': 0, 'folds': 3}),
                  'verify_images': True},
         'execution': {'cpu_cores_per_job': 1,
                       'devices': ['cuda:' + str(index) for index in range(8)],
@@ -123,12 +133,13 @@ def cmd_spec(args):
     cfg = load_config(args.config)
     job, plan, policy = resolve_topology(cfg, available_accelerators=8)
     plan['stop_after_updates'] = SCHEDULE['stop_after_updates']
-    if job.get('hp') is None or job.get('f06') is not None:
+    if (job.get('hp') is None and job.get('f11') is None) or job.get('f06') is not None:
         raise SystemExit('HP job binding required')
     source = load_source(cfg['data']['root'], cfg['data']['identity_path'], True, True,
                          cfg['data']['expected_count'])
     manifest = build_manifest(source, cfg['data']['split'])
-    if (len(manifest['fit_indices']) != 46256 or len(manifest['dev_indices']) != 5140
+    expected_fit = 46256 + (5849 if job.get('f11') is not None else 0)
+    if (len(manifest['fit_indices']) != expected_fit or len(manifest['dev_indices']) != 5140
             or manifest['counts']['dev']['positive'] != 167
             or set(manifest['fit_indices']) & set(manifest['dev_indices'])):
         raise SystemExit('manifest holdout counts differ from the registered 9:1 split')
@@ -240,7 +251,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     config = sub.add_parser('config')
-    config.add_argument('--mode', choices=('hp', 'ohem'), required=True)
+    config.add_argument('--mode', choices=('hp', 'ohem', 'f11'), required=True)
     config.add_argument('--round-id', required=True)
     config.add_argument('--round-root', required=True)
     config.add_argument('--data-root', required=True)
