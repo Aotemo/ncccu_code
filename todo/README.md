@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**11-06 11:40 UTC F11b 候选就绪（供用户选择，不影响 F11-final）。** R269-F11（Pod B，dev draft4 .9887958，Δ −0.0005153，比容差多 1.5e-5）不替换；`exec/hardpos@21f3da8` 已审阅以 `--no-ff` 合入 main（`3778ef4`，F11 热启动改为按 version 查表，R249 行为不变；F11 测试 3 passed、HP 6 passed）。候选 F11b = R249-F11 + R269-F11 + SOUP-R120：dev 0.9899710/AP .84491（低于 F11-final .9901817），提交 `submition/F11b/submit.csv`（5855 行、正类 196、SHA `25d8febb…`），cost.py 85.7 ms、0 不一致、T4×1.5 = 89.6 ms。详见 [F11 记录](../records/analysis/20261106-f11-official-merge/README.md)。
+
 **11-06 11:55 UTC R269-F11 完成：dev(draft4) .9887958/AP .8384368，不替换原 R269。** 早停 2000/6000（selected cycle1/400，训练口径 dev .9884984/AP .8382073）。对照原 R269 draft4 dev .9893111，Δ AUROC −0.0005153（同协议 −0.0005195），均差约 2e-5 未过 −0.0005 门；AP 反而 +0.00077。fp16 严格回载通过：model `765150df…`、STANDALONE `4f875a91…`；dev 预测 `cb22a9ed…`（5140 行，未读官方）。供 DS 生成 test 5855 的权重即该导出。详见 [F11 记录](auroc-999/F11-OFFICIAL-MERGE-20261106.md)。
 
 **11-06 10:40 UTC F11 最终提交：官方 5849 并入训练，三成员 R249-F11+R269+SOUP-R120。** 按规则第3条把官方 5849 全量并入训练（52105 行），选点/z/Platt 只用内部 dev。8 rank 跑 2000 更新后早停（loss 1e-19，R249 已收敛），F11 成员 draft4 dev 0.9883069 vs R249 0.9884580（−0.00015，在 0.0005 容差内）→ 替换。提交 `submition/F11-final/submit.csv`（5855 行、正类 199、SHA `4edfb708…`）；cost.py 84.3 ms、0 不一致，T4 ×1.5 = 88.6 ms。详见 [F11 记录](../records/analysis/20261106-f11-official-merge/README.md)。
