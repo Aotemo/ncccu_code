@@ -68,3 +68,14 @@
 - **结论：OHEM 最好两成员 .9896274、与 F09 两成员的三成员 .9898068，均低于 F09 基准 .9900255（分别 -0.000398 / -0.000219），未达 +0.0005 门槛。OHEM 不替换最终方案。**
 - 机制观察：两轮都从已收敛 R120 热启动，fit pairwise 损失在数十步即 ~1e-7 以下、OHEM 到 2000 步 ~1e-13，fit 对梯度几近为零，dev 只随 EMA/LR 漂移；这是 HP/OHEM 均无法超过 R120 的直接原因。
 - 预测文件（draft4 fp16，name/label/logit）：dev `eval-v1/ohem-draft4-shards/dev.OHEM.draft.shard{0,1}of2.csv`、官方 `official.OHEM.draft.shard{0,1}of2.csv`，SHA 见上；sidecar 记录 decode/rows/export_sha、test_label_values_read=false。
+
+## 2026-11-06 09:2x–09:4x UTC F11（全量 fit∪官方）Pod B 准备
+
+- 任务预告：F11 训练集 = fit ∪ 官方 5849，选点只用内部 dev；DS `cd8f3840` 在 main 实现 split 并在 Pod A 训 R249-F11，commit 转来后 Pod B 训 R269-F11（R269 selected EMA 热启动、LR 1/10、warmup 400、每 400 评估、上限 6000、patience 4、G64/P8、pairwise）。
+- Pod B `37e3fb34…` Running/Ready，0 live python（仅 79 个历史 zombie），8 卡 0%。
+- 存储清理（AGENTS 预授权：完整 actualsafe 且结果已归档）：HP/OHEM 各删 4 个非 selected checkpoint（3,168,490,232 / 3,168,479,992 B），F06 fold0/1/2 各删 5 个（3,960,649,030 / 3,960,649,350 / 3,960,581,958 B）；均保护 `best`/`best_ema`/`best_online` + sidecar + index/selection/complete。计划回执 `PRUNE-PLAN-*`、执行回执 `PRUNE-APPLY-*`（`eval-v1/`，脚本 `eval-v1/prune_nonselected.py`）。free `37,540,069,376` → **`55,759,077,376` B**（93%→89%），高于 HP 实测容量门 `47,244,640,256 B`。
+- CPU allocation：`alloc/CPU-ALLOCATION-F11-v1.json` `e3e08975…`，owner `exec-hardpos-v4b`、mask 0–23、24 threads、guard `4a18231…`、valid_until `1793979449`（约 15:17 UTC）。pod affinity 0–127 / cgroup quota 120 核，20%=24。
+- R269 selected 核验（只读）：freeze `cdeb301c…`，`ema` @8800，dev AUROC .9890125239 / AP .8373606072；checkpoint `checkpoint-d4f950ed…`，blob `0518d830…`，**fp32 tensor `3fd623eeec11e9ebf4bbf552189bba62c688b656a189be346864f9d1e09bb463`**，345 tensors。回执 `eval-v1/R269-SELECTED-IDENTITY.json` `6dd12ef9…`。
+- F11 热启动导出：`f11-warmstart-v1/warmstart.pt` sha **`1ff8f94ddd00fa9e44c9c5cec27b0c3693940204a4e5c8953dc567e97eb9c9e5`**、tensor `3fd623ee…`、198 MB；`WARMSTART.json` `09918c62…`；脚本 `eval-v1/f11_warmstart_export.py`。
+- 数据：F06 只读 cache-union 覆盖 51,396 train + 5,849 official（114,490 文件），F11 的 fit∪官方 union 可直接复用；不需要新缓存。
+- 待办：收到 F11 commit 后按 hp_setup/ohem 同链生成 config/spec/site、部署、8 rank 开训；完成后 fp16 严格回载 → draft4 dev 前向 → 报 dev AUROC/AP + 预测路径/SHA，不用官方做统计。
