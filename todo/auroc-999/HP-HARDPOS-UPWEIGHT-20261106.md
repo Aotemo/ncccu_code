@@ -79,3 +79,8 @@
 - F11 热启动导出：`f11-warmstart-v1/warmstart.pt` sha **`1ff8f94ddd00fa9e44c9c5cec27b0c3693940204a4e5c8953dc567e97eb9c9e5`**、tensor `3fd623ee…`、198 MB；`WARMSTART.json` `09918c62…`；脚本 `eval-v1/f11_warmstart_export.py`。
 - 数据：F06 只读 cache-union 覆盖 51,396 train + 5,849 official（114,490 文件），F11 的 fit∪官方 union 可直接复用；不需要新缓存。
 - 待办：收到 F11 commit 后按 hp_setup/ohem 同链生成 config/spec/site、部署、8 rank 开训；完成后 fp16 严格回载 → draft4 dev 前向 → 报 dev AUROC/AP + 预测路径/SHA，不用官方做统计。
+
+### F11 R269 就绪的唯一阻塞：main 的 F11 代码只登记 R249 热启动
+
+- `origin/main`（`8d835d4`/`2da1ff7`）的 `runtime/bundle/retrain/config.py` 写死 `F11_WARM_START_TENSOR_SHA256=6251937d…`、`F11_WARM_START_FILE_SHA256=f78ab30c…`、`F11_BINDING={'version':'f11-official-merge-r249-warmstart-v1'}`，`tools/diagnostics/hp_setup.py` 的 `F11_WARM` 同样只认 R249；R269 的 tensor `3fd623ee…` / file `1ff8f94d…` 会被 `validate_job` 拒绝。
+- 因此 Pod B 的 R269-F11 在开训前必须先补 R269 注册：config.py 把热启动常量改成按 binding.version 查表（R249/R269 两对），hp_setup 依据 warm receipt 的 tensor sha 选择对应 binding/expected file；或由 DS 在 main 补同样的最小改动后转 commit。未补前不启动，避免产生不符合冻结身份的运行。
