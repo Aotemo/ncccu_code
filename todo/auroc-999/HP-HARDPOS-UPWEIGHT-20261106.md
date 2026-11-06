@@ -30,3 +30,11 @@
 - `tools/diagnostics/hp_targets.py`（HP 权重表/HP-SUMMARY/evidence 生成，CPU）；`tools/diagnostics/hp_setup.py`（config/spec/site，仿 F06）；`tests/test_hp_hardpos.py`。
 - `configs/HP-AGE-CONTRACT.json`（自 F06 fold0 训练配置提取的原 fit age 合同，fit 46256 行不变）。
 - 样本级概率/权重表只存 exp-v3；不进 Git。禁止医学预训练、test 图像/标签。
+
+## 执行记录（2026-11-06）
+
+- 04:1x–05:0x UTC：代码实现 + Pod B CPU 测试（allocation `exec-hardpos-glm-b`，guard 回执见 `technical-prep/hp-hardpos-20261106-glmB/alloc/tasks/`）：`test_hp_hardpos` 6/6、`test_f05_clean_distill` 4/4（含 WORLD 两 rank 梯度）、`test_f06_official_ft` 6/6；`test_f05_training_binding` 在该 Pod 环境对未修改 main 同样段错误（exit -11，同用例复现，预存环境问题，非本次改动）。commit `83b96e6`/`f335790`/`ffd9238` 推送 `origin/exec/hardpos`。
+- 05:0x UTC：HP 权重表生成并独立验证（Pod B CPU，v5 OOF 重建）：规则 A=223、规则 B=108（负例 OOF 最近秩 95 分位 0.00330946）→ 取较小集合 **B：108 个难阳性行权重 3.0**，其余 46148 行 1.0。产物 `technical-prep/hp-hardpos-20261106-glmB/targets/HP-OOF-TARGETS-v1/`：HARDPOS-TARGETS-private.json `0c22aa5d…`、HP-SUMMARY.json `080c1ce5…`、evidence `rounds/hp-hardpos-fitonly-20261106/evidence/F05-OOF-VERIFICATION.json`。
+- 05:2x UTC：site binding（`technical-prep/hp-hardpos-20261106-glmB/site/site-hp-v1/`，Pod B 实测 120 有效核、owner 96/验证 24、control 112–119）+ HP 训练配置 `cfg/HP-TRAIN-CONFIG.json` `d81b2d51…` + fresh spec 验证通过（8 rank、G64/P8、400/6000）。
+- 05:3x–06:0x UTC 三次启动：① 缺 LD_PRELOAD NUMA 守卫失败（无状态创建）；② 直启 build_manifest 与封存 manifest split 键不一致（R268 证明 base manifest `3275aaa3…` 即训练 manifest）→ 改用 `--manifest` 直传 `assets/fixed-9010-stage1/manifest.json` `7cc0f8b7…`；③ 共享 `prepared512-v2-pillow12.3.0` 目录仅 1024 条不完整，改用 F06 只读 cache-union（114,490 文件，含全部 51396 train + 5849 official 条目）。06:0x UTC 第四次启动成功：8 rank 全部在位，8 卡 100%，0 skip。
+- 结论 08:30 UTC 前；OHEM 于 HP 安全终态后同链启动（seed 20261204，loss `binary-pairwise-sigmoid-ohem-top25-v1`，无 f05 目标）。
