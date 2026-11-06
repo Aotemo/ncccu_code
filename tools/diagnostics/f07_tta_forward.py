@@ -72,7 +72,7 @@ def main():
     from retrain.inference import _load_model, _runtime, preprocess_batch
     from retrain.age import enabled
     from retrain.data import ImageDataset
-    device = torch.device('cuda')
+    device = torch.device('cuda', 0)
     torch.cuda.set_device(device)
     summary = []
     for member_id in selected_members:
