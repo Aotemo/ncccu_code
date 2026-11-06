@@ -54,3 +54,17 @@
 - OHEM：`cfg/OHEM-TRAIN-CONFIG.json` `1855f7b7…`（seed 20261204、`binary_pairwise_sigmoid_ohem` top25、无 f05 目标、R120 EMA 热启动）、`run/OHEM-FRESH-SPEC.json` `a9de036e…`、`run/OHEM-PLAN.json` `486785f2…`、site `site/site-ohem-v1b/SITE_BINDING.json` `cc7e67d5…`。07:5x UTC 8 rank 在位、首成功 25/25、0 skip、8 卡 100%；首个 50 更新已记录。训练中，结果待 >400 更新后评估。
 - 启动失败保留：① 直接启（无任务 CPU mask）→ inherited mask 越界；② 缺 `TRAIN_IMAGE_CACHE_READONLY`；③ output_root 未预建。分别修正后第四次启动成功，未重置任何 clock/token/grant。
 - 工具：`tools/diagnostics/hp_eval.py` 新增 `combo-draft`（读 F09 draft shards，两成员等权 z，sanity pair），commit `18e1eb5`/`379679d` 已推送 `origin/exec/hardpos`。
+
+## 2026-11-06 08:0x–08:3x UTC OHEM 结果
+
+- OHEM 早停于 **2000/6000**（patience 4，0 skip，连续 4 轮无提升）：dev online AUROC 400 .9888415 → 800 .9877350 → 1200 .9866573 → 1600 .9872931 → 2000 .9873376；EMA 800 .9888704 最高、之后回落。selected = index `best` = **online @400**，dev AUROC **.9888415** / AP .82502（EMA best .9888704 @800）。
+- strict fp16 导出+回载通过：model `8000b78d…`、tensor `6a271acd…`、99,018,253 B；`OHEM-EXPORT/STANDALONE.json` `71a57e06…`。
+- draft4 前向（同 F09 `src-54b9aac`、divisor 4、单视图 fp16，2 分片）完成：`eval-v1/ohem-draft4-shards/`；dev 两片 csv `575678f7…`/`f6ac2566…`，官方两片 `09b0fdc6…`/`614388e4…`。
+- 组合（draft4，(dev+官方)/2，等权 z，dev 统计；`OHEM-DRAFT4-COMBO-v1.json` `83a9c19f…`；F09 基准 R249+SOUP-R120 .9900255 复算一致）：
+  - OHEM 单成员 .9880125（dev .9886633 / 官方 .9873616）
+  - OHEM+R269 .9896274（dev .9903720 / 官方 .9888829）← OHEM 最好两成员
+  - OHEM+SOUP-R120 .9894275、OHEM+SOUP-R201 .9893529、OHEM+R250 .9893420、OHEM+R249 .9892887、OHEM+R134R1 .9891757，其余更低
+  - **OHEM+R249+SOUP-R120（F09 两成员 + OHEM）三成员 .9898068**（dev .9896314 / 官方 .9899822）
+- **结论：OHEM 最好两成员 .9896274、与 F09 两成员的三成员 .9898068，均低于 F09 基准 .9900255（分别 -0.000398 / -0.000219），未达 +0.0005 门槛。OHEM 不替换最终方案。**
+- 机制观察：两轮都从已收敛 R120 热启动，fit pairwise 损失在数十步即 ~1e-7 以下、OHEM 到 2000 步 ~1e-13，fit 对梯度几近为零，dev 只随 EMA/LR 漂移；这是 HP/OHEM 均无法超过 R120 的直接原因。
+- 预测文件（draft4 fp16，name/label/logit）：dev `eval-v1/ohem-draft4-shards/dev.OHEM.draft.shard{0,1}of2.csv`、官方 `official.OHEM.draft.shard{0,1}of2.csv`，SHA 见上；sidecar 记录 decode/rows/export_sha、test_label_values_read=false。
