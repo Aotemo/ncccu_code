@@ -22,8 +22,16 @@ OHEM_SEED = 20261204
 HP_STEPS_PER_CYCLE = 400
 F11_BINDING = {'version': 'f11-official-merge-r249-warmstart-v1'}
 F11_SEED = 20261205
-F11_WARM_START_TENSOR_SHA256 = '6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73'
-F11_WARM_START_FILE_SHA256 = 'f78ab30c559dba43fd3af434b0144ce1f54fae5e4eb2020f1001d1d5002bec6e'
+F11_WARM_STARTS = {
+    'f11-official-merge-r249-warmstart-v1': (
+        '6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73',
+        'f78ab30c559dba43fd3af434b0144ce1f54fae5e4eb2020f1001d1d5002bec6e'),
+    'f11-official-merge-r269-warmstart-v1': (
+        '3fd623eeec11e9ebf4bbf552189bba62c688b656a189be346864f9d1e09bb463',
+        '1ff8f94ddd00fa9e44c9c5cec27b0c3693940204a4e5c8953dc567e97eb9c9e5'),
+}
+F11_WARM_START_TENSOR_SHA256 = F11_WARM_STARTS[F11_BINDING['version']][0]
+F11_WARM_START_FILE_SHA256 = F11_WARM_STARTS[F11_BINDING['version']][1]
 HP_TOTAL_UPDATES = 6000
 ADAMW_AMSGRAD_RULE = 'adamw-amsgrad-v1'
 NADAM_RULE = 'nadam-decoupled-native-v1'
@@ -203,8 +211,11 @@ def validate_job(job):
             raise ValueError('HP/OHEM warm start must be the registered R120 selected EMA export')
     f11 = job.get('f11')
     if f11 is not None:
-        if (f11 != F11_BINDING
-                or job.get('seed') != F11_SEED
+        warm = (F11_WARM_STARTS.get(f11.get('version'))
+                if isinstance(f11, dict) and set(f11) == {'version'} else None)
+        if warm is None:
+            raise ValueError('F11 binding must be one of the registered warm-start versions')
+        if (job.get('seed') != F11_SEED
                 or (job.get('loss') or {}).get('version') != 'binary-pairwise-sigmoid-v1'
                 or (job.get('model'), job.get('precision'), job.get('normalization'),
                     job.get('image_size'), job.get('prepared_size'), job.get('physical_batch'),
@@ -230,9 +241,9 @@ def validate_job(job):
         init = job['initialization']
         if (init.get('kind') != 'checkpoint_warm_start'
                 or init.get('format') != 'exported-fp32-state-dict-v1'
-                or init.get('tensor_sha256') != F11_WARM_START_TENSOR_SHA256
-                or init.get('sha256') != F11_WARM_START_FILE_SHA256):
-            raise ValueError('F11 warm start must be the registered R249 selected EMA export')
+                or init.get('tensor_sha256') != warm[0]
+                or init.get('sha256') != warm[1]):
+            raise ValueError('F11 warm start must match the registered selected EMA export for its binding')
     f05 = validate_f05_training_binding(job.get('f05_targets'))
     profile = (job.get('experiment91') or {}).get('version')
     registered_f05 = {F05_CLEAN_PROFILE: ('clean', 20261201), F05_DISTILL_PROFILE: ('distill', 20261202)}

@@ -24,7 +24,14 @@ F11_SEED = 20261205
 SCHEDULE = {'steps_per_cycle': 400, 'total_updates': 6000, 'warmup_updates': 400, 'stop_after_updates': 6000}
 R120_WARM_TENSOR = 'f21bffae88acbf7c216c4141c0ef0b9d990a624e3e92a1baf750a501c415fc85'
 R120_WARM_FILE = '2ac4a025cdef2835127ee619c7f37a6d094b62eefdb1943005437a49e570dfa3'
-F11_WARM = ('6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73', 'f78ab30c559dba43fd3af434b0144ce1f54fae5e4eb2020f1001d1d5002bec6e')
+F11_WARMS = {
+    '6251937d3d778ed4be5d0cc11fc505fc4c2cc897d0ae18ff31ddfb6c8dce8a73': (
+        'f78ab30c559dba43fd3af434b0144ce1f54fae5e4eb2020f1001d1d5002bec6e',
+        'f11-official-merge-r249-warmstart-v1'),
+    '3fd623eeec11e9ebf4bbf552189bba62c688b656a189be346864f9d1e09bb463': (
+        '1ff8f94ddd00fa9e44c9c5cec27b0c3693940204a4e5c8953dc567e97eb9c9e5',
+        'f11-official-merge-r269-warmstart-v1'),
+}
 
 
 def sha(path):
@@ -52,11 +59,19 @@ def bundle_path():
 
 def cmd_config(args):
     warm = json.loads(Path(args.warmstart).read_text())
-    expected = F11_WARM if args.mode == 'f11' else (R120_WARM_TENSOR, R120_WARM_FILE)
+    f11_version = None
+    if args.mode == 'f11':
+        entry = F11_WARMS.get(warm.get('tensor_sha256'))
+        if entry is None:
+            raise SystemExit('F11 warm start is not one of the registered selected EMA exports')
+        expected = (warm['tensor_sha256'], entry[0])
+        f11_version = entry[1]
+    else:
+        expected = (R120_WARM_TENSOR, R120_WARM_FILE)
     if (warm.get('tensor_sha256') != expected[0]
             or sha(warm['path']) != warm['sha256']
             or warm['sha256'] != expected[1]):
-        raise SystemExit('warm-start receipt/bytes differ from the registered R120 EMA export')
+        raise SystemExit('warm-start receipt/bytes differ from the registered export')
     age = json.loads(Path(args.age_contract).read_text())
     if not age.get('enabled') or age['contract']['fit_count'] != 46256:
         raise SystemExit('registered original-fit age contract required')
@@ -78,10 +93,11 @@ def cmd_config(args):
         'initialization': {'kind': 'checkpoint_warm_start', 'format': 'exported-fp32-state-dict-v1',
                            'path': warm['path'], 'sha256': warm['sha256'],
                            'tensor_sha256': warm['tensor_sha256'], 'source_model': warm['source_model']},
-        ('hp' if args.mode == 'hp' else ('f11' if args.mode == 'f11' else 'hp')):
-            ({'version': 'hp-r120-warmstart-fit-only-v1'} if args.mode != 'f11'
-             else {'version': 'f11-official-merge-r249-warmstart-v1'}),
     }
+    if args.mode == 'f11':
+        job['f11'] = {'version': f11_version}
+    else:
+        job['hp'] = {'version': 'hp-r120-warmstart-fit-only-v1'}
     if args.mode == 'hp':
         for name in ('summary', 'verification', 'target'):
             reference = getattr(args, 'f05_' + name)
@@ -154,8 +170,9 @@ def cmd_spec(args):
                   'warm_start_tensor_sha256': job['initialization']['tensor_sha256'],
                   'schedule': dict(SCHEDULE)}
     plan_sha = write_new(plan_path, plan_value)
+    plan_version = 'f11-official-merge-v1' if job.get('f11') is not None else 'hp-hardpos-fit-only-v1'
     fresh = {'format': 'glaucoma-fresh-init-v1', 'purpose': 'train',
-             'plan_version': 'hp-hardpos-fit-only-v1', 'plan_sha256': plan_sha,
+             'plan_version': plan_version, 'plan_sha256': plan_sha,
              'source_digest': digest, 'job': job_contract(job),
              'schedule': dict(SCHEDULE), 'execution_policy': policy,
              'ema': copy.deepcopy(EMA_RULE), 'precision_protocol': copy.deepcopy(PRECISION_RULE),
@@ -168,7 +185,8 @@ def cmd_spec(args):
     validate_fresh(fresh, identity, job, plan, steps, mode='train')
     fresh_path = Path(args.fresh_out)
     fresh_sha = write_new(fresh_path, fresh)
-    receipt = {'status': 'hp_fresh_spec_validated_not_launched', 'mode': 'hp' if job.get('f05_targets') else 'ohem',
+    mode = 'f11' if job.get('f11') is not None else ('hp' if job.get('f05_targets') else 'ohem')
+    receipt = {'status': 'hp_fresh_spec_validated_not_launched', 'mode': mode,
                'config': str(args.config), 'config_sha256': sha(args.config),
                'plan': str(plan_path), 'plan_sha256': plan_sha,
                'fresh_spec': str(fresh_path), 'fresh_spec_sha256': fresh_sha,
@@ -231,7 +249,8 @@ def cmd_site(args):
                                                           'git_commit': args.git_commit},
                 cpu_execution=policy_value)
     site['science'] = copy.deepcopy(technical['science'])
-    site['science']['binding_version'] = 'hp-hardpos-v1'
+    science = json.loads(Path(args.science_config).read_text())
+    site['science']['binding_version'] = science.get('binding_version', 'hp-hardpos-v1')
     site['science']['configuration'] = {'path': args.science_config, 'sha256': sha(args.science_config)}
     site_path = output / 'SITE_BINDING.json'
     validate_site(site)

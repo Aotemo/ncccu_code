@@ -38,3 +38,49 @@
 - 05:2x UTC：site binding（`technical-prep/hp-hardpos-20261106-glmB/site/site-hp-v1/`，Pod B 实测 120 有效核、owner 96/验证 24、control 112–119）+ HP 训练配置 `cfg/HP-TRAIN-CONFIG.json` `d81b2d51…` + fresh spec 验证通过（8 rank、G64/P8、400/6000）。
 - 05:3x–06:0x UTC 三次启动：① 缺 LD_PRELOAD NUMA 守卫失败（无状态创建）；② 直启 build_manifest 与封存 manifest split 键不一致（R268 证明 base manifest `3275aaa3…` 即训练 manifest）→ 改用 `--manifest` 直传 `assets/fixed-9010-stage1/manifest.json` `7cc0f8b7…`；③ 共享 `prepared512-v2-pillow12.3.0` 目录仅 1024 条不完整，改用 F06 只读 cache-union（114,490 文件，含全部 51396 train + 5849 official 条目）。06:0x UTC 第四次启动成功：8 rank 全部在位，8 卡 100%，0 skip。
 - 结论 08:30 UTC 前；OHEM 于 HP 安全终态后同链启动（seed 20261204，loss `binary-pairwise-sigmoid-ohem-top25-v1`，无 f05 目标）。
+
+## 2026-11-06 07:1x–08:0x UTC Pod B 新执行者接管与 HP 终结
+
+- 交接：GLM `b39fbd2c` 会话在 workbuddy 重启后失效并归档；新执行者接管 Pod B（worktree `/home/hao/.paseo/worktrees/0vbeo4hh/exec-hardpos`，分支 `exec/hardpos`），不碰 Pod A、不推 main。
+- HP 训练实际终结于 2800/6000（早停，连续 4 轮无提升，0 skip）。selected = **online c3 @1200**，内部 dev AUROC **0.9888102** / AP 0.81964；EMA 最好 c1 @400 AUROC 0.9887500。
+- selected strict fp16 导出 + 独立回载通过：`eval-v1/HP-EXPORT`，model sha `6de5907e…`、fp16 tensor `ad1f0cb5…`、99,018,253 B；receipt `STANDALONE.json` 4fdfbc6e…
+- draft4 前向（F09 同一 `src-54b9aac`、`NCCCU_DRAFT_DIVISOR=4`、单视图 fp16）完成 dev 5140 + 官方 5849：`eval-v1/hp-draft4-shards/`。
+- draft4 两成员表（(dev+官方)/2，等权 z，dev 统计），`eval-v1/HP-DRAFT4-COMBO-v1.json`（receipt sha 见文件）：
+  - HP 单成员 .9876880（dev .9887320 / 官方 .9866440）
+  - HP+R269 .9897675（dev .9902347 / 官方 .9893002）← HP 最好两成员
+  - HP+SOUP-R120 .9896714、HP+SOUP-R201 .9895654、HP+R250 .9895085、HP+R249 .9894155，其余更低
+  - 基准 F09 最佳两成员 R249+SOUP-R120 **.9900255**（本工具复算完全一致，sanity 通过）；门槛 .9905255
+- **HP 结论：最好 HP 两成员比基准低 0.000258，未达 +0.0005 门槛；HP 不作为替换/新增成员提交。** F09 R249+SOUP-R120 保持。
+- OHEM：`cfg/OHEM-TRAIN-CONFIG.json` `1855f7b7…`（seed 20261204、`binary_pairwise_sigmoid_ohem` top25、无 f05 目标、R120 EMA 热启动）、`run/OHEM-FRESH-SPEC.json` `a9de036e…`、`run/OHEM-PLAN.json` `486785f2…`、site `site/site-ohem-v1b/SITE_BINDING.json` `cc7e67d5…`。07:5x UTC 8 rank 在位、首成功 25/25、0 skip、8 卡 100%；首个 50 更新已记录。训练中，结果待 >400 更新后评估。
+- 启动失败保留：① 直接启（无任务 CPU mask）→ inherited mask 越界；② 缺 `TRAIN_IMAGE_CACHE_READONLY`；③ output_root 未预建。分别修正后第四次启动成功，未重置任何 clock/token/grant。
+- 工具：`tools/diagnostics/hp_eval.py` 新增 `combo-draft`（读 F09 draft shards，两成员等权 z，sanity pair），commit `18e1eb5`/`379679d` 已推送 `origin/exec/hardpos`。
+
+## 2026-11-06 08:0x–08:3x UTC OHEM 结果
+
+- OHEM 早停于 **2000/6000**（patience 4，0 skip，连续 4 轮无提升）：dev online AUROC 400 .9888415 → 800 .9877350 → 1200 .9866573 → 1600 .9872931 → 2000 .9873376；EMA 800 .9888704 最高、之后回落。selected = index `best` = **online @400**，dev AUROC **.9888415** / AP .82502（EMA best .9888704 @800）。
+- strict fp16 导出+回载通过：model `8000b78d…`、tensor `6a271acd…`、99,018,253 B；`OHEM-EXPORT/STANDALONE.json` `71a57e06…`。
+- draft4 前向（同 F09 `src-54b9aac`、divisor 4、单视图 fp16，2 分片）完成：`eval-v1/ohem-draft4-shards/`；dev 两片 csv `575678f7…`/`f6ac2566…`，官方两片 `09b0fdc6…`/`614388e4…`。
+- 组合（draft4，(dev+官方)/2，等权 z，dev 统计；`OHEM-DRAFT4-COMBO-v1.json` `83a9c19f…`；F09 基准 R249+SOUP-R120 .9900255 复算一致）：
+  - OHEM 单成员 .9880125（dev .9886633 / 官方 .9873616）
+  - OHEM+R269 .9896274（dev .9903720 / 官方 .9888829）← OHEM 最好两成员
+  - OHEM+SOUP-R120 .9894275、OHEM+SOUP-R201 .9893529、OHEM+R250 .9893420、OHEM+R249 .9892887、OHEM+R134R1 .9891757，其余更低
+  - **OHEM+R249+SOUP-R120（F09 两成员 + OHEM）三成员 .9898068**（dev .9896314 / 官方 .9899822）
+- **结论：OHEM 最好两成员 .9896274、与 F09 两成员的三成员 .9898068，均低于 F09 基准 .9900255（分别 -0.000398 / -0.000219），未达 +0.0005 门槛。OHEM 不替换最终方案。**
+- 机制观察：两轮都从已收敛 R120 热启动，fit pairwise 损失在数十步即 ~1e-7 以下、OHEM 到 2000 步 ~1e-13，fit 对梯度几近为零，dev 只随 EMA/LR 漂移；这是 HP/OHEM 均无法超过 R120 的直接原因。
+- 预测文件（draft4 fp16，name/label/logit）：dev `eval-v1/ohem-draft4-shards/dev.OHEM.draft.shard{0,1}of2.csv`、官方 `official.OHEM.draft.shard{0,1}of2.csv`，SHA 见上；sidecar 记录 decode/rows/export_sha、test_label_values_read=false。
+
+## 2026-11-06 09:2x–09:4x UTC F11（全量 fit∪官方）Pod B 准备
+
+- 任务预告：F11 训练集 = fit ∪ 官方 5849，选点只用内部 dev；DS `cd8f3840` 在 main 实现 split 并在 Pod A 训 R249-F11，commit 转来后 Pod B 训 R269-F11（R269 selected EMA 热启动、LR 1/10、warmup 400、每 400 评估、上限 6000、patience 4、G64/P8、pairwise）。
+- Pod B `37e3fb34…` Running/Ready，0 live python（仅 79 个历史 zombie），8 卡 0%。
+- 存储清理（AGENTS 预授权：完整 actualsafe 且结果已归档）：HP/OHEM 各删 4 个非 selected checkpoint（3,168,490,232 / 3,168,479,992 B），F06 fold0/1/2 各删 5 个（3,960,649,030 / 3,960,649,350 / 3,960,581,958 B）；均保护 `best`/`best_ema`/`best_online` + sidecar + index/selection/complete。计划回执 `PRUNE-PLAN-*`、执行回执 `PRUNE-APPLY-*`（`eval-v1/`，脚本 `eval-v1/prune_nonselected.py`）。free `37,540,069,376` → **`55,759,077,376` B**（93%→89%），高于 HP 实测容量门 `47,244,640,256 B`。
+- CPU allocation：`alloc/CPU-ALLOCATION-F11-v1.json` `e3e08975…`，owner `exec-hardpos-v4b`、mask 0–23、24 threads、guard `4a18231…`、valid_until `1793979449`（约 15:17 UTC）。pod affinity 0–127 / cgroup quota 120 核，20%=24。
+- R269 selected 核验（只读）：freeze `cdeb301c…`，`ema` @8800，dev AUROC .9890125239 / AP .8373606072；checkpoint `checkpoint-d4f950ed…`，blob `0518d830…`，**fp32 tensor `3fd623eeec11e9ebf4bbf552189bba62c688b656a189be346864f9d1e09bb463`**，345 tensors。回执 `eval-v1/R269-SELECTED-IDENTITY.json` `6dd12ef9…`。
+- F11 热启动导出：`f11-warmstart-v1/warmstart.pt` sha **`1ff8f94ddd00fa9e44c9c5cec27b0c3693940204a4e5c8953dc567e97eb9c9e5`**、tensor `3fd623ee…`、198 MB；`WARMSTART.json` `09918c62…`；脚本 `eval-v1/f11_warmstart_export.py`。
+- 数据：F06 只读 cache-union 覆盖 51,396 train + 5,849 official（114,490 文件），F11 的 fit∪官方 union 可直接复用；不需要新缓存。
+- 待办：收到 F11 commit 后按 hp_setup/ohem 同链生成 config/spec/site、部署、8 rank 开训；完成后 fp16 严格回载 → draft4 dev 前向 → 报 dev AUROC/AP + 预测路径/SHA，不用官方做统计。
+
+### F11 R269 就绪的唯一阻塞：main 的 F11 代码只登记 R249 热启动
+
+- `origin/main`（`8d835d4`/`2da1ff7`）的 `runtime/bundle/retrain/config.py` 写死 `F11_WARM_START_TENSOR_SHA256=6251937d…`、`F11_WARM_START_FILE_SHA256=f78ab30c…`、`F11_BINDING={'version':'f11-official-merge-r249-warmstart-v1'}`，`tools/diagnostics/hp_setup.py` 的 `F11_WARM` 同样只认 R249；R269 的 tensor `3fd623ee…` / file `1ff8f94d…` 会被 `validate_job` 拒绝。
+- 因此 Pod B 的 R269-F11 在开训前必须先补 R269 注册：config.py 把热启动常量改成按 binding.version 查表（R249/R269 两对），hp_setup 依据 warm receipt 的 tensor sha 选择对应 binding/expected file；或由 DS 在 main 补同样的最小改动后转 commit。未补前不启动，避免产生不符合冻结身份的运行。

@@ -1,6 +1,12 @@
 # 当前任务与接续
 
+**11-06 11:55 UTC R269-F11 完成：dev(draft4) .9887958/AP .8384368，不替换原 R269。** 早停 2000/6000（selected cycle1/400，训练口径 dev .9884984/AP .8382073）。对照原 R269 draft4 dev .9893111，Δ AUROC −0.0005153（同协议 −0.0005195），均差约 2e-5 未过 −0.0005 门；AP 反而 +0.00077。fp16 严格回载通过：model `765150df…`、STANDALONE `4f875a91…`；dev 预测 `cb22a9ed…`（5140 行，未读官方）。供 DS 生成 test 5855 的权重即该导出。详见 [F11 记录](auroc-999/F11-OFFICIAL-MERGE-20261106.md)。
+
 **11-06 10:40 UTC F11 最终提交：官方 5849 并入训练，三成员 R249-F11+R269+SOUP-R120。** 按规则第3条把官方 5849 全量并入训练（52105 行），选点/z/Platt 只用内部 dev。8 rank 跑 2000 更新后早停（loss 1e-19，R249 已收敛），F11 成员 draft4 dev 0.9883069 vs R249 0.9884580（−0.00015，在 0.0005 容差内）→ 替换。提交 `submition/F11-final/submit.csv`（5855 行、正类 199、SHA `4edfb708…`）；cost.py 84.3 ms、0 不一致，T4 ×1.5 = 88.6 ms。详见 [F11 记录](../records/analysis/20261106-f11-official-merge/README.md)。
+
+**11-06 10:30 UTC R269-F11 已开训（commit `8ced686`，Pod B）：** 在 `exec/hardpos` 合并 main 的 F11 代码后，按 c607 路线 2 最小改动加入 R269 热启动注册（binding `f11-official-merge-r269-warmstart-v1`；R249 原行为不变，回归 9 passed），config/spec/site CPU 验证通过后已推 `origin/exec/hardpos`。R269 selected EMA（ema@8800，tensor `3fd623ee…`）热启动，fit=**52105**（46256+5849 全量官方）、选点仅内部 dev 5140，seed 20261205、G64/P8、LR 1e-5/1e-4、400/6000、patience 4。10:3x UTC 8 rank 在位、首成功 0 skip、8 卡 90–100%。产物：config `0acc32ea…`、fresh `b73c9868…`、plan `cd4eaa62…`、site `c8552318…`、spec receipt `73625a7e…`；源码树 `f11-src-8ced686`（tree `e855e6a6…`，source_digest `347d8d1b…`）。跑完后 fp16 严格回载→draft4 dev 前向，只报 dev，不用官方统计。详见 [F11 记录](auroc-999/F11-OFFICIAL-MERGE-20261106.md)。
+
+**11-06 09:45 UTC F11 Pod B 准备完成（历史）：** Pod B idle、8 卡 0%；清理 HP/OHEM/F06 非 selected checkpoint 后 free 55.76G（高于 ~47.2G 门），回执 `PRUNE-APPLY-*`。CPU allocation `alloc/CPU-ALLOCATION-F11-v1.json` `e3e08975…`（`exec-hardpos-v4b`，0–23，24 threads）。R269 selected 已核验并导出热启动 `f11-warmstart-v1/warmstart.pt` `1ff8f94d…`。只读 cache-union 覆盖 51,396 train + 5,849 official。
 
 **11-06 11:45 UTC F10 最终提交：用户决定换三成员 R249+R269+SOUP-R120。** 用户原话"换成3模型"，覆盖 +0.0003 门槛（理由：dev .99023/官方 .99024 两集均衡、AP 两集均高于 F09）。提交 `submition/F10-final/submit.csv`（5855 行、R120 顺序、CRLF、196 正、SHA `b70bd76f…`）+ `METADATA.json`；权重 297,054,823 B。cost.py（Pod A 单卡、fp16、batch=1、5 预热、100×3 轮）实测 **85.7 ms**、与提交 0 不一致；T4 换算前向 ×0.53 后合计 59.7 ms，×1.5 = **89.5 ms** 通过。R269 许可证/SHA 已入表。详见 [F10 记录](../records/analysis/20261106-f10-triple/README.md)。
 
