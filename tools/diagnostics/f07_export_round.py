@@ -88,12 +88,14 @@ def main():
     with (output / 'fp16' / 'model.json').open('x') as stream:
         json.dump(metadata_json, stream, indent=2, allow_nan=False)
         stream.write('\n')
+    model.load_state_dict(values, strict=True)
+    model.eval()
     loaded, loaded_job, _, loaded_origin, loaded_device = _load_model(output / 'fp16', device='cpu', variant=variant)
     canonical = lambda value: json.dumps(value, sort_keys=True, default=list)
     details = {'job_equal': canonical(loaded_job) == canonical(job), 'device': str(loaded_device),
                'model_sha': loaded_origin['model_sha256'] == sha(model_path),
                'tensor_sha': loaded_origin['tensor_sha256'] == tensor_sha,
-               'state_digest': tensor_digest(loaded.state_dict()) == tensor_digest(values)}
+               'state_digest': tensor_digest(loaded.state_dict()) == tensor_digest(model.state_dict())}
     if (not details['job_equal'] or details['device'] != 'cpu' or not details['model_sha']
             or not details['tensor_sha'] or not details['state_digest']):
         raise ValueError('strict fp16 standalone reload differs: ' + json.dumps(details))
