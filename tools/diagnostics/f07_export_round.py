@@ -90,10 +90,13 @@ def main():
         stream.write('\n')
     loaded, loaded_job, _, loaded_origin, loaded_device = _load_model(output / 'fp16', device='cpu', variant=variant)
     canonical = lambda value: json.dumps(value, sort_keys=True, default=list)
-    if (canonical(loaded_job) != canonical(job) or str(loaded_device) != 'cpu' or loaded_origin['model_sha256'] != sha(model_path)
-            or loaded_origin['tensor_sha256'] != tensor_sha
-            or tensor_digest(loaded.state_dict()) != tensor_digest(values)):
-        raise ValueError('strict fp16 standalone reload differs')
+    details = {'job_equal': canonical(loaded_job) == canonical(job), 'device': str(loaded_device),
+               'model_sha': loaded_origin['model_sha256'] == sha(model_path),
+               'tensor_sha': loaded_origin['tensor_sha256'] == tensor_sha,
+               'state_digest': tensor_digest(loaded.state_dict()) == tensor_digest(values)}
+    if (not details['job_equal'] or details['device'] != 'cpu' or not details['model_sha']
+            or not details['tensor_sha'] or not details['state_digest']):
+        raise ValueError('strict fp16 standalone reload differs: ' + json.dumps(details))
     size = int(job['image_size'])
     images = torch.zeros((1, 3, size, size), dtype=torch.float32)
     age = torch.zeros((1, 2), dtype=torch.float32) if (job.get('age') or {}).get('enabled') else None
