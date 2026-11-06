@@ -117,8 +117,12 @@ def run_member(args, member_id, member, split, device, torch, _load_model, _runt
                preprocess_batch, enabled, ImageDataset):
     rows = build_rows(args.data_root, split, args.dev_indices, args.image_map_cache)
     positives = sum(row['label'] for row in rows)
+    variant = member.get('variant')
+    if variant is None:
+        variant = (json.loads((Path(member['export']) / 'model.json').read_text())
+                   .get('checkpoint', {}).get('variant'))
     model, job, metadata, origin, selected_device = _load_model(member['export'], device=device,
-                                                                variant=member.get('variant'))
+                                                                variant=variant)
     if str(selected_device) != 'cuda':
         raise ValueError('model was not placed on the pinned device')
     runtime = _runtime(job, metadata, precision='fp16')
