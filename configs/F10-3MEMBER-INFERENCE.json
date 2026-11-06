@@ -1,0 +1,109 @@
+{
+ "schema_version": 1,
+ "profile": "f10-r249-r269-soup-r120-draft4-fp16-v1",
+ "purpose": "final platform inference for the F09 two-member draft4 submission",
+ "decode": "draft",
+ "draft_divisor": 4,
+ "precision": "fp16",
+ "TTA": false,
+ "platt": {
+  "a": 1.838009597150887,
+  "b": -5.849773033998915
+ },
+ "threshold": 0.5,
+ "ages_csv": "/public/home/acfwvv9ejn/SothisAI/exp-v3/data/glaucoma_first/test.csv",
+ "bundle": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261105-ds2/f07-owner/src-54b9aac/runtime/bundle",
+ "member_weight_bytes_total": 297054823,
+ "dev_draft": {
+  "auroc": 0.9902298760612698,
+  "ap": 0.8457380099777636,
+  "count": 5140,
+  "positive": 167,
+  "platt_fit": "sklearn LogisticRegression(max_iter=1000) on fused dev z"
+ },
+ "selection": {
+  "rule": "highest (dev AUROC + official AUROC) / 2 over all C(15,3)=455 three-member equal-weight z fusions",
+  "user_decision": "\u6362\u62103\u6a21\u578b",
+  "dev_auroc": 0.9902298760612698,
+  "official_auroc": 0.9902413114729827,
+  "mean_auroc": 0.9902355937671262,
+  "dev_ap": 0.8457380099777636,
+  "official_ap": 0.8595880756432873,
+  "previous_f09_pair_mean": 0.9900255491507608,
+  "source": "F10-TRIPLE-SEARCH-draft4.json"
+ },
+ "members": [
+  {
+   "id": "R249",
+   "export": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261104-08ac/f04-standalone-v1/R249",
+   "site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r249-small-gamma-seed29-pairsigmoid-24k-p4-9010-20261104/SITE_BINDING.json",
+   "site_sha256": "194544d5e96418efd880481254df2f9f43377d2c08bdcec8fcc5788969aeef82",
+   "variant": "ema",
+   "model_sha256": "9544763aff26949d46ba8e9a3c4dbcbf8cacdaf120f4038e329338eb131bfe5e",
+   "weights_bytes": 99018253,
+   "z": {
+    "mean": -50.81892868173363,
+    "std": 19.842093861642333
+   }
+  },
+  {
+   "id": "R269",
+   "export": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261105-ds2/f07-owner/f10-final/exports/R269",
+   "site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r269-small-f05distill-seed20261202-pairsigmoid-24k-p4-9010-20261105/SITE_BINDING.json",
+   "site_sha256": "90637f6e6c5517d1c3a6401dacbbcdb820dbba59e4efda9ee56fbcf441235033",
+   "variant": "ema",
+   "model_sha256": "3f77e91d7ca1dd12038b6b45a722985f44977a83eab80e517473af5a48ba9391",
+   "weights_bytes": 99018253,
+   "z": {
+    "mean": -13.113201576071983,
+    "std": 3.496907618627405
+   },
+   "derived_export": "experiment91 pointer cleared; weights byte-identical"
+  },
+  {
+   "id": "SOUP-R120",
+   "export": "/public/home/acfwvv9ejn/SothisAI/exp-v3/technical-prep/takeover-20261105-ds2/f07-owner/f09-final/exports/SOUP-R120",
+   "site": "/public/home/acfwvv9ejn/SothisAI/exp-v3/rounds/r120-small22k-seed20261029-scale085-pairsigmoid-24k-p4-9010-20261031/SITE_BINDING.json",
+   "site_sha256": "26cae5aefe899351d153dff9c1dd6d685c129dcc0cb578bc73a2f03af409ce43",
+   "variant": "ema",
+   "model_sha256": "28f3fc555c4d81c02ac2e34f4c06bbcfbeede7d18af96d06068fa1d40d5a24e7",
+   "weights_bytes": 99018317,
+   "z": {
+    "mean": -17.23285260796547,
+    "std": 6.279514072682053
+   },
+   "derived_export": "experiment91 pointer cleared; weights byte-identical"
+  }
+ ],
+ "submission": {
+  "path": "/home/hao/Desktop/challenge/submition/F10-final/submit.csv",
+  "rows": 5855,
+  "sha256": "b70bd76f12b1a9a413557f245ca78becd018bfdeeba65103b92cd68ed058a795",
+  "positive_labels": 196
+ },
+ "latency": {
+  "protocol": "batch=1 serial, 5 warm-up, 100 images x 3 rounds, fp16",
+  "measured_dcu_ms": 85.7,
+  "round_means_ms": [
+   85.26,
+   85.79,
+   86.02
+  ],
+  "stage_ms": {
+   "read_decode_preprocess": 23.3,
+   "h2d": 0.58,
+   "forward_three_members": 55.4,
+   "post": 0.02
+  },
+  "mismatch_vs_submission": 0,
+  "t4": {
+   "ratio": 0.53,
+   "forward_ms": 29.3,
+   "total_ms": 59.7,
+   "safety": 1.5,
+   "with_safety_ms": 89.5,
+   "budget_ms": 100.0,
+   "pass": true
+  }
+ }
+}

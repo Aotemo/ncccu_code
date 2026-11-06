@@ -40,7 +40,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--selection', type=Path, required=True)
     parser.add_argument('--members', type=Path, required=True)
-    parser.add_argument('--ids', nargs=2, required=True)
+    parser.add_argument('--ids', nargs='+', required=True)
     parser.add_argument('--draft-dir', type=Path, required=True)
     parser.add_argument('--draft-shards', type=int, default=7)
     parser.add_argument('--bundle', required=True)
@@ -50,9 +50,14 @@ def main():
     args = parser.parse_args()
 
     selection = json.loads(args.selection.read_text())
-    stats = selection['z_statistics']['draft']
+    stats = (selection.get('z_statistics') or {}).get('draft')
+    if stats is None:
+        singles = selection.get('single_member') or {}
+        stats = {member: singles[member]['z'] for member in singles}
     entries = json.loads(args.members.read_text())
     ids = list(args.ids)
+    if len(ids) < 2:
+        raise SystemExit('at least two members required')
     if any(member not in entries for member in ids):
         raise SystemExit('unknown member in --ids')
 

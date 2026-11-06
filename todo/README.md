@@ -1,5 +1,7 @@
 # 当前任务与接续
 
+**11-06 11:45 UTC F10 最终提交：用户决定换三成员 R249+R269+SOUP-R120。** 用户原话"换成3模型"，覆盖 +0.0003 门槛（理由：dev .99023/官方 .99024 两集均衡、AP 两集均高于 F09）。提交 `submition/F10-final/submit.csv`（5855 行、R120 顺序、CRLF、196 正、SHA `b70bd76f…`）+ `METADATA.json`；权重 297,054,823 B。cost.py（Pod A 单卡、fp16、batch=1、5 预热、100×3 轮）实测 **85.7 ms**、与提交 0 不一致；T4 换算前向 ×0.53 后合计 59.7 ms，×1.5 = **89.5 ms** 通过。R269 许可证/SHA 已入表。详见 [F10 记录](../records/analysis/20261106-f10-triple/README.md)。
+
 **11-06 10:40 UTC F10 三成员枚举：未达门槛，保持 F09-final。** 15 成员（F09 14 + HP）× C(15,3)=455 全枚举，draft4 等权 z、dev 统计、(dev+官方)/2：最优 R249+R269+SOUP-R120 **0.9902356**（dev .9902299 / 官方 .9902413），比 F09-final 0.9900255 高 +0.00021 < 门槛 +0.0003，不换。HP 成员 dev 最强（.99033）但官方偏低（.98992）。同轮按指令取消 Pod A 的 OHEM（停在准备阶段，未建 clock/token、未训练）；`exec/hardpos` 已审阅以 `--no-ff` 合入 main（`ca2e80d`）。详见 [F10 记录](../records/analysis/20261106-f10-triple/README.md)。
 
 **11-06 07:55 UTC F09 最终提交：draft4 两成员 R249+SOUP-R120。** 14 成员 draft4 前向（dev 5140 + 官方 5849，7 分片，0 失败）完成后对 C(14,2)=91 组等权 z 融合按 (dev+官方)/2 排序：最优 R249+SOUP-R120 dev .9894785 / 官方 .9905726 / 平均 **.9900255**（原口径同对 .9898754，Δ+0.00015；F04-4member 基准 .98984）。提交 `submition/F09-final/submit.csv`（5855 行、R120 顺序、CRLF、193 正、SHA `de7df121…`）与 `METADATA.json`；权重合计 198,036,570 B。cost.py（Pod A 单卡、fp16、batch=1、5 预热、100×3 轮）实测 **67.5 ms**，与提交 0 不一致；T4 换算 ×0.53 后约 50.2 ms，×1.5 安全系数 75.3 ms 通过。详见 [F09 记录](../records/analysis/20261106-f09-draft4/README.md)。
