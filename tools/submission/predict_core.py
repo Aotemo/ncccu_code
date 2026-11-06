@@ -117,8 +117,20 @@ class MemberSet:
         return probability, stages
 
 
-def rows_from_directory(pictures_dir):
+def rows_from_directory(pictures_dir, ages_csv=None):
     directory = Path(pictures_dir)
     names = sorted(path.name for path in directory.iterdir()
                    if path.suffix.lower() in ('.jpg', '.jpeg', '.png'))
-    return [{'name': name, 'relative_path': name, 'label': 0} for name in names]
+    ages = {}
+    if ages_csv:
+        import csv as _csv
+        with Path(ages_csv).open(newline='') as stream:
+            for record in _csv.DictReader(stream):
+                ages[record['Image_name']] = str(record.get('Age', '') or '')
+    rows = []
+    for name in names:
+        if ages and name not in ages:
+            raise ValueError('age missing for timing picture: ' + name)
+        rows.append({'name': name, 'relative_path': name, 'label': 0,
+                     'age': ages.get(name, '')})
+    return rows

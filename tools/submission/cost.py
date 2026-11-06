@@ -69,8 +69,8 @@ def main():
     members = MemberSet(config, device)
 
     expected = read_submission(args.submission_csv)
-    rows_100 = rows_from_directory(args.pictures_100)
-    rows_5 = rows_from_directory(args.pictures_5)
+    rows_100 = rows_from_directory(args.pictures_100, config.get('ages_csv'))
+    rows_5 = rows_from_directory(args.pictures_5, config.get('ages_csv'))
     if len(rows_100) != 100 or len(rows_5) != 5:
         raise SystemExit(f'expected 100 timed and 5 warm-up images, found {len(rows_100)}/{len(rows_5)}')
     dataset = members.dataset(Path(args.pictures_100), rows_100)

@@ -20,7 +20,7 @@ def run(config_path, pictures_dir, output_csv, device='cuda'):
     device = torch.device(device, 0)
     torch.cuda.set_device(device)
     members = MemberSet(config, device)
-    rows = rows_from_directory(pictures_dir)
+    rows = rows_from_directory(pictures_dir, config.get('ages_csv'))
     dataset = members.dataset(Path(pictures_dir), rows)
     started = time.perf_counter()
     with output_csv and __import__('pathlib').Path(output_csv).open('w', newline='') as stream:
