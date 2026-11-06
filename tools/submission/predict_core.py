@@ -68,12 +68,15 @@ class MemberSet:
         torch = self.torch
         parent = self
 
+        divisor = int(config.get('draft_divisor', 2))
+
         class _DirectDataset(self.ImageDataset):
             def _read_image(self, row):
                 source = Path(self.root) / row['relative_path']
                 with Image.open(source) as opened:
                     if parent.decode == 'draft':
-                        opened.draft('RGB', (max(1, opened.width // 2), max(1, opened.height // 2)))
+                        opened.draft('RGB', (max(1, opened.width // divisor),
+                                             max(1, opened.height // divisor)))
                     if self.prepared_size:
                         return prepare_image(opened, self.prepared_size, self.native_preprocessing)
                     image = ImageOps.exif_transpose(opened).convert('RGB')

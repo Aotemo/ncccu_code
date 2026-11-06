@@ -8,18 +8,21 @@ changes. predict.py/cost.py reuse the same primitives.
 import io
 from pathlib import PurePosixPath
 
-DRAFT_HINT_DIVISOR = 2
+def _divisor():
+    return int(os.environ.get('NCCCU_DRAFT_DIVISOR', '2'))
 
 
 def draft_open(image_source, prepared_size=None, native_preprocessing=None):
     """Open an image file/bytes with a JPEG decoder draft hint, then run the
     frozen prepare path. Returns the PIL image exactly as the frozen
     ImageDataset._read_image would, at reduced decoder scale."""
+    import os
     from PIL import Image, ImageOps
     from retrain.preprocessing import prepare_image
+    divisor = _divisor()
     with Image.open(image_source) as opened:
-        hint = (max(1, opened.width // DRAFT_HINT_DIVISOR),
-                max(1, opened.height // DRAFT_HINT_DIVISOR))
+        hint = (max(1, opened.width // divisor),
+                max(1, opened.height // divisor))
         opened.draft('RGB', hint)
         if prepared_size:
             return prepare_image(opened, prepared_size, native_preprocessing)
@@ -35,12 +38,15 @@ def make_draft_dataset(dataset_cls, root, rows, image_size, normalization, prepa
     from retrain.data import _crop_black_border
     from PIL import Image, ImageOps
 
+    import os
+    divisor = int(os.environ.get('NCCCU_DRAFT_DIVISOR', '2'))
+
     class _Draft(dataset_cls):
         def _read_image(self, row):
             source = self.root / row['relative_path']
             with Image.open(source) as opened:
-                hint = (max(1, opened.width // DRAFT_HINT_DIVISOR),
-                        max(1, opened.height // DRAFT_HINT_DIVISOR))
+                hint = (max(1, opened.width // divisor),
+                        max(1, opened.height // divisor))
                 opened.draft('RGB', hint)
                 if self.prepared_size:
                     from retrain.preprocessing import prepare_image
