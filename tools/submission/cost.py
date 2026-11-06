@@ -45,11 +45,16 @@ def score_round(members, dataset, rows, output_handle, expected):
         output_handle.flush()
         elapsed = time.perf_counter() - started
         per_image.append(elapsed)
+        for key in stage_totals:
+            stage_totals[key] += stages.get(key, 0.0)
         if row['name'] in expected:
             delta = abs(float(expected[row['name']]) - probability)
             if delta > 1e-6:
                 mismatched += 1
-    return per_image, mismatched
+    count = max(1, len(per_image))
+    diag = {'pre_ms': round(1000 * (t_pre - started), 2),
+            'stage_ms': {k: round(1000 * v / count, 2) for k, v in stage_totals.items()}}
+    return per_image, mismatched, diag
 
 
 def main():
@@ -93,11 +98,11 @@ def main():
     with (scratch / 'round_predictions.csv').open('w') as handle:
         for round_index in range(3):
             started = time.perf_counter()
-            per_image, mismatched = score_round(members, dataset, rows_100, handle, expected)
+            per_image, mismatched, diag = score_round(members, dataset, rows_100, handle, expected)
             mismatched_total += mismatched
             rounds.append(per_image)
             print(f'[ROUND] round={round_index + 1} mean_ms={1000 * sum(per_image) / len(per_image):.2f} '
-                  f'wall_s={time.perf_counter() - started:.1f}', flush=True)
+                  f'wall_s={time.perf_counter() - started:.1f} diag={json.dumps(diag)}', flush=True)
     per_image_mean = [sum(values[index] for values in rounds) / len(rounds) for index in range(len(rows_100))]
     mean_ms = 1000 * sum(per_image_mean) / len(per_image_mean)
     verdict = '未超过上限' if mean_ms <= 100.0 else '超过上限'
