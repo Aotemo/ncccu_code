@@ -44,7 +44,11 @@ def make_draft_dataset(dataset_cls, root, rows, image_size, normalization, prepa
                 opened.draft('RGB', hint)
                 if self.prepared_size:
                     from retrain.preprocessing import prepare_image
-                    return prepare_image(opened, self.prepared_size, self.native_preprocessing)
+                    native = getattr(self, 'native_preprocessing', None)
+                    try:
+                        return prepare_image(opened, self.prepared_size, native)
+                    except TypeError:
+                        return prepare_image(opened, self.prepared_size)
                 image = ImageOps.exif_transpose(opened).convert('RGB')
             return _crop_black_border(image)
 
