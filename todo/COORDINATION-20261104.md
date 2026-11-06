@@ -77,3 +77,14 @@
 - A 空闲区间：13:07:16 失败 → 14:10:36 新身份 launch，63m20s；原因为竞态修复（RED/GREEN）、helper 分支合并、别名登记与两轮完整重新准备（7c5501f 一次因 round 命名不符 async_handoff 正则而在派发前 exit 2，未建 clock）。
 - 资源：A/B 准备池新 allocation `20261105T1407Z`（A `a212c86c…`，B `2b29e66b…` 对应 1340Z）均为 12/12，主 0–11、助手 12–23。两次正式 CPU 的 guard 任务回执 exit 2（`runnable_thread_budget_respected=false`，峰值 15 > 12，child exit 0、affinity_violations 空）；如实记录，准备证据仍为 19/19。
 - R269/B：8 worker 继续运行、无 done；旧 run_round 不热改，仅监控。
+
+## 2026-11-05 16:10 UTC DS执行3 接替
+
+- 6e2460bb（DS执行2）与 5ae33039（DS助手）自 16:03:56 UTC 起收到指令即结束、不执行（疑似 DS 后端故障），停用，不再联系。
+- 用户选择重启 DS 执行 Agent：新唯一 GPU owner / main Git 写入者 8db3567a-85fb-49f0-ad5a-d2dbe0a798b1（codebuddy-code deepseek-v4.1-flash，fullAccess）。
+- 任务：F06 官方 5849 三折微调（AGENTS.md 授权，todo/auroc-999/F06-OFFICIAL-FT-20261105.md），用户最后一次平台提交截止北京 11-06 23:45；最终文件 11-06 12:00 UTC 前就绪；F06 官方 OOF 不超过 F04 官方 0.98944 则交 F04。
+- 协调注意：codebuddy Agent 活动回合中收到消息（steer 或 interrupt）都会报 "A foreground turn is already active" 并中断，只在空闲时发消息。
+- 16:20 UTC 用户要求多开执行 Agent 加速：新增 CPU 助手 5d4294c2-9c78-41b2-bde3-b0f24c4f413e（DS），worktree helper-f06-submit / 分支 helper/f06-submit；只写 tools/diagnostics/f06_oof_submission.py 及测试（OOF 汇总、F06/F04 判定、三折 test 融合提交）；准备池 mask 18–23；不碰训练接线文件、不派 GPU；经 8db3567a 审阅合并。
+- 17:30 UTC 用户指示：后续 DS 执行 Agent（8db3567a 主执行、5d4294c2 助手）若异常（报错、收令即结束不执行、卡死），由 c607 直接启动 GLM 执行 Agent（codebuddy-code / glm-5.3-flash，thinking high，fullAccess）接替其任务，无需再请示；接替时停用原 Agent、保持唯一 GPU owner/main 写入者，并在此登记。
+- ~20:05 UTC 用户补充原话："TTA 是官方允许的，只要时间控制在 100ms 即可"；此前"平台也是计算的 AUROC,不让使用 TTA 是我定的"。F07 搜索（F04+F05 候选 × {orig,hflip}，前向预算≤4，dev+官方平均 AUROC，≥+0.0005 才换）已派 8db3567a；延迟仍按 T4 换算 ×1.5 安全系数 <100 ms 判定。
+- 2026-11-06 00:05 UTC：DS执行3 8db3567a 在 F07 中途（00:02）结束回合并回放旧汇报，重发后 00:03 再次收令即结束 → 按用户 17:30 指示判定异常，已归档；GLM 执行 Agent 48a0f156-81ab-47b9-ad4c-f7ed1d45fc87（codebuddy-code glm-5.3-flash，fullAccess）接任唯一 GPU owner / main 写入者，任务 F07（F04+F05 候选 × {orig,hflip} 组合搜索，预算≤4，dev+官方平均 AUROC ≥ 基准 .98984+0.0005 才换；保底 submition/F04-4member）。SSH 复用 /tmp/ncccu-mux-%C 主连接。
