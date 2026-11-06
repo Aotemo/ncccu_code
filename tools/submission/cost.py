@@ -29,17 +29,12 @@ def read_submission(path):
 def score_round(members, dataset, rows, output_handle, expected):
     per_image = []
     mismatched = 0
+    stage_totals = {'h2d': 0.0, 'forward': 0.0, 'post': 0.0}
     for index, row in enumerate(rows):
         started = time.perf_counter()
-        source = Path(dataset.root) / row['relative_path']
-        data = source.read_bytes()
-        import io
-        from PIL import Image
-        # decode+preprocess through the same dataset path (bytes are re-opened
-        # by the dataset; keep the read inside the timed window)
-        del data
         item = dataset[index]
-        probability, _ = members.predict_index(item)
+        t_pre = time.perf_counter()
+        probability, stages = members.predict_index(item)
         label = int(probability >= 0.5)
         output_handle.write(f"{row['name']},{probability:.6f},{label}\n")
         output_handle.flush()
