@@ -22,23 +22,24 @@ R270_COST = 2.25
 
 def read_shards(directory, split, member, shards):
     orig_parts, flip_parts = [], []
-    names = labels = None
+    concat_names = []
+    concat_labels = []
     for shard in range(shards):
         path = Path(directory) / f'{split}.{member}.shard{shard}of{shards}.csv'
         with path.open(newline='') as stream:
             rows = list(csv.DictReader(stream))
-        current_names = [row['name'] for row in rows]
-        current_labels = [int(row['label']) for row in rows]
-        if names is None:
-            names, labels = current_names, current_labels
-        elif current_names != names or current_labels != labels:
-            raise SystemExit('shard order/labels differ: ' + path.name)
+        names = [row['name'] for row in rows]
+        labels = [int(row['label']) for row in rows]
+        if len(set(names)) != len(names):
+            raise SystemExit('duplicate names within shard: ' + path.name)
+        concat_names.extend(names)
+        concat_labels.extend(labels)
         orig_parts.append(np.asarray([float(row['logit_orig']) for row in rows], dtype=np.float64))
         flip_parts.append(np.asarray([float(row['logit_hflip']) for row in rows], dtype=np.float64))
-    values = np.concatenate(orig_parts), np.concatenate(flip_parts)
+    values = (np.concatenate(orig_parts), np.concatenate(flip_parts))
     if not np.isfinite(np.vstack(values)).all():
         raise SystemExit('nonfinite logits: ' + member)
-    return names, np.asarray(labels), values
+    return concat_names, np.asarray(concat_labels), values
 
 
 def main():
